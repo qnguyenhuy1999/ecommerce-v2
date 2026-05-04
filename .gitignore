@@ -60,6 +60,3 @@ packages/*/.claude/
 apps/*/.omc/
 apps/*/.claude/
 state
-
-# Project-local AI instructions
-CLAUDE.md

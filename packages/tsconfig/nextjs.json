@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2017", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@ecom/ui": ["../ui/src"],
+      "@ecom/api-client": ["../api-client/src"],
+      "@ecom/api-types": ["../api-types/src"],
+      "@ecom/constants": ["../constants/src"]
+    }
+  },
+  "include": ["src/**/*", "next.config.js"],
+  "exclude": ["node_modules"]
+}

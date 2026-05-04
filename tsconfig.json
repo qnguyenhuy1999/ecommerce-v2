@@ -1,0 +1,41 @@
+{
+    "files": [],
+    "references": [
+        {
+            "path": "./apps/admin"
+        },
+        {
+            "path": "./apps/api-admin"
+        },
+        {
+            "path": "./apps/api-seller"
+        },
+        {
+            "path": "./apps/api-storefront"
+        },
+        {
+            "path": "./apps/worker"
+        },
+        {
+            "path": "./apps/seller"
+        },
+        {
+            "path": "./apps/storefront"
+        },
+        {
+            "path": "./packages/common"
+        },
+        {
+            "path": "./packages/core-ui"
+        },
+        {
+            "path": "./packages/ui-admin"
+        },
+        {
+            "path": "./packages/ui-seller"
+        },
+        {
+            "path": "./packages/ui-storefront"
+        }
+    ]
+}

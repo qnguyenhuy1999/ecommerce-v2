@@ -1,0 +1,65 @@
+node_modules/
+dist/
+.next/
+.turbo/
+.cache/
+storybook-static/
+
+# Environment
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Docker
+*.pid
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test
+coverage/
+
+# Prisma
+packages/database/prisma/*.db
+packages/database/prisma/*.db-journal
+
+# Turborepo
+.turbo/
+
+# misc
+*.tgz
+
+# Graphify - generated/regeneratable
+graphify-out/cache/
+graphify-out/graph.html
+graphify-out/graph.json
+graphify-out/.graphify_*.json
+graphify-out/.graphify_python
+graphify-out/.needs_update
+graphify-out/.graphify_old.json
+
+# OMC (oh-my-claudecode) - session state, local hooks
+.omc/
+.claude/
+packages/*/.omc/
+packages/*/.claude/
+apps/*/.omc/
+apps/*/.claude/
+state
+
+# Project-local AI instructions
+CLAUDE.md

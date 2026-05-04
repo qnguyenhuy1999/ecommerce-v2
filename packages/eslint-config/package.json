@@ -1,0 +1,21 @@
+{
+  "name": "@ecom/eslint-config",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./react-library": "./react-library.js"
+  },
+  "peerDependencies": {
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.1.5",
+    "typescript-eslint": "^8.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.26.0",
+    "eslint-config-prettier": "^10.1.5",
+    "typescript-eslint": "^8.32.0"
+  }
+}

@@ -3,6 +3,7 @@ packages:
   - packages/*
 allowBuilds:
   esbuild: false
+  msw: false
 
 ignoredBuiltDependencies:
   - '@nestjs/core'

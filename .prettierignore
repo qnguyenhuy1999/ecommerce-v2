@@ -1,3 +1,4 @@
+# Prettier ignore file
 dist
 node_modules
 .turbo
@@ -10,3 +11,6 @@ coverage
 pnpm-lock.yaml
 .next
 next-env.d.ts
+
+# Ignore all markdown files
+*.md

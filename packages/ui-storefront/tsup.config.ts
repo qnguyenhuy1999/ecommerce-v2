@@ -8,9 +8,6 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: ['react', 'react-dom'],
-  outExtension({ format }) {
-    return format === 'cjs' ? '.cjs' : '.mjs'
-  },
   esbuildOptions(options) {
     options.jsx = 'automatic'
   },

@@ -9,19 +9,19 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "development": "./src/index.ts",
+      "default": "./dist/index.js"
     },
+    "./styles/globals.css": "./src/styles/globals.css",
     "./providers/ThemeProvider": {
-      "types": "./dist/providers/ThemeProvider.d.ts",
-      "import": "./dist/providers/ThemeProvider.mjs",
-      "require": "./dist/providers/ThemeProvider.cjs"
+      "development": "./src/providers/ThemeProvider.tsx",
+      "default": "./dist/providers/ThemeProvider.js"
     }
   },
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build": "tsup",
+    "clean": "rm -rf dist",
     "build-storybook": "storybook build",
     "dev": "tsup --watch",
     "lint": "pnpm -w exec eslint src/",

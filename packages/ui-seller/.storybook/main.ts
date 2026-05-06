@@ -9,9 +9,7 @@ export default {
     return mergeConfig(config, {
       plugins: [tailwindcss()],
       resolve: {
-        alias: {
-          '@': '/src',
-        },
+        tsconfigPaths: true,
       },
     })
   },

@@ -1,7 +1,7 @@
 import { Provider } from '@nestjs/common';
 import { SessionService } from '@ecom/auth';
+import { REDIS_CLIENT } from '@ecom/redis';
 import Redis from 'ioredis';
-import { REDIS_CLIENT } from './redis.provider';
 
 export const SESSION_SERVICE = 'SESSION_SERVICE';
 

@@ -1,23 +1,30 @@
 import {
   Injectable,
   Inject,
+  Logger,
   UnauthorizedException,
   ConflictException,
 } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
+import { join } from 'node:path';
 import * as bcrypt from 'bcrypt';
 import { prisma } from '@ecom/database';
 import { SessionService, type SessionData } from '@ecom/auth';
+import { EmailService } from '@ecom/email';
 import { SESSION_SERVICE } from './session.provider';
 
 const BCRYPT_ROUNDS = 12;
 const SESSION_EXPIRY_DAYS = 7;
+const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates');
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     @Inject(SESSION_SERVICE)
     private readonly sessionService: SessionService,
+    private readonly emailService: EmailService,
   ) {}
 
   async register(email: string, password: string) {
@@ -45,6 +52,21 @@ export class AuthService {
       },
       include: { userRoles: { include: { role: true } } },
     });
+
+    // Send verification email (fire-and-forget, don't block registration)
+    this.emailService
+      .sendMail({
+        to: user.email,
+        subject: 'Verify your email',
+        templatePath: join(TEMPLATES_DIR, 'verify-email.hbs'),
+        context: {
+          name: user.email,
+          link: `${process.env.APP_URL ?? 'http://localhost:3000'}/verify?token=${user.id}`,
+        },
+      })
+      .catch((err) => {
+        this.logger.warn(`Failed to send verification email: ${err.message}`);
+      });
 
     return {
       id: user.id,

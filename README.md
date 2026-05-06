@@ -1,0 +1,212 @@
+# Ecommerce Marketplace
+
+A production-grade, multi-vendor e-commerce marketplace (Shopee-like) built as a **PNPM + Turborepo** monorepo with **Next.js** frontends, **NestJS** APIs, and a shared component system powered by **Storybook**.
+
+## Tech Stack
+
+| Layer | Technology |
+| --- | --- |
+| Frontend | Next.js (App Router) · React 19 · Tailwind CSS v4 |
+| Backend API | NestJS · Prisma · PostgreSQL |
+| UI Components | Radix UI · shadcn · Storybook 10 |
+| Monorepo | PNPM 11 · Turborepo |
+| Language | TypeScript (strict, end-to-end) |
+| Node | >= 24 |
+
+## Architecture
+
+```
+ecommerce/
+├── apps/
+│   ├── storefront/        # Next.js — consumer shopping app
+│   ├── seller/            # Next.js — seller dashboard
+│   ├── admin/             # Next.js — platform admin dashboard
+│   ├── api-storefront/    # NestJS — customer-facing REST API
+│   ├── api-seller/        # NestJS — seller management REST API
+│   ├── api-admin/         # NestJS — platform admin REST API
+│   └── worker/            # NestJS — background job processor
+│
+├── packages/
+│   ├── core-ui/           # Base React component library (Storybook :6006)
+│   ├── ui-storefront/     # Storefront-specific UI components (Storybook :6009)
+│   ├── ui-seller/         # Seller-specific UI components (Storybook :6008)
+│   ├── ui-admin/          # Admin-specific UI components (Storybook :6007)
+│   ├── common/            # Shared utilities, types & helpers
+│   ├── eslint-config/     # Shared ESLint configuration
+│   └── tsconfig/          # Shared TypeScript configuration presets
+│
+├── turbo.json             # Turborepo pipeline configuration
+└── pnpm-workspace.yaml    # Workspace package definitions
+```
+
+## Getting Started
+
+### Prerequisites
+
+| Tool | Version |
+| --- | --- |
+| Node.js | >= 24 |
+| PNPM | >= 11 |
+
+### Installation
+
+```bash
+git clone https://github.com/qnguyenhuy1999/ecommerce-v2.git
+cd ecommerce-v2
+pnpm install
+```
+
+### Development
+
+```bash
+# Start all apps & packages in watch mode
+pnpm dev
+
+# Build all packages
+pnpm build
+
+# Lint everything
+pnpm lint
+
+# Type-check everything
+pnpm type-check
+
+# Format code with Prettier
+pnpm format
+```
+
+### Database (Prisma)
+
+```bash
+pnpm db:generate    # Generate Prisma client
+pnpm db:migrate     # Run database migrations
+pnpm db:seed        # Seed sample data
+```
+
+## Package Responsibilities
+
+### Apps
+
+| Package | Description |
+| --- | --- |
+| `apps/storefront` | Consumer-facing shopping experience — browsing, cart, checkout |
+| `apps/seller` | Seller dashboard — product management, orders, analytics |
+| `apps/admin` | Platform admin — user management, moderation, settings |
+| `apps/api-storefront` | Customer-facing REST API — auth, catalog, cart, orders |
+| `apps/api-seller` | Seller management REST API — inventory, fulfillment |
+| `apps/api-admin` | Platform admin REST API — KYC, platform config |
+| `apps/worker` | Background job processor — emails, queues, scheduled tasks |
+
+### Shared Packages
+
+| Package | Description |
+| --- | --- |
+| `@ecom/core-ui` | Base React component library — buttons, inputs, modals, sidebar, theme provider (Radix UI + shadcn) |
+| `@ecom/ui-storefront` | Storefront-specific components — product cards, storefront chrome |
+| `@ecom/ui-seller` | Seller-specific components — stat cards, charts (Recharts) |
+| `@ecom/ui-admin` | Admin-specific components — data grids, admin shell |
+| `@ecom/common` | Shared utilities, types & helper functions |
+| `@ecom/eslint-config` | Shared ESLint 9 flat config presets |
+| `@ecom/tsconfig` | Shared TypeScript config presets (`base`, `library`, `react-library`, `nextjs`, `nestjs`) |
+
+## UI Development with Storybook
+
+Each UI package ships with [Storybook](https://storybook.js.org/) for isolated component development and visual testing.
+
+```bash
+# Core UI components (port 6006)
+pnpm --filter @ecom/core-ui storybook
+
+# Admin UI components (port 6007)
+pnpm --filter @ecom/ui-admin storybook
+
+# Seller UI components (port 6008)
+pnpm --filter @ecom/ui-seller storybook
+
+# Storefront UI components (port 6009)
+pnpm --filter @ecom/ui-storefront storybook
+```
+
+Build all Storybook static sites:
+
+```bash
+pnpm --filter @ecom/core-ui build-storybook
+pnpm --filter @ecom/ui-admin build-storybook
+pnpm --filter @ecom/ui-seller build-storybook
+pnpm --filter @ecom/ui-storefront build-storybook
+```
+
+## Environment Setup
+
+### Environment Variables
+
+Copy the example env file and fill in the values:
+
+```bash
+cp .env.example .env
+```
+
+Key variables:
+
+| Variable | Description |
+| --- | --- |
+| `DATABASE_URL` | PostgreSQL connection string |
+| `REDIS_HOST` / `REDIS_PORT` | Redis connection |
+| `JWT_ACCESS_SECRET` | JWT signing secret |
+| `STRIPE_SECRET_KEY` | Stripe API key |
+| `NEXT_PUBLIC_API_URL` | API base URL for frontend apps |
+
+### TypeScript Configuration
+
+Shared presets are available via `@ecom/tsconfig`:
+
+```jsonc
+// For a Next.js app
+{ "extends": "@ecom/tsconfig/nextjs.json" }
+
+// For a NestJS service
+{ "extends": "@ecom/tsconfig/nestjs.json" }
+
+// For a shared library
+{ "extends": "@ecom/tsconfig/library.json" }
+
+// For a React component library
+{ "extends": "@ecom/tsconfig/react-library.json" }
+```
+
+### ESLint Configuration
+
+Shared flat configs are available via `@ecom/eslint-config`:
+
+```js
+// For a standard package
+import config from '@ecom/eslint-config';
+
+// For a React component library
+import config from '@ecom/eslint-config/react-library';
+```
+
+## Scripts Reference
+
+```bash
+# ─── Development ───
+pnpm dev              # Start all apps & packages in watch mode
+pnpm build            # Build all packages
+pnpm lint             # Lint all packages (ESLint)
+pnpm type-check       # Run TypeScript type checking
+pnpm format           # Auto-format with Prettier
+pnpm format:check     # Check formatting without writing
+
+# ─── Testing ───
+pnpm test             # Run unit tests
+pnpm test:e2e         # Run end-to-end tests
+
+# ─── Database ───
+pnpm db:generate      # Generate Prisma client
+pnpm db:migrate       # Run Prisma migrations
+pnpm db:seed          # Seed the database
+```
+
+## License
+
+Private — All rights reserved.

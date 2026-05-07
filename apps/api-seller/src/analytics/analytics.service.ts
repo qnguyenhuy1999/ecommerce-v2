@@ -1,0 +1,132 @@
+import { Injectable } from '@nestjs/common'
+import { prisma } from '@ecom/database'
+
+@Injectable()
+export class AnalyticsService {
+  async getRevenueAnalytics(shopId: string, startDate: Date, endDate: Date) {
+    const orders = await prisma.sellerOrder.findMany({
+      where: {
+        shopId,
+        createdAt: { gte: startDate, lte: endDate },
+        status: { in: ['CONFIRMED', 'PACKING', 'SHIPPED', 'DELIVERED'] },
+      },
+      select: { subtotal: true, createdAt: true, status: true },
+      orderBy: { createdAt: 'asc' },
+    })
+
+    const totalRevenue = orders.reduce((sum, o) => sum + Number(o.subtotal), 0)
+    const dailyRevenue: Record<string, number> = {}
+    for (const order of orders) {
+      const day = order.createdAt.toISOString().split('T')[0]
+      dailyRevenue[day] = (dailyRevenue[day] ?? 0) + Number(order.subtotal)
+    }
+
+    return {
+      totalRevenue,
+      orderCount: orders.length,
+      averageOrderValue: orders.length > 0 ? totalRevenue / orders.length : 0,
+      dailyRevenue: Object.entries(dailyRevenue).map(([date, revenue]) => ({ date, revenue })),
+    }
+  }
+
+  async getOrderAnalytics(shopId: string, startDate: Date, endDate: Date) {
+    const statusCounts = await prisma.sellerOrder.groupBy({
+      by: ['status'],
+      where: { shopId, createdAt: { gte: startDate, lte: endDate } },
+      _count: true,
+    })
+
+    const total = statusCounts.reduce((sum, s) => sum + s._count, 0)
+
+    return {
+      total,
+      byStatus: statusCounts.map((s) => ({ status: s.status, count: s._count })),
+    }
+  }
+
+  async getProductPerformance(shopId: string, startDate: Date, endDate: Date) {
+    const topProducts = await prisma.sellerOrderItem.groupBy({
+      by: ['productName'],
+      where: {
+        sellerOrder: { shopId, createdAt: { gte: startDate, lte: endDate } },
+      },
+      _sum: { quantity: true, totalPrice: true },
+      _count: true,
+      orderBy: { _sum: { totalPrice: 'desc' } },
+      take: 20,
+    })
+
+    return topProducts.map((p) => ({
+      productName: p.productName,
+      unitsSold: p._sum.quantity ?? 0,
+      revenue: Number(p._sum.totalPrice ?? 0),
+      orders: p._count,
+    }))
+  }
+
+  async getConversionMetrics(shopId: string, startDate: Date, endDate: Date) {
+    const [totalOrders, deliveredOrders, cancelledOrders] = await Promise.all([
+      prisma.sellerOrder.count({
+        where: { shopId, createdAt: { gte: startDate, lte: endDate } },
+      }),
+      prisma.sellerOrder.count({
+        where: { shopId, status: 'DELIVERED', createdAt: { gte: startDate, lte: endDate } },
+      }),
+      prisma.sellerOrder.count({
+        where: { shopId, status: 'CANCELLED', createdAt: { gte: startDate, lte: endDate } },
+      }),
+    ])
+
+    return {
+      totalOrders,
+      deliveredOrders,
+      cancelledOrders,
+      fulfillmentRate: totalOrders > 0 ? (deliveredOrders / totalOrders) * 100 : 0,
+      cancellationRate: totalOrders > 0 ? (cancelledOrders / totalOrders) * 100 : 0,
+    }
+  }
+
+  async getDashboardSummary(shopId: string) {
+    const now = new Date()
+    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
+    const sixtyDaysAgo = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000)
+
+    const [currentRevenue, previousRevenue, pendingOrders, activeProducts, lowStockCount] =
+      await Promise.all([
+        prisma.sellerOrder
+          .aggregate({
+            where: {
+              shopId,
+              createdAt: { gte: thirtyDaysAgo },
+              status: { in: ['CONFIRMED', 'PACKING', 'SHIPPED', 'DELIVERED'] },
+            },
+            _sum: { subtotal: true },
+          })
+          .then((r) => Number(r._sum.subtotal ?? 0)),
+        prisma.sellerOrder
+          .aggregate({
+            where: {
+              shopId,
+              createdAt: { gte: sixtyDaysAgo, lt: thirtyDaysAgo },
+              status: { in: ['CONFIRMED', 'PACKING', 'SHIPPED', 'DELIVERED'] },
+            },
+            _sum: { subtotal: true },
+          })
+          .then((r) => Number(r._sum.subtotal ?? 0)),
+        prisma.sellerOrder.count({ where: { shopId, status: 'PENDING' } }),
+        prisma.product.count({ where: { shopId, status: 'PUBLISHED', deletedAt: null } }),
+        prisma.productVariant.count({
+          where: { product: { shopId, deletedAt: null }, stock: { lte: 10 } },
+        }),
+      ])
+
+    const revenueGrowth = previousRevenue > 0 ? ((currentRevenue - previousRevenue) / previousRevenue) * 100 : 0
+
+    return {
+      revenue: { current: currentRevenue, previous: previousRevenue, growth: revenueGrowth },
+      pendingOrders,
+      activeProducts,
+      lowStockCount,
+    }
+  }
+}

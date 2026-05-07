@@ -39,16 +39,24 @@ export class AuthService {
       throw new Error('Default buyer role not found. Run db:seed first.')
     }
 
-    const user = await prisma.user.create({
-      data: {
-        email,
-        passwordHash,
-        userRoles: {
-          create: { roleId: buyerRole.id },
+    let user
+    try {
+      user = await prisma.user.create({
+        data: {
+          email,
+          passwordHash,
+          userRoles: {
+            create: { roleId: buyerRole.id },
+          },
         },
-      },
-      include: { userRoles: { include: { role: true } } },
-    })
+        include: { userRoles: { include: { role: true } } },
+      })
+    } catch (err: unknown) {
+      if (err instanceof Error && 'code' in err && (err as { code: string }).code === 'P2002') {
+        throw new ConflictException('Email already registered')
+      }
+      throw err
+    }
 
     // Generate a cryptographic verification token (not the user ID)
     const verifyToken = randomUUID()

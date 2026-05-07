@@ -21,6 +21,12 @@ export {
   BulkJobType,
   ChatMessageType,
   InventoryTransferStatus,
+  AdminStatus,
+  AdminRoleType,
+  AdminPermission,
+  SellerStatus,
+  SellerVerificationStatus,
+  AuditActionType,
 } from '.prisma/client';
 export type {
   User,
@@ -71,4 +77,12 @@ export type {
   SellerMetricSnapshot,
   BulkJob,
   SavedFilter,
+  Admin,
+  AdminRole,
+  AdminRoleAssignment,
+  RolePermission,
+  AdminSession,
+  Seller,
+  SellerVerification,
+  AdminAuditLog,
 } from '.prisma/client';

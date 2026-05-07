@@ -6,7 +6,7 @@
     "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "pnpm -w exec eslint src/",
+    "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

@@ -7,7 +7,7 @@
     "moduleResolution": "bundler",
     "declaration": true,
     "noEmit": false,
-    "composite": true,
+    "composite": false,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

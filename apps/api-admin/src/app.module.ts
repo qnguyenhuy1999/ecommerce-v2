@@ -5,6 +5,15 @@ import { AuthModule } from './auth/auth.module';
 import { SellersModule } from './sellers/sellers.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AuditLogsModule } from './audit-logs/audit-logs.module';
+import { ProductsModule } from './products/products.module';
+import { CategoriesModule } from './categories/categories.module';
+import { OrdersModule } from './orders/orders.module';
+import { RefundsModule } from './refunds/refunds.module';
+import { UsersModule } from './users/users.module';
+import { PromotionsModule } from './promotions/promotions.module';
+import { BannersModule } from './banners/banners.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -20,6 +29,15 @@ import { AuditLogsModule } from './audit-logs/audit-logs.module';
     SellersModule,
     DashboardModule,
     AuditLogsModule,
+    ProductsModule,
+    CategoriesModule,
+    OrdersModule,
+    RefundsModule,
+    UsersModule,
+    PromotionsModule,
+    BannersModule,
+    NotificationsModule,
+    ReviewsModule,
   ],
 })
 export class AppModule {}

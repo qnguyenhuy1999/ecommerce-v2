@@ -27,6 +27,14 @@ export {
   SellerStatus,
   SellerVerificationStatus,
   AuditActionType,
+  ProductReportReason,
+  ProductReportStatus,
+  BannerPosition,
+  BannerStatus,
+  NotificationChannel,
+  AdminNotificationStatus,
+  PlatformVoucherType,
+  PlatformVoucherStatus,
 } from '.prisma/client';
 export type {
   User,
@@ -85,4 +93,12 @@ export type {
   Seller,
   SellerVerification,
   AdminAuditLog,
+  ProductReport,
+  AttributeGroup,
+  AttributeValue,
+  CategoryAttribute,
+  Banner,
+  NotificationTemplate,
+  AdminNotification,
+  PlatformVoucher,
 } from '.prisma/client';

@@ -8,100 +8,72 @@ import {
   RotateCcw,
   Ticket,
   Image,
-  ShieldCheck,
-  UserCog,
-  FileText,
+  Bell,
+  Star,
+  Shield,
+  ScrollText,
   Settings,
+  type LucideIcon,
 } from 'lucide-react';
-import type { SidebarGroup } from '@ecom/core-ui';
+
+export interface SidebarItem {
+  id: string;
+  label: string;
+  href: string;
+  icon: LucideIcon;
+  permission?: string;
+}
+
+export interface SidebarGroup {
+  id: string;
+  label: string;
+  items: SidebarItem[];
+}
 
 export const sidebarGroups: SidebarGroup[] = [
   {
-    id: 'main',
+    id: 'overview',
+    label: 'Overview',
     items: [
-      {
-        id: 'dashboard',
-        label: 'Dashboard',
-        icon: LayoutDashboard,
-        href: '/',
-      },
+      { id: 'dashboard', label: 'Dashboard', href: '/', icon: LayoutDashboard, permission: 'DASHBOARD_VIEW' },
     ],
   },
   {
-    id: 'users',
-    label: 'Users',
+    id: 'marketplace',
+    label: 'Marketplace',
     items: [
-      { id: 'buyers', label: 'Buyers', icon: Users, href: '/buyers' },
-      { id: 'sellers', label: 'Sellers', icon: Store, href: '/sellers' },
-    ],
-  },
-  {
-    id: 'catalog',
-    label: 'Catalog',
-    items: [
-      {
-        id: 'products',
-        label: 'Products',
-        icon: Package,
-        href: '/products',
-      },
-      {
-        id: 'categories',
-        label: 'Categories',
-        icon: FolderTree,
-        href: '/categories',
-      },
-    ],
-  },
-  {
-    id: 'orders',
-    label: 'Orders',
-    items: [
-      {
-        id: 'orders',
-        label: 'Orders',
-        icon: ShoppingCart,
-        href: '/orders',
-      },
-      {
-        id: 'refunds',
-        label: 'Refunds',
-        icon: RotateCcw,
-        href: '/refunds',
-      },
+      { id: 'buyers', label: 'Buyers', href: '/buyers', icon: Users, permission: 'USER_VIEW' },
+      { id: 'sellers', label: 'Sellers', href: '/sellers', icon: Store, permission: 'SELLER_VIEW' },
+      { id: 'products', label: 'Products', href: '/products', icon: Package, permission: 'PRODUCT_VIEW' },
+      { id: 'categories', label: 'Categories', href: '/categories', icon: FolderTree, permission: 'CATEGORY_MANAGE' },
+      { id: 'orders', label: 'Orders', href: '/orders', icon: ShoppingCart, permission: 'ORDER_VIEW' },
+      { id: 'refunds', label: 'Refunds', href: '/refunds', icon: RotateCcw, permission: 'REFUND_VIEW' },
     ],
   },
   {
     id: 'marketing',
     label: 'Marketing',
     items: [
-      {
-        id: 'vouchers',
-        label: 'Vouchers',
-        icon: Ticket,
-        href: '/vouchers',
-      },
-      { id: 'banners', label: 'Banners', icon: Image, href: '/banners' },
+      { id: 'vouchers', label: 'Vouchers', href: '/vouchers', icon: Ticket, permission: 'MARKETING_MANAGE' },
+      { id: 'banners', label: 'Banners', href: '/banners', icon: Image, permission: 'BANNER_MANAGE' },
     ],
   },
   {
-    id: 'system',
-    label: 'System',
+    id: 'moderation',
+    label: 'Moderation',
     items: [
-      { id: 'admins', label: 'Admins', icon: UserCog, href: '/admins' },
-      { id: 'roles', label: 'Roles', icon: ShieldCheck, href: '/roles' },
-      {
-        id: 'audit-logs',
-        label: 'Audit Logs',
-        icon: FileText,
-        href: '/audit-logs',
-      },
-      {
-        id: 'settings',
-        label: 'Settings',
-        icon: Settings,
-        href: '/settings',
-      },
+      { id: 'reviews', label: 'Reviews', href: '/reviews', icon: Star, permission: 'REVIEW_MODERATE' },
+      { id: 'notifications', label: 'Notifications', href: '/notifications', icon: Bell, permission: 'NOTIFICATION_MANAGE' },
+    ],
+  },
+  {
+    id: 'administration',
+    label: 'Administration',
+    items: [
+      { id: 'admins', label: 'Admins', href: '/admins', icon: Shield, permission: 'ADMIN_MANAGE' },
+      { id: 'roles', label: 'Roles', href: '/roles', icon: Shield, permission: 'ROLE_MANAGE' },
+      { id: 'audit-logs', label: 'Audit Logs', href: '/audit-logs', icon: ScrollText, permission: 'AUDIT_VIEW' },
+      { id: 'settings', label: 'Settings', href: '/settings', icon: Settings, permission: 'SETTINGS_MANAGE' },
     ],
   },
 ];

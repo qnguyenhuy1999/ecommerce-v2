@@ -202,19 +202,25 @@ model Shop {
 // ─── Categories ─────────────────────────────────────────────────
 
 model Category {
-  id        String  @id @default(uuid()) @db.Uuid
-  name      String
-  slug      String  @unique
-  parentId  String? @map("parent_id") @db.Uuid
-  sortOrder Int     @default(0) @map("sort_order")
-  isActive  Boolean @default(true) @map("is_active")
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String
+  slug        String  @unique
+  parentId    String? @map("parent_id") @db.Uuid
+  sortOrder   Int     @default(0) @map("sort_order")
+  isActive    Boolean @default(true) @map("is_active")
+  description String? @db.Text
+  icon        String?
+  banner      String?
+  metaTitle   String? @map("meta_title")
+  metaDesc    String? @map("meta_desc")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id])
-  children Category[] @relation("CategoryTree")
-  products Product[]
+  parent             Category?           @relation("CategoryTree", fields: [parentId], references: [id])
+  children           Category[]          @relation("CategoryTree")
+  products           Product[]
+  categoryAttributes CategoryAttribute[]
 
   @@index([parentId])
   @@map("categories")
@@ -1102,7 +1108,15 @@ enum AdminPermission {
   PRODUCT_MODERATE
   ORDER_VIEW
   ORDER_MANAGE
+  REFUND_VIEW
+  REFUND_MANAGE
+  USER_VIEW
+  USER_MANAGE
   MARKETING_MANAGE
+  BANNER_MANAGE
+  NOTIFICATION_MANAGE
+  REVIEW_MODERATE
+  CATEGORY_MANAGE
   AUDIT_VIEW
   SETTINGS_MANAGE
   DASHBOARD_VIEW
@@ -1234,6 +1248,26 @@ enum AuditActionType {
   SELLER_REJECTED
   SELLER_SUSPENDED
   PRODUCT_MODERATED
+  PRODUCT_APPROVED
+  PRODUCT_REJECTED
+  PRODUCT_HIDDEN
+  PRODUCT_BANNED
+  CATEGORY_CREATED
+  CATEGORY_UPDATED
+  CATEGORY_DELETED
+  ORDER_FORCE_CANCELLED
+  ORDER_FORCE_COMPLETED
+  REFUND_APPROVED
+  REFUND_REJECTED
+  USER_SUSPENDED
+  USER_BANNED
+  VOUCHER_CREATED
+  VOUCHER_UPDATED
+  BANNER_PUBLISHED
+  BANNER_UNPUBLISHED
+  REVIEW_HIDDEN
+  REVIEW_APPROVED
+  NOTIFICATION_SENT
   SETTINGS_CHANGED
 }
 
@@ -1255,4 +1289,205 @@ model AdminAuditLog {
   @@index([entityType, entityId])
   @@index([createdAt])
   @@map("admin_audit_logs")
+}
+
+// ─── Phase 2: Product Reports ──────────────────────────────────
+
+enum ProductReportReason {
+  COUNTERFEIT
+  INAPPROPRIATE
+  WRONG_CATEGORY
+  MISLEADING
+  PROHIBITED
+  IP_VIOLATION
+  OTHER
+}
+
+enum ProductReportStatus {
+  OPEN
+  REVIEWING
+  RESOLVED
+  DISMISSED
+}
+
+model ProductReport {
+  id        String              @id @default(uuid()) @db.Uuid
+  productId String              @map("product_id") @db.Uuid
+  reporterId String             @map("reporter_id") @db.Uuid
+  reason    ProductReportReason
+  status    ProductReportStatus @default(OPEN)
+  details   String?             @db.Text
+  adminNote String?             @map("admin_note") @db.Text
+  resolvedBy String?            @map("resolved_by") @db.Uuid
+  resolvedAt DateTime?          @map("resolved_at")
+  createdAt DateTime            @default(now()) @map("created_at")
+  updatedAt DateTime            @updatedAt @map("updated_at")
+
+  @@index([productId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("product_reports")
+}
+
+// ─── Phase 2: Attribute System ─────────────────────────────────
+
+model AttributeGroup {
+  id        String  @id @default(uuid()) @db.Uuid
+  name      String  @unique
+  sortOrder Int     @default(0) @map("sort_order")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  values AttributeValue[]
+
+  @@map("attribute_groups")
+}
+
+model AttributeValue {
+  id       String @id @default(uuid()) @db.Uuid
+  groupId  String @map("group_id") @db.Uuid
+  value    String
+  sortOrder Int   @default(0) @map("sort_order")
+
+  group AttributeGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, value])
+  @@map("attribute_values")
+}
+
+model CategoryAttribute {
+  categoryId String @map("category_id") @db.Uuid
+  groupId    String @map("group_id") @db.Uuid
+  isRequired Boolean @default(false) @map("is_required")
+  isFilterable Boolean @default(true) @map("is_filterable")
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([categoryId, groupId])
+  @@map("category_attributes")
+}
+
+// ─── Phase 2: Banners / CMS ───────────────────────────────────
+
+enum BannerPosition {
+  HERO
+  HOMEPAGE_TOP
+  HOMEPAGE_MIDDLE
+  CAMPAIGN
+  ANNOUNCEMENT
+}
+
+enum BannerStatus {
+  DRAFT
+  SCHEDULED
+  ACTIVE
+  EXPIRED
+  ARCHIVED
+}
+
+model Banner {
+  id          String         @id @default(uuid()) @db.Uuid
+  title       String
+  position    BannerPosition
+  status      BannerStatus   @default(DRAFT)
+  imageUrl    String         @map("image_url")
+  mobileImageUrl String?    @map("mobile_image_url")
+  linkUrl     String?        @map("link_url")
+  sortOrder   Int            @default(0) @map("sort_order")
+  startsAt    DateTime?      @map("starts_at")
+  endsAt      DateTime?      @map("ends_at")
+  createdBy   String?        @map("created_by") @db.Uuid
+  createdAt   DateTime       @default(now()) @map("created_at")
+  updatedAt   DateTime       @updatedAt @map("updated_at")
+
+  @@index([position, status])
+  @@index([startsAt, endsAt])
+  @@map("banners")
+}
+
+// ─── Phase 2: Platform Notifications ───────────────────────────
+
+enum NotificationChannel {
+  IN_APP
+  EMAIL
+  PUSH
+}
+
+enum AdminNotificationStatus {
+  DRAFT
+  SENT
+  FAILED
+}
+
+model NotificationTemplate {
+  id        String @id @default(uuid()) @db.Uuid
+  name      String @unique
+  subject   String
+  body      String @db.Text
+  channel   NotificationChannel @default(IN_APP)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("notification_templates")
+}
+
+model AdminNotification {
+  id        String                  @id @default(uuid()) @db.Uuid
+  title     String
+  message   String                  @db.Text
+  channel   NotificationChannel     @default(IN_APP)
+  status    AdminNotificationStatus @default(DRAFT)
+  targetAll Boolean                 @default(false) @map("target_all")
+  sentAt    DateTime?               @map("sent_at")
+  sentBy    String?                 @map("sent_by") @db.Uuid
+  createdAt DateTime                @default(now()) @map("created_at")
+  updatedAt DateTime                @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("admin_notifications")
+}
+
+// ─── Phase 2: Platform Vouchers ────────────────────────────────
+
+enum PlatformVoucherType {
+  PERCENTAGE
+  FIXED_AMOUNT
+  FREE_SHIPPING
+}
+
+enum PlatformVoucherStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  EXPIRED
+  DEPLETED
+}
+
+model PlatformVoucher {
+  id          String                @id @default(uuid()) @db.Uuid
+  code        String                @unique
+  name        String
+  description String?               @db.Text
+  type        PlatformVoucherType
+  status      PlatformVoucherStatus @default(DRAFT)
+
+  discountValue     Decimal  @map("discount_value") @db.Decimal(12, 2)
+  maxDiscountAmount Decimal? @map("max_discount_amount") @db.Decimal(12, 2)
+  minOrderAmount    Decimal? @map("min_order_amount") @db.Decimal(12, 2)
+
+  usageLimit        Int?     @map("usage_limit")
+  usageLimitPerUser Int?     @map("usage_limit_per_user")
+  usedCount         Int      @default(0) @map("used_count")
+
+  startsAt  DateTime  @map("starts_at")
+  expiresAt DateTime  @map("expires_at")
+  createdBy String?   @map("created_by") @db.Uuid
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([startsAt, expiresAt])
+  @@map("platform_vouchers")
 }

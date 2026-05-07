@@ -13,7 +13,7 @@
     "@ecom/auth-next": "workspace:*",
     "@ecom/core-ui": "workspace:*",
     "lucide-react": "^1.14.0",
-    "next": "^15.3.0",
+    "next": "^16.2.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },

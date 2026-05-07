@@ -9,6 +9,17 @@ import { OrderModule } from './order/order.module'
 import { InventoryModule } from './inventory/inventory.module'
 import { ShippingModule } from './shipping/shipping.module'
 import { NotificationModule } from './notification/notification.module'
+import { CouponModule } from './coupon/coupon.module'
+import { AnalyticsModule } from './analytics/analytics.module'
+import { BulkModule } from './bulk/bulk.module'
+import { ReviewModule } from './review/review.module'
+import { ChatModule } from './chat/chat.module'
+import { ReturnModule } from './return/return.module'
+import { ApprovalModule } from './approval/approval.module'
+import { WarehouseModule } from './warehouse/warehouse.module'
+import { MetricsModule } from './metrics/metrics.module'
+import { SearchModule } from './search/search.module'
+import { QueueModule } from './queue/queue.module'
 
 @Module({
   imports: [
@@ -37,6 +48,17 @@ import { NotificationModule } from './notification/notification.module'
     InventoryModule,
     ShippingModule,
     NotificationModule,
+    CouponModule,
+    AnalyticsModule,
+    BulkModule,
+    ReviewModule,
+    ChatModule,
+    ReturnModule,
+    ApprovalModule,
+    WarehouseModule,
+    MetricsModule,
+    SearchModule,
+    QueueModule,
   ],
 })
 export class AppModule {}

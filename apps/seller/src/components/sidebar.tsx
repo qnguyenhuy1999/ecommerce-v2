@@ -13,6 +13,15 @@ import {
   LogOut,
   Menu,
   X,
+  Tag,
+  BarChart3,
+  Upload,
+  Star,
+  MessageSquare,
+  RotateCcw,
+  ClipboardCheck,
+  TrendingUp,
+  Search,
 } from 'lucide-react'
 import { useState } from 'react'
 import { useAuth } from '../providers/auth-provider'
@@ -23,6 +32,16 @@ const NAV_ITEMS = [
   { href: '/products', label: 'Products', icon: Package },
   { href: '/inventory', label: 'Inventory', icon: Warehouse },
   { href: '/shipping', label: 'Shipping', icon: Truck },
+  { href: '/coupons', label: 'Coupons', icon: Tag },
+  { href: '/analytics', label: 'Analytics', icon: BarChart3 },
+  { href: '/bulk', label: 'Bulk Operations', icon: Upload },
+  { href: '/reviews', label: 'Reviews', icon: Star },
+  { href: '/chat', label: 'Chat', icon: MessageSquare },
+  { href: '/returns', label: 'Returns', icon: RotateCcw },
+  { href: '/approvals', label: 'Approvals', icon: ClipboardCheck },
+  { href: '/warehouses', label: 'Warehouses', icon: Warehouse },
+  { href: '/metrics', label: 'Performance', icon: TrendingUp },
+  { href: '/search', label: 'Search', icon: Search },
   { href: '/notifications', label: 'Notifications', icon: Bell },
   { href: '/settings', label: 'Shop Settings', icon: Store },
 ]

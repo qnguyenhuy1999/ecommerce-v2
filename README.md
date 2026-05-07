@@ -155,6 +155,13 @@ Key variables:
 | `JWT_ACCESS_SECRET` | JWT signing secret |
 | `STRIPE_SECRET_KEY` | Stripe API key |
 | `NEXT_PUBLIC_API_URL` | API base URL for frontend apps |
+| `COOKIE_DOMAIN` | Cookie domain (e.g. `.example.com` for subdomains) |
+| `COOKIE_SAMESITE` | `lax` (default), `strict`, or `none` — use `none` for cross-site deployments |
+| `COOKIE_SECURE` | `true/false` — defaults to `true` in production; required when `COOKIE_SAMESITE=none` |
+
+Notes:
+- `SameSite=lax` is usually fine for local dev (e.g. `localhost:3000` -> `localhost:4000`) and subdomains on the same registrable domain (e.g. `api.example.com` + `store.example.com`).
+- If your frontend and API are on different "sites" (different registrable domains), browsers will not send cookies on cross-site `fetch`/XHR unless you use `SameSite=None` + `Secure` (HTTPS).
 
 ### TypeScript Configuration
 

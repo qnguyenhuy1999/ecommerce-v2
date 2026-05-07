@@ -60,3 +60,4 @@ packages/*/.claude/
 apps/*/.omc/
 apps/*/.claude/
 state
+*.tsbuildinfo

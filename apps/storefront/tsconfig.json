@@ -1,0 +1,12 @@
+{
+  "extends": "@ecom/tsconfig/nextjs.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*", "next-env.d.ts"],
+  "exclude": ["node_modules", ".next"]
+}

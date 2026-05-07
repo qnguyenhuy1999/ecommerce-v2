@@ -56,15 +56,15 @@ export class InventoryService {
   }
 
   async updateStock(shopId: string, variantId: string, quantity: number, type: string, note?: string) {
-    const variant = await prisma.productVariant.findFirst({
-      where: { id: variantId, product: { shopId, deletedAt: null } },
-    })
-
-    if (!variant) {
-      throw new BadRequestException('Variant not found')
-    }
-
     return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      const variant = await tx.productVariant.findFirst({
+        where: { id: variantId, product: { shopId, deletedAt: null } },
+      })
+
+      if (!variant) {
+        throw new BadRequestException('Variant not found')
+      }
+
       let newStock = variant.stock
 
       if (type === 'STOCK_IN') {

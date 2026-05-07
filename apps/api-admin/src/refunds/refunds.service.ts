@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { prisma, type Prisma, type ReturnStatus } from '@ecom/database'
 import { buildPaginationMeta } from '@ecom/common'
 
@@ -47,6 +47,10 @@ export class RefundsService {
     const refund = await this.findById(id)
     const fromStatus = refund.status
 
+    if (fromStatus !== 'REQUESTED' && fromStatus !== 'REVIEWING') {
+      throw new BadRequestException('Invalid status transition')
+    }
+
     const updated = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const result = await tx.returnRequest.update({
         where: { id },
@@ -70,6 +74,10 @@ export class RefundsService {
   async reject(id: string, adminId: string, note?: string) {
     const refund = await this.findById(id)
     const fromStatus = refund.status
+
+    if (fromStatus !== 'REQUESTED' && fromStatus !== 'REVIEWING') {
+      throw new BadRequestException('Invalid status transition')
+    }
 
     const updated = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const result = await tx.returnRequest.update({

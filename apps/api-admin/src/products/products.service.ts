@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { prisma, type ProductStatus, type ProductReportStatus } from '@ecom/database';
 import { buildPaginationMeta } from '@ecom/common';
 
@@ -69,7 +69,10 @@ export class ProductsService {
   }
 
   async approve(id: string) {
-    await this.findById(id);
+    const product = await this.findById(id);
+    if (product.status !== 'DRAFT') {
+      throw new BadRequestException('Invalid status transition');
+    }
     return prisma.product.update({
       where: { id },
       data: { status: 'PUBLISHED' },
@@ -77,7 +80,10 @@ export class ProductsService {
   }
 
   async reject(id: string) {
-    await this.findById(id);
+    const product = await this.findById(id);
+    if (product.status !== 'DRAFT') {
+      throw new BadRequestException('Invalid status transition');
+    }
     return prisma.product.update({
       where: { id },
       data: { status: 'REJECTED' },
@@ -85,7 +91,10 @@ export class ProductsService {
   }
 
   async hide(id: string) {
-    await this.findById(id);
+    const product = await this.findById(id);
+    if (product.status !== 'PUBLISHED') {
+      throw new BadRequestException('Invalid status transition');
+    }
     return prisma.product.update({
       where: { id },
       data: { status: 'ARCHIVED' },
@@ -93,7 +102,10 @@ export class ProductsService {
   }
 
   async unhide(id: string) {
-    await this.findById(id);
+    const product = await this.findById(id);
+    if (product.status !== 'ARCHIVED') {
+      throw new BadRequestException('Invalid status transition');
+    }
     return prisma.product.update({
       where: { id },
       data: { status: 'PUBLISHED' },

@@ -49,7 +49,7 @@ export class DashboardService {
     const since = new Date();
     since.setDate(since.getDate() - days);
 
-    const [ordersByDay, topCategories] = await Promise.all([
+    const [ordersByStatus, topCategories] = await Promise.all([
       prisma.order.groupBy({
         by: ['status'],
         _count: { id: true },
@@ -65,6 +65,6 @@ export class DashboardService {
       }),
     ]);
 
-    return { ordersByDay, topCategories };
+    return { ordersByStatus, topCategories };
   }
 }

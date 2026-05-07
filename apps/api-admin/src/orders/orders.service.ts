@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { prisma, type OrderStatus } from '@ecom/database';
+import { prisma, type OrderStatus, type Prisma } from '@ecom/database';
 import { buildPaginationMeta } from '@ecom/common';
 
 @Injectable()
@@ -65,17 +65,29 @@ export class OrdersService {
 
   async forceCancel(id: string) {
     const order = await this.findById(id);
-    return prisma.order.update({
-      where: { id: order.id },
-      data: { status: 'CANCELLED' },
+    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      await tx.sellerOrder.updateMany({
+        where: { orderId: order.id },
+        data: { status: 'CANCELLED' },
+      });
+      return tx.order.update({
+        where: { id: order.id },
+        data: { status: 'CANCELLED' },
+      });
     });
   }
 
   async forceComplete(id: string) {
     const order = await this.findById(id);
-    return prisma.order.update({
-      where: { id: order.id },
-      data: { status: 'DELIVERED' },
+    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      await tx.sellerOrder.updateMany({
+        where: { orderId: order.id },
+        data: { status: 'DELIVERED' },
+      });
+      return tx.order.update({
+        where: { id: order.id },
+        data: { status: 'DELIVERED' },
+      });
     });
   }
 

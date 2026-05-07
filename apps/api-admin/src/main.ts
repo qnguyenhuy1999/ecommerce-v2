@@ -26,7 +26,7 @@ async function bootstrap() {
     }),
   );
 
-  const port = process.env.PORT ?? 4001;
+  const port = process.env.PORT ?? 4002;
   await app.listen(port);
   console.log(`Admin API running on http://localhost:${port}`);
 }

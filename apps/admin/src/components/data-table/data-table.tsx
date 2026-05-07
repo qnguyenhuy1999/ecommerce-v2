@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   useReactTable,
   getCoreRowModel,
@@ -35,6 +35,11 @@ export function DataTable<T extends { id: string }>({
   bulkActions,
 }: DataTableProps<T>) {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+
+  useEffect(() => {
+    setRowSelection({})
+    onSelectionChange?.([])
+  }, [data, onSelectionChange])
 
   const table = useReactTable({
     data,

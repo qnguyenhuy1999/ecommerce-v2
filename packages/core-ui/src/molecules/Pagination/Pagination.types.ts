@@ -1,1 +1,1 @@
-export type * from '@/primitives/ui/pagination'
+export type * from '../../primitives/ui/pagination'

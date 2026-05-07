@@ -22,7 +22,6 @@
     "lint": {},
     "type-check": {
       "dependsOn": [
-        "^build",
         "^type-check"
       ]
     },

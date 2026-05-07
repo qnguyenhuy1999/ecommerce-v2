@@ -18,10 +18,10 @@ import {
 } from 'lucide-react'
 
 import { SidebarInset, SidebarMenuRenderer, SidebarProvider, SidebarShell, SidebarTrigger } from './Sidebar'
-import { InputGroup, InputGroupAddon, InputGroupInput } from '@/atoms/InputGroup'
-import { Avatar, AvatarFallback, AvatarImage } from '@/atoms/Avatar'
-import { Kbd } from '@/atoms/Kbd'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/molecules/DropdownMenu'
+import { InputGroup, InputGroupAddon, InputGroupInput } from '../../atoms/InputGroup'
+import { Avatar, AvatarFallback, AvatarImage } from '../../atoms/Avatar'
+import { Kbd } from '../../atoms/Kbd'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../molecules/DropdownMenu'
 
 const meta: Meta = {
   title: 'organisms/Sidebar',

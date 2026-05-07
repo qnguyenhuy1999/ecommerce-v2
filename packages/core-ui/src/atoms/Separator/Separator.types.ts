@@ -1,1 +1,1 @@
-export type * from '@/primitives/ui/separator'
+export type * from '../../primitives/ui/separator'

@@ -1,1 +1,1 @@
-export * from '@/primitives/ui/stepper'
+export * from '../../primitives/ui/stepper'

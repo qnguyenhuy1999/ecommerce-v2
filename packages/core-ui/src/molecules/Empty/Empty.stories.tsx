@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '.'
-import { Button } from '@/atoms/Button'
+import { Button } from '../../atoms/Button'
 import { ArrowUpRightIcon, FolderCode } from 'lucide-react'
 
 const meta: Meta<typeof Empty> = {

@@ -1,1 +1,1 @@
-export type * from '@/primitives/ui/table'
+export type * from '../../primitives/ui/table'

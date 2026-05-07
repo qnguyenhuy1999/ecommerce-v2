@@ -1,1 +1,1 @@
-export type * from '@/primitives/ui/select'
+export type * from '../../primitives/ui/select'

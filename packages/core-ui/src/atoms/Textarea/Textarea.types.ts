@@ -1,1 +1,1 @@
-export type * from '@/primitives/ui/textarea'
+export type * from '../../primitives/ui/textarea'

@@ -1,1 +1,1 @@
-export type * from '@/primitives/ui/kbd'
+export type * from '../../primitives/ui/kbd'

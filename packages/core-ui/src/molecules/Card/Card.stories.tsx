@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '.'
-import { Button } from '@/atoms/Button'
-import { Label } from '@/atoms/Label'
-import { Input } from '@/atoms/Input'
+import { Button } from '../../atoms/Button'
+import { Label } from '../../atoms/Label'
+import { Input } from '../../atoms/Input'
 
 const meta: Meta<typeof Card> = {
   title: 'molecules/Card',

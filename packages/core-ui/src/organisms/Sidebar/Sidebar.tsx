@@ -9,7 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem as UIItem,
-} from '@/primitives/ui/sidebar'
+} from '../../primitives/ui/sidebar'
 import type { SidebarGroup as Group } from './Sidebar.types'
 import { ReactNode } from 'react'
 
@@ -67,4 +67,4 @@ export function SidebarShell({ header, footer, children }: SidebarShellProps) {
   )
 }
 
-export { SidebarInset, SidebarProvider, SidebarTrigger } from '@/primitives/ui/sidebar'
+export { SidebarInset, SidebarProvider, SidebarTrigger } from '../../primitives/ui/sidebar'

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '.'
-import { Button } from '@/atoms/Button'
+import { Button } from '../../atoms/Button'
 
 const meta: Meta<typeof DropdownMenu> = {
   title: 'molecules/DropdownMenu',

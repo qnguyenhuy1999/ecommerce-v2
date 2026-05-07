@@ -1,3 +1,39 @@
 export { prisma } from './client';
-export { PrismaClient, UserStatus } from '.prisma/client';
-export type { User, Role, UserRole, Session } from '.prisma/client';
+export {
+  PrismaClient,
+  Prisma,
+  UserStatus,
+  ShopStatus,
+  ProductStatus,
+  OrderStatus,
+  InventoryTransactionType,
+  ShipmentStatus,
+  NotificationType,
+} from '.prisma/client';
+export type {
+  User,
+  Role,
+  UserRole,
+  Session,
+  PasswordResetToken,
+  EmailVerifyToken,
+  SellerProfile,
+  Shop,
+  Category,
+  Product,
+  ProductVariant,
+  ProductVariantOptionGroup,
+  ProductVariantOption,
+  ProductVariantOptionValue,
+  ProductImage,
+  Order,
+  SellerOrder,
+  SellerOrderItem,
+  OrderAuditLog,
+  InventoryTransaction,
+  ShippingProvider,
+  SellerShippingMethod,
+  Shipment,
+  Notification,
+  AuditLog,
+} from '.prisma/client';

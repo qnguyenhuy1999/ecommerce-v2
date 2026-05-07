@@ -1,20 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { prisma, type ReturnStatus } from '@ecom/database';
-import { buildPaginationMeta } from '@ecom/common';
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { prisma, type ReturnStatus } from '@ecom/database'
+import { buildPaginationMeta } from '@ecom/common'
 
 @Injectable()
 export class RefundsService {
-  async findAll(query: {
-    page?: number;
-    pageSize?: number;
-    status?: ReturnStatus;
-  }) {
-    const page = query.page ?? 1;
-    const pageSize = query.pageSize ?? 20;
-    const skip = (page - 1) * pageSize;
+  async findAll(query: { page?: number; pageSize?: number; status?: ReturnStatus }) {
+    const page = query.page ?? 1
+    const pageSize = query.pageSize ?? 20
+    const skip = (page - 1) * pageSize
 
-    const where: Record<string, unknown> = {};
-    if (query.status) where.status = query.status;
+    const where: Record<string, unknown> = {}
+    if (query.status) where.status = query.status
 
     const [items, total] = await Promise.all([
       prisma.returnRequest.findMany({
@@ -29,9 +25,9 @@ export class RefundsService {
         take: pageSize,
       }),
       prisma.returnRequest.count({ where }),
-    ]);
+    ])
 
-    return { items, meta: buildPaginationMeta(page, pageSize, total) };
+    return { items, meta: buildPaginationMeta(page, pageSize, total) }
   }
 
   async findById(id: string) {
@@ -42,41 +38,43 @@ export class RefundsService {
         evidence: true,
         timeline: { orderBy: { createdAt: 'desc' } },
       },
-    });
-    if (!refund) throw new NotFoundException('Return request not found');
-    return refund;
+    })
+    if (!refund) throw new NotFoundException('Return request not found')
+    return refund
   }
 
   async approve(id: string, adminId: string, note?: string) {
-    const refund = await this.findById(id);
-    const fromStatus = refund.status;
+    const refund = await this.findById(id)
+    const fromStatus = refund.status
 
-    const updated = await prisma.returnRequest.update({
-      where: { id },
-      data: { status: 'APPROVED', resolvedAt: new Date() },
-    });
+    const updated = await prisma.$transaction(async (tx) => {
+      const result = await tx.returnRequest.update({
+        where: { id },
+        data: { status: 'APPROVED', resolvedAt: new Date() },
+      })
+      await tx.returnTimeline.create({
+        data: {
+          returnRequestId: id,
+          fromStatus,
+          toStatus: 'APPROVED',
+          note,
+          performedBy: adminId,
+        },
+      })
+      return result
+    })
 
-    await prisma.returnTimeline.create({
-      data: {
-        returnRequestId: id,
-        fromStatus,
-        toStatus: 'APPROVED',
-        note,
-        performedBy: adminId,
-      },
-    });
-
-    return updated;
+    return updated
   }
 
   async reject(id: string, adminId: string, note?: string) {
-    const refund = await this.findById(id);
-    const fromStatus = refund.status;
+    const refund = await this.findById(id)
+    const fromStatus = refund.status
 
     const updated = await prisma.returnRequest.update({
       where: { id },
       data: { status: 'REJECTED', resolvedAt: new Date() },
-    });
+    })
 
     await prisma.returnTimeline.create({
       data: {
@@ -86,20 +84,20 @@ export class RefundsService {
         note,
         performedBy: adminId,
       },
-    });
+    })
 
-    return updated;
+    return updated
   }
 
   async getStatusCounts() {
     const counts = await prisma.returnRequest.groupBy({
       by: ['status'],
       _count: { status: true },
-    });
-    const result: Record<string, number> = {};
+    })
+    const result: Record<string, number> = {}
     for (const item of counts) {
-      result[item.status] = item._count.status;
+      result[item.status] = item._count.status
     }
-    return result;
+    return result
   }
 }

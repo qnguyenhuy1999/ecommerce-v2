@@ -59,6 +59,24 @@ export class ProductsController {
     return { success: true, data: product };
   }
 
+  @Post('bulk/approve')
+  @Permissions('PRODUCT_MODERATE')
+  async bulkApprove(
+    @Body() dto: BulkModerationDto,
+  ) {
+    const result = await this.productsService.bulkApprove(dto.ids);
+    return { success: true, data: result };
+  }
+
+  @Post('bulk/reject')
+  @Permissions('PRODUCT_MODERATE')
+  async bulkReject(
+    @Body() dto: BulkModerationDto,
+  ) {
+    const result = await this.productsService.bulkReject(dto.ids);
+    return { success: true, data: result };
+  }
+
   @Post(':id/approve')
   @Permissions('PRODUCT_MODERATE')
   async approve(
@@ -123,24 +141,6 @@ export class ProductsController {
       ipAddress: req.ip, userAgent: req.headers['user-agent'],
     });
     return { success: true, data: product };
-  }
-
-  @Post('bulk/approve')
-  @Permissions('PRODUCT_MODERATE')
-  async bulkApprove(
-    @Body() dto: BulkModerationDto,
-  ) {
-    const result = await this.productsService.bulkApprove(dto.ids);
-    return { success: true, data: result };
-  }
-
-  @Post('bulk/reject')
-  @Permissions('PRODUCT_MODERATE')
-  async bulkReject(
-    @Body() dto: BulkModerationDto,
-  ) {
-    const result = await this.productsService.bulkReject(dto.ids);
-    return { success: true, data: result };
   }
 
   @Post('reports/:id/resolve')

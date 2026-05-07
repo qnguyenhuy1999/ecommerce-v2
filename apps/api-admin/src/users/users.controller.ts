@@ -9,7 +9,7 @@ import { Permissions } from '../auth/decorators/permissions.decorator';
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
 import { AuditLogService } from '../audit-logs/audit-log.service';
 import { UserQueryDto, UserActionDto } from './dto/user-query.dto';
-import type { UserStatus } from '@ecom/database';
+import { AuditActionType, type UserStatus } from '@ecom/database';
 
 @Controller('users')
 @UseGuards(AdminAuthGuard, PermissionGuard)
@@ -55,7 +55,7 @@ export class UsersController {
   ) {
     const user = await this.usersService.suspend(id);
     await this.auditLogService.log({
-      adminId: admin.adminId, action: 'USER_SUSPENDED',
+      adminId: admin.adminId, action: AuditActionType.USER_SUSPENDED,
       entityType: 'User', entityId: id,
       metadata: { reason: dto.reason }, ipAddress: req.ip, userAgent: req.headers['user-agent'],
     });
@@ -72,7 +72,7 @@ export class UsersController {
   ) {
     const user = await this.usersService.ban(id);
     await this.auditLogService.log({
-      adminId: admin.adminId, action: 'USER_BANNED',
+      adminId: admin.adminId, action: AuditActionType.USER_BANNED,
       entityType: 'User', entityId: id,
       metadata: { reason: dto.reason }, ipAddress: req.ip, userAgent: req.headers['user-agent'],
     });
@@ -88,7 +88,7 @@ export class UsersController {
   ) {
     const user = await this.usersService.activate(id);
     await this.auditLogService.log({
-      adminId: admin.adminId, action: 'USER_SUSPENDED',
+      adminId: admin.adminId, action: AuditActionType.USER_ACTIVATED,
       entityType: 'User', entityId: id,
       metadata: { action: 'reactivate' }, ipAddress: req.ip, userAgent: req.headers['user-agent'],
     });

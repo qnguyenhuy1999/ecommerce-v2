@@ -1,26 +1,26 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
+import { useState } from 'react'
 import {
   useReactTable,
   getCoreRowModel,
   flexRender,
   type ColumnDef,
   type RowSelectionState,
-} from '@tanstack/react-table';
-import type { PaginationMeta } from '@ecom/common';
+} from '@tanstack/react-table'
+import type { PaginationMeta } from '@ecom/common'
 
 interface DataTableProps<T> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columns: ColumnDef<T, any>[];
-  data: T[];
-  meta?: PaginationMeta;
-  loading?: boolean;
-  onPageChange?: (page: number) => void;
-  enableRowSelection?: boolean;
-  onSelectionChange?: (rows: T[]) => void;
-  toolbar?: React.ReactNode;
-  bulkActions?: React.ReactNode;
+  columns: ColumnDef<T, any>[]
+  data: T[]
+  meta?: PaginationMeta
+  loading?: boolean
+  onPageChange?: (page: number) => void
+  enableRowSelection?: boolean
+  onSelectionChange?: (rows: T[]) => void
+  toolbar?: React.ReactNode
+  bulkActions?: React.ReactNode
 }
 
 export function DataTable<T extends { id: string }>({
@@ -34,7 +34,7 @@ export function DataTable<T extends { id: string }>({
   toolbar,
   bulkActions,
 }: DataTableProps<T>) {
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
 
   const table = useReactTable({
     data,
@@ -42,21 +42,21 @@ export function DataTable<T extends { id: string }>({
     state: { rowSelection },
     enableRowSelection,
     onRowSelectionChange: (updater) => {
-      const next = typeof updater === 'function' ? updater(rowSelection) : updater;
-      setRowSelection(next);
+      const next = typeof updater === 'function' ? updater(rowSelection) : updater
+      setRowSelection(next)
       if (onSelectionChange) {
         const selectedRows = Object.keys(next)
           .filter((key) => next[key])
-          .map((key) => data[parseInt(key, 10)]!)
-          .filter(Boolean);
-        onSelectionChange(selectedRows);
+          .map((key) => data.find((row) => row.id === key)!)
+          .filter(Boolean)
+        onSelectionChange(selectedRows)
       }
     },
     getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => row.id,
-  });
+  })
 
-  const selectedCount = Object.keys(rowSelection).filter((k) => rowSelection[k]).length;
+  const selectedCount = Object.keys(rowSelection).filter((k) => rowSelection[k]).length
 
   return (
     <div className="space-y-4">
@@ -123,19 +123,17 @@ export function DataTable<T extends { id: string }>({
         </div>
       </div>
 
-      {meta && meta.totalPages > 1 && (
-        <Pagination meta={meta} onPageChange={onPageChange} />
-      )}
+      {meta && meta.totalPages > 1 && <Pagination meta={meta} onPageChange={onPageChange} />}
     </div>
-  );
+  )
 }
 
 function Pagination({
   meta,
   onPageChange,
 }: {
-  meta: PaginationMeta;
-  onPageChange?: (page: number) => void;
+  meta: PaginationMeta
+  onPageChange?: (page: number) => void
 }) {
   return (
     <div className="flex items-center justify-between text-sm">
@@ -160,7 +158,7 @@ function Pagination({
         </button>
       </div>
     </div>
-  );
+  )
 }
 
 export function StatusBadge({ status }: { status: string }) {
@@ -194,7 +192,7 @@ export function StatusBadge({ status }: { status: string }) {
     DEPLETED: 'bg-gray-100 text-gray-600',
     PAUSED: 'bg-yellow-100 text-yellow-700',
     INACTIVE: 'bg-gray-100 text-gray-600',
-  };
+  }
 
   return (
     <span
@@ -202,7 +200,7 @@ export function StatusBadge({ status }: { status: string }) {
     >
       {status}
     </span>
-  );
+  )
 }
 
 export function TableToolbar({
@@ -211,10 +209,10 @@ export function TableToolbar({
   placeholder = 'Search...',
   children,
 }: {
-  search: string;
-  onSearchChange: (value: string) => void;
-  placeholder?: string;
-  children?: React.ReactNode;
+  search: string
+  onSearchChange: (value: string) => void
+  placeholder?: string
+  children?: React.ReactNode
 }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -227,7 +225,7 @@ export function TableToolbar({
       />
       {children}
     </div>
-  );
+  )
 }
 
 export function StatusTabs({
@@ -236,10 +234,10 @@ export function StatusTabs({
   onChange,
   counts,
 }: {
-  tabs: string[];
-  value: string;
-  onChange: (tab: string) => void;
-  counts?: Record<string, number>;
+  tabs: string[]
+  value: string
+  onChange: (tab: string) => void
+  counts?: Record<string, number>
 }) {
   return (
     <div className="flex flex-wrap gap-1 border-b">
@@ -260,5 +258,5 @@ export function StatusTabs({
         </button>
       ))}
     </div>
-  );
+  )
 }

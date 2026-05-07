@@ -1,19 +1,27 @@
-'use client';
+'use client'
 
-import { useState, useCallback } from 'react';
-import Link from 'next/link';
-import { createColumnHelper } from '@tanstack/react-table';
-import { DataTable, StatusBadge, TableToolbar, StatusTabs } from '@/components/data-table/data-table';
-import { useOrders, useOrderStatusCounts } from '../hooks/use-orders';
-import type { OrderListItem } from '../api/orders.api';
+import { useState, useCallback, useRef } from 'react'
+import Link from 'next/link'
+import { createColumnHelper } from '@tanstack/react-table'
+import {
+  DataTable,
+  StatusBadge,
+  TableToolbar,
+  StatusTabs,
+} from '@/components/data-table/data-table'
+import { useOrders, useOrderStatusCounts } from '../hooks/use-orders'
+import type { OrderListItem } from '../api/orders.api'
 
-const col = createColumnHelper<OrderListItem>();
+const col = createColumnHelper<OrderListItem>()
 
 const columns = [
   col.accessor('id', {
     header: 'Order ID',
     cell: (info) => (
-      <Link href={`/orders/${info.getValue()}`} className="font-medium hover:underline font-mono text-xs">
+      <Link
+        href={`/orders/${info.getValue()}`}
+        className="font-medium hover:underline font-mono text-xs"
+      >
         {info.getValue().slice(0, 8)}...
       </Link>
     ),
@@ -31,30 +39,32 @@ const columns = [
     header: 'Created',
     cell: (info) => new Date(info.getValue()).toLocaleDateString(),
   }),
-];
+]
 
-const STATUS_TABS = ['ALL', 'PENDING', 'CONFIRMED', 'PACKING', 'SHIPPED', 'DELIVERED', 'CANCELLED'];
+const STATUS_TABS = ['ALL', 'PENDING', 'CONFIRMED', 'PACKING', 'SHIPPED', 'DELIVERED', 'CANCELLED']
 
 export function OrdersPage() {
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState('ALL');
+  const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
+  const [statusFilter, setStatusFilter] = useState('ALL')
 
-  const debounce = useCallback(() => {
-    let timer: ReturnType<typeof setTimeout>;
-    return (value: string) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => { setDebouncedSearch(value); setPage(1); }, 300);
-    };
-  }, [])();
+  const timerRef = useRef<ReturnType<typeof setTimeout>>()
+  const debounce = useCallback((value: string) => {
+    clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
+      setDebouncedSearch(value)
+      setPage(1)
+    }, 300)
+  }, [])
 
   const { data, isLoading } = useOrders({
-    page, pageSize: 20,
+    page,
+    pageSize: 20,
     search: debouncedSearch || undefined,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
-  });
-  const { data: counts } = useOrderStatusCounts();
+  })
+  const { data: counts } = useOrderStatusCounts()
 
   return (
     <div className="space-y-4">
@@ -63,7 +73,15 @@ export function OrdersPage() {
         <p className="text-sm text-muted-foreground">Manage marketplace orders</p>
       </div>
 
-      <StatusTabs tabs={STATUS_TABS} value={statusFilter} onChange={(t) => { setStatusFilter(t); setPage(1); }} counts={counts} />
+      <StatusTabs
+        tabs={STATUS_TABS}
+        value={statusFilter}
+        onChange={(t) => {
+          setStatusFilter(t)
+          setPage(1)
+        }}
+        counts={counts}
+      />
 
       <DataTable
         columns={columns}
@@ -74,11 +92,14 @@ export function OrdersPage() {
         toolbar={
           <TableToolbar
             search={search}
-            onSearchChange={(v) => { setSearch(v); debounce(v); }}
+            onSearchChange={(v) => {
+              setSearch(v)
+              debounce(v)
+            }}
             placeholder="Search orders..."
           />
         }
       />
     </div>
-  );
+  )
 }

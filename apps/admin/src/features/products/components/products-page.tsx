@@ -1,13 +1,23 @@
-'use client';
+'use client'
 
-import { useState, useCallback } from 'react';
-import Link from 'next/link';
-import { createColumnHelper } from '@tanstack/react-table';
-import { DataTable, StatusBadge, TableToolbar, StatusTabs } from '@/components/data-table/data-table';
-import { useProducts, useProductStatusCounts, useBulkApproveProducts, useBulkRejectProducts } from '../hooks/use-products';
-import type { ProductListItem } from '../api/products.api';
+import { useState, useCallback, useRef } from 'react'
+import Link from 'next/link'
+import { createColumnHelper } from '@tanstack/react-table'
+import {
+  DataTable,
+  StatusBadge,
+  TableToolbar,
+  StatusTabs,
+} from '@/components/data-table/data-table'
+import {
+  useProducts,
+  useProductStatusCounts,
+  useBulkApproveProducts,
+  useBulkRejectProducts,
+} from '../hooks/use-products'
+import type { ProductListItem } from '../api/products.api'
 
-const col = createColumnHelper<ProductListItem>();
+const col = createColumnHelper<ProductListItem>()
 
 const columns = [
   col.display({
@@ -39,7 +49,7 @@ const columns = [
   col.accessor((row) => row.category?.name ?? '—', { id: 'category', header: 'Category' }),
   col.accessor('basePrice', {
     header: 'Price',
-    cell: (info) => info.getValue() ? `$${Number(info.getValue()).toFixed(2)}` : '—',
+    cell: (info) => (info.getValue() ? `$${Number(info.getValue()).toFixed(2)}` : '—'),
   }),
   col.accessor('status', {
     header: 'Status',
@@ -49,33 +59,35 @@ const columns = [
     header: 'Created',
     cell: (info) => new Date(info.getValue()).toLocaleDateString(),
   }),
-];
+]
 
-const STATUS_TABS = ['ALL', 'DRAFT', 'PUBLISHED', 'ARCHIVED', 'REJECTED'];
+const STATUS_TABS = ['ALL', 'DRAFT', 'PUBLISHED', 'ARCHIVED', 'REJECTED']
 
 export function ProductsPage() {
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState('ALL');
-  const [selected, setSelected] = useState<ProductListItem[]>([]);
+  const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
+  const [statusFilter, setStatusFilter] = useState('ALL')
+  const [selected, setSelected] = useState<ProductListItem[]>([])
 
-  const debounce = useCallback(() => {
-    let timer: ReturnType<typeof setTimeout>;
-    return (value: string) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => { setDebouncedSearch(value); setPage(1); }, 300);
-    };
-  }, [])();
+  const timerRef = useRef<ReturnType<typeof setTimeout>>()
+  const debounce = useCallback((value: string) => {
+    clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
+      setDebouncedSearch(value)
+      setPage(1)
+    }, 300)
+  }, [])
 
   const { data, isLoading } = useProducts({
-    page, pageSize: 20,
+    page,
+    pageSize: 20,
     search: debouncedSearch || undefined,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
-  });
-  const { data: counts } = useProductStatusCounts();
-  const bulkApprove = useBulkApproveProducts();
-  const bulkReject = useBulkRejectProducts();
+  })
+  const { data: counts } = useProductStatusCounts()
+  const bulkApprove = useBulkApproveProducts()
+  const bulkReject = useBulkRejectProducts()
 
   return (
     <div className="space-y-4">
@@ -84,7 +96,15 @@ export function ProductsPage() {
         <p className="text-sm text-muted-foreground">Moderate marketplace products</p>
       </div>
 
-      <StatusTabs tabs={STATUS_TABS} value={statusFilter} onChange={(t) => { setStatusFilter(t); setPage(1); }} counts={counts} />
+      <StatusTabs
+        tabs={STATUS_TABS}
+        value={statusFilter}
+        onChange={(t) => {
+          setStatusFilter(t)
+          setPage(1)
+        }}
+        counts={counts}
+      />
 
       <DataTable
         columns={columns}
@@ -97,7 +117,10 @@ export function ProductsPage() {
         toolbar={
           <TableToolbar
             search={search}
-            onSearchChange={(v) => { setSearch(v); debounce(v); }}
+            onSearchChange={(v) => {
+              setSearch(v)
+              debounce(v)
+            }}
             placeholder="Search products..."
           />
         }
@@ -119,5 +142,5 @@ export function ProductsPage() {
         }
       />
     </div>
-  );
+  )
 }

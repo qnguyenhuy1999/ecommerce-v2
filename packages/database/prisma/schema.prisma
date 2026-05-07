@@ -8,6 +8,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ─── User (storefront/seller) ───────────────────────────────────────────────
+
 enum UserStatus {
   ACTIVE
   INACTIVE
@@ -25,6 +27,7 @@ model User {
 
   userRoles UserRole[]
   sessions  Session[]
+  sellers   Seller[]
 
   @@map("users")
 }
@@ -61,4 +64,206 @@ model Session {
 
   @@index([userId])
   @@map("sessions")
+}
+
+// ─── Admin ──────────────────────────────────────────────────────────────────
+
+enum AdminStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+model Admin {
+  id           String      @id @default(uuid()) @db.Uuid
+  email        String      @unique
+  passwordHash String      @map("password_hash")
+  firstName    String      @map("first_name")
+  lastName     String      @map("last_name")
+  avatar       String?
+  status       AdminStatus @default(ACTIVE)
+  lastLoginAt  DateTime?   @map("last_login_at")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+  deletedAt    DateTime?   @map("deleted_at")
+
+  adminRoles    AdminRoleAssignment[]
+  adminSessions AdminSession[]
+  auditLogs     AuditLog[]
+
+  @@index([email])
+  @@map("admins")
+}
+
+enum AdminRoleType {
+  SUPER_ADMIN
+  ADMIN
+  MODERATOR
+  SUPPORT
+  VIEWER
+}
+
+enum AdminPermission {
+  ADMIN_MANAGE
+  ROLE_MANAGE
+  SELLER_VIEW
+  SELLER_APPROVE
+  SELLER_SUSPEND
+  PRODUCT_VIEW
+  PRODUCT_MODERATE
+  ORDER_VIEW
+  ORDER_MANAGE
+  MARKETING_MANAGE
+  AUDIT_VIEW
+  SETTINGS_MANAGE
+  DASHBOARD_VIEW
+}
+
+model AdminRole {
+  id          String        @id @default(uuid()) @db.Uuid
+  name        AdminRoleType @unique
+  description String?
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  admins      AdminRoleAssignment[]
+  permissions RolePermission[]
+
+  @@map("admin_roles")
+}
+
+model AdminRoleAssignment {
+  adminId     String   @map("admin_id") @db.Uuid
+  adminRoleId String   @map("admin_role_id") @db.Uuid
+  assignedAt  DateTime @default(now()) @map("assigned_at")
+
+  admin     Admin     @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  adminRole AdminRole @relation(fields: [adminRoleId], references: [id], onDelete: Cascade)
+
+  @@id([adminId, adminRoleId])
+  @@map("admin_role_assignments")
+}
+
+model RolePermission {
+  adminRoleId String          @map("admin_role_id") @db.Uuid
+  permission  AdminPermission
+
+  adminRole AdminRole @relation(fields: [adminRoleId], references: [id], onDelete: Cascade)
+
+  @@id([adminRoleId, permission])
+  @@map("role_permissions")
+}
+
+model AdminSession {
+  id        String   @id @default(uuid()) @db.Uuid
+  adminId   String   @map("admin_id") @db.Uuid
+  userAgent String?  @map("user_agent")
+  ipAddress String?  @map("ip_address")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  admin Admin @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+  @@map("admin_sessions")
+}
+
+// ─── Seller ─────────────────────────────────────────────────────────────────
+
+enum SellerStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+  BANNED
+  REJECTED
+}
+
+enum SellerVerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  RESUBMITTED
+}
+
+model Seller {
+  id              String       @id @default(uuid()) @db.Uuid
+  userId          String       @map("user_id") @db.Uuid
+  shopName        String       @map("shop_name")
+  shopDescription String?      @map("shop_description")
+  phone           String?
+  address         String?
+  status          SellerStatus @default(PENDING)
+  approvedAt      DateTime?    @map("approved_at")
+  approvedBy      String?      @map("approved_by") @db.Uuid
+  suspendedAt     DateTime?    @map("suspended_at")
+  suspendedBy     String?      @map("suspended_by") @db.Uuid
+  suspendReason   String?      @map("suspend_reason")
+  rejectedAt      DateTime?    @map("rejected_at")
+  rejectedBy      String?      @map("rejected_by") @db.Uuid
+  rejectReason    String?      @map("reject_reason")
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+  deletedAt       DateTime?    @map("deleted_at")
+
+  user          User                 @relation(fields: [userId], references: [id])
+  verifications SellerVerification[]
+
+  @@index([userId])
+  @@index([status])
+  @@map("sellers")
+}
+
+model SellerVerification {
+  id             String                   @id @default(uuid()) @db.Uuid
+  sellerId       String                   @map("seller_id") @db.Uuid
+  documentType   String                   @map("document_type")
+  documentUrl    String                   @map("document_url")
+  status         SellerVerificationStatus @default(PENDING)
+  adminNote      String?                  @map("admin_note")
+  reviewedBy     String?                  @map("reviewed_by") @db.Uuid
+  reviewedAt     DateTime?                @map("reviewed_at")
+  createdAt      DateTime                 @default(now()) @map("created_at")
+  updatedAt      DateTime                 @updatedAt @map("updated_at")
+
+  seller Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+
+  @@index([sellerId])
+  @@index([status])
+  @@map("seller_verifications")
+}
+
+// ─── Audit Log ──────────────────────────────────────────────────────────────
+
+enum AuditActionType {
+  ADMIN_LOGIN
+  ADMIN_LOGOUT
+  ADMIN_CREATED
+  ADMIN_UPDATED
+  ROLE_ASSIGNED
+  ROLE_REMOVED
+  SELLER_APPROVED
+  SELLER_REJECTED
+  SELLER_SUSPENDED
+  PRODUCT_MODERATED
+  SETTINGS_CHANGED
+}
+
+model AuditLog {
+  id         String          @id @default(uuid()) @db.Uuid
+  adminId    String?         @map("admin_id") @db.Uuid
+  action     AuditActionType
+  entityType String?         @map("entity_type")
+  entityId   String?         @map("entity_id") @db.Uuid
+  metadata   Json?
+  ipAddress  String?         @map("ip_address")
+  userAgent  String?         @map("user_agent")
+  createdAt  DateTime        @default(now()) @map("created_at")
+
+  admin Admin? @relation(fields: [adminId], references: [id], onDelete: SetNull)
+
+  @@index([adminId])
+  @@index([action])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("audit_logs")
 }

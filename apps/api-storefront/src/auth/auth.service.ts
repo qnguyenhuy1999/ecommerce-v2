@@ -1,13 +1,16 @@
-import { Injectable, Logger, UnauthorizedException, ConflictException } from '@nestjs/common'
+import { Inject, Injectable, Logger, UnauthorizedException, ConflictException } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
 import { join } from 'node:path'
 import * as bcrypt from 'bcrypt'
 import { prisma } from '@ecom/database'
 import { SessionService, type SessionData } from '@ecom/auth'
 import { EmailService } from '@ecom/email'
+import { RedisService } from '@ecom/redis'
+import { SESSION_SERVICE } from './session.provider'
 
 const BCRYPT_ROUNDS = 12
 const SESSION_EXPIRY_DAYS = 7
+const VERIFY_TOKEN_TTL = 24 * 60 * 60 // 24 hours
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
 
 @Injectable()
@@ -18,6 +21,7 @@ export class AuthService {
     @Inject(SESSION_SERVICE)
     private readonly sessionService: SessionService,
     private readonly emailService: EmailService,
+    private readonly redisService: RedisService,
   ) {}
 
   async register(email: string, password: string) {
@@ -46,18 +50,21 @@ export class AuthService {
       include: { userRoles: { include: { role: true } } },
     })
 
-    // Send verification email (fire-and-forget, don't block registration)
-    this.emailService
-      .sendMail({
-        to: user.email,
-        subject: 'Verify your email',
-        templatePath: join(TEMPLATES_DIR, 'verify-email.hbs'),
-        context: {
-          name: user.email,
-          // TODO: In a production app, should use jwt token with expiry instead of user ID
-          link: `${process.env.APP_URL ?? 'http://localhost:3000'}/verify?token=${user.id}`,
-        },
-      })
+    // Generate a cryptographic verification token (not the user ID)
+    const verifyToken = randomUUID()
+    this.redisService
+      .set(`verify:${verifyToken}`, user.id, VERIFY_TOKEN_TTL)
+      .then(() =>
+        this.emailService.sendMail({
+          to: user.email,
+          subject: 'Verify your email',
+          templatePath: join(TEMPLATES_DIR, 'verify-email.hbs'),
+          context: {
+            name: user.email,
+            link: `${process.env.APP_URL ?? 'http://localhost:3000'}/verify?token=${verifyToken}`,
+          },
+        }),
+      )
       .catch((err) => {
         this.logger.warn(`Failed to send verification email: ${err.message}`)
       })

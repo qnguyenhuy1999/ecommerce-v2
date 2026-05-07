@@ -1,7 +1,7 @@
 import { createWithAuth } from '@ecom/auth-next/middleware';
 
 export const withAuth = createWithAuth({
-  publicPaths: ['/login'],
+  publicPaths: ['/login', '/register', '/forgot-password'],
   loginPath: '/login',
   requiredRole: 'seller',
   forbiddenRedirectTo: '/login',

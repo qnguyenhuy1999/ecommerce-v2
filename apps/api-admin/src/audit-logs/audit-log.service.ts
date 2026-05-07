@@ -18,7 +18,7 @@ export class AuditLogService {
 
   async log(params: LogParams) {
     try {
-      await prisma.auditLog.create({
+      await prisma.adminAuditLog.create({
         data: {
           adminId: params.adminId,
           action: params.action,
@@ -49,7 +49,7 @@ export class AuditLogService {
     if (query.adminId) where.adminId = query.adminId;
 
     const [items, total] = await Promise.all([
-      prisma.auditLog.findMany({
+      prisma.adminAuditLog.findMany({
         where,
         include: {
           admin: {
@@ -60,7 +60,7 @@ export class AuditLogService {
         skip,
         take: pageSize,
       }),
-      prisma.auditLog.count({ where }),
+      prisma.adminAuditLog.count({ where }),
     ]);
 
     return { items, meta: buildPaginationMeta(page, pageSize, total) };

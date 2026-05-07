@@ -1,0 +1,14 @@
+import { Provider } from '@nestjs/common'
+import { SessionService } from '@ecom/auth'
+import { REDIS_CLIENT } from '@ecom/redis'
+import Redis from 'ioredis'
+
+export const SESSION_SERVICE = 'SESSION_SERVICE'
+
+export const SessionProvider: Provider = {
+  provide: SESSION_SERVICE,
+  useFactory: (redis: Redis) => {
+    return new SessionService({ redis })
+  },
+  inject: [REDIS_CLIENT],
+}

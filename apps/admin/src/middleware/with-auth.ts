@@ -4,5 +4,5 @@ export const withAuth = createWithAuth({
   publicPaths: ['/login'],
   loginPath: '/login',
   requiredRole: 'admin',
-  forbiddenRedirectTo: '/',
+  forbiddenRedirectTo: '/login',
 });

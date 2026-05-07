@@ -1,34 +1,34 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000'
 
-const PUBLIC_PATHS = ['/login', '/register', '/forgot-password'];
+const PUBLIC_PATHS = ['/login', '/register', '/forgot-password']
 
 export async function withAuth(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const { pathname } = request.nextUrl
 
   if (PUBLIC_PATHS.some((p) => pathname.startsWith(p))) {
-    return NextResponse.next();
+    return NextResponse.next()
   }
 
-  const sid = request.cookies.get('sid')?.value;
+  const sid = request.cookies.get('sid')?.value
   if (!sid) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(new URL('/login', request.url))
   }
 
   try {
     const res = await fetch(`${API_URL}/auth/me`, {
       headers: { Cookie: `sid=${sid}` },
-    });
+    })
 
     if (!res.ok) {
-      const response = NextResponse.redirect(new URL('/login', request.url));
-      response.cookies.delete('sid');
-      return response;
+      const response = NextResponse.redirect(new URL('/login', request.url))
+      response.cookies.delete('sid')
+      return response
     }
 
-    return NextResponse.next();
+    return NextResponse.next()
   } catch {
-    return NextResponse.next();
+    return NextResponse.redirect(new URL('/login', request.url))
   }
 }

@@ -4,20 +4,17 @@
   "private": true,
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
     }
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "lint": "pnpm -w exec eslint src/",
+    "build": "true",
+    "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {

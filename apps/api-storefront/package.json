@@ -7,7 +7,7 @@
     "dev": "nest start --watch",
     "start": "node dist/main",
     "start:prod": "node dist/main",
-    "lint": "pnpm -w exec eslint src/",
+    "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

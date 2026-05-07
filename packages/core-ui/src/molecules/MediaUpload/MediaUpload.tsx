@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Upload, X } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Progress } from '@/atoms/Progress'
+import { cn } from '../../lib/utils'
+import { Progress } from '../../atoms/Progress'
 import { MediaUploadContext, useMediaUpload } from './MediaUpload.context'
 import type {
   MediaUploadItemProps,

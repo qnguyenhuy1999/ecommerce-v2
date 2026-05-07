@@ -1,5 +1,5 @@
 import { MediaUpload, type MediaItem, type MediaUploadProps } from '@ecom/core-ui'
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 
 type ProductMediaUploadProps = Omit<MediaUploadProps, 'coverIndex'> & {
   className?: string

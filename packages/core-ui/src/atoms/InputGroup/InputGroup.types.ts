@@ -1,1 +1,1 @@
-export type * from '@/primitives/ui/input-group'
+export type * from '../../primitives/ui/input-group'

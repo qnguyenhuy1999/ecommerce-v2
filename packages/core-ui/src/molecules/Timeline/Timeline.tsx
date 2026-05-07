@@ -1,1 +1,1 @@
-export * from '@/primitives/ui/timeline'
+export * from '../../primitives/ui/timeline'

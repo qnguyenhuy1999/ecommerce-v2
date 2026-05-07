@@ -1,1 +1,1 @@
-export type * from '@/primitives/ui/toggle'
+export type * from '../../primitives/ui/toggle'

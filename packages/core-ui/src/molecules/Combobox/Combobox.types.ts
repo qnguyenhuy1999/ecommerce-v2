@@ -1,1 +1,1 @@
-export type * from '@/primitives/ui/combobox'
+export type * from '../../primitives/ui/combobox'

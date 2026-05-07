@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Field, FieldContent, FieldDescription, FieldError, FieldLabel } from '.'
-import { Input } from '@/atoms/Input'
+import { Input } from '../../atoms/Input'
 
 const meta: Meta<typeof Field> = {
   title: 'molecules/Field',

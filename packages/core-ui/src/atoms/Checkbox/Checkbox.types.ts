@@ -1,1 +1,1 @@
-export type * from '@/primitives/ui/checkbox'
+export type * from '../../primitives/ui/checkbox'

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '.'
-import { Button } from '@/atoms/Button'
+import { Button } from '../../atoms/Button'
 
 const meta: Meta<typeof Tooltip> = {
   title: 'molecules/Tooltip',

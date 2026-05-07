@@ -9,7 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '.'
-import { Button } from '@/atoms/Button'
+import { Button } from '../../atoms/Button'
 
 const meta: Meta<typeof Drawer> = {
   title: 'organisms/Drawer',

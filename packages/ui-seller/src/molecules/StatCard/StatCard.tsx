@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 import { TrendingDown, TrendingUp } from 'lucide-react'
 import { Area, AreaChart, ResponsiveContainer } from 'recharts'
 import { StatCardContext, useStatCard } from './StatCard.context'

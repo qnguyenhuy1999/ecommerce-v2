@@ -1,1 +1,1 @@
-export type * from '@/primitives/ui/radio-group'
+export type * from '../../primitives/ui/radio-group'

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma, type ReturnStatus } from '@ecom/database'
+import { prisma, type Prisma, type ReturnStatus } from '@ecom/database'
 import { buildPaginationMeta } from '@ecom/common'
 
 @Injectable()
@@ -47,7 +47,7 @@ export class RefundsService {
     const refund = await this.findById(id)
     const fromStatus = refund.status
 
-    const updated = await prisma.$transaction(async (tx) => {
+    const updated = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const result = await tx.returnRequest.update({
         where: { id },
         data: { status: 'APPROVED', resolvedAt: new Date() },
@@ -71,19 +71,21 @@ export class RefundsService {
     const refund = await this.findById(id)
     const fromStatus = refund.status
 
-    const updated = await prisma.returnRequest.update({
-      where: { id },
-      data: { status: 'REJECTED', resolvedAt: new Date() },
-    })
-
-    await prisma.returnTimeline.create({
-      data: {
-        returnRequestId: id,
-        fromStatus,
-        toStatus: 'REJECTED',
-        note,
-        performedBy: adminId,
-      },
+    const updated = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      const result = await tx.returnRequest.update({
+        where: { id },
+        data: { status: 'REJECTED', resolvedAt: new Date() },
+      })
+      await tx.returnTimeline.create({
+        data: {
+          returnRequestId: id,
+          fromStatus,
+          toStatus: 'REJECTED',
+          note,
+          performedBy: adminId,
+        },
+      })
+      return result
     })
 
     return updated

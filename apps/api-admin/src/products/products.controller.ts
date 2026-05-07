@@ -10,7 +10,7 @@ import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-
 import { AuditLogService } from '../audit-logs/audit-log.service';
 import { ProductQueryDto } from './dto/product-query.dto';
 import { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto/product-action.dto';
-import type { ProductStatus, ProductReportStatus } from '@ecom/database';
+import { AuditActionType, type ProductStatus, type ProductReportStatus } from '@ecom/database';
 
 @Controller('products')
 @UseGuards(AdminAuthGuard, PermissionGuard)
@@ -120,7 +120,7 @@ export class ProductsController {
   ) {
     const product = await this.productsService.hide(id);
     await this.auditLogService.log({
-      adminId: admin.adminId, action: 'PRODUCT_HIDDEN',
+      adminId: admin.adminId, action: AuditActionType.PRODUCT_HIDDEN,
       entityType: 'Product', entityId: id,
       ipAddress: req.ip, userAgent: req.headers['user-agent'],
     });
@@ -136,7 +136,7 @@ export class ProductsController {
   ) {
     const product = await this.productsService.unhide(id);
     await this.auditLogService.log({
-      adminId: admin.adminId, action: 'PRODUCT_APPROVED',
+      adminId: admin.adminId, action: AuditActionType.PRODUCT_UNHIDDEN,
       entityType: 'Product', entityId: id,
       ipAddress: req.ip, userAgent: req.headers['user-agent'],
     });

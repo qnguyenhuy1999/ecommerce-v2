@@ -9,7 +9,7 @@ import { Permissions } from '../auth/decorators/permissions.decorator';
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
 import { AuditLogService } from '../audit-logs/audit-log.service';
 import { BannerQueryDto, CreateBannerDto, UpdateBannerDto } from './dto/banner.dto';
-import type { BannerPosition, BannerStatus } from '@ecom/database';
+import { AuditActionType, type BannerPosition, type BannerStatus } from '@ecom/database';
 
 @Controller('banners')
 @UseGuards(AdminAuthGuard, PermissionGuard)
@@ -53,7 +53,7 @@ export class BannersController {
       createdBy: admin.adminId,
     });
     await this.auditLogService.log({
-      adminId: admin.adminId, action: 'BANNER_PUBLISHED',
+      adminId: admin.adminId, action: AuditActionType.BANNER_CREATED,
       entityType: 'Banner', entityId: banner.id,
       ipAddress: req.ip, userAgent: req.headers['user-agent'],
     });
@@ -73,7 +73,7 @@ export class BannersController {
     if (dto.endsAt) data.endsAt = new Date(dto.endsAt);
     const banner = await this.bannersService.update(id, data);
     await this.auditLogService.log({
-      adminId: admin.adminId, action: 'BANNER_PUBLISHED',
+      adminId: admin.adminId, action: AuditActionType.BANNER_UPDATED,
       entityType: 'Banner', entityId: id,
       ipAddress: req.ip, userAgent: req.headers['user-agent'],
     });

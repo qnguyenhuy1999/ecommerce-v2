@@ -1,3 +1,4 @@
+import { AuditActionType } from '.prisma/client';
 export { prisma } from './client';
 export {
   PrismaClient,
@@ -27,7 +28,19 @@ export {
   SellerStatus,
   SellerVerificationStatus,
   AuditActionType,
+  ProductReportReason,
+  ProductReportStatus,
+  BannerPosition,
+  BannerStatus,
+  NotificationChannel,
+  AdminNotificationStatus,
+  PlatformVoucherType,
+  PlatformVoucherStatus,
 } from '.prisma/client';
+
+export const BANNER_CREATED = AuditActionType.BANNER_CREATED;
+export const BANNER_UPDATED = AuditActionType.BANNER_UPDATED;
+export const PRODUCT_UNHIDDEN = AuditActionType.PRODUCT_UNHIDDEN;
 export type {
   User,
   Role,
@@ -85,4 +98,12 @@ export type {
   Seller,
   SellerVerification,
   AdminAuditLog,
+  ProductReport,
+  AttributeGroup,
+  AttributeValue,
+  CategoryAttribute,
+  Banner,
+  NotificationTemplate,
+  AdminNotification,
+  PlatformVoucher,
 } from '.prisma/client';

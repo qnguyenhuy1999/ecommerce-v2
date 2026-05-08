@@ -6,7 +6,7 @@ import { buildPaginationMeta } from '@ecom/common'
 export class RefundsService {
   async findAll(query: { page?: number; pageSize?: number; status?: ReturnStatus }) {
     const page = query.page ?? 1
-    const pageSize = query.pageSize ?? 20
+    const pageSize = Math.min(query.pageSize ?? 20, 100)
     const skip = (page - 1) * pageSize
 
     const where: Record<string, unknown> = {}

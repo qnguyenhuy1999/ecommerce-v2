@@ -1,13 +1,12 @@
 import {
-  Controller, Get, Post, Param, Query, Body, UseGuards, Req,
+  Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
-import type { Request } from 'express';
 import { NotificationsService } from './notifications.service';
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard';
 import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
-import { AuditLogService } from '../audit-logs/audit-log.service';
+import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { NotificationQueryDto, CreateNotificationDto, CreateTemplateDto } from './dto/notification.dto';
 import type { AdminNotificationStatus, NotificationChannel } from '@ecom/database';
 
@@ -16,7 +15,6 @@ import type { AdminNotificationStatus, NotificationChannel } from '@ecom/databas
 export class NotificationsController {
   constructor(
     private readonly notificationsService: NotificationsService,
-    private readonly auditLogService: AuditLogService,
   ) {}
 
   @Get()
@@ -46,6 +44,7 @@ export class NotificationsController {
 
   @Post()
   @Permissions('NOTIFICATION_MANAGE')
+  @AuditLog('NOTIFICATION_CREATED', 'AdminNotification', { entityIdPath: 'data.id' })
   async create(
     @Body() dto: CreateNotificationDto,
     @CurrentAdmin() admin: AdminSessionData,
@@ -60,22 +59,18 @@ export class NotificationsController {
 
   @Post(':id/send')
   @Permissions('NOTIFICATION_MANAGE')
+  @AuditLog('NOTIFICATION_SENT', 'AdminNotification', { entityIdParam: 'id' })
   async send(
     @Param('id') id: string,
     @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const notification = await this.notificationsService.send(id, admin.adminId);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: 'NOTIFICATION_SENT',
-      entityType: 'AdminNotification', entityId: id,
-      ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: notification };
   }
 
   @Post('templates')
   @Permissions('NOTIFICATION_MANAGE')
+  @AuditLog('NOTIFICATION_TEMPLATE_CREATED', 'NotificationTemplate', { entityIdPath: 'data.id' })
   async createTemplate(@Body() dto: CreateTemplateDto) {
     const template = await this.notificationsService.createTemplate({
       ...dto,

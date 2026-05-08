@@ -1,31 +1,29 @@
 import {
-  Controller, Get, Post, Param, Query, Body, UseGuards, Req,
+  Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
-import type { Request } from 'express';
 import { ProductsService } from './products.service';
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard';
 import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
-import { AuditLogService } from '../audit-logs/audit-log.service';
+import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { ProductQueryDto } from './dto/product-query.dto';
 import { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto/product-action.dto';
-import { AuditActionType, type ProductStatus, type ProductReportStatus } from '@ecom/database';
+import { type ProductStatus, type ProductReportStatus } from '@ecom/database';
 
 @Controller('products')
 @UseGuards(AdminAuthGuard, PermissionGuard)
 export class ProductsController {
   constructor(
     private readonly productsService: ProductsService,
-    private readonly auditLogService: AuditLogService,
   ) {}
 
   @Get()
   @Permissions('PRODUCT_VIEW')
   async findAll(@Query() query: ProductQueryDto) {
     const result = await this.productsService.findAll({
-      page: query.page ? parseInt(query.page, 10) : undefined,
-      pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
+      page: query.page,
+      pageSize: query.pageSize,
       search: query.search,
       status: query.status as ProductStatus | undefined,
       shopId: query.shopId,
@@ -45,8 +43,8 @@ export class ProductsController {
   @Permissions('PRODUCT_MODERATE')
   async findReports(@Query() query: ProductQueryDto) {
     const result = await this.productsService.findReports({
-      page: query.page ? parseInt(query.page, 10) : undefined,
-      pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
+      page: query.page,
+      pageSize: query.pageSize,
       status: query.status as ProductReportStatus | undefined,
     });
     return { success: true, data: result };
@@ -61,6 +59,9 @@ export class ProductsController {
 
   @Post('bulk/approve')
   @Permissions('PRODUCT_MODERATE')
+  @AuditLog('PRODUCT_BULK_APPROVED', 'Product', {
+    metadataExtractor: (_result, body) => ({ count: (body as BulkModerationDto).ids.length }),
+  })
   async bulkApprove(
     @Body() dto: BulkModerationDto,
   ) {
@@ -70,6 +71,9 @@ export class ProductsController {
 
   @Post('bulk/reject')
   @Permissions('PRODUCT_MODERATE')
+  @AuditLog('PRODUCT_BULK_REJECTED', 'Product', {
+    metadataExtractor: (_result, body) => ({ count: (body as BulkModerationDto).ids.length }),
+  })
   async bulkReject(
     @Body() dto: BulkModerationDto,
   ) {
@@ -79,72 +83,58 @@ export class ProductsController {
 
   @Post(':id/approve')
   @Permissions('PRODUCT_MODERATE')
+  @AuditLog('PRODUCT_APPROVED', 'Product', {
+    entityIdParam: 'id',
+    metadataExtractor: (_result, body) => ({ note: (body as { note?: string }).note }),
+  })
   async approve(
     @Param('id') id: string,
-    @Body() dto: ProductModerationDto,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
+    @Body() _dto: ProductModerationDto,
   ) {
     const product = await this.productsService.approve(id);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: 'PRODUCT_APPROVED',
-      entityType: 'Product', entityId: id,
-      metadata: { note: dto.note }, ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: product };
   }
 
   @Post(':id/reject')
   @Permissions('PRODUCT_MODERATE')
+  @AuditLog('PRODUCT_REJECTED', 'Product', {
+    entityIdParam: 'id',
+    metadataExtractor: (_result, body) => ({ note: (body as { note?: string }).note }),
+  })
   async reject(
     @Param('id') id: string,
-    @Body() dto: ProductModerationDto,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
+    @Body() _dto: ProductModerationDto,
   ) {
     const product = await this.productsService.reject(id);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: 'PRODUCT_REJECTED',
-      entityType: 'Product', entityId: id,
-      metadata: { note: dto.note }, ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: product };
   }
 
   @Post(':id/hide')
   @Permissions('PRODUCT_MODERATE')
+  @AuditLog('PRODUCT_HIDDEN', 'Product', { entityIdParam: 'id' })
   async hide(
     @Param('id') id: string,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const product = await this.productsService.hide(id);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: AuditActionType.PRODUCT_HIDDEN,
-      entityType: 'Product', entityId: id,
-      ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: product };
   }
 
   @Post(':id/unhide')
   @Permissions('PRODUCT_MODERATE')
+  @AuditLog('PRODUCT_UNHIDDEN', 'Product', { entityIdParam: 'id' })
   async unhide(
     @Param('id') id: string,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const product = await this.productsService.unhide(id);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: AuditActionType.PRODUCT_UNHIDDEN,
-      entityType: 'Product', entityId: id,
-      ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: product };
   }
 
   @Post('reports/:id/resolve')
   @Permissions('PRODUCT_MODERATE')
+  @AuditLog('PRODUCT_REPORT_RESOLVED', 'ProductReport', {
+    entityIdParam: 'id',
+    metadataExtractor: (_result, body) => ({ adminNote: (body as ResolveReportDto).adminNote }),
+  })
   async resolveReport(
     @Param('id') id: string,
     @Body() dto: ResolveReportDto,
@@ -156,6 +146,10 @@ export class ProductsController {
 
   @Post('reports/:id/dismiss')
   @Permissions('PRODUCT_MODERATE')
+  @AuditLog('PRODUCT_REPORT_DISMISSED', 'ProductReport', {
+    entityIdParam: 'id',
+    metadataExtractor: (_result, body) => ({ adminNote: (body as ResolveReportDto).adminNote }),
+  })
   async dismissReport(
     @Param('id') id: string,
     @Body() dto: ResolveReportDto,

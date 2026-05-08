@@ -1,13 +1,12 @@
 import {
-  Controller, Get, Post, Param, Query, Body, UseGuards, Req,
+  Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
-import type { Request } from 'express';
 import { RefundsService } from './refunds.service';
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard';
 import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
-import { AuditLogService } from '../audit-logs/audit-log.service';
+import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { RefundQueryDto, RefundActionDto } from './dto/refund-query.dto';
 import type { ReturnStatus } from '@ecom/database';
 
@@ -16,7 +15,6 @@ import type { ReturnStatus } from '@ecom/database';
 export class RefundsController {
   constructor(
     private readonly refundsService: RefundsService,
-    private readonly auditLogService: AuditLogService,
   ) {}
 
   @Get()
@@ -46,35 +44,25 @@ export class RefundsController {
 
   @Post(':id/approve')
   @Permissions('REFUND_MANAGE')
+  @AuditLog('REFUND_APPROVED', 'ReturnRequest', { entityIdParam: 'id' })
   async approve(
     @Param('id') id: string,
     @Body() dto: RefundActionDto,
     @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const refund = await this.refundsService.approve(id, admin.adminId, dto.note);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: 'REFUND_APPROVED',
-      entityType: 'ReturnRequest', entityId: id,
-      ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: refund };
   }
 
   @Post(':id/reject')
   @Permissions('REFUND_MANAGE')
+  @AuditLog('REFUND_REJECTED', 'ReturnRequest', { entityIdParam: 'id' })
   async reject(
     @Param('id') id: string,
     @Body() dto: RefundActionDto,
     @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const refund = await this.refundsService.reject(id, admin.adminId, dto.note);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: 'REFUND_REJECTED',
-      entityType: 'ReturnRequest', entityId: id,
-      ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: refund };
   }
 }

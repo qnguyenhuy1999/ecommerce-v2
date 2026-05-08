@@ -1,13 +1,11 @@
 import {
-  Controller, Get, Post, Param, Query, Body, UseGuards, Req,
+  Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
-import type { Request } from 'express';
 import { UsersService } from './users.service';
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard';
 import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
-import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
-import { AuditLogService } from '../audit-logs/audit-log.service';
+import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { UserQueryDto, UserActionDto } from './dto/user-query.dto';
 import { AuditActionType, type UserStatus } from '@ecom/database';
 
@@ -16,7 +14,6 @@ import { AuditActionType, type UserStatus } from '@ecom/database';
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    private readonly auditLogService: AuditLogService,
   ) {}
 
   @Get()
@@ -47,51 +44,42 @@ export class UsersController {
 
   @Post(':id/suspend')
   @Permissions('USER_MANAGE')
+  @AuditLog(AuditActionType.USER_SUSPENDED, 'User', {
+    entityIdParam: 'id',
+    metadataExtractor: (_result, body) => ({ reason: (body as { reason?: string }).reason }),
+  })
   async suspend(
     @Param('id') id: string,
-    @Body() dto: UserActionDto,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
+    @Body() _dto: UserActionDto,
   ) {
     const user = await this.usersService.suspend(id);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: AuditActionType.USER_SUSPENDED,
-      entityType: 'User', entityId: id,
-      metadata: { reason: dto.reason }, ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: user };
   }
 
   @Post(':id/ban')
   @Permissions('USER_MANAGE')
+  @AuditLog(AuditActionType.USER_BANNED, 'User', {
+    entityIdParam: 'id',
+    metadataExtractor: (_result, body) => ({ reason: (body as { reason?: string }).reason }),
+  })
   async ban(
     @Param('id') id: string,
-    @Body() dto: UserActionDto,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
+    @Body() _dto: UserActionDto,
   ) {
     const user = await this.usersService.ban(id);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: AuditActionType.USER_BANNED,
-      entityType: 'User', entityId: id,
-      metadata: { reason: dto.reason }, ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: user };
   }
 
   @Post(':id/activate')
   @Permissions('USER_MANAGE')
+  @AuditLog(AuditActionType.USER_ACTIVATED, 'User', {
+    entityIdParam: 'id',
+    metadataExtractor: () => ({ action: 'reactivate' }),
+  })
   async activate(
     @Param('id') id: string,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const user = await this.usersService.activate(id);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: AuditActionType.USER_ACTIVATED,
-      entityType: 'User', entityId: id,
-      metadata: { action: 'reactivate' }, ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: user };
   }
 }

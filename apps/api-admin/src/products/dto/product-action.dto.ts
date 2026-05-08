@@ -1,11 +1,15 @@
-import { IsOptional, IsString, IsArray } from 'class-validator';
+import { IsOptional, IsString, IsArray, ArrayNotEmpty, ArrayMaxSize } from 'class-validator';
 
 export class ProductModerationDto {
   @IsOptional() @IsString() note?: string;
 }
 
 export class BulkModerationDto {
-  @IsArray() @IsString({ each: true }) ids!: string[];
+  @IsArray()
+  @ArrayNotEmpty()
+  @ArrayMaxSize(100)
+  @IsString({ each: true })
+  ids!: string[];
   @IsOptional() @IsString() note?: string;
 }
 

@@ -49,7 +49,7 @@ export class AnalyticsService {
 
   async getProductPerformance(shopId: string, startDate: Date, endDate: Date) {
     const topProducts = await prisma.sellerOrderItem.groupBy({
-      by: ['productName'],
+      by: ['productId', 'productName'],
       where: {
         sellerOrder: { shopId, createdAt: { gte: startDate, lte: endDate } },
       },
@@ -61,10 +61,12 @@ export class AnalyticsService {
 
     return topProducts.map(
       (p: {
+        productId: string
         productName: string
         _sum: { quantity: number | null; totalPrice: number | null }
         _count: number
       }) => ({
+        productId: p.productId,
         productName: p.productName,
         unitsSold: p._sum.quantity ?? 0,
         revenue: Number(p._sum.totalPrice ?? 0),

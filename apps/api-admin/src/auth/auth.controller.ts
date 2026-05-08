@@ -15,22 +15,23 @@ import { getSessionCookieOptions, SESSION_COOKIE_NAME } from '@ecom/auth';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
-import {
-  CurrentAdmin,
-  type AdminSessionData,
-} from './decorators/current-admin.decorator';
-import { AuditLogService } from '../audit-logs/audit-log.service';
+import { AuditLog } from '../common/decorators/audit-log.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly auditLogService: AuditLogService,
   ) {}
 
   @Post('login')
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   @HttpCode(HttpStatus.OK)
+  @AuditLog('ADMIN_LOGIN', '', {
+    metadataExtractor: (result) => {
+      const data = result as { data?: { id?: string } };
+      return { adminId: data?.data?.id };
+    },
+  })
   async login(
     @Body() dto: LoginDto,
     @Req() req: Request,
@@ -58,23 +59,16 @@ export class AuthController {
       ...(cookieOptions.domain ? { domain: cookieOptions.domain } : {}),
     });
 
-    await this.auditLogService.log({
-      adminId: result.admin.id,
-      action: 'ADMIN_LOGIN',
-      ipAddress,
-      userAgent,
-    });
-
     return { success: true, data: result.admin };
   }
 
   @Post('logout')
   @UseGuards(AdminAuthGuard)
   @HttpCode(HttpStatus.OK)
+  @AuditLog('ADMIN_LOGOUT', '')
   async logout(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
-    @CurrentAdmin() admin: AdminSessionData,
   ) {
     const sessionId = req.cookies?.[SESSION_COOKIE_NAME];
     if (sessionId) {
@@ -88,13 +82,6 @@ export class AuthController {
       sameSite: cookieOptions.sameSite,
       path: cookieOptions.path,
       ...(cookieOptions.domain ? { domain: cookieOptions.domain } : {}),
-    });
-
-    await this.auditLogService.log({
-      adminId: admin.adminId,
-      action: 'ADMIN_LOGOUT',
-      ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
     });
 
     return { success: true };

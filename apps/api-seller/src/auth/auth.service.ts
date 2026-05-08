@@ -167,6 +167,10 @@ export class AuthService {
       },
     })
 
+    if (!user || user.status !== 'ACTIVE') {
+      throw new UnauthorizedException('User account is not active')
+    }
+
     return {
       userId: session.userId,
       roles: session.roles,

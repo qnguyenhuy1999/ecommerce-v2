@@ -137,7 +137,30 @@ export class AuthService {
     if (!session) {
       throw new UnauthorizedException('Session expired or invalid')
     }
-    return session
+
+    const user = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        emailVerified: true,
+      },
+    })
+
+    if (!user) {
+      throw new UnauthorizedException('User not found')
+    }
+
+    return {
+      userId: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      emailVerified: user.emailVerified,
+      roles: session.roles,
+    }
   }
 
   async validateSession(sessionId: string): Promise<SessionData | null> {

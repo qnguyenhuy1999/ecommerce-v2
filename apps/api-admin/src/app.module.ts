@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { RedisModule } from '@ecom/redis';
 import { AuthModule } from './auth/auth.module';
@@ -14,6 +15,7 @@ import { PromotionsModule } from './promotions/promotions.module';
 import { BannersModule } from './banners/banners.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { AuditLogInterceptor } from './common/interceptors/audit-log.interceptor';
 
 @Module({
   imports: [
@@ -38,6 +40,12 @@ import { ReviewsModule } from './reviews/reviews.module';
     BannersModule,
     NotificationsModule,
     ReviewsModule,
+  ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: AuditLogInterceptor,
+    },
   ],
 })
 export class AppModule {}

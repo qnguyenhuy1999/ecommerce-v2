@@ -60,7 +60,10 @@ export class CategoriesService {
     await this.findById(id);
     const childCount = await prisma.category.count({ where: { parentId: id } });
     if (childCount > 0) throw new ConflictException('Cannot delete category with children');
-    return prisma.category.delete({ where: { id } });
+    return prisma.category.update({
+      where: { id },
+      data: { isActive: false },
+    });
   }
 
   async reorder(items: { id: string; sortOrder: number }[]) {
@@ -81,13 +84,18 @@ export class CategoriesService {
       where: { id },
       select: { id: true, name: true, slug: true, parentId: true },
     });
-    while (current) {
+
+    let depth = 0;
+    const MAX_DEPTH = 10;
+
+    while (current && depth < MAX_DEPTH) {
       crumbs.unshift({ id: current.id, name: current.name, slug: current.slug });
       if (!current.parentId) break;
       current = await prisma.category.findUnique({
         where: { id: current.parentId },
         select: { id: true, name: true, slug: true, parentId: true },
       });
+      depth++;
     }
     return crumbs;
   }

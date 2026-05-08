@@ -6,9 +6,7 @@ import {
   Query,
   Body,
   UseGuards,
-  Req,
 } from '@nestjs/common';
-import type { Request } from 'express';
 import { SellersService } from './sellers.service';
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard';
 import { PermissionGuard } from '../auth/guards/permission.guard';
@@ -17,7 +15,7 @@ import {
   CurrentAdmin,
   type AdminSessionData,
 } from '../auth/decorators/current-admin.decorator';
-import { AuditLogService } from '../audit-logs/audit-log.service';
+import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { SellerQueryDto } from './dto/seller-query.dto';
 import { SellerActionDto } from './dto/seller-action.dto';
 import type { SellerStatus } from '@ecom/database';
@@ -27,7 +25,6 @@ import type { SellerStatus } from '@ecom/database';
 export class SellersController {
   constructor(
     private readonly sellersService: SellersService,
-    private readonly auditLogService: AuditLogService,
   ) {}
 
   @Get()
@@ -58,76 +55,50 @@ export class SellersController {
 
   @Post(':id/approve')
   @Permissions('SELLER_APPROVE')
+  @AuditLog('SELLER_APPROVED', 'Seller', { entityIdParam: 'id' })
   async approve(
     @Param('id') id: string,
     @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const seller = await this.sellersService.approve(id, admin.adminId);
-
-    await this.auditLogService.log({
-      adminId: admin.adminId,
-      action: 'SELLER_APPROVED',
-      entityType: 'Seller',
-      entityId: id,
-      ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
-    });
-
     return { success: true, data: seller };
   }
 
   @Post(':id/reject')
   @Permissions('SELLER_APPROVE')
+  @AuditLog('SELLER_REJECTED', 'Seller', {
+    entityIdParam: 'id',
+    metadataExtractor: (_result, body) => ({ reason: (body as SellerActionDto).reason }),
+  })
   async reject(
     @Param('id') id: string,
     @Body() dto: SellerActionDto,
     @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const seller = await this.sellersService.reject(
       id,
       admin.adminId,
       dto.reason,
     );
-
-    await this.auditLogService.log({
-      adminId: admin.adminId,
-      action: 'SELLER_REJECTED',
-      entityType: 'Seller',
-      entityId: id,
-      metadata: { reason: dto.reason },
-      ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
-    });
-
     return { success: true, data: seller };
   }
 
   @Post(':id/suspend')
   @Permissions('SELLER_SUSPEND')
+  @AuditLog('SELLER_SUSPENDED', 'Seller', {
+    entityIdParam: 'id',
+    metadataExtractor: (_result, body) => ({ reason: (body as SellerActionDto).reason }),
+  })
   async suspend(
     @Param('id') id: string,
     @Body() dto: SellerActionDto,
     @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const seller = await this.sellersService.suspend(
       id,
       admin.adminId,
       dto.reason,
     );
-
-    await this.auditLogService.log({
-      adminId: admin.adminId,
-      action: 'SELLER_SUSPENDED',
-      entityType: 'Seller',
-      entityId: id,
-      metadata: { reason: dto.reason },
-      ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
-    });
-
     return { success: true, data: seller };
   }
 }

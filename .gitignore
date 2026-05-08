@@ -61,3 +61,6 @@ apps/*/.omc/
 apps/*/.claude/
 state
 *.tsbuildinfo
+
+# understand-anything
+.understand-anything/

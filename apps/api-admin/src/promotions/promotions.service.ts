@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
 import { prisma, type PlatformVoucherStatus, type PlatformVoucherType } from '@ecom/database';
 import { buildPaginationMeta } from '@ecom/common';
 
@@ -11,7 +11,7 @@ export class PromotionsService {
     search?: string;
   }) {
     const page = query.page ?? 1;
-    const pageSize = query.pageSize ?? 20;
+    const pageSize = Math.min(query.pageSize ?? 20, 100);
     const skip = (page - 1) * pageSize;
 
     const where: Record<string, unknown> = {};
@@ -46,6 +46,11 @@ export class PromotionsService {
   }) {
     const existing = await prisma.platformVoucher.findUnique({ where: { code: data.code } });
     if (existing) throw new ConflictException('Voucher code already exists');
+
+    if (data.type === 'PERCENTAGE' && data.discountValue > 100) {
+      throw new BadRequestException('Percentage discount cannot exceed 100');
+    }
+
     return prisma.platformVoucher.create({
       data: {
         ...data,

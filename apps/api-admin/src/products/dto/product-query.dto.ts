@@ -1,8 +1,19 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, IsInt, Min } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class ProductQueryDto {
-  @IsOptional() @IsString() page?: string;
-  @IsOptional() @IsString() pageSize?: string;
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  page?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  pageSize?: number;
+
   @IsOptional() @IsString() search?: string;
   @IsOptional() @IsString() status?: string;
   @IsOptional() @IsString() shopId?: string;

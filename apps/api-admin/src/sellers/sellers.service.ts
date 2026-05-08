@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { prisma, type SellerStatus } from '@ecom/database';
 import { buildPaginationMeta } from '@ecom/common';
 
@@ -11,7 +11,7 @@ export class SellersService {
     status?: SellerStatus;
   }) {
     const page = query.page ?? 1;
-    const pageSize = query.pageSize ?? 20;
+    const pageSize = Math.min(query.pageSize ?? 20, 100);
     const skip = (page - 1) * pageSize;
 
     const where: Record<string, unknown> = { deletedAt: null };
@@ -66,6 +66,10 @@ export class SellersService {
   async approve(id: string, adminId: string) {
     const seller = await this.findById(id);
 
+    if (seller.status === 'ACTIVE') {
+      throw new BadRequestException('Seller is already active');
+    }
+
     return prisma.seller.update({
       where: { id: seller.id },
       data: {
@@ -78,6 +82,10 @@ export class SellersService {
 
   async reject(id: string, adminId: string, reason?: string) {
     const seller = await this.findById(id);
+
+    if (seller.status === 'REJECTED') {
+      throw new BadRequestException('Seller is already rejected');
+    }
 
     return prisma.seller.update({
       where: { id: seller.id },
@@ -92,6 +100,10 @@ export class SellersService {
 
   async suspend(id: string, adminId: string, reason?: string) {
     const seller = await this.findById(id);
+
+    if (seller.status === 'SUSPENDED') {
+      throw new BadRequestException('Seller is already suspended');
+    }
 
     return prisma.seller.update({
       where: { id: seller.id },

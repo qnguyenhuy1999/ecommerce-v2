@@ -1,11 +1,9 @@
-import { Controller, Get, Post, Param, Query, UseGuards, Req } from '@nestjs/common'
-import type { Request } from 'express'
+import { Controller, Get, Post, Param, Query, UseGuards } from '@nestjs/common'
 import { ReviewsService } from './reviews.service'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
-import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator'
-import { AuditLogService } from '../audit-logs/audit-log.service'
+import { AuditLog } from '../common/decorators/audit-log.decorator'
 import { ReviewQueryDto } from './dto/review-query.dto'
 import type { ReviewStatus } from '@ecom/database'
 
@@ -14,7 +12,6 @@ import type { ReviewStatus } from '@ecom/database'
 export class ReviewsController {
   constructor(
     private readonly reviewsService: ReviewsService,
-    private readonly auditLogService: AuditLogService,
   ) {}
 
   @Get()
@@ -44,58 +41,31 @@ export class ReviewsController {
 
   @Post(':id/approve')
   @Permissions('REVIEW_MODERATE')
+  @AuditLog('REVIEW_APPROVED', 'Review', { entityIdParam: 'id' })
   async approve(
     @Param('id') id: string,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const review = await this.reviewsService.approve(id)
-    await this.auditLogService.log({
-      adminId: admin.adminId,
-      action: 'REVIEW_APPROVED',
-      entityType: 'Review',
-      entityId: id,
-      ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
-    })
     return { success: true, data: review }
   }
 
   @Post(':id/hide')
   @Permissions('REVIEW_MODERATE')
+  @AuditLog('REVIEW_HIDDEN', 'Review', { entityIdParam: 'id' })
   async hide(
     @Param('id') id: string,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const review = await this.reviewsService.hide(id)
-    await this.auditLogService.log({
-      adminId: admin.adminId,
-      action: 'REVIEW_HIDDEN',
-      entityType: 'Review',
-      entityId: id,
-      ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
-    })
     return { success: true, data: review }
   }
 
   @Post(':id/reject')
   @Permissions('REVIEW_MODERATE')
+  @AuditLog('REVIEW_REJECTED', 'Review', { entityIdParam: 'id' })
   async reject(
     @Param('id') id: string,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const review = await this.reviewsService.reject(id)
-    await this.auditLogService.log({
-      adminId: admin.adminId,
-      action: 'REVIEW_REJECTED',
-      entityType: 'Review',
-      entityId: id,
-      ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
-    })
     return { success: true, data: review }
   }
 }

@@ -1,13 +1,11 @@
 import {
-  Controller, Get, Post, Param, Query, Body, UseGuards, Req,
+  Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
-import type { Request } from 'express';
 import { OrdersService } from './orders.service';
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard';
 import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
-import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
-import { AuditLogService } from '../audit-logs/audit-log.service';
+import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { OrderQueryDto, OrderActionDto } from './dto/order-query.dto';
 import type { OrderStatus } from '@ecom/database';
 
@@ -16,7 +14,6 @@ import type { OrderStatus } from '@ecom/database';
 export class OrdersController {
   constructor(
     private readonly ordersService: OrdersService,
-    private readonly auditLogService: AuditLogService,
   ) {}
 
   @Get()
@@ -48,34 +45,25 @@ export class OrdersController {
 
   @Post(':id/force-cancel')
   @Permissions('ORDER_MANAGE')
+  @AuditLog('ORDER_FORCE_CANCELLED', 'Order', {
+    entityIdParam: 'id',
+    metadataExtractor: (_result, body) => ({ reason: (body as { reason?: string }).reason }),
+  })
   async forceCancel(
     @Param('id') id: string,
-    @Body() dto: OrderActionDto,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
+    @Body() _dto: OrderActionDto,
   ) {
     const order = await this.ordersService.forceCancel(id);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: 'ORDER_FORCE_CANCELLED',
-      entityType: 'Order', entityId: id,
-      metadata: { reason: dto.reason }, ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: order };
   }
 
   @Post(':id/force-complete')
   @Permissions('ORDER_MANAGE')
+  @AuditLog('ORDER_FORCE_COMPLETED', 'Order', { entityIdParam: 'id' })
   async forceComplete(
     @Param('id') id: string,
-    @CurrentAdmin() admin: AdminSessionData,
-    @Req() req: Request,
   ) {
     const order = await this.ordersService.forceComplete(id);
-    await this.auditLogService.log({
-      adminId: admin.adminId, action: 'ORDER_FORCE_COMPLETED',
-      entityType: 'Order', entityId: id,
-      ipAddress: req.ip, userAgent: req.headers['user-agent'],
-    });
     return { success: true, data: order };
   }
 }

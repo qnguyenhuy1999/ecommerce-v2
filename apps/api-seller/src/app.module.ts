@@ -20,6 +20,20 @@ import { WarehouseModule } from './warehouse/warehouse.module'
 import { MetricsModule } from './metrics/metrics.module'
 import { SearchModule } from './search/search.module'
 import { QueueModule } from './queue/queue.module'
+import { FlashSaleModule } from './flash-sale/flash-sale.module'
+import { AdsModule } from './ads/ads.module'
+import { AffiliateModule } from './affiliate/affiliate.module'
+import { SubscriptionModule } from './subscription/subscription.module'
+import { LivestreamModule } from './livestream/livestream.module'
+import { AiToolsModule } from './ai-tools/ai-tools.module'
+import { RecommendationModule } from './recommendation/recommendation.module'
+import { LoyaltyModule } from './loyalty/loyalty.module'
+import { WalletModule } from './wallet/wallet.module'
+import { AdvancedSearchModule } from './advanced-search/advanced-search.module'
+import { AutomationModule } from './automation/automation.module'
+import { I18nModule } from './i18n/i18n.module'
+import { EventStreamingModule } from './event-streaming/event-streaming.module'
+import { GrowthModule } from './growth/growth.module'
 
 @Module({
   imports: [
@@ -59,6 +73,20 @@ import { QueueModule } from './queue/queue.module'
     MetricsModule,
     SearchModule,
     QueueModule,
+    FlashSaleModule,
+    AdsModule,
+    AffiliateModule,
+    SubscriptionModule,
+    LivestreamModule,
+    AiToolsModule,
+    RecommendationModule,
+    LoyaltyModule,
+    WalletModule,
+    AdvancedSearchModule,
+    AutomationModule,
+    I18nModule,
+    EventStreamingModule,
+    GrowthModule,
   ],
 })
 export class AppModule {}

@@ -204,7 +204,7 @@ export class WarehouseService {
       select: { id: true },
     })
 
-    const warehouseIds = warehouses.map((w) => w.id)
+    const warehouseIds = warehouses.map((w: { id: string }) => w.id)
 
     const lowStockItems = await prisma.$queryRaw<Array<{ warehouse_id: string; variant_id: string; stock: number; safety_stock: number }>>`
       SELECT warehouse_id, variant_id, stock, safety_stock

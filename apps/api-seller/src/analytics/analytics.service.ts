@@ -14,7 +14,7 @@ export class AnalyticsService {
       orderBy: { createdAt: 'asc' },
     })
 
-    const totalRevenue = orders.reduce((sum, o) => sum + Number(o.subtotal), 0)
+    const totalRevenue = orders.reduce((sum: number, o: { subtotal: number }) => sum + Number(o.subtotal), 0)
     const dailyRevenue: Record<string, number> = {}
     for (const order of orders) {
       const day = order.createdAt.toISOString().split('T')[0]
@@ -36,11 +36,14 @@ export class AnalyticsService {
       _count: true,
     })
 
-    const total = statusCounts.reduce((sum, s) => sum + s._count, 0)
+    const total = statusCounts.reduce((sum: number, s: { _count: number }) => sum + s._count, 0)
 
     return {
       total,
-      byStatus: statusCounts.map((s) => ({ status: s.status, count: s._count })),
+      byStatus: statusCounts.map((s: { status: string; _count: number }) => ({
+        status: s.status,
+        count: s._count,
+      })),
     }
   }
 
@@ -56,12 +59,18 @@ export class AnalyticsService {
       take: 20,
     })
 
-    return topProducts.map((p) => ({
-      productName: p.productName,
-      unitsSold: p._sum.quantity ?? 0,
-      revenue: Number(p._sum.totalPrice ?? 0),
-      orders: p._count,
-    }))
+    return topProducts.map(
+      (p: {
+        productName: string
+        _sum: { quantity: number | null; totalPrice: number | null }
+        _count: number
+      }) => ({
+        productName: p.productName,
+        unitsSold: p._sum.quantity ?? 0,
+        revenue: Number(p._sum.totalPrice ?? 0),
+        orders: p._count,
+      }),
+    )
   }
 
   async getConversionMetrics(shopId: string, startDate: Date, endDate: Date) {
@@ -102,7 +111,7 @@ export class AnalyticsService {
             },
             _sum: { subtotal: true },
           })
-          .then((r) => Number(r._sum.subtotal ?? 0)),
+          .then((r: { _sum: { subtotal: number | null } }) => Number(r._sum.subtotal ?? 0)),
         prisma.sellerOrder
           .aggregate({
             where: {
@@ -112,7 +121,7 @@ export class AnalyticsService {
             },
             _sum: { subtotal: true },
           })
-          .then((r) => Number(r._sum.subtotal ?? 0)),
+          .then((r: { _sum: { subtotal: number | null } }) => Number(r._sum.subtotal ?? 0)),
         prisma.sellerOrder.count({ where: { shopId, status: 'PENDING' } }),
         prisma.product.count({ where: { shopId, status: 'PUBLISHED', deletedAt: null } }),
         prisma.productVariant.count({

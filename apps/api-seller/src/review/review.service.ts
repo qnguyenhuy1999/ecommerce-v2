@@ -12,7 +12,7 @@ export class ReviewService {
       where: { shopId, deletedAt: null },
       select: { id: true },
     })
-    const productIds = (await shopProducts).map((p) => p.id)
+    const productIds = (await shopProducts).map((p: { id: string }) => p.id)
 
     const where: Prisma.ReviewWhereInput = {
       productId: { in: productIds },
@@ -106,7 +106,7 @@ export class ReviewService {
     return {
       totalReviews,
       averageRating: avgRating._avg.rating ?? 0,
-      ratingDistribution: ratingDist.map((r) => ({ rating: r.rating, count: r._count })),
+      ratingDistribution: ratingDist.map((r: { rating: number; _count: number }) => ({ rating: r.rating, count: r._count })),
     }
   }
 
@@ -115,6 +115,6 @@ export class ReviewService {
       where: { shopId, deletedAt: null },
       select: { id: true },
     })
-    return products.map((p) => p.id)
+    return products.map((p: { id: string }) => p.id)
   }
 }

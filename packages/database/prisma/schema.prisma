@@ -158,7 +158,7 @@ model SellerProfile {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
   shop Shop?
 
   @@map("seller_profiles")
@@ -249,8 +249,8 @@ model Product {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  shop                Shop                       @relation(fields: [shopId], references: [id], onDelete: Cascade)
-  category            Category?                  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  shop                Shop                        @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  category            Category?                   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   variants            ProductVariant[]
   images              ProductImage[]
   variantOptionGroups ProductVariantOptionGroup[]
@@ -624,22 +624,22 @@ model Coupon {
   scope       CouponScope  @default(ALL_PRODUCTS)
   status      CouponStatus @default(DRAFT)
 
-  discountValue    Decimal  @map("discount_value") @db.Decimal(12, 2)
+  discountValue     Decimal  @map("discount_value") @db.Decimal(12, 2)
   maxDiscountAmount Decimal? @map("max_discount_amount") @db.Decimal(12, 2)
-  minOrderAmount   Decimal? @map("min_order_amount") @db.Decimal(12, 2)
+  minOrderAmount    Decimal? @map("min_order_amount") @db.Decimal(12, 2)
 
-  usageLimit    Int?     @map("usage_limit")
+  usageLimit        Int? @map("usage_limit")
   usageLimitPerUser Int? @map("usage_limit_per_user")
-  usedCount     Int      @default(0) @map("used_count")
+  usedCount         Int  @default(0) @map("used_count")
 
   autoApply Boolean @default(false) @map("auto_apply")
 
-  startsAt  DateTime  @map("starts_at")
-  expiresAt DateTime  @map("expires_at")
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
+  startsAt  DateTime @map("starts_at")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  shop             Shop              @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  shop             Shop             @relation(fields: [shopId], references: [id], onDelete: Cascade)
   couponProducts   CouponProduct[]
   couponCategories CouponCategory[]
   couponUsages     CouponUsage[]
@@ -712,10 +712,10 @@ model Review {
 }
 
 model ReviewImage {
-  id       String @id @default(uuid()) @db.Uuid
-  reviewId String @map("review_id") @db.Uuid
-  url      String
-  sortOrder Int   @default(0) @map("sort_order")
+  id        String @id @default(uuid()) @db.Uuid
+  reviewId  String @map("review_id") @db.Uuid
+  url       String
+  sortOrder Int    @default(0) @map("sort_order")
 
   review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
 
@@ -756,10 +756,10 @@ model ReviewReport {
 // ─── Seller Chat ───────────────────────────────────────────────
 
 model Conversation {
-  id        String   @id @default(uuid()) @db.Uuid
-  shopId    String   @map("shop_id") @db.Uuid
-  buyerId   String   @map("buyer_id") @db.Uuid
-  productId String?  @map("product_id") @db.Uuid
+  id        String  @id @default(uuid()) @db.Uuid
+  shopId    String  @map("shop_id") @db.Uuid
+  buyerId   String  @map("buyer_id") @db.Uuid
+  productId String? @map("product_id") @db.Uuid
 
   lastMessageAt   DateTime? @map("last_message_at")
   lastMessageText String?   @map("last_message_text") @db.Text
@@ -807,18 +807,18 @@ model ReturnRequest {
   reason        ReturnReason
   description   String?      @db.Text
 
-  refundAmount  Decimal      @map("refund_amount") @db.Decimal(12, 2)
-  refundMethod  RefundMethod? @map("refund_method")
+  refundAmount Decimal       @map("refund_amount") @db.Decimal(12, 2)
+  refundMethod RefundMethod? @map("refund_method")
 
-  trackingNumber String? @map("tracking_number")
+  trackingNumber String?   @map("tracking_number")
   resolvedAt     DateTime? @map("resolved_at")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  items     ReturnItem[]
-  evidence  ReturnEvidence[]
-  timeline  ReturnTimeline[]
+  items    ReturnItem[]
+  evidence ReturnEvidence[]
+  timeline ReturnTimeline[]
 
   @@index([shopId, status])
   @@index([sellerOrderId])
@@ -828,10 +828,10 @@ model ReturnRequest {
 }
 
 model ReturnItem {
-  id              String @id @default(uuid()) @db.Uuid
-  returnRequestId String @map("return_request_id") @db.Uuid
+  id                String @id @default(uuid()) @db.Uuid
+  returnRequestId   String @map("return_request_id") @db.Uuid
   sellerOrderItemId String @map("seller_order_item_id") @db.Uuid
-  quantity        Int
+  quantity          Int
 
   returnRequest ReturnRequest @relation(fields: [returnRequestId], references: [id], onDelete: Cascade)
 
@@ -840,9 +840,9 @@ model ReturnItem {
 }
 
 model ReturnEvidence {
-  id              String @id @default(uuid()) @db.Uuid
-  returnRequestId String @map("return_request_id") @db.Uuid
-  uploadedBy      String @map("uploaded_by") @db.Uuid
+  id              String  @id @default(uuid()) @db.Uuid
+  returnRequestId String  @map("return_request_id") @db.Uuid
+  uploadedBy      String  @map("uploaded_by") @db.Uuid
   url             String
   description     String? @db.Text
 
@@ -855,10 +855,10 @@ model ReturnEvidence {
 }
 
 model ReturnTimeline {
-  id              String @id @default(uuid()) @db.Uuid
-  returnRequestId String @map("return_request_id") @db.Uuid
-  fromStatus      String @map("from_status")
-  toStatus        String @map("to_status")
+  id              String  @id @default(uuid()) @db.Uuid
+  returnRequestId String  @map("return_request_id") @db.Uuid
+  fromStatus      String  @map("from_status")
+  toStatus        String  @map("to_status")
   note            String? @db.Text
   performedBy     String? @map("performed_by") @db.Uuid
 
@@ -898,11 +898,11 @@ model ProductApproval {
 }
 
 model ProductApprovalHistory {
-  id         String @id @default(uuid()) @db.Uuid
-  approvalId String @map("approval_id") @db.Uuid
-  fromStatus String @map("from_status")
-  toStatus   String @map("to_status")
-  note       String? @db.Text
+  id          String  @id @default(uuid()) @db.Uuid
+  approvalId  String  @map("approval_id") @db.Uuid
+  fromStatus  String  @map("from_status")
+  toStatus    String  @map("to_status")
+  note        String? @db.Text
   performedBy String? @map("performed_by") @db.Uuid
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -916,19 +916,19 @@ model ProductApprovalHistory {
 // ─── Advanced Inventory / Warehouses ───────────────────────────
 
 model Warehouse {
-  id       String  @id @default(uuid()) @db.Uuid
-  shopId   String  @map("shop_id") @db.Uuid
-  name     String
-  code     String
-  address  String? @db.Text
-  isActive Boolean @default(true) @map("is_active")
+  id        String  @id @default(uuid()) @db.Uuid
+  shopId    String  @map("shop_id") @db.Uuid
+  name      String
+  code      String
+  address   String? @db.Text
+  isActive  Boolean @default(true) @map("is_active")
   isDefault Boolean @default(false) @map("is_default")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  shop      Shop                 @relation(fields: [shopId], references: [id], onDelete: Cascade)
-  stocks    WarehouseStock[]
+  shop          Shop                @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  stocks        WarehouseStock[]
   transfersFrom InventoryTransfer[] @relation("TransferFrom")
   transfersTo   InventoryTransfer[] @relation("TransferTo")
 
@@ -965,8 +965,8 @@ model InventoryTransfer {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  fromWarehouse Warehouse             @relation("TransferFrom", fields: [fromWarehouseId], references: [id])
-  toWarehouse   Warehouse             @relation("TransferTo", fields: [toWarehouseId], references: [id])
+  fromWarehouse Warehouse               @relation("TransferFrom", fields: [fromWarehouseId], references: [id])
+  toWarehouse   Warehouse               @relation("TransferTo", fields: [toWarehouseId], references: [id])
   items         InventoryTransferItem[]
 
   @@index([shopId])
@@ -993,19 +993,19 @@ model SellerMetricSnapshot {
   shopId String   @map("shop_id") @db.Uuid
   date   DateTime @db.Date
 
-  totalOrders       Int     @default(0) @map("total_orders")
-  cancelledOrders   Int     @default(0) @map("cancelled_orders")
-  lateShipments     Int     @default(0) @map("late_shipments")
-  totalRefunds      Int     @default(0) @map("total_refunds")
-  messagesReceived  Int     @default(0) @map("messages_received")
-  messagesResponded Int     @default(0) @map("messages_responded")
+  totalOrders        Int    @default(0) @map("total_orders")
+  cancelledOrders    Int    @default(0) @map("cancelled_orders")
+  lateShipments      Int    @default(0) @map("late_shipments")
+  totalRefunds       Int    @default(0) @map("total_refunds")
+  messagesReceived   Int    @default(0) @map("messages_received")
+  messagesResponded  Int    @default(0) @map("messages_responded")
   avgResponseMinutes Float? @map("avg_response_minutes")
 
-  cancellationRate  Float @default(0) @map("cancellation_rate")
-  lateShipmentRate  Float @default(0) @map("late_shipment_rate")
-  responseRate      Float @default(0) @map("response_rate")
-  refundRate        Float @default(0) @map("refund_rate")
-  sellerScore       Float @default(100) @map("seller_score")
+  cancellationRate Float @default(0) @map("cancellation_rate")
+  lateShipmentRate Float @default(0) @map("late_shipment_rate")
+  responseRate     Float @default(0) @map("response_rate")
+  refundRate       Float @default(0) @map("refund_rate")
+  sellerScore      Float @default(100) @map("seller_score")
 
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -1017,21 +1017,21 @@ model SellerMetricSnapshot {
 // ─── Bulk Import/Export ────────────────────────────────────────
 
 model BulkJob {
-  id       String        @id @default(uuid()) @db.Uuid
-  shopId   String        @map("shop_id") @db.Uuid
-  type     BulkJobType
-  status   BulkJobStatus @default(QUEUED)
+  id     String        @id @default(uuid()) @db.Uuid
+  shopId String        @map("shop_id") @db.Uuid
+  type   BulkJobType
+  status BulkJobStatus @default(QUEUED)
 
-  fileName    String  @map("file_name")
-  fileUrl     String? @map("file_url")
-  resultUrl   String? @map("result_url")
+  fileName  String  @map("file_name")
+  fileUrl   String? @map("file_url")
+  resultUrl String? @map("result_url")
 
-  totalRows      Int @default(0) @map("total_rows")
-  processedRows  Int @default(0) @map("processed_rows")
-  successRows    Int @default(0) @map("success_rows")
-  errorRows      Int @default(0) @map("error_rows")
+  totalRows     Int @default(0) @map("total_rows")
+  processedRows Int @default(0) @map("processed_rows")
+  successRows   Int @default(0) @map("success_rows")
+  errorRows     Int @default(0) @map("error_rows")
 
-  errors  Json?
+  errors      Json?
   startedAt   DateTime? @map("started_at")
   completedAt DateTime? @map("completed_at")
 
@@ -1047,11 +1047,11 @@ model BulkJob {
 // ─── Saved Filters / Views ─────────────────────────────────────
 
 model SavedFilter {
-  id       String @id @default(uuid()) @db.Uuid
-  shopId   String @map("shop_id") @db.Uuid
-  name     String
-  entity   String
-  filters  Json
+  id        String  @id @default(uuid()) @db.Uuid
+  shopId    String  @map("shop_id") @db.Uuid
+  name      String
+  entity    String
+  filters   Json
   isDefault Boolean @default(false) @map("is_default")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -1059,6 +1059,1304 @@ model SavedFilter {
 
   @@index([shopId, entity])
   @@map("saved_filters")
+}
+
+enum FlashSaleStatus {
+  DRAFT
+  SCHEDULED
+  ACTIVE
+  ENDED
+  CANCELLED
+}
+
+enum FlashSaleSlotStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  ACTIVE
+  SOLD_OUT
+  ENDED
+}
+
+enum AdCampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ENDED
+  DEPLETED
+}
+
+enum AdType {
+  SPONSORED_PRODUCT
+  SEARCH_AD
+  RECOMMENDATION_AD
+  BANNER
+}
+
+enum AffiliateStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+
+enum CommissionPayoutStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+  EXPIRED
+  TRIALING
+}
+
+enum InvoiceStatus {
+  DRAFT
+  OPEN
+  PAID
+  VOID
+  UNCOLLECTIBLE
+}
+
+enum LivestreamStatus {
+  SCHEDULED
+  LIVE
+  ENDED
+  CANCELLED
+}
+
+enum AiTaskStatus {
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum AiTaskType {
+  DESCRIPTION
+  TITLE
+  KEYWORDS
+  IMAGE_TAG
+  CATEGORY_SUGGEST
+  SEO
+  TRANSLATION
+  SALES_INSIGHT
+}
+
+enum LoyaltyTransactionType {
+  EARN
+  SPEND
+  EXPIRE
+  ADJUST
+  REFUND
+}
+
+enum WalletTransactionType {
+  SALE_CREDIT
+  PLATFORM_FEE
+  WITHDRAWAL
+  REFUND_DEBIT
+  ADJUSTMENT
+  COMMISSION_PAYOUT
+  DEPOSIT
+}
+
+enum WalletTransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REVERSED
+}
+
+enum WithdrawalStatus {
+  PENDING
+  APPROVED
+  PROCESSING
+  COMPLETED
+  REJECTED
+  FAILED
+}
+
+enum AutomationTrigger {
+  ORDER_CREATED
+  ORDER_CANCELLED
+  LOW_STOCK
+  MESSAGE_RECEIVED
+  REVIEW_RECEIVED
+  SCHEDULE
+  PRICE_CHANGE
+  PRODUCT_PUBLISHED
+}
+
+enum AutomationAction {
+  SEND_MESSAGE
+  UPDATE_PRICE
+  UPDATE_STOCK
+  CANCEL_ORDER
+  SEND_NOTIFICATION
+  APPLY_COUPON
+  TAG_ORDER
+}
+
+enum AutomationStatus {
+  ACTIVE
+  PAUSED
+  DRAFT
+}
+
+enum ExperimentStatus {
+  DRAFT
+  RUNNING
+  PAUSED
+  COMPLETED
+}
+
+enum ReferralStatus {
+  PENDING
+  CONVERTED
+  REWARDED
+  EXPIRED
+}
+
+enum PlatformEventStatus {
+  PENDING
+  DELIVERED
+  FAILED
+  REPLAYED
+}
+
+// ─── 1. Flash Sale System ─────────────────────────────────────
+
+model FlashSaleCampaign {
+  id          String          @id @default(uuid()) @db.Uuid
+  name        String
+  description String?         @db.Text
+  status      FlashSaleStatus @default(DRAFT)
+
+  startsAt DateTime @map("starts_at")
+  endsAt   DateTime @map("ends_at")
+
+  maxSlotsPerSeller Int     @default(5) @map("max_slots_per_seller")
+  isVisible         Boolean @default(false) @map("is_visible")
+
+  createdBy String?  @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  slots FlashSaleSlot[]
+
+  @@index([status, startsAt])
+  @@index([startsAt, endsAt])
+  @@map("flash_sale_campaigns")
+}
+
+model FlashSaleSlot {
+  id         String              @id @default(uuid()) @db.Uuid
+  campaignId String              @map("campaign_id") @db.Uuid
+  shopId     String              @map("shop_id") @db.Uuid
+  productId  String              @map("product_id") @db.Uuid
+  variantId  String?             @map("variant_id") @db.Uuid
+  status     FlashSaleSlotStatus @default(PENDING)
+
+  originalPrice Decimal @map("original_price") @db.Decimal(12, 2)
+  salePrice     Decimal @map("sale_price") @db.Decimal(12, 2)
+  totalStock    Int     @map("total_stock")
+  soldCount     Int     @default(0) @map("sold_count")
+  purchaseLimit Int     @default(1) @map("purchase_limit")
+
+  sortOrder Int @default(0) @map("sort_order")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  campaign FlashSaleCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, productId, variantId])
+  @@index([campaignId, status])
+  @@index([shopId])
+  @@index([productId])
+  @@map("flash_sale_slots")
+}
+
+model FlashSalePurchase {
+  id       String  @id @default(uuid()) @db.Uuid
+  slotId   String  @map("slot_id") @db.Uuid
+  buyerId  String  @map("buyer_id") @db.Uuid
+  orderId  String? @map("order_id") @db.Uuid
+  quantity Int
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([slotId])
+  @@index([buyerId, slotId])
+  @@map("flash_sale_purchases")
+}
+
+// ─── 2. Ads & Sponsored Products ──────────────────────────────
+
+model AdCampaign {
+  id     String           @id @default(uuid()) @db.Uuid
+  shopId String           @map("shop_id") @db.Uuid
+  name   String
+  type   AdType           @default(SPONSORED_PRODUCT)
+  status AdCampaignStatus @default(DRAFT)
+
+  dailyBudget Decimal  @map("daily_budget") @db.Decimal(12, 2)
+  totalBudget Decimal? @map("total_budget") @db.Decimal(12, 2)
+  spentAmount Decimal  @default(0) @map("spent_amount") @db.Decimal(12, 2)
+
+  bidAmount Decimal @map("bid_amount") @db.Decimal(12, 4)
+
+  startsAt DateTime  @map("starts_at")
+  endsAt   DateTime? @map("ends_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  adGroups AdGroup[]
+
+  @@index([shopId, status])
+  @@index([status, startsAt])
+  @@map("ad_campaigns")
+}
+
+model AdGroup {
+  id         String @id @default(uuid()) @db.Uuid
+  campaignId String @map("campaign_id") @db.Uuid
+  name       String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  campaign AdCampaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  ads      Ad[]
+  keywords AdKeyword[]
+
+  @@index([campaignId])
+  @@map("ad_groups")
+}
+
+model Ad {
+  id        String  @id @default(uuid()) @db.Uuid
+  adGroupId String  @map("ad_group_id") @db.Uuid
+  productId String  @map("product_id") @db.Uuid
+  isActive  Boolean @default(true) @map("is_active")
+
+  impressions Int     @default(0)
+  clicks      Int     @default(0)
+  conversions Int     @default(0)
+  spent       Decimal @default(0) @db.Decimal(12, 2)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  adGroup        AdGroup        @relation(fields: [adGroupId], references: [id], onDelete: Cascade)
+  impressionLogs AdImpression[]
+  clickLogs      AdClick[]
+
+  @@index([adGroupId])
+  @@index([productId])
+  @@map("ads")
+}
+
+model AdKeyword {
+  id        String   @id @default(uuid()) @db.Uuid
+  adGroupId String   @map("ad_group_id") @db.Uuid
+  keyword   String
+  bidAmount Decimal? @map("bid_amount") @db.Decimal(12, 4)
+  isActive  Boolean  @default(true) @map("is_active")
+
+  adGroup AdGroup @relation(fields: [adGroupId], references: [id], onDelete: Cascade)
+
+  @@unique([adGroupId, keyword])
+  @@index([keyword])
+  @@map("ad_keywords")
+}
+
+model AdImpression {
+  id        String  @id @default(uuid()) @db.Uuid
+  adId      String  @map("ad_id") @db.Uuid
+  buyerId   String? @map("buyer_id") @db.Uuid
+  placement String
+  cost      Decimal @default(0) @db.Decimal(12, 4)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  ad Ad @relation(fields: [adId], references: [id], onDelete: Cascade)
+
+  @@index([adId, createdAt])
+  @@index([createdAt])
+  @@map("ad_impressions")
+}
+
+model AdClick {
+  id      String  @id @default(uuid()) @db.Uuid
+  adId    String  @map("ad_id") @db.Uuid
+  buyerId String? @map("buyer_id") @db.Uuid
+  cost    Decimal @db.Decimal(12, 4)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  ad Ad @relation(fields: [adId], references: [id], onDelete: Cascade)
+
+  @@index([adId, createdAt])
+  @@index([createdAt])
+  @@map("ad_clicks")
+}
+
+// ─── 3. Affiliate & Creator System ───────────────────────────
+
+model AffiliatePartner {
+  id     String          @id @default(uuid()) @db.Uuid
+  userId String          @unique @map("user_id") @db.Uuid
+  status AffiliateStatus @default(PENDING)
+
+  displayName String  @map("display_name")
+  bio         String? @db.Text
+  website     String?
+  socialLinks Json?   @map("social_links")
+
+  commissionRate Decimal @default(5) @map("commission_rate") @db.Decimal(5, 2)
+  totalEarnings  Decimal @default(0) @map("total_earnings") @db.Decimal(12, 2)
+  pendingBalance Decimal @default(0) @map("pending_balance") @db.Decimal(12, 2)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  links   AffiliateLink[]
+  payouts CommissionPayout[]
+
+  @@index([status])
+  @@map("affiliate_partners")
+}
+
+model AffiliateLink {
+  id        String  @id @default(uuid()) @db.Uuid
+  partnerId String  @map("partner_id") @db.Uuid
+  productId String? @map("product_id") @db.Uuid
+  shopId    String? @map("shop_id") @db.Uuid
+  code      String  @unique
+  url       String
+
+  clicks      Int @default(0)
+  conversions Int @default(0)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  partner          AffiliatePartner      @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  trackClicks      AffiliateClick[]
+  trackConversions AffiliateConversion[]
+
+  @@index([partnerId])
+  @@index([code])
+  @@map("affiliate_links")
+}
+
+model AffiliateClick {
+  id        String  @id @default(uuid()) @db.Uuid
+  linkId    String  @map("link_id") @db.Uuid
+  visitorId String? @map("visitor_id")
+  ipAddress String? @map("ip_address")
+  userAgent String? @map("user_agent") @db.Text
+  referer   String? @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  link AffiliateLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
+
+  @@index([linkId, createdAt])
+  @@index([createdAt])
+  @@map("affiliate_clicks")
+}
+
+model AffiliateConversion {
+  id      String @id @default(uuid()) @db.Uuid
+  linkId  String @map("link_id") @db.Uuid
+  orderId String @map("order_id") @db.Uuid
+  buyerId String @map("buyer_id") @db.Uuid
+
+  orderAmount      Decimal @map("order_amount") @db.Decimal(12, 2)
+  commissionRate   Decimal @map("commission_rate") @db.Decimal(5, 2)
+  commissionAmount Decimal @map("commission_amount") @db.Decimal(12, 2)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  link AffiliateLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
+
+  @@index([linkId])
+  @@index([orderId])
+  @@index([createdAt])
+  @@map("affiliate_conversions")
+}
+
+model CommissionPayout {
+  id        String                 @id @default(uuid()) @db.Uuid
+  partnerId String                 @map("partner_id") @db.Uuid
+  amount    Decimal                @db.Decimal(12, 2)
+  status    CommissionPayoutStatus @default(PENDING)
+
+  paymentMethod String? @map("payment_method")
+  paymentRef    String? @map("payment_ref")
+  note          String? @db.Text
+
+  processedAt DateTime? @map("processed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  partner AffiliatePartner @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+
+  @@index([partnerId, status])
+  @@index([status])
+  @@map("commission_payouts")
+}
+
+// ─── 4. Seller Subscription Plans ─────────────────────────────
+
+model SubscriptionPlan {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String  @unique
+  slug        String  @unique
+  description String? @db.Text
+
+  monthlyPrice Decimal  @map("monthly_price") @db.Decimal(12, 2)
+  yearlyPrice  Decimal? @map("yearly_price") @db.Decimal(12, 2)
+
+  productLimit Int? @map("product_limit")
+  orderLimit   Int? @map("order_limit")
+  storageLimit Int? @map("storage_limit")
+  staffLimit   Int? @map("staff_limit")
+
+  isActive  Boolean @default(true) @map("is_active")
+  sortOrder Int     @default(0) @map("sort_order")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  entitlements  PlanEntitlement[]
+  subscriptions SellerSubscription[]
+
+  @@map("subscription_plans")
+}
+
+model PlanEntitlement {
+  id      String @id @default(uuid()) @db.Uuid
+  planId  String @map("plan_id") @db.Uuid
+  feature String
+  value   String
+
+  plan SubscriptionPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  @@unique([planId, feature])
+  @@map("plan_entitlements")
+}
+
+model SellerSubscription {
+  id     String             @id @default(uuid()) @db.Uuid
+  shopId String             @map("shop_id") @db.Uuid
+  planId String             @map("plan_id") @db.Uuid
+  status SubscriptionStatus @default(ACTIVE)
+
+  billingCycle       String   @default("monthly") @map("billing_cycle")
+  currentPeriodStart DateTime @map("current_period_start")
+  currentPeriodEnd   DateTime @map("current_period_end")
+
+  stripeSubscriptionId String? @unique @map("stripe_subscription_id")
+  stripeCustomerId     String? @map("stripe_customer_id")
+
+  cancelledAt DateTime? @map("cancelled_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  plan     SubscriptionPlan      @relation(fields: [planId], references: [id])
+  invoices SubscriptionInvoice[]
+
+  @@unique([shopId])
+  @@index([status])
+  @@index([currentPeriodEnd])
+  @@map("seller_subscriptions")
+}
+
+model SubscriptionInvoice {
+  id             String        @id @default(uuid()) @db.Uuid
+  subscriptionId String        @map("subscription_id") @db.Uuid
+  amount         Decimal       @db.Decimal(12, 2)
+  status         InvoiceStatus @default(DRAFT)
+
+  periodStart DateTime @map("period_start")
+  periodEnd   DateTime @map("period_end")
+
+  stripeInvoiceId String?   @unique @map("stripe_invoice_id")
+  paidAt          DateTime? @map("paid_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  subscription SellerSubscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+
+  @@index([subscriptionId])
+  @@index([status])
+  @@map("subscription_invoices")
+}
+
+// ─── 5. Livestream Commerce ───────────────────────────────────
+
+model LivestreamSession {
+  id          String           @id @default(uuid()) @db.Uuid
+  shopId      String           @map("shop_id") @db.Uuid
+  title       String
+  description String?          @db.Text
+  status      LivestreamStatus @default(SCHEDULED)
+
+  thumbnailUrl String? @map("thumbnail_url")
+  streamUrl    String? @map("stream_url")
+  streamKey    String? @map("stream_key")
+  replayUrl    String? @map("replay_url")
+
+  scheduledAt DateTime  @map("scheduled_at")
+  startedAt   DateTime? @map("started_at")
+  endedAt     DateTime? @map("ended_at")
+
+  viewerCount    Int @default(0) @map("viewer_count")
+  peakViewers    Int @default(0) @map("peak_viewers")
+  totalReactions Int @default(0) @map("total_reactions")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  products     LivestreamProduct[]
+  chatMessages LivestreamChat[]
+
+  @@index([shopId, status])
+  @@index([status, scheduledAt])
+  @@map("livestream_sessions")
+}
+
+model LivestreamProduct {
+  id        String  @id @default(uuid()) @db.Uuid
+  sessionId String  @map("session_id") @db.Uuid
+  productId String  @map("product_id") @db.Uuid
+  isPinned  Boolean @default(false) @map("is_pinned")
+  sortOrder Int     @default(0) @map("sort_order")
+
+  specialPrice Decimal? @map("special_price") @db.Decimal(12, 2)
+
+  pinnedAt  DateTime? @map("pinned_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  session LivestreamSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, productId])
+  @@index([sessionId])
+  @@map("livestream_products")
+}
+
+model LivestreamChat {
+  id        String @id @default(uuid()) @db.Uuid
+  sessionId String @map("session_id") @db.Uuid
+  userId    String @map("user_id") @db.Uuid
+  message   String @db.Text
+  metadata  Json?
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  session LivestreamSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+  @@map("livestream_chats")
+}
+
+// ─── 6. AI Product Tools ──────────────────────────────────────
+
+model AiTask {
+  id     String       @id @default(uuid()) @db.Uuid
+  shopId String       @map("shop_id") @db.Uuid
+  type   AiTaskType
+  status AiTaskStatus @default(QUEUED)
+
+  inputData  Json    @map("input_data")
+  outputData Json?   @map("output_data")
+  error      String? @db.Text
+
+  productId  String? @map("product_id") @db.Uuid
+  templateId String? @map("template_id") @db.Uuid
+
+  provider   String?
+  model      String?
+  tokensUsed Int?     @map("tokens_used")
+  costUsd    Decimal? @map("cost_usd") @db.Decimal(10, 6)
+
+  startedAt   DateTime? @map("started_at")
+  completedAt DateTime? @map("completed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  template AiPromptTemplate? @relation(fields: [templateId], references: [id])
+
+  @@index([shopId, type])
+  @@index([status])
+  @@index([productId])
+  @@index([createdAt])
+  @@map("ai_tasks")
+}
+
+model AiPromptTemplate {
+  id      String     @id @default(uuid()) @db.Uuid
+  type    AiTaskType
+  name    String
+  version Int        @default(1)
+  prompt  String     @db.Text
+
+  isActive Boolean @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tasks AiTask[]
+
+  @@unique([type, version])
+  @@map("ai_prompt_templates")
+}
+
+model AiUsageLog {
+  id     String @id @default(uuid()) @db.Uuid
+  shopId String @map("shop_id") @db.Uuid
+  month  String
+
+  tasksUsed    Int     @default(0) @map("tasks_used")
+  tokensUsed   Int     @default(0) @map("tokens_used")
+  totalCostUsd Decimal @default(0) @map("total_cost_usd") @db.Decimal(10, 4)
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([shopId, month])
+  @@map("ai_usage_logs")
+}
+
+// ─── 7. Recommendation Engine ─────────────────────────────────
+
+model UserEvent {
+  id         String  @id @default(uuid()) @db.Uuid
+  userId     String? @map("user_id") @db.Uuid
+  sessionId  String? @map("session_id")
+  event      String
+  entityType String  @map("entity_type")
+  entityId   String  @map("entity_id") @db.Uuid
+
+  metadata Json?
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId, event])
+  @@index([entityType, entityId])
+  @@index([event, createdAt])
+  @@index([createdAt])
+  @@map("user_events")
+}
+
+model ProductScore {
+  id        String @id @default(uuid()) @db.Uuid
+  productId String @map("product_id") @db.Uuid
+  scoreType String @map("score_type")
+  score     Float
+  metadata  Json?
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([productId, scoreType])
+  @@index([scoreType, score])
+  @@map("product_scores")
+}
+
+model ProductRelation {
+  id               String @id @default(uuid()) @db.Uuid
+  productId        String @map("product_id") @db.Uuid
+  relatedProductId String @map("related_product_id") @db.Uuid
+  relationType     String @map("relation_type")
+  score            Float  @default(0)
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([productId, relatedProductId, relationType])
+  @@index([productId, relationType])
+  @@map("product_relations")
+}
+
+// ─── 8. Loyalty & Rewards ─────────────────────────────────────
+
+model LoyaltyTier {
+  id         String  @id @default(uuid()) @db.Uuid
+  name       String  @unique
+  minPoints  Int     @map("min_points")
+  multiplier Decimal @default(1) @db.Decimal(5, 2)
+  benefits   Json?
+  sortOrder  Int     @default(0) @map("sort_order")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  accounts LoyaltyAccount[]
+
+  @@map("loyalty_tiers")
+}
+
+model LoyaltyAccount {
+  id     String  @id @default(uuid()) @db.Uuid
+  userId String  @unique @map("user_id") @db.Uuid
+  tierId String? @map("tier_id") @db.Uuid
+
+  totalPoints     Int @default(0) @map("total_points")
+  availablePoints Int @default(0) @map("available_points")
+  lifetimePoints  Int @default(0) @map("lifetime_points")
+
+  lastCheckIn DateTime? @map("last_check_in")
+  streak      Int       @default(0)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tier            LoyaltyTier?             @relation(fields: [tierId], references: [id])
+  transactions    LoyaltyTransaction[]
+  missionProgress LoyaltyMissionProgress[]
+
+  @@index([tierId])
+  @@map("loyalty_accounts")
+}
+
+model LoyaltyTransaction {
+  id        String                 @id @default(uuid()) @db.Uuid
+  accountId String                 @map("account_id") @db.Uuid
+  type      LoyaltyTransactionType
+  points    Int
+  balance   Int
+
+  description String? @db.Text
+  reference   String?
+  referenceId String? @map("reference_id") @db.Uuid
+
+  expiresAt DateTime? @map("expires_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  account LoyaltyAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId, createdAt])
+  @@index([type])
+  @@index([expiresAt])
+  @@map("loyalty_transactions")
+}
+
+model LoyaltyMission {
+  id           String  @id @default(uuid()) @db.Uuid
+  name         String
+  description  String? @db.Text
+  eventType    String  @map("event_type")
+  targetCount  Int     @default(1) @map("target_count")
+  rewardPoints Int     @map("reward_points")
+  isRepeatable Boolean @default(false) @map("is_repeatable")
+  isActive     Boolean @default(true) @map("is_active")
+
+  startsAt DateTime? @map("starts_at")
+  endsAt   DateTime? @map("ends_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  progress LoyaltyMissionProgress[]
+
+  @@map("loyalty_missions")
+}
+
+model LoyaltyMissionProgress {
+  id        String  @id @default(uuid()) @db.Uuid
+  accountId String  @map("account_id") @db.Uuid
+  missionId String  @map("mission_id") @db.Uuid
+  progress  Int     @default(0)
+  completed Boolean @default(false)
+
+  completedAt DateTime? @map("completed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  account LoyaltyAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  mission LoyaltyMission @relation(fields: [missionId], references: [id], onDelete: Cascade)
+
+  @@unique([accountId, missionId])
+  @@map("loyalty_mission_progress")
+}
+
+model LoyaltyReward {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String
+  description String? @db.Text
+  pointsCost  Int     @map("points_cost")
+  rewardType  String  @map("reward_type")
+  rewardValue Json    @map("reward_value")
+  stock       Int?
+  isActive    Boolean @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  redemptions LoyaltyRedemption[]
+
+  @@map("loyalty_rewards")
+}
+
+model LoyaltyRedemption {
+  id          String @id @default(uuid()) @db.Uuid
+  userId      String @map("user_id") @db.Uuid
+  rewardId    String @map("reward_id") @db.Uuid
+  pointsSpent Int    @map("points_spent")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  reward LoyaltyReward @relation(fields: [rewardId], references: [id])
+
+  @@index([userId])
+  @@index([rewardId])
+  @@map("loyalty_redemptions")
+}
+
+// ─── 9. Wallet & Seller Balance System ────────────────────────
+
+model Wallet {
+  id        String @id @default(uuid()) @db.Uuid
+  ownerId   String @map("owner_id") @db.Uuid
+  ownerType String @map("owner_type")
+
+  balance        Decimal @default(0) @db.Decimal(12, 2)
+  pendingBalance Decimal @default(0) @map("pending_balance") @db.Decimal(12, 2)
+  totalEarned    Decimal @default(0) @map("total_earned") @db.Decimal(12, 2)
+  totalWithdrawn Decimal @default(0) @map("total_withdrawn") @db.Decimal(12, 2)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  transactions WalletTransaction[]
+  withdrawals  WalletWithdrawal[]
+
+  @@unique([ownerId, ownerType])
+  @@map("wallets")
+}
+
+model WalletTransaction {
+  id       String                  @id @default(uuid()) @db.Uuid
+  walletId String                  @map("wallet_id") @db.Uuid
+  type     WalletTransactionType
+  status   WalletTransactionStatus @default(PENDING)
+
+  amount       Decimal @db.Decimal(12, 2)
+  balanceAfter Decimal @map("balance_after") @db.Decimal(12, 2)
+
+  description    String? @db.Text
+  reference      String?
+  referenceId    String? @map("reference_id") @db.Uuid
+  idempotencyKey String? @unique @map("idempotency_key")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId, createdAt])
+  @@index([type])
+  @@index([reference, referenceId])
+  @@map("wallet_transactions")
+}
+
+model WalletWithdrawal {
+  id       String           @id @default(uuid()) @db.Uuid
+  walletId String           @map("wallet_id") @db.Uuid
+  amount   Decimal          @db.Decimal(12, 2)
+  status   WithdrawalStatus @default(PENDING)
+
+  bankName      String? @map("bank_name")
+  accountNumber String? @map("account_number")
+  accountHolder String? @map("account_holder")
+  paymentRef    String? @map("payment_ref")
+  note          String? @db.Text
+
+  approvedBy  String?   @map("approved_by") @db.Uuid
+  approvedAt  DateTime? @map("approved_at")
+  processedAt DateTime? @map("processed_at")
+  completedAt DateTime? @map("completed_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId, status])
+  @@index([status])
+  @@map("wallet_withdrawals")
+}
+
+model SettlementBatch {
+  id          String   @id @default(uuid()) @db.Uuid
+  periodStart DateTime @map("period_start")
+  periodEnd   DateTime @map("period_end")
+
+  totalOrders Int     @default(0) @map("total_orders")
+  totalAmount Decimal @default(0) @map("total_amount") @db.Decimal(12, 2)
+  totalFees   Decimal @default(0) @map("total_fees") @db.Decimal(12, 2)
+  totalPayout Decimal @default(0) @map("total_payout") @db.Decimal(12, 2)
+
+  processedAt DateTime? @map("processed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  items SettlementItem[]
+
+  @@index([periodStart, periodEnd])
+  @@map("settlement_batches")
+}
+
+model SettlementItem {
+  id            String @id @default(uuid()) @db.Uuid
+  batchId       String @map("batch_id") @db.Uuid
+  shopId        String @map("shop_id") @db.Uuid
+  sellerOrderId String @map("seller_order_id") @db.Uuid
+
+  orderAmount  Decimal @map("order_amount") @db.Decimal(12, 2)
+  platformFee  Decimal @map("platform_fee") @db.Decimal(12, 2)
+  payoutAmount Decimal @map("payout_amount") @db.Decimal(12, 2)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  batch SettlementBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+
+  @@index([batchId])
+  @@index([shopId])
+  @@map("settlement_items")
+}
+
+// ─── 10. Advanced Search ──────────────────────────────────────
+
+model SearchSynonym {
+  id       String   @id @default(uuid()) @db.Uuid
+  term     String
+  synonyms String[]
+  isActive Boolean  @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([term])
+  @@map("search_synonyms")
+}
+
+model SearchBoostRule {
+  id       String  @id @default(uuid()) @db.Uuid
+  name     String
+  field    String
+  value    String
+  boost    Float   @default(1.0)
+  isActive Boolean @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("search_boost_rules")
+}
+
+model SearchAnalytics {
+  id               String  @id @default(uuid()) @db.Uuid
+  query            String
+  userId           String? @map("user_id") @db.Uuid
+  resultCount      Int     @map("result_count")
+  clickedProductId String? @map("clicked_product_id") @db.Uuid
+  clickPosition    Int?    @map("click_position")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([query])
+  @@index([createdAt])
+  @@map("search_analytics")
+}
+
+// ─── 11. Workflow Automation Engine ───────────────────────────
+
+model AutomationRule {
+  id     String           @id @default(uuid()) @db.Uuid
+  shopId String           @map("shop_id") @db.Uuid
+  name   String
+  status AutomationStatus @default(DRAFT)
+
+  trigger    AutomationTrigger
+  conditions Json?
+  actions    Json
+
+  priority       Int  @default(0)
+  maxExecutions  Int? @map("max_executions")
+  executionCount Int  @default(0) @map("execution_count")
+
+  lastExecutedAt DateTime? @map("last_executed_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  executions AutomationExecution[]
+
+  @@index([shopId, status])
+  @@index([trigger, status])
+  @@map("automation_rules")
+}
+
+model AutomationExecution {
+  id      String  @id @default(uuid()) @db.Uuid
+  ruleId  String  @map("rule_id") @db.Uuid
+  success Boolean
+  error   String? @db.Text
+
+  triggerData   Json? @map("trigger_data")
+  actionResults Json? @map("action_results")
+
+  executedAt DateTime @default(now()) @map("executed_at")
+
+  rule AutomationRule @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  @@index([ruleId, executedAt])
+  @@index([executedAt])
+  @@map("automation_executions")
+}
+
+// ─── 12. Multi-region & Internationalization ──────────────────
+
+model Region {
+  id       String  @id @default(uuid()) @db.Uuid
+  code     String  @unique
+  name     String
+  isActive Boolean @default(true) @map("is_active")
+
+  defaultCurrencyId String? @map("default_currency_id") @db.Uuid
+  defaultLocale     String  @default("en") @map("default_locale")
+  timezone          String  @default("UTC")
+
+  shippingZones Json? @map("shipping_zones")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  taxRates         TaxRate[]
+  regionalPricings RegionalPricing[]
+
+  @@map("regions")
+}
+
+model Currency {
+  id           String  @id @default(uuid()) @db.Uuid
+  code         String  @unique
+  name         String
+  symbol       String
+  exchangeRate Decimal @default(1) @map("exchange_rate") @db.Decimal(18, 8)
+  isActive     Boolean @default(true) @map("is_active")
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("currencies")
+}
+
+model Translation {
+  id         String @id @default(uuid()) @db.Uuid
+  entityType String @map("entity_type")
+  entityId   String @map("entity_id") @db.Uuid
+  locale     String
+  field      String
+  value      String @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([entityType, entityId, locale, field])
+  @@index([entityType, entityId])
+  @@map("translations")
+}
+
+model RegionalPricing {
+  id           String  @id @default(uuid()) @db.Uuid
+  productId    String  @map("product_id") @db.Uuid
+  regionId     String  @map("region_id") @db.Uuid
+  price        Decimal @db.Decimal(12, 2)
+  currencyCode String  @map("currency_code")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  region Region @relation(fields: [regionId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, regionId])
+  @@map("regional_pricings")
+}
+
+model TaxRate {
+  id       String  @id @default(uuid()) @db.Uuid
+  regionId String  @map("region_id") @db.Uuid
+  name     String
+  rate     Decimal @db.Decimal(5, 4)
+  category String?
+  isActive Boolean @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  region Region @relation(fields: [regionId], references: [id], onDelete: Cascade)
+
+  @@index([regionId])
+  @@map("tax_rates")
+}
+
+// ─── 13. Event Streaming & Data Platform ──────────────────────
+
+model PlatformEvent {
+  id     String              @id @default(uuid()) @db.Uuid
+  type   String
+  source String
+  status PlatformEventStatus @default(PENDING)
+
+  payload  Json
+  metadata Json?
+
+  entityType String? @map("entity_type")
+  entityId   String? @map("entity_id") @db.Uuid
+
+  processedAt DateTime? @map("processed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  @@index([type, createdAt])
+  @@index([entityType, entityId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("platform_events")
+}
+
+model EventSubscription {
+  id        String  @id @default(uuid()) @db.Uuid
+  eventType String  @map("event_type")
+  endpoint  String
+  secret    String?
+  isActive  Boolean @default(true) @map("is_active")
+
+  lastDeliveredAt DateTime? @map("last_delivered_at")
+  failureCount    Int       @default(0) @map("failure_count")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([eventType, isActive])
+  @@map("event_subscriptions")
+}
+
+// ─── 14. Marketplace Growth Tools ─────────────────────────────
+
+model Referral {
+  id         String         @id @default(uuid()) @db.Uuid
+  referrerId String         @map("referrer_id") @db.Uuid
+  refereeId  String?        @map("referee_id") @db.Uuid
+  code       String         @unique
+  status     ReferralStatus @default(PENDING)
+
+  rewardAmount Decimal? @map("reward_amount") @db.Decimal(12, 2)
+  rewardType   String?  @map("reward_type")
+
+  convertedAt DateTime? @map("converted_at")
+  rewardedAt  DateTime? @map("rewarded_at")
+  expiresAt   DateTime? @map("expires_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  @@index([referrerId])
+  @@index([code])
+  @@index([status])
+  @@map("referrals")
+}
+
+model FeatureFlag {
+  id          String  @id @default(uuid()) @db.Uuid
+  key         String  @unique
+  name        String
+  description String? @db.Text
+  isEnabled   Boolean @default(false) @map("is_enabled")
+
+  targetRules       Json? @map("target_rules")
+  rolloutPercentage Int   @default(0) @map("rollout_percentage")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("feature_flags")
+}
+
+model Experiment {
+  id          String           @id @default(uuid()) @db.Uuid
+  name        String
+  description String?          @db.Text
+  status      ExperimentStatus @default(DRAFT)
+
+  targetAudience Json? @map("target_audience")
+  trafficPercent Int   @default(100) @map("traffic_percent")
+
+  startsAt DateTime? @map("starts_at")
+  endsAt   DateTime? @map("ends_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  variants ExperimentVariant[]
+
+  @@map("experiments")
+}
+
+model ExperimentVariant {
+  id           String @id @default(uuid()) @db.Uuid
+  experimentId String @map("experiment_id") @db.Uuid
+  name         String
+  weight       Int    @default(50)
+  config       Json?
+
+  impressions Int @default(0)
+  conversions Int @default(0)
+
+  experiment Experiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+
+  @@index([experimentId])
+  @@map("experiment_variants")
+}
+
+model GrowthCampaign {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String
+  description String? @db.Text
+  type        String
+
+  config   Json
+  isActive Boolean @default(false) @map("is_active")
+
+  startsAt DateTime? @map("starts_at")
+  endsAt   DateTime? @map("ends_at")
+
+  impressions Int @default(0)
+  clicks      Int @default(0)
+  conversions Int @default(0)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([type, isActive])
+  @@map("growth_campaigns")
+}
+
+model UserSegment {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String
+  description String? @db.Text
+  rules       Json
+  userCount   Int     @default(0) @map("user_count")
+
+  lastComputedAt DateTime? @map("last_computed_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  @@map("user_segments")
 }
 
 // ─── Admin Panel ────────────────────────────────────────────────
@@ -1082,8 +2380,8 @@ model Admin {
   updatedAt    DateTime    @updatedAt @map("updated_at")
   deletedAt    DateTime?   @map("deleted_at")
 
-  adminRoles    AdminRoleAssignment[]
-  adminSessions AdminSession[]
+  adminRoles     AdminRoleAssignment[]
+  adminSessions  AdminSession[]
   adminAuditLogs AdminAuditLog[]
 
   @@index([email])
@@ -1217,16 +2515,16 @@ model Seller {
 }
 
 model SellerVerification {
-  id             String                   @id @default(uuid()) @db.Uuid
-  sellerId       String                   @map("seller_id") @db.Uuid
-  documentType   String                   @map("document_type")
-  documentUrl    String                   @map("document_url")
-  status         SellerVerificationStatus @default(PENDING)
-  adminNote      String?                  @map("admin_note")
-  reviewedBy     String?                  @map("reviewed_by") @db.Uuid
-  reviewedAt     DateTime?                @map("reviewed_at")
-  createdAt      DateTime                 @default(now()) @map("created_at")
-  updatedAt      DateTime                 @updatedAt @map("updated_at")
+  id           String                   @id @default(uuid()) @db.Uuid
+  sellerId     String                   @map("seller_id") @db.Uuid
+  documentType String                   @map("document_type")
+  documentUrl  String                   @map("document_url")
+  status       SellerVerificationStatus @default(PENDING)
+  adminNote    String?                  @map("admin_note")
+  reviewedBy   String?                  @map("reviewed_by") @db.Uuid
+  reviewedAt   DateTime?                @map("reviewed_at")
+  createdAt    DateTime                 @default(now()) @map("created_at")
+  updatedAt    DateTime                 @updatedAt @map("updated_at")
 
   seller Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
 
@@ -1316,17 +2614,17 @@ enum ProductReportStatus {
 }
 
 model ProductReport {
-  id        String              @id @default(uuid()) @db.Uuid
-  productId String              @map("product_id") @db.Uuid
-  reporterId String             @map("reporter_id") @db.Uuid
-  reason    ProductReportReason
-  status    ProductReportStatus @default(OPEN)
-  details   String?             @db.Text
-  adminNote String?             @map("admin_note") @db.Text
-  resolvedBy String?            @map("resolved_by") @db.Uuid
-  resolvedAt DateTime?          @map("resolved_at")
-  createdAt DateTime            @default(now()) @map("created_at")
-  updatedAt DateTime            @updatedAt @map("updated_at")
+  id         String              @id @default(uuid()) @db.Uuid
+  productId  String              @map("product_id") @db.Uuid
+  reporterId String              @map("reporter_id") @db.Uuid
+  reason     ProductReportReason
+  status     ProductReportStatus @default(OPEN)
+  details    String?             @db.Text
+  adminNote  String?             @map("admin_note") @db.Text
+  resolvedBy String?             @map("resolved_by") @db.Uuid
+  resolvedAt DateTime?           @map("resolved_at")
+  createdAt  DateTime            @default(now()) @map("created_at")
+  updatedAt  DateTime            @updatedAt @map("updated_at")
 
   @@index([productId])
   @@index([status])
@@ -1337,9 +2635,9 @@ model ProductReport {
 // ─── Phase 2: Attribute System ─────────────────────────────────
 
 model AttributeGroup {
-  id        String  @id @default(uuid()) @db.Uuid
-  name      String  @unique
-  sortOrder Int     @default(0) @map("sort_order")
+  id        String @id @default(uuid()) @db.Uuid
+  name      String @unique
+  sortOrder Int    @default(0) @map("sort_order")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -1350,10 +2648,10 @@ model AttributeGroup {
 }
 
 model AttributeValue {
-  id       String @id @default(uuid()) @db.Uuid
-  groupId  String @map("group_id") @db.Uuid
-  value    String
-  sortOrder Int   @default(0) @map("sort_order")
+  id        String @id @default(uuid()) @db.Uuid
+  groupId   String @map("group_id") @db.Uuid
+  value     String
+  sortOrder Int    @default(0) @map("sort_order")
 
   group AttributeGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
 
@@ -1362,9 +2660,9 @@ model AttributeValue {
 }
 
 model CategoryAttribute {
-  categoryId String @map("category_id") @db.Uuid
-  groupId    String @map("group_id") @db.Uuid
-  isRequired Boolean @default(false) @map("is_required")
+  categoryId   String  @map("category_id") @db.Uuid
+  groupId      String  @map("group_id") @db.Uuid
+  isRequired   Boolean @default(false) @map("is_required")
   isFilterable Boolean @default(true) @map("is_filterable")
 
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
@@ -1392,19 +2690,19 @@ enum BannerStatus {
 }
 
 model Banner {
-  id          String         @id @default(uuid()) @db.Uuid
-  title       String
-  position    BannerPosition
-  status      BannerStatus   @default(DRAFT)
-  imageUrl    String         @map("image_url")
-  mobileImageUrl String?    @map("mobile_image_url")
-  linkUrl     String?        @map("link_url")
-  sortOrder   Int            @default(0) @map("sort_order")
-  startsAt    DateTime?      @map("starts_at")
-  endsAt      DateTime?      @map("ends_at")
-  createdBy   String?        @map("created_by") @db.Uuid
-  createdAt   DateTime       @default(now()) @map("created_at")
-  updatedAt   DateTime       @updatedAt @map("updated_at")
+  id             String         @id @default(uuid()) @db.Uuid
+  title          String
+  position       BannerPosition
+  status         BannerStatus   @default(DRAFT)
+  imageUrl       String         @map("image_url")
+  mobileImageUrl String?        @map("mobile_image_url")
+  linkUrl        String?        @map("link_url")
+  sortOrder      Int            @default(0) @map("sort_order")
+  startsAt       DateTime?      @map("starts_at")
+  endsAt         DateTime?      @map("ends_at")
+  createdBy      String?        @map("created_by") @db.Uuid
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
 
   @@index([position, status])
   @@index([startsAt, endsAt])
@@ -1426,13 +2724,13 @@ enum AdminNotificationStatus {
 }
 
 model NotificationTemplate {
-  id        String @id @default(uuid()) @db.Uuid
-  name      String @unique
+  id        String              @id @default(uuid()) @db.Uuid
+  name      String              @unique
   subject   String
-  body      String @db.Text
+  body      String              @db.Text
   channel   NotificationChannel @default(IN_APP)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime            @default(now()) @map("created_at")
+  updatedAt DateTime            @updatedAt @map("updated_at")
 
   @@map("notification_templates")
 }
@@ -1482,15 +2780,15 @@ model PlatformVoucher {
   maxDiscountAmount Decimal? @map("max_discount_amount") @db.Decimal(12, 2)
   minOrderAmount    Decimal? @map("min_order_amount") @db.Decimal(12, 2)
 
-  usageLimit        Int?     @map("usage_limit")
-  usageLimitPerUser Int?     @map("usage_limit_per_user")
-  usedCount         Int      @default(0) @map("used_count")
+  usageLimit        Int? @map("usage_limit")
+  usageLimitPerUser Int? @map("usage_limit_per_user")
+  usedCount         Int  @default(0) @map("used_count")
 
-  startsAt  DateTime  @map("starts_at")
-  expiresAt DateTime  @map("expires_at")
-  createdBy String?   @map("created_by") @db.Uuid
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
+  startsAt  DateTime @map("starts_at")
+  expiresAt DateTime @map("expires_at")
+  createdBy String?  @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@index([status])
   @@index([startsAt, expiresAt])

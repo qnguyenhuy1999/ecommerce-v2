@@ -102,10 +102,7 @@ export class SearchService {
         : {}),
       ...(q
         ? {
-            OR: [
-              { orderNumber: { contains: q, mode: 'insensitive' } },
-              { items: { some: { productName: { contains: q, mode: 'insensitive' } } } },
-            ],
+            items: { some: { productName: { contains: q, mode: 'insensitive' } } },
           }
         : {}),
     }

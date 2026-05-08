@@ -39,7 +39,7 @@ export class MetricsService {
       select: { sellerUnread: true },
     })
     const totalConversations = conversations.length
-    const respondedConversations = conversations.filter((c) => c.sellerUnread === 0).length
+    const respondedConversations = conversations.filter((c: { sellerUnread: number }) => c.sellerUnread === 0).length
     const responseRate = totalConversations > 0 ? (respondedConversations / totalConversations) * 100 : 100
 
     const sellerScore = Math.max(

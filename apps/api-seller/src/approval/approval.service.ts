@@ -1,32 +1,29 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { ApprovalQueryDto } from './dto/approval-query.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class ApprovalService {
   async list(shopId: string, query: ApprovalQueryDto) {
-    const { page = 1, limit = 20, sort = 'createdAt', order = 'desc', status } = query
+    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', status } = query
 
     const where: Prisma.ProductApprovalWhereInput = {
       shopId,
       ...(status ? { status: status as Prisma.ProductApprovalWhereInput['status'] } : {}),
     }
 
-    const [approvals, total] = await Promise.all([
-      prisma.productApproval.findMany({
-        where,
-        include: {
-          history: { orderBy: { createdAt: 'desc' }, take: 3 },
-        },
-        orderBy: { [sort]: order },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.productApproval.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.productApproval, {
+      page,
+      pageSize,
+      where,
+      include: {
+        history: { orderBy: { createdAt: 'desc' }, take: 3 },
+      },
+      orderBy: { [sort]: order },
+    })
 
-    return { data: approvals, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getById(shopId: string, approvalId: string) {

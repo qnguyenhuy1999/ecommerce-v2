@@ -9,7 +9,7 @@ import {
   CreateFeatureFlagDto,
   CreateCampaignDto,
 } from './dto/growth.dto'
-import { PaginationDto } from '../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
 @Controller('growth')
 @UseGuards(AuthGuard)
@@ -17,7 +17,7 @@ export class GrowthController {
   constructor(private readonly growthService: GrowthService) {}
 
   @Get('referrals')
-  async listReferralPrograms(@Query() query: PaginationDto) {
+  async listReferralPrograms(@Query() query: OffsetPaginationDto) {
     return this.growthService.listReferralPrograms(query)
   }
 
@@ -32,7 +32,7 @@ export class GrowthController {
   }
 
   @Get('experiments')
-  async listExperiments(@Query() query: PaginationDto) {
+  async listExperiments(@Query() query: OffsetPaginationDto) {
     return this.growthService.listExperiments(query)
   }
 
@@ -68,7 +68,7 @@ export class GrowthController {
   }
 
   @Get('campaigns')
-  async listCampaigns(@Query() query: PaginationDto) {
+  async listCampaigns(@Query() query: OffsetPaginationDto) {
     return this.growthService.listCampaigns(query)
   }
 

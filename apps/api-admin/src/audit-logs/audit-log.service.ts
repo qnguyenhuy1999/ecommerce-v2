@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { prisma, type AuditActionType } from '@ecom/database';
-import { buildPaginationMeta } from '@ecom/common';
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 interface LogParams {
   adminId: string;
@@ -40,29 +40,22 @@ export class AuditLogService {
     action?: AuditActionType;
     adminId?: string;
   }) {
-    const page = query.page ?? 1;
-    const pageSize = Math.min(query.pageSize ?? 20, 100);
-    const skip = (page - 1) * pageSize;
-
     const where: Record<string, unknown> = {};
     if (query.action) where.action = query.action;
     if (query.adminId) where.adminId = query.adminId;
 
-    const [items, total] = await Promise.all([
-      prisma.adminAuditLog.findMany({
-        where,
-        include: {
-          admin: {
-            select: { id: true, email: true, firstName: true, lastName: true },
-          },
+    const { items, total } = await offsetPaginate(prisma.adminAuditLog, {
+      page: query.page,
+      pageSize: query.pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+      include: {
+        admin: {
+          select: { id: true, email: true, firstName: true, lastName: true },
         },
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take: pageSize,
-      }),
-      prisma.adminAuditLog.count({ where }),
-    ]);
+      },
+    });
 
-    return { items, meta: buildPaginationMeta(page, pageSize, total) };
+    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
   }
 }

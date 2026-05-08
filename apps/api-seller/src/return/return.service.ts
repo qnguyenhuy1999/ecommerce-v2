@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { ReturnQueryDto } from './dto/return-query.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 const VALID_TRANSITIONS: Record<string, string[]> = {
   REQUESTED: ['REVIEWING', 'REJECTED'],
@@ -17,7 +17,7 @@ const VALID_TRANSITIONS: Record<string, string[]> = {
 @Injectable()
 export class ReturnService {
   async list(shopId: string, query: ReturnQueryDto) {
-    const { page = 1, limit = 20, sort = 'createdAt', order = 'desc', search, status } = query
+    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, status } = query
 
     const where: Prisma.ReturnRequestWhereInput = {
       shopId,
@@ -25,21 +25,18 @@ export class ReturnService {
       ...(search ? { description: { contains: search, mode: 'insensitive' } } : {}),
     }
 
-    const [returns, total] = await Promise.all([
-      prisma.returnRequest.findMany({
-        where,
-        include: {
-          items: true,
-          _count: { select: { evidence: true, timeline: true } },
-        },
-        orderBy: { [sort]: order },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.returnRequest.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.returnRequest, {
+      page,
+      pageSize,
+      where,
+      include: {
+        items: true,
+        _count: { select: { evidence: true, timeline: true } },
+      },
+      orderBy: { [sort]: order },
+    })
 
-    return { data: returns, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getById(shopId: string, returnId: string) {

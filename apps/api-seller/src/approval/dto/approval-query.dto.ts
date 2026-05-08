@@ -1,7 +1,7 @@
 import { IsOptional, IsString, IsEnum } from 'class-validator'
-import { PaginationDto } from '../../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
-export class ApprovalQueryDto extends PaginationDto {
+export class ApprovalQueryDto extends OffsetPaginationDto {
   @IsOptional()
   @IsString()
   search?: string

@@ -4,7 +4,7 @@ import { AuthGuard } from '../auth/guards/auth.guard'
 import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { AffiliateService } from './affiliate.service'
 import { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
-import { PaginationDto } from '../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
 @Controller('affiliates')
 @UseGuards(AuthGuard)
@@ -31,7 +31,7 @@ export class AffiliateController {
   }
 
   @Get('links')
-  async listLinks(@CurrentUser() user: SessionData, @Query() query: PaginationDto) {
+  async listLinks(@CurrentUser() user: SessionData, @Query() query: OffsetPaginationDto) {
     const partner = await this.affiliateService.getPartnerByUserId(user.userId)
     if (!partner) return { data: [], meta: { page: 1, limit: 20, total: 0, totalPages: 0 } }
     return this.affiliateService.listLinks(partner.id, query)

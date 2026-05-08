@@ -5,7 +5,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ShopService } from '../shop/shop.service'
 import { AutomationService } from './automation.service'
 import { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
-import { PaginationDto } from '../common/dto/pagination.dto'
+import { AutomationQueryDto } from './dto/automation-query.dto'
 
 @Controller('automations')
 @UseGuards(AuthGuard)
@@ -16,7 +16,7 @@ export class AutomationController {
   ) {}
 
   @Get()
-  async listRules(@CurrentUser() user: SessionData, @Query() query: PaginationDto) {
+  async listRules(@CurrentUser() user: SessionData, @Query() query: AutomationQueryDto) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.automationService.listRules(shopId, query)
   }

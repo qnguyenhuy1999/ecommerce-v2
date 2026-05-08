@@ -3,12 +3,12 @@ import { prisma, Prisma } from '@ecom/database'
 import { CreateCouponDto } from './dto/create-coupon.dto'
 import { UpdateCouponDto } from './dto/update-coupon.dto'
 import { CouponQueryDto } from './dto/coupon-query.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class CouponService {
   async list(shopId: string, query: CouponQueryDto) {
-    const { page = 1, limit = 20, sort = 'createdAt', order = 'desc', search, status, type } = query
+    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, status, type } = query
 
     const where: Prisma.CouponWhereInput = {
       shopId,
@@ -19,20 +19,17 @@ export class CouponService {
         : {}),
     }
 
-    const [coupons, total] = await Promise.all([
-      prisma.coupon.findMany({
-        where,
-        include: {
-          _count: { select: { couponUsages: true } },
-        },
-        orderBy: { [sort]: order },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.coupon.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.coupon, {
+      page,
+      pageSize,
+      where,
+      include: {
+        _count: { select: { couponUsages: true } },
+      },
+      orderBy: { [sort]: order },
+    })
 
-    return { data: coupons, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getById(shopId: string, couponId: string) {

@@ -1,10 +1,10 @@
 import { IsOptional, IsString } from 'class-validator'
-import { PaginationDto } from '../../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
-export class ConversationQueryDto extends PaginationDto {
+export class ConversationQueryDto extends OffsetPaginationDto {
   @IsOptional()
   @IsString()
   search?: string
 }
 
-export class MessageQueryDto extends PaginationDto {}
+export class MessageQueryDto extends OffsetPaginationDto {}

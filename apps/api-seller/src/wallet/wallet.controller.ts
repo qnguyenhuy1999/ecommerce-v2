@@ -5,7 +5,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ShopService } from '../shop/shop.service'
 import { WalletService } from './wallet.service'
 import { RequestWithdrawalDto } from './dto/wallet.dto'
-import { PaginationDto } from '../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
 @Controller('wallet')
 @UseGuards(AuthGuard)
@@ -22,7 +22,7 @@ export class WalletController {
   }
 
   @Get('transactions')
-  async listTransactions(@CurrentUser() user: SessionData, @Query() query: PaginationDto) {
+  async listTransactions(@CurrentUser() user: SessionData, @Query() query: OffsetPaginationDto) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.walletService.listTransactions(shopId, query)
   }
@@ -34,7 +34,7 @@ export class WalletController {
   }
 
   @Get('withdrawals')
-  async listWithdrawals(@CurrentUser() user: SessionData, @Query() query: PaginationDto) {
+  async listWithdrawals(@CurrentUser() user: SessionData, @Query() query: OffsetPaginationDto) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.walletService.listWithdrawals(shopId, query)
   }

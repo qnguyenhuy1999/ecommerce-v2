@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { CreateLoyaltyTierDto, CreateMissionDto, RedeemPointsDto } from './dto/loyalty.dto'
-import { buildPaginationMeta, PaginationDto } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 
 @Injectable()
 export class LoyaltyService {
@@ -135,8 +135,8 @@ export class LoyaltyService {
     return this.earnPoints(userId, 10, 'EARN', undefined, 'Day 1 check-in')
   }
 
-  async listMissions(query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listMissions(query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
     const now = new Date()
 
     const where: Prisma.LoyaltyMissionWhereInput = {
@@ -144,17 +144,14 @@ export class LoyaltyService {
       OR: [{ endsAt: null }, { endsAt: { gt: now } }],
     }
 
-    const [missions, total] = await Promise.all([
-      prisma.loyaltyMission.findMany({
-        where,
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.loyaltyMission.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.loyaltyMission, {
+      page,
+      pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: missions, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async createMission(dto: CreateMissionDto) {
@@ -171,25 +168,22 @@ export class LoyaltyService {
     })
   }
 
-  async getTransactionHistory(userId: string, query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async getTransactionHistory(userId: string, query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
     const account = await prisma.loyaltyAccount.findUnique({ where: { userId } })
-    if (!account) return { data: [], meta: buildPaginationMeta(1, limit, 0) }
+    if (!account) return buildOffsetResponse([], 1, pageSize, 0)
 
     const where: Prisma.LoyaltyTransactionWhereInput = { accountId: account.id }
 
-    const [transactions, total] = await Promise.all([
-      prisma.loyaltyTransaction.findMany({
-        where,
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.loyaltyTransaction.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.loyaltyTransaction, {
+      page,
+      pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: transactions, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   private async checkTierUpgrade(tx: Prisma.TransactionClient, accountId: string) {

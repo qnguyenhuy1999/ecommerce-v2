@@ -3,12 +3,12 @@ import { prisma, Prisma } from '@ecom/database'
 import { CreateProductDto } from './dto/create-product.dto'
 import { UpdateProductDto } from './dto/update-product.dto'
 import { ProductQueryDto } from './dto/product-query.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class ProductService {
   async list(shopId: string, query: ProductQueryDto) {
-    const { page = 1, limit = 20, sort = 'createdAt', order = 'desc', search, status, categoryId } = query
+    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, status, categoryId } = query
 
     const where: Prisma.ProductWhereInput = {
       shopId,
@@ -20,22 +20,19 @@ export class ProductService {
         : {}),
     }
 
-    const [products, total] = await Promise.all([
-      prisma.product.findMany({
-        where,
-        include: {
-          images: { orderBy: { sortOrder: 'asc' }, take: 1 },
-          category: { select: { id: true, name: true } },
-          _count: { select: { variants: true } },
-        },
-        orderBy: { [sort]: order },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.product.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.product, {
+      page,
+      pageSize,
+      where,
+      include: {
+        images: { orderBy: { sortOrder: 'asc' }, take: 1 },
+        category: { select: { id: true, name: true } },
+        _count: { select: { variants: true } },
+      },
+      orderBy: { [sort]: order },
+    })
 
-    return { data: products, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getById(shopId: string, productId: string) {

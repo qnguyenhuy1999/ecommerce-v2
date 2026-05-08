@@ -1,29 +1,26 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class ChatService {
   async listConversations(shopId: string, query: ConversationQueryDto) {
-    const { page = 1, limit = 20, search } = query
+    const { page = 1, pageSize = 20, search } = query
 
     const where: Prisma.ConversationWhereInput = {
       shopId,
       ...(search ? { lastMessageText: { contains: search, mode: 'insensitive' } } : {}),
     }
 
-    const [conversations, total] = await Promise.all([
-      prisma.conversation.findMany({
-        where,
-        orderBy: { lastMessageAt: { sort: 'desc', nulls: 'last' } },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.conversation.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.conversation, {
+      page,
+      pageSize,
+      where,
+      orderBy: { lastMessageAt: { sort: 'desc', nulls: 'last' } },
+    })
 
-    return { data: conversations, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getConversation(shopId: string, conversationId: string) {
@@ -39,7 +36,7 @@ export class ChatService {
   }
 
   async getMessages(shopId: string, conversationId: string, query: MessageQueryDto) {
-    const { page = 1, limit = 50 } = query
+    const { page = 1, pageSize = 50 } = query
 
     const conversation = await prisma.conversation.findFirst({
       where: { id: conversationId, shopId },
@@ -49,17 +46,14 @@ export class ChatService {
       throw new NotFoundException('Conversation not found')
     }
 
-    const [messages, total] = await Promise.all([
-      prisma.chatMessage.findMany({
-        where: { conversationId },
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.chatMessage.count({ where: { conversationId } }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.chatMessage, {
+      page,
+      pageSize,
+      where: { conversationId },
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: messages.reverse(), meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items.reverse(), page, pageSize, total)
   }
 
   async sendMessage(shopId: string, conversationId: string, senderId: string, content: string, type: 'TEXT' | 'IMAGE' | 'PRODUCT' = 'TEXT', metadata?: Record<string, unknown>) {

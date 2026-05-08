@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class AdvancedSearchService {
@@ -44,23 +44,20 @@ export class AdvancedSearchService {
             ? { createdAt: 'desc' }
             : { createdAt: 'desc' }
 
-    const [products, total] = await Promise.all([
-      prisma.product.findMany({
-        where,
-        orderBy,
-        skip: (page - 1) * limit,
-        take: limit,
-        include: {
-          shop: { select: { id: true, name: true } },
-          category: { select: { id: true, name: true } },
-        },
-      }),
-      prisma.product.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.product, {
+      page,
+      pageSize: limit,
+      where,
+      orderBy,
+      include: {
+        shop: { select: { id: true, name: true } },
+        category: { select: { id: true, name: true } },
+      },
+    })
 
     await this.logSearchQuery(query, total)
 
-    return { data: products, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getSuggestions(dto: SearchSuggestionsDto) {

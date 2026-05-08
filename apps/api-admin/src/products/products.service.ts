@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { prisma, type ProductStatus, type ProductReportStatus } from '@ecom/database';
-import { buildPaginationMeta } from '@ecom/common';
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 @Injectable()
 export class ProductsService {
@@ -12,10 +12,6 @@ export class ProductsService {
     shopId?: string;
     categoryId?: string;
   }) {
-    const page = query.page ?? 1;
-    const pageSize = Math.min(query.pageSize ?? 20, 100);
-    const skip = (page - 1) * pageSize;
-
     const where: Record<string, unknown> = { deletedAt: null };
     if (query.status) where.status = query.status;
     if (query.shopId) where.shopId = query.shopId;
@@ -27,23 +23,20 @@ export class ProductsService {
       ];
     }
 
-    const [items, total] = await Promise.all([
-      prisma.product.findMany({
-        where,
-        include: {
-          shop: { select: { id: true, name: true } },
-          category: { select: { id: true, name: true } },
-          images: { where: { isCover: true }, take: 1 },
-          _count: { select: { variants: true } },
-        },
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take: pageSize,
-      }),
-      prisma.product.count({ where }),
-    ]);
+    const { items, total } = await offsetPaginate(prisma.product, {
+      page: query.page,
+      pageSize: query.pageSize,
+      where,
+      include: {
+        shop: { select: { id: true, name: true } },
+        category: { select: { id: true, name: true } },
+        images: { where: { isCover: true }, take: 1 },
+        _count: { select: { variants: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
 
-    return { items, meta: buildPaginationMeta(page, pageSize, total) };
+    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
   }
 
   async findById(id: string) {
@@ -145,24 +138,17 @@ export class ProductsService {
     pageSize?: number;
     status?: ProductReportStatus;
   }) {
-    const page = query.page ?? 1;
-    const pageSize = Math.min(query.pageSize ?? 20, 100);
-    const skip = (page - 1) * pageSize;
-
     const where: Record<string, unknown> = {};
     if (query.status) where.status = query.status;
 
-    const [items, total] = await Promise.all([
-      prisma.productReport.findMany({
-        where,
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take: pageSize,
-      }),
-      prisma.productReport.count({ where }),
-    ]);
+    const { items, total } = await offsetPaginate(prisma.productReport, {
+      page: query.page,
+      pageSize: query.pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+    });
 
-    return { items, meta: buildPaginationMeta(page, pageSize, total) };
+    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
   }
 
   async resolveReport(id: string, adminId: string, adminNote?: string) {

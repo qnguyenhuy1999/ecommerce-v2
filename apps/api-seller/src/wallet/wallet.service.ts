@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { RequestWithdrawalDto } from './dto/wallet.dto'
-import { buildPaginationMeta, PaginationDto } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 import { randomUUID } from 'crypto'
 
 @Injectable()
@@ -138,49 +138,43 @@ export class WalletService {
     })
   }
 
-  async listTransactions(shopId: string, query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listTransactions(shopId: string, query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
     const wallet = await prisma.wallet.findUnique({
       where: { ownerId_ownerType: { ownerId: shopId, ownerType: 'SHOP' } },
     })
-    if (!wallet) return { data: [], meta: buildPaginationMeta(1, limit, 0) }
+    if (!wallet) return buildOffsetResponse([], 1, pageSize, 0)
 
     const where: Prisma.WalletTransactionWhereInput = { walletId: wallet.id }
 
-    const [transactions, total] = await Promise.all([
-      prisma.walletTransaction.findMany({
-        where,
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.walletTransaction.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.walletTransaction, {
+      page,
+      pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: transactions, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
-  async listWithdrawals(shopId: string, query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listWithdrawals(shopId: string, query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
     const wallet = await prisma.wallet.findUnique({
       where: { ownerId_ownerType: { ownerId: shopId, ownerType: 'SHOP' } },
     })
-    if (!wallet) return { data: [], meta: buildPaginationMeta(1, limit, 0) }
+    if (!wallet) return buildOffsetResponse([], 1, pageSize, 0)
 
     const where: Prisma.WalletWithdrawalWhereInput = { walletId: wallet.id }
 
-    const [withdrawals, total] = await Promise.all([
-      prisma.walletWithdrawal.findMany({
-        where,
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.walletWithdrawal.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.walletWithdrawal, {
+      page,
+      pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: withdrawals, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 }

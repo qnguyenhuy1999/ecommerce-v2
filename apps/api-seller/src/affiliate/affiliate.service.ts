@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
-import { buildPaginationMeta, PaginationDto } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 import { randomBytes } from 'crypto'
 
 @Injectable()
@@ -10,19 +10,16 @@ export class AffiliateService {
     return prisma.affiliatePartner.findUnique({ where: { userId } })
   }
 
-  async listPartners(query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listPartners(query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
-    const [partners, total] = await Promise.all([
-      prisma.affiliatePartner.findMany({
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.affiliatePartner.count(),
-    ])
+    const { items, total } = await offsetPaginate(prisma.affiliatePartner, {
+      page,
+      pageSize,
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: partners, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async updatePartnerStatus(partnerId: string, status: string) {
@@ -49,22 +46,19 @@ export class AffiliateService {
     })
   }
 
-  async listLinks(partnerId: string, query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listLinks(partnerId: string, query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
     const where: Prisma.AffiliateLinkWhereInput = { partnerId }
 
-    const [links, total] = await Promise.all([
-      prisma.affiliateLink.findMany({
-        where,
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.affiliateLink.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.affiliateLink, {
+      page,
+      pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: links, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async trackClick(

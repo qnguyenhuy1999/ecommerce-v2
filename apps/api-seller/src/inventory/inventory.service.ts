@@ -1,14 +1,14 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { InventoryQueryDto } from './dto/inventory-query.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 const LOW_STOCK_THRESHOLD = 10
 
 @Injectable()
 export class InventoryService {
   async list(shopId: string, query: InventoryQueryDto) {
-    const { page = 1, limit = 20, search, lowStock } = query
+    const { page = 1, pageSize = 20, search, lowStock } = query
 
     const where: Prisma.ProductVariantWhereInput = {
       product: { shopId, deletedAt: null },
@@ -23,21 +23,21 @@ export class InventoryService {
       ...(lowStock ? { stock: { lte: LOW_STOCK_THRESHOLD } } : {}),
     }
 
-    const [variants, total] = await Promise.all([
-      prisma.productVariant.findMany({
+    const { items: variants, total } = await offsetPaginate(
+      prisma.productVariant,
+      {
+        page,
+        pageSize,
         where,
         include: {
           product: { select: { id: true, name: true, shopId: true } },
           optionValues: { include: { option: { include: { group: true } } } },
         },
         orderBy: { stock: 'asc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.productVariant.count({ where }),
-    ])
+      }
+    )
 
-    const data = variants.map((v: typeof variants[number]) => ({
+    const data = variants.map((v: any) => ({
       variantId: v.id,
       productId: v.product.id,
       productName: v.product.name,
@@ -46,13 +46,13 @@ export class InventoryService {
       reservedStock: v.reservedStock,
       availableStock: v.stock - v.reservedStock,
       isLowStock: v.stock <= LOW_STOCK_THRESHOLD,
-      options: v.optionValues.map((ov: typeof v.optionValues[number]) => ({
+      options: v.optionValues.map((ov: any) => ({
         group: ov.option.group.name,
         value: ov.option.value,
       })),
     }))
 
-    return { data, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(data, page, pageSize, total)
   }
 
   async updateStock(shopId: string, variantId: string, quantity: number, type: string, note?: string) {
@@ -132,7 +132,7 @@ export class InventoryService {
     })
   }
 
-  async getHistory(shopId: string, variantId: string, page = 1, limit = 20) {
+  async getHistory(shopId: string, variantId: string, page = 1, pageSize = 20) {
     const variant = await prisma.productVariant.findFirst({
       where: { id: variantId, product: { shopId } },
     })
@@ -141,17 +141,17 @@ export class InventoryService {
       throw new BadRequestException('Variant not found')
     }
 
-    const [transactions, total] = await Promise.all([
-      prisma.inventoryTransaction.findMany({
+    const { items: transactions, total } = await offsetPaginate(
+      prisma.inventoryTransaction,
+      {
+        page,
+        pageSize,
         where: { variantId },
         orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.inventoryTransaction.count({ where: { variantId } }),
-    ])
+      }
+    )
 
-    return { data: transactions, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(transactions, page, pageSize, total)
   }
 
   async getLowStockAlerts(shopId: string) {

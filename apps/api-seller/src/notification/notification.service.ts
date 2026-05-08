@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { NotificationQueryDto } from './dto/notification-query.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class NotificationService {
   async list(shopId: string, query: NotificationQueryDto) {
-    const { page = 1, limit = 20, unreadOnly, type } = query
+    const { page = 1, pageSize = 20, unreadOnly, type } = query
 
     const where: Prisma.NotificationWhereInput = {
       shopId,
@@ -14,17 +14,14 @@ export class NotificationService {
       ...(type ? { type: type as Prisma.NotificationWhereInput['type'] } : {}),
     }
 
-    const [notifications, total] = await Promise.all([
-      prisma.notification.findMany({
-        where,
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.notification.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.notification, {
+      page,
+      pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: notifications, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getUnreadCount(shopId: string) {

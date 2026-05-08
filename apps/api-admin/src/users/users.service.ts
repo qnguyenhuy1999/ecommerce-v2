@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { prisma, type UserStatus } from '@ecom/database';
-import { buildPaginationMeta } from '@ecom/common';
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 @Injectable()
 export class UsersService {
@@ -10,10 +10,6 @@ export class UsersService {
     search?: string;
     status?: UserStatus;
   }) {
-    const page = query.page ?? 1;
-    const pageSize = Math.min(query.pageSize ?? 20, 100);
-    const skip = (page - 1) * pageSize;
-
     const where: Record<string, unknown> = {};
     if (query.status) where.status = query.status;
     if (query.search) {
@@ -24,22 +20,19 @@ export class UsersService {
       ];
     }
 
-    const [items, total] = await Promise.all([
-      prisma.user.findMany({
-        where,
-        select: {
-          id: true, email: true, firstName: true, lastName: true,
-          phone: true, emailVerified: true, status: true,
-          createdAt: true, updatedAt: true,
-        },
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take: pageSize,
-      }),
-      prisma.user.count({ where }),
-    ]);
+    const { items, total } = await offsetPaginate(prisma.user, {
+      page: query.page,
+      pageSize: query.pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true, email: true, firstName: true, lastName: true,
+        phone: true, emailVerified: true, status: true,
+        createdAt: true, updatedAt: true,
+      },
+    });
 
-    return { items, meta: buildPaginationMeta(page, pageSize, total) };
+    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
   }
 
   async findById(id: string) {

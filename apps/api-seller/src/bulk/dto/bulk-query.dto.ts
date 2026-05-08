@@ -1,7 +1,7 @@
 import { IsOptional, IsEnum } from 'class-validator'
-import { PaginationDto } from '../../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
-export class BulkJobQueryDto extends PaginationDto {
+export class BulkJobQueryDto extends OffsetPaginationDto {
   @IsOptional()
   @IsEnum(['PRODUCT_IMPORT', 'PRODUCT_EXPORT', 'INVENTORY_UPDATE', 'PRICE_UPDATE'])
   type?: string

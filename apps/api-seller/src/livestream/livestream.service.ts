@@ -1,27 +1,24 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { CreateLivestreamDto, AddLivestreamProductDto } from './dto/livestream.dto'
-import { buildPaginationMeta, PaginationDto } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 
 @Injectable()
 export class LivestreamService {
-  async listSessions(shopId: string, query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listSessions(shopId: string, query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
     const where: Prisma.LivestreamSessionWhereInput = { shopId }
 
-    const [sessions, total] = await Promise.all([
-      prisma.livestreamSession.findMany({
-        where,
-        include: { _count: { select: { products: true, chatMessages: true } } },
-        orderBy: { scheduledAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.livestreamSession.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.livestreamSession, {
+      page,
+      pageSize,
+      where,
+      include: { _count: { select: { products: true, chatMessages: true } } },
+      orderBy: { scheduledAt: 'desc' },
+    })
 
-    return { data: sessions, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getSessionById(shopId: string, id: string) {

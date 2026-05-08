@@ -5,7 +5,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ShopService } from '../shop/shop.service'
 import { AdsService } from './ads.service'
 import { CreateAdCampaignDto, CreateAdGroupDto, CreateAdDto } from './dto/create-ad-campaign.dto'
-import { PaginationDto } from '../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
 @Controller('ads')
 @UseGuards(AuthGuard)
@@ -16,7 +16,7 @@ export class AdsController {
   ) {}
 
   @Get('campaigns')
-  async listCampaigns(@CurrentUser() user: SessionData, @Query() query: PaginationDto) {
+  async listCampaigns(@CurrentUser() user: SessionData, @Query() query: OffsetPaginationDto) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.adsService.listCampaigns(shopId, query)
   }

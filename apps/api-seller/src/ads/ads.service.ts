@@ -1,27 +1,24 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { CreateAdCampaignDto, CreateAdGroupDto, CreateAdDto } from './dto/create-ad-campaign.dto'
-import { buildPaginationMeta, PaginationDto } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 
 @Injectable()
 export class AdsService {
-  async listCampaigns(shopId: string, query: PaginationDto) {
-    const { page = 1, limit = 20, sort = 'createdAt', order = 'desc' } = query
+  async listCampaigns(shopId: string, query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc' } = query
 
     const where: Prisma.AdCampaignWhereInput = { shopId }
 
-    const [campaigns, total] = await Promise.all([
-      prisma.adCampaign.findMany({
-        where,
-        include: { _count: { select: { adGroups: true } } },
-        orderBy: { [sort]: order },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.adCampaign.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.adCampaign, {
+      page,
+      pageSize,
+      where,
+      include: { _count: { select: { adGroups: true } } },
+      orderBy: { [sort]: order },
+    })
 
-    return { data: campaigns, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getCampaignById(shopId: string, id: string) {

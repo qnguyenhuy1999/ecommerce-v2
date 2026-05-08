@@ -5,7 +5,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ShopService } from '../shop/shop.service'
 import { AiToolsService } from './ai-tools.service'
 import { CreateAiTaskDto } from './dto/ai-tools.dto'
-import { PaginationDto } from '../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
 @Controller('ai-tools')
 @UseGuards(AuthGuard)
@@ -22,7 +22,7 @@ export class AiToolsController {
   }
 
   @Get('tasks')
-  async listTasks(@CurrentUser() user: SessionData, @Query() query: PaginationDto) {
+  async listTasks(@CurrentUser() user: SessionData, @Query() query: OffsetPaginationDto) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.aiToolsService.listTasks(shopId, query)
   }

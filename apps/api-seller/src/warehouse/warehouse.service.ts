@@ -2,12 +2,12 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import { prisma, Prisma } from '@ecom/database'
 import { WarehouseQueryDto, StockQueryDto, TransferQueryDto } from './dto/warehouse-query.dto'
 import { CreateWarehouseDto } from './dto/create-warehouse.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class WarehouseService {
   async listWarehouses(shopId: string, query: WarehouseQueryDto) {
-    const { page = 1, limit = 20, search, isActive } = query
+    const { page = 1, pageSize = 20, search, isActive } = query
 
     const where: Prisma.WarehouseWhereInput = {
       shopId,
@@ -15,18 +15,15 @@ export class WarehouseService {
       ...(search ? { OR: [{ name: { contains: search, mode: 'insensitive' } }, { code: { contains: search, mode: 'insensitive' } }] } : {}),
     }
 
-    const [warehouses, total] = await Promise.all([
-      prisma.warehouse.findMany({
-        where,
-        include: { _count: { select: { stocks: true } } },
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.warehouse.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.warehouse, {
+      page,
+      pageSize,
+      where,
+      include: { _count: { select: { stocks: true } } },
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: warehouses, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async createWarehouse(shopId: string, dto: CreateWarehouseDto) {
@@ -62,7 +59,7 @@ export class WarehouseService {
   }
 
   async getWarehouseStock(shopId: string, warehouseId: string, query: StockQueryDto) {
-    const { page = 1, limit = 20, lowStock } = query
+    const { page = 1, pageSize = 20, lowStock } = query
 
     const warehouse = await prisma.warehouse.findFirst({
       where: { id: warehouseId, shopId },
@@ -77,17 +74,14 @@ export class WarehouseService {
       ...(lowStock ? { stock: { lte: 10 } } : {}),
     }
 
-    const [stocks, total] = await Promise.all([
-      prisma.warehouseStock.findMany({
-        where: stockWhere,
-        orderBy: { updatedAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.warehouseStock.count({ where: { warehouseId } }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.warehouseStock, {
+      page,
+      pageSize,
+      where: stockWhere,
+      orderBy: { updatedAt: 'desc' },
+    })
 
-    return { data: stocks, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async updateStock(shopId: string, warehouseId: string, variantId: string, stock: number, safetyStock?: number) {
@@ -138,29 +132,26 @@ export class WarehouseService {
   }
 
   async listTransfers(shopId: string, query: TransferQueryDto) {
-    const { page = 1, limit = 20, status } = query
+    const { page = 1, pageSize = 20, status } = query
 
     const where: Prisma.InventoryTransferWhereInput = {
       shopId,
       ...(status ? { status: status as Prisma.InventoryTransferWhereInput['status'] } : {}),
     }
 
-    const [transfers, total] = await Promise.all([
-      prisma.inventoryTransfer.findMany({
-        where,
-        include: {
-          fromWarehouse: { select: { id: true, name: true, code: true } },
-          toWarehouse: { select: { id: true, name: true, code: true } },
-          _count: { select: { items: true } },
-        },
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.inventoryTransfer.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.inventoryTransfer, {
+      page,
+      pageSize,
+      where,
+      include: {
+        fromWarehouse: { select: { id: true, name: true, code: true } },
+        toWarehouse: { select: { id: true, name: true, code: true } },
+        _count: { select: { items: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: transfers, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async completeTransfer(shopId: string, transferId: string) {

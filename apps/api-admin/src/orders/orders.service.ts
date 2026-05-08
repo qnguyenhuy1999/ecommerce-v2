@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { prisma, type OrderStatus, type Prisma } from '@ecom/database';
-import { buildPaginationMeta } from '@ecom/common';
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 @Injectable()
 export class OrdersService {
@@ -11,10 +11,6 @@ export class OrdersService {
     status?: OrderStatus;
     buyerId?: string;
   }) {
-    const page = query.page ?? 1;
-    const pageSize = Math.min(query.pageSize ?? 20, 100);
-    const skip = (page - 1) * pageSize;
-
     const where: Record<string, unknown> = {};
     if (query.status) where.status = query.status;
     if (query.buyerId) where.buyerId = query.buyerId;
@@ -24,25 +20,22 @@ export class OrdersService {
       ];
     }
 
-    const [items, total] = await Promise.all([
-      prisma.order.findMany({
-        where,
-        include: {
-          sellerOrders: {
-            include: {
-              shop: { select: { id: true, name: true } },
-              _count: { select: { items: true } },
-            },
+    const { items, total } = await offsetPaginate(prisma.order, {
+      page: query.page,
+      pageSize: query.pageSize,
+      where,
+      include: {
+        sellerOrders: {
+          include: {
+            shop: { select: { id: true, name: true } },
+            _count: { select: { items: true } },
           },
         },
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take: pageSize,
-      }),
-      prisma.order.count({ where }),
-    ]);
+      },
+      orderBy: { createdAt: 'desc' },
+    });
 
-    return { items, meta: buildPaginationMeta(page, pageSize, total) };
+    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
   }
 
   async findById(id: string) {

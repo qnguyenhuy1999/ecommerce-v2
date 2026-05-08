@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
 import { prisma, type PlatformVoucherStatus, type PlatformVoucherType } from '@ecom/database';
-import { buildPaginationMeta } from '@ecom/common';
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 @Injectable()
 export class PromotionsService {
@@ -10,10 +10,6 @@ export class PromotionsService {
     status?: PlatformVoucherStatus;
     search?: string;
   }) {
-    const page = query.page ?? 1;
-    const pageSize = Math.min(query.pageSize ?? 20, 100);
-    const skip = (page - 1) * pageSize;
-
     const where: Record<string, unknown> = {};
     if (query.status) where.status = query.status;
     if (query.search) {
@@ -23,12 +19,14 @@ export class PromotionsService {
       ];
     }
 
-    const [items, total] = await Promise.all([
-      prisma.platformVoucher.findMany({ where, orderBy: { createdAt: 'desc' }, skip, take: pageSize }),
-      prisma.platformVoucher.count({ where }),
-    ]);
+    const { items, total } = await offsetPaginate(prisma.platformVoucher, {
+      page: query.page,
+      pageSize: query.pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+    });
 
-    return { items, meta: buildPaginationMeta(page, pageSize, total) };
+    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
   }
 
   async findById(id: string) {

@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { BulkJobQueryDto } from './dto/bulk-query.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class BulkService {
   async listJobs(shopId: string, query: BulkJobQueryDto) {
-    const { page = 1, limit = 20, sort = 'createdAt', order = 'desc', type, status } = query
+    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', type, status } = query
 
     const where: Prisma.BulkJobWhereInput = {
       shopId,
@@ -14,17 +14,14 @@ export class BulkService {
       ...(status ? { status: status as Prisma.BulkJobWhereInput['status'] } : {}),
     }
 
-    const [jobs, total] = await Promise.all([
-      prisma.bulkJob.findMany({
-        where,
-        orderBy: { [sort]: order },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.bulkJob.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.bulkJob, {
+      page,
+      pageSize,
+      where,
+      orderBy: { [sort]: order },
+    })
 
-    return { data: jobs, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getJob(shopId: string, jobId: string) {

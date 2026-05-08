@@ -1,8 +1,8 @@
 import { IsOptional, IsString, IsBoolean } from 'class-validator'
 import { Type } from 'class-transformer'
-import { PaginationDto } from '../../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
-export class WarehouseQueryDto extends PaginationDto {
+export class WarehouseQueryDto extends OffsetPaginationDto {
   @IsOptional()
   @IsString()
   search?: string
@@ -13,7 +13,7 @@ export class WarehouseQueryDto extends PaginationDto {
   isActive?: boolean
 }
 
-export class StockQueryDto extends PaginationDto {
+export class StockQueryDto extends OffsetPaginationDto {
   @IsOptional()
   @IsString()
   search?: string
@@ -24,7 +24,7 @@ export class StockQueryDto extends PaginationDto {
   lowStock?: boolean
 }
 
-export class TransferQueryDto extends PaginationDto {
+export class TransferQueryDto extends OffsetPaginationDto {
   @IsOptional()
   @IsString()
   status?: string

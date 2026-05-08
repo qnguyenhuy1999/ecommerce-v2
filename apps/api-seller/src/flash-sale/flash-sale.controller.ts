@@ -5,7 +5,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ShopService } from '../shop/shop.service'
 import { FlashSaleService } from './flash-sale.service'
 import { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
-import { PaginationDto } from '../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
 @Controller('flash-sales')
 @UseGuards(AuthGuard)
@@ -16,7 +16,7 @@ export class FlashSaleController {
   ) {}
 
   @Get('campaigns')
-  async listCampaigns(@Query() query: PaginationDto) {
+  async listCampaigns(@Query() query: OffsetPaginationDto) {
     return this.flashSaleService.listCampaigns(query)
   }
 
@@ -32,7 +32,7 @@ export class FlashSaleController {
   }
 
   @Get('slots')
-  async listMySlots(@CurrentUser() user: SessionData, @Query() query: PaginationDto) {
+  async listMySlots(@CurrentUser() user: SessionData, @Query() query: OffsetPaginationDto) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.flashSaleService.listSellerSlots(shopId, query)
   }

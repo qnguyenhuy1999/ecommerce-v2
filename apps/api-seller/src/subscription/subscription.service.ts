@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { CreatePlanDto, SubscribeDto } from './dto/subscription.dto'
-import { buildPaginationMeta, PaginationDto } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 
 @Injectable()
 export class SubscriptionService {
@@ -132,24 +132,21 @@ export class SubscriptionService {
     return entitlement ? { allowed: true, value: entitlement.value } : { allowed: false }
   }
 
-  async listInvoices(shopId: string, query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listInvoices(shopId: string, query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
     const subscription = await prisma.sellerSubscription.findUnique({ where: { shopId } })
-    if (!subscription) return { data: [], meta: buildPaginationMeta(1, limit, 0) }
+    if (!subscription) return buildOffsetResponse([], 1, pageSize, 0)
 
     const where: Prisma.SubscriptionInvoiceWhereInput = { subscriptionId: subscription.id }
 
-    const [invoices, total] = await Promise.all([
-      prisma.subscriptionInvoice.findMany({
-        where,
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.subscriptionInvoice.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.subscriptionInvoice, {
+      page,
+      pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: invoices, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 }

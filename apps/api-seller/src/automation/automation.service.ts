@@ -1,27 +1,25 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
-import { buildPaginationMeta, PaginationDto } from '../common/dto/pagination.dto'
+import { AutomationQueryDto } from './dto/automation-query.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class AutomationService {
-  async listRules(shopId: string, query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listRules(shopId: string, query: AutomationQueryDto) {
+    const { page = 1, pageSize = 20 } = query
 
     const where: Prisma.AutomationRuleWhereInput = { shopId }
 
-    const [rules, total] = await Promise.all([
-      prisma.automationRule.findMany({
-        where,
-        include: { _count: { select: { logs: true } } },
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.automationRule.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.automationRule, {
+      page,
+      pageSize,
+      where,
+      include: { _count: { select: { logs: true } } },
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: rules, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getRuleById(shopId: string, id: string) {

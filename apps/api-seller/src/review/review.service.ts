@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { ReviewQueryDto } from './dto/review-query.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class ReviewService {
   async list(shopId: string, query: ReviewQueryDto) {
-    const { page = 1, limit = 20, sort = 'createdAt', order = 'desc', search, productId, rating, status, replyFilter } = query
+    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, productId, rating, status, replyFilter } = query
 
     const shopProducts = prisma.product.findMany({
       where: { shopId, deletedAt: null },
@@ -24,22 +24,19 @@ export class ReviewService {
       ...(replyFilter === 'noReply' ? { replies: { none: {} } } : {}),
     }
 
-    const [reviews, total] = await Promise.all([
-      prisma.review.findMany({
-        where,
-        include: {
-          images: { orderBy: { sortOrder: 'asc' } },
-          replies: { orderBy: { createdAt: 'asc' } },
-          _count: { select: { reports: true } },
-        },
-        orderBy: { [sort]: order },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.review.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.review, {
+      page,
+      pageSize,
+      where,
+      include: {
+        images: { orderBy: { sortOrder: 'asc' } },
+        replies: { orderBy: { createdAt: 'asc' } },
+        _count: { select: { reports: true } },
+      },
+      orderBy: { [sort]: order },
+    })
 
-    return { data: reviews, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getById(shopId: string, reviewId: string) {

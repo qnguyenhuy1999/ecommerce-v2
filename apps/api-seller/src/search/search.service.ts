@@ -1,14 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { ProductSearchDto, OrderSearchDto } from './dto/search-query.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class SearchService {
   async searchProducts(shopId: string, query: ProductSearchDto) {
     const {
       page = 1,
-      limit = 20,
+      pageSize = 20,
       q,
       sku,
       status,
@@ -68,26 +68,23 @@ export class SearchService {
         : {}),
     }
 
-    const [products, total] = await Promise.all([
-      prisma.product.findMany({
-        where,
-        include: {
-          variants: { select: { id: true, sku: true, price: true, stock: true } },
-          images: { take: 1, orderBy: { sortOrder: 'asc' } },
-          category: { select: { id: true, name: true } },
-        },
-        orderBy: { [sort]: order },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.product.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.product, {
+      page,
+      pageSize,
+      where,
+      include: {
+        variants: { select: { id: true, sku: true, price: true, stock: true } },
+        images: { take: 1, orderBy: { sortOrder: 'asc' } },
+        category: { select: { id: true, name: true } },
+      },
+      orderBy: { [sort]: order },
+    })
 
-    return { data: products, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async searchOrders(shopId: string, query: OrderSearchDto) {
-    const { page = 1, limit = 20, q, status, startDate, endDate, sort = 'createdAt', order = 'desc' } = query
+    const { page = 1, pageSize = 20, q, status, startDate, endDate, sort = 'createdAt', order = 'desc' } = query
 
     const where: Prisma.SellerOrderWhereInput = {
       shopId,
@@ -107,20 +104,17 @@ export class SearchService {
         : {}),
     }
 
-    const [orders, total] = await Promise.all([
-      prisma.sellerOrder.findMany({
-        where,
-        include: {
-          items: { select: { id: true, productName: true, quantity: true, totalPrice: true } },
-        },
-        orderBy: { [sort]: order },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.sellerOrder.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.sellerOrder, {
+      page,
+      pageSize,
+      where,
+      include: {
+        items: { select: { id: true, productName: true, quantity: true, totalPrice: true } },
+      },
+      orderBy: { [sort]: order },
+    })
 
-    return { data: orders, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async listSavedFilters(shopId: string, userId: string, entity?: string) {

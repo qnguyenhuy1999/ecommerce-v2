@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { CreateAiTaskDto } from './dto/ai-tools.dto'
-import { buildPaginationMeta, PaginationDto } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 
 @Injectable()
 export class AiToolsService {
@@ -33,22 +33,19 @@ export class AiToolsService {
     return task
   }
 
-  async listTasks(shopId: string, query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listTasks(shopId: string, query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
     const where: Prisma.AiTaskWhereInput = { shopId }
 
-    const [tasks, total] = await Promise.all([
-      prisma.aiTask.findMany({
-        where,
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.aiTask.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.aiTask, {
+      page,
+      pageSize,
+      where,
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: tasks, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async processTask(taskId: string) {

@@ -6,28 +6,25 @@ import {
   CreateFeatureFlagDto,
   CreateCampaignDto,
 } from './dto/growth.dto'
-import { buildPaginationMeta, PaginationDto } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 import { randomBytes } from 'crypto'
 
 @Injectable()
 export class GrowthService {
   // --- Referral Program ---
 
-  async listReferralPrograms(query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listReferralPrograms(query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
-    const [programs, total] = await Promise.all([
-      prisma.referralProgram.findMany({
-        where: { isActive: true },
-        include: { _count: { select: { referrals: true } } },
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.referralProgram.count({ where: { isActive: true } }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.referralProgram, {
+      page,
+      pageSize,
+      where: { isActive: true },
+      include: { _count: { select: { referrals: true } } },
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: programs, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async createReferralProgram(dto: CreateReferralProgramDto) {
@@ -87,20 +84,17 @@ export class GrowthService {
 
   // --- Experiments / A/B Testing ---
 
-  async listExperiments(query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listExperiments(query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
-    const [experiments, total] = await Promise.all([
-      prisma.experiment.findMany({
-        include: { variants: true },
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.experiment.count(),
-    ])
+    const { items, total } = await offsetPaginate(prisma.experiment, {
+      page,
+      pageSize,
+      include: { variants: true },
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: experiments, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async createExperiment(dto: CreateExperimentDto) {
@@ -207,19 +201,16 @@ export class GrowthService {
 
   // --- Growth Campaigns ---
 
-  async listCampaigns(query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listCampaigns(query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
-    const [campaigns, total] = await Promise.all([
-      prisma.growthCampaign.findMany({
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.growthCampaign.count(),
-    ])
+    const { items, total } = await offsetPaginate(prisma.growthCampaign, {
+      page,
+      pageSize,
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: campaigns, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async createCampaign(dto: CreateCampaignDto) {

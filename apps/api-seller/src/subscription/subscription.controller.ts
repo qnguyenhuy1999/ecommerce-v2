@@ -5,7 +5,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ShopService } from '../shop/shop.service'
 import { SubscriptionService } from './subscription.service'
 import { SubscribeDto } from './dto/subscription.dto'
-import { PaginationDto } from '../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
 @Controller('subscriptions')
 @UseGuards(AuthGuard)
@@ -44,7 +44,7 @@ export class SubscriptionController {
   }
 
   @Get('invoices')
-  async listInvoices(@CurrentUser() user: SessionData, @Query() query: PaginationDto) {
+  async listInvoices(@CurrentUser() user: SessionData, @Query() query: OffsetPaginationDto) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.subscriptionService.listInvoices(shopId, query)
   }

@@ -2,31 +2,27 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import { prisma, Prisma } from '@ecom/database'
 import { CreateFlashSaleCampaignDto } from './dto/create-flash-sale.dto'
 import { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
-import { PaginationDto } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 
 @Injectable()
 export class FlashSaleService {
-  async listCampaigns(query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listCampaigns(query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
     const where: Prisma.FlashSaleCampaignWhereInput = {
       status: { in: ['SCHEDULED', 'ACTIVE'] },
       isVisible: true,
     }
 
-    const [campaigns, total] = await Promise.all([
-      prisma.flashSaleCampaign.findMany({
-        where,
-        include: { _count: { select: { slots: true } } },
-        orderBy: { startsAt: 'asc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.flashSaleCampaign.count({ where }),
-    ])
+    const { items, total } = await offsetPaginate(prisma.flashSaleCampaign, {
+      page,
+      pageSize,
+      where,
+      include: { _count: { select: { slots: true } } },
+      orderBy: { startsAt: 'asc' },
+    })
 
-    return { data: campaigns, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getCampaignById(id: string) {
@@ -111,27 +107,24 @@ export class FlashSaleService {
     })
   }
 
-  async listSellerSlots(shopId: string, query: PaginationDto) {
-    const { page = 1, limit = 20 } = query
+  async listSellerSlots(shopId: string, query: OffsetPaginationDto) {
+    const { page = 1, pageSize = 20 } = query
 
     const where: Prisma.FlashSaleSlotWhereInput = { shopId }
 
-    const [slots, total] = await Promise.all([
-      prisma.flashSaleSlot.findMany({
-        where,
-        include: {
-          campaign: {
-            select: { id: true, name: true, startsAt: true, endsAt: true, status: true },
-          },
+    const { items, total } = await offsetPaginate(prisma.flashSaleSlot, {
+      page,
+      pageSize,
+      where,
+      include: {
+        campaign: {
+          select: { id: true, name: true, startsAt: true, endsAt: true, status: true },
         },
-        orderBy: { createdAt: 'desc' },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.flashSaleSlot.count({ where }),
-    ])
+      },
+      orderBy: { createdAt: 'desc' },
+    })
 
-    return { data: slots, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async approveSlot(slotId: string) {

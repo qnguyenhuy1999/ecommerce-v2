@@ -1,8 +1,8 @@
 import { IsOptional, IsString, IsEnum, IsNumber } from 'class-validator'
 import { Type } from 'class-transformer'
-import { PaginationDto } from '../../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
-export class ProductSearchDto extends PaginationDto {
+export class ProductSearchDto extends OffsetPaginationDto {
   @IsOptional()
   @IsString()
   q?: string
@@ -53,7 +53,7 @@ export class SaveFilterDto {
   entity?: string
 }
 
-export class OrderSearchDto extends PaginationDto {
+export class OrderSearchDto extends OffsetPaginationDto {
   @IsOptional()
   @IsString()
   q?: string

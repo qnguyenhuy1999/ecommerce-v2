@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
 import { OrderQueryDto } from './dto/order-query.dto'
-import { buildPaginationMeta } from '../common/dto/pagination.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 const VALID_TRANSITIONS: Record<string, string[]> = {
   PENDING: ['CONFIRMED', 'CANCELLED'],
@@ -15,7 +15,7 @@ const VALID_TRANSITIONS: Record<string, string[]> = {
 @Injectable()
 export class OrderService {
   async list(shopId: string, query: OrderQueryDto) {
-    const { page = 1, limit = 20, sort = 'createdAt', order = 'desc', status, search } = query
+    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', status, search } = query
 
     const where: Prisma.SellerOrderWhereInput = {
       shopId,
@@ -29,25 +29,22 @@ export class OrderService {
         : {}),
     }
 
-    const [orders, total] = await Promise.all([
-      prisma.sellerOrder.findMany({
-        where,
-        include: {
-          order: {
-            select: { id: true, shippingName: true, shippingPhone: true, shippingAddress: true },
-          },
-          items: { select: { id: true, productName: true, variantLabel: true, quantity: true, unitPrice: true, totalPrice: true } },
-          shipment: { select: { id: true, trackingNumber: true, status: true } },
-          _count: { select: { items: true } },
+    const { items, total } = await offsetPaginate(prisma.sellerOrder, {
+      page,
+      pageSize,
+      where,
+      include: {
+        order: {
+          select: { id: true, shippingName: true, shippingPhone: true, shippingAddress: true },
         },
-        orderBy: { [sort]: order },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.sellerOrder.count({ where }),
-    ])
+        items: { select: { id: true, productName: true, variantLabel: true, quantity: true, unitPrice: true, totalPrice: true } },
+        shipment: { select: { id: true, trackingNumber: true, status: true } },
+        _count: { select: { items: true } },
+      },
+      orderBy: { [sort]: order },
+    })
 
-    return { data: orders, meta: buildPaginationMeta(page, limit, total) }
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getById(shopId: string, sellerOrderId: string) {

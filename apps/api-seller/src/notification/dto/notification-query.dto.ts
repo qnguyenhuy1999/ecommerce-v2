@@ -1,8 +1,8 @@
 import { IsOptional, IsBoolean, IsString } from 'class-validator'
 import { Type } from 'class-transformer'
-import { PaginationDto } from '../../common/dto/pagination.dto'
+import { OffsetPaginationDto } from '@ecom/pagination'
 
-export class NotificationQueryDto extends PaginationDto {
+export class NotificationQueryDto extends OffsetPaginationDto {
   @IsOptional()
   @Type(() => Boolean)
   @IsBoolean()

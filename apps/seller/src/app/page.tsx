@@ -3,7 +3,7 @@
 import { ShoppingCart, Package, Warehouse, Bell } from 'lucide-react'
 import { DashboardLayout } from '../components/dashboard-layout'
 import { PageHeader } from '../components/page-header'
-import { StatCard } from '../components/stat-card'
+import { StatCard } from '@ecom/core-ui'
 
 export default function DashboardPage() {
   return (

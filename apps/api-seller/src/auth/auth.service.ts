@@ -8,50 +8,57 @@ import {
 } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
 import { join } from 'node:path'
-import * as bcrypt from 'bcrypt'
-import { prisma, Prisma } from '@ecom/database'
-import { SessionService, type SessionData } from '@ecom/auth'
+import { PrismaService, Prisma } from '@ecom/database'
+import {
+  SessionService,
+  type SessionData,
+  BaseUserAuthService,
+  SESSION_EXPIRY_DAYS,
+  VERIFY_TOKEN_TTL,
+  RESET_TOKEN_TTL,
+  hashPassword,
+  comparePassword,
+} from '@ecom/auth'
 import { EmailService } from '@ecom/email'
 import { RedisService } from '@ecom/redis'
 import { SESSION_SERVICE } from './session.provider'
 
-const BCRYPT_ROUNDS = 12
-const SESSION_EXPIRY_DAYS = 7
-const VERIFY_TOKEN_TTL = 24 * 60 * 60
-const RESET_TOKEN_TTL = 60 * 60
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
 
 @Injectable()
-export class AuthService {
+export class AuthService extends BaseUserAuthService {
   private readonly logger = new Logger(AuthService.name)
 
   constructor(
     @Inject(SESSION_SERVICE)
-    private readonly sessionService: SessionService,
-    private readonly emailService: EmailService,
-    private readonly redisService: RedisService,
-  ) {}
+    sessionService: SessionService,
+    emailService: EmailService,
+    redisService: RedisService,
+    private readonly prisma: PrismaService,
+  ) {
+    super(sessionService, emailService, redisService)
+  }
 
   async register(email: string, password: string, shopName?: string) {
-    const existing = await prisma.user.findUnique({ where: { email } })
+    const existing = await this.prisma.user.findUnique({ where: { email } })
     if (existing) {
       throw new ConflictException('Email already registered')
     }
 
-    const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS)
+    const hashedPassword = await hashPassword(password)
 
-    const sellerRole = await prisma.role.findUnique({ where: { name: 'seller' } })
+    const sellerRole = await this.prisma.role.findUnique({ where: { name: 'seller' } })
     if (!sellerRole) {
       throw new Error('Default seller role not found. Run db:seed first.')
     }
 
     let user
     try {
-      user = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      user = await this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
         const created = await tx.user.create({
           data: {
             email,
-            passwordHash,
+            passwordHash: hashedPassword,
             userRoles: { create: { roleId: sellerRole.id } },
           },
           include: { userRoles: { include: { role: true } } },
@@ -98,7 +105,7 @@ export class AuthService {
           },
         }),
       )
-      .catch((err) => {
+      .catch((err: Error) => {
         this.logger.warn(`Failed to send verification email: ${err.message}`)
       })
 
@@ -110,7 +117,7 @@ export class AuthService {
   }
 
   async login(email: string, password: string, userAgent?: string, ipAddress?: string) {
-    const user = await prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { email },
       include: { userRoles: { include: { role: true } } },
     })
@@ -130,7 +137,7 @@ export class AuthService {
       throw new UnauthorizedException('Not a seller account')
     }
 
-    const valid = await bcrypt.compare(password, user.passwordHash)
+    const valid = await comparePassword(password, user.passwordHash)
     if (!valid) {
       throw new UnauthorizedException('Invalid credentials')
     }
@@ -142,7 +149,7 @@ export class AuthService {
     const sessionData: SessionData = { userId: user.id, roles }
     await this.sessionService.create(sessionId, sessionData)
 
-    await prisma.session.create({
+    await this.prisma.session.create({
       data: { id: sessionId, userId: user.id, userAgent, ipAddress, expiresAt },
     })
 
@@ -150,8 +157,15 @@ export class AuthService {
   }
 
   async logout(sessionId: string) {
-    await this.sessionService.delete(sessionId)
-    await prisma.session.delete({ where: { id: sessionId } }).catch(() => {})
+    await this.destroySession(sessionId)
+  }
+
+  async verifyEmail(token: string) {
+    try {
+      await super.verifyEmail(token)
+    } catch (err: unknown) {
+      throw new BadRequestException(err instanceof Error ? err.message : 'Invalid or expired verification token')
+    }
   }
 
   async getMe(sessionId: string) {
@@ -160,7 +174,7 @@ export class AuthService {
       throw new UnauthorizedException('Session expired or invalid')
     }
 
-    const user = await prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: session.userId },
       include: {
         sellerProfile: { include: { shop: { select: { id: true, name: true, status: true } } } },
@@ -183,11 +197,11 @@ export class AuthService {
   }
 
   async forgotPassword(email: string) {
-    const user = await prisma.user.findUnique({ where: { email } })
+    const user = await this.prisma.user.findUnique({ where: { email } })
     if (!user) return
 
     const token = randomUUID()
-    await prisma.passwordResetToken.create({
+    await this.prisma.passwordResetToken.create({
       data: {
         userId: user.id,
         token,
@@ -205,43 +219,29 @@ export class AuthService {
           link: `${process.env.APP_URL ?? 'http://localhost:3001'}/reset-password?token=${token}`,
         },
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         this.logger.warn(`Failed to send reset email: ${err.message}`)
       })
   }
 
   async resetPassword(token: string, newPassword: string) {
-    const resetToken = await prisma.passwordResetToken.findUnique({ where: { token } })
+    const resetToken = await this.prisma.passwordResetToken.findUnique({ where: { token } })
 
     if (!resetToken || resetToken.usedAt || resetToken.expiresAt < new Date()) {
       throw new BadRequestException('Invalid or expired reset token')
     }
 
-    const passwordHash = await bcrypt.hash(newPassword, BCRYPT_ROUNDS)
+    const hashedPassword = await hashPassword(newPassword)
 
-    await prisma.$transaction([
-      prisma.user.update({
+    await this.prisma.$transaction([
+      this.prisma.user.update({
         where: { id: resetToken.userId },
-        data: { passwordHash },
+        data: { passwordHash: hashedPassword },
       }),
-      prisma.passwordResetToken.update({
+      this.prisma.passwordResetToken.update({
         where: { id: resetToken.id },
         data: { usedAt: new Date() },
       }),
     ])
-  }
-
-  async verifyEmail(token: string) {
-    const userId = await this.redisService.get(`verify:${token}`)
-    if (!userId) {
-      throw new BadRequestException('Invalid or expired verification token')
-    }
-
-    await prisma.user.update({
-      where: { id: userId },
-      data: { emailVerified: true },
-    })
-
-    await this.redisService.del(`verify:${token}`)
   }
 }

@@ -1,14 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { ReviewQueryDto } from './dto/review-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class ReviewService {
+  constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: ReviewQueryDto) {
     const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, productId, rating, status, replyFilter } = query
 
-    const shopProducts = prisma.product.findMany({
+    const shopProducts = this.prisma.product.findMany({
       where: { shopId, deletedAt: null },
       select: { id: true },
     })
@@ -24,7 +25,7 @@ export class ReviewService {
       ...(replyFilter === 'noReply' ? { replies: { none: {} } } : {}),
     }
 
-    const { items, total } = await offsetPaginate(prisma.review, {
+    const { items, total } = await offsetPaginate(this.prisma.review, {
       page,
       pageSize,
       where,
@@ -40,7 +41,7 @@ export class ReviewService {
   }
 
   async getById(shopId: string, reviewId: string) {
-    const review = await prisma.review.findFirst({
+    const review = await this.prisma.review.findFirst({
       where: { id: reviewId, productId: { in: await this.getShopProductIds(shopId) } },
       include: {
         images: { orderBy: { sortOrder: 'asc' } },
@@ -57,7 +58,7 @@ export class ReviewService {
   }
 
   async reply(shopId: string, reviewId: string, message: string) {
-    const review = await prisma.review.findFirst({
+    const review = await this.prisma.review.findFirst({
       where: { id: reviewId, productId: { in: await this.getShopProductIds(shopId) } },
     })
 
@@ -65,13 +66,13 @@ export class ReviewService {
       throw new NotFoundException('Review not found')
     }
 
-    return prisma.reviewReply.create({
+    return this.prisma.reviewReply.create({
       data: { reviewId, shopId, message },
     })
   }
 
   async report(shopId: string, reviewId: string, reason: string, details?: string) {
-    const review = await prisma.review.findFirst({
+    const review = await this.prisma.review.findFirst({
       where: { id: reviewId, productId: { in: await this.getShopProductIds(shopId) } },
     })
 
@@ -79,7 +80,7 @@ export class ReviewService {
       throw new NotFoundException('Review not found')
     }
 
-    return prisma.reviewReport.create({
+    return this.prisma.reviewReport.create({
       data: { reviewId, shopId, reason, details },
     })
   }
@@ -88,13 +89,13 @@ export class ReviewService {
     const productIds = await this.getShopProductIds(shopId)
 
     const [totalReviews, ratingDist, avgRating] = await Promise.all([
-      prisma.review.count({ where: { productId: { in: productIds }, status: 'APPROVED' } }),
-      prisma.review.groupBy({
+      this.prisma.review.count({ where: { productId: { in: productIds }, status: 'APPROVED' } }),
+      this.prisma.review.groupBy({
         by: ['rating'],
         where: { productId: { in: productIds }, status: 'APPROVED' },
         _count: true,
       }),
-      prisma.review.aggregate({
+      this.prisma.review.aggregate({
         where: { productId: { in: productIds }, status: 'APPROVED' },
         _avg: { rating: true },
       }),
@@ -108,7 +109,7 @@ export class ReviewService {
   }
 
   private async getShopProductIds(shopId: string): Promise<string[]> {
-    const products = await prisma.product.findMany({
+    const products = await this.prisma.product.findMany({
       where: { shopId, deletedAt: null },
       select: { id: true },
     })

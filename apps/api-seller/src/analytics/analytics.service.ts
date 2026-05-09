@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common'
-import { prisma } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 
 @Injectable()
 export class AnalyticsService {
+  constructor(private readonly prisma: PrismaService) {}
   async getRevenueAnalytics(shopId: string, startDate: Date, endDate: Date) {
-    const orders = await prisma.sellerOrder.findMany({
+    const orders = await this.prisma.sellerOrder.findMany({
       where: {
         shopId,
         createdAt: { gte: startDate, lte: endDate },
@@ -30,7 +31,7 @@ export class AnalyticsService {
   }
 
   async getOrderAnalytics(shopId: string, startDate: Date, endDate: Date) {
-    const statusCounts = await prisma.sellerOrder.groupBy({
+    const statusCounts = await this.prisma.sellerOrder.groupBy({
       by: ['status'],
       where: { shopId, createdAt: { gte: startDate, lte: endDate } },
       _count: true,
@@ -48,7 +49,7 @@ export class AnalyticsService {
   }
 
   async getProductPerformance(shopId: string, startDate: Date, endDate: Date) {
-    const topProducts = await prisma.sellerOrderItem.groupBy({
+    const topProducts = await this.prisma.sellerOrderItem.groupBy({
       by: ['productId', 'productName'],
       where: {
         sellerOrder: { shopId, createdAt: { gte: startDate, lte: endDate } },
@@ -77,13 +78,13 @@ export class AnalyticsService {
 
   async getConversionMetrics(shopId: string, startDate: Date, endDate: Date) {
     const [totalOrders, deliveredOrders, cancelledOrders] = await Promise.all([
-      prisma.sellerOrder.count({
+      this.prisma.sellerOrder.count({
         where: { shopId, createdAt: { gte: startDate, lte: endDate } },
       }),
-      prisma.sellerOrder.count({
+      this.prisma.sellerOrder.count({
         where: { shopId, status: 'DELIVERED', createdAt: { gte: startDate, lte: endDate } },
       }),
-      prisma.sellerOrder.count({
+      this.prisma.sellerOrder.count({
         where: { shopId, status: 'CANCELLED', createdAt: { gte: startDate, lte: endDate } },
       }),
     ])
@@ -104,7 +105,7 @@ export class AnalyticsService {
 
     const [currentRevenue, previousRevenue, pendingOrders, activeProducts, lowStockCount] =
       await Promise.all([
-        prisma.sellerOrder
+        this.prisma.sellerOrder
           .aggregate({
             where: {
               shopId,
@@ -114,7 +115,7 @@ export class AnalyticsService {
             _sum: { subtotal: true },
           })
           .then((r: { _sum: { subtotal: number | null } }) => Number(r._sum.subtotal ?? 0)),
-        prisma.sellerOrder
+        this.prisma.sellerOrder
           .aggregate({
             where: {
               shopId,
@@ -124,9 +125,9 @@ export class AnalyticsService {
             _sum: { subtotal: true },
           })
           .then((r: { _sum: { subtotal: number | null } }) => Number(r._sum.subtotal ?? 0)),
-        prisma.sellerOrder.count({ where: { shopId, status: 'PENDING' } }),
-        prisma.product.count({ where: { shopId, status: 'PUBLISHED', deletedAt: null } }),
-        prisma.productVariant.count({
+        this.prisma.sellerOrder.count({ where: { shopId, status: 'PENDING' } }),
+        this.prisma.product.count({ where: { shopId, status: 'PUBLISHED', deletedAt: null } }),
+        this.prisma.productVariant.count({
           where: { product: { shopId, deletedAt: null }, stock: { lte: 10 } },
         }),
       ])

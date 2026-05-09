@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { InventoryQueryDto } from './dto/inventory-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
@@ -7,6 +7,7 @@ const LOW_STOCK_THRESHOLD = 10
 
 @Injectable()
 export class InventoryService {
+  constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: InventoryQueryDto) {
     const { page = 1, pageSize = 20, search, lowStock } = query
 
@@ -24,7 +25,7 @@ export class InventoryService {
     }
 
     const { items: variants, total } = await offsetPaginate(
-      prisma.productVariant,
+      this.prisma.productVariant,
       {
         page,
         pageSize,
@@ -56,7 +57,7 @@ export class InventoryService {
   }
 
   async updateStock(shopId: string, variantId: string, quantity: number, type: string, note?: string) {
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const variant = await tx.productVariant.findFirst({
         where: { id: variantId, product: { shopId, deletedAt: null } },
       })
@@ -99,7 +100,7 @@ export class InventoryService {
   }
 
   async bulkUpdateStock(shopId: string, items: { variantId: string; stock: number }[]) {
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const results: { variantId: string; stock: number }[] = []
 
       for (const item of items) {
@@ -133,7 +134,7 @@ export class InventoryService {
   }
 
   async getHistory(shopId: string, variantId: string, page = 1, pageSize = 20) {
-    const variant = await prisma.productVariant.findFirst({
+    const variant = await this.prisma.productVariant.findFirst({
       where: { id: variantId, product: { shopId } },
     })
 
@@ -142,7 +143,7 @@ export class InventoryService {
     }
 
     const { items: transactions, total } = await offsetPaginate(
-      prisma.inventoryTransaction,
+      this.prisma.inventoryTransaction,
       {
         page,
         pageSize,
@@ -155,7 +156,7 @@ export class InventoryService {
   }
 
   async getLowStockAlerts(shopId: string) {
-    const variants = await prisma.productVariant.findMany({
+    const variants = await this.prisma.productVariant.findMany({
       where: {
         product: { shopId, deletedAt: null },
         stock: { lte: LOW_STOCK_THRESHOLD },

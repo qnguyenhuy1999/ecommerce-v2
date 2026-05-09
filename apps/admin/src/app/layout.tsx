@@ -1,5 +1,6 @@
 import './globals.css';
 import { QueryProvider } from '@/lib/query-client';
+import { AuthProvider } from '@/providers/auth-provider';
 
 export const metadata = {
   title: 'Admin Panel — Marketplace',
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-background font-sans antialiased">
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

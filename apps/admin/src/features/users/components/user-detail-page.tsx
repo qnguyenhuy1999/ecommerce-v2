@@ -1,7 +1,7 @@
 'use client';
 
 import { useUser, useSuspendUser, useBanUser, useActivateUser } from '../hooks/use-users';
-import { StatusBadge } from '@/components/data-table/data-table';
+import { StatusBadge } from '@ecom/core-ui';
 
 export function UserDetailPage({ id }: { id: string }) {
   const { data: user, isLoading } = useUser(id);

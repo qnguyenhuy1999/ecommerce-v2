@@ -17,11 +17,16 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@ecom/database": "workspace:*",
+    "bcrypt": "^5.1.1",
     "ioredis": "^5.6.0"
   },
   "devDependencies": {
+    "@ecom/email": "workspace:*",
     "@ecom/eslint-config": "workspace:*",
+    "@ecom/redis": "workspace:*",
     "@ecom/tsconfig": "workspace:*",
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.15.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3"

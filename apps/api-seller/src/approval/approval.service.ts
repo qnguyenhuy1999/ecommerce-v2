@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { ApprovalQueryDto } from './dto/approval-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class ApprovalService {
+  constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: ApprovalQueryDto) {
     const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', status } = query
 
@@ -13,7 +14,7 @@ export class ApprovalService {
       ...(status ? { status: status as Prisma.ProductApprovalWhereInput['status'] } : {}),
     }
 
-    const { items, total } = await offsetPaginate(prisma.productApproval, {
+    const { items, total } = await offsetPaginate(this.prisma.productApproval, {
       page,
       pageSize,
       where,
@@ -27,7 +28,7 @@ export class ApprovalService {
   }
 
   async getById(shopId: string, approvalId: string) {
-    const approval = await prisma.productApproval.findFirst({
+    const approval = await this.prisma.productApproval.findFirst({
       where: { id: approvalId, shopId },
       include: {
         history: { orderBy: { createdAt: 'desc' } },
@@ -42,7 +43,7 @@ export class ApprovalService {
   }
 
   async submitForReview(shopId: string, productId: string) {
-    const product = await prisma.product.findFirst({
+    const product = await this.prisma.product.findFirst({
       where: { id: productId, shopId, deletedAt: null },
     })
 
@@ -50,7 +51,7 @@ export class ApprovalService {
       throw new NotFoundException('Product not found')
     }
 
-    const existing = await prisma.productApproval.findFirst({
+    const existing = await this.prisma.productApproval.findFirst({
       where: { productId, status: 'PENDING_REVIEW' },
     })
 
@@ -58,12 +59,12 @@ export class ApprovalService {
       throw new BadRequestException('Product already has a pending approval request')
     }
 
-    const latestApproval = await prisma.productApproval.findFirst({
+    const latestApproval = await this.prisma.productApproval.findFirst({
       where: { productId },
       orderBy: { version: 'desc' },
     })
 
-    return prisma.productApproval.create({
+    return this.prisma.productApproval.create({
       data: {
         productId,
         shopId,
@@ -74,7 +75,7 @@ export class ApprovalService {
   }
 
   async resubmit(shopId: string, approvalId: string) {
-    const approval = await prisma.productApproval.findFirst({
+    const approval = await this.prisma.productApproval.findFirst({
       where: { id: approvalId, shopId },
     })
 
@@ -86,7 +87,7 @@ export class ApprovalService {
       throw new BadRequestException('Can only resubmit revision-requested or rejected approvals')
     }
 
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const updated = await tx.productApproval.update({
         where: { id: approvalId },
         data: {
@@ -109,7 +110,7 @@ export class ApprovalService {
   }
 
   async getByProduct(shopId: string, productId: string) {
-    return prisma.productApproval.findMany({
+    return this.prisma.productApproval.findMany({
       where: { productId, shopId },
       include: { history: { orderBy: { createdAt: 'desc' } } },
       orderBy: { version: 'desc' },

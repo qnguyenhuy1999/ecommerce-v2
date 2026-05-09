@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ecom/auth": "workspace:*",
+    "@ecom/common": "workspace:*",
     "@ecom/database": "workspace:*",
     "@ecom/email": "workspace:*",
     "@ecom/redis": "workspace:*",

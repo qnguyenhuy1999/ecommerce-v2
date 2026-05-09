@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { UpdateShopDto } from './dto/update-shop.dto'
 
 @Injectable()
 export class ShopService {
+  constructor(private readonly prisma: PrismaService) {}
   async getShop(userId: string) {
-    const profile = await prisma.sellerProfile.findUnique({
+    const profile = await this.prisma.sellerProfile.findUnique({
       where: { userId },
       include: { shop: true },
     })
@@ -18,7 +19,7 @@ export class ShopService {
   }
 
   async updateShop(userId: string, dto: UpdateShopDto) {
-    const profile = await prisma.sellerProfile.findUnique({
+    const profile = await this.prisma.sellerProfile.findUnique({
       where: { userId },
       include: { shop: true },
     })
@@ -27,14 +28,14 @@ export class ShopService {
       throw new NotFoundException('Shop not found')
     }
 
-    return prisma.shop.update({
+    return this.prisma.shop.update({
       where: { id: profile.shop.id },
       data: dto,
     })
   }
 
   async getShopId(userId: string): Promise<string> {
-    const profile = await prisma.sellerProfile.findUnique({
+    const profile = await this.prisma.sellerProfile.findUnique({
       where: { userId },
       include: { shop: { select: { id: true } } },
     })

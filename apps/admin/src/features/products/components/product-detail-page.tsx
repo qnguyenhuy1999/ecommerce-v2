@@ -1,7 +1,7 @@
 'use client';
 
 import { useProduct, useApproveProduct, useRejectProduct, useHideProduct, useUnhideProduct } from '../hooks/use-products';
-import { StatusBadge } from '@/components/data-table/data-table';
+import { StatusBadge } from '@ecom/core-ui';
 
 export function ProductDetailPage({ id }: { id: string }) {
   const { data: product, isLoading } = useProduct(id);

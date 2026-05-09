@@ -1,7 +1,7 @@
 'use client';
 
 import { useOrder, useForceCancelOrder, useForceCompleteOrder } from '../hooks/use-orders';
-import { StatusBadge } from '@/components/data-table/data-table';
+import { StatusBadge } from '@ecom/core-ui';
 
 export function OrderDetailPage({ id }: { id: string }) {
   const { data: order, isLoading } = useOrder(id);

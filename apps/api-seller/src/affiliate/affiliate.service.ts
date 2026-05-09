@@ -1,19 +1,20 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
 import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 import { randomBytes } from 'crypto'
 
 @Injectable()
 export class AffiliateService {
+  constructor(private readonly prisma: PrismaService) {}
   async getPartnerByUserId(userId: string) {
-    return prisma.affiliatePartner.findUnique({ where: { userId } })
+    return this.prisma.affiliatePartner.findUnique({ where: { userId } })
   }
 
   async listPartners(query: OffsetPaginationDto) {
     const { page = 1, pageSize = 20 } = query
 
-    const { items, total } = await offsetPaginate(prisma.affiliatePartner, {
+    const { items, total } = await offsetPaginate(this.prisma.affiliatePartner, {
       page,
       pageSize,
       orderBy: { createdAt: 'desc' },
@@ -23,10 +24,10 @@ export class AffiliateService {
   }
 
   async updatePartnerStatus(partnerId: string, status: string) {
-    const partner = await prisma.affiliatePartner.findUnique({ where: { id: partnerId } })
+    const partner = await this.prisma.affiliatePartner.findUnique({ where: { id: partnerId } })
     if (!partner) throw new NotFoundException('Partner not found')
 
-    return prisma.affiliatePartner.update({
+    return this.prisma.affiliatePartner.update({
       where: { id: partnerId },
       data: { status: status as 'PENDING' | 'APPROVED' | 'REJECTED' | 'SUSPENDED' },
     })
@@ -35,7 +36,7 @@ export class AffiliateService {
   async createLink(partnerId: string, dto: CreateAffiliateLinkDto) {
     const code = randomBytes(8).toString('hex')
 
-    return prisma.affiliateLink.create({
+    return this.prisma.affiliateLink.create({
       data: {
         partnerId,
         productId: dto.productId,
@@ -51,7 +52,7 @@ export class AffiliateService {
 
     const where: Prisma.AffiliateLinkWhereInput = { partnerId }
 
-    const { items, total } = await offsetPaginate(prisma.affiliateLink, {
+    const { items, total } = await offsetPaginate(this.prisma.affiliateLink, {
       page,
       pageSize,
       where,
@@ -68,14 +69,14 @@ export class AffiliateService {
     userAgent?: string,
     referer?: string,
   ) {
-    const link = await prisma.affiliateLink.findUnique({ where: { code } })
+    const link = await this.prisma.affiliateLink.findUnique({ where: { code } })
     if (!link) throw new NotFoundException('Link not found')
 
-    await prisma.$transaction([
-      prisma.affiliateClick.create({
+    await this.prisma.$transaction([
+      this.prisma.affiliateClick.create({
         data: { linkId: link.id, visitorId, ipAddress, userAgent, referer },
       }),
-      prisma.affiliateLink.update({
+      this.prisma.affiliateLink.update({
         where: { id: link.id },
         data: { clicks: { increment: 1 } },
       }),
@@ -85,7 +86,7 @@ export class AffiliateService {
   }
 
   async recordConversion(linkCode: string, orderId: string, buyerId: string, orderAmount: number) {
-    const link = await prisma.affiliateLink.findUnique({
+    const link = await this.prisma.affiliateLink.findUnique({
       where: { code: linkCode },
       include: { partner: true },
     })
@@ -95,8 +96,8 @@ export class AffiliateService {
     const commissionRate = Number(link.partner.commissionRate)
     const commissionAmount = (orderAmount * commissionRate) / 100
 
-    await prisma.$transaction([
-      prisma.affiliateConversion.create({
+    await this.prisma.$transaction([
+      this.prisma.affiliateConversion.create({
         data: {
           linkId: link.id,
           orderId,
@@ -106,11 +107,11 @@ export class AffiliateService {
           commissionAmount,
         },
       }),
-      prisma.affiliateLink.update({
+      this.prisma.affiliateLink.update({
         where: { id: link.id },
         data: { conversions: { increment: 1 } },
       }),
-      prisma.affiliatePartner.update({
+      this.prisma.affiliatePartner.update({
         where: { id: link.partnerId },
         data: {
           totalEarnings: { increment: commissionAmount },
@@ -121,14 +122,14 @@ export class AffiliateService {
   }
 
   async requestPayout(partnerId: string, dto: RequestPayoutDto) {
-    const partner = await prisma.affiliatePartner.findUnique({ where: { id: partnerId } })
+    const partner = await this.prisma.affiliatePartner.findUnique({ where: { id: partnerId } })
     if (!partner) throw new NotFoundException('Partner not found')
 
     if (Number(partner.pendingBalance) < dto.amount) {
       throw new BadRequestException('Insufficient balance')
     }
 
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const payout = await tx.commissionPayout.create({
         data: {
           partnerId,
@@ -148,14 +149,14 @@ export class AffiliateService {
   }
 
   async getPartnerAnalytics(partnerId: string) {
-    const partner = await prisma.affiliatePartner.findUnique({ where: { id: partnerId } })
+    const partner = await this.prisma.affiliatePartner.findUnique({ where: { id: partnerId } })
     if (!partner) throw new NotFoundException('Partner not found')
 
     const [totalLinks, totalClicks, totalConversions, recentConversions] = await Promise.all([
-      prisma.affiliateLink.count({ where: { partnerId } }),
-      prisma.affiliateClick.count({ where: { link: { partnerId } } }),
-      prisma.affiliateConversion.count({ where: { link: { partnerId } } }),
-      prisma.affiliateConversion.findMany({
+      this.prisma.affiliateLink.count({ where: { partnerId } }),
+      this.prisma.affiliateClick.count({ where: { link: { partnerId } } }),
+      this.prisma.affiliateConversion.count({ where: { link: { partnerId } } }),
+      this.prisma.affiliateConversion.findMany({
         where: { link: { partnerId } },
         orderBy: { createdAt: 'desc' },
         take: 10,

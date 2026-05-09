@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { OrderStatus, InventoryTransactionType, PAGINATION_DEFAULTS } from '@ecom/constants'
 import { OrderQueryDto } from './dto/order-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
@@ -15,6 +15,7 @@ const VALID_TRANSITIONS: Record<string, string[]> = {
 
 @Injectable()
 export class OrderService {
+  constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: OrderQueryDto) {
     const { page = 1, pageSize = PAGINATION_DEFAULTS.PAGE_SIZE, sort = 'createdAt', order = 'desc', status, search } = query
 
@@ -30,7 +31,7 @@ export class OrderService {
         : {}),
     }
 
-    const { items, total } = await offsetPaginate(prisma.sellerOrder, {
+    const { items, total } = await offsetPaginate(this.prisma.sellerOrder, {
       page,
       pageSize,
       where,
@@ -49,7 +50,7 @@ export class OrderService {
   }
 
   async getById(shopId: string, sellerOrderId: string) {
-    const sellerOrder = await prisma.sellerOrder.findFirst({
+    const sellerOrder = await this.prisma.sellerOrder.findFirst({
       where: { id: sellerOrderId, shopId },
       include: {
         order: true,
@@ -69,7 +70,7 @@ export class OrderService {
   }
 
   async updateStatus(shopId: string, sellerOrderId: string, newStatus: string, note?: string, performedBy?: string) {
-    const sellerOrder = await prisma.sellerOrder.findFirst({
+    const sellerOrder = await this.prisma.sellerOrder.findFirst({
       where: { id: sellerOrderId, shopId },
     })
 
@@ -86,7 +87,7 @@ export class OrderService {
       )
     }
 
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const updated = await tx.sellerOrder.update({
         where: { id: sellerOrderId },
         data: { status: newStatus as Prisma.SellerOrderUpdateInput['status'] },

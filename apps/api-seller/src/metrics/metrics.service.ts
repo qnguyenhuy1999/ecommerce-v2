@@ -1,22 +1,23 @@
 import { Injectable } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { OrderStatus, RefundStatus } from '@ecom/constants'
 
 @Injectable()
 export class MetricsService {
+  constructor(private readonly prisma: PrismaService) {}
   async getCurrentMetrics(shopId: string) {
     const now = new Date()
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
 
     const [totalOrders, cancelledOrders, lateShipments, totalReturns, refundedOrders] =
       await Promise.all([
-        prisma.sellerOrder.count({
+        this.prisma.sellerOrder.count({
           where: { shopId, createdAt: { gte: thirtyDaysAgo } },
         }),
-        prisma.sellerOrder.count({
+        this.prisma.sellerOrder.count({
           where: { shopId, status: OrderStatus.CANCELLED, createdAt: { gte: thirtyDaysAgo } },
         }),
-        prisma.sellerOrder.count({
+        this.prisma.sellerOrder.count({
           where: {
             shopId,
             status: OrderStatus.SHIPPED,
@@ -24,10 +25,10 @@ export class MetricsService {
             shippedAt: { not: null },
           },
         }),
-        prisma.returnRequest.count({
+        this.prisma.returnRequest.count({
           where: { shopId, createdAt: { gte: thirtyDaysAgo } },
         }),
-        prisma.returnRequest.count({
+        this.prisma.returnRequest.count({
           where: { shopId, status: RefundStatus.REFUNDED as any, createdAt: { gte: thirtyDaysAgo } },
         }),
       ])
@@ -35,7 +36,7 @@ export class MetricsService {
     const cancellationRate = totalOrders > 0 ? (cancelledOrders / totalOrders) * 100 : 0
     const refundRate = totalOrders > 0 ? (refundedOrders / totalOrders) * 100 : 0
 
-    const conversations = await prisma.conversation.findMany({
+    const conversations = await this.prisma.conversation.findMany({
       where: { shopId, createdAt: { gte: thirtyDaysAgo } },
       select: { sellerUnread: true },
     })
@@ -63,7 +64,7 @@ export class MetricsService {
   async getMetricHistory(shopId: string, days: number = 30) {
     const startDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
 
-    const snapshots = await prisma.sellerMetricSnapshot.findMany({
+    const snapshots = await this.prisma.sellerMetricSnapshot.findMany({
       where: { shopId, date: { gte: startDate } },
       orderBy: { date: 'asc' },
     })
@@ -76,7 +77,7 @@ export class MetricsService {
     const today = new Date()
     today.setHours(0, 0, 0, 0)
 
-    return prisma.sellerMetricSnapshot.upsert({
+    return this.prisma.sellerMetricSnapshot.upsert({
       where: { shopId_date: { shopId, date: today } },
       create: {
         shopId,

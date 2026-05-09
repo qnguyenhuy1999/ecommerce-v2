@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 import { Search, Star, MessageSquare } from 'lucide-react'
 import { DashboardLayout } from '../../components/dashboard-layout'
 import { PageHeader } from '../../components/page-header'
-import { DataTable } from '../../components/data-table'
+import { DataTable } from '@ecom/core-ui'
 import { StatusBadge } from '../../components/status-badge'
-import { StatCard } from '../../components/stat-card'
+import { StatCard } from '@ecom/core-ui'
 import { api } from '../../lib/api'
 
 interface Review {

@@ -1,12 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { CreateAiTaskDto } from './dto/ai-tools.dto'
 import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 
 @Injectable()
 export class AiToolsService {
+  constructor(private readonly prisma: PrismaService) {}
   async createTask(shopId: string, dto: CreateAiTaskDto) {
-    return prisma.aiTask.create({
+    return this.prisma.aiTask.create({
       data: {
         shopId,
         type: dto.type as
@@ -26,7 +27,7 @@ export class AiToolsService {
   }
 
   async getTask(shopId: string, taskId: string) {
-    const task = await prisma.aiTask.findFirst({
+    const task = await this.prisma.aiTask.findFirst({
       where: { id: taskId, shopId },
     })
     if (!task) throw new NotFoundException('AI task not found')
@@ -38,7 +39,7 @@ export class AiToolsService {
 
     const where: Prisma.AiTaskWhereInput = { shopId }
 
-    const { items, total } = await offsetPaginate(prisma.aiTask, {
+    const { items, total } = await offsetPaginate(this.prisma.aiTask, {
       page,
       pageSize,
       where,
@@ -49,17 +50,17 @@ export class AiToolsService {
   }
 
   async processTask(taskId: string) {
-    const task = await prisma.aiTask.findUnique({ where: { id: taskId } })
+    const task = await this.prisma.aiTask.findUnique({ where: { id: taskId } })
     if (!task) throw new NotFoundException('Task not found')
 
-    await prisma.aiTask.update({
+    await this.prisma.aiTask.update({
       where: { id: taskId },
       data: { status: 'PROCESSING', startedAt: new Date() },
     })
 
     const output = await this.executeAiTask(task.type, task.input as Record<string, unknown>)
 
-    await prisma.aiTask.update({
+    await this.prisma.aiTask.update({
       where: { id: taskId },
       data: {
         status: 'COMPLETED',
@@ -70,7 +71,7 @@ export class AiToolsService {
       },
     })
 
-    return prisma.aiTask.findUnique({ where: { id: taskId } })
+    return this.prisma.aiTask.findUnique({ where: { id: taskId } })
   }
 
   private async executeAiTask(
@@ -130,12 +131,12 @@ export class AiToolsService {
 
   async getUsageStats(shopId: string) {
     const [totalTasks, totalTokens, totalCost] = await Promise.all([
-      prisma.aiTask.count({ where: { shopId } }),
-      prisma.aiTask.aggregate({
+      this.prisma.aiTask.count({ where: { shopId } }),
+      this.prisma.aiTask.aggregate({
         where: { shopId },
         _sum: { tokensUsed: true },
       }),
-      prisma.aiTask.aggregate({
+      this.prisma.aiTask.aggregate({
         where: { shopId },
         _sum: { cost: true },
       }),

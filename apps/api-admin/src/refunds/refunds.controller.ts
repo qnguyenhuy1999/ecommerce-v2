@@ -1,3 +1,4 @@
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -10,6 +11,7 @@ import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { RefundQueryDto, RefundActionDto } from './dto/refund-query.dto';
 import type { ReturnStatus } from '@ecom/database';
 
+@ApiTags("Refunds")
 @Controller('refunds')
 @UseGuards(AdminAuthGuard, PermissionGuard)
 export class RefundsController {
@@ -17,6 +19,8 @@ export class RefundsController {
     private readonly refundsService: RefundsService,
   ) {}
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get()
   @Permissions('REFUND_VIEW')
   async findAll(@Query() query: RefundQueryDto) {
@@ -25,23 +29,29 @@ export class RefundsController {
       pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
       status: query.status as ReturnStatus | undefined,
     });
-    return { success: true, data: result };
+    return result;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get('status-counts')
   @Permissions('REFUND_VIEW')
   async statusCounts() {
     const counts = await this.refundsService.getStatusCounts();
-    return { success: true, data: counts };
+    return counts;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get(':id')
   @Permissions('REFUND_VIEW')
   async findById(@Param('id') id: string) {
     const refund = await this.refundsService.findById(id);
-    return { success: true, data: refund };
+    return refund;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/approve')
   @Permissions('REFUND_MANAGE')
   @AuditLog('REFUND_APPROVED', 'ReturnRequest', { entityIdParam: 'id' })
@@ -51,9 +61,11 @@ export class RefundsController {
     @CurrentAdmin() admin: AdminSessionData,
   ) {
     const refund = await this.refundsService.approve(id, admin.adminId, dto.note);
-    return { success: true, data: refund };
+    return refund;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/reject')
   @Permissions('REFUND_MANAGE')
   @AuditLog('REFUND_REJECTED', 'ReturnRequest', { entityIdParam: 'id' })
@@ -63,6 +75,6 @@ export class RefundsController {
     @CurrentAdmin() admin: AdminSessionData,
   ) {
     const refund = await this.refundsService.reject(id, admin.adminId, dto.note);
-    return { success: true, data: refund };
+    return refund;
   }
 }

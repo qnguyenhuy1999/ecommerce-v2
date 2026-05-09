@@ -1,16 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { CreateAdCampaignDto, CreateAdGroupDto, CreateAdDto } from './dto/create-ad-campaign.dto'
 import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 
 @Injectable()
 export class AdsService {
+  constructor(private readonly prisma: PrismaService) {}
   async listCampaigns(shopId: string, query: OffsetPaginationDto) {
     const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc' } = query
 
     const where: Prisma.AdCampaignWhereInput = { shopId }
 
-    const { items, total } = await offsetPaginate(prisma.adCampaign, {
+    const { items, total } = await offsetPaginate(this.prisma.adCampaign, {
       page,
       pageSize,
       where,
@@ -22,7 +23,7 @@ export class AdsService {
   }
 
   async getCampaignById(shopId: string, id: string) {
-    const campaign = await prisma.adCampaign.findFirst({
+    const campaign = await this.prisma.adCampaign.findFirst({
       where: { id, shopId },
       include: {
         adGroups: {
@@ -39,7 +40,7 @@ export class AdsService {
   }
 
   async createCampaign(shopId: string, dto: CreateAdCampaignDto) {
-    return prisma.adCampaign.create({
+    return this.prisma.adCampaign.create({
       data: {
         shopId,
         name: dto.name,
@@ -56,22 +57,22 @@ export class AdsService {
   }
 
   async updateCampaignStatus(shopId: string, id: string, status: string) {
-    const campaign = await prisma.adCampaign.findFirst({ where: { id, shopId } })
+    const campaign = await this.prisma.adCampaign.findFirst({ where: { id, shopId } })
     if (!campaign) throw new NotFoundException('Campaign not found')
 
-    return prisma.adCampaign.update({
+    return this.prisma.adCampaign.update({
       where: { id },
       data: { status: status as 'DRAFT' | 'ACTIVE' | 'PAUSED' | 'ENDED' | 'DEPLETED' },
     })
   }
 
   async createAdGroup(shopId: string, dto: CreateAdGroupDto) {
-    const campaign = await prisma.adCampaign.findFirst({
+    const campaign = await this.prisma.adCampaign.findFirst({
       where: { id: dto.campaignId, shopId },
     })
     if (!campaign) throw new NotFoundException('Campaign not found')
 
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const group = await tx.adGroup.create({
         data: {
           campaignId: dto.campaignId,
@@ -97,17 +98,17 @@ export class AdsService {
   }
 
   async createAd(shopId: string, dto: CreateAdDto) {
-    const adGroup = await prisma.adGroup.findFirst({
+    const adGroup = await this.prisma.adGroup.findFirst({
       where: { id: dto.adGroupId, campaign: { shopId } },
     })
     if (!adGroup) throw new NotFoundException('Ad group not found')
 
-    const product = await prisma.product.findFirst({
+    const product = await this.prisma.product.findFirst({
       where: { id: dto.productId, shopId, deletedAt: null },
     })
     if (!product) throw new NotFoundException('Product not found')
 
-    return prisma.ad.create({
+    return this.prisma.ad.create({
       data: {
         adGroupId: dto.adGroupId,
         productId: dto.productId,
@@ -116,7 +117,7 @@ export class AdsService {
   }
 
   async getCampaignAnalytics(shopId: string, campaignId: string) {
-    const campaign = await prisma.adCampaign.findFirst({
+    const campaign = await this.prisma.adCampaign.findFirst({
       where: { id: campaignId, shopId },
       include: {
         adGroups: {

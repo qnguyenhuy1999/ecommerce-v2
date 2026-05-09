@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { FlashSaleStatus, ProductStatus, PAGINATION_DEFAULTS } from '@ecom/constants'
 import { CreateFlashSaleCampaignDto } from './dto/create-flash-sale.dto'
 import { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
@@ -7,6 +7,7 @@ import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/
 
 @Injectable()
 export class FlashSaleService {
+  constructor(private readonly prisma: PrismaService) {}
   async listCampaigns(query: OffsetPaginationDto) {
     const { page = 1, pageSize = PAGINATION_DEFAULTS.PAGE_SIZE } = query
 
@@ -15,7 +16,7 @@ export class FlashSaleService {
       isVisible: true,
     }
 
-    const { items, total } = await offsetPaginate(prisma.flashSaleCampaign, {
+    const { items, total } = await offsetPaginate(this.prisma.flashSaleCampaign, {
       page,
       pageSize,
       where,
@@ -27,7 +28,7 @@ export class FlashSaleService {
   }
 
   async getCampaignById(id: string) {
-    const campaign = await prisma.flashSaleCampaign.findUnique({
+    const campaign = await this.prisma.flashSaleCampaign.findUnique({
       where: { id },
       include: {
         slots: { orderBy: { sortOrder: 'asc' } },
@@ -47,7 +48,7 @@ export class FlashSaleService {
       throw new BadRequestException('End time must be after start time')
     }
 
-    return prisma.flashSaleCampaign.create({
+    return this.prisma.flashSaleCampaign.create({
       data: {
         name: dto.name,
         description: dto.description,
@@ -61,17 +62,17 @@ export class FlashSaleService {
   }
 
   async updateCampaignStatus(id: string, status: string) {
-    const campaign = await prisma.flashSaleCampaign.findUnique({ where: { id } })
+    const campaign = await this.prisma.flashSaleCampaign.findUnique({ where: { id } })
     if (!campaign) throw new NotFoundException('Campaign not found')
 
-    return prisma.flashSaleCampaign.update({
+    return this.prisma.flashSaleCampaign.update({
       where: { id },
       data: { status: status as any },
     })
   }
 
   async applySlot(shopId: string, dto: ApplyFlashSaleSlotDto) {
-    const campaign = await prisma.flashSaleCampaign.findUnique({
+    const campaign = await this.prisma.flashSaleCampaign.findUnique({
       where: { id: dto.campaignId },
     })
 
@@ -80,7 +81,7 @@ export class FlashSaleService {
       throw new BadRequestException('Campaign is not accepting applications')
     }
 
-    const existingSlots = await prisma.flashSaleSlot.count({
+    const existingSlots = await this.prisma.flashSaleSlot.count({
       where: { campaignId: dto.campaignId, shopId },
     })
 
@@ -88,13 +89,13 @@ export class FlashSaleService {
       throw new BadRequestException(`Maximum ${campaign.maxSlotsPerSeller} slots per seller`)
     }
 
-    const product = await prisma.product.findFirst({
+    const product = await this.prisma.product.findFirst({
       where: { id: dto.productId, shopId, deletedAt: null, status: ProductStatus.PUBLISHED },
     })
 
     if (!product) throw new NotFoundException('Product not found or not published')
 
-    return prisma.flashSaleSlot.create({
+    return this.prisma.flashSaleSlot.create({
       data: {
         campaignId: dto.campaignId,
         shopId,
@@ -113,7 +114,7 @@ export class FlashSaleService {
 
     const where: Prisma.FlashSaleSlotWhereInput = { shopId }
 
-    const { items, total } = await offsetPaginate(prisma.flashSaleSlot, {
+    const { items, total } = await offsetPaginate(this.prisma.flashSaleSlot, {
       page,
       pageSize,
       where,
@@ -129,14 +130,14 @@ export class FlashSaleService {
   }
 
   async approveSlot(slotId: string) {
-    return prisma.flashSaleSlot.update({
+    return this.prisma.flashSaleSlot.update({
       where: { id: slotId },
       data: { status: 'APPROVED' },
     })
   }
 
   async rejectSlot(slotId: string) {
-    return prisma.flashSaleSlot.update({
+    return this.prisma.flashSaleSlot.update({
       where: { id: slotId },
       data: { status: 'REJECTED' },
     })

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useCategories, useCreateCategory, useDeleteCategory, useUpdateCategory } from '../hooks/use-categories';
-import { StatusBadge } from '@/components/data-table/data-table';
+import { StatusBadge } from '@ecom/core-ui';
 import type { CategoryNode } from '../api/categories.api';
 
 export function CategoriesPage() {

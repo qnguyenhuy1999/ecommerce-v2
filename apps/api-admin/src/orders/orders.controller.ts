@@ -1,3 +1,4 @@
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -9,6 +10,7 @@ import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { OrderQueryDto, OrderActionDto } from './dto/order-query.dto';
 import type { OrderStatus } from '@ecom/database';
 
+@ApiTags("Orders")
 @Controller('orders')
 @UseGuards(AdminAuthGuard, PermissionGuard)
 export class OrdersController {
@@ -16,6 +18,8 @@ export class OrdersController {
     private readonly ordersService: OrdersService,
   ) {}
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get()
   @Permissions('ORDER_VIEW')
   async findAll(@Query() query: OrderQueryDto) {
@@ -26,23 +30,29 @@ export class OrdersController {
       status: query.status as OrderStatus | undefined,
       buyerId: query.buyerId,
     });
-    return { success: true, data: result };
+    return result;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get('status-counts')
   @Permissions('ORDER_VIEW')
   async statusCounts() {
     const counts = await this.ordersService.getStatusCounts();
-    return { success: true, data: counts };
+    return counts;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get(':id')
   @Permissions('ORDER_VIEW')
   async findById(@Param('id') id: string) {
     const order = await this.ordersService.findById(id);
-    return { success: true, data: order };
+    return order;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/force-cancel')
   @Permissions('ORDER_MANAGE')
   @AuditLog('ORDER_FORCE_CANCELLED', 'Order', {
@@ -54,9 +64,11 @@ export class OrdersController {
     @Body() _dto: OrderActionDto,
   ) {
     const order = await this.ordersService.forceCancel(id);
-    return { success: true, data: order };
+    return order;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/force-complete')
   @Permissions('ORDER_MANAGE')
   @AuditLog('ORDER_FORCE_COMPLETED', 'Order', { entityIdParam: 'id' })
@@ -64,6 +76,6 @@ export class OrdersController {
     @Param('id') id: string,
   ) {
     const order = await this.ordersService.forceComplete(id);
-    return { success: true, data: order };
+    return order;
   }
 }

@@ -7,7 +7,7 @@ export interface OffsetPaginationMeta {
 }
 
 export interface PaginatedResponse<T> {
-  items: T[];
+  data: T[];
   meta: OffsetPaginationMeta;
 }
 

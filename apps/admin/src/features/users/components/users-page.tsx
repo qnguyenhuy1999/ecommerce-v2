@@ -4,7 +4,7 @@ import { useState, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { createColumnHelper } from '@tanstack/react-table';
 import { UserStatus, PAGINATION_DEFAULTS } from '@ecom/constants';
-import { DataTable, StatusBadge, TableToolbar, StatusTabs } from '@/components/data-table/data-table';
+import { DataTable, StatusBadge, TableToolbar, StatusTabs } from '@ecom/core-ui';
 import { useUsers, useUserStatusCounts } from '../hooks/use-users';
 import type { UserListItem } from '../api/users.api';
 

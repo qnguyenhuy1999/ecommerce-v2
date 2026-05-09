@@ -1,3 +1,4 @@
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
   Controller,
   Post,
@@ -17,12 +18,15 @@ import { LoginDto } from './dto/login.dto';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
 
+@ApiTags("Auth")
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
   ) {}
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post('login')
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   @HttpCode(HttpStatus.OK)
@@ -59,9 +63,11 @@ export class AuthController {
       ...(cookieOptions.domain ? { domain: cookieOptions.domain } : {}),
     });
 
-    return { success: true, data: result.admin };
+    return result.admin;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post('logout')
   @UseGuards(AdminAuthGuard)
   @HttpCode(HttpStatus.OK)
@@ -87,14 +93,18 @@ export class AuthController {
     return { success: true };
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get('me')
   @UseGuards(AdminAuthGuard)
   async me(@Req() req: Request) {
     const sessionId = req.cookies?.[SESSION_COOKIE_NAME];
     const admin = await this.authService.getMe(sessionId);
-    return { success: true, data: admin };
+    return admin;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post('refresh')
   @UseGuards(AdminAuthGuard)
   @HttpCode(HttpStatus.OK)

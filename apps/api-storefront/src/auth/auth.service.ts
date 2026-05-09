@@ -1,38 +1,45 @@
-import { Inject, Injectable, Logger, UnauthorizedException, ConflictException } from '@nestjs/common'
+import { Inject, Injectable, Logger, UnauthorizedException, ConflictException, BadRequestException } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
 import { join } from 'node:path'
-import * as bcrypt from 'bcrypt'
-import { prisma } from '@ecom/database'
-import { SessionService, type SessionData } from '@ecom/auth'
+import { PrismaService } from '@ecom/database'
+import {
+  SessionService,
+  type SessionData,
+  BaseUserAuthService,
+  SESSION_EXPIRY_DAYS,
+  VERIFY_TOKEN_TTL,
+  hashPassword,
+  comparePassword,
+} from '@ecom/auth'
 import { EmailService } from '@ecom/email'
 import { RedisService } from '@ecom/redis'
 import { SESSION_SERVICE } from './session.provider'
 
-const BCRYPT_ROUNDS = 12
-const SESSION_EXPIRY_DAYS = 7
-const VERIFY_TOKEN_TTL = 24 * 60 * 60 // 24 hours
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
 
 @Injectable()
-export class AuthService {
+export class AuthService extends BaseUserAuthService {
   private readonly logger = new Logger(AuthService.name)
 
   constructor(
     @Inject(SESSION_SERVICE)
-    private readonly sessionService: SessionService,
-    private readonly emailService: EmailService,
-    private readonly redisService: RedisService,
-  ) {}
+    sessionService: SessionService,
+    emailService: EmailService,
+    redisService: RedisService,
+    private readonly prisma: PrismaService,
+  ) {
+    super(sessionService, emailService, redisService)
+  }
 
   async register(email: string, password: string) {
-    const existing = await prisma.user.findUnique({ where: { email } })
+    const existing = await this.prisma.user.findUnique({ where: { email } })
     if (existing) {
       throw new ConflictException('Email already registered')
     }
 
-    const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS)
+    const hashedPassword = await hashPassword(password)
 
-    const buyerRole = await prisma.role.findUnique({
+    const buyerRole = await this.prisma.role.findUnique({
       where: { name: 'buyer' },
     })
     if (!buyerRole) {
@@ -41,10 +48,10 @@ export class AuthService {
 
     let user
     try {
-      user = await prisma.user.create({
+      user = await this.prisma.user.create({
         data: {
           email,
-          passwordHash,
+          passwordHash: hashedPassword,
           userRoles: {
             create: { roleId: buyerRole.id },
           },
@@ -73,7 +80,7 @@ export class AuthService {
           },
         }),
       )
-      .catch((err) => {
+      .catch((err: Error) => {
         this.logger.warn(`Failed to send verification email: ${err.message}`)
       })
 
@@ -85,7 +92,7 @@ export class AuthService {
   }
 
   async login(email: string, password: string, userAgent?: string, ipAddress?: string) {
-    const user = await prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { email },
       include: { userRoles: { include: { role: true } } },
     })
@@ -98,7 +105,7 @@ export class AuthService {
       throw new UnauthorizedException('Account is not active')
     }
 
-    const valid = await bcrypt.compare(password, user.passwordHash)
+    const valid = await comparePassword(password, user.passwordHash)
     if (!valid) {
       throw new UnauthorizedException('Invalid credentials')
     }
@@ -112,7 +119,7 @@ export class AuthService {
     await this.sessionService.create(sessionId, sessionData)
 
     // Store in database for audit
-    await prisma.session.create({
+    await this.prisma.session.create({
       data: {
         id: sessionId,
         userId: user.id,
@@ -126,10 +133,15 @@ export class AuthService {
   }
 
   async logout(sessionId: string) {
-    await this.sessionService.delete(sessionId)
-    await prisma.session.delete({ where: { id: sessionId } }).catch(() => {
-      // Session may not exist in DB, ignore
-    })
+    await this.destroySession(sessionId)
+  }
+
+  async verifyEmail(token: string) {
+    try {
+      await super.verifyEmail(token)
+    } catch (err: unknown) {
+      throw new BadRequestException(err instanceof Error ? err.message : 'Invalid or expired verification token')
+    }
   }
 
   async getMe(sessionId: string) {
@@ -138,7 +150,7 @@ export class AuthService {
       throw new UnauthorizedException('Session expired or invalid')
     }
 
-    const user = await prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: session.userId },
       select: {
         id: true,

@@ -1,12 +1,13 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { CreatePlanDto, SubscribeDto } from './dto/subscription.dto'
 import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 
 @Injectable()
 export class SubscriptionService {
+  constructor(private readonly prisma: PrismaService) {}
   async listPlans() {
-    return prisma.subscriptionPlan.findMany({
+    return this.prisma.subscriptionPlan.findMany({
       where: { isActive: true },
       include: { entitlements: true },
       orderBy: { sortOrder: 'asc' },
@@ -14,7 +15,7 @@ export class SubscriptionService {
   }
 
   async getPlanById(id: string) {
-    const plan = await prisma.subscriptionPlan.findUnique({
+    const plan = await this.prisma.subscriptionPlan.findUnique({
       where: { id },
       include: { entitlements: true },
     })
@@ -23,7 +24,7 @@ export class SubscriptionService {
   }
 
   async createPlan(dto: CreatePlanDto) {
-    return prisma.subscriptionPlan.create({
+    return this.prisma.subscriptionPlan.create({
       data: {
         name: dto.name,
         slug: dto.slug,
@@ -39,10 +40,10 @@ export class SubscriptionService {
   }
 
   async subscribe(shopId: string, dto: SubscribeDto) {
-    const plan = await prisma.subscriptionPlan.findUnique({ where: { id: dto.planId } })
+    const plan = await this.prisma.subscriptionPlan.findUnique({ where: { id: dto.planId } })
     if (!plan) throw new NotFoundException('Plan not found')
 
-    const existing = await prisma.sellerSubscription.findUnique({ where: { shopId } })
+    const existing = await this.prisma.sellerSubscription.findUnique({ where: { shopId } })
     if (existing && existing.status === 'ACTIVE') {
       throw new BadRequestException('Shop already has an active subscription')
     }
@@ -56,7 +57,7 @@ export class SubscriptionService {
       periodEnd.setMonth(periodEnd.getMonth() + 1)
     }
 
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const subscription = existing
         ? await tx.sellerSubscription.update({
             where: { shopId },
@@ -97,7 +98,7 @@ export class SubscriptionService {
   }
 
   async getSubscription(shopId: string) {
-    const subscription = await prisma.sellerSubscription.findUnique({
+    const subscription = await this.prisma.sellerSubscription.findUnique({
       where: { shopId },
       include: { plan: { include: { entitlements: true } } },
     })
@@ -106,10 +107,10 @@ export class SubscriptionService {
   }
 
   async cancelSubscription(shopId: string) {
-    const subscription = await prisma.sellerSubscription.findUnique({ where: { shopId } })
+    const subscription = await this.prisma.sellerSubscription.findUnique({ where: { shopId } })
     if (!subscription) throw new NotFoundException('Subscription not found')
 
-    return prisma.sellerSubscription.update({
+    return this.prisma.sellerSubscription.update({
       where: { shopId },
       data: { status: 'CANCELLED', cancelledAt: new Date() },
     })
@@ -119,7 +120,7 @@ export class SubscriptionService {
     shopId: string,
     feature: string,
   ): Promise<{ allowed: boolean; value?: string }> {
-    const subscription = await prisma.sellerSubscription.findUnique({
+    const subscription = await this.prisma.sellerSubscription.findUnique({
       where: { shopId },
       include: { plan: { include: { entitlements: true } } },
     })
@@ -135,12 +136,12 @@ export class SubscriptionService {
   async listInvoices(shopId: string, query: OffsetPaginationDto) {
     const { page = 1, pageSize = 20 } = query
 
-    const subscription = await prisma.sellerSubscription.findUnique({ where: { shopId } })
+    const subscription = await this.prisma.sellerSubscription.findUnique({ where: { shopId } })
     if (!subscription) return buildOffsetResponse([], 1, pageSize, 0)
 
     const where: Prisma.SubscriptionInvoiceWhereInput = { subscriptionId: subscription.id }
 
-    const { items, total } = await offsetPaginate(prisma.subscriptionInvoice, {
+    const { items, total } = await offsetPaginate(this.prisma.subscriptionInvoice, {
       page,
       pageSize,
       where,

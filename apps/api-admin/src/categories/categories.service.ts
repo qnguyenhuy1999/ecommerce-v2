@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
-import { prisma } from '@ecom/database';
+import { PrismaService } from '@ecom/database';
 
 @Injectable()
 export class CategoriesService {
+  constructor(private readonly prisma: PrismaService) {}
   async findAll(parentId?: string) {
-    return prisma.category.findMany({
+    return this.prisma.category.findMany({
       where: parentId ? { parentId } : { parentId: null },
       include: {
         children: {
@@ -18,7 +19,7 @@ export class CategoriesService {
   }
 
   async findById(id: string) {
-    const cat = await prisma.category.findUnique({
+    const cat = await this.prisma.category.findUnique({
       where: { id },
       include: {
         parent: { select: { id: true, name: true } },
@@ -36,9 +37,9 @@ export class CategoriesService {
     sortOrder?: number; isActive?: boolean; description?: string;
     icon?: string; banner?: string; metaTitle?: string; metaDesc?: string;
   }) {
-    const existing = await prisma.category.findUnique({ where: { slug: data.slug } });
+    const existing = await this.prisma.category.findUnique({ where: { slug: data.slug } });
     if (existing) throw new ConflictException('Slug already exists');
-    return prisma.category.create({ data });
+    return this.prisma.category.create({ data });
   }
 
   async update(id: string, data: {
@@ -48,28 +49,28 @@ export class CategoriesService {
   }) {
     await this.findById(id);
     if (data.slug) {
-      const existing = await prisma.category.findFirst({
+      const existing = await this.prisma.category.findFirst({
         where: { slug: data.slug, id: { not: id } },
       });
       if (existing) throw new ConflictException('Slug already exists');
     }
-    return prisma.category.update({ where: { id }, data });
+    return this.prisma.category.update({ where: { id }, data });
   }
 
   async delete(id: string) {
     await this.findById(id);
-    const childCount = await prisma.category.count({ where: { parentId: id } });
+    const childCount = await this.prisma.category.count({ where: { parentId: id } });
     if (childCount > 0) throw new ConflictException('Cannot delete category with children');
-    return prisma.category.update({
+    return this.prisma.category.update({
       where: { id },
       data: { isActive: false },
     });
   }
 
   async reorder(items: { id: string; sortOrder: number }[]) {
-    await prisma.$transaction(
+    await this.prisma.$transaction(
       items.map((item) =>
-        prisma.category.update({
+        this.prisma.category.update({
           where: { id: item.id },
           data: { sortOrder: item.sortOrder },
         }),
@@ -80,7 +81,7 @@ export class CategoriesService {
 
   async getBreadcrumb(id: string): Promise<{ id: string; name: string; slug: string }[]> {
     const crumbs: { id: string; name: string; slug: string }[] = [];
-    let current = await prisma.category.findUnique({
+    let current = await this.prisma.category.findUnique({
       where: { id },
       select: { id: true, name: true, slug: true, parentId: true },
     });
@@ -91,7 +92,7 @@ export class CategoriesService {
     while (current && depth < MAX_DEPTH) {
       crumbs.unshift({ id: current.id, name: current.name, slug: current.slug });
       if (!current.parentId) break;
-      current = await prisma.category.findUnique({
+      current = await this.prisma.category.findUnique({
         where: { id: current.parentId },
         select: { id: true, name: true, slug: true, parentId: true },
       });

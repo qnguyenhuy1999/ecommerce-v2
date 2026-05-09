@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class ChatService {
+  constructor(private readonly prisma: PrismaService) {}
   async listConversations(shopId: string, query: ConversationQueryDto) {
     const { page = 1, pageSize = 20, search } = query
 
@@ -13,7 +14,7 @@ export class ChatService {
       ...(search ? { lastMessageText: { contains: search, mode: 'insensitive' } } : {}),
     }
 
-    const { items, total } = await offsetPaginate(prisma.conversation, {
+    const { items, total } = await offsetPaginate(this.prisma.conversation, {
       page,
       pageSize,
       where,
@@ -24,7 +25,7 @@ export class ChatService {
   }
 
   async getConversation(shopId: string, conversationId: string) {
-    const conversation = await prisma.conversation.findFirst({
+    const conversation = await this.prisma.conversation.findFirst({
       where: { id: conversationId, shopId },
     })
 
@@ -38,7 +39,7 @@ export class ChatService {
   async getMessages(shopId: string, conversationId: string, query: MessageQueryDto) {
     const { page = 1, pageSize = 50 } = query
 
-    const conversation = await prisma.conversation.findFirst({
+    const conversation = await this.prisma.conversation.findFirst({
       where: { id: conversationId, shopId },
     })
 
@@ -46,7 +47,7 @@ export class ChatService {
       throw new NotFoundException('Conversation not found')
     }
 
-    const { items, total } = await offsetPaginate(prisma.chatMessage, {
+    const { items, total } = await offsetPaginate(this.prisma.chatMessage, {
       page,
       pageSize,
       where: { conversationId },
@@ -57,7 +58,7 @@ export class ChatService {
   }
 
   async sendMessage(shopId: string, conversationId: string, senderId: string, content: string, type: 'TEXT' | 'IMAGE' | 'PRODUCT' = 'TEXT', metadata?: Record<string, unknown>) {
-    const conversation = await prisma.conversation.findFirst({
+    const conversation = await this.prisma.conversation.findFirst({
       where: { id: conversationId, shopId },
     })
 
@@ -65,7 +66,7 @@ export class ChatService {
       throw new NotFoundException('Conversation not found')
     }
 
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const message = await tx.chatMessage.create({
         data: {
           conversationId,
@@ -90,7 +91,7 @@ export class ChatService {
   }
 
   async markAsRead(shopId: string, conversationId: string) {
-    const conversation = await prisma.conversation.findFirst({
+    const conversation = await this.prisma.conversation.findFirst({
       where: { id: conversationId, shopId },
     })
 
@@ -98,12 +99,12 @@ export class ChatService {
       throw new NotFoundException('Conversation not found')
     }
 
-    await prisma.$transaction([
-      prisma.chatMessage.updateMany({
+    await this.prisma.$transaction([
+      this.prisma.chatMessage.updateMany({
         where: { conversationId, isRead: false, senderId: { not: shopId } },
         data: { isRead: true },
       }),
-      prisma.conversation.update({
+      this.prisma.conversation.update({
         where: { id: conversationId },
         data: { sellerUnread: 0 },
       }),
@@ -111,7 +112,7 @@ export class ChatService {
   }
 
   async getUnreadCount(shopId: string) {
-    const result = await prisma.conversation.aggregate({
+    const result = await this.prisma.conversation.aggregate({
       where: { shopId },
       _sum: { sellerUnread: true },
     })

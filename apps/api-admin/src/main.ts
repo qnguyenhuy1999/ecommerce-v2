@@ -1,15 +1,24 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
-import { AllExceptionsFilter } from './common/filters/http-exception.filter';
-import { ResponseInterceptor } from './common/interceptors/response.interceptor';
+import { AllExceptionsFilter, ResponseInterceptor } from '@ecom/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('admin');
   app.use(cookieParser());
+
+  const config = new DocumentBuilder()
+    .setTitle('E-commerce Admin API')
+    .setDescription('The admin API for managing the e-commerce platform')
+    .setVersion('1.0')
+    .addTag('admin')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
 
   app.enableCors({
     origin: process.env.CORS_ORIGINS?.split(',').map((o) => o.trim()) ?? [

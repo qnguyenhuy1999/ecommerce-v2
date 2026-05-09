@@ -1,3 +1,4 @@
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -10,6 +11,7 @@ import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { NotificationQueryDto, CreateNotificationDto, CreateTemplateDto } from './dto/notification.dto';
 import type { AdminNotificationStatus, NotificationChannel } from '@ecom/database';
 
+@ApiTags("Notifications")
 @Controller('notifications')
 @UseGuards(AdminAuthGuard, PermissionGuard)
 export class NotificationsController {
@@ -17,6 +19,8 @@ export class NotificationsController {
     private readonly notificationsService: NotificationsService,
   ) {}
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get()
   @Permissions('NOTIFICATION_MANAGE')
   async findAll(@Query() query: NotificationQueryDto) {
@@ -25,23 +29,29 @@ export class NotificationsController {
       pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
       status: query.status as AdminNotificationStatus | undefined,
     });
-    return { success: true, data: result };
+    return result;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get('templates')
   @Permissions('NOTIFICATION_MANAGE')
   async findTemplates() {
     const templates = await this.notificationsService.findTemplates();
-    return { success: true, data: templates };
+    return templates;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get(':id')
   @Permissions('NOTIFICATION_MANAGE')
   async findById(@Param('id') id: string) {
     const notification = await this.notificationsService.findById(id);
-    return { success: true, data: notification };
+    return notification;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post()
   @Permissions('NOTIFICATION_MANAGE')
   @AuditLog('NOTIFICATION_CREATED', 'AdminNotification', { entityIdPath: 'data.id' })
@@ -54,9 +64,11 @@ export class NotificationsController {
       channel: (dto.channel as NotificationChannel) ?? 'IN_APP',
       sentBy: admin.adminId,
     });
-    return { success: true, data: notification };
+    return notification;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/send')
   @Permissions('NOTIFICATION_MANAGE')
   @AuditLog('NOTIFICATION_SENT', 'AdminNotification', { entityIdParam: 'id' })
@@ -65,9 +77,11 @@ export class NotificationsController {
     @CurrentAdmin() admin: AdminSessionData,
   ) {
     const notification = await this.notificationsService.send(id, admin.adminId);
-    return { success: true, data: notification };
+    return notification;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post('templates')
   @Permissions('NOTIFICATION_MANAGE')
   @AuditLog('NOTIFICATION_TEMPLATE_CREATED', 'NotificationTemplate', { entityIdPath: 'data.id' })
@@ -76,6 +90,6 @@ export class NotificationsController {
       ...dto,
       channel: (dto.channel as NotificationChannel) ?? 'IN_APP',
     });
-    return { success: true, data: template };
+    return template;
   }
 }

@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { BulkJobQueryDto } from './dto/bulk-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class BulkService {
+  constructor(private readonly prisma: PrismaService) {}
   async listJobs(shopId: string, query: BulkJobQueryDto) {
     const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', type, status } = query
 
@@ -14,7 +15,7 @@ export class BulkService {
       ...(status ? { status: status as Prisma.BulkJobWhereInput['status'] } : {}),
     }
 
-    const { items, total } = await offsetPaginate(prisma.bulkJob, {
+    const { items, total } = await offsetPaginate(this.prisma.bulkJob, {
       page,
       pageSize,
       where,
@@ -25,7 +26,7 @@ export class BulkService {
   }
 
   async getJob(shopId: string, jobId: string) {
-    const job = await prisma.bulkJob.findFirst({
+    const job = await this.prisma.bulkJob.findFirst({
       where: { id: jobId, shopId },
     })
 
@@ -37,7 +38,7 @@ export class BulkService {
   }
 
   async createImportJob(shopId: string, fileName: string, fileUrl: string, type: 'PRODUCT_IMPORT' | 'INVENTORY_UPDATE' | 'PRICE_UPDATE') {
-    return prisma.bulkJob.create({
+    return this.prisma.bulkJob.create({
       data: {
         shopId,
         type,
@@ -49,7 +50,7 @@ export class BulkService {
   }
 
   async createExportJob(shopId: string, fileName: string) {
-    return prisma.bulkJob.create({
+    return this.prisma.bulkJob.create({
       data: {
         shopId,
         type: 'PRODUCT_EXPORT',
@@ -73,6 +74,6 @@ export class BulkService {
       updateData.completedAt = new Date()
     }
 
-    return prisma.bulkJob.update({ where: { id: jobId }, data: updateData })
+    return this.prisma.bulkJob.update({ where: { id: jobId }, data: updateData })
   }
 }

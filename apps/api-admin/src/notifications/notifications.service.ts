@@ -1,18 +1,19 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { prisma, type AdminNotificationStatus, type NotificationChannel } from '@ecom/database';
+import { PrismaService, type AdminNotificationStatus, type NotificationChannel, Prisma } from '@ecom/database';
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 @Injectable()
 export class NotificationsService {
+  constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
     pageSize?: number;
     status?: AdminNotificationStatus;
   }) {
-    const where: Record<string, unknown> = {};
+    const where: Prisma.AdminNotificationWhereInput = {};
     if (query.status) where.status = query.status;
 
-    const { items, total } = await offsetPaginate(prisma.adminNotification, {
+    const { items, total } = await offsetPaginate(this.prisma.adminNotification, {
       page: query.page,
       pageSize: query.pageSize,
       where,
@@ -23,7 +24,7 @@ export class NotificationsService {
   }
 
   async findById(id: string) {
-    const notification = await prisma.adminNotification.findUnique({ where: { id } });
+    const notification = await this.prisma.adminNotification.findUnique({ where: { id } });
     if (!notification) throw new NotFoundException('Notification not found');
     return notification;
   }
@@ -32,12 +33,12 @@ export class NotificationsService {
     title: string; message: string; channel?: NotificationChannel;
     targetAll?: boolean; sentBy?: string;
   }) {
-    return prisma.adminNotification.create({ data });
+    return this.prisma.adminNotification.create({ data });
   }
 
   async send(id: string, adminId: string) {
     await this.findById(id);
-    return prisma.adminNotification.update({
+    return this.prisma.adminNotification.update({
       where: { id },
       data: { status: 'SENT', sentAt: new Date(), sentBy: adminId },
     });
@@ -45,12 +46,12 @@ export class NotificationsService {
 
   // Templates
   async findTemplates() {
-    return prisma.notificationTemplate.findMany({ orderBy: { name: 'asc' } });
+    return this.prisma.notificationTemplate.findMany({ orderBy: { name: 'asc' } });
   }
 
   async createTemplate(data: {
     name: string; subject: string; body: string; channel?: NotificationChannel;
   }) {
-    return prisma.notificationTemplate.create({ data });
+    return this.prisma.notificationTemplate.create({ data });
   }
 }

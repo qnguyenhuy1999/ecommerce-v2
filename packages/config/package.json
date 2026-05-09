@@ -1,0 +1,26 @@
+{
+  "name": "@ecom/config",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "build": "true",
+    "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@ecom/eslint-config": "workspace:*",
+    "@ecom/tsconfig": "workspace:*",
+    "@types/node": "^22.15.0",
+    "typescript": "^5.8.3"
+  }
+}

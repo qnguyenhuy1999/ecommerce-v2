@@ -1,3 +1,4 @@
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Put, Delete, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -11,6 +12,7 @@ import { BannerQueryDto, CreateBannerDto, UpdateBannerDto } from './dto/banner.d
 import { type BannerPosition, type BannerStatus } from '@ecom/database';
 import { AUDIT_ACTIONS } from '@ecom/constants';
 
+@ApiTags("Banners")
 @Controller('banners')
 @UseGuards(AdminAuthGuard, PermissionGuard)
 export class BannersController {
@@ -18,6 +20,8 @@ export class BannersController {
     private readonly bannersService: BannersService,
   ) {}
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get()
   @Permissions('BANNER_MANAGE')
   async findAll(@Query() query: BannerQueryDto) {
@@ -27,16 +31,20 @@ export class BannersController {
       position: query.position as BannerPosition | undefined,
       status: query.status as BannerStatus | undefined,
     });
-    return { success: true, data: result };
+    return result;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get(':id')
   @Permissions('BANNER_MANAGE')
   async findById(@Param('id') id: string) {
     const banner = await this.bannersService.findById(id);
-    return { success: true, data: banner };
+    return banner;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post()
   @Permissions('BANNER_MANAGE')
   @AuditLog(AUDIT_ACTIONS.BANNER_CREATED, 'Banner', { entityIdPath: 'data.id' })
@@ -51,9 +59,11 @@ export class BannersController {
       endsAt: dto.endsAt ? new Date(dto.endsAt) : undefined,
       createdBy: admin.adminId,
     });
-    return { success: true, data: banner };
+    return banner;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Put(':id')
   @Permissions('BANNER_MANAGE')
   @AuditLog(AUDIT_ACTIONS.BANNER_UPDATED, 'Banner', { entityIdParam: 'id' })
@@ -61,13 +71,12 @@ export class BannersController {
     @Param('id') id: string,
     @Body() dto: UpdateBannerDto,
   ) {
-    const data: Record<string, unknown> = { ...dto };
-    if (dto.startsAt) data.startsAt = new Date(dto.startsAt);
-    if (dto.endsAt) data.endsAt = new Date(dto.endsAt);
-    const banner = await this.bannersService.update(id, data);
-    return { success: true, data: banner };
+    const banner = await this.bannersService.update(id, dto as any);
+    return banner;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Delete(':id')
   @Permissions('BANNER_MANAGE')
   @AuditLog('BANNER_UNPUBLISHED', 'Banner', { entityIdParam: 'id' })

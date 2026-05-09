@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { prisma, type OrderStatus, type Prisma } from '@ecom/database';
+import { PrismaService, type OrderStatus, Prisma } from '@ecom/database';
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 @Injectable()
 export class OrdersService {
+  constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
     pageSize?: number;
@@ -11,16 +12,16 @@ export class OrdersService {
     status?: OrderStatus;
     buyerId?: string;
   }) {
-    const where: Record<string, unknown> = {};
+    const where: Prisma.OrderWhereInput = {};
     if (query.status) where.status = query.status;
     if (query.buyerId) where.buyerId = query.buyerId;
     if (query.search) {
       where.OR = [
-        { id: { contains: query.search } },
+        { id: query.search },
       ];
     }
 
-    const { items, total } = await offsetPaginate(prisma.order, {
+    const { items, total } = await offsetPaginate(this.prisma.order, {
       page: query.page,
       pageSize: query.pageSize,
       where,
@@ -39,7 +40,7 @@ export class OrdersService {
   }
 
   async findById(id: string) {
-    const order = await prisma.order.findUnique({
+    const order = await this.prisma.order.findUnique({
       where: { id },
       include: {
         sellerOrders: {
@@ -58,7 +59,7 @@ export class OrdersService {
 
   async forceCancel(id: string) {
     const order = await this.findById(id);
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.sellerOrder.updateMany({
         where: { orderId: order.id },
         data: { status: 'CANCELLED' },
@@ -72,7 +73,7 @@ export class OrdersService {
 
   async forceComplete(id: string) {
     const order = await this.findById(id);
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.sellerOrder.updateMany({
         where: { orderId: order.id },
         data: { status: 'DELIVERED' },
@@ -85,7 +86,7 @@ export class OrdersService {
   }
 
   async getStatusCounts() {
-    const counts = await prisma.order.groupBy({
+    const counts = await this.prisma.order.groupBy({
       by: ['status'],
       _count: { status: true },
     });

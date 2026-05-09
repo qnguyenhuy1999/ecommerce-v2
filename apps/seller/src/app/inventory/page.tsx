@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Search, AlertTriangle } from 'lucide-react'
 import { DashboardLayout } from '../../components/dashboard-layout'
 import { PageHeader } from '../../components/page-header'
-import { DataTable } from '../../components/data-table'
+import { DataTable } from '@ecom/core-ui'
 import { api } from '../../lib/api'
 
 interface InventoryItem {

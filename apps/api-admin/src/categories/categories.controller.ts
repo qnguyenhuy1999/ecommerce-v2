@@ -1,3 +1,4 @@
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Put, Delete, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -8,6 +9,7 @@ import { Permissions } from '../auth/decorators/permissions.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { CategoryQueryDto, CreateCategoryDto, UpdateCategoryDto, ReorderDto } from './dto/category.dto';
 
+@ApiTags("Categories")
 @Controller('categories')
 @UseGuards(AdminAuthGuard, PermissionGuard)
 export class CategoriesController {
@@ -15,27 +17,35 @@ export class CategoriesController {
     private readonly categoriesService: CategoriesService,
   ) {}
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get()
   @Permissions('PRODUCT_VIEW')
   async findAll(@Query() query: CategoryQueryDto) {
     const items = await this.categoriesService.findAll(query.parentId);
-    return { success: true, data: items };
+    return items;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get(':id')
   @Permissions('PRODUCT_VIEW')
   async findById(@Param('id') id: string) {
     const cat = await this.categoriesService.findById(id);
-    return { success: true, data: cat };
+    return cat;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get(':id/breadcrumb')
   @Permissions('PRODUCT_VIEW')
   async breadcrumb(@Param('id') id: string) {
     const crumbs = await this.categoriesService.getBreadcrumb(id);
-    return { success: true, data: crumbs };
+    return crumbs;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post()
   @Permissions('CATEGORY_MANAGE')
   @AuditLog('CATEGORY_CREATED', 'Category', { entityIdPath: 'data.id' })
@@ -43,9 +53,11 @@ export class CategoriesController {
     @Body() dto: CreateCategoryDto,
   ) {
     const cat = await this.categoriesService.create(dto);
-    return { success: true, data: cat };
+    return cat;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Put(':id')
   @Permissions('CATEGORY_MANAGE')
   @AuditLog('CATEGORY_UPDATED', 'Category', { entityIdParam: 'id' })
@@ -54,9 +66,11 @@ export class CategoriesController {
     @Body() dto: UpdateCategoryDto,
   ) {
     const cat = await this.categoriesService.update(id, dto);
-    return { success: true, data: cat };
+    return cat;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Delete(':id')
   @Permissions('CATEGORY_MANAGE')
   @AuditLog('CATEGORY_DELETED', 'Category', { entityIdParam: 'id' })
@@ -67,6 +81,8 @@ export class CategoriesController {
     return { success: true };
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post('reorder')
   @Permissions('CATEGORY_MANAGE')
   @AuditLog('CATEGORY_REORDERED', 'Category', {

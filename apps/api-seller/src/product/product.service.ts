@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
+import { slugify } from '@ecom/utils'
 import { CreateProductDto } from './dto/create-product.dto'
 import { UpdateProductDto } from './dto/update-product.dto'
 import { ProductQueryDto } from './dto/product-query.dto'
@@ -7,6 +8,7 @@ import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class ProductService {
+  constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: ProductQueryDto) {
     const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, status, categoryId } = query
 
@@ -20,7 +22,7 @@ export class ProductService {
         : {}),
     }
 
-    const { items, total } = await offsetPaginate(prisma.product, {
+    const { items, total } = await offsetPaginate(this.prisma.product, {
       page,
       pageSize,
       where,
@@ -36,7 +38,7 @@ export class ProductService {
   }
 
   async getById(shopId: string, productId: string) {
-    const product = await prisma.product.findFirst({
+    const product = await this.prisma.product.findFirst({
       where: { id: productId, shopId, deletedAt: null },
       include: {
         images: { orderBy: { sortOrder: 'asc' } },
@@ -60,14 +62,11 @@ export class ProductService {
   }
 
   async create(shopId: string, dto: CreateProductDto) {
-    const slug = dto.name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '')
+    const slug = slugify(dto.name)
 
     const uniqueSlug = `${slug}-${Date.now().toString(36)}`
 
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const product = await tx.product.create({
         data: {
           shopId,
@@ -155,7 +154,7 @@ export class ProductService {
   }
 
   async update(shopId: string, productId: string, dto: UpdateProductDto) {
-    const existing = await prisma.product.findFirst({
+    const existing = await this.prisma.product.findFirst({
       where: { id: productId, shopId, deletedAt: null },
     })
 
@@ -166,11 +165,7 @@ export class ProductService {
     const data: Prisma.ProductUpdateInput = {}
     if (dto.name !== undefined) {
       data.name = dto.name
-      data.slug =
-        dto.name
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, '-')
-          .replace(/^-|-$/g, '') + `-${Date.now().toString(36)}`
+      data.slug = slugify(dto.name) + `-${Date.now().toString(36)}`
     }
     if (dto.description !== undefined) data.description = dto.description
     if (dto.categoryId !== undefined) data.category = { connect: { id: dto.categoryId } }
@@ -181,13 +176,13 @@ export class ProductService {
     if (dto.hasVariants !== undefined) data.hasVariants = dto.hasVariants
     if (dto.status !== undefined) data.status = dto.status as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED'
 
-    await prisma.product.update({ where: { id: productId }, data })
+    await this.prisma.product.update({ where: { id: productId }, data })
 
     return this.getById(shopId, productId)
   }
 
   async delete(shopId: string, productId: string) {
-    const existing = await prisma.product.findFirst({
+    const existing = await this.prisma.product.findFirst({
       where: { id: productId, shopId, deletedAt: null },
     })
 
@@ -195,14 +190,14 @@ export class ProductService {
       throw new NotFoundException('Product not found')
     }
 
-    await prisma.product.update({
+    await this.prisma.product.update({
       where: { id: productId },
       data: { deletedAt: new Date() },
     })
   }
 
   async bulkUpdateStatus(shopId: string, productIds: string[], status: string) {
-    const result = await prisma.product.updateMany({
+    const result = await this.prisma.product.updateMany({
       where: { id: { in: productIds }, shopId, deletedAt: null },
       data: { status: status as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' },
     })
@@ -215,7 +210,7 @@ export class ProductService {
   }
 
   async bulkDelete(shopId: string, productIds: string[]) {
-    const result = await prisma.product.updateMany({
+    const result = await this.prisma.product.updateMany({
       where: { id: { in: productIds }, shopId, deletedAt: null },
       data: { deletedAt: new Date() },
     })
@@ -224,7 +219,7 @@ export class ProductService {
   }
 
   async listCategories() {
-    return prisma.category.findMany({
+    return this.prisma.category.findMany({
       where: { isActive: true },
       orderBy: { sortOrder: 'asc' },
       include: {

@@ -1,3 +1,4 @@
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -20,6 +21,7 @@ import { SellerQueryDto } from './dto/seller-query.dto';
 import { SellerActionDto } from './dto/seller-action.dto';
 import type { SellerStatus } from '@ecom/database';
 
+@ApiTags("Sellers")
 @Controller('sellers')
 @UseGuards(AdminAuthGuard, PermissionGuard)
 export class SellersController {
@@ -27,6 +29,8 @@ export class SellersController {
     private readonly sellersService: SellersService,
   ) {}
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get()
   @Permissions('SELLER_VIEW')
   async findAll(@Query() query: SellerQueryDto) {
@@ -36,23 +40,29 @@ export class SellersController {
       search: query.search,
       status: query.status as SellerStatus | undefined,
     });
-    return { success: true, data: result };
+    return result;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get('status-counts')
   @Permissions('SELLER_VIEW')
   async statusCounts() {
     const counts = await this.sellersService.getStatusCounts();
-    return { success: true, data: counts };
+    return counts;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get(':id')
   @Permissions('SELLER_VIEW')
   async findById(@Param('id') id: string) {
     const seller = await this.sellersService.findById(id);
-    return { success: true, data: seller };
+    return seller;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/approve')
   @Permissions('SELLER_APPROVE')
   @AuditLog('SELLER_APPROVED', 'Seller', { entityIdParam: 'id' })
@@ -61,9 +71,11 @@ export class SellersController {
     @CurrentAdmin() admin: AdminSessionData,
   ) {
     const seller = await this.sellersService.approve(id, admin.adminId);
-    return { success: true, data: seller };
+    return seller;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/reject')
   @Permissions('SELLER_APPROVE')
   @AuditLog('SELLER_REJECTED', 'Seller', {
@@ -80,9 +92,11 @@ export class SellersController {
       admin.adminId,
       dto.reason,
     );
-    return { success: true, data: seller };
+    return seller;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/suspend')
   @Permissions('SELLER_SUSPEND')
   @AuditLog('SELLER_SUSPENDED', 'Seller', {
@@ -99,6 +113,6 @@ export class SellersController {
       admin.adminId,
       dto.reason,
     );
-    return { success: true, data: seller };
+    return seller;
   }
 }

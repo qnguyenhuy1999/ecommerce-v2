@@ -1,3 +1,4 @@
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Put, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -10,6 +11,7 @@ import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { VoucherQueryDto, CreateVoucherDto, UpdateVoucherDto } from './dto/voucher.dto';
 import type { PlatformVoucherStatus, PlatformVoucherType } from '@ecom/database';
 
+@ApiTags("Promotions")
 @Controller('promotions')
 @UseGuards(AdminAuthGuard, PermissionGuard)
 export class PromotionsController {
@@ -17,6 +19,8 @@ export class PromotionsController {
     private readonly promotionsService: PromotionsService,
   ) {}
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get('vouchers')
   @Permissions('MARKETING_MANAGE')
   async findAll(@Query() query: VoucherQueryDto) {
@@ -26,23 +30,29 @@ export class PromotionsController {
       status: query.status as PlatformVoucherStatus | undefined,
       search: query.search,
     });
-    return { success: true, data: result };
+    return result;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get('vouchers/status-counts')
   @Permissions('MARKETING_MANAGE')
   async statusCounts() {
     const counts = await this.promotionsService.getStatusCounts();
-    return { success: true, data: counts };
+    return counts;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get('vouchers/:id')
   @Permissions('MARKETING_MANAGE')
   async findById(@Param('id') id: string) {
     const voucher = await this.promotionsService.findById(id);
-    return { success: true, data: voucher };
+    return voucher;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post('vouchers')
   @Permissions('MARKETING_MANAGE')
   @AuditLog('VOUCHER_CREATED', 'PlatformVoucher', { entityIdPath: 'data.id' })
@@ -57,9 +67,11 @@ export class PromotionsController {
       expiresAt: new Date(dto.expiresAt),
       createdBy: admin.adminId,
     });
-    return { success: true, data: voucher };
+    return voucher;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Put('vouchers/:id')
   @Permissions('MARKETING_MANAGE')
   @AuditLog('VOUCHER_UPDATED', 'PlatformVoucher', { entityIdParam: 'id' })
@@ -67,10 +79,7 @@ export class PromotionsController {
     @Param('id') id: string,
     @Body() dto: UpdateVoucherDto,
   ) {
-    const data: Record<string, unknown> = { ...dto };
-    if (dto.startsAt) data.startsAt = new Date(dto.startsAt);
-    if (dto.expiresAt) data.expiresAt = new Date(dto.expiresAt);
-    const voucher = await this.promotionsService.update(id, data);
-    return { success: true, data: voucher };
+    const voucher = await this.promotionsService.update(id, dto as any);
+    return voucher;
   }
 }

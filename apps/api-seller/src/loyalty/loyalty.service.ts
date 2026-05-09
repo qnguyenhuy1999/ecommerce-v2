@@ -1,16 +1,17 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { CreateLoyaltyTierDto, CreateMissionDto, RedeemPointsDto } from './dto/loyalty.dto'
 import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 
 @Injectable()
 export class LoyaltyService {
+  constructor(private readonly prisma: PrismaService) {}
   async listTiers() {
-    return prisma.loyaltyTier.findMany({ orderBy: { minPoints: 'asc' } })
+    return this.prisma.loyaltyTier.findMany({ orderBy: { minPoints: 'asc' } })
   }
 
   async createTier(dto: CreateLoyaltyTierDto) {
-    return prisma.loyaltyTier.create({
+    return this.prisma.loyaltyTier.create({
       data: {
         name: dto.name,
         minPoints: dto.minPoints,
@@ -21,14 +22,14 @@ export class LoyaltyService {
   }
 
   async getMembership(userId: string) {
-    let account = await prisma.loyaltyAccount.findUnique({
+    let account = await this.prisma.loyaltyAccount.findUnique({
       where: { userId },
       include: { tier: true },
     })
 
     if (!account) {
-      const defaultTier = await prisma.loyaltyTier.findFirst({ orderBy: { minPoints: 'asc' } })
-      account = await prisma.loyaltyAccount.create({
+      const defaultTier = await this.prisma.loyaltyTier.findFirst({ orderBy: { minPoints: 'asc' } })
+      account = await this.prisma.loyaltyAccount.create({
         data: { userId, tierId: defaultTier?.id },
         include: { tier: true },
       })
@@ -44,7 +45,7 @@ export class LoyaltyService {
     referenceId?: string,
     description?: string,
   ) {
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const account = await tx.loyaltyAccount.upsert({
         where: { userId },
         update: {
@@ -73,14 +74,14 @@ export class LoyaltyService {
   }
 
   async redeemPoints(userId: string, dto: RedeemPointsDto) {
-    const account = await prisma.loyaltyAccount.findUnique({ where: { userId } })
+    const account = await this.prisma.loyaltyAccount.findUnique({ where: { userId } })
     if (!account) throw new NotFoundException('Account not found')
 
     if (account.availablePoints < dto.points) {
       throw new BadRequestException('Insufficient points')
     }
 
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.loyaltyAccount.update({
         where: { userId },
         data: { availablePoints: { decrement: dto.points } },
@@ -119,7 +120,7 @@ export class LoyaltyService {
       const streak = isConsecutive ? membership.streak + 1 : 1
       const points = Math.min(10 + (streak - 1) * 2, 50)
 
-      await prisma.loyaltyAccount.update({
+      await this.prisma.loyaltyAccount.update({
         where: { userId },
         data: { lastCheckIn: new Date(), streak },
       })
@@ -127,7 +128,7 @@ export class LoyaltyService {
       return this.earnPoints(userId, points, 'EARN', undefined, `Day ${streak} check-in`)
     }
 
-    await prisma.loyaltyAccount.update({
+    await this.prisma.loyaltyAccount.update({
       where: { userId },
       data: { lastCheckIn: new Date(), streak: 1 },
     })
@@ -144,7 +145,7 @@ export class LoyaltyService {
       OR: [{ endsAt: null }, { endsAt: { gt: now } }],
     }
 
-    const { items, total } = await offsetPaginate(prisma.loyaltyMission, {
+    const { items, total } = await offsetPaginate(this.prisma.loyaltyMission, {
       page,
       pageSize,
       where,
@@ -155,7 +156,7 @@ export class LoyaltyService {
   }
 
   async createMission(dto: CreateMissionDto) {
-    return prisma.loyaltyMission.create({
+    return this.prisma.loyaltyMission.create({
       data: {
         name: dto.name,
         description: dto.description,
@@ -171,12 +172,12 @@ export class LoyaltyService {
   async getTransactionHistory(userId: string, query: OffsetPaginationDto) {
     const { page = 1, pageSize = 20 } = query
 
-    const account = await prisma.loyaltyAccount.findUnique({ where: { userId } })
+    const account = await this.prisma.loyaltyAccount.findUnique({ where: { userId } })
     if (!account) return buildOffsetResponse([], 1, pageSize, 0)
 
     const where: Prisma.LoyaltyTransactionWhereInput = { accountId: account.id }
 
-    const { items, total } = await offsetPaginate(prisma.loyaltyTransaction, {
+    const { items, total } = await offsetPaginate(this.prisma.loyaltyTransaction, {
       page,
       pageSize,
       where,

@@ -1,3 +1,4 @@
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -10,6 +11,7 @@ import { UserQueryDto, UserActionDto } from './dto/user-query.dto';
 import { type UserStatus } from '@ecom/database';
 import { AUDIT_ACTIONS } from '@ecom/constants';
 
+@ApiTags("Users")
 @Controller('users')
 @UseGuards(AdminAuthGuard, PermissionGuard)
 export class UsersController {
@@ -17,6 +19,8 @@ export class UsersController {
     private readonly usersService: UsersService,
   ) {}
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get()
   @Permissions('USER_VIEW')
   async findAll(@Query() query: UserQueryDto) {
@@ -26,23 +30,29 @@ export class UsersController {
       search: query.search,
       status: query.status as UserStatus | undefined,
     });
-    return { success: true, data: result };
+    return result;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get('status-counts')
   @Permissions('USER_VIEW')
   async statusCounts() {
     const counts = await this.usersService.getStatusCounts();
-    return { success: true, data: counts };
+    return counts;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get(':id')
   @Permissions('USER_VIEW')
   async findById(@Param('id') id: string) {
     const user = await this.usersService.findById(id);
-    return { success: true, data: user };
+    return user;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/suspend')
   @Permissions('USER_MANAGE')
   @AuditLog(AUDIT_ACTIONS.USER_SUSPENDED, 'User', {
@@ -54,9 +64,11 @@ export class UsersController {
     @Body() _dto: UserActionDto,
   ) {
     const user = await this.usersService.suspend(id);
-    return { success: true, data: user };
+    return user;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/ban')
   @Permissions('USER_MANAGE')
   @AuditLog(AUDIT_ACTIONS.USER_BANNED, 'User', {
@@ -68,9 +80,11 @@ export class UsersController {
     @Body() _dto: UserActionDto,
   ) {
     const user = await this.usersService.ban(id);
-    return { success: true, data: user };
+    return user;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/activate')
   @Permissions('USER_MANAGE')
   @AuditLog(AUDIT_ACTIONS.USER_ACTIVATED, 'User', {
@@ -81,6 +95,6 @@ export class UsersController {
     @Param('id') id: string,
   ) {
     const user = await this.usersService.activate(id);
-    return { success: true, data: user };
+    return user;
   }
 }

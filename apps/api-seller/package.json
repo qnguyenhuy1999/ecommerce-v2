@@ -12,11 +12,13 @@
   },
   "dependencies": {
     "@ecom/auth": "workspace:*",
+    "@ecom/common": "workspace:*",
     "@ecom/constants": "workspace:*",
     "@ecom/database": "workspace:*",
     "@ecom/email": "workspace:*",
     "@ecom/pagination": "workspace:*",
     "@ecom/redis": "workspace:*",
+    "@ecom/utils": "workspace:*",
     "@nestjs/bullmq": "^11.0.4",
     "@nestjs/common": "^11.1.19",
     "@nestjs/core": "^11.1.19",

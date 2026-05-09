@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { RedisModule } from '@ecom/redis';
 import { EmailModule } from '@ecom/email';
+import { DatabaseModule } from '@ecom/database';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -24,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
       },
       from: process.env.SMTP_FROM ?? 'noreply@yourdomain.com',
     }),
+    DatabaseModule,
     AuthModule,
   ],
 })

@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import * as bcrypt from 'bcrypt';
-import { prisma } from '@ecom/database';
+import { PrismaService } from '@ecom/database';
 import { SessionService } from '@ecom/auth';
 import { SESSION_SERVICE } from './session.provider';
 import type { AdminSessionData } from './decorators/current-admin.decorator';
@@ -15,7 +15,8 @@ const SESSION_EXPIRY_DAYS = 7;
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(SESSION_SERVICE)
+    @Inject(SESSION_SERVICE
+    private readonly prisma: PrismaService,)
     private readonly sessionService: SessionService,
   ) {}
 
@@ -25,7 +26,7 @@ export class AuthService {
     userAgent?: string,
     ipAddress?: string,
   ) {
-    const admin = await prisma.admin.findUnique({
+    const admin = await this.prisma.admin.findUnique({
       where: { email, deletedAt: null },
       include: {
         adminRoles: {
@@ -77,7 +78,7 @@ export class AuthService {
       sessionData as unknown as { userId: string; roles: string[] },
     );
 
-    await prisma.adminSession.create({
+    await this.prisma.adminSession.create({
       data: {
         id: sessionId,
         adminId: admin.id,
@@ -87,7 +88,7 @@ export class AuthService {
       },
     });
 
-    await prisma.admin.update({
+    await this.prisma.admin.update({
       where: { id: admin.id },
       data: { lastLoginAt: new Date() },
     });
@@ -108,7 +109,7 @@ export class AuthService {
 
   async logout(sessionId: string) {
     await this.sessionService.delete(sessionId);
-    await prisma.adminSession
+    await this.prisma.adminSession
       .delete({ where: { id: sessionId } })
       .catch(() => {});
   }
@@ -120,7 +121,7 @@ export class AuthService {
     }
 
     const adminSession = session as unknown as AdminSessionData;
-    const admin = await prisma.admin.findUnique({
+    const admin = await this.prisma.admin.findUnique({
       where: { id: adminSession.adminId, deletedAt: null },
       select: {
         id: true,

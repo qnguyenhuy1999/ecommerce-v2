@@ -1,13 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { EmitEventDto } from './dto/event-streaming.dto'
 import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
 import { randomUUID } from 'crypto'
 
 @Injectable()
 export class EventStreamingService {
+  constructor(private readonly prisma: PrismaService) {}
   async emitEvent(dto: EmitEventDto) {
-    return prisma.platformEvent.create({
+    return this.prisma.platformEvent.create({
       data: {
         eventType: dto.eventType,
         source: dto.source,
@@ -26,7 +27,7 @@ export class EventStreamingService {
       ...(query.source && { source: query.source }),
     }
 
-    const { items, total } = await offsetPaginate(prisma.platformEvent, {
+    const { items, total } = await offsetPaginate(this.prisma.platformEvent, {
       page,
       pageSize,
       where,
@@ -37,16 +38,16 @@ export class EventStreamingService {
   }
 
   async getEventById(id: string) {
-    const event = await prisma.platformEvent.findUnique({ where: { id } })
+    const event = await this.prisma.platformEvent.findUnique({ where: { id } })
     if (!event) throw new NotFoundException('Event not found')
     return event
   }
 
   async replayEvent(id: string) {
-    const event = await prisma.platformEvent.findUnique({ where: { id } })
+    const event = await this.prisma.platformEvent.findUnique({ where: { id } })
     if (!event) throw new NotFoundException('Event not found')
 
-    return prisma.platformEvent.create({
+    return this.prisma.platformEvent.create({
       data: {
         eventType: event.eventType,
         source: event.source,
@@ -61,13 +62,13 @@ export class EventStreamingService {
   }
 
   async getEventStats() {
-    const totalEvents = await prisma.platformEvent.count()
+    const totalEvents = await this.prisma.platformEvent.count()
 
-    const recentEvents = await prisma.platformEvent.count({
+    const recentEvents = await this.prisma.platformEvent.count({
       where: { createdAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) } },
     })
 
-    const failedEvents = await prisma.platformEvent.count({
+    const failedEvents = await this.prisma.platformEvent.count({
       where: { status: 'FAILED' },
     })
 
@@ -75,17 +76,17 @@ export class EventStreamingService {
   }
 
   async markEventProcessed(id: string) {
-    return prisma.platformEvent.update({
+    return this.prisma.platformEvent.update({
       where: { id },
       data: { status: 'PROCESSED', processedAt: new Date() },
     })
   }
 
   async markEventFailed(id: string, error: string) {
-    const event = await prisma.platformEvent.findUnique({ where: { id } })
+    const event = await this.prisma.platformEvent.findUnique({ where: { id } })
     if (!event) throw new NotFoundException('Event not found')
 
-    return prisma.platformEvent.update({
+    return this.prisma.platformEvent.update({
       where: { id },
       data: {
         status: 'FAILED',

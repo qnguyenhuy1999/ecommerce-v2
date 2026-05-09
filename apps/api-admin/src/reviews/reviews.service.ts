@@ -1,18 +1,19 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { prisma, type ReviewStatus } from '@ecom/database';
+import { PrismaService, type ReviewStatus, Prisma } from '@ecom/database';
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 @Injectable()
 export class ReviewsService {
+  constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
     pageSize?: number;
     status?: ReviewStatus;
   }) {
-    const where: Record<string, unknown> = {};
+    const where: Prisma.ReviewWhereInput = {};
     if (query.status) where.status = query.status;
 
-    const { items, total } = await offsetPaginate(prisma.review, {
+    const { items, total } = await offsetPaginate(this.prisma.review, {
       page: query.page,
       pageSize: query.pageSize,
       where,
@@ -28,7 +29,7 @@ export class ReviewsService {
   }
 
   async findById(id: string) {
-    const review = await prisma.review.findUnique({
+    const review = await this.prisma.review.findUnique({
       where: { id },
       include: {
         images: true,
@@ -42,21 +43,21 @@ export class ReviewsService {
 
   async approve(id: string) {
     await this.findById(id);
-    return prisma.review.update({ where: { id }, data: { status: 'APPROVED' } });
+    return this.prisma.review.update({ where: { id }, data: { status: 'APPROVED' } });
   }
 
   async hide(id: string) {
     await this.findById(id);
-    return prisma.review.update({ where: { id }, data: { status: 'HIDDEN' } });
+    return this.prisma.review.update({ where: { id }, data: { status: 'HIDDEN' } });
   }
 
   async reject(id: string) {
     await this.findById(id);
-    return prisma.review.update({ where: { id }, data: { status: 'REJECTED' } });
+    return this.prisma.review.update({ where: { id }, data: { status: 'REJECTED' } });
   }
 
   async getStatusCounts() {
-    const counts = await prisma.review.groupBy({
+    const counts = await this.prisma.review.groupBy({
       by: ['status'],
       _count: { status: true },
     });

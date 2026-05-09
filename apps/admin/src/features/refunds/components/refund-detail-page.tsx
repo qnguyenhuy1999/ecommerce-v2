@@ -1,7 +1,7 @@
 'use client';
 
 import { useRefund, useApproveRefund, useRejectRefund } from '../hooks/use-refunds';
-import { StatusBadge } from '@/components/data-table/data-table';
+import { StatusBadge } from '@ecom/core-ui';
 
 export function RefundDetailPage({ id }: { id: string }) {
   const { data: refund, isLoading } = useRefund(id);

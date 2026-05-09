@@ -1,16 +1,17 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { prisma, type SellerStatus } from '@ecom/database';
+import { PrismaService, type SellerStatus, Prisma } from '@ecom/database';
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 @Injectable()
 export class SellersService {
+  constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
     pageSize?: number;
     search?: string;
     status?: SellerStatus;
   }) {
-    const where: Record<string, unknown> = { deletedAt: null };
+    const where: Prisma.SellerWhereInput = { deletedAt: null };
     if (query.status) where.status = query.status;
     if (query.search) {
       where.OR = [
@@ -21,7 +22,7 @@ export class SellersService {
       ];
     }
 
-    const { items, total } = await offsetPaginate(prisma.seller, {
+    const { items, total } = await offsetPaginate(this.prisma.seller, {
       page: query.page,
       pageSize: query.pageSize,
       where,
@@ -37,7 +38,7 @@ export class SellersService {
   }
 
   async findById(id: string) {
-    const seller = await prisma.seller.findUnique({
+    const seller = await this.prisma.seller.findUnique({
       where: { id, deletedAt: null },
       include: {
         user: {
@@ -63,7 +64,7 @@ export class SellersService {
       throw new BadRequestException('Seller is already active');
     }
 
-    return prisma.seller.update({
+    return this.prisma.seller.update({
       where: { id: seller.id },
       data: {
         status: 'ACTIVE',
@@ -80,7 +81,7 @@ export class SellersService {
       throw new BadRequestException('Seller is already rejected');
     }
 
-    return prisma.seller.update({
+    return this.prisma.seller.update({
       where: { id: seller.id },
       data: {
         status: 'REJECTED',
@@ -98,7 +99,7 @@ export class SellersService {
       throw new BadRequestException('Seller is already suspended');
     }
 
-    return prisma.seller.update({
+    return this.prisma.seller.update({
       where: { id: seller.id },
       data: {
         status: 'SUSPENDED',
@@ -110,7 +111,7 @@ export class SellersService {
   }
 
   async getStatusCounts() {
-    const counts = await prisma.seller.groupBy({
+    const counts = await this.prisma.seller.groupBy({
       by: ['status'],
       _count: { status: true },
       where: { deletedAt: null },

@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { ProductSearchDto, OrderSearchDto } from './dto/search-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class SearchService {
+  constructor(private readonly prisma: PrismaService) {}
   async searchProducts(shopId: string, query: ProductSearchDto) {
     const {
       page = 1,
@@ -68,7 +69,7 @@ export class SearchService {
         : {}),
     }
 
-    const { items, total } = await offsetPaginate(prisma.product, {
+    const { items, total } = await offsetPaginate(this.prisma.product, {
       page,
       pageSize,
       where,
@@ -104,7 +105,7 @@ export class SearchService {
         : {}),
     }
 
-    const { items, total } = await offsetPaginate(prisma.sellerOrder, {
+    const { items, total } = await offsetPaginate(this.prisma.sellerOrder, {
       page,
       pageSize,
       where,
@@ -118,7 +119,7 @@ export class SearchService {
   }
 
   async listSavedFilters(shopId: string, userId: string, entity?: string) {
-    return prisma.savedFilter.findMany({
+    return this.prisma.savedFilter.findMany({
       where: {
         shopId,
         userId,
@@ -129,13 +130,13 @@ export class SearchService {
   }
 
   async saveFilter(shopId: string, userId: string, name: string, entity: string, filters: Record<string, unknown>) {
-    return prisma.savedFilter.create({
+    return this.prisma.savedFilter.create({
       data: { shopId, userId, name, entity, filters: filters as Prisma.InputJsonValue },
     })
   }
 
   async deleteFilter(shopId: string, userId: string, filterId: string) {
-    const filter = await prisma.savedFilter.findFirst({
+    const filter = await this.prisma.savedFilter.findFirst({
       where: { id: filterId, shopId, userId },
     })
 
@@ -143,6 +144,6 @@ export class SearchService {
       throw new NotFoundException('Saved filter not found')
     }
 
-    await prisma.savedFilter.delete({ where: { id: filterId } })
+    await this.prisma.savedFilter.delete({ where: { id: filterId } })
   }
 }

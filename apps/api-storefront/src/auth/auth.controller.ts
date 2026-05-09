@@ -23,7 +23,7 @@ export class AuthController {
   @Post('register')
   async register(@Body() dto: RegisterDto) {
     const user = await this.authService.register(dto.email, dto.password)
-    return { success: true, user }
+    return { user }
   }
 
   @Post('login')
@@ -54,7 +54,7 @@ export class AuthController {
       ...(cookieOptions.domain ? { domain: cookieOptions.domain } : {}),
     })
 
-    return { success: true, user: { userId, roles } }
+    return { user: { userId, roles } }
   }
 
   @Post('logout')

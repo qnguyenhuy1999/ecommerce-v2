@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { CreateTranslationDto, CreateCurrencyDto, CreateRegionDto } from './dto/i18n.dto'
 
 @Injectable()
 export class I18nService {
+  constructor(private readonly prisma: PrismaService) {}
   async listRegions() {
-    return prisma.region.findMany({
+    return this.prisma.region.findMany({
       where: { isActive: true },
       include: { _count: { select: { regionPricing: true } } },
       orderBy: { name: 'asc' },
@@ -13,13 +14,13 @@ export class I18nService {
   }
 
   async getRegion(code: string) {
-    const region = await prisma.region.findUnique({ where: { code } })
+    const region = await this.prisma.region.findUnique({ where: { code } })
     if (!region) throw new NotFoundException('Region not found')
     return region
   }
 
   async createRegion(dto: CreateRegionDto) {
-    return prisma.region.create({
+    return this.prisma.region.create({
       data: {
         code: dto.code,
         name: dto.name,
@@ -32,14 +33,14 @@ export class I18nService {
   }
 
   async listCurrencies() {
-    return prisma.currency.findMany({
+    return this.prisma.currency.findMany({
       where: { isActive: true },
       orderBy: { code: 'asc' },
     })
   }
 
   async createCurrency(dto: CreateCurrencyDto) {
-    return prisma.currency.create({
+    return this.prisma.currency.create({
       data: {
         code: dto.code,
         name: dto.name,
@@ -50,17 +51,17 @@ export class I18nService {
   }
 
   async updateExchangeRate(code: string, rate: number) {
-    const currency = await prisma.currency.findUnique({ where: { code } })
+    const currency = await this.prisma.currency.findUnique({ where: { code } })
     if (!currency) throw new NotFoundException('Currency not found')
 
-    return prisma.currency.update({
+    return this.prisma.currency.update({
       where: { code },
       data: { exchangeRate: rate },
     })
   }
 
   async setTranslation(dto: CreateTranslationDto) {
-    return prisma.translation.upsert({
+    return this.prisma.translation.upsert({
       where: {
         entityType_entityId_field_locale: {
           entityType: dto.entityType,
@@ -84,7 +85,7 @@ export class I18nService {
     const where: Prisma.TranslationWhereInput = { entityType, entityId }
     if (locale) where.locale = locale
 
-    return prisma.translation.findMany({ where })
+    return this.prisma.translation.findMany({ where })
   }
 
   async setRegionalPricing(
@@ -93,7 +94,7 @@ export class I18nService {
     price: number,
     compareAtPrice?: number,
   ) {
-    return prisma.regionPricing.upsert({
+    return this.prisma.regionPricing.upsert({
       where: { productId_regionCode: { productId, regionCode } },
       update: { price, compareAtPrice },
       create: { productId, regionCode, price, compareAtPrice },
@@ -101,7 +102,7 @@ export class I18nService {
   }
 
   async getRegionalPricing(productId: string) {
-    return prisma.regionPricing.findMany({
+    return this.prisma.regionPricing.findMany({
       where: { productId },
       include: { region: { select: { code: true, name: true, defaultCurrency: true } } },
     })
@@ -111,8 +112,8 @@ export class I18nService {
     if (fromCurrency === toCurrency) return amount
 
     const [from, to] = await Promise.all([
-      prisma.currency.findUnique({ where: { code: fromCurrency } }),
-      prisma.currency.findUnique({ where: { code: toCurrency } }),
+      this.prisma.currency.findUnique({ where: { code: fromCurrency } }),
+      this.prisma.currency.findUnique({ where: { code: toCurrency } }),
     ])
 
     if (!from || !to) throw new NotFoundException('Currency not found')

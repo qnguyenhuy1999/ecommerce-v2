@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { prisma, type AuditActionType } from '@ecom/database';
+import { PrismaService, type AuditActionType, Prisma } from '@ecom/database';
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 interface LogParams {
@@ -14,11 +14,12 @@ interface LogParams {
 
 @Injectable()
 export class AuditLogService {
+  constructor(private readonly prisma: PrismaService) {}
   private readonly logger = new Logger(AuditLogService.name);
 
   async log(params: LogParams) {
     try {
-      await prisma.adminAuditLog.create({
+      await this.prisma.adminAuditLog.create({
         data: {
           adminId: params.adminId,
           action: params.action,
@@ -40,11 +41,11 @@ export class AuditLogService {
     action?: AuditActionType;
     adminId?: string;
   }) {
-    const where: Record<string, unknown> = {};
+    const where: Prisma.AdminAuditLogWhereInput = {};
     if (query.action) where.action = query.action;
     if (query.adminId) where.adminId = query.adminId;
 
-    const { items, total } = await offsetPaginate(prisma.adminAuditLog, {
+    const { items, total } = await offsetPaginate(this.prisma.adminAuditLog, {
       page: query.page,
       pageSize: query.pageSize,
       where,

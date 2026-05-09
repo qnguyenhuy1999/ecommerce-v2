@@ -27,6 +27,9 @@ export interface CreateAuthClientOptions {
   apiUrl?: string;
   requiredRole?: string;
   forbiddenRedirectTo?: string;
+  meEndpoint?: string;
+  loginEndpoint?: string;
+  logoutEndpoint?: string;
 }
 
 export function createAuthClient(options: CreateAuthClientOptions = {}) {
@@ -34,6 +37,9 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
     apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000',
     requiredRole,
     forbiddenRedirectTo = '/',
+    meEndpoint = '/auth/me',
+    loginEndpoint = '/auth/login',
+    logoutEndpoint = '/auth/logout',
   } = options;
 
   const AuthContext = createContext<AuthContextValue | null>(null);
@@ -45,13 +51,17 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
 
     const refresh = useCallback(async () => {
       try {
-        const res = await fetch(`${apiUrl}/auth/me`, {
+        const res = await fetch(`${apiUrl}${meEndpoint}`, {
           credentials: 'include',
         });
 
         if (res.ok) {
-          const data = (await res.json()) as { userId: string; roles: string[] };
-          const authUser: AuthUser = { userId: data.userId, roles: data.roles };
+          const data = (await res.json()) as any;
+          const authUser: AuthUser = {
+            userId: data.userId || data.adminId || data.id,
+            roles: data.roles || (data.role ? [data.role] : []),
+            ...data
+          };
 
           if (requiredRole && !authUser.roles.includes(requiredRole)) {
             router.replace(forbiddenRedirectTo);
@@ -68,14 +78,14 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
       } finally {
         setLoading(false);
       }
-    }, [apiUrl, forbiddenRedirectTo, requiredRole, router]);
+    }, [apiUrl, forbiddenRedirectTo, requiredRole, router, meEndpoint]);
 
     useEffect(() => {
       refresh();
     }, [refresh]);
 
     const login = async (email: string, password: string) => {
-      const res = await fetch(`${apiUrl}/auth/login`, {
+      const res = await fetch(`${apiUrl}${loginEndpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -91,7 +101,7 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
     };
 
     const logout = async () => {
-      await fetch(`${apiUrl}/auth/logout`, {
+      await fetch(`${apiUrl}${logoutEndpoint}`, {
         method: 'POST',
         credentials: 'include',
       });

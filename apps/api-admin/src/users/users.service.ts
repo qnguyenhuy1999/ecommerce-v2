@@ -1,16 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { prisma, type UserStatus } from '@ecom/database';
+import { PrismaService, type UserStatus, Prisma } from '@ecom/database';
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 @Injectable()
 export class UsersService {
+  constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
     pageSize?: number;
     search?: string;
     status?: UserStatus;
   }) {
-    const where: Record<string, unknown> = {};
+    const where: Prisma.UserWhereInput = {};
     if (query.status) where.status = query.status;
     if (query.search) {
       where.OR = [
@@ -20,7 +21,7 @@ export class UsersService {
       ];
     }
 
-    const { items, total } = await offsetPaginate(prisma.user, {
+    const { items, total } = await offsetPaginate(this.prisma.user, {
       page: query.page,
       pageSize: query.pageSize,
       where,
@@ -36,7 +37,7 @@ export class UsersService {
   }
 
   async findById(id: string) {
-    const user = await prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id },
       select: {
         id: true, email: true, firstName: true, lastName: true,
@@ -55,7 +56,7 @@ export class UsersService {
 
   async suspend(id: string) {
     await this.findById(id);
-    return prisma.user.update({
+    return this.prisma.user.update({
       where: { id },
       data: { status: 'SUSPENDED' },
     });
@@ -63,7 +64,7 @@ export class UsersService {
 
   async ban(id: string) {
     await this.findById(id);
-    return prisma.user.update({
+    return this.prisma.user.update({
       where: { id },
       data: { status: 'BANNED' },
     });
@@ -71,14 +72,14 @@ export class UsersService {
 
   async activate(id: string) {
     await this.findById(id);
-    return prisma.user.update({
+    return this.prisma.user.update({
       where: { id },
       data: { status: 'ACTIVE' },
     });
   }
 
   async getStatusCounts() {
-    const counts = await prisma.user.groupBy({
+    const counts = await this.prisma.user.groupBy({
       by: ['status'],
       _count: { status: true },
     });

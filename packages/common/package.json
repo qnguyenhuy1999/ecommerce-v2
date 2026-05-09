@@ -20,7 +20,16 @@
   "devDependencies": {
     "@ecom/eslint-config": "workspace:*",
     "@ecom/tsconfig": "workspace:*",
+    "@nestjs/common": "^11.1.19",
+    "@types/express": "^5.0.6",
+    "express": "^5.2.1",
+    "rxjs": "^7.8.2",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^11.1.19",
+    "express": "^5.2.1",
+    "rxjs": "^7.8.2"
   }
 }

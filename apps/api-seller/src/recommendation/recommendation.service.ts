@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import { prisma } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { ProductStatus, UserEventType, PAGINATION_DEFAULTS } from '@ecom/constants'
 
 @Injectable()
 export class RecommendationService {
+  constructor(private readonly prisma: PrismaService) {}
   async trackEvent(
     userId: string | undefined,
     sessionId: string,
@@ -15,7 +16,7 @@ export class RecommendationService {
       metadata?: Record<string, unknown>
     },
   ) {
-    return prisma.userEvent.create({
+    return this.prisma.userEvent.create({
       data: {
         userId,
         sessionId,
@@ -28,14 +29,14 @@ export class RecommendationService {
   }
 
   async getSimilarProducts(productId: string, limit = 10) {
-    const product = await prisma.product.findUnique({
+    const product = await this.prisma.product.findUnique({
       where: { id: productId },
       select: { categoryId: true },
     })
 
     if (!product) return []
 
-    return prisma.product.findMany({
+    return this.prisma.product.findMany({
       where: {
         categoryId: product.categoryId,
         id: { not: productId },
@@ -48,7 +49,7 @@ export class RecommendationService {
   }
 
   async getTrendingProducts(limit = PAGINATION_DEFAULTS.PAGE_SIZE) {
-    return prisma.product.findMany({
+    return this.prisma.product.findMany({
       where: { status: ProductStatus.PUBLISHED, deletedAt: null },
       take: limit,
       orderBy: { soldCount: 'desc' },
@@ -56,7 +57,7 @@ export class RecommendationService {
   }
 
   async getPersonalizedRecommendations(userId: string, limit = PAGINATION_DEFAULTS.PAGE_SIZE) {
-    const recentEvents = await prisma.userEvent.findMany({
+    const recentEvents = await this.prisma.userEvent.findMany({
       where: { userId, entityType: 'PRODUCT' },
       orderBy: { createdAt: 'desc' },
       take: 50,
@@ -69,14 +70,14 @@ export class RecommendationService {
       return this.getTrendingProducts(limit)
     }
 
-    const products = await prisma.product.findMany({
+    const products = await this.prisma.product.findMany({
       where: { id: { in: productIds } },
       select: { categoryId: true },
     })
 
     const categoryIds = [...new Set(products.map((p: { categoryId: string | null }) => p.categoryId).filter(Boolean))] as string[]
 
-    return prisma.product.findMany({
+    return this.prisma.product.findMany({
       where: {
         categoryId: { in: categoryIds },
         status: ProductStatus.PUBLISHED,
@@ -88,7 +89,7 @@ export class RecommendationService {
   }
 
   async getRecentlyViewed(userId: string, limit = PAGINATION_DEFAULTS.PAGE_SIZE) {
-    const events = await prisma.userEvent.findMany({
+    const events = await this.prisma.userEvent.findMany({
       where: { userId, event: UserEventType.PRODUCT_VIEW, entityType: 'PRODUCT' },
       orderBy: { createdAt: 'desc' },
       take: limit,
@@ -99,13 +100,13 @@ export class RecommendationService {
     const productIds = events.map((e: { entityId: string }) => e.entityId)
     if (productIds.length === 0) return []
 
-    return prisma.product.findMany({
+    return this.prisma.product.findMany({
       where: { id: { in: productIds }, status: ProductStatus.PUBLISHED, deletedAt: null },
     })
   }
 
   async getSellerRecommendationStats(shopId: string) {
-    const products = await prisma.product.findMany({
+    const products = await this.prisma.product.findMany({
       where: { shopId, status: ProductStatus.PUBLISHED, deletedAt: null },
       select: { id: true },
     })
@@ -113,10 +114,10 @@ export class RecommendationService {
     const productIds = products.map((p: { id: string }) => p.id)
 
     const [views, clicks] = await Promise.all([
-      prisma.userEvent.count({
+      this.prisma.userEvent.count({
         where: { entityId: { in: productIds }, event: UserEventType.PRODUCT_VIEW, entityType: 'PRODUCT' },
       }),
-      prisma.userEvent.count({
+      this.prisma.userEvent.count({
         where: { entityId: { in: productIds }, event: UserEventType.PRODUCT_CLICK, entityType: 'PRODUCT' },
       }),
     ])

@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class AdvancedSearchService {
+  constructor(private readonly prisma: PrismaService) {}
   async searchProducts(dto: SearchProductsDto) {
     const {
       query,
@@ -44,7 +45,7 @@ export class AdvancedSearchService {
             ? { createdAt: 'desc' }
             : { createdAt: 'desc' }
 
-    const { items, total } = await offsetPaginate(prisma.product, {
+    const { items, total } = await offsetPaginate(this.prisma.product, {
       page,
       pageSize: limit,
       where,
@@ -63,7 +64,7 @@ export class AdvancedSearchService {
   async getSuggestions(dto: SearchSuggestionsDto) {
     const { query, limit = 10 } = dto
 
-    const products = await prisma.product.findMany({
+    const products = await this.prisma.product.findMany({
       where: {
         status: 'PUBLISHED',
         deletedAt: null,
@@ -74,7 +75,7 @@ export class AdvancedSearchService {
       distinct: ['name'],
     })
 
-    const categories = await prisma.category.findMany({
+    const categories = await this.prisma.category.findMany({
       where: { name: { contains: query, mode: 'insensitive' } },
       select: { id: true, name: true },
       take: 5,
@@ -87,7 +88,7 @@ export class AdvancedSearchService {
   }
 
   async getPopularSearches(limit = 20) {
-    const searches = await prisma.searchQuery.findMany({
+    const searches = await this.prisma.searchQuery.findMany({
       orderBy: { count: 'desc' },
       take: limit,
       select: { query: true, count: true, resultsCount: true },
@@ -97,7 +98,7 @@ export class AdvancedSearchService {
   }
 
   async getSearchAnalytics(shopId: string) {
-    const products = await prisma.product.findMany({
+    const products = await this.prisma.product.findMany({
       where: { shopId, status: 'PUBLISHED', deletedAt: null },
       select: { id: true, name: true },
     })
@@ -111,7 +112,7 @@ export class AdvancedSearchService {
   private async logSearchQuery(query: string, resultsCount: number) {
     const normalized = query.toLowerCase().trim()
 
-    await prisma.searchQuery.upsert({
+    await this.prisma.searchQuery.upsert({
       where: { query: normalized },
       update: {
         count: { increment: 1 },

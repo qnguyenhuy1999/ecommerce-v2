@@ -1,16 +1,17 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
-import { prisma, type PlatformVoucherStatus, type PlatformVoucherType } from '@ecom/database';
+import { PrismaService, type PlatformVoucherStatus, type PlatformVoucherType, Prisma } from '@ecom/database';
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 @Injectable()
 export class PromotionsService {
+  constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
     pageSize?: number;
     status?: PlatformVoucherStatus;
     search?: string;
   }) {
-    const where: Record<string, unknown> = {};
+    const where: Prisma.PlatformVoucherWhereInput = {};
     if (query.status) where.status = query.status;
     if (query.search) {
       where.OR = [
@@ -19,7 +20,7 @@ export class PromotionsService {
       ];
     }
 
-    const { items, total } = await offsetPaginate(prisma.platformVoucher, {
+    const { items, total } = await offsetPaginate(this.prisma.platformVoucher, {
       page: query.page,
       pageSize: query.pageSize,
       where,
@@ -30,7 +31,7 @@ export class PromotionsService {
   }
 
   async findById(id: string) {
-    const voucher = await prisma.platformVoucher.findUnique({ where: { id } });
+    const voucher = await this.prisma.platformVoucher.findUnique({ where: { id } });
     if (!voucher) throw new NotFoundException('Voucher not found');
     return voucher;
   }
@@ -42,14 +43,14 @@ export class PromotionsService {
     usageLimit?: number; usageLimitPerUser?: number;
     startsAt: Date; expiresAt: Date; createdBy?: string;
   }) {
-    const existing = await prisma.platformVoucher.findUnique({ where: { code: data.code } });
+    const existing = await this.prisma.platformVoucher.findUnique({ where: { code: data.code } });
     if (existing) throw new ConflictException('Voucher code already exists');
 
     if (data.type === 'PERCENTAGE' && data.discountValue > 100) {
       throw new BadRequestException('Percentage discount cannot exceed 100');
     }
 
-    return prisma.platformVoucher.create({
+    return this.prisma.platformVoucher.create({
       data: {
         ...data,
         discountValue: data.discountValue,
@@ -59,13 +60,13 @@ export class PromotionsService {
     });
   }
 
-  async update(id: string, data: Record<string, unknown>) {
+  async update(id: string, data: Prisma.PlatformVoucherUpdateInput) {
     await this.findById(id);
-    return prisma.platformVoucher.update({ where: { id }, data });
+    return this.prisma.platformVoucher.update({ where: { id }, data });
   }
 
   async getStatusCounts() {
-    const counts = await prisma.platformVoucher.groupBy({
+    const counts = await this.prisma.platformVoucher.groupBy({
       by: ['status'],
       _count: { status: true },
     });

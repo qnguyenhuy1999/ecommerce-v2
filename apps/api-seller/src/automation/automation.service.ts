@@ -1,17 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
 import { AutomationQueryDto } from './dto/automation-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class AutomationService {
+  constructor(private readonly prisma: PrismaService) {}
   async listRules(shopId: string, query: AutomationQueryDto) {
     const { page = 1, pageSize = 20 } = query
 
     const where: Prisma.AutomationRuleWhereInput = { shopId }
 
-    const { items, total } = await offsetPaginate(prisma.automationRule, {
+    const { items, total } = await offsetPaginate(this.prisma.automationRule, {
       page,
       pageSize,
       where,
@@ -23,7 +24,7 @@ export class AutomationService {
   }
 
   async getRuleById(shopId: string, id: string) {
-    const rule = await prisma.automationRule.findFirst({
+    const rule = await this.prisma.automationRule.findFirst({
       where: { id, shopId },
       include: {
         logs: { orderBy: { executedAt: 'desc' }, take: 20 },
@@ -36,7 +37,7 @@ export class AutomationService {
   }
 
   async createRule(shopId: string, dto: CreateAutomationRuleDto) {
-    return prisma.automationRule.create({
+    return this.prisma.automationRule.create({
       data: {
         shopId,
         name: dto.name,
@@ -66,10 +67,10 @@ export class AutomationService {
   }
 
   async updateRule(shopId: string, id: string, dto: UpdateAutomationRuleDto) {
-    const rule = await prisma.automationRule.findFirst({ where: { id, shopId } })
+    const rule = await this.prisma.automationRule.findFirst({ where: { id, shopId } })
     if (!rule) throw new NotFoundException('Rule not found')
 
-    return prisma.automationRule.update({
+    return this.prisma.automationRule.update({
       where: { id },
       data: {
         ...(dto.name && { name: dto.name }),
@@ -83,15 +84,15 @@ export class AutomationService {
   }
 
   async deleteRule(shopId: string, id: string) {
-    const rule = await prisma.automationRule.findFirst({ where: { id, shopId } })
+    const rule = await this.prisma.automationRule.findFirst({ where: { id, shopId } })
     if (!rule) throw new NotFoundException('Rule not found')
 
-    await prisma.automationRule.delete({ where: { id } })
+    await this.prisma.automationRule.delete({ where: { id } })
     return { deleted: true }
   }
 
   async executeRule(ruleId: string, triggerData: Record<string, unknown>) {
-    const rule = await prisma.automationRule.findUnique({ where: { id: ruleId } })
+    const rule = await this.prisma.automationRule.findUnique({ where: { id: ruleId } })
     if (!rule || !rule.isActive) return null
 
     const startTime = Date.now()
@@ -111,8 +112,8 @@ export class AutomationService {
 
     const duration = Date.now() - startTime
 
-    await prisma.$transaction([
-      prisma.automationLog.create({
+    await this.prisma.$transaction([
+      this.prisma.automationLog.create({
         data: {
           ruleId,
           triggerData,
@@ -121,7 +122,7 @@ export class AutomationService {
           duration,
         },
       }),
-      prisma.automationRule.update({
+      this.prisma.automationRule.update({
         where: { id: ruleId },
         data: {
           executionCount: { increment: 1 },

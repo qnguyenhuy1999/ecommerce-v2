@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { createColumnHelper } from '@tanstack/react-table';
 import { RefundStatus, PAGINATION_DEFAULTS } from '@ecom/constants';
-import { DataTable, StatusBadge, StatusTabs } from '@/components/data-table/data-table';
+import { DataTable, StatusBadge, StatusTabs } from '@ecom/core-ui';
 import { useRefunds, useRefundStatusCounts } from '../hooks/use-refunds';
 import type { RefundListItem } from '../api/refunds.api';
 

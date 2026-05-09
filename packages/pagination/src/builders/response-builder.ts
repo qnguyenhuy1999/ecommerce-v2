@@ -1,10 +1,4 @@
-import type {
-  OffsetPaginationMeta,
-  PaginatedResponse,
-  LegacyPaginatedResponse,
-  CursorPaginationMeta,
-  CursorPaginatedResponse,
-} from '../types';
+import type { PaginatedResponse, LegacyPaginatedResponse, CursorPaginatedResponse } from '../types'
 
 /**
  * Build standardized offset pagination response.
@@ -14,17 +8,17 @@ export function buildOffsetResponse<T>(
   items: T[],
   page: number,
   pageSize: number,
-  total: number
+  total: number,
 ): PaginatedResponse<T> {
   return {
-    items,
+    data: items,
     meta: {
       page,
       pageSize,
       total,
       totalPages: Math.ceil(total / pageSize),
     },
-  };
+  }
 }
 
 /**
@@ -36,7 +30,7 @@ export function buildLegacyResponse<T>(
   items: T[],
   page: number,
   limit: number,
-  total: number
+  total: number,
 ): LegacyPaginatedResponse<T> {
   return {
     data: items,
@@ -46,7 +40,7 @@ export function buildLegacyResponse<T>(
       total,
       totalPages: Math.ceil(total / limit),
     },
-  };
+  }
 }
 
 /**
@@ -56,7 +50,7 @@ export function buildCursorResponse<T>(
   items: T[],
   nextCursor: string | null,
   hasMore: boolean,
-  limit: number
+  limit: number,
 ): CursorPaginatedResponse<T> {
   return {
     items,
@@ -65,5 +59,5 @@ export function buildCursorResponse<T>(
       hasMore,
       limit,
     },
-  };
+  }
 }

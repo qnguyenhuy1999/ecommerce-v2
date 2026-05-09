@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { ReturnQueryDto } from './dto/return-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
@@ -16,6 +16,7 @@ const VALID_TRANSITIONS: Record<string, string[]> = {
 
 @Injectable()
 export class ReturnService {
+  constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: ReturnQueryDto) {
     const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, status } = query
 
@@ -25,7 +26,7 @@ export class ReturnService {
       ...(search ? { description: { contains: search, mode: 'insensitive' } } : {}),
     }
 
-    const { items, total } = await offsetPaginate(prisma.returnRequest, {
+    const { items, total } = await offsetPaginate(this.prisma.returnRequest, {
       page,
       pageSize,
       where,
@@ -40,7 +41,7 @@ export class ReturnService {
   }
 
   async getById(shopId: string, returnId: string) {
-    const returnRequest = await prisma.returnRequest.findFirst({
+    const returnRequest = await this.prisma.returnRequest.findFirst({
       where: { id: returnId, shopId },
       include: {
         items: true,
@@ -57,7 +58,7 @@ export class ReturnService {
   }
 
   async updateStatus(shopId: string, returnId: string, newStatus: string, note?: string, performedBy?: string) {
-    const returnRequest = await prisma.returnRequest.findFirst({
+    const returnRequest = await this.prisma.returnRequest.findFirst({
       where: { id: returnId, shopId },
     })
 
@@ -74,7 +75,7 @@ export class ReturnService {
       )
     }
 
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const data: Prisma.ReturnRequestUpdateInput = {
         status: newStatus as Prisma.ReturnRequestUpdateInput['status'],
       }
@@ -103,7 +104,7 @@ export class ReturnService {
   }
 
   async addEvidence(shopId: string, returnId: string, uploadedBy: string, url: string, description?: string) {
-    const returnRequest = await prisma.returnRequest.findFirst({
+    const returnRequest = await this.prisma.returnRequest.findFirst({
       where: { id: returnId, shopId },
     })
 
@@ -111,17 +112,17 @@ export class ReturnService {
       throw new NotFoundException('Return request not found')
     }
 
-    return prisma.returnEvidence.create({
+    return this.prisma.returnEvidence.create({
       data: { returnRequestId: returnId, uploadedBy, url, description },
     })
   }
 
   async getStats(shopId: string) {
     const [total, pending, approved, refunded] = await Promise.all([
-      prisma.returnRequest.count({ where: { shopId } }),
-      prisma.returnRequest.count({ where: { shopId, status: { in: ['REQUESTED', 'REVIEWING'] } } }),
-      prisma.returnRequest.count({ where: { shopId, status: 'APPROVED' } }),
-      prisma.returnRequest.count({ where: { shopId, status: 'REFUNDED' } }),
+      this.prisma.returnRequest.count({ where: { shopId } }),
+      this.prisma.returnRequest.count({ where: { shopId, status: { in: ['REQUESTED', 'REVIEWING'] } } }),
+      this.prisma.returnRequest.count({ where: { shopId, status: 'APPROVED' } }),
+      this.prisma.returnRequest.count({ where: { shopId, status: 'REFUNDED' } }),
     ])
 
     return { total, pending, approved, refunded }

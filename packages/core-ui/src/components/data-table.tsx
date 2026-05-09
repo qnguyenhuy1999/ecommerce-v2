@@ -9,6 +9,7 @@ import {
   type RowSelectionState,
 } from '@tanstack/react-table'
 import type { PaginationMeta } from '@ecom/common'
+import { cn } from '../lib/utils'
 
 interface DataTableProps<T> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -201,7 +202,10 @@ export function StatusBadge({ status }: { status: string }) {
 
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${styles[status] ?? 'bg-gray-100 text-gray-700'}`}
+      className={cn(
+        'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium',
+        styles[status] ?? 'bg-gray-100 text-gray-700'
+      )}
     >
       {status}
     </span>
@@ -250,11 +254,12 @@ export function StatusTabs({
         <button
           key={tab}
           onClick={() => onChange(tab)}
-          className={`px-3 py-2 text-sm font-medium transition-colors ${
+          className={cn(
+            'px-3 py-2 text-sm font-medium transition-colors',
             value === tab
               ? 'border-b-2 border-primary text-primary'
               : 'text-muted-foreground hover:text-foreground'
-          }`}
+          )}
         >
           {tab}
           {counts && tab !== 'ALL' && counts[tab] != null && (

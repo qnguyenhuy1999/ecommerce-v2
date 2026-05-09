@@ -5,8 +5,8 @@ import {
   Package, RotateCcw, Star,
 } from 'lucide-react';
 import { useDashboardMetrics } from '../hooks/use-dashboard';
-import { MetricCard } from './metric-card';
-import { StatusBadge } from '@/components/data-table/data-table';
+import { StatCard as MetricCard } from '@ecom/core-ui';
+import { StatusBadge } from '@ecom/core-ui';
 
 export function DashboardPage() {
   const { data, isLoading } = useDashboardMetrics();

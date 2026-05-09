@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { DollarSign, ShoppingCart, TrendingUp, Package } from 'lucide-react'
 import { DashboardLayout } from '../../components/dashboard-layout'
 import { PageHeader } from '../../components/page-header'
-import { StatCard } from '../../components/stat-card'
+import { StatCard } from '@ecom/core-ui'
 import { api } from '../../lib/api'
 
 interface DashboardSummary {

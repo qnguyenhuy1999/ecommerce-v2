@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import {
   CreateReferralProgramDto,
   CreateExperimentDto,
@@ -11,12 +11,13 @@ import { randomBytes } from 'crypto'
 
 @Injectable()
 export class GrowthService {
+  constructor(private readonly prisma: PrismaService) {}
   // --- Referral Program ---
 
   async listReferralPrograms(query: OffsetPaginationDto) {
     const { page = 1, pageSize = 20 } = query
 
-    const { items, total } = await offsetPaginate(prisma.referralProgram, {
+    const { items, total } = await offsetPaginate(this.prisma.referralProgram, {
       page,
       pageSize,
       where: { isActive: true },
@@ -28,7 +29,7 @@ export class GrowthService {
   }
 
   async createReferralProgram(dto: CreateReferralProgramDto) {
-    return prisma.referralProgram.create({
+    return this.prisma.referralProgram.create({
       data: {
         name: dto.name,
         description: dto.description,
@@ -42,12 +43,12 @@ export class GrowthService {
   }
 
   async createReferral(programId: string, referrerId: string) {
-    const program = await prisma.referralProgram.findUnique({ where: { id: programId } })
+    const program = await this.prisma.referralProgram.findUnique({ where: { id: programId } })
     if (!program) throw new NotFoundException('Referral program not found')
 
     const code = randomBytes(6).toString('hex')
 
-    return prisma.referral.create({
+    return this.prisma.referral.create({
       data: {
         programId,
         referrerId,
@@ -57,7 +58,7 @@ export class GrowthService {
   }
 
   async completeReferral(code: string, refereeId: string) {
-    const referral = await prisma.referral.findUnique({
+    const referral = await this.prisma.referral.findUnique({
       where: { code },
       include: { program: true },
     })
@@ -70,7 +71,7 @@ export class GrowthService {
       throw new BadRequestException('Referral already used')
     }
 
-    return prisma.referral.update({
+    return this.prisma.referral.update({
       where: { code },
       data: {
         refereeId,
@@ -87,7 +88,7 @@ export class GrowthService {
   async listExperiments(query: OffsetPaginationDto) {
     const { page = 1, pageSize = 20 } = query
 
-    const { items, total } = await offsetPaginate(prisma.experiment, {
+    const { items, total } = await offsetPaginate(this.prisma.experiment, {
       page,
       pageSize,
       include: { variants: true },
@@ -98,7 +99,7 @@ export class GrowthService {
   }
 
   async createExperiment(dto: CreateExperimentDto) {
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const experiment = await tx.experiment.create({
         data: {
           name: dto.name,
@@ -129,14 +130,14 @@ export class GrowthService {
   }
 
   async getExperimentVariant(experimentId: string, userId: string) {
-    const experiment = await prisma.experiment.findUnique({
+    const experiment = await this.prisma.experiment.findUnique({
       where: { id: experimentId },
       include: { variants: true },
     })
 
     if (!experiment || experiment.status !== 'RUNNING') return null
 
-    const assignment = await prisma.experimentAssignment.findUnique({
+    const assignment = await this.prisma.experimentAssignment.findUnique({
       where: { experimentId_userId: { experimentId, userId } },
     })
 
@@ -162,7 +163,7 @@ export class GrowthService {
       }
     }
 
-    await prisma.experimentAssignment.create({
+    await this.prisma.experimentAssignment.create({
       data: { experimentId, userId, variantId: selectedVariant.id },
     })
 
@@ -172,11 +173,11 @@ export class GrowthService {
   // --- Feature Flags ---
 
   async listFeatureFlags() {
-    return prisma.featureFlag.findMany({ orderBy: { key: 'asc' } })
+    return this.prisma.featureFlag.findMany({ orderBy: { key: 'asc' } })
   }
 
   async createFeatureFlag(dto: CreateFeatureFlagDto) {
-    return prisma.featureFlag.create({
+    return this.prisma.featureFlag.create({
       data: {
         key: dto.key,
         description: dto.description,
@@ -187,14 +188,14 @@ export class GrowthService {
   }
 
   async toggleFeatureFlag(key: string, isEnabled: boolean) {
-    return prisma.featureFlag.update({
+    return this.prisma.featureFlag.update({
       where: { key },
       data: { isEnabled },
     })
   }
 
   async isFeatureEnabled(key: string, _context?: Record<string, unknown>): Promise<boolean> {
-    const flag = await prisma.featureFlag.findUnique({ where: { key } })
+    const flag = await this.prisma.featureFlag.findUnique({ where: { key } })
     if (!flag) return false
     return flag.isEnabled
   }
@@ -204,7 +205,7 @@ export class GrowthService {
   async listCampaigns(query: OffsetPaginationDto) {
     const { page = 1, pageSize = 20 } = query
 
-    const { items, total } = await offsetPaginate(prisma.growthCampaign, {
+    const { items, total } = await offsetPaginate(this.prisma.growthCampaign, {
       page,
       pageSize,
       orderBy: { createdAt: 'desc' },
@@ -214,7 +215,7 @@ export class GrowthService {
   }
 
   async createCampaign(dto: CreateCampaignDto) {
-    return prisma.growthCampaign.create({
+    return this.prisma.growthCampaign.create({
       data: {
         name: dto.name,
         description: dto.description,

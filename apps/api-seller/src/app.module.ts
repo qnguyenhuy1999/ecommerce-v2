@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { ThrottlerModule } from '@nestjs/throttler'
 import { RedisModule } from '@ecom/redis'
 import { EmailModule } from '@ecom/email'
+import { DatabaseModule } from '@ecom/database'
 import { AuthModule } from './auth/auth.module'
 import { ShopModule } from './shop/shop.module'
 import { ProductModule } from './product/product.module'
@@ -55,6 +56,7 @@ import { GrowthModule } from './growth/growth.module'
       },
       from: process.env.SMTP_FROM ?? 'noreply@yourdomain.com',
     }),
+    DatabaseModule,
     AuthModule,
     ShopModule,
     ProductModule,

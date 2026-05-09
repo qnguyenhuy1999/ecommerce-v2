@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { prisma, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { CreateCouponDto } from './dto/create-coupon.dto'
 import { UpdateCouponDto } from './dto/update-coupon.dto'
 import { CouponQueryDto } from './dto/coupon-query.dto'
@@ -7,6 +7,7 @@ import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class CouponService {
+  constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: CouponQueryDto) {
     const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, status, type } = query
 
@@ -19,7 +20,7 @@ export class CouponService {
         : {}),
     }
 
-    const { items, total } = await offsetPaginate(prisma.coupon, {
+    const { items, total } = await offsetPaginate(this.prisma.coupon, {
       page,
       pageSize,
       where,
@@ -33,7 +34,7 @@ export class CouponService {
   }
 
   async getById(shopId: string, couponId: string) {
-    const coupon = await prisma.coupon.findFirst({
+    const coupon = await this.prisma.coupon.findFirst({
       where: { id: couponId, shopId },
       include: {
         couponProducts: true,
@@ -58,7 +59,7 @@ export class CouponService {
       throw new BadRequestException('Expiry date must be after start date')
     }
 
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const coupon = await tx.coupon.create({
         data: {
           shopId,
@@ -101,7 +102,7 @@ export class CouponService {
   }
 
   async update(shopId: string, couponId: string, dto: UpdateCouponDto) {
-    const existing = await prisma.coupon.findFirst({
+    const existing = await this.prisma.coupon.findFirst({
       where: { id: couponId, shopId },
     })
 
@@ -113,7 +114,7 @@ export class CouponService {
       throw new BadRequestException('Percentage discount cannot exceed 100')
     }
 
-    return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const data: Prisma.CouponUpdateInput = {}
       if (dto.name !== undefined) data.name = dto.name
       if (dto.description !== undefined) data.description = dto.description
@@ -154,7 +155,7 @@ export class CouponService {
   }
 
   async delete(shopId: string, couponId: string) {
-    const existing = await prisma.coupon.findFirst({
+    const existing = await this.prisma.coupon.findFirst({
       where: { id: couponId, shopId },
     })
 
@@ -166,17 +167,17 @@ export class CouponService {
       throw new BadRequestException('Cannot delete a coupon that has been used. Pause it instead.')
     }
 
-    await prisma.coupon.delete({ where: { id: couponId } })
+    await this.prisma.coupon.delete({ where: { id: couponId } })
   }
 
   async getStats(shopId: string) {
     const now = new Date()
     const [total, active, totalUsages] = await Promise.all([
-      prisma.coupon.count({ where: { shopId } }),
-      prisma.coupon.count({
+      this.prisma.coupon.count({ where: { shopId } }),
+      this.prisma.coupon.count({
         where: { shopId, status: 'ACTIVE', startsAt: { lte: now }, expiresAt: { gte: now } },
       }),
-      prisma.couponUsage.count({
+      this.prisma.couponUsage.count({
         where: { coupon: { shopId } },
       }),
     ])

@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { SESSION_COOKIE_NAME } from '@ecom/auth';
 
 export interface WithAuthOptions {
   apiUrl?: string;
@@ -24,14 +25,14 @@ export function createWithAuth(options: WithAuthOptions = {}) {
       return NextResponse.next();
     }
 
-    const sid = request.cookies.get('sid')?.value;
+    const sid = request.cookies.get(SESSION_COOKIE_NAME)?.value;
     if (!sid) {
       return NextResponse.redirect(new URL(loginPath, request.url));
     }
 
     try {
       const res = await fetch(`${apiUrl}/auth/me`, {
-        headers: { Cookie: `sid=${sid}` },
+        headers: { Cookie: `${SESSION_COOKIE_NAME}=${sid}` },
       });
 
       if (!res.ok) {

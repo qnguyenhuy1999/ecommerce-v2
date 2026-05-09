@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { prisma, type ProductStatus, type ProductReportStatus } from '@ecom/database';
+import { PrismaService, type ProductStatus, type ProductReportStatus, Prisma } from '@ecom/database';
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
 
 @Injectable()
 export class ProductsService {
+  constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
     pageSize?: number;
@@ -12,7 +13,7 @@ export class ProductsService {
     shopId?: string;
     categoryId?: string;
   }) {
-    const where: Record<string, unknown> = { deletedAt: null };
+    const where: Prisma.ProductWhereInput = { deletedAt: null };
     if (query.status) where.status = query.status;
     if (query.shopId) where.shopId = query.shopId;
     if (query.categoryId) where.categoryId = query.categoryId;
@@ -23,7 +24,7 @@ export class ProductsService {
       ];
     }
 
-    const { items, total } = await offsetPaginate(prisma.product, {
+    const { items, total } = await offsetPaginate(this.prisma.product, {
       page: query.page,
       pageSize: query.pageSize,
       where,
@@ -40,7 +41,7 @@ export class ProductsService {
   }
 
   async findById(id: string) {
-    const product = await prisma.product.findUnique({
+    const product = await this.prisma.product.findUnique({
       where: { id, deletedAt: null },
       include: {
         shop: { select: { id: true, name: true, slug: true } },
@@ -66,7 +67,7 @@ export class ProductsService {
     if (product.status !== 'DRAFT') {
       throw new BadRequestException('Invalid status transition');
     }
-    return prisma.product.update({
+    return this.prisma.product.update({
       where: { id },
       data: { status: 'PUBLISHED' },
     });
@@ -77,7 +78,7 @@ export class ProductsService {
     if (product.status !== 'DRAFT') {
       throw new BadRequestException('Invalid status transition');
     }
-    return prisma.product.update({
+    return this.prisma.product.update({
       where: { id },
       data: { status: 'REJECTED' },
     });
@@ -88,7 +89,7 @@ export class ProductsService {
     if (product.status !== 'PUBLISHED') {
       throw new BadRequestException('Invalid status transition');
     }
-    return prisma.product.update({
+    return this.prisma.product.update({
       where: { id },
       data: { status: 'ARCHIVED' },
     });
@@ -99,28 +100,28 @@ export class ProductsService {
     if (product.status !== 'ARCHIVED') {
       throw new BadRequestException('Invalid status transition');
     }
-    return prisma.product.update({
+    return this.prisma.product.update({
       where: { id },
       data: { status: 'PUBLISHED' },
     });
   }
 
   async bulkApprove(ids: string[]) {
-    return prisma.product.updateMany({
+    return this.prisma.product.updateMany({
       where: { id: { in: ids }, deletedAt: null },
       data: { status: 'PUBLISHED' },
     });
   }
 
   async bulkReject(ids: string[]) {
-    return prisma.product.updateMany({
+    return this.prisma.product.updateMany({
       where: { id: { in: ids }, deletedAt: null },
       data: { status: 'REJECTED' },
     });
   }
 
   async getStatusCounts() {
-    const counts = await prisma.product.groupBy({
+    const counts = await this.prisma.product.groupBy({
       by: ['status'],
       _count: { status: true },
       where: { deletedAt: null },
@@ -141,7 +142,7 @@ export class ProductsService {
     const where: Record<string, unknown> = {};
     if (query.status) where.status = query.status;
 
-    const { items, total } = await offsetPaginate(prisma.productReport, {
+    const { items, total } = await offsetPaginate(this.prisma.productReport, {
       page: query.page,
       pageSize: query.pageSize,
       where,
@@ -152,14 +153,14 @@ export class ProductsService {
   }
 
   async resolveReport(id: string, adminId: string, adminNote?: string) {
-    return prisma.productReport.update({
+    return this.prisma.productReport.update({
       where: { id },
       data: { status: 'RESOLVED', resolvedBy: adminId, resolvedAt: new Date(), adminNote },
     });
   }
 
   async dismissReport(id: string, adminId: string, adminNote?: string) {
-    return prisma.productReport.update({
+    return this.prisma.productReport.update({
       where: { id },
       data: { status: 'DISMISSED', resolvedBy: adminId, resolvedAt: new Date(), adminNote },
     });

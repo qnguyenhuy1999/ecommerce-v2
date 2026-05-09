@@ -41,6 +41,9 @@ importers:
 
   apps/admin:
     dependencies:
+      '@ecom/api-client':
+        specifier: workspace:*
+        version: link:../../packages/api-client
       '@ecom/auth-next':
         specifier: workspace:*
         version: link:../../packages/auth-next
@@ -138,6 +141,9 @@ importers:
       '@nestjs/platform-express':
         specifier: ^11.0.0
         version: 11.1.19(@nestjs/common@11.1.19(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)
+      '@nestjs/swagger':
+        specifier: ^11.4.2
+        version: 11.4.2(@nestjs/common@11.1.19(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)
       '@nestjs/throttler':
         specifier: ^6.4.0
         version: 6.5.0(@nestjs/common@11.1.19(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)(reflect-metadata@0.2.2)
@@ -193,6 +199,9 @@ importers:
       '@ecom/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@ecom/common':
+        specifier: workspace:*
+        version: link:../../packages/common
       '@ecom/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -208,6 +217,9 @@ importers:
       '@ecom/redis':
         specifier: workspace:*
         version: link:../../packages/redis
+      '@ecom/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@nestjs/bullmq':
         specifier: ^11.0.4
         version: 11.0.4(@nestjs/common@11.1.19(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)(bullmq@5.76.6)
@@ -290,6 +302,9 @@ importers:
       '@ecom/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@ecom/common':
+        specifier: workspace:*
+        version: link:../../packages/common
       '@ecom/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -360,6 +375,9 @@ importers:
 
   apps/seller:
     dependencies:
+      '@ecom/api-client':
+        specifier: workspace:*
+        version: link:../../packages/api-client
       '@ecom/auth-next':
         specifier: workspace:*
         version: link:../../packages/auth-next
@@ -432,11 +450,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
 
-  packages/auth:
-    dependencies:
-      ioredis:
-        specifier: ^5.6.0
-        version: 5.10.1
+  packages/api-client:
     devDependencies:
       '@ecom/eslint-config':
         specifier: workspace:*
@@ -454,8 +468,48 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
 
+  packages/auth:
+    dependencies:
+      '@ecom/database':
+        specifier: workspace:*
+        version: link:../database
+      bcrypt:
+        specifier: ^5.1.1
+        version: 5.1.1
+      ioredis:
+        specifier: ^5.6.0
+        version: 5.10.1
+    devDependencies:
+      '@ecom/email':
+        specifier: workspace:*
+        version: link:../email
+      '@ecom/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@ecom/redis':
+        specifier: workspace:*
+        version: link:../redis
+      '@ecom/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/bcrypt':
+        specifier: ^5.0.2
+        version: 5.0.2
+      '@types/node':
+        specifier: ^22.15.0
+        version: 22.19.17
+      tsup:
+        specifier: ^8.4.0
+        version: 8.5.1(jiti@2.6.1)(postcss@8.5.13)(tsx@4.21.0)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.9.3
+
   packages/auth-next:
     dependencies:
+      '@ecom/auth':
+        specifier: workspace:*
+        version: link:../auth
       next:
         specifier: ^15.0.0 || ^16.0.0
         version: 16.2.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -493,9 +547,36 @@ importers:
       '@ecom/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
+      '@nestjs/common':
+        specifier: ^11.1.19
+        version: 11.1.19(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@types/express':
+        specifier: ^5.0.6
+        version: 5.0.6
+      express:
+        specifier: ^5.2.1
+        version: 5.2.1
+      rxjs:
+        specifier: ^7.8.2
+        version: 7.8.2
       tsup:
         specifier: ^8.4.0
         version: 8.5.1(jiti@2.6.1)(postcss@8.5.13)(tsx@4.21.0)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.9.3
+
+  packages/config:
+    devDependencies:
+      '@ecom/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@ecom/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: ^22.15.0
+        version: 22.19.17
       typescript:
         specifier: ^5.8.3
         version: 5.9.3
@@ -536,9 +617,15 @@ importers:
       '@base-ui/react':
         specifier: ^1.4.1
         version: 1.4.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@ecom/common':
+        specifier: workspace:*
+        version: link:../common
       '@fontsource-variable/inter':
         specifier: ^5.2.8
         version: 5.2.8
+      '@tanstack/react-table':
+        specifier: ^8.21.3
+        version: 8.21.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -551,6 +638,9 @@ importers:
       react-dom:
         specifier: ^18.0.0 || ^19.0.0
         version: 19.2.5(react@19.2.5)
+      recharts:
+        specifier: ^3.8.1
+        version: 3.8.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(redux@5.0.1)
       shadcn:
         specifier: ^4.6.0
         version: 4.6.0(@types/node@22.19.17)(typescript@5.9.3)
@@ -582,6 +672,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.0
         version: 19.2.3(@types/react@19.2.14)
+      '@types/recharts':
+        specifier: ^2.0.1
+        version: 2.0.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(redux@5.0.1)
       '@vitejs/plugin-react':
         specifier: ^6.0.1
         version: 6.0.1(vite@8.0.10(@types/node@22.19.17)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))
@@ -625,6 +718,9 @@ importers:
       '@ecom/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
+      '@nestjs/common':
+        specifier: ^11.1.19
+        version: 11.1.19(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@types/node':
         specifier: ^22.15.0
         version: 22.19.17
@@ -745,6 +841,21 @@ importers:
         version: 5.9.3
 
   packages/tsconfig: {}
+
+  packages/types:
+    devDependencies:
+      '@ecom/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@ecom/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: ^22.15.0
+        version: 22.19.17
+      typescript:
+        specifier: ^5.8.3
+        version: 5.9.3
 
   packages/ui-admin:
     dependencies:
@@ -934,6 +1045,21 @@ importers:
       vite:
         specifier: ^8.0.10
         version: 8.0.10(@types/node@22.19.17)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0)
+
+  packages/utils:
+    devDependencies:
+      '@ecom/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@ecom/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      tsup:
+        specifier: ^8.4.0
+        version: 8.5.1(jiti@2.6.1)(postcss@8.5.13)(tsx@4.21.0)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.9.3
 
 packages:
 
@@ -3455,6 +3581,10 @@ packages:
 
   '@types/react@19.2.14':
     resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
+
+  '@types/recharts@2.0.1':
+    resolution: {integrity: sha512-/cFs7oiafzByUwBSWA1IzE6FW+ppPwQAWsDTadSgVOwzveY9MESpyLHyyHY0SfPPKLW4+4qVNYHPXd0rFiC8vg==}
+    deprecated: This is a stub types definition. recharts provides its own type definitions, so you do not need this installed.
 
   '@types/resolve@1.20.6':
     resolution: {integrity: sha512-A4STmOXPhMUtHH+S6ymgE2GiBSMqf4oTvcQZMcHzokuTLVYzXTB8ttjcgxOVaAp2lGwEdzZ0J+cRbbeevQj1UQ==}
@@ -8890,6 +9020,16 @@ snapshots:
   '@types/react@19.2.14':
     dependencies:
       csstype: 3.2.3
+
+  '@types/recharts@2.0.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(redux@5.0.1)':
+    dependencies:
+      recharts: 3.8.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react-is@18.3.1)(react@19.2.5)(redux@5.0.1)
+    transitivePeerDependencies:
+      - '@types/react'
+      - react
+      - react-dom
+      - react-is
+      - redux
 
   '@types/resolve@1.20.6': {}
 

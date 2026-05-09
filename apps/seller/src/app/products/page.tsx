@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Plus, Search } from 'lucide-react'
 import { DashboardLayout } from '../../components/dashboard-layout'
 import { PageHeader } from '../../components/page-header'
-import { DataTable } from '../../components/data-table'
+import { DataTable } from '@ecom/core-ui'
 import { StatusBadge } from '../../components/status-badge'
 import { api } from '../../lib/api'
 

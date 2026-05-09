@@ -1,14 +1,15 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { prisma, type Prisma, type ReturnStatus } from '@ecom/database'
+import { PrismaService, type ReturnStatus, Prisma } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 @Injectable()
 export class RefundsService {
+  constructor(private readonly prisma: PrismaService) {}
   async findAll(query: { page?: number; pageSize?: number; status?: ReturnStatus }) {
-    const where: Record<string, unknown> = {}
+    const where: Prisma.ReturnRequestWhereInput = {}
     if (query.status) where.status = query.status
 
-    const { items, total } = await offsetPaginate(prisma.returnRequest, {
+    const { items, total } = await offsetPaginate(this.prisma.returnRequest, {
       page: query.page,
       pageSize: query.pageSize,
       where,
@@ -24,7 +25,7 @@ export class RefundsService {
   }
 
   async findById(id: string) {
-    const refund = await prisma.returnRequest.findUnique({
+    const refund = await this.prisma.returnRequest.findUnique({
       where: { id },
       include: {
         items: true,
@@ -44,7 +45,7 @@ export class RefundsService {
       throw new BadRequestException('Invalid status transition')
     }
 
-    const updated = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    const updated = await this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const result = await tx.returnRequest.update({
         where: { id },
         data: { status: 'APPROVED', resolvedAt: new Date() },
@@ -72,7 +73,7 @@ export class RefundsService {
       throw new BadRequestException('Invalid status transition')
     }
 
-    const updated = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    const updated = await this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const result = await tx.returnRequest.update({
         where: { id },
         data: { status: 'REJECTED', resolvedAt: new Date() },
@@ -93,7 +94,7 @@ export class RefundsService {
   }
 
   async getStatusCounts() {
-    const counts = await prisma.returnRequest.groupBy({
+    const counts = await this.prisma.returnRequest.groupBy({
       by: ['status'],
       _count: { status: true },
     })

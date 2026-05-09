@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { RedisModule } from '@ecom/redis';
+import { DatabaseModule } from '@ecom/database';
 import { AuthModule } from './auth/auth.module';
 import { SellersModule } from './sellers/sellers.module';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -27,6 +28,7 @@ import { AuditLogInterceptor } from './common/interceptors/audit-log.interceptor
       port: parseInt(process.env.REDIS_PORT ?? '6379', 10),
       password: process.env.REDIS_PASSWORD,
     }),
+    DatabaseModule,
     AuthModule,
     SellersModule,
     DashboardModule,

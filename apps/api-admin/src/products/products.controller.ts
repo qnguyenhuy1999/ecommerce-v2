@@ -1,3 +1,4 @@
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -12,6 +13,7 @@ import { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto
 import { type ProductStatus, type ProductReportStatus } from '@ecom/database';
 import { AUDIT_ACTIONS } from '@ecom/constants';
 
+@ApiTags("Products")
 @Controller('products')
 @UseGuards(AdminAuthGuard, PermissionGuard)
 export class ProductsController {
@@ -19,6 +21,8 @@ export class ProductsController {
     private readonly productsService: ProductsService,
   ) {}
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get()
   @Permissions('PRODUCT_VIEW')
   async findAll(@Query() query: ProductQueryDto) {
@@ -30,16 +34,20 @@ export class ProductsController {
       shopId: query.shopId,
       categoryId: query.categoryId,
     });
-    return { success: true, data: result };
+    return result;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get('status-counts')
   @Permissions('PRODUCT_VIEW')
   async statusCounts() {
     const counts = await this.productsService.getStatusCounts();
-    return { success: true, data: counts };
+    return counts;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get('reports')
   @Permissions('PRODUCT_MODERATE')
   async findReports(@Query() query: ProductQueryDto) {
@@ -48,16 +56,20 @@ export class ProductsController {
       pageSize: query.pageSize,
       status: query.status as ProductReportStatus | undefined,
     });
-    return { success: true, data: result };
+    return result;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Get(':id')
   @Permissions('PRODUCT_VIEW')
   async findById(@Param('id') id: string) {
     const product = await this.productsService.findById(id);
-    return { success: true, data: product };
+    return product;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post('bulk/approve')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_BULK_APPROVED', 'Product', {
@@ -67,9 +79,11 @@ export class ProductsController {
     @Body() dto: BulkModerationDto,
   ) {
     const result = await this.productsService.bulkApprove(dto.ids);
-    return { success: true, data: result };
+    return result;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post('bulk/reject')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_BULK_REJECTED', 'Product', {
@@ -79,9 +93,11 @@ export class ProductsController {
     @Body() dto: BulkModerationDto,
   ) {
     const result = await this.productsService.bulkReject(dto.ids);
-    return { success: true, data: result };
+    return result;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/approve')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_APPROVED', 'Product', {
@@ -93,9 +109,11 @@ export class ProductsController {
     @Body() _dto: ProductModerationDto,
   ) {
     const product = await this.productsService.approve(id);
-    return { success: true, data: product };
+    return product;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/reject')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_REJECTED', 'Product', {
@@ -107,9 +125,11 @@ export class ProductsController {
     @Body() _dto: ProductModerationDto,
   ) {
     const product = await this.productsService.reject(id);
-    return { success: true, data: product };
+    return product;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/hide')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_HIDDEN', 'Product', { entityIdParam: 'id' })
@@ -117,9 +137,11 @@ export class ProductsController {
     @Param('id') id: string,
   ) {
     const product = await this.productsService.hide(id);
-    return { success: true, data: product };
+    return product;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post(':id/unhide')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog(AUDIT_ACTIONS.PRODUCT_UNHIDDEN, 'Product', { entityIdParam: 'id' })
@@ -127,9 +149,11 @@ export class ProductsController {
     @Param('id') id: string,
   ) {
     const product = await this.productsService.unhide(id);
-    return { success: true, data: product };
+    return product;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post('reports/:id/resolve')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_REPORT_RESOLVED', 'ProductReport', {
@@ -142,9 +166,11 @@ export class ProductsController {
     @CurrentAdmin() admin: AdminSessionData,
   ) {
     const report = await this.productsService.resolveReport(id, admin.adminId, dto.adminNote);
-    return { success: true, data: report };
+    return report;
   }
 
+  @ApiOperation({ summary: "" })
+  @ApiResponse({ status: 200 })
   @Post('reports/:id/dismiss')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_REPORT_DISMISSED', 'ProductReport', {
@@ -157,6 +183,6 @@ export class ProductsController {
     @CurrentAdmin() admin: AdminSessionData,
   ) {
     const report = await this.productsService.dismissReport(id, admin.adminId, dto.adminNote);
-    return { success: true, data: report };
+    return report;
   }
 }

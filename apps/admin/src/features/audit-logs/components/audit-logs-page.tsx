@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import { PAGINATION_DEFAULTS } from '@ecom/constants';
 import { useAuditLogs } from '../hooks/use-audit-logs';
 
 export function AuditLogsPage() {
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useAuditLogs({ page, pageSize: 20 });
+  const { data, isLoading } = useAuditLogs({ page, pageSize: PAGINATION_DEFAULTS.PAGE_SIZE });
 
   return (
     <div className="space-y-4">

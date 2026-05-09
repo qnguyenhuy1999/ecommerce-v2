@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
+import { ReviewStatus, PAGINATION_DEFAULTS } from '@ecom/constants';
 import { DataTable, StatusBadge, StatusTabs } from '@/components/data-table/data-table';
 import { useReviews, useReviewStatusCounts, useApproveReview, useHideReview, useRejectReview } from '../hooks/use-reviews';
 import type { ReviewListItem } from '../api/reviews.api';
@@ -33,15 +34,15 @@ const columns = [
       const review = row.original;
       return (
         <div className="flex gap-1">
-          {review.status === 'PENDING' && (
+          {review.status === ReviewStatus.PENDING && (
             <button onClick={() => approve.mutate(review.id)}
               className="rounded bg-green-600 px-2 py-0.5 text-xs text-white hover:bg-green-700">Approve</button>
           )}
-          {['PENDING', 'APPROVED'].includes(review.status) && (
+          {[ReviewStatus.PENDING, ReviewStatus.APPROVED].includes(review.status as ReviewStatus) && (
             <button onClick={() => hide.mutate(review.id)}
               className="rounded border px-2 py-0.5 text-xs hover:bg-muted">Hide</button>
           )}
-          {review.status === 'PENDING' && (
+          {review.status === ReviewStatus.PENDING && (
             <button onClick={() => reject.mutate(review.id)}
               className="rounded bg-red-600 px-2 py-0.5 text-xs text-white hover:bg-red-700">Reject</button>
           )}
@@ -51,14 +52,14 @@ const columns = [
   }),
 ];
 
-const STATUS_TABS = ['ALL', 'PENDING', 'APPROVED', 'HIDDEN', 'REJECTED'];
+const STATUS_TABS: string[] = ['ALL', ...(Object.values(ReviewStatus) as string[])];
 
 export function ReviewsPage() {
   const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState('ALL');
 
   const { data, isLoading } = useReviews({
-    page, pageSize: 20,
+    page, pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
   });
   const { data: counts } = useReviewStatusCounts();

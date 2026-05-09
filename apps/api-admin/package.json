@@ -13,6 +13,7 @@
   "dependencies": {
     "@ecom/auth": "workspace:*",
     "@ecom/common": "workspace:*",
+    "@ecom/constants": "workspace:*",
     "@ecom/database": "workspace:*",
     "@ecom/pagination": "workspace:*",
     "@ecom/redis": "workspace:*",

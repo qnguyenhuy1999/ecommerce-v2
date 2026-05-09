@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { createColumnHelper } from '@tanstack/react-table';
+import { UserStatus, PAGINATION_DEFAULTS } from '@ecom/constants';
 import { DataTable, StatusBadge, TableToolbar, StatusTabs } from '@/components/data-table/data-table';
 import { useUsers, useUserStatusCounts } from '../hooks/use-users';
 import type { UserListItem } from '../api/users.api';
@@ -37,7 +38,7 @@ const columns = [
   }),
 ];
 
-const STATUS_TABS = ['ALL', 'ACTIVE', 'SUSPENDED', 'BANNED'];
+const STATUS_TABS: string[] = ['ALL', UserStatus.ACTIVE, UserStatus.SUSPENDED, UserStatus.BANNED];
 
 export function UsersPage() {
   const [page, setPage] = useState(1);
@@ -45,14 +46,14 @@ export function UsersPage() {
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
 
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const debounce = useCallback((value: string) => {
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => { setDebouncedSearch(value); setPage(1); }, 300);
   }, []);
 
   const { data, isLoading } = useUsers({
-    page, pageSize: 20,
+    page, pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
     search: debouncedSearch || undefined,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
   });

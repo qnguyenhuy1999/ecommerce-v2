@@ -7,7 +7,8 @@ import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { UserQueryDto, UserActionDto } from './dto/user-query.dto';
-import { AuditActionType, type UserStatus } from '@ecom/database';
+import { type UserStatus } from '@ecom/database';
+import { AUDIT_ACTIONS } from '@ecom/constants';
 
 @Controller('users')
 @UseGuards(AdminAuthGuard, PermissionGuard)
@@ -44,7 +45,7 @@ export class UsersController {
 
   @Post(':id/suspend')
   @Permissions('USER_MANAGE')
-  @AuditLog(AuditActionType.USER_SUSPENDED, 'User', {
+  @AuditLog(AUDIT_ACTIONS.USER_SUSPENDED, 'User', {
     entityIdParam: 'id',
     metadataExtractor: (_result, body) => ({ reason: (body as { reason?: string }).reason }),
   })
@@ -58,7 +59,7 @@ export class UsersController {
 
   @Post(':id/ban')
   @Permissions('USER_MANAGE')
-  @AuditLog(AuditActionType.USER_BANNED, 'User', {
+  @AuditLog(AUDIT_ACTIONS.USER_BANNED, 'User', {
     entityIdParam: 'id',
     metadataExtractor: (_result, body) => ({ reason: (body as { reason?: string }).reason }),
   })
@@ -72,7 +73,7 @@ export class UsersController {
 
   @Post(':id/activate')
   @Permissions('USER_MANAGE')
-  @AuditLog(AuditActionType.USER_ACTIVATED, 'User', {
+  @AuditLog(AUDIT_ACTIONS.USER_ACTIVATED, 'User', {
     entityIdParam: 'id',
     metadataExtractor: () => ({ action: 'reactivate' }),
   })

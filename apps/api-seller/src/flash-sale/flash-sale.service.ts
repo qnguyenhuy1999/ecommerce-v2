@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
+import { FlashSaleStatus, ProductStatus, PAGINATION_DEFAULTS } from '@ecom/constants'
 import { CreateFlashSaleCampaignDto } from './dto/create-flash-sale.dto'
 import { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
 import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
@@ -7,10 +8,10 @@ import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/
 @Injectable()
 export class FlashSaleService {
   async listCampaigns(query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, pageSize = PAGINATION_DEFAULTS.PAGE_SIZE } = query
 
     const where: Prisma.FlashSaleCampaignWhereInput = {
-      status: { in: ['SCHEDULED', 'ACTIVE'] },
+      status: { in: [FlashSaleStatus.SCHEDULED, FlashSaleStatus.ACTIVE] },
       isVisible: true,
     }
 
@@ -65,7 +66,7 @@ export class FlashSaleService {
 
     return prisma.flashSaleCampaign.update({
       where: { id },
-      data: { status: status as 'DRAFT' | 'SCHEDULED' | 'ACTIVE' | 'ENDED' | 'CANCELLED' },
+      data: { status: status as any },
     })
   }
 
@@ -75,7 +76,7 @@ export class FlashSaleService {
     })
 
     if (!campaign) throw new NotFoundException('Campaign not found')
-    if (campaign.status !== 'DRAFT' && campaign.status !== 'SCHEDULED') {
+    if (campaign.status !== FlashSaleStatus.DRAFT && campaign.status !== FlashSaleStatus.SCHEDULED) {
       throw new BadRequestException('Campaign is not accepting applications')
     }
 
@@ -88,7 +89,7 @@ export class FlashSaleService {
     }
 
     const product = await prisma.product.findFirst({
-      where: { id: dto.productId, shopId, deletedAt: null, status: 'PUBLISHED' },
+      where: { id: dto.productId, shopId, deletedAt: null, status: ProductStatus.PUBLISHED },
     })
 
     if (!product) throw new NotFoundException('Product not found or not published')
@@ -108,7 +109,7 @@ export class FlashSaleService {
   }
 
   async listSellerSlots(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, pageSize = PAGINATION_DEFAULTS.PAGE_SIZE } = query
 
     const where: Prisma.FlashSaleSlotWhereInput = { shopId }
 

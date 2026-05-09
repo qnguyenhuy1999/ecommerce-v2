@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
+import { PAGINATION_DEFAULTS } from '@ecom/constants';
 import { DataTable, StatusBadge, StatusTabs } from '@/components/data-table/data-table';
 import { useBanners, useCreateBanner } from '../hooks/use-banners';
 import type { BannerListItem } from '../api/banners.api';
@@ -36,7 +37,7 @@ export function BannersPage() {
   });
 
   const { data, isLoading } = useBanners({
-    page, pageSize: 20,
+    page, pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
   });
 

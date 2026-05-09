@@ -47,6 +47,9 @@ importers:
       '@ecom/common':
         specifier: workspace:*
         version: link:../../packages/common
+      '@ecom/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
       '@ecom/core-ui':
         specifier: workspace:*
         version: link:../../packages/core-ui
@@ -114,6 +117,9 @@ importers:
       '@ecom/common':
         specifier: workspace:*
         version: link:../../packages/common
+      '@ecom/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
       '@ecom/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -187,6 +193,9 @@ importers:
       '@ecom/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@ecom/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
       '@ecom/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -481,6 +490,37 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@ecom/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      tsup:
+        specifier: ^8.4.0
+        version: 8.5.1(jiti@2.6.1)(postcss@8.5.13)(tsx@4.21.0)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.9.3
+
+  packages/constants:
+    devDependencies:
+      '@ecom/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      tsup:
+        specifier: ^8.4.0
+        version: 8.5.1(jiti@2.6.1)(postcss@8.5.13)(tsx@4.21.0)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.9.3
+
+  packages/contracts:
+    dependencies:
+      '@ecom/constants':
+        specifier: workspace:*
+        version: link:../constants
+      zod:
+        specifier: ^3.24.2
+        version: 3.25.76
+    devDependencies:
       '@ecom/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig

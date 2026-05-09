@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { createColumnHelper } from '@tanstack/react-table';
+import { RefundStatus, PAGINATION_DEFAULTS } from '@ecom/constants';
 import { DataTable, StatusBadge, StatusTabs } from '@/components/data-table/data-table';
 import { useRefunds, useRefundStatusCounts } from '../hooks/use-refunds';
 import type { RefundListItem } from '../api/refunds.api';
@@ -33,14 +34,14 @@ const columns = [
   }),
 ];
 
-const STATUS_TABS = ['ALL', 'REQUESTED', 'REVIEWING', 'APPROVED', 'REJECTED'];
+const STATUS_TABS: string[] = ['ALL', ...(Object.values(RefundStatus) as string[])];
 
 export function RefundsPage() {
   const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState('ALL');
 
   const { data, isLoading } = useRefunds({
-    page, pageSize: 20,
+    page, pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
   });
   const { data: counts } = useRefundStatusCounts();

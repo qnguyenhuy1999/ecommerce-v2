@@ -1,0 +1,23 @@
+export enum FlashSaleStatus {
+  DRAFT = 'DRAFT',
+  SCHEDULED = 'SCHEDULED',
+  ACTIVE = 'ACTIVE',
+  PAUSED = 'PAUSED',
+  COMPLETED = 'COMPLETED',
+  ENDED = 'ENDED',
+  CANCELLED = 'CANCELLED',
+}
+
+export enum CouponType {
+  PERCENTAGE = 'PERCENTAGE',
+  FIXED_AMOUNT = 'FIXED_AMOUNT',
+  FREE_SHIPPING = 'FREE_SHIPPING',
+}
+
+export enum CouponStatus {
+  DRAFT = 'DRAFT',
+  ACTIVE = 'ACTIVE',
+  PAUSED = 'PAUSED',
+  EXPIRED = 'EXPIRED',
+  DEPLETED = 'DEPLETED',
+}

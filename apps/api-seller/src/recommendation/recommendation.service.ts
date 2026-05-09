@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { prisma } from '@ecom/database'
+import { ProductStatus, UserEventType, PAGINATION_DEFAULTS } from '@ecom/constants'
 
 @Injectable()
 export class RecommendationService {
@@ -38,7 +39,7 @@ export class RecommendationService {
       where: {
         categoryId: product.categoryId,
         id: { not: productId },
-        status: 'PUBLISHED',
+        status: ProductStatus.PUBLISHED,
         deletedAt: null,
       },
       take: limit,
@@ -46,15 +47,15 @@ export class RecommendationService {
     })
   }
 
-  async getTrendingProducts(limit = 20) {
+  async getTrendingProducts(limit = PAGINATION_DEFAULTS.PAGE_SIZE) {
     return prisma.product.findMany({
-      where: { status: 'PUBLISHED', deletedAt: null },
+      where: { status: ProductStatus.PUBLISHED, deletedAt: null },
       take: limit,
       orderBy: { soldCount: 'desc' },
     })
   }
 
-  async getPersonalizedRecommendations(userId: string, limit = 20) {
+  async getPersonalizedRecommendations(userId: string, limit = PAGINATION_DEFAULTS.PAGE_SIZE) {
     const recentEvents = await prisma.userEvent.findMany({
       where: { userId, entityType: 'PRODUCT' },
       orderBy: { createdAt: 'desc' },
@@ -78,7 +79,7 @@ export class RecommendationService {
     return prisma.product.findMany({
       where: {
         categoryId: { in: categoryIds },
-        status: 'PUBLISHED',
+        status: ProductStatus.PUBLISHED,
         deletedAt: null,
       },
       take: limit,
@@ -86,9 +87,9 @@ export class RecommendationService {
     })
   }
 
-  async getRecentlyViewed(userId: string, limit = 20) {
+  async getRecentlyViewed(userId: string, limit = PAGINATION_DEFAULTS.PAGE_SIZE) {
     const events = await prisma.userEvent.findMany({
-      where: { userId, event: 'product_view', entityType: 'PRODUCT' },
+      where: { userId, event: UserEventType.PRODUCT_VIEW, entityType: 'PRODUCT' },
       orderBy: { createdAt: 'desc' },
       take: limit,
       distinct: ['entityId'],
@@ -99,13 +100,13 @@ export class RecommendationService {
     if (productIds.length === 0) return []
 
     return prisma.product.findMany({
-      where: { id: { in: productIds }, status: 'PUBLISHED', deletedAt: null },
+      where: { id: { in: productIds }, status: ProductStatus.PUBLISHED, deletedAt: null },
     })
   }
 
   async getSellerRecommendationStats(shopId: string) {
     const products = await prisma.product.findMany({
-      where: { shopId, status: 'PUBLISHED', deletedAt: null },
+      where: { shopId, status: ProductStatus.PUBLISHED, deletedAt: null },
       select: { id: true },
     })
 
@@ -113,10 +114,10 @@ export class RecommendationService {
 
     const [views, clicks] = await Promise.all([
       prisma.userEvent.count({
-        where: { entityId: { in: productIds }, event: 'product_view', entityType: 'PRODUCT' },
+        where: { entityId: { in: productIds }, event: UserEventType.PRODUCT_VIEW, entityType: 'PRODUCT' },
       }),
       prisma.userEvent.count({
-        where: { entityId: { in: productIds }, event: 'product_click', entityType: 'PRODUCT' },
+        where: { entityId: { in: productIds }, event: UserEventType.PRODUCT_CLICK, entityType: 'PRODUCT' },
       }),
     ])
 

@@ -1,21 +1,22 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { prisma, Prisma } from '@ecom/database'
+import { OrderStatus, InventoryTransactionType, PAGINATION_DEFAULTS } from '@ecom/constants'
 import { OrderQueryDto } from './dto/order-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
 
 const VALID_TRANSITIONS: Record<string, string[]> = {
-  PENDING: ['CONFIRMED', 'CANCELLED'],
-  CONFIRMED: ['PACKING', 'CANCELLED'],
-  PACKING: ['SHIPPED'],
-  SHIPPED: ['DELIVERED'],
-  DELIVERED: [],
-  CANCELLED: [],
+  [OrderStatus.PENDING]: [OrderStatus.CONFIRMED, OrderStatus.CANCELLED],
+  [OrderStatus.CONFIRMED]: [OrderStatus.PACKING, OrderStatus.CANCELLED],
+  [OrderStatus.PACKING]: [OrderStatus.SHIPPED],
+  [OrderStatus.SHIPPED]: [OrderStatus.DELIVERED],
+  [OrderStatus.DELIVERED]: [],
+  [OrderStatus.CANCELLED]: [],
 }
 
 @Injectable()
 export class OrderService {
   async list(shopId: string, query: OrderQueryDto) {
-    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', status, search } = query
+    const { page = 1, pageSize = PAGINATION_DEFAULTS.PAGE_SIZE, sort = 'createdAt', order = 'desc', status, search } = query
 
     const where: Prisma.SellerOrderWhereInput = {
       shopId,
@@ -101,7 +102,7 @@ export class OrderService {
         },
       })
 
-      if (newStatus === 'CONFIRMED') {
+      if (newStatus === OrderStatus.CONFIRMED) {
         const items = await tx.sellerOrderItem.findMany({
           where: { sellerOrderId },
         })
@@ -117,7 +118,7 @@ export class OrderService {
           await tx.inventoryTransaction.create({
             data: {
               variantId: item.variantId,
-              type: 'RESERVATION',
+              type: InventoryTransactionType.RESERVATION,
               quantity: item.quantity,
               reference: sellerOrderId,
               note: `Reserved for order ${sellerOrderId}`,
@@ -126,7 +127,7 @@ export class OrderService {
         }
       }
 
-      if (newStatus === 'SHIPPED') {
+      if (newStatus === OrderStatus.SHIPPED) {
         const items = await tx.sellerOrderItem.findMany({
           where: { sellerOrderId },
         })
@@ -143,7 +144,7 @@ export class OrderService {
           await tx.inventoryTransaction.create({
             data: {
               variantId: item.variantId,
-              type: 'STOCK_OUT',
+              type: InventoryTransactionType.STOCK_OUT,
               quantity: item.quantity,
               reference: sellerOrderId,
               note: `Shipped for order ${sellerOrderId}`,
@@ -152,8 +153,8 @@ export class OrderService {
         }
       }
 
-      if (newStatus === 'CANCELLED') {
-        if (currentStatus === 'CONFIRMED' || currentStatus === 'PACKING') {
+      if (newStatus === OrderStatus.CANCELLED) {
+        if (currentStatus === OrderStatus.CONFIRMED || currentStatus === OrderStatus.PACKING) {
           const items = await tx.sellerOrderItem.findMany({
             where: { sellerOrderId },
           })
@@ -167,7 +168,7 @@ export class OrderService {
             await tx.inventoryTransaction.create({
               data: {
                 variantId: item.variantId,
-                type: 'RESERVATION_RELEASE',
+                type: InventoryTransactionType.RESERVATION_RELEASE,
                 quantity: item.quantity,
                 reference: sellerOrderId,
                 note: `Released: order ${sellerOrderId} cancelled`,

@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { createColumnHelper } from '@tanstack/react-table'
+import { OrderStatus, PAGINATION_DEFAULTS } from '@ecom/constants'
 import {
   DataTable,
   StatusBadge,
@@ -41,7 +42,7 @@ const columns = [
   }),
 ]
 
-const STATUS_TABS = ['ALL', 'PENDING', 'CONFIRMED', 'PACKING', 'SHIPPED', 'DELIVERED', 'CANCELLED']
+const STATUS_TABS: string[] = ['ALL', ...(Object.values(OrderStatus) as string[])]
 
 export function OrdersPage() {
   const [page, setPage] = useState(1)
@@ -49,7 +50,7 @@ export function OrdersPage() {
   const [debouncedSearch, setDebouncedSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('ALL')
 
-  const timerRef = useRef<ReturnType<typeof setTimeout>>()
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
   const debounce = useCallback((value: string) => {
     clearTimeout(timerRef.current)
     timerRef.current = setTimeout(() => {
@@ -60,7 +61,7 @@ export function OrdersPage() {
 
   const { data, isLoading } = useOrders({
     page,
-    pageSize: 20,
+    pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
     search: debouncedSearch || undefined,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
   })

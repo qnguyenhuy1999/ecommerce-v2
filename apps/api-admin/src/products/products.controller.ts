@@ -10,6 +10,7 @@ import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { ProductQueryDto } from './dto/product-query.dto';
 import { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto/product-action.dto';
 import { type ProductStatus, type ProductReportStatus } from '@ecom/database';
+import { AUDIT_ACTIONS } from '@ecom/constants';
 
 @Controller('products')
 @UseGuards(AdminAuthGuard, PermissionGuard)
@@ -121,7 +122,7 @@ export class ProductsController {
 
   @Post(':id/unhide')
   @Permissions('PRODUCT_MODERATE')
-  @AuditLog('PRODUCT_UNHIDDEN', 'Product', { entityIdParam: 'id' })
+  @AuditLog(AUDIT_ACTIONS.PRODUCT_UNHIDDEN, 'Product', { entityIdParam: 'id' })
   async unhide(
     @Param('id') id: string,
   ) {

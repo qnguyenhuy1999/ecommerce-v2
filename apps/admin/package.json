@@ -12,6 +12,7 @@
   "dependencies": {
     "@ecom/auth-next": "workspace:*",
     "@ecom/common": "workspace:*",
+    "@ecom/constants": "workspace:*",
     "@ecom/core-ui": "workspace:*",
     "@tanstack/react-query": "^5.75.0",
     "@tanstack/react-table": "^8.21.0",

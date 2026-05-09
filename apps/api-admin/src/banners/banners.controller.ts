@@ -8,7 +8,8 @@ import { Permissions } from '../auth/decorators/permissions.decorator';
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { BannerQueryDto, CreateBannerDto, UpdateBannerDto } from './dto/banner.dto';
-import { AuditActionType, type BannerPosition, type BannerStatus } from '@ecom/database';
+import { type BannerPosition, type BannerStatus } from '@ecom/database';
+import { AUDIT_ACTIONS } from '@ecom/constants';
 
 @Controller('banners')
 @UseGuards(AdminAuthGuard, PermissionGuard)
@@ -38,7 +39,7 @@ export class BannersController {
 
   @Post()
   @Permissions('BANNER_MANAGE')
-  @AuditLog(AuditActionType.BANNER_CREATED, 'Banner', { entityIdPath: 'data.id' })
+  @AuditLog(AUDIT_ACTIONS.BANNER_CREATED, 'Banner', { entityIdPath: 'data.id' })
   async create(
     @Body() dto: CreateBannerDto,
     @CurrentAdmin() admin: AdminSessionData,
@@ -55,7 +56,7 @@ export class BannersController {
 
   @Put(':id')
   @Permissions('BANNER_MANAGE')
-  @AuditLog(AuditActionType.BANNER_UPDATED, 'Banner', { entityIdParam: 'id' })
+  @AuditLog(AUDIT_ACTIONS.BANNER_UPDATED, 'Banner', { entityIdParam: 'id' })
   async update(
     @Param('id') id: string,
     @Body() dto: UpdateBannerDto,

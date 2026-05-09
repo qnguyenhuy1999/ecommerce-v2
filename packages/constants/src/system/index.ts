@@ -1,0 +1,23 @@
+export const PAGINATION_DEFAULTS = {
+  PAGE_SIZE: 20,
+  MAX_PAGE_SIZE: 100,
+} as const;
+
+export const API_CONFIG = {
+  TIMEOUT_MS: 30000,
+} as const;
+
+export const AUDIT_ACTIONS = {
+  BANNER_CREATED: 'BANNER_CREATED',
+  BANNER_UPDATED: 'BANNER_UPDATED',
+  PRODUCT_UNHIDDEN: 'PRODUCT_UNHIDDEN',
+  USER_SUSPENDED: 'USER_SUSPENDED',
+  USER_BANNED: 'USER_BANNED',
+  USER_ACTIVATED: 'USER_ACTIVATED',
+} as const;
+
+export enum NotificationStatus {
+  DRAFT = 'DRAFT',
+  SENT = 'SENT',
+  FAILED = 'FAILED',
+}

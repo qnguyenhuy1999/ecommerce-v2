@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { UserStatus } from '@ecom/constants';
 import {
   useSellerDetail,
   useApproveSeller,
@@ -99,7 +100,7 @@ export function SellerDetailPage({ id }: { id: string }) {
         </div>
       )}
 
-      {(seller.status === 'PENDING' || seller.status === 'ACTIVE') && (
+      {(seller.status === UserStatus.ACTIVE || seller.status === 'PENDING') && (
         <div className="rounded-xl border bg-card p-6 shadow-sm">
           <h2 className="mb-4 font-semibold">Actions</h2>
           <div className="space-y-3">
@@ -131,7 +132,7 @@ export function SellerDetailPage({ id }: { id: string }) {
                   </button>
                 </>
               )}
-              {seller.status === 'ACTIVE' && (
+              {seller.status === UserStatus.ACTIVE && (
                 <button
                   onClick={() =>
                     suspend.mutate({ id: seller.id, reason })

@@ -2,9 +2,10 @@
 
 import { useState, useCallback } from 'react';
 import Link from 'next/link';
+import { UserStatus, PAGINATION_DEFAULTS } from '@ecom/constants';
 import { useSellers, useSellerStatusCounts } from '../hooks/use-sellers';
 
-const STATUS_TABS = ['ALL', 'PENDING', 'ACTIVE', 'SUSPENDED', 'REJECTED', 'BANNED'] as const;
+const STATUS_TABS: string[] = ['ALL', 'PENDING', 'ACTIVE', 'SUSPENDED', 'REJECTED', 'BANNED'];
 
 export function SellersPage() {
   const [page, setPage] = useState(1);
@@ -25,7 +26,7 @@ export function SellersPage() {
 
   const { data, isLoading } = useSellers({
     page,
-    pageSize: 20,
+    pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
     search: debouncedSearch || undefined,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
   });

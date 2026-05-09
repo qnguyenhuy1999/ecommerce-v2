@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
+import { NotificationStatus, PAGINATION_DEFAULTS } from '@ecom/constants';
 import { DataTable, StatusBadge, StatusTabs } from '@/components/data-table/data-table';
 import { useNotifications, useCreateNotification, useSendNotification } from '../hooks/use-notifications';
 import type { NotificationListItem } from '../api/notifications.api';
@@ -22,7 +23,7 @@ const columns = [
     header: 'Actions',
     cell: function ActionCell({ row }) {
       const send = useSendNotification();
-      if (row.original.status !== 'DRAFT') return null;
+      if (row.original.status !== NotificationStatus.DRAFT) return null;
       return (
         <button onClick={() => send.mutate(row.original.id)}
           disabled={send.isPending}
@@ -34,7 +35,7 @@ const columns = [
   }),
 ];
 
-const STATUS_TABS = ['ALL', 'DRAFT', 'SENT', 'FAILED'];
+const STATUS_TABS: string[] = ['ALL', ...(Object.values(NotificationStatus) as string[])];
 
 export function NotificationsPage() {
   const [page, setPage] = useState(1);
@@ -45,7 +46,7 @@ export function NotificationsPage() {
   const [form, setForm] = useState({ title: '', message: '', channel: 'IN_APP', targetAll: true });
 
   const { data, isLoading } = useNotifications({
-    page, pageSize: 20,
+    page, pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
   });
 

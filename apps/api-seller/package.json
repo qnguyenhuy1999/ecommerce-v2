@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ecom/auth": "workspace:*",
+    "@ecom/constants": "workspace:*",
     "@ecom/database": "workspace:*",
     "@ecom/email": "workspace:*",
     "@ecom/pagination": "workspace:*",

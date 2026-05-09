@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef } from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
+import { CouponStatus, CouponType, PAGINATION_DEFAULTS } from '@ecom/constants'
 import {
   DataTable,
   StatusBadge,
@@ -49,7 +50,7 @@ const columns = [
   }),
 ]
 
-const STATUS_TABS = ['ALL', 'DRAFT', 'ACTIVE', 'PAUSED', 'EXPIRED', 'DEPLETED']
+const STATUS_TABS: string[] = ['ALL', ...(Object.values(CouponStatus) as string[])]
 
 export function VouchersPage() {
   const [page, setPage] = useState(1)
@@ -62,7 +63,7 @@ export function VouchersPage() {
   const [form, setForm] = useState({
     code: '',
     name: '',
-    type: 'PERCENTAGE',
+    type: CouponType.PERCENTAGE as CouponType,
     discountValue: '',
     minOrderAmount: '',
     usageLimit: '',
@@ -70,7 +71,7 @@ export function VouchersPage() {
     expiresAt: '',
   })
 
-  const timerRef = useRef<ReturnType<typeof setTimeout>>()
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
   const debounce = useCallback((value: string) => {
     clearTimeout(timerRef.current)
     timerRef.current = setTimeout(() => {
@@ -81,7 +82,7 @@ export function VouchersPage() {
 
   const { data, isLoading } = useVouchers({
     page,
-    pageSize: 20,
+    pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
     search: debouncedSearch || undefined,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
   })
@@ -105,7 +106,7 @@ export function VouchersPage() {
           setForm({
             code: '',
             name: '',
-            type: 'PERCENTAGE',
+            type: CouponType.PERCENTAGE as CouponType,
             discountValue: '',
             minOrderAmount: '',
             usageLimit: '',
@@ -150,12 +151,12 @@ export function VouchersPage() {
             />
             <select
               value={form.type}
-              onChange={(e) => setForm({ ...form, type: e.target.value })}
+              onChange={(e) => setForm({ ...form, type: e.target.value as CouponType })}
               className="h-9 rounded-md border px-3 text-sm"
             >
-              <option value="PERCENTAGE">Percentage</option>
-              <option value="FIXED_AMOUNT">Fixed Amount</option>
-              <option value="FREE_SHIPPING">Free Shipping</option>
+              <option value={CouponType.PERCENTAGE}>Percentage</option>
+              <option value={CouponType.FIXED_AMOUNT}>Fixed Amount</option>
+              <option value={CouponType.FREE_SHIPPING}>Free Shipping</option>
             </select>
             <input
               placeholder="Discount Value"

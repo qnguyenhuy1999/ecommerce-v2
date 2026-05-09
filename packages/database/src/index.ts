@@ -1,4 +1,3 @@
-import { AuditActionType } from '.prisma/client'
 export { prisma } from './client'
 export {
   PrismaClient,
@@ -51,6 +50,7 @@ export {
   AuditActionType,
   ProductReportReason,
   ProductReportStatus,
+  ProductStatus as PrismaProductStatus,
   BannerPosition,
   BannerStatus,
   NotificationChannel,
@@ -59,9 +59,6 @@ export {
   PlatformVoucherStatus,
 } from '.prisma/client'
 
-export const BANNER_CREATED = AuditActionType.BANNER_CREATED
-export const BANNER_UPDATED = AuditActionType.BANNER_UPDATED
-export const PRODUCT_UNHIDDEN = AuditActionType.PRODUCT_UNHIDDEN
 export type {
   User,
   Role,

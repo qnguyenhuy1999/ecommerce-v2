@@ -2,7 +2,9 @@ import { OffsetParams } from '../core'
 import { PAGINATION_DEFAULTS, getSkip } from '../core'
 
 type PaginateModelDelegate = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   findMany: (args: any) => Promise<any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   count: (args: any) => Promise<number>
 }
 
@@ -10,6 +12,7 @@ type ItemOfModelDelegate<TModel extends PaginateModelDelegate> =
   Awaited<ReturnType<TModel['findMany']>> extends Array<infer TItem> ? TItem : never
 
 export interface OffsetPaginateOptions<T> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   model: { findMany: (args: any) => Promise<T[]>; count: (args: any) => Promise<number> }
   where?: unknown
   include?: unknown

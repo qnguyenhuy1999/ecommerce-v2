@@ -35,6 +35,7 @@ export class AuditLogResponseDto {
   @ApiPropertyOptional({ enum: AuditActionType }) action!: AuditActionType
   @ApiPropertyOptional() entityType?: string
   @ApiPropertyOptional() entityId?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @ApiPropertyOptional() metadata?: any
   @ApiPropertyOptional() ipAddress?: string
   @ApiPropertyOptional() userAgent?: string

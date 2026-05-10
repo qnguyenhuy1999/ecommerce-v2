@@ -26,7 +26,7 @@ export class AuthService extends BaseUserAuthService {
     sessionService: SessionService,
     emailService: EmailService,
     redisService: RedisService,
-    private readonly prisma: PrismaService,
+    prisma: PrismaService,
   ) {
     super(sessionService, emailService, redisService, prisma)
   }

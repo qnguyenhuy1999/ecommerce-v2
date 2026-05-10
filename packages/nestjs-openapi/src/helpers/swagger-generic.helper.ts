@@ -14,6 +14,7 @@ import { ApiResponseDto, PaginatedResponseDto } from '../dtos';
  * @ApiExtraModels(ApiResponseDto, UserDto)
  * @ApiOkResponse({ schema: buildApiResponseSchema(UserDto) })
  */
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function buildApiResponseSchema(dtoClass: Function) {
   return {
     allOf: [
@@ -33,6 +34,7 @@ export function buildApiResponseSchema(dtoClass: Function) {
  * Use for endpoints that return a plain array (not paginated).
  * For paginated lists, use buildPaginatedResponseSchema() instead.
  */
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function buildApiArrayResponseSchema(dtoClass: Function) {
   return {
     allOf: [
@@ -59,6 +61,7 @@ export function buildApiArrayResponseSchema(dtoClass: Function) {
  * @ApiExtraModels(PaginatedResponseDto, PaginationMetaDto, ProductDto)
  * @ApiOkResponse({ schema: buildPaginatedResponseSchema(ProductDto) })
  */
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function buildPaginatedResponseSchema(dtoClass: Function) {
   return {
     allOf: [

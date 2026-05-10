@@ -1,4 +1,4 @@
-import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import {
   Controller,
   Post,

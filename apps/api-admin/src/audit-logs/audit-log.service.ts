@@ -25,7 +25,7 @@ export class AuditLogService {
           action: params.action,
           entityType: params.entityType,
           entityId: params.entityId,
-          metadata: params.metadata ?? undefined,
+          metadata: params.metadata ? (params.metadata as Prisma.InputJsonValue) : undefined,
           ipAddress: params.ipAddress,
           userAgent: params.userAgent,
         },

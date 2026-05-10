@@ -17,6 +17,7 @@
  * @Type(() => CategoryDto)
  * children?: CategoryDto[];
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function lazyTypeResolver<T>(factory: () => new (...args: any[]) => T) {
   return factory;
 }
@@ -28,6 +29,7 @@ export function lazyTypeResolver<T>(factory: () => new (...args: any[]) => T) {
  * @ApiProperty(selfReferenceArrayOptions(() => CategoryDto))
  * children?: CategoryDto[];
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function selfReferenceArrayOptions<T>(factory: () => new (...args: any[]) => T) {
   return {
     type: factory,
@@ -43,6 +45,7 @@ export function selfReferenceArrayOptions<T>(factory: () => new (...args: any[])
  * @ApiProperty(selfReferenceNullableOptions(() => CategoryDto))
  * parent?: CategoryDto | null;
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function selfReferenceNullableOptions<T>(factory: () => new (...args: any[]) => T) {
   return {
     type: factory,

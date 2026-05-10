@@ -1,6 +1,7 @@
 {
   "extends": "@ecom/tsconfig/library.json",
   "compilerOptions": {
+    "composite": false,
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": ".",

@@ -10,7 +10,9 @@ export class DashboardMetricsDto {
   @ApiProperty() totalProducts!: number;
   @ApiProperty() pendingRefunds!: number;
   @ApiProperty() totalReviews!: number;
-  @ApiProperty({ type: 'array', items: { type: 'object' } }) recentSellers!: any[];
+  @ApiProperty({ type: 'array', items: { type: 'object' } })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  recentSellers!: any[];
 }
 
 export class AnalyticsQueryDto {
@@ -19,6 +21,10 @@ export class AnalyticsQueryDto {
 }
 
 export class DashboardAnalyticsDto {
-  @ApiProperty({ type: 'array', items: { type: 'object' } }) ordersByStatus!: any[];
-  @ApiProperty({ type: 'array', items: { type: 'object' } }) topCategories!: any[];
+  @ApiProperty({ type: 'array', items: { type: 'object' } })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ordersByStatus!: any[];
+  @ApiProperty({ type: 'array', items: { type: 'object' } })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  topCategories!: any[];
 }

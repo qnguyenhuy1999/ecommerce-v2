@@ -54,13 +54,14 @@ export class PaginatedResponseDto<T = unknown> {
   @ApiProperty({ example: true })
   success!: true;
 
-  @ApiProperty({ type: 'object' })
+  @ApiProperty({ type: 'object', additionalProperties: true })
   data!: { items: T[] };
 
   @ApiProperty({
     type: 'object',
+    additionalProperties: false,
     properties: {
-      pagination: { $ref: '#/components/schemas/PaginationMetaDto' },
+      pagination: { type: 'object', additionalProperties: true },
     },
   })
   meta!: { pagination: PaginationMetaDto };

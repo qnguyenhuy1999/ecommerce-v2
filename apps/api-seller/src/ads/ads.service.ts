@@ -150,26 +150,24 @@ export class AdsService {
 
     if (!campaign) throw new NotFoundException('Campaign not found')
 
-    const totals = campaign.adGroups.reduce(
-      (
-        acc: { impressions: number; clicks: number; conversions: number; spent: number },
-        group: { ads: Array<{ impressions: number; clicks: number; conversions: number; spent: number }> },
-      ) => {
-        for (const ad of group.ads) {
-          acc.impressions += ad.impressions
-          acc.clicks += ad.clicks
-          acc.conversions += ad.conversions
-          acc.spent += Number(ad.spent)
-        }
-        return acc
-      },
-      { impressions: 0, clicks: 0, conversions: 0, spent: 0 },
-    )
+    const totals = { impressions: 0, clicks: 0, conversions: 0, spent: 0 }
+
+    for (const group of campaign.adGroups) {
+      for (const ad of group.ads) {
+        totals.impressions += Number(ad.impressions)
+        totals.clicks += Number(ad.clicks)
+        totals.conversions += Number(ad.conversions)
+        totals.spent += Number(ad.spent)
+      }
+    }
 
     return {
       campaign,
       totals: {
-        ...totals,
+        impressions: totals.impressions,
+        clicks: totals.clicks,
+        conversions: totals.conversions,
+        spent: totals.spent,
         ctr: totals.impressions > 0 ? (totals.clicks / totals.impressions) * 100 : 0,
         conversionRate: totals.clicks > 0 ? (totals.conversions / totals.clicks) * 100 : 0,
         cpc: totals.clicks > 0 ? totals.spent / totals.clicks : 0,

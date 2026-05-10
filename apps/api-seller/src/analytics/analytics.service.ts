@@ -15,7 +15,7 @@ export class AnalyticsService {
       orderBy: { createdAt: 'asc' },
     })
 
-    const totalRevenue = orders.reduce((sum: number, o: { subtotal: number }) => sum + Number(o.subtotal), 0)
+    const totalRevenue = orders.reduce((sum: number, o) => sum + Number(o.subtotal), 0)
     const dailyRevenue: Record<string, number> = {}
     for (const order of orders) {
       const day = order.createdAt.toISOString().split('T')[0]
@@ -50,7 +50,7 @@ export class AnalyticsService {
 
   async getProductPerformance(shopId: string, startDate: Date, endDate: Date) {
     const topProducts = await this.prisma.sellerOrderItem.groupBy({
-      by: ['productId', 'productName'],
+      by: ['variantId'],
       where: {
         sellerOrder: { shopId, createdAt: { gte: startDate, lte: endDate } },
       },
@@ -62,13 +62,11 @@ export class AnalyticsService {
 
     return topProducts.map(
       (p: {
-        productId: string
-        productName: string
+        variantId: string
         _sum: { quantity: number | null; totalPrice: number | null }
         _count: number
       }) => ({
-        productId: p.productId,
-        productName: p.productName,
+        variantId: p.variantId,
         unitsSold: p._sum.quantity ?? 0,
         revenue: Number(p._sum.totalPrice ?? 0),
         orders: p._count,
@@ -114,7 +112,7 @@ export class AnalyticsService {
             },
             _sum: { subtotal: true },
           })
-          .then((r: { _sum: { subtotal: number | null } }) => Number(r._sum.subtotal ?? 0)),
+          .then((r) => Number(r._sum.subtotal ?? 0)),
         this.prisma.sellerOrder
           .aggregate({
             where: {
@@ -124,7 +122,7 @@ export class AnalyticsService {
             },
             _sum: { subtotal: true },
           })
-          .then((r: { _sum: { subtotal: number | null } }) => Number(r._sum.subtotal ?? 0)),
+          .then((r) => Number(r._sum.subtotal ?? 0)),
         this.prisma.sellerOrder.count({ where: { shopId, status: 'PENDING' } }),
         this.prisma.product.count({ where: { shopId, status: 'PUBLISHED', deletedAt: null } }),
         this.prisma.productVariant.count({

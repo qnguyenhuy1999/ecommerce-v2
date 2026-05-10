@@ -11,17 +11,18 @@ export class AiToolsService {
     return this.prisma.aiTask.create({
       data: {
         shopId,
+        // AiTaskType enum: DESCRIPTION, TITLE, KEYWORDS, IMAGE_TAG, CATEGORY_SUGGEST, SEO, TRANSLATION, SALES_INSIGHT
         type: dto.type as
-          | 'DESCRIPTION_GENERATION'
-          | 'TITLE_OPTIMIZATION'
-          | 'KEYWORD_GENERATION'
-          | 'IMAGE_TAGGING'
-          | 'CATEGORY_SUGGESTION'
-          | 'SEO_OPTIMIZATION'
+          | 'DESCRIPTION'
+          | 'TITLE'
+          | 'KEYWORDS'
+          | 'IMAGE_TAG'
+          | 'CATEGORY_SUGGEST'
+          | 'SEO'
           | 'TRANSLATION'
           | 'SALES_INSIGHT',
         productId: dto.productId,
-        input: dto.input ?? {},
+        inputData: (dto.input ?? {}) as Prisma.InputJsonValue,
         status: 'QUEUED',
       },
     })
@@ -59,16 +60,16 @@ export class AiToolsService {
       data: { status: 'PROCESSING', startedAt: new Date() },
     })
 
-    const output = await this.executeAiTask(task.type, task.input as Record<string, unknown>)
+    const output = await this.executeAiTask(task.type, task.inputData as Record<string, unknown>)
 
     await this.prisma.aiTask.update({
       where: { id: taskId },
       data: {
         status: 'COMPLETED',
-        output,
+        outputData: output as Prisma.InputJsonValue,
         completedAt: new Date(),
         tokensUsed: (output._tokensUsed as number) ?? 0,
-        cost: (output._cost as number) ?? 0,
+        costUsd: (output._cost as number) ?? 0,
       },
     })
 
@@ -81,7 +82,7 @@ export class AiToolsService {
   ): Promise<Record<string, unknown>> {
     void _input
     switch (type) {
-      case 'DESCRIPTION_GENERATION':
+      case 'DESCRIPTION':
         return {
           description: `AI-generated description for product`,
           _tokensUsed: 500,
@@ -89,7 +90,7 @@ export class AiToolsService {
           _provider: 'openai',
           _model: 'gpt-4',
         }
-      case 'TITLE_OPTIMIZATION':
+      case 'TITLE':
         return {
           suggestions: [
             'Optimized Title Variant A',
@@ -101,7 +102,7 @@ export class AiToolsService {
           _provider: 'openai',
           _model: 'gpt-4',
         }
-      case 'KEYWORD_GENERATION':
+      case 'KEYWORDS':
         return {
           keywords: ['keyword1', 'keyword2', 'keyword3'],
           _tokensUsed: 150,
@@ -109,7 +110,7 @@ export class AiToolsService {
           _provider: 'openai',
           _model: 'gpt-4',
         }
-      case 'CATEGORY_SUGGESTION':
+      case 'CATEGORY_SUGGEST':
         return {
           suggestions: [
             { category: 'Electronics', confidence: 0.95 },
@@ -140,14 +141,14 @@ export class AiToolsService {
       }),
       this.prisma.aiTask.aggregate({
         where: { shopId },
-        _sum: { cost: true },
+        _sum: { costUsd: true },
       }),
     ])
 
     return {
       totalTasks,
       totalTokens: totalTokens._sum.tokensUsed ?? 0,
-      totalCost: Number(totalCost._sum.cost ?? 0),
+      totalCost: Number(totalCost._sum.costUsd ?? 0),
     }
   }
 }

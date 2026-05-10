@@ -1,11 +1,11 @@
 # Graph Report - .  (2026-05-10)
 
 ## Corpus Check
-- 659 files · ~877,529 words
+- 659 files · ~877,565 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 4595 nodes · 8011 edges · 617 communities detected
+- 4594 nodes · 8009 edges · 617 communities detected
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
@@ -910,112 +910,112 @@ Cohesion: 0.25
 Nodes (1): BulkService
 
 ### Community 66 - "Community 66"
-Cohesion: 0.29
-Nodes (1): AdvancedSearchService
-
-### Community 67 - "Community 67"
 Cohesion: 0.25
 Nodes (1): NotificationService
 
-### Community 68 - "Community 68"
+### Community 67 - "Community 67"
 Cohesion: 0.25
 Nodes (1): EventStreamingController
 
-### Community 69 - "Community 69"
+### Community 68 - "Community 68"
 Cohesion: 0.25
 Nodes (1): ReturnController
 
-### Community 70 - "Community 70"
+### Community 69 - "Community 69"
 Cohesion: 0.25
 Nodes (1): ReturnService
 
-### Community 71 - "Community 71"
+### Community 70 - "Community 70"
 Cohesion: 0.25
 Nodes (1): ShippingService
 
-### Community 72 - "Community 72"
+### Community 71 - "Community 71"
 Cohesion: 0.25
 Nodes (1): ShippingController
 
-### Community 73 - "Community 73"
+### Community 72 - "Community 72"
 Cohesion: 0.25
 Nodes (1): SearchController
 
-### Community 74 - "Community 74"
+### Community 73 - "Community 73"
 Cohesion: 0.25
 Nodes (1): SearchService
 
-### Community 75 - "Community 75"
+### Community 74 - "Community 74"
 Cohesion: 0.25
 Nodes (1): AiToolsController
 
-### Community 76 - "Community 76"
+### Community 75 - "Community 75"
 Cohesion: 0.25
 Nodes (1): ReviewController
 
-### Community 77 - "Community 77"
+### Community 76 - "Community 76"
 Cohesion: 0.25
 Nodes (1): InventoryService
 
-### Community 78 - "Community 78"
+### Community 77 - "Community 77"
 Cohesion: 0.25
 Nodes (1): InventoryController
 
-### Community 79 - "Community 79"
+### Community 78 - "Community 78"
 Cohesion: 0.25
 Nodes (1): AffiliateController
 
-### Community 80 - "Community 80"
+### Community 79 - "Community 79"
 Cohesion: 0.25
 Nodes (1): AutomationController
 
-### Community 81 - "Community 81"
+### Community 80 - "Community 80"
 Cohesion: 0.25
 Nodes (1): AnalyticsController
 
-### Community 82 - "Community 82"
+### Community 81 - "Community 81"
 Cohesion: 0.25
 Nodes (1): AnalyticsService
 
-### Community 83 - "Community 83"
+### Community 82 - "Community 82"
 Cohesion: 0.25
 Nodes (1): ApprovalService
 
-### Community 84 - "Community 84"
+### Community 83 - "Community 83"
 Cohesion: 0.25
 Nodes (1): ApprovalController
 
-### Community 85 - "Community 85"
+### Community 84 - "Community 84"
 Cohesion: 0.32
 Nodes (1): BannersService
 
-### Community 86 - "Community 86"
+### Community 85 - "Community 85"
 Cohesion: 0.25
 Nodes (1): BannersController
 
-### Community 87 - "Community 87"
+### Community 86 - "Community 86"
 Cohesion: 0.25
 Nodes (1): PromotionsController
 
-### Community 88 - "Community 88"
+### Community 87 - "Community 87"
 Cohesion: 0.29
 Nodes (1): PromotionsService
 
-### Community 89 - "Community 89"
+### Community 88 - "Community 88"
 Cohesion: 0.25
 Nodes (1): RefundsController
 
-### Community 90 - "Community 90"
+### Community 89 - "Community 89"
 Cohesion: 0.32
 Nodes (1): RefundsService
 
-### Community 91 - "Community 91"
+### Community 90 - "Community 90"
 Cohesion: 0.25
 Nodes (1): OrdersController
 
-### Community 92 - "Community 92"
+### Community 91 - "Community 91"
 Cohesion: 0.32
 Nodes (1): OrdersService
+
+### Community 92 - "Community 92"
+Cohesion: 0.29
+Nodes (0): 
 
 ### Community 93 - "Community 93"
 Cohesion: 0.29
@@ -1026,64 +1026,64 @@ Cohesion: 0.29
 Nodes (0): 
 
 ### Community 95 - "Community 95"
-Cohesion: 0.29
-Nodes (0): 
-
-### Community 96 - "Community 96"
 Cohesion: 0.43
 Nodes (4): useCreateBanner(), useDeleteBanner(), useInvalidateBanners(), useUpdateBanner()
 
-### Community 97 - "Community 97"
+### Community 96 - "Community 96"
 Cohesion: 0.38
 Nodes (3): useCreateVoucher(), useInvalidateVouchers(), useUpdateVoucher()
 
-### Community 98 - "Community 98"
+### Community 97 - "Community 97"
 Cohesion: 0.29
 Nodes (0): 
 
-### Community 99 - "Community 99"
+### Community 98 - "Community 98"
 Cohesion: 0.38
 Nodes (3): useApproveRefund(), useInvalidateRefunds(), useRejectRefund()
 
-### Community 100 - "Community 100"
+### Community 99 - "Community 99"
 Cohesion: 0.38
 Nodes (3): useForceCancelOrder(), useForceCompleteOrder(), useInvalidateOrders()
 
-### Community 101 - "Community 101"
+### Community 100 - "Community 100"
 Cohesion: 0.43
 Nodes (4): useCreateCategory(), useDeleteCategory(), useInvalidateCategories(), useUpdateCategory()
 
-### Community 102 - "Community 102"
+### Community 101 - "Community 101"
 Cohesion: 0.29
 Nodes (0): 
 
-### Community 103 - "Community 103"
+### Community 102 - "Community 102"
 Cohesion: 0.38
 Nodes (3): useCreateNotification(), useInvalidateNotifications(), useSendNotification()
+
+### Community 103 - "Community 103"
+Cohesion: 0.29
+Nodes (0): 
 
 ### Community 104 - "Community 104"
 Cohesion: 0.29
 Nodes (0): 
 
 ### Community 105 - "Community 105"
-Cohesion: 0.29
-Nodes (0): 
-
-### Community 106 - "Community 106"
 Cohesion: 0.43
 Nodes (4): useApproveReview(), useHideReview(), useInvalidateReviews(), useRejectReview()
 
-### Community 107 - "Community 107"
+### Community 106 - "Community 106"
 Cohesion: 0.29
 Nodes (1): FlashSaleController
 
-### Community 108 - "Community 108"
+### Community 107 - "Community 107"
 Cohesion: 0.29
 Nodes (1): OrderRepository
 
-### Community 109 - "Community 109"
+### Community 108 - "Community 108"
 Cohesion: 0.29
 Nodes (1): BulkController
+
+### Community 109 - "Community 109"
+Cohesion: 0.29
+Nodes (1): AdvancedSearchService
 
 ### Community 110 - "Community 110"
 Cohesion: 0.29
@@ -1351,47 +1351,47 @@ Nodes (3): CreateLoyaltyTierDto, CreateMissionDto, RedeemPointsDto
 
 ### Community 176 - "Community 176"
 Cohesion: 0.5
-Nodes (3): OrderSearchDto, ProductSearchDto, SaveFilterDto
+Nodes (2): ProductQueryDto, ProductResponseDto
 
 ### Community 177 - "Community 177"
 Cohesion: 0.5
-Nodes (3): AddLivestreamProductDto, CreateLivestreamDto, PinProductDto
+Nodes (3): OrderSearchDto, ProductSearchDto, SaveFilterDto
 
 ### Community 178 - "Community 178"
 Cohesion: 0.5
-Nodes (3): BulkStockItemDto, BulkUpdateStockDto, UpdateStockDto
+Nodes (3): AddLivestreamProductDto, CreateLivestreamDto, PinProductDto
 
 ### Community 179 - "Community 179"
 Cohesion: 0.5
-Nodes (1): MetricsSnapshotProcessor
+Nodes (3): BulkStockItemDto, BulkUpdateStockDto, UpdateStockDto
 
 ### Community 180 - "Community 180"
 Cohesion: 0.5
-Nodes (1): BulkJobProcessor
+Nodes (1): MetricsSnapshotProcessor
 
 ### Community 181 - "Community 181"
 Cohesion: 0.5
-Nodes (3): CreateAffiliateLinkDto, RequestPayoutDto, UpdateAffiliateStatusDto
+Nodes (1): BulkJobProcessor
 
 ### Community 182 - "Community 182"
 Cohesion: 0.5
-Nodes (3): StockQueryDto, TransferQueryDto, WarehouseQueryDto
+Nodes (3): CreateAffiliateLinkDto, RequestPayoutDto, UpdateAffiliateStatusDto
 
 ### Community 183 - "Community 183"
 Cohesion: 0.5
-Nodes (3): CreateCurrencyDto, CreateRegionDto, CreateTranslationDto
+Nodes (3): StockQueryDto, TransferQueryDto, WarehouseQueryDto
 
 ### Community 184 - "Community 184"
 Cohesion: 0.5
-Nodes (1): AuditLogsController
+Nodes (3): CreateCurrencyDto, CreateRegionDto, CreateTranslationDto
 
 ### Community 185 - "Community 185"
 Cohesion: 0.5
-Nodes (3): BulkModerationDto, ProductModerationDto, ResolveReportDto
+Nodes (1): AuditLogsController
 
 ### Community 186 - "Community 186"
 Cohesion: 0.5
-Nodes (2): ProductQueryDto, ProductResponseDto
+Nodes (3): BulkModerationDto, ProductModerationDto, ResolveReportDto
 
 ### Community 187 - "Community 187"
 Cohesion: 0.5

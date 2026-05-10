@@ -828,6 +828,9 @@ importers:
 
   packages/nestjs-core:
     devDependencies:
+      '@ecom/contracts':
+        specifier: workspace:*
+        version: link:../contracts
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config

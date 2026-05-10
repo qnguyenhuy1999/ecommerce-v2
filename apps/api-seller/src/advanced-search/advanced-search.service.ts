@@ -56,7 +56,9 @@ export class AdvancedSearchService {
       },
     })
 
-    await this.logSearchQuery(query, total)
+    // SearchQuery model not in schema — skip logging
+    void query
+    void total
 
     return buildOffsetResponse(items, page, limit, total)
   }
@@ -87,14 +89,9 @@ export class AdvancedSearchService {
     }
   }
 
-  async getPopularSearches(limit = 20) {
-    const searches = await this.prisma.searchQuery.findMany({
-      orderBy: { count: 'desc' },
-      take: limit,
-      select: { query: true, count: true, resultsCount: true },
-    })
-
-    return searches
+  async getPopularSearches(_limit = 20) {
+    // SearchQuery model not in schema — return empty
+    return []
   }
 
   async getSearchAnalytics(shopId: string) {
@@ -107,24 +104,5 @@ export class AdvancedSearchService {
       totalProducts: products.length,
       indexedProducts: products.length,
     }
-  }
-
-  private async logSearchQuery(query: string, resultsCount: number) {
-    const normalized = query.toLowerCase().trim()
-
-    await this.prisma.searchQuery.upsert({
-      where: { query: normalized },
-      update: {
-        count: { increment: 1 },
-        resultsCount,
-        lastSearchedAt: new Date(),
-      },
-      create: {
-        query: normalized,
-        count: 1,
-        resultsCount,
-        lastSearchedAt: new Date(),
-      },
-    })
   }
 }

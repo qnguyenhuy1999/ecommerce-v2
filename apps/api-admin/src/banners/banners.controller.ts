@@ -9,7 +9,6 @@ import { Permissions } from '../auth/decorators/permissions.decorator';
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { BannerQueryDto, CreateBannerDto, UpdateBannerDto, BannerResponseDto } from './dto/banner.dto';
-import { BannerPosition, BannerStatus } from '@ecom/database';
 import { AUDIT_ACTIONS } from '@ecom/shared/constants';
 import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
 

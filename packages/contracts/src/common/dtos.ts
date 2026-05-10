@@ -1,4 +1,4 @@
-import { IsBoolean, IsOptional, IsString, IsObject, IsNumber, Min } from 'class-validator';
+import { IsBoolean, IsOptional, IsString, IsNumber, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class PaginationMetaDto {

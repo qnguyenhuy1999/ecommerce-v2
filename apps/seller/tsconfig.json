@@ -6,6 +6,36 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@ecom/contracts": [
+        "../../packages/contracts/src"
+      ],
+      "@ecom/contracts/*": [
+        "../../packages/contracts/src/*"
+      ],
+      "@ecom/nestjs-core": [
+        "../../packages/nestjs-core/src"
+      ],
+      "@ecom/shared": [
+        "../../packages/shared/src"
+      ],
+      "@ecom/shared/constants": [
+        "../../packages/shared/src/constants"
+      ],
+      "@ecom/shared/pagination/core": [
+        "../../packages/shared/src/pagination/core"
+      ],
+      "@ecom/shared/pagination/nestjs": [
+        "../../packages/shared/src/pagination/nestjs"
+      ],
+      "@ecom/shared/pagination/prisma": [
+        "../../packages/shared/src/pagination/prisma"
+      ],
+      "@ecom/shared/pagination/react": [
+        "../../packages/shared/src/pagination/react"
+      ],
+      "@ecom/shared/utils": [
+        "../../packages/shared/src/utils"
       ]
     },
     "allowJs": true,

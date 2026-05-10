@@ -26,7 +26,7 @@ export class UsersController {
   async findAll(@Query() query: UserQueryDto) {
     const result = await this.usersService.findAll({
       page: query.page ? parseInt(query.page, 10) : undefined,
-      pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
+      limit: query.limit ? parseInt(query.limit, 10) : undefined,
       search: query.search,
       status: query.status as UserStatus | undefined,
     });
@@ -61,8 +61,9 @@ export class UsersController {
   })
   async suspend(
     @Param('id') id: string,
-    @Body() _dto: UserActionDto,
+    @Body() dto: UserActionDto,
   ) {
+    void dto;
     const user = await this.usersService.suspend(id);
     return user;
   }
@@ -77,8 +78,9 @@ export class UsersController {
   })
   async ban(
     @Param('id') id: string,
-    @Body() _dto: UserActionDto,
+    @Body() dto: UserActionDto,
   ) {
+    void dto;
     const user = await this.usersService.ban(id);
     return user;
   }

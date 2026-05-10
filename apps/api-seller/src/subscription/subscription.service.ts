@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { CreatePlanDto, SubscribeDto } from './dto/subscription.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'\nimport { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class SubscriptionService {
@@ -134,20 +135,20 @@ export class SubscriptionService {
   }
 
   async listInvoices(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, limit = 20 } = query
 
     const subscription = await this.prisma.sellerSubscription.findUnique({ where: { shopId } })
-    if (!subscription) return buildOffsetResponse([], 1, pageSize, 0)
+    if (!subscription) return buildOffsetResponse([], 1, limit, 0)
 
     const where: Prisma.SubscriptionInvoiceWhereInput = { subscriptionId: subscription.id }
 
     const { items, total } = await offsetPaginate(this.prisma.subscriptionInvoice, {
       page,
-      pageSize,
+      limit,
       where,
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 }

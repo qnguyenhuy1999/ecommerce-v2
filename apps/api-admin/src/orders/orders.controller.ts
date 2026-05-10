@@ -25,7 +25,7 @@ export class OrdersController {
   async findAll(@Query() query: OrderQueryDto) {
     const result = await this.ordersService.findAll({
       page: query.page ? parseInt(query.page, 10) : undefined,
-      pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
+      limit: query.limit ? parseInt(query.limit, 10) : undefined,
       search: query.search,
       status: query.status as OrderStatus | undefined,
       buyerId: query.buyerId,
@@ -61,8 +61,9 @@ export class OrdersController {
   })
   async forceCancel(
     @Param('id') id: string,
-    @Body() _dto: OrderActionDto,
+    @Body() dto: OrderActionDto,
   ) {
+    void dto;
     const order = await this.ordersService.forceCancel(id);
     return order;
   }

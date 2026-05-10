@@ -29,10 +29,7 @@ export const Default: Story = {
 export const AllCompleted: Story = {
   render: () => (
     <div className="w-80">
-      <Timeline
-        title="TIMELINE"
-        items={orderItems.map((i) => ({ ...i, status: 'completed' as const }))}
-      />
+      <Timeline title="TIMELINE" items={orderItems.map((i) => ({ ...i, status: 'completed' as const }))} />
     </div>
   ),
 }

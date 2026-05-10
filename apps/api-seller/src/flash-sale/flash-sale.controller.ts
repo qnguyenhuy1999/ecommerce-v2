@@ -5,7 +5,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ShopService } from '../shop/shop.service'
 import { FlashSaleService } from './flash-sale.service'
 import { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/core'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Controller('flash-sales')
 @UseGuards(AuthGuard)

@@ -70,7 +70,11 @@ export default function BulkPage() {
       header: 'Type',
       render: (row: BulkJob) => row.type.replace(/_/g, ' '),
     },
-    { key: 'status', header: 'Status', render: (row: BulkJob) => <StatusBadge status={row.status} /> },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (row: BulkJob) => <StatusBadge status={row.status} />,
+    },
     {
       key: 'progress',
       header: 'Progress',
@@ -112,7 +116,10 @@ export default function BulkPage() {
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <select
           value={typeFilter}
-          onChange={(e) => { setTypeFilter(e.target.value); setPage(1) }}
+          onChange={(e) => {
+            setTypeFilter(e.target.value)
+            setPage(1)
+          }}
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
         >
           <option value="">All Types</option>
@@ -134,7 +141,9 @@ export default function BulkPage() {
           >
             Previous
           </button>
-          <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
+          <span className="text-sm text-gray-600">
+            Page {page} of {totalPages}
+          </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}

@@ -10,13 +10,7 @@ const meta: Meta<typeof Stepper> = {
 export default meta
 type Story = StoryObj<typeof Stepper>
 
-const steps = [
-  { label: 'Type' },
-  { label: 'Setup' },
-  { label: 'Scope' },
-  { label: 'Schedule' },
-  { label: 'Review' },
-]
+const steps = [{ label: 'Type' }, { label: 'Setup' }, { label: 'Scope' }, { label: 'Schedule' }, { label: 'Review' }]
 
 export const Step1: Story = {
   render: () => <Stepper steps={steps} current={1} />,

@@ -6,9 +6,9 @@
  * @returns Truncated string
  */
 export function truncate(str: string, length: number = 100, ellipsis: string = '...'): string {
-  if (!str) return '';
-  if (str.length <= length) return str;
-  return str.slice(0, length - ellipsis.length) + ellipsis;
+  if (!str) return ''
+  if (str.length <= length) return str
+  return str.slice(0, length - ellipsis.length) + ellipsis
 }
 
 /**
@@ -18,11 +18,15 @@ export function truncate(str: string, length: number = 100, ellipsis: string = '
  * @param ellipsis - Ellipsis character(s) (default: '...')
  * @returns Truncated string
  */
-export function truncateByWords(str: string, wordCount: number = 20, ellipsis: string = '...'): string {
-  if (!str) return '';
-  const words = str.trim().split(/\s+/);
-  if (words.length <= wordCount) return str;
-  return words.slice(0, wordCount).join(' ') + ellipsis;
+export function truncateByWords(
+  str: string,
+  wordCount: number = 20,
+  ellipsis: string = '...',
+): string {
+  if (!str) return ''
+  const words = str.trim().split(/\s+/)
+  if (words.length <= wordCount) return str
+  return words.slice(0, wordCount).join(' ') + ellipsis
 }
 
 /**
@@ -32,12 +36,16 @@ export function truncateByWords(str: string, wordCount: number = 20, ellipsis: s
  * @param ellipsis - Ellipsis character(s) (default: '...')
  * @returns Truncated string
  */
-export function truncateToWord(str: string, length: number = 100, ellipsis: string = '...'): string {
-  if (!str) return '';
-  if (str.length <= length) return str;
+export function truncateToWord(
+  str: string,
+  length: number = 100,
+  ellipsis: string = '...',
+): string {
+  if (!str) return ''
+  if (str.length <= length) return str
 
-  const truncated = str.slice(0, length - ellipsis.length);
-  const lastSpace = truncated.lastIndexOf(' ');
-  if (lastSpace === -1) return truncated + ellipsis;
-  return truncated.slice(0, lastSpace) + ellipsis;
+  const truncated = str.slice(0, length - ellipsis.length)
+  const lastSpace = truncated.lastIndexOf(' ')
+  if (lastSpace === -1) return truncated + ellipsis
+  return truncated.slice(0, lastSpace) + ellipsis
 }

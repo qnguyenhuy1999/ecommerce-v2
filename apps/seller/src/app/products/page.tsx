@@ -40,7 +40,12 @@ export default function ProductsPage() {
       setLoading(true)
       try {
         const res = await api<{ data: ProductsResponse }>('/products', {
-          params: { page, limit: 20, search: search || undefined, status: statusFilter || undefined },
+          params: {
+            page,
+            limit: 20,
+            search: search || undefined,
+            status: statusFilter || undefined,
+          },
         })
         setProducts(res.data.data)
         setTotalPages(res.data.meta.totalPages)
@@ -60,7 +65,11 @@ export default function ProductsPage() {
       render: (row: Product) => (
         <div className="flex items-center gap-3">
           {row.images[0] ? (
-            <img src={row.images[0].url} alt={row.name} className="h-10 w-10 rounded object-cover" />
+            <img
+              src={row.images[0].url}
+              alt={row.name}
+              className="h-10 w-10 rounded object-cover"
+            />
           ) : (
             <div className="h-10 w-10 bg-gray-100 rounded" />
           )}
@@ -72,10 +81,18 @@ export default function ProductsPage() {
       ),
     },
     { key: 'category', header: 'Category', render: (row: Product) => row.category?.name ?? '—' },
-    { key: 'basePrice', header: 'Price', render: (row: Product) => row.basePrice != null ? `$${row.basePrice.toFixed(2)}` : '—' },
+    {
+      key: 'basePrice',
+      header: 'Price',
+      render: (row: Product) => (row.basePrice != null ? `$${row.basePrice.toFixed(2)}` : '—'),
+    },
     { key: 'baseStock', header: 'Stock', render: (row: Product) => String(row.baseStock) },
     { key: 'variants', header: 'Variants', render: (row: Product) => String(row._count.variants) },
-    { key: 'status', header: 'Status', render: (row: Product) => <StatusBadge status={row.status} /> },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (row: Product) => <StatusBadge status={row.status} />,
+    },
   ]
 
   return (
@@ -101,13 +118,19 @@ export default function ProductsPage() {
             type="text"
             placeholder="Search products..."
             value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(1) }}
+            onChange={(e) => {
+              setSearch(e.target.value)
+              setPage(1)
+            }}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
           />
         </div>
         <select
           value={statusFilter}
-          onChange={(e) => { setStatusFilter(e.target.value); setPage(1) }}
+          onChange={(e) => {
+            setStatusFilter(e.target.value)
+            setPage(1)
+          }}
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
         >
           <option value="">All Status</option>
@@ -117,7 +140,12 @@ export default function ProductsPage() {
         </select>
       </div>
 
-      <DataTable columns={columns} data={products} loading={loading} emptyMessage="No products yet. Create your first product!" />
+      <DataTable
+        columns={columns}
+        data={products}
+        loading={loading}
+        emptyMessage="No products yet. Create your first product!"
+      />
 
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 mt-4">
@@ -128,7 +156,9 @@ export default function ProductsPage() {
           >
             Previous
           </button>
-          <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
+          <span className="text-sm text-gray-600">
+            Page {page} of {totalPages}
+          </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}

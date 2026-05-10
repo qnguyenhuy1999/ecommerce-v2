@@ -3,17 +3,17 @@ export const API_CONFIG = {
   timeoutMs: 30000,
   retryAttempts: 3,
   retryDelayMs: 1000,
-} as const;
+} as const
 
 export const CORS_CONFIG = {
   allowedOrigins: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
   allowedMethods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-ID'],
   credentials: true,
-} as const;
+} as const
 
 export const RATE_LIMIT_CONFIG = {
   windowMs: 60 * 1000, // 1 minute
   maxRequests: 100,
   skipSuccessfulRequests: false,
-} as const;
+} as const

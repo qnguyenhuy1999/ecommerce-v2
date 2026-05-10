@@ -63,7 +63,9 @@ export default function ChatPage() {
     if (!selectedConversation) return
     const fetchMessages = async () => {
       try {
-        const res = await api<MessagesResponse>(`/chat/conversations/${selectedConversation}/messages`)
+        const res = await api<MessagesResponse>(
+          `/chat/conversations/${selectedConversation}/messages`,
+        )
         setMessages(res.data)
         await api(`/chat/conversations/${selectedConversation}/read`, { method: 'POST' })
       } catch {
@@ -85,7 +87,9 @@ export default function ChatPage() {
         body: JSON.stringify({ content: messageText }),
       })
       setMessageText('')
-      const res = await api<MessagesResponse>(`/chat/conversations/${selectedConversation}/messages`)
+      const res = await api<MessagesResponse>(
+        `/chat/conversations/${selectedConversation}/messages`,
+      )
       setMessages(res.data)
     } catch {
       /* empty */
@@ -96,7 +100,10 @@ export default function ChatPage() {
     <DashboardLayout>
       <PageHeader title="Chat" description="Manage buyer conversations" />
 
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden" style={{ height: 'calc(100vh - 220px)' }}>
+      <div
+        className="bg-white rounded-lg border border-gray-200 overflow-hidden"
+        style={{ height: 'calc(100vh - 220px)' }}
+      >
         <div className="flex h-full">
           {/* Conversation list */}
           <div className="w-80 border-r border-gray-200 flex flex-col">
@@ -115,7 +122,9 @@ export default function ChatPage() {
             <div className="flex-1 overflow-y-auto">
               {loading ? (
                 <div className="p-4 space-y-3">
-                  {[1, 2, 3].map((i) => <div key={i} className="h-16 bg-gray-100 rounded animate-pulse" />)}
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="h-16 bg-gray-100 rounded animate-pulse" />
+                  ))}
                 </div>
               ) : conversations.length === 0 ? (
                 <div className="p-4 text-center text-sm text-gray-500">No conversations</div>
@@ -129,12 +138,18 @@ export default function ChatPage() {
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium truncate">Buyer</span>
                       {conv.sellerUnread > 0 && (
-                        <span className="bg-blue-600 text-white text-xs rounded-full px-2 py-0.5">{conv.sellerUnread}</span>
+                        <span className="bg-blue-600 text-white text-xs rounded-full px-2 py-0.5">
+                          {conv.sellerUnread}
+                        </span>
                       )}
                     </div>
-                    <p className="text-xs text-gray-500 truncate mt-1">{conv.lastMessageText ?? 'No messages'}</p>
+                    <p className="text-xs text-gray-500 truncate mt-1">
+                      {conv.lastMessageText ?? 'No messages'}
+                    </p>
                     {conv.lastMessageAt && (
-                      <p className="text-xs text-gray-400 mt-1">{new Date(conv.lastMessageAt).toLocaleString()}</p>
+                      <p className="text-xs text-gray-400 mt-1">
+                        {new Date(conv.lastMessageAt).toLocaleString()}
+                      </p>
                     )}
                   </button>
                 ))
@@ -148,10 +163,17 @@ export default function ChatPage() {
               <>
                 <div className="flex-1 overflow-y-auto p-4 space-y-3">
                   {messages.map((msg) => (
-                    <div key={msg.id} className={`flex ${msg.senderId === selectedConversation ? 'justify-start' : 'justify-end'}`}>
-                      <div className={`max-w-xs px-4 py-2 rounded-lg text-sm ${msg.senderId === selectedConversation ? 'bg-gray-100' : 'bg-blue-600 text-white'}`}>
+                    <div
+                      key={msg.id}
+                      className={`flex ${msg.senderId === selectedConversation ? 'justify-start' : 'justify-end'}`}
+                    >
+                      <div
+                        className={`max-w-xs px-4 py-2 rounded-lg text-sm ${msg.senderId === selectedConversation ? 'bg-gray-100' : 'bg-blue-600 text-white'}`}
+                      >
                         <p>{msg.content}</p>
-                        <p className={`text-xs mt-1 ${msg.senderId === selectedConversation ? 'text-gray-400' : 'text-blue-200'}`}>
+                        <p
+                          className={`text-xs mt-1 ${msg.senderId === selectedConversation ? 'text-gray-400' : 'text-blue-200'}`}
+                        >
                           {new Date(msg.createdAt).toLocaleTimeString()}
                         </p>
                       </div>

@@ -84,7 +84,10 @@ export default function NotificationsPage() {
           <input
             type="checkbox"
             checked={unreadOnly}
-            onChange={(e) => { setUnreadOnly(e.target.checked); setPage(1) }}
+            onChange={(e) => {
+              setUnreadOnly(e.target.checked)
+              setPage(1)
+            }}
             className="rounded border-gray-300"
           />
           Unread only
@@ -150,7 +153,9 @@ export default function NotificationsPage() {
           >
             Previous
           </button>
-          <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
+          <span className="text-sm text-gray-600">
+            Page {page} of {totalPages}
+          </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}

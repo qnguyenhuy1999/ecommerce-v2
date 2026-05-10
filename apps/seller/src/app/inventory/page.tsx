@@ -37,7 +37,12 @@ export default function InventoryPage() {
       setLoading(true)
       try {
         const res = await api<{ data: InventoryResponse }>('/inventory', {
-          params: { page, limit: 20, search: search || undefined, lowStock: lowStockOnly || undefined },
+          params: {
+            page,
+            limit: 20,
+            search: search || undefined,
+            lowStock: lowStockOnly || undefined,
+          },
         })
         setItems(res.data.data)
         setTotalPages(res.data.meta.totalPages)
@@ -67,7 +72,11 @@ export default function InventoryPage() {
     },
     { key: 'sku', header: 'SKU', render: (row: InventoryItem) => row.sku ?? '—' },
     { key: 'stock', header: 'Total Stock', render: (row: InventoryItem) => String(row.stock) },
-    { key: 'reserved', header: 'Reserved', render: (row: InventoryItem) => String(row.reservedStock) },
+    {
+      key: 'reserved',
+      header: 'Reserved',
+      render: (row: InventoryItem) => String(row.reservedStock),
+    },
     {
       key: 'available',
       header: 'Available',
@@ -91,7 +100,10 @@ export default function InventoryPage() {
             type="text"
             placeholder="Search by product or SKU..."
             value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(1) }}
+            onChange={(e) => {
+              setSearch(e.target.value)
+              setPage(1)
+            }}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
           />
         </div>
@@ -99,14 +111,22 @@ export default function InventoryPage() {
           <input
             type="checkbox"
             checked={lowStockOnly}
-            onChange={(e) => { setLowStockOnly(e.target.checked); setPage(1) }}
+            onChange={(e) => {
+              setLowStockOnly(e.target.checked)
+              setPage(1)
+            }}
             className="rounded border-gray-300"
           />
           Low stock only
         </label>
       </div>
 
-      <DataTable columns={columns} data={items} loading={loading} emptyMessage="No inventory items found" />
+      <DataTable
+        columns={columns}
+        data={items}
+        loading={loading}
+        emptyMessage="No inventory items found"
+      />
 
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 mt-4">
@@ -117,7 +137,9 @@ export default function InventoryPage() {
           >
             Previous
           </button>
-          <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
+          <span className="text-sm text-gray-600">
+            Page {page} of {totalPages}
+          </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}

@@ -7,7 +7,7 @@ export class BannersService {
   constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
-    pageSize?: number;
+    limit?: number;
     position?: BannerPosition;
     status?: BannerStatus;
   }) {
@@ -17,12 +17,12 @@ export class BannersService {
 
     const { items, total } = await offsetPaginate(this.prisma.banner, {
       page: query.page,
-      pageSize: query.pageSize,
+      limit: query.limit,
       where,
       orderBy: { sortOrder: 'asc' },
     });
 
-    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
+    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total);
   }
 
   async findById(id: string) {
@@ -39,7 +39,7 @@ export class BannersService {
     return this.prisma.banner.create({ data });
   }
 
-  async update(id: string, data: Record<string, unknown>) {
+  async update(id: string, data: Prisma.BannerUpdateInput) {
     await this.findById(id);
     return this.prisma.banner.update({ where: { id }, data });
   }

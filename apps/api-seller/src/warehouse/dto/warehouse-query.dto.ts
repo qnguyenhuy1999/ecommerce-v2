@@ -1,6 +1,6 @@
 import { IsOptional, IsString, IsBoolean } from 'class-validator'
 import { Type } from 'class-transformer'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/core'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 export class WarehouseQueryDto extends OffsetPaginationDto {
   @IsOptional()

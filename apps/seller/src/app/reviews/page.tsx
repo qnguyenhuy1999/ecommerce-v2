@@ -89,7 +89,10 @@ export default function ReviewsPage() {
   const renderStars = (rating: number) => (
     <div className="flex gap-0.5">
       {[1, 2, 3, 4, 5].map((i) => (
-        <Star key={i} className={`h-4 w-4 ${i <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} />
+        <Star
+          key={i}
+          className={`h-4 w-4 ${i <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+        />
       ))}
     </div>
   )
@@ -110,13 +113,25 @@ export default function ReviewsPage() {
         </div>
       ),
     },
-    { key: 'status', header: 'Status', render: (row: Review) => <StatusBadge status={row.status} /> },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (row: Review) => <StatusBadge status={row.status} />,
+    },
     {
       key: 'replies',
       header: 'Reply',
-      render: (row: Review) => row.replies.length > 0
-        ? <span className="text-green-600 text-sm">Replied</span>
-        : <button onClick={() => setReplyingTo(row.id)} className="text-blue-600 text-sm hover:underline">Reply</button>,
+      render: (row: Review) =>
+        row.replies.length > 0 ? (
+          <span className="text-green-600 text-sm">Replied</span>
+        ) : (
+          <button
+            onClick={() => setReplyingTo(row.id)}
+            className="text-blue-600 text-sm hover:underline"
+          >
+            Reply
+          </button>
+        ),
     },
     {
       key: 'createdAt',
@@ -131,7 +146,11 @@ export default function ReviewsPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <StatCard title="Total Reviews" value={analytics?.totalReviews ?? 0} icon={MessageSquare} />
-        <StatCard title="Average Rating" value={(analytics?.averageRating ?? 0).toFixed(1)} icon={Star} />
+        <StatCard
+          title="Average Rating"
+          value={(analytics?.averageRating ?? 0).toFixed(1)}
+          icon={Star}
+        />
         <div className="bg-white rounded-lg border border-gray-200 p-6">
           <p className="text-sm font-medium text-gray-500 mb-2">Rating Distribution</p>
           <div className="space-y-1">
@@ -142,7 +161,10 @@ export default function ReviewsPage() {
                 <div key={r} className="flex items-center gap-2 text-xs">
                   <span className="w-3">{r}</span>
                   <div className="flex-1 h-2 bg-gray-100 rounded overflow-hidden">
-                    <div className="h-full bg-yellow-400 rounded" style={{ width: `${(count / total) * 100}%` }} />
+                    <div
+                      className="h-full bg-yellow-400 rounded"
+                      style={{ width: `${(count / total) * 100}%` }}
+                    />
                   </div>
                   <span className="w-8 text-right text-gray-500">{count}</span>
                 </div>
@@ -159,21 +181,34 @@ export default function ReviewsPage() {
             type="text"
             placeholder="Search reviews..."
             value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(1) }}
+            onChange={(e) => {
+              setSearch(e.target.value)
+              setPage(1)
+            }}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
           />
         </div>
         <select
           value={ratingFilter}
-          onChange={(e) => { setRatingFilter(e.target.value); setPage(1) }}
+          onChange={(e) => {
+            setRatingFilter(e.target.value)
+            setPage(1)
+          }}
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
         >
           <option value="">All Ratings</option>
-          {[5, 4, 3, 2, 1].map((r) => <option key={r} value={r}>{r} Stars</option>)}
+          {[5, 4, 3, 2, 1].map((r) => (
+            <option key={r} value={r}>
+              {r} Stars
+            </option>
+          ))}
         </select>
         <select
           value={replyFilter}
-          onChange={(e) => { setReplyFilter(e.target.value); setPage(1) }}
+          onChange={(e) => {
+            setReplyFilter(e.target.value)
+            setPage(1)
+          }}
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
         >
           <option value="">All Reviews</option>
@@ -200,7 +235,10 @@ export default function ReviewsPage() {
                 Send
               </button>
               <button
-                onClick={() => { setReplyingTo(null); setReplyText('') }}
+                onClick={() => {
+                  setReplyingTo(null)
+                  setReplyText('')
+                }}
                 className="px-4 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50"
               >
                 Cancel
@@ -214,9 +252,23 @@ export default function ReviewsPage() {
 
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 mt-4">
-          <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50">Previous</button>
-          <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
-          <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50">Next</button>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="text-sm text-gray-600">
+            Page {page} of {totalPages}
+          </span>
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
       )}
     </DashboardLayout>

@@ -4,13 +4,13 @@
  */
 export function stableSort<T extends Record<string, unknown>>(
   orderBy: T,
-  tieBreaker: string = 'id'
+  tieBreaker: string = 'id',
 ): Record<string, 'asc' | 'desc'> {
-  const result = { ...orderBy } as Record<string, unknown>;
+  const result = { ...orderBy } as Record<string, unknown>
   if (!result[tieBreaker]) {
-    result[tieBreaker] = 'asc';
+    result[tieBreaker] = 'asc'
   }
-  return result as Record<string, 'asc' | 'desc'>;
+  return result as Record<string, 'asc' | 'desc'>
 }
 
 /**
@@ -20,22 +20,22 @@ export function stableSort<T extends Record<string, unknown>>(
 export function sanitizeOrderBy(
   orderBy: Record<string, 'asc' | 'desc'> | undefined,
   defaultField: string = 'createdAt',
-  defaultOrder: 'asc' | 'desc' = 'desc'
+  defaultOrder: 'asc' | 'desc' = 'desc',
 ): Record<string, 'asc' | 'desc'> {
   if (!orderBy || Object.keys(orderBy).length === 0) {
-    return { [defaultField]: defaultOrder };
+    return { [defaultField]: defaultOrder }
   }
 
-  const sanitized: Record<string, 'asc' | 'desc'> = {};
+  const sanitized: Record<string, 'asc' | 'desc'> = {}
   for (const [field, direction] of Object.entries(orderBy)) {
     if (direction === 'asc' || direction === 'desc') {
-      sanitized[field] = direction;
+      sanitized[field] = direction
     }
   }
 
   if (Object.keys(sanitized).length === 0) {
-    return { [defaultField]: defaultOrder };
+    return { [defaultField]: defaultOrder }
   }
 
-  return sanitized;
+  return sanitized
 }

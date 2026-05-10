@@ -1,4 +1,4 @@
-export const API_PREFIX = '/api';
+export const API_PREFIX = '/api'
 
 export const AUTH_ROUTES = {
   LOGIN: '/auth/login',
@@ -9,7 +9,7 @@ export const AUTH_ROUTES = {
   FORGOT_PASSWORD: '/auth/forgot-password',
   RESET_PASSWORD: '/auth/reset-password',
   ME: '/auth/me',
-} as const;
+} as const
 
 export const PRODUCT_ROUTES = {
   BASE: '/products',
@@ -19,21 +19,21 @@ export const PRODUCT_ROUTES = {
   CATEGORY_BY_SLUG: (slug: string) => `/products/categories/${slug}`,
   REVIEWS: (productId: string | number) => `/products/${productId}/reviews`,
   VARIANTS: (productId: string | number) => `/products/${productId}/variants`,
-} as const;
+} as const
 
 export const CART_ROUTES = {
   BASE: '/cart',
   ITEMS: '/cart/items',
   ITEM_BY_ID: (id: string | number) => `/cart/items/${id}`,
   CHECKOUT: '/cart/checkout',
-} as const;
+} as const
 
 export const ORDER_ROUTES = {
   BASE: '/orders',
   BY_ID: (id: string | number) => `/orders/${id}`,
   STATUS: (id: string | number) => `/orders/${id}/status`,
   TRACKING: (id: string | number) => `/orders/${id}/tracking`,
-} as const;
+} as const
 
 export const USER_ROUTES = {
   BASE: '/users',
@@ -42,7 +42,7 @@ export const USER_ROUTES = {
   ADDRESS_BY_ID: (id: string | number) => `/users/addresses/${id}`,
   WISHLIST: '/users/wishlist',
   WISHLIST_ITEM: (id: string | number) => `/users/wishlist/${id}`,
-} as const;
+} as const
 
 export const ADMIN_ROUTES = {
   DASHBOARD: '/admin/dashboard',
@@ -53,4 +53,4 @@ export const ADMIN_ROUTES = {
   USERS: '/admin/users',
   USER_EDIT: (id: string | number) => `/admin/users/${id}/edit`,
   SETTINGS: '/admin/settings',
-} as const;
+} as const

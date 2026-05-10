@@ -5,13 +5,13 @@ import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/pri
 @Injectable()
 export class RefundsService {
   constructor(private readonly prisma: PrismaService) {}
-  async findAll(query: { page?: number; pageSize?: number; status?: ReturnStatus }) {
+  async findAll(query: { page?: number; limit?: number; status?: ReturnStatus }) {
     const where: Prisma.ReturnRequestWhereInput = {}
     if (query.status) where.status = query.status
 
     const { items, total } = await offsetPaginate(this.prisma.returnRequest, {
       page: query.page,
-      pageSize: query.pageSize,
+      limit: query.limit,
       where,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -21,7 +21,7 @@ export class RefundsService {
       },
     })
 
-    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total)
+    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total)
   }
 
   async findById(id: string) {

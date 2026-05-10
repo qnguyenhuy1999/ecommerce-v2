@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { CreateAiTaskDto } from './dto/ai-tools.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/core'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class AiToolsService {
@@ -79,6 +79,7 @@ export class AiToolsService {
     type: string,
     _input: Record<string, unknown>,
   ): Promise<Record<string, unknown>> {
+    void _input
     switch (type) {
       case 'DESCRIPTION_GENERATION':
         return {

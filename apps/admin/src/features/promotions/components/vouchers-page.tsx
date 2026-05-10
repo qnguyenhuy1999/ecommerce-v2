@@ -2,14 +2,9 @@
 
 import { useState, useCallback, useRef } from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
-import { CouponStatus, CouponType } from '@ecom/contracts';
-import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
-import {
-  DataTable,
-  StatusBadge,
-  TableToolbar,
-  StatusTabs,
-} from '@/components/data-table/data-table'
+import { CouponStatus, CouponType } from '@ecom/contracts'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { DataTable, StatusBadge, TableToolbar, StatusTabs } from '@ecom/core-ui'
 import { useVouchers, useVoucherStatusCounts, useCreateVoucher } from '../hooks/use-promotions'
 import type { VoucherListItem } from '../api/promotions.api'
 
@@ -83,7 +78,7 @@ export function VouchersPage() {
 
   const { data, isLoading } = useVouchers({
     page,
-    pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
+    limit: PAGINATION_DEFAULTS.PAGE_SIZE,
     search: debouncedSearch || undefined,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
   })

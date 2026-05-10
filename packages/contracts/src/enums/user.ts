@@ -18,4 +18,6 @@ export enum UserEventType {
   DELETED = 'DELETED',
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
+  PRODUCT_VIEW = 'PRODUCT_VIEW',
+  PRODUCT_CLICK = 'PRODUCT_CLICK',
 }

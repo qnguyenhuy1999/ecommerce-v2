@@ -7,7 +7,7 @@ export class PromotionsService {
   constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
-    pageSize?: number;
+    limit?: number;
     status?: PlatformVoucherStatus;
     search?: string;
   }) {
@@ -22,12 +22,12 @@ export class PromotionsService {
 
     const { items, total } = await offsetPaginate(this.prisma.platformVoucher, {
       page: query.page,
-      pageSize: query.pageSize,
+      limit: query.limit,
       where,
       orderBy: { createdAt: 'desc' },
     });
 
-    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
+    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total);
   }
 
   async findById(id: string) {

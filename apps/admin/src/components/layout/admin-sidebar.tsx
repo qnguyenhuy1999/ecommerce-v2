@@ -1,34 +1,32 @@
-'use client';
+'use client'
 
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import {
   SidebarShell,
   SidebarMenuRenderer,
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@ecom/core-ui';
-import type { SidebarGroup } from '@ecom/core-ui';
-import { Store, LogOut, ChevronRight } from 'lucide-react';
-import { sidebarGroups } from './sidebar-config';
-import { useAdminProfile, useLogout } from '@/features/auth/hooks/use-auth';
+} from '@ecom/core-ui'
+import type { SidebarGroup } from '@ecom/core-ui'
+import { Store, LogOut, ChevronRight } from 'lucide-react'
+import { sidebarGroups } from './sidebar-config'
+import { useAdminProfile, useLogout } from '@/features/auth/hooks/use-auth'
 
 export function AdminSidebar({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const { data: profile } = useAdminProfile();
-  const logout = useLogout();
+  const pathname = usePathname()
+  const { data: profile } = useAdminProfile()
+  const logout = useLogout()
 
   const groupsWithActive: SidebarGroup[] = sidebarGroups.map((group) => ({
     ...group,
     items: group.items.map((item) => ({
       ...item,
       isActive:
-        item.href === '/'
-          ? pathname === '/'
-          : !!item.href && pathname.startsWith(item.href),
+        item.href === '/' ? pathname === '/' : !!item.href && pathname.startsWith(item.href),
     })),
-  }));
+  }))
 
   return (
     <SidebarProvider>
@@ -62,9 +60,7 @@ export function AdminSidebar({ children }: { children: React.ReactNode }) {
           <SidebarTrigger className="-ml-1" />
           <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <ChevronRight className="size-3" />
-            <span className="font-medium text-foreground">
-              {getCurrentPageTitle(pathname)}
-            </span>
+            <span className="font-medium text-foreground">{getCurrentPageTitle(pathname)}</span>
           </div>
           <div className="ml-auto flex items-center gap-2">
             {profile && (
@@ -77,14 +73,14 @@ export function AdminSidebar({ children }: { children: React.ReactNode }) {
         <main className="flex-1 overflow-auto p-4 md:p-6">{children}</main>
       </SidebarInset>
     </SidebarProvider>
-  );
+  )
 }
 
 function getCurrentPageTitle(pathname: string): string {
-  const flat = sidebarGroups.flatMap((g) => g.items);
-  if (pathname === '/') return 'Dashboard';
+  const flat = sidebarGroups.flatMap((g) => g.items)
+  if (pathname === '/') return 'Dashboard'
   const match = flat.find(
     (item) => item.href && item.href !== '/' && pathname.startsWith(item.href),
-  );
-  return match?.label ?? 'Admin';
+  )
+  return match?.label ?? 'Admin'
 }

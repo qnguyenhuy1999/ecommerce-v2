@@ -1,10 +1,10 @@
-import * as bcrypt from 'bcrypt';
-import { BCRYPT_ROUNDS } from './constants';
+import * as bcrypt from 'bcryptjs'
+import { BCRYPT_ROUNDS } from './constants'
 
 export async function hashPassword(plain: string): Promise<string> {
-  return bcrypt.hash(plain, BCRYPT_ROUNDS);
+  return bcrypt.hash(plain, BCRYPT_ROUNDS)
 }
 
 export async function comparePassword(plain: string, hash: string): Promise<boolean> {
-  return bcrypt.compare(plain, hash);
+  return bcrypt.compare(plain, hash)
 }

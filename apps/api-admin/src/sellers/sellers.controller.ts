@@ -36,7 +36,7 @@ export class SellersController {
   async findAll(@Query() query: SellerQueryDto) {
     const result = await this.sellersService.findAll({
       page: query.page ? parseInt(query.page, 10) : undefined,
-      pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
+      limit: query.limit ? parseInt(query.limit, 10) : undefined,
       search: query.search,
       status: query.status as SellerStatus | undefined,
     });

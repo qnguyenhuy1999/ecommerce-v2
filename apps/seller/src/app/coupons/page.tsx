@@ -49,7 +49,12 @@ export default function CouponsPage() {
       try {
         const [couponsRes, statsRes] = await Promise.all([
           api<CouponsResponse>('/coupons', {
-            params: { page, limit: 20, search: search || undefined, status: statusFilter || undefined },
+            params: {
+              page,
+              limit: 20,
+              search: search || undefined,
+              status: statusFilter || undefined,
+            },
           }),
           api<CouponStats>('/coupons/stats'),
         ])
@@ -85,15 +90,23 @@ export default function CouponsPage() {
       key: 'usage',
       header: 'Usage',
       render: (row: Coupon) => (
-        <span className="text-sm">{row.usageCount}{row.usageLimit ? `/${row.usageLimit}` : ''}</span>
+        <span className="text-sm">
+          {row.usageCount}
+          {row.usageLimit ? `/${row.usageLimit}` : ''}
+        </span>
       ),
     },
     {
       key: 'expiresAt',
       header: 'Expires',
-      render: (row: Coupon) => row.expiresAt ? new Date(row.expiresAt).toLocaleDateString() : 'Never',
+      render: (row: Coupon) =>
+        row.expiresAt ? new Date(row.expiresAt).toLocaleDateString() : 'Never',
     },
-    { key: 'status', header: 'Status', render: (row: Coupon) => <StatusBadge status={row.status} /> },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (row: Coupon) => <StatusBadge status={row.status} />,
+    },
   ]
 
   return (
@@ -125,13 +138,19 @@ export default function CouponsPage() {
             type="text"
             placeholder="Search coupons..."
             value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(1) }}
+            onChange={(e) => {
+              setSearch(e.target.value)
+              setPage(1)
+            }}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
           />
         </div>
         <select
           value={statusFilter}
-          onChange={(e) => { setStatusFilter(e.target.value); setPage(1) }}
+          onChange={(e) => {
+            setStatusFilter(e.target.value)
+            setPage(1)
+          }}
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
         >
           <option value="">All Status</option>
@@ -142,7 +161,12 @@ export default function CouponsPage() {
         </select>
       </div>
 
-      <DataTable columns={columns} data={coupons} loading={loading} emptyMessage="No coupons yet. Create your first coupon!" />
+      <DataTable
+        columns={columns}
+        data={coupons}
+        loading={loading}
+        emptyMessage="No coupons yet. Create your first coupon!"
+      />
 
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 mt-4">
@@ -153,7 +177,9 @@ export default function CouponsPage() {
           >
             Previous
           </button>
-          <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
+          <span className="text-sm text-gray-600">
+            Page {page} of {totalPages}
+          </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}

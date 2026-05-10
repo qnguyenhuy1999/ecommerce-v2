@@ -1,23 +1,27 @@
-'use client';
+'use client'
 
 import {
-  Users, Store, Clock, UserCheck, ShoppingCart,
-  Package, RotateCcw, Star,
-} from 'lucide-react';
-import { useDashboardMetrics } from '../hooks/use-dashboard';
-import { StatCard as MetricCard } from '@ecom/core-ui';
-import { StatusBadge } from '@ecom/core-ui';
+  Users,
+  Store,
+  Clock,
+  UserCheck,
+  ShoppingCart,
+  Package,
+  RotateCcw,
+  Star,
+} from 'lucide-react'
+import { useDashboardMetrics } from '../hooks/use-dashboard'
+import { StatCard as MetricCard } from '@ecom/core-ui'
+import { StatusBadge } from '@ecom/core-ui'
 
 export function DashboardPage() {
-  const { data, isLoading } = useDashboardMetrics();
+  const { data, isLoading } = useDashboardMetrics()
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-sm text-muted-foreground">
-          Overview of your marketplace
-        </p>
+        <p className="text-sm text-muted-foreground">Overview of your marketplace</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -105,13 +109,19 @@ export function DashboardPage() {
                     <tr key={seller.id} className="border-b hover:bg-muted/50">
                       <td className="px-6 py-3 font-medium">{seller.shopName}</td>
                       <td className="px-6 py-3 text-muted-foreground">{seller.user.email}</td>
-                      <td className="px-6 py-3"><StatusBadge status={seller.status} /></td>
-                      <td className="px-6 py-3 text-muted-foreground">{new Date(seller.createdAt).toLocaleDateString()}</td>
+                      <td className="px-6 py-3">
+                        <StatusBadge status={seller.status} />
+                      </td>
+                      <td className="px-6 py-3 text-muted-foreground">
+                        {new Date(seller.createdAt).toLocaleDateString()}
+                      </td>
                     </tr>
                   ))}
               {!isLoading && !data?.recentSellers.length && (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center text-muted-foreground">No sellers yet</td>
+                  <td colSpan={4} className="px-6 py-8 text-center text-muted-foreground">
+                    No sellers yet
+                  </td>
                 </tr>
               )}
             </tbody>
@@ -119,5 +129,5 @@ export function DashboardPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-import 'server-only';
+import 'server-only'
 
-export * from './offset-paginate';
-export * from './cursor-paginate';
-export * from './stable-sort';
+export * from './offset-paginate'
+export * from './cursor-paginate'
+export * from './stable-sort'
 
 export function buildOffsetResponse<T>(data: T[], page: number, limit: number, total: number) {
-  const totalPages = Math.ceil(total / limit);
+  const totalPages = Math.ceil(total / limit)
   return {
     data,
     meta: {
@@ -16,5 +16,5 @@ export function buildOffsetResponse<T>(data: T[], page: number, limit: number, t
       hasNextPage: page < totalPages,
       hasPreviousPage: page > 1,
     },
-  };
+  }
 }

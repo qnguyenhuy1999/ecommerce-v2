@@ -1,12 +1,12 @@
-'use client';
+'use client'
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema, type LoginFormValues } from '../schemas/login.schema';
-import { useLogin } from '../hooks/use-auth';
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { loginSchema, type LoginFormValues } from '../schemas/login.schema'
+import { useLogin } from '../hooks/use-auth'
 
 export function LoginForm() {
-  const login = useLogin();
+  const login = useLogin()
 
   const {
     register,
@@ -14,19 +14,16 @@ export function LoginForm() {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-  });
+  })
 
   const onSubmit = (data: LoginFormValues) => {
-    login.mutate(data);
-  };
+    login.mutate(data)
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="space-y-2">
-        <label
-          htmlFor="email"
-          className="text-sm font-medium text-foreground"
-        >
+        <label htmlFor="email" className="text-sm font-medium text-foreground">
           Email
         </label>
         <input
@@ -36,16 +33,11 @@ export function LoginForm() {
           className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
           {...register('email')}
         />
-        {errors.email && (
-          <p className="text-sm text-destructive">{errors.email.message}</p>
-        )}
+        {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
       </div>
 
       <div className="space-y-2">
-        <label
-          htmlFor="password"
-          className="text-sm font-medium text-foreground"
-        >
+        <label htmlFor="password" className="text-sm font-medium text-foreground">
           Password
         </label>
         <input
@@ -55,9 +47,7 @@ export function LoginForm() {
           className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
           {...register('password')}
         />
-        {errors.password && (
-          <p className="text-sm text-destructive">{errors.password.message}</p>
-        )}
+        {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
       </div>
 
       {login.error && (
@@ -73,11 +63,7 @@ export function LoginForm() {
       >
         {login.isPending ? (
           <span className="flex items-center gap-2">
-            <svg
-              className="h-4 w-4 animate-spin"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
+            <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
               <circle
                 className="opacity-25"
                 cx="12"
@@ -99,5 +85,5 @@ export function LoginForm() {
         )}
       </button>
     </form>
-  );
+  )
 }

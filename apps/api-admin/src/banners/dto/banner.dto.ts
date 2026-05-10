@@ -6,7 +6,7 @@ export class BannerQueryDto {
   @ApiProperty()
   @IsOptional() @IsString() page?: string;
   @ApiProperty()
-  @IsOptional() @IsString() pageSize?: string;
+  @IsOptional() @IsString() limit?: string;
   @ApiProperty()
   @IsOptional() @IsString() position?: string;
   @ApiProperty()

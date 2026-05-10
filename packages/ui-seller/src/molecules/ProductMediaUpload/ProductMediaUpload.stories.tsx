@@ -29,7 +29,11 @@ export const WithUploadProgress: Story = {
   args: {
     items: [
       ...mockItems,
-      { id: '4', url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop', progress: 65 },
+      {
+        id: '4',
+        url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop',
+        progress: 65,
+      },
     ],
     maxItems: 9,
   },
@@ -51,14 +55,10 @@ export const Interactive: Story = {
         let progress = 0
         const interval = setInterval(() => {
           progress += 20
-          setItems((prev) =>
-            prev.map((i) => (i.id === item.id ? { ...i, progress } : i)),
-          )
+          setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, progress } : i)))
           if (progress >= 100) {
             clearInterval(interval)
-            setItems((prev) =>
-              prev.map((i) => (i.id === item.id ? { ...i, progress: undefined } : i)),
-            )
+            setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, progress: undefined } : i)))
           }
         }, 300)
       })
@@ -70,12 +70,7 @@ export const Interactive: Story = {
 
     return (
       <div className="w-[600px]">
-        <ProductMediaUpload
-          items={items}
-          maxItems={9}
-          onAdd={handleAdd}
-          onRemove={handleRemove}
-        />
+        <ProductMediaUpload items={items} maxItems={9} onAdd={handleAdd} onRemove={handleRemove} />
       </div>
     )
   },

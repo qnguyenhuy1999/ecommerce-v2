@@ -1,47 +1,45 @@
-'use client';
+'use client'
 
-import { useState, useCallback } from 'react';
-import Link from 'next/link';
-import { UserStatus } from '@ecom/contracts';
-import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
-import { useSellers, useSellerStatusCounts } from '../hooks/use-sellers';
+import { useState, useCallback } from 'react'
+import Link from 'next/link'
+// import { UserStatus } from '@ecom/contracts'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { useSellers, useSellerStatusCounts } from '../hooks/use-sellers'
 
-const STATUS_TABS: string[] = ['ALL', 'PENDING', 'ACTIVE', 'SUSPENDED', 'REJECTED', 'BANNED'];
+const STATUS_TABS: string[] = ['ALL', 'PENDING', 'ACTIVE', 'SUSPENDED', 'REJECTED', 'BANNED']
 
 export function SellersPage() {
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('ALL');
+  const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
+  const [statusFilter, setStatusFilter] = useState<string>('ALL')
 
   const debounceTimeout = useCallback(() => {
-    let timer: ReturnType<typeof setTimeout>;
+    let timer: ReturnType<typeof setTimeout>
     return (value: string) => {
-      clearTimeout(timer);
+      clearTimeout(timer)
       timer = setTimeout(() => {
-        setDebouncedSearch(value);
-        setPage(1);
-      }, 300);
-    };
-  }, [])();
+        setDebouncedSearch(value)
+        setPage(1)
+      }, 300)
+    }
+  }, [])()
 
   const { data, isLoading } = useSellers({
     page,
-    pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
+    limit: PAGINATION_DEFAULTS.PAGE_SIZE,
     search: debouncedSearch || undefined,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
-  });
+  })
 
-  const { data: counts } = useSellerStatusCounts();
+  const { data: counts } = useSellerStatusCounts()
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Sellers</h1>
-          <p className="text-sm text-muted-foreground">
-            Manage marketplace sellers
-          </p>
+          <p className="text-sm text-muted-foreground">Manage marketplace sellers</p>
         </div>
       </div>
 
@@ -50,8 +48,8 @@ export function SellersPage() {
           <button
             key={tab}
             onClick={() => {
-              setStatusFilter(tab);
-              setPage(1);
+              setStatusFilter(tab)
+              setPage(1)
             }}
             className={`px-3 py-2 text-sm font-medium transition-colors ${
               statusFilter === tab
@@ -61,9 +59,7 @@ export function SellersPage() {
           >
             {tab}
             {counts && tab !== 'ALL' && counts[tab] != null && (
-              <span className="ml-1.5 text-xs text-muted-foreground">
-                ({counts[tab]})
-              </span>
+              <span className="ml-1.5 text-xs text-muted-foreground">({counts[tab]})</span>
             )}
           </button>
         ))}
@@ -75,8 +71,8 @@ export function SellersPage() {
           placeholder="Search by shop name or email..."
           value={search}
           onChange={(e) => {
-            setSearch(e.target.value);
-            debounceTimeout(e.target.value);
+            setSearch(e.target.value)
+            debounceTimeout(e.target.value)
           }}
           className="flex h-9 w-full max-w-sm rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
         />
@@ -93,9 +89,7 @@ export function SellersPage() {
                 <th className="sticky top-0 px-4 py-3 font-medium text-muted-foreground">
                   Owner Email
                 </th>
-                <th className="sticky top-0 px-4 py-3 font-medium text-muted-foreground">
-                  Status
-                </th>
+                <th className="sticky top-0 px-4 py-3 font-medium text-muted-foreground">Status</th>
                 <th className="sticky top-0 px-4 py-3 font-medium text-muted-foreground">
                   Created
                 </th>
@@ -116,16 +110,9 @@ export function SellersPage() {
                     </tr>
                   ))
                 : data?.items.map((seller) => (
-                    <tr
-                      key={seller.id}
-                      className="border-b hover:bg-muted/50"
-                    >
-                      <td className="px-4 py-3 font-medium">
-                        {seller.shopName}
-                      </td>
-                      <td className="px-4 py-3 text-muted-foreground">
-                        {seller.user.email}
-                      </td>
+                    <tr key={seller.id} className="border-b hover:bg-muted/50">
+                      <td className="px-4 py-3 font-medium">{seller.shopName}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{seller.user.email}</td>
                       <td className="px-4 py-3">
                         <StatusBadge status={seller.status} />
                       </td>
@@ -144,10 +131,7 @@ export function SellersPage() {
                   ))}
               {!isLoading && !data?.items.length && (
                 <tr>
-                  <td
-                    colSpan={5}
-                    className="px-4 py-8 text-center text-muted-foreground"
-                  >
+                  <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
                     No sellers found
                   </td>
                 </tr>
@@ -159,8 +143,7 @@ export function SellersPage() {
         {data && data.meta.totalPages > 1 && (
           <div className="flex items-center justify-between border-t px-4 py-3">
             <span className="text-sm text-muted-foreground">
-              Page {data.meta.page} of {data.meta.totalPages} ({data.meta.total}{' '}
-              total)
+              Page {data.meta.page} of {data.meta.totalPages} ({data.meta.total} total)
             </span>
             <div className="flex gap-2">
               <button
@@ -182,7 +165,7 @@ export function SellersPage() {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 function StatusBadge({ status }: { status: string }) {
@@ -192,12 +175,12 @@ function StatusBadge({ status }: { status: string }) {
     SUSPENDED: 'bg-red-100 text-red-700',
     REJECTED: 'bg-gray-100 text-gray-700',
     BANNED: 'bg-red-200 text-red-800',
-  };
+  }
   return (
     <span
       className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${styles[status] ?? 'bg-gray-100 text-gray-700'}`}
     >
       {status}
     </span>
-  );
+  )
 }

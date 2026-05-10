@@ -28,7 +28,7 @@ export class ProductsController {
   async findAll(@Query() query: ProductQueryDto) {
     const result = await this.productsService.findAll({
       page: query.page,
-      pageSize: query.pageSize,
+      limit: query.limit,
       search: query.search,
       status: query.status as ProductStatus | undefined,
       shopId: query.shopId,
@@ -53,7 +53,7 @@ export class ProductsController {
   async findReports(@Query() query: ProductQueryDto) {
     const result = await this.productsService.findReports({
       page: query.page,
-      pageSize: query.pageSize,
+      limit: query.limit,
       status: query.status as ProductReportStatus | undefined,
     });
     return result;
@@ -106,8 +106,9 @@ export class ProductsController {
   })
   async approve(
     @Param('id') id: string,
-    @Body() _dto: ProductModerationDto,
+    @Body() dto: ProductModerationDto,
   ) {
+    void dto;
     const product = await this.productsService.approve(id);
     return product;
   }
@@ -122,8 +123,9 @@ export class ProductsController {
   })
   async reject(
     @Param('id') id: string,
-    @Body() _dto: ProductModerationDto,
+    @Body() dto: ProductModerationDto,
   ) {
+    void dto;
     const product = await this.productsService.reject(id);
     return product;
   }

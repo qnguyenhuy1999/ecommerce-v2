@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsup';
+import { defineConfig } from 'tsup'
 
 export default defineConfig({
   entry: [
@@ -8,11 +8,11 @@ export default defineConfig({
     'src/product/index.ts',
     'src/order/index.ts',
     'src/auth/index.ts',
-    'src/common/index.ts'
+    'src/common/index.ts',
   ],
   format: ['cjs', 'esm'],
   dts: true,
   clean: true,
   minify: true,
   sourcemap: true,
-});
+})

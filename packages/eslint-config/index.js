@@ -16,6 +16,7 @@ const baseConfig = [
   ...tseslint.configs.recommended,
   prettier,
   {
+    files: ['packages/shared/**'],
     rules: {
       'no-restricted-imports': ['warn', {
         patterns: [
@@ -26,15 +27,42 @@ const baseConfig = [
               '@ecom/config', '@ecom/nestjs-core'],
             message: '@ecom/shared is a leaf package — it cannot import internal workspace packages. Use external libs only.'
           },
+        ]
+      }]
+    }
+  },
+  {
+    files: ['packages/contracts/**'],
+    rules: {
+      'no-restricted-imports': ['warn', {
+        patterns: [
           {
             group: ['@ecom/shared', '@ecom/shared/*'],
             message: '@ecom/contracts is a stable leaf layer — it cannot import from @ecom/shared.'
           },
+        ]
+      }]
+    }
+  },
+  {
+    files: ['apps/storefront/**', 'apps/admin/**', 'apps/seller/**', 'packages/ui-*/**', 'packages/core-ui/**'],
+    rules: {
+      'no-restricted-imports': ['warn', {
+        patterns: [
           {
             group: ['@ecom/database', '@ecom/nestjs-core',
               '@ecom/shared/pagination/prisma', '@ecom/shared/pagination/nestjs'],
             message: 'UI packages cannot import backend/server modules.'
           },
+        ]
+      }]
+    }
+  },
+  {
+    files: ['apps/api-*/**', 'packages/auth/**', 'packages/database/**'],
+    rules: {
+      'no-restricted-imports': ['warn', {
+        patterns: [
           {
             group: ['@ecom/shared/pagination/react'],
             message: 'Backend packages cannot import React hooks/modules.'

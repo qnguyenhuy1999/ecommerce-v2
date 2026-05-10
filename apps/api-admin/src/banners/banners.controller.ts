@@ -27,7 +27,7 @@ export class BannersController {
   async findAll(@Query() query: BannerQueryDto) {
     const result = await this.bannersService.findAll({
       page: query.page ? parseInt(query.page, 10) : undefined,
-      pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
+      limit: query.limit ? parseInt(query.limit, 10) : undefined,
       position: query.position as BannerPosition | undefined,
       status: query.status as BannerStatus | undefined,
     });
@@ -71,7 +71,11 @@ export class BannersController {
     @Param('id') id: string,
     @Body() dto: UpdateBannerDto,
   ) {
-    const banner = await this.bannersService.update(id, dto as any);
+    const banner = await this.bannersService.update(id, {
+      ...dto,
+      position: dto.position as BannerPosition | undefined,
+      status: dto.status as BannerStatus | undefined,
+    });
     return banner;
   }
 

@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
-import { UserStatus } from '@ecom/contracts';
+import { useState } from 'react'
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
+import { UserStatus } from '@ecom/contracts'
 import {
   useSellerDetail,
   useApproveSeller,
   useRejectSeller,
   useSuspendSeller,
-} from '../hooks/use-sellers';
+} from '../hooks/use-sellers'
 
 export function SellerDetailPage({ id }: { id: string }) {
-  const { data: seller, isLoading } = useSellerDetail(id);
-  const approve = useApproveSeller();
-  const reject = useRejectSeller();
-  const suspend = useSuspendSeller();
-  const [reason, setReason] = useState('');
+  const { data: seller, isLoading } = useSellerDetail(id)
+  const approve = useApproveSeller()
+  const reject = useRejectSeller()
+  const suspend = useSuspendSeller()
+  const [reason, setReason] = useState('')
 
   if (isLoading) {
     return (
@@ -24,20 +24,17 @@ export function SellerDetailPage({ id }: { id: string }) {
         <div className="h-8 w-48 animate-pulse rounded bg-muted" />
         <div className="h-64 animate-pulse rounded-xl bg-muted" />
       </div>
-    );
+    )
   }
 
   if (!seller) {
-    return <p className="text-muted-foreground">Seller not found</p>;
+    return <p className="text-muted-foreground">Seller not found</p>
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <Link
-          href="/sellers"
-          className="rounded-md p-1 hover:bg-muted"
-        >
+        <Link href="/sellers" className="rounded-md p-1 hover:bg-muted">
           <ArrowLeft className="size-5" />
         </Link>
         <div>
@@ -52,16 +49,10 @@ export function SellerDetailPage({ id }: { id: string }) {
           <h2 className="mb-4 font-semibold">Store Information</h2>
           <dl className="space-y-3 text-sm">
             <Row label="Shop Name" value={seller.shopName} />
-            <Row
-              label="Description"
-              value={seller.shopDescription ?? 'N/A'}
-            />
+            <Row label="Description" value={seller.shopDescription ?? 'N/A'} />
             <Row label="Phone" value={seller.phone ?? 'N/A'} />
             <Row label="Address" value={seller.address ?? 'N/A'} />
-            <Row
-              label="Created"
-              value={new Date(seller.createdAt).toLocaleString()}
-            />
+            <Row label="Created" value={new Date(seller.createdAt).toLocaleString()} />
           </dl>
         </div>
 
@@ -70,10 +61,7 @@ export function SellerDetailPage({ id }: { id: string }) {
           <dl className="space-y-3 text-sm">
             <Row label="Email" value={seller.user.email} />
             <Row label="User Status" value={seller.user.status} />
-            <Row
-              label="Registered"
-              value={new Date(seller.user.createdAt).toLocaleString()}
-            />
+            <Row label="Registered" value={new Date(seller.user.createdAt).toLocaleString()} />
           </dl>
         </div>
       </div>
@@ -83,10 +71,7 @@ export function SellerDetailPage({ id }: { id: string }) {
           <h2 className="mb-4 font-semibold">Verification Documents</h2>
           <div className="space-y-3">
             {seller.verifications.map((v) => (
-              <div
-                key={v.id}
-                className="flex items-center justify-between rounded-lg border p-3"
-              >
+              <div key={v.id} className="flex items-center justify-between rounded-lg border p-3">
                 <div>
                   <p className="text-sm font-medium">{v.documentType}</p>
                   <p className="text-xs text-muted-foreground">
@@ -122,9 +107,7 @@ export function SellerDetailPage({ id }: { id: string }) {
                     {approve.isPending ? 'Approving...' : 'Approve'}
                   </button>
                   <button
-                    onClick={() =>
-                      reject.mutate({ id: seller.id, reason })
-                    }
+                    onClick={() => reject.mutate({ id: seller.id, reason })}
                     disabled={reject.isPending}
                     className="rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground hover:bg-destructive/90 disabled:opacity-50"
                   >
@@ -134,9 +117,7 @@ export function SellerDetailPage({ id }: { id: string }) {
               )}
               {seller.status === UserStatus.ACTIVE && (
                 <button
-                  onClick={() =>
-                    suspend.mutate({ id: seller.id, reason })
-                  }
+                  onClick={() => suspend.mutate({ id: seller.id, reason })}
                   disabled={suspend.isPending}
                   className="rounded-md bg-orange-600 px-4 py-2 text-sm font-medium text-white hover:bg-orange-700 disabled:opacity-50"
                 >
@@ -148,7 +129,7 @@ export function SellerDetailPage({ id }: { id: string }) {
         </div>
       )}
     </div>
-  );
+  )
 }
 
 function Row({ label, value }: { label: string; value: string }) {
@@ -157,7 +138,7 @@ function Row({ label, value }: { label: string; value: string }) {
       <dt className="text-muted-foreground">{label}</dt>
       <dd className="font-medium">{value}</dd>
     </div>
-  );
+  )
 }
 
 function StatusBadge({ status }: { status: string }) {
@@ -168,12 +149,12 @@ function StatusBadge({ status }: { status: string }) {
     SUSPENDED: 'bg-red-100 text-red-700',
     REJECTED: 'bg-gray-100 text-gray-700',
     RESUBMITTED: 'bg-blue-100 text-blue-700',
-  };
+  }
   return (
     <span
       className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${styles[status] ?? 'bg-gray-100 text-gray-700'}`}
     >
       {status}
     </span>
-  );
+  )
 }

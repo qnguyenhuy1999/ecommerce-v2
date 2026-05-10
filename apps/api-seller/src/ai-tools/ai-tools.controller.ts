@@ -5,7 +5,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ShopService } from '../shop/shop.service'
 import { AiToolsService } from './ai-tools.service'
 import { CreateAiTaskDto } from './dto/ai-tools.dto'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/core'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Controller('ai-tools')
 @UseGuards(AuthGuard)

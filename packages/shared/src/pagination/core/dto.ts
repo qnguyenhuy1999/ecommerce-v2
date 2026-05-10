@@ -3,13 +3,13 @@
  * Used for internal typing and non-NestJS environments.
  */
 export interface OffsetPaginationDTO {
-  page?: number;
-  limit?: number;
-  sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
+  page?: number
+  limit?: number
+  sortBy?: string
+  sortOrder?: 'asc' | 'desc'
 }
 
 export interface CursorPaginationDTO {
-  cursor?: string;
-  limit?: number;
+  cursor?: string
+  limit?: number
 }

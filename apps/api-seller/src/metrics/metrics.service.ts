@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { OrderStatus, RefundStatus } from '@ecom/contracts'
+import { PrismaService, Prisma, type OrderStatus, type ReturnStatus } from '@ecom/database'
 
 @Injectable()
 export class MetricsService {
@@ -29,7 +28,11 @@ export class MetricsService {
           where: { shopId, createdAt: { gte: thirtyDaysAgo } },
         }),
         this.prisma.returnRequest.count({
-          where: { shopId, status: RefundStatus.REFUNDED as any, createdAt: { gte: thirtyDaysAgo } },
+          where: {
+            shopId,
+            status: ReturnStatus.REFUNDED as Prisma.ReturnRequestWhereInput['status'],
+            createdAt: { gte: thirtyDaysAgo },
+          },
         }),
       ])
 

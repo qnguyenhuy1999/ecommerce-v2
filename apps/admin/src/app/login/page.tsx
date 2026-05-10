@@ -1,5 +1,5 @@
-import { LoginForm } from '@/features/auth/components/login-form';
-import { Store } from 'lucide-react';
+import { LoginForm } from '@/features/auth/components/login-form'
+import { Store } from 'lucide-react'
 
 export default function LoginPage() {
   return (
@@ -9,15 +9,11 @@ export default function LoginPage() {
           <div className="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground">
             <Store className="size-6" />
           </div>
-          <h1 className="text-xl font-semibold tracking-tight">
-            Admin Portal
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Sign in to manage the marketplace
-          </p>
+          <h1 className="text-xl font-semibold tracking-tight">Admin Portal</h1>
+          <p className="text-sm text-muted-foreground">Sign in to manage the marketplace</p>
         </div>
         <LoginForm />
       </div>
     </div>
-  );
+  )
 }

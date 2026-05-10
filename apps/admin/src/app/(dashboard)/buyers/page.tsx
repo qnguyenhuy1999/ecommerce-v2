@@ -1,5 +1,5 @@
-import { UsersPage } from '@/features/users/components/users-page';
+import { UsersPage } from '@/features/users/components/users-page'
 
 export default function Buyers() {
-  return <UsersPage />;
+  return <UsersPage />
 }

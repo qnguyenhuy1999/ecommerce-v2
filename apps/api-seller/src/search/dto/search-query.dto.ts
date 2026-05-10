@@ -1,6 +1,6 @@
 import { IsOptional, IsString, IsEnum, IsNumber } from 'class-validator'
 import { Type } from 'class-transformer'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/core'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 export class ProductSearchDto extends OffsetPaginationDto {
   @IsOptional()
@@ -38,10 +38,6 @@ export class ProductSearchDto extends OffsetPaginationDto {
   @Type(() => Number)
   @IsNumber()
   maxStock?: number
-
-  @IsOptional()
-  @IsString()
-  sortBy?: string
 }
 
 export class SaveFilterDto {

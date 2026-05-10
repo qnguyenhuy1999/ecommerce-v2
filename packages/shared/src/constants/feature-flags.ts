@@ -12,9 +12,9 @@ export const FEATURE_FLAGS = {
   ENABLE_BACKORDERS: 'enable_backorders',
   ENABLE_ANALYTICS: 'enable_analytics',
   MAINTENANCE_MODE: 'maintenance_mode',
-} as const;
+} as const
 
-export type FeatureFlag = (typeof FEATURE_FLAGS)[keyof typeof FEATURE_FLAGS];
+export type FeatureFlag = (typeof FEATURE_FLAGS)[keyof typeof FEATURE_FLAGS]
 
 export const DEFAULT_FEATURE_FLAGS: Record<FeatureFlag, boolean> = {
   [FEATURE_FLAGS.ENABLE_NEW_CHECKOUT]: false,
@@ -30,4 +30,4 @@ export const DEFAULT_FEATURE_FLAGS: Record<FeatureFlag, boolean> = {
   [FEATURE_FLAGS.ENABLE_BACKORDERS]: false,
   [FEATURE_FLAGS.ENABLE_ANALYTICS]: true,
   [FEATURE_FLAGS.MAINTENANCE_MODE]: false,
-};
+}

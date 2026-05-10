@@ -3,14 +3,9 @@
 import { useState, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { createColumnHelper } from '@tanstack/react-table'
-import { ProductStatus } from '@ecom/contracts';
-import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
-import {
-  DataTable,
-  StatusBadge,
-  TableToolbar,
-  StatusTabs,
-} from '@/components/data-table/data-table'
+import { ProductStatus } from '@ecom/contracts'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { DataTable, StatusBadge, TableToolbar, StatusTabs } from '@ecom/core-ui'
 import {
   useProducts,
   useProductStatusCounts,
@@ -83,7 +78,7 @@ export function ProductsPage() {
 
   const { data, isLoading } = useProducts({
     page,
-    pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
+    limit: PAGINATION_DEFAULTS.PAGE_SIZE,
     search: debouncedSearch || undefined,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
   })

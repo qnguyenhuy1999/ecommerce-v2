@@ -139,6 +139,8 @@ export class AutomationService {
     _config: Record<string, unknown>,
     _triggerData: Record<string, unknown>,
   ): Promise<void> {
+    void _config
+    void _triggerData
     switch (action) {
       case 'SEND_NOTIFICATION':
         break

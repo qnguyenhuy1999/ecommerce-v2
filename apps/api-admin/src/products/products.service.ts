@@ -7,7 +7,7 @@ export class ProductsService {
   constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
-    pageSize?: number;
+    limit?: number;
     search?: string;
     status?: ProductStatus;
     shopId?: string;
@@ -26,7 +26,7 @@ export class ProductsService {
 
     const { items, total } = await offsetPaginate(this.prisma.product, {
       page: query.page,
-      pageSize: query.pageSize,
+      limit: query.limit,
       where,
       include: {
         shop: { select: { id: true, name: true } },
@@ -37,7 +37,7 @@ export class ProductsService {
       orderBy: { createdAt: 'desc' },
     });
 
-    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
+    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total);
   }
 
   async findById(id: string) {
@@ -136,7 +136,7 @@ export class ProductsService {
   // Reports
   async findReports(query: {
     page?: number;
-    pageSize?: number;
+    limit?: number;
     status?: ProductReportStatus;
   }) {
     const where: Record<string, unknown> = {};
@@ -144,12 +144,12 @@ export class ProductsService {
 
     const { items, total } = await offsetPaginate(this.prisma.productReport, {
       page: query.page,
-      pageSize: query.pageSize,
+      limit: query.limit,
       where,
       orderBy: { createdAt: 'desc' },
     });
 
-    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
+    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total);
   }
 
   async resolveReport(id: string, adminId: string, adminNote?: string) {

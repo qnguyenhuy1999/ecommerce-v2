@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { CreateLoyaltyTierDto, CreateMissionDto, RedeemPointsDto } from './dto/loyalty.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'\nimport { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class LoyaltyService {
@@ -137,7 +138,7 @@ export class LoyaltyService {
   }
 
   async listMissions(query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, limit = 20 } = query
     const now = new Date()
 
     const where: Prisma.LoyaltyMissionWhereInput = {
@@ -147,12 +148,12 @@ export class LoyaltyService {
 
     const { items, total } = await offsetPaginate(this.prisma.loyaltyMission, {
       page,
-      pageSize,
+      limit,
       where,
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async createMission(dto: CreateMissionDto) {
@@ -170,21 +171,21 @@ export class LoyaltyService {
   }
 
   async getTransactionHistory(userId: string, query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, limit = 20 } = query
 
     const account = await this.prisma.loyaltyAccount.findUnique({ where: { userId } })
-    if (!account) return buildOffsetResponse([], 1, pageSize, 0)
+    if (!account) return buildOffsetResponse([], 1, limit, 0)
 
     const where: Prisma.LoyaltyTransactionWhereInput = { accountId: account.id }
 
     const { items, total } = await offsetPaginate(this.prisma.loyaltyTransaction, {
       page,
-      pageSize,
+      limit,
       where,
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   private async checkTierUpgrade(tx: Prisma.TransactionClient, accountId: string) {

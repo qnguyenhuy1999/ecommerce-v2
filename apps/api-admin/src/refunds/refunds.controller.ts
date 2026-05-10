@@ -26,7 +26,7 @@ export class RefundsController {
   async findAll(@Query() query: RefundQueryDto) {
     const result = await this.refundsService.findAll({
       page: query.page ? parseInt(query.page, 10) : undefined,
-      pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
+      limit: query.limit ? parseInt(query.limit, 10) : undefined,
       status: query.status as ReturnStatus | undefined,
     });
     return result;

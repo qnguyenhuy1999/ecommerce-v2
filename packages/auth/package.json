@@ -9,6 +9,10 @@
     ".": {
       "import": "./src/index.ts",
       "types": "./src/index.ts"
+    },
+    "./password.utils": {
+      "import": "./src/password.utils.ts",
+      "types": "./src/password.utils.ts"
     }
   },
   "scripts": {
@@ -18,7 +22,7 @@
   },
   "dependencies": {
     "@ecom/database": "workspace:*",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "ioredis": "^5.6.0"
   },
   "devDependencies": {
@@ -26,7 +30,7 @@
     "@ecom/eslint-config": "workspace:*",
     "@ecom/redis": "workspace:*",
     "@ecom/tsconfig": "workspace:*",
-    "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22.15.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3"

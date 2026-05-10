@@ -110,7 +110,10 @@ export default function SettingsPage() {
 
   return (
     <DashboardLayout>
-      <PageHeader title="Shop Settings" description="Manage your shop profile and contact information" />
+      <PageHeader
+        title="Shop Settings"
+        description="Manage your shop profile and contact information"
+      />
 
       <div className="max-w-2xl">
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -192,7 +195,10 @@ export default function SettingsPage() {
             <h2 className="text-lg font-semibold text-gray-900">Pickup Address</h2>
 
             <div>
-              <label htmlFor="addressLine1" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="addressLine1"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Address Line 1
               </label>
               <input
@@ -205,7 +211,10 @@ export default function SettingsPage() {
             </div>
 
             <div>
-              <label htmlFor="addressLine2" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="addressLine2"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Address Line 2
               </label>
               <input
@@ -243,7 +252,10 @@ export default function SettingsPage() {
                 />
               </div>
               <div>
-                <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="postalCode"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Postal Code
                 </label>
                 <input

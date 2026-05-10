@@ -120,6 +120,9 @@ importers:
       '@ecom/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@ecom/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@ecom/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -199,6 +202,9 @@ importers:
       '@ecom/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@ecom/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@ecom/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -211,6 +217,9 @@ importers:
       '@ecom/redis':
         specifier: workspace:*
         version: link:../../packages/redis
+      '@ecom/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@nestjs/bullmq':
         specifier: ^11.0.4
         version: 11.0.4(@nestjs/common@11.1.19(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)(bullmq@5.76.6)
@@ -464,9 +473,9 @@ importers:
       '@ecom/database':
         specifier: workspace:*
         version: link:../database
-      bcrypt:
-        specifier: ^5.1.1
-        version: 5.1.1
+      bcryptjs:
+        specifier: ^2.4.3
+        version: 2.4.3
       ioredis:
         specifier: ^5.6.0
         version: 5.10.1
@@ -483,9 +492,9 @@ importers:
       '@ecom/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
-      '@types/bcrypt':
-        specifier: ^5.0.2
-        version: 5.0.2
+      '@types/bcryptjs':
+        specifier: ^2.4.6
+        version: 2.4.6
       '@types/node':
         specifier: ^22.15.0
         version: 22.19.17
@@ -578,6 +587,9 @@ importers:
       '@ecom/nestjs-core':
         specifier: workspace:*
         version: link:../nestjs-core
+      '@ecom/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@fontsource-variable/inter':
         specifier: ^5.2.8
         version: 5.2.8
@@ -3444,6 +3456,9 @@ packages:
   '@types/bcrypt@5.0.2':
     resolution: {integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==}
 
+  '@types/bcryptjs@2.4.6':
+    resolution: {integrity: sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==}
+
   '@types/body-parser@1.19.6':
     resolution: {integrity: sha512-HLFeCYgz89uk22N5Qg3dvGvsv46B8GLvKKo1zKG4NybA8U2DiEO3w9lqGg29t/tfLRJpJ6iQxnVw4OnB7MoM9g==}
 
@@ -3912,6 +3927,9 @@ packages:
   bcrypt@5.1.1:
     resolution: {integrity: sha512-AGBHOG5hPYZ5Xl9KXzU5iKq9516yEmvCKDg3ecP5kX2aB6UqTeXZxk2ELnDgDm6BQSMlLt9rDB4LoSMx0rYwww==}
     engines: {node: '>= 10.0.0'}
+
+  bcryptjs@2.4.3:
+    resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
 
   bl@4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==}
@@ -9310,6 +9328,8 @@ snapshots:
     dependencies:
       '@types/node': 22.19.17
 
+  '@types/bcryptjs@2.4.6': {}
+
   '@types/body-parser@1.19.6':
     dependencies:
       '@types/connect': 3.4.38
@@ -9851,6 +9871,8 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  bcryptjs@2.4.3: {}
 
   bl@4.1.0:
     dependencies:

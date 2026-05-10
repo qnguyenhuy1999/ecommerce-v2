@@ -13,9 +13,21 @@ export default meta
 type Story = StoryObj<typeof MediaUpload>
 
 const mockItems: MediaItem[] = [
-  { id: '1', url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop', alt: 'Headphones' },
-  { id: '2', url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop', alt: 'Headphones 2' },
-  { id: '3', url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop', alt: 'Headphones 3' },
+  {
+    id: '1',
+    url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop',
+    alt: 'Headphones',
+  },
+  {
+    id: '2',
+    url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop',
+    alt: 'Headphones 2',
+  },
+  {
+    id: '3',
+    url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop',
+    alt: 'Headphones 3',
+  },
 ]
 
 export const Default: Story = {
@@ -29,7 +41,11 @@ export const WithProgress: Story = {
   args: {
     items: [
       ...mockItems,
-      { id: '4', url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop', progress: 60 },
+      {
+        id: '4',
+        url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop',
+        progress: 60,
+      },
     ],
     maxItems: 9,
   },
@@ -76,14 +92,10 @@ export const Interactive: Story = {
         let progress = 0
         const interval = setInterval(() => {
           progress += 20
-          setItems((prev) =>
-            prev.map((i) => (i.id === item.id ? { ...i, progress } : i)),
-          )
+          setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, progress } : i)))
           if (progress >= 100) {
             clearInterval(interval)
-            setItems((prev) =>
-              prev.map((i) => (i.id === item.id ? { ...i, progress: undefined } : i)),
-            )
+            setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, progress: undefined } : i)))
           }
         }, 300)
       })
@@ -93,13 +105,6 @@ export const Interactive: Story = {
       setItems((prev) => prev.filter((i) => i.id !== id))
     }
 
-    return (
-      <MediaUpload
-        items={items}
-        maxItems={9}
-        onAdd={handleAdd}
-        onRemove={handleRemove}
-      />
-    )
+    return <MediaUpload items={items} maxItems={9} onAdd={handleAdd} onRemove={handleRemove} />
   },
 }

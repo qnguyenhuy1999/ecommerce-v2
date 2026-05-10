@@ -7,7 +7,7 @@ export class NotificationsService {
   constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
-    pageSize?: number;
+    limit?: number;
     status?: AdminNotificationStatus;
   }) {
     const where: Prisma.AdminNotificationWhereInput = {};
@@ -15,12 +15,12 @@ export class NotificationsService {
 
     const { items, total } = await offsetPaginate(this.prisma.adminNotification, {
       page: query.page,
-      pageSize: query.pageSize,
+      limit: query.limit,
       where,
       orderBy: { createdAt: 'desc' },
     });
 
-    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
+    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total);
   }
 
   async findById(id: string) {

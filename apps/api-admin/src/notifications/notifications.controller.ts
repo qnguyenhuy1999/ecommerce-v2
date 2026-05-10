@@ -26,7 +26,7 @@ export class NotificationsController {
   async findAll(@Query() query: NotificationQueryDto) {
     const result = await this.notificationsService.findAll({
       page: query.page ? parseInt(query.page, 10) : undefined,
-      pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
+      limit: query.limit ? parseInt(query.limit, 10) : undefined,
       status: query.status as AdminNotificationStatus | undefined,
     });
     return result;

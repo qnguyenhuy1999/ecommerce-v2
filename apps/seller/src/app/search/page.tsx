@@ -122,22 +122,33 @@ export default function SearchPage() {
       render: (row: ProductResult) => (
         <div className="flex items-center gap-3">
           {row.images[0] ? (
-            <img src={row.images[0].url} alt={row.name} className="h-10 w-10 rounded object-cover" />
+            <img
+              src={row.images[0].url}
+              alt={row.name}
+              className="h-10 w-10 rounded object-cover"
+            />
           ) : (
             <div className="h-10 w-10 bg-gray-100 rounded" />
           )}
           <div>
             <div className="font-medium">{row.name}</div>
-            {row.variants[0]?.sku && <div className="text-xs text-gray-500">SKU: {row.variants[0].sku}</div>}
+            {row.variants[0]?.sku && (
+              <div className="text-xs text-gray-500">SKU: {row.variants[0].sku}</div>
+            )}
           </div>
         </div>
       ),
     },
-    { key: 'category', header: 'Category', render: (row: ProductResult) => row.category?.name ?? '—' },
+    {
+      key: 'category',
+      header: 'Category',
+      render: (row: ProductResult) => row.category?.name ?? '—',
+    },
     {
       key: 'price',
       header: 'Price',
-      render: (row: ProductResult) => row.variants[0] ? `$${Number(row.variants[0].price).toFixed(2)}` : '—',
+      render: (row: ProductResult) =>
+        row.variants[0] ? `$${Number(row.variants[0].price).toFixed(2)}` : '—',
     },
     {
       key: 'stock',
@@ -147,7 +158,11 @@ export default function SearchPage() {
         return String(total)
       },
     },
-    { key: 'status', header: 'Status', render: (row: ProductResult) => <StatusBadge status={row.status} /> },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (row: ProductResult) => <StatusBadge status={row.status} />,
+    },
   ]
 
   return (
@@ -225,7 +240,10 @@ export default function SearchPage() {
                 onChange={(e) => setFilterName(e.target.value)}
                 className="px-3 py-1.5 border border-gray-300 rounded text-sm outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <button onClick={handleSaveFilter} className="inline-flex items-center gap-1 px-3 py-1.5 text-blue-600 border border-blue-300 rounded text-xs hover:bg-blue-50">
+              <button
+                onClick={handleSaveFilter}
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-blue-600 border border-blue-300 rounded text-xs hover:bg-blue-50"
+              >
                 <Bookmark className="h-3 w-3" /> Save Filter
               </button>
             </div>
@@ -235,9 +253,17 @@ export default function SearchPage() {
         {savedFilters.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-3">
             {savedFilters.map((f) => (
-              <div key={f.id} className="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 rounded-full text-xs">
-                <button onClick={() => handleLoadFilter(f)} className="hover:text-blue-600">{f.name}</button>
-                <button onClick={() => handleDeleteFilter(f.id)} className="text-gray-400 hover:text-red-500">
+              <div
+                key={f.id}
+                className="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 rounded-full text-xs"
+              >
+                <button onClick={() => handleLoadFilter(f)} className="hover:text-blue-600">
+                  {f.name}
+                </button>
+                <button
+                  onClick={() => handleDeleteFilter(f.id)}
+                  className="text-gray-400 hover:text-red-500"
+                >
                   <X className="h-3 w-3" />
                 </button>
               </div>
@@ -246,13 +272,32 @@ export default function SearchPage() {
         )}
       </div>
 
-      <DataTable columns={columns} data={results} loading={loading} emptyMessage="No products found. Try a different search." />
+      <DataTable
+        columns={columns}
+        data={results}
+        loading={loading}
+        emptyMessage="No products found. Try a different search."
+      />
 
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 mt-4">
-          <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50">Previous</button>
-          <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
-          <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50">Next</button>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="text-sm text-gray-600">
+            Page {page} of {totalPages}
+          </span>
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
       )}
     </DashboardLayout>

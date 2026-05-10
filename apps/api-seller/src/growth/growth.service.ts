@@ -6,7 +6,8 @@ import {
   CreateFeatureFlagDto,
   CreateCampaignDto,
 } from './dto/growth.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'\nimport { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 import { randomBytes } from 'crypto'
 
 @Injectable()
@@ -15,17 +16,17 @@ export class GrowthService {
   // --- Referral Program ---
 
   async listReferralPrograms(query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, limit = 20 } = query
 
     const { items, total } = await offsetPaginate(this.prisma.referralProgram, {
       page,
-      pageSize,
+      pageSize: limit,
       where: { isActive: true },
       include: { _count: { select: { referrals: true } } },
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async createReferralProgram(dto: CreateReferralProgramDto) {
@@ -86,16 +87,16 @@ export class GrowthService {
   // --- Experiments / A/B Testing ---
 
   async listExperiments(query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, limit = 20 } = query
 
     const { items, total } = await offsetPaginate(this.prisma.experiment, {
       page,
-      pageSize,
+      pageSize: limit,
       include: { variants: true },
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async createExperiment(dto: CreateExperimentDto) {
@@ -195,6 +196,7 @@ export class GrowthService {
   }
 
   async isFeatureEnabled(key: string, _context?: Record<string, unknown>): Promise<boolean> {
+    void _context
     const flag = await this.prisma.featureFlag.findUnique({ where: { key } })
     if (!flag) return false
     return flag.isEnabled
@@ -203,15 +205,15 @@ export class GrowthService {
   // --- Growth Campaigns ---
 
   async listCampaigns(query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, limit = 20 } = query
 
     const { items, total } = await offsetPaginate(this.prisma.growthCampaign, {
       page,
-      pageSize,
+      pageSize: limit,
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async createCampaign(dto: CreateCampaignDto) {

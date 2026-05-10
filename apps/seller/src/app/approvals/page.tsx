@@ -15,7 +15,13 @@ interface Approval {
   rejectionReason: string | null
   createdAt: string
   reviewedAt: string | null
-  history: { id: string; fromStatus: string; toStatus: string; note: string | null; createdAt: string }[]
+  history: {
+    id: string
+    fromStatus: string
+    toStatus: string
+    note: string | null
+    createdAt: string
+  }[]
 }
 
 interface ApprovalsResponse {
@@ -61,10 +67,16 @@ export default function ApprovalsPage() {
     {
       key: 'productId',
       header: 'Product ID',
-      render: (row: Approval) => <span className="font-mono text-xs">{row.productId.slice(0, 8)}...</span>,
+      render: (row: Approval) => (
+        <span className="font-mono text-xs">{row.productId.slice(0, 8)}...</span>
+      ),
     },
     { key: 'version', header: 'Version', render: (row: Approval) => `v${row.version}` },
-    { key: 'status', header: 'Status', render: (row: Approval) => <StatusBadge status={row.status} /> },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (row: Approval) => <StatusBadge status={row.status} />,
+    },
     {
       key: 'rejectionReason',
       header: 'Rejection Reason',
@@ -101,7 +113,10 @@ export default function ApprovalsPage() {
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <select
           value={statusFilter}
-          onChange={(e) => { setStatusFilter(e.target.value); setPage(1) }}
+          onChange={(e) => {
+            setStatusFilter(e.target.value)
+            setPage(1)
+          }}
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
         >
           <option value="">All Status</option>
@@ -112,13 +127,27 @@ export default function ApprovalsPage() {
         </select>
       </div>
 
-      <DataTable columns={columns} data={approvals} loading={loading} emptyMessage="No approval requests" />
+      <DataTable columns={columns} data={approvals} loading={loading} />
 
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 mt-4">
-          <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50">Previous</button>
-          <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
-          <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50">Next</button>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="text-sm text-gray-600">
+            Page {page} of {totalPages}
+          </span>
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
       )}
     </DashboardLayout>

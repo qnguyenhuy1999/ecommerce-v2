@@ -1,17 +1,17 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { FlashSaleStatus, ProductStatus } from '@ecom/contracts'
-import { PAGINATION_DEFAULTS } from '@ecom/shared/constants'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { CreateFlashSaleCampaignDto } from './dto/create-flash-sale.dto'
 import { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/core'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class FlashSaleService {
   constructor(private readonly prisma: PrismaService) {}
   async listCampaigns(query: OffsetPaginationDto) {
-    const { page = 1, pageSize = PAGINATION_DEFAULTS.PAGE_SIZE } = query
+    const { page = PAGINATION_DEFAULTS.DEFAULT_PAGE, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const where: Prisma.FlashSaleCampaignWhereInput = {
       status: { in: [FlashSaleStatus.SCHEDULED, FlashSaleStatus.ACTIVE] },
@@ -20,13 +20,13 @@ export class FlashSaleService {
 
     const { items, total } = await offsetPaginate(this.prisma.flashSaleCampaign, {
       page,
-      pageSize,
+      limit,
       where,
       include: { _count: { select: { slots: true } } },
       orderBy: { startsAt: 'asc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getCampaignById(id: string) {
@@ -69,7 +69,7 @@ export class FlashSaleService {
 
     return this.prisma.flashSaleCampaign.update({
       where: { id },
-      data: { status: status as any },
+      data: { status: status as Prisma.FlashSaleCampaignUpdateInput['status'] },
     })
   }
 
@@ -112,13 +112,13 @@ export class FlashSaleService {
   }
 
   async listSellerSlots(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, pageSize = PAGINATION_DEFAULTS.PAGE_SIZE } = query
+    const { page = PAGINATION_DEFAULTS.DEFAULT_PAGE, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const where: Prisma.FlashSaleSlotWhereInput = { shopId }
 
     const { items, total } = await offsetPaginate(this.prisma.flashSaleSlot, {
       page,
-      pageSize,
+      limit,
       where,
       include: {
         campaign: {
@@ -128,7 +128,7 @@ export class FlashSaleService {
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async approveSlot(slotId: string) {

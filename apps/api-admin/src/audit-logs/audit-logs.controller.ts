@@ -18,13 +18,13 @@ export class AuditLogsController {
   @Permissions('AUDIT_VIEW')
   async findAll(
     @Query('page') page?: string,
-    @Query('pageSize') pageSize?: string,
+    @Query('limit') limit?: string,
     @Query('action') action?: AuditActionType,
     @Query('adminId') adminId?: string,
   ) {
     const result = await this.auditLogService.findAll({
       page: page ? parseInt(page, 10) : undefined,
-      pageSize: pageSize ? parseInt(pageSize, 10) : undefined,
+      limit: limit ? parseInt(limit, 10) : undefined,
       action,
       adminId,
     });

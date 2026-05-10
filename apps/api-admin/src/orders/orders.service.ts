@@ -7,7 +7,7 @@ export class OrdersService {
   constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
-    pageSize?: number;
+    limit?: number;
     search?: string;
     status?: OrderStatus;
     buyerId?: string;
@@ -23,7 +23,7 @@ export class OrdersService {
 
     const { items, total } = await offsetPaginate(this.prisma.order, {
       page: query.page,
-      pageSize: query.pageSize,
+      limit: query.limit,
       where,
       include: {
         sellerOrders: {
@@ -36,7 +36,7 @@ export class OrdersService {
       orderBy: { createdAt: 'desc' },
     });
 
-    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
+    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total);
   }
 
   async findById(id: string) {

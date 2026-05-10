@@ -144,8 +144,8 @@ function Pagination({
   return (
     <div className="flex items-center justify-between text-sm">
       <span className="text-muted-foreground">
-        Showing {(meta.page - 1) * meta.pageSize + 1}–
-        {Math.min(meta.page * meta.pageSize, meta.total)} of {meta.total}
+        Showing {(meta.page - 1) * meta.limit + 1}–{Math.min(meta.page * meta.limit, meta.total)} of{' '}
+        {meta.total}
       </span>
       <div className="flex gap-1">
         <button
@@ -204,7 +204,7 @@ export function StatusBadge({ status }: { status: string }) {
     <span
       className={cn(
         'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium',
-        styles[status] ?? 'bg-gray-100 text-gray-700'
+        styles[status] ?? 'bg-gray-100 text-gray-700',
       )}
     >
       {status}
@@ -258,7 +258,7 @@ export function StatusTabs({
             'px-3 py-2 text-sm font-medium transition-colors',
             value === tab
               ? 'border-b-2 border-primary text-primary'
-              : 'text-muted-foreground hover:text-foreground'
+              : 'text-muted-foreground hover:text-foreground',
           )}
         >
           {tab}

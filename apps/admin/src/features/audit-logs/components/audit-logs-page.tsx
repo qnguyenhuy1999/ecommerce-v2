@@ -1,20 +1,18 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
-import { useAuditLogs } from '../hooks/use-audit-logs';
+import { useState } from 'react'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { useAuditLogs } from '../hooks/use-audit-logs'
 
 export function AuditLogsPage() {
-  const [page, setPage] = useState(1);
-  const { data, isLoading } = useAuditLogs({ page, pageSize: PAGINATION_DEFAULTS.PAGE_SIZE });
+  const [page, setPage] = useState(1)
+  const { data, isLoading } = useAuditLogs({ page, limit: PAGINATION_DEFAULTS.PAGE_SIZE })
 
   return (
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Audit Logs</h1>
-        <p className="text-sm text-muted-foreground">
-          Track all admin actions
-        </p>
+        <p className="text-sm text-muted-foreground">Track all admin actions</p>
       </div>
 
       <div className="rounded-xl border bg-card shadow-sm">
@@ -22,21 +20,11 @@ export function AuditLogsPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b bg-muted/50 text-left">
-                <th className="px-4 py-3 font-medium text-muted-foreground">
-                  Action
-                </th>
-                <th className="px-4 py-3 font-medium text-muted-foreground">
-                  Admin
-                </th>
-                <th className="px-4 py-3 font-medium text-muted-foreground">
-                  Entity
-                </th>
-                <th className="px-4 py-3 font-medium text-muted-foreground">
-                  IP Address
-                </th>
-                <th className="px-4 py-3 font-medium text-muted-foreground">
-                  Date
-                </th>
+                <th className="px-4 py-3 font-medium text-muted-foreground">Action</th>
+                <th className="px-4 py-3 font-medium text-muted-foreground">Admin</th>
+                <th className="px-4 py-3 font-medium text-muted-foreground">Entity</th>
+                <th className="px-4 py-3 font-medium text-muted-foreground">IP Address</th>
+                <th className="px-4 py-3 font-medium text-muted-foreground">Date</th>
               </tr>
             </thead>
             <tbody>
@@ -58,9 +46,7 @@ export function AuditLogsPage() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">
-                        {log.admin
-                          ? `${log.admin.firstName} ${log.admin.lastName}`
-                          : 'System'}
+                        {log.admin ? `${log.admin.firstName} ${log.admin.lastName}` : 'System'}
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">
                         {log.entityType
@@ -77,10 +63,7 @@ export function AuditLogsPage() {
                   ))}
               {!isLoading && !data?.items.length && (
                 <tr>
-                  <td
-                    colSpan={5}
-                    className="px-4 py-8 text-center text-muted-foreground"
-                  >
+                  <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
                     No audit logs yet
                   </td>
                 </tr>
@@ -114,5 +97,5 @@ export function AuditLogsPage() {
         )}
       </div>
     </div>
-  );
+  )
 }

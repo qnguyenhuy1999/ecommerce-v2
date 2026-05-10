@@ -35,7 +35,12 @@ interface ReturnStats {
 
 export default function ReturnsPage() {
   const [returns, setReturns] = useState<ReturnRequest[]>([])
-  const [stats, setStats] = useState<ReturnStats>({ total: 0, pending: 0, approved: 0, refunded: 0 })
+  const [stats, setStats] = useState<ReturnStats>({
+    total: 0,
+    pending: 0,
+    approved: 0,
+    refunded: 0,
+  })
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
@@ -48,7 +53,12 @@ export default function ReturnsPage() {
       try {
         const [returnsRes, statsRes] = await Promise.all([
           api<ReturnsResponse>('/returns', {
-            params: { page, limit: 20, search: search || undefined, status: statusFilter || undefined },
+            params: {
+              page,
+              limit: 20,
+              search: search || undefined,
+              status: statusFilter || undefined,
+            },
           }),
           api<ReturnStats>('/returns/stats'),
         ])
@@ -77,8 +87,18 @@ export default function ReturnsPage() {
   }
 
   const columns = [
-    { key: 'id', header: 'Return ID', render: (row: ReturnRequest) => <span className="font-mono text-xs">{row.id.slice(0, 8)}...</span> },
-    { key: 'reason', header: 'Reason', render: (row: ReturnRequest) => row.reason.replace(/_/g, ' ') },
+    {
+      key: 'id',
+      header: 'Return ID',
+      render: (row: ReturnRequest) => (
+        <span className="font-mono text-xs">{row.id.slice(0, 8)}...</span>
+      ),
+    },
+    {
+      key: 'reason',
+      header: 'Reason',
+      render: (row: ReturnRequest) => row.reason.replace(/_/g, ' '),
+    },
     {
       key: 'refundAmount',
       header: 'Refund',
@@ -89,7 +109,11 @@ export default function ReturnsPage() {
       header: 'Items',
       render: (row: ReturnRequest) => `${row.items.length} item(s)`,
     },
-    { key: 'status', header: 'Status', render: (row: ReturnRequest) => <StatusBadge status={row.status} /> },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (row: ReturnRequest) => <StatusBadge status={row.status} />,
+    },
     {
       key: 'actions',
       header: 'Actions',
@@ -97,15 +121,30 @@ export default function ReturnsPage() {
         if (row.status === 'REQUESTED') {
           return (
             <div className="flex gap-1">
-              <button onClick={() => handleUpdateStatus(row.id, 'REVIEWING')} className="text-blue-600 text-xs hover:underline">Review</button>
+              <button
+                onClick={() => handleUpdateStatus(row.id, 'REVIEWING')}
+                className="text-blue-600 text-xs hover:underline"
+              >
+                Review
+              </button>
             </div>
           )
         }
         if (row.status === 'REVIEWING') {
           return (
             <div className="flex gap-1">
-              <button onClick={() => handleUpdateStatus(row.id, 'APPROVED')} className="text-green-600 text-xs hover:underline">Approve</button>
-              <button onClick={() => handleUpdateStatus(row.id, 'REJECTED')} className="text-red-600 text-xs hover:underline">Reject</button>
+              <button
+                onClick={() => handleUpdateStatus(row.id, 'APPROVED')}
+                className="text-green-600 text-xs hover:underline"
+              >
+                Approve
+              </button>
+              <button
+                onClick={() => handleUpdateStatus(row.id, 'REJECTED')}
+                className="text-red-600 text-xs hover:underline"
+              >
+                Reject
+              </button>
             </div>
           )
         }
@@ -137,13 +176,19 @@ export default function ReturnsPage() {
             type="text"
             placeholder="Search returns..."
             value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(1) }}
+            onChange={(e) => {
+              setSearch(e.target.value)
+              setPage(1)
+            }}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
           />
         </div>
         <select
           value={statusFilter}
-          onChange={(e) => { setStatusFilter(e.target.value); setPage(1) }}
+          onChange={(e) => {
+            setStatusFilter(e.target.value)
+            setPage(1)
+          }}
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
         >
           <option value="">All Status</option>
@@ -157,13 +202,32 @@ export default function ReturnsPage() {
         </select>
       </div>
 
-      <DataTable columns={columns} data={returns} loading={loading} emptyMessage="No return requests" />
+      <DataTable
+        columns={columns}
+        data={returns}
+        loading={loading}
+        emptyMessage="No return requests"
+      />
 
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 mt-4">
-          <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50">Previous</button>
-          <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
-          <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50">Next</button>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="text-sm text-gray-600">
+            Page {page} of {totalPages}
+          </span>
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
       )}
     </DashboardLayout>

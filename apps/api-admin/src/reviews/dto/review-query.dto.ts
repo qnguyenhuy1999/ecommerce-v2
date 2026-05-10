@@ -5,7 +5,7 @@ export class ReviewQueryDto {
   @ApiProperty()
   @IsOptional() @IsString() page?: string;
   @ApiProperty()
-  @IsOptional() @IsString() pageSize?: string;
+  @IsOptional() @IsString() limit?: string;
   @ApiProperty()
   @IsOptional() @IsString() status?: string;
 }

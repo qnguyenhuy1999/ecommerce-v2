@@ -39,7 +39,10 @@ export default function NewWarehousePage() {
     <DashboardLayout>
       <PageHeader title="Add Warehouse" description="Create a new warehouse location" />
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg border border-gray-200 p-6 max-w-2xl">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-lg border border-gray-200 p-6 max-w-2xl"
+      >
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -85,7 +88,9 @@ export default function NewWarehousePage() {
               onChange={(e) => setForm({ ...form, isDefault: e.target.checked })}
               className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
-            <label htmlFor="isDefault" className="text-sm text-gray-700">Set as default warehouse</label>
+            <label htmlFor="isDefault" className="text-sm text-gray-700">
+              Set as default warehouse
+            </label>
           </div>
         </div>
 

@@ -9,11 +9,11 @@ export const REGEX = {
   postalCode: /^[A-Za-z0-9\s-]{3,10}$/,
   price: /^\d+(\.\d{1,2})?$/,
   percentage: /^(100|[1-9]?\d(\.\d{1,2})?)%?$/,
-} as const;
+} as const
 
-export const isEmail = (value: string): boolean => REGEX.email.test(value);
-export const isPhone = (value: string): boolean => REGEX.phone.test(value);
-export const isSlug = (value: string): boolean => REGEX.slug.test(value);
-export const isUUID = (value: string): boolean => REGEX.uuid.test(value);
-export const isHexColor = (value: string): boolean => REGEX.hexColor.test(value);
-export const isUrl = (value: string): boolean => REGEX.url.test(value);
+export const isEmail = (value: string): boolean => REGEX.email.test(value)
+export const isPhone = (value: string): boolean => REGEX.phone.test(value)
+export const isSlug = (value: string): boolean => REGEX.slug.test(value)
+export const isUUID = (value: string): boolean => REGEX.uuid.test(value)
+export const isHexColor = (value: string): boolean => REGEX.hexColor.test(value)
+export const isUrl = (value: string): boolean => REGEX.url.test(value)

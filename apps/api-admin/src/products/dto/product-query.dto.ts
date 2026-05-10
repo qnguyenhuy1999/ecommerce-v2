@@ -15,7 +15,7 @@ export class ProductQueryDto {
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  pageSize?: number;
+  limit?: number;
 
   @ApiProperty()
   @IsOptional() @IsString() search?: string;

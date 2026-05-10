@@ -5,11 +5,18 @@ import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/pri
 
 const LOW_STOCK_THRESHOLD = 10
 
+type VariantWithRelations = Prisma.ProductVariantGetPayload<{
+  include: {
+    product: { select: { id: true; name: true; shopId: true } }
+    optionValues: { include: { option: { include: { group: true } } } }
+  }
+}>
+
 @Injectable()
 export class InventoryService {
   constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: InventoryQueryDto) {
-    const { page = 1, pageSize = 20, search, lowStock } = query
+    const { page = 1, limit = 20, search, lowStock } = query
 
     const where: Prisma.ProductVariantWhereInput = {
       product: { shopId, deletedAt: null },
@@ -28,7 +35,7 @@ export class InventoryService {
       this.prisma.productVariant,
       {
         page,
-        pageSize,
+        limit,
         where,
         include: {
           product: { select: { id: true, name: true, shopId: true } },
@@ -38,7 +45,7 @@ export class InventoryService {
       }
     )
 
-    const data = variants.map((v: any) => ({
+    const data = (variants as VariantWithRelations[]).map((v) => ({
       variantId: v.id,
       productId: v.product.id,
       productName: v.product.name,
@@ -47,13 +54,13 @@ export class InventoryService {
       reservedStock: v.reservedStock,
       availableStock: v.stock - v.reservedStock,
       isLowStock: v.stock <= LOW_STOCK_THRESHOLD,
-      options: v.optionValues.map((ov: any) => ({
+      options: v.optionValues.map((ov: VariantWithRelations['optionValues'][number]) => ({
         group: ov.option.group.name,
         value: ov.option.value,
       })),
     }))
 
-    return buildOffsetResponse(data, page, pageSize, total)
+    return buildOffsetResponse(data, page, limit, total)
   }
 
   async updateStock(shopId: string, variantId: string, quantity: number, type: string, note?: string) {

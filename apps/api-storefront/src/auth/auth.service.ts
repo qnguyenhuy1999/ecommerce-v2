@@ -8,9 +8,8 @@ import {
   BaseUserAuthService,
   SESSION_EXPIRY_DAYS,
   VERIFY_TOKEN_TTL,
-  hashPassword,
-  comparePassword,
 } from '@ecom/auth'
+import { hashPassword, comparePassword } from '@ecom/auth/password.utils'
 import { EmailService } from '@ecom/email'
 import { RedisService } from '@ecom/redis'
 import { SESSION_SERVICE } from './session.provider'

@@ -1,10 +1,10 @@
-import { Inject, Injectable, OnModuleDestroy, Logger } from '@nestjs/common';
-import Redis from 'ioredis';
-import { REDIS_CLIENT } from './redis.constants';
+import { Inject, Injectable, OnModuleDestroy, Logger } from '@nestjs/common'
+import Redis from 'ioredis'
+import { REDIS_CLIENT } from './redis.constants'
 
 @Injectable()
 export class RedisService implements OnModuleDestroy {
-  private readonly logger = new Logger(RedisService.name);
+  private readonly logger = new Logger(RedisService.name)
 
   constructor(
     @Inject(REDIS_CLIENT)
@@ -12,44 +12,44 @@ export class RedisService implements OnModuleDestroy {
   ) {}
 
   async get(key: string): Promise<string | null> {
-    return this.client.get(key);
+    return this.client.get(key)
   }
 
   async set(key: string, value: string, ttlSeconds?: number): Promise<void> {
     if (ttlSeconds != null) {
-      await this.client.set(key, value, 'EX', ttlSeconds);
+      await this.client.set(key, value, 'EX', ttlSeconds)
     } else {
-      await this.client.set(key, value);
+      await this.client.set(key, value)
     }
   }
 
   async del(key: string): Promise<void> {
-    await this.client.del(key);
+    await this.client.del(key)
   }
 
   async exists(key: string): Promise<boolean> {
-    const result = await this.client.exists(key);
-    return result === 1;
+    const result = await this.client.exists(key)
+    return result === 1
   }
 
   async expire(key: string, ttlSeconds: number): Promise<void> {
-    await this.client.expire(key, ttlSeconds);
+    await this.client.expire(key, ttlSeconds)
   }
 
   async ttl(key: string): Promise<number> {
-    return this.client.ttl(key);
+    return this.client.ttl(key)
   }
 
   async incr(key: string): Promise<number> {
-    return this.client.incr(key);
+    return this.client.incr(key)
   }
 
   getClient(): Redis {
-    return this.client;
+    return this.client
   }
 
   async onModuleDestroy() {
-    this.logger.log('Closing Redis connection');
-    await this.client.quit();
+    this.logger.log('Closing Redis connection')
+    await this.client.quit()
   }
 }

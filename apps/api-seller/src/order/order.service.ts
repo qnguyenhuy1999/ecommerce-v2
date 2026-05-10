@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { OrderStatus, InventoryTransactionType } from '@ecom/contracts'
-import { PAGINATION_DEFAULTS } from '@ecom/shared/constants'
+import { PrismaService, type OrderStatus, type InventoryTransactionType, Prisma } from '@ecom/database'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { OrderQueryDto } from './dto/order-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
@@ -18,7 +17,14 @@ const VALID_TRANSITIONS: Record<string, string[]> = {
 export class OrderService {
   constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: OrderQueryDto) {
-    const { page = 1, pageSize = PAGINATION_DEFAULTS.PAGE_SIZE, sort = 'createdAt', order = 'desc', status, search } = query
+    const {
+      page = PAGINATION_DEFAULTS.DEFAULT_PAGE,
+      limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT,
+      sortBy = 'createdAt',
+      sortOrder = PAGINATION_DEFAULTS.DEFAULT_SORT_ORDER,
+      status,
+      search,
+    } = query
 
     const where: Prisma.SellerOrderWhereInput = {
       shopId,
@@ -34,7 +40,7 @@ export class OrderService {
 
     const { items, total } = await offsetPaginate(this.prisma.sellerOrder, {
       page,
-      pageSize,
+      limit,
       where,
       include: {
         order: {
@@ -44,10 +50,10 @@ export class OrderService {
         shipment: { select: { id: true, trackingNumber: true, status: true } },
         _count: { select: { items: true } },
       },
-      orderBy: { [sort]: order },
+      orderBy: { [sortBy]: sortOrder },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getById(shopId: string, sellerOrderId: string) {

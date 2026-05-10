@@ -15,21 +15,22 @@ export class ApprovalService {
       ...(status ? { status: status as Prisma.ProductApprovalWhereInput['status'] } : {}),
     }
 
-    const pageNum = page;
-    const limit = pageSize;
-
-    const result = await offsetPaginate({
-      model: this.prisma.productApproval,
-      params: { page: pageNum, limit, sortBy: sort, sortOrder: order },
+    const { items, total } = await offsetPaginate(this.prisma.productApproval, {
+      page,
+      limit: pageSize,
       where,
       include: {
         history: { orderBy: { createdAt: 'desc' }, take: 3 },
       },
       orderBy: { [sort]: order },
-    });
+    })
 
-    return buildPaginatedResponse(result.data, result.total, { page: pageNum, limit, sortBy: sort, sortOrder: order });
-
+    return buildPaginatedResponse(items, total, {
+      page,
+      limit: pageSize,
+      sortBy: sort,
+      sortOrder: order,
+    })
   }
 
   async getById(shopId: string, approvalId: string) {

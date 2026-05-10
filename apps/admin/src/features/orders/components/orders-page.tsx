@@ -3,14 +3,9 @@
 import { useState, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { createColumnHelper } from '@tanstack/react-table'
-import { OrderStatus } from '@ecom/contracts';
-import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
-import {
-  DataTable,
-  StatusBadge,
-  TableToolbar,
-  StatusTabs,
-} from '@/components/data-table/data-table'
+import { OrderStatus } from '@ecom/contracts'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { DataTable, StatusBadge, TableToolbar, StatusTabs } from '@ecom/core-ui'
 import { useOrders, useOrderStatusCounts } from '../hooks/use-orders'
 import type { OrderListItem } from '../api/orders.api'
 
@@ -62,7 +57,7 @@ export function OrdersPage() {
 
   const { data, isLoading } = useOrders({
     page,
-    pageSize: PAGINATION_DEFAULTS.PAGE_SIZE,
+    limit: PAGINATION_DEFAULTS.PAGE_SIZE,
     search: debouncedSearch || undefined,
     status: statusFilter === 'ALL' ? undefined : statusFilter,
   })

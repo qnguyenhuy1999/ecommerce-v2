@@ -35,7 +35,9 @@ export default function NewCouponPage() {
           maxDiscountAmount: Number(form.maxDiscountAmount) || undefined,
           usageLimit: Number(form.usageLimit) || undefined,
           usageLimitPerUser: Number(form.usageLimitPerUser) || undefined,
-          startsAt: form.startsAt ? new Date(form.startsAt).toISOString() : new Date().toISOString(),
+          startsAt: form.startsAt
+            ? new Date(form.startsAt).toISOString()
+            : new Date().toISOString(),
           expiresAt: form.expiresAt ? new Date(form.expiresAt).toISOString() : undefined,
         }),
       })
@@ -51,7 +53,10 @@ export default function NewCouponPage() {
     <DashboardLayout>
       <PageHeader title="Create Coupon" description="Create a new discount coupon" />
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg border border-gray-200 p-6 max-w-2xl">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-lg border border-gray-200 p-6 max-w-2xl"
+      >
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -83,7 +88,9 @@ export default function NewCouponPage() {
               <label className="block text-sm font-medium text-gray-700 mb-1">Discount Type</label>
               <select
                 value={form.type}
-                onChange={(e) => setForm({ ...form, type: e.target.value as 'PERCENTAGE' | 'FIXED_AMOUNT' })}
+                onChange={(e) =>
+                  setForm({ ...form, type: e.target.value as 'PERCENTAGE' | 'FIXED_AMOUNT' })
+                }
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
               >
                 <option value="PERCENTAGE">Percentage</option>
@@ -108,7 +115,9 @@ export default function NewCouponPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Min Order Amount ($)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Min Order Amount ($)
+              </label>
               <input
                 type="number"
                 min="0"

@@ -7,7 +7,7 @@ export class ReviewsService {
   constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
     page?: number;
-    pageSize?: number;
+    limit?: number;
     status?: ReviewStatus;
   }) {
     const where: Prisma.ReviewWhereInput = {};
@@ -15,7 +15,7 @@ export class ReviewsService {
 
     const { items, total } = await offsetPaginate(this.prisma.review, {
       page: query.page,
-      pageSize: query.pageSize,
+      limit: query.limit,
       where,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -25,7 +25,7 @@ export class ReviewsService {
       },
     });
 
-    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
+    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total);
   }
 
   async findById(id: string) {

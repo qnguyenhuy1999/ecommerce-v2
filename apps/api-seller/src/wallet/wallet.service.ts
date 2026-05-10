@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { RequestWithdrawalDto } from './dto/wallet.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'\nimport { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 import { randomUUID } from 'crypto'
 
 @Injectable()
@@ -140,42 +141,42 @@ export class WalletService {
   }
 
   async listTransactions(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, limit = 20 } = query
 
     const wallet = await this.prisma.wallet.findUnique({
       where: { ownerId_ownerType: { ownerId: shopId, ownerType: 'SHOP' } },
     })
-    if (!wallet) return buildOffsetResponse([], 1, pageSize, 0)
+    if (!wallet) return buildOffsetResponse([], 1, limit, 0)
 
     const where: Prisma.WalletTransactionWhereInput = { walletId: wallet.id }
 
     const { items, total } = await offsetPaginate(this.prisma.walletTransaction, {
       page,
-      pageSize,
+      limit,
       where,
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async listWithdrawals(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, limit = 20 } = query
 
     const wallet = await this.prisma.wallet.findUnique({
       where: { ownerId_ownerType: { ownerId: shopId, ownerType: 'SHOP' } },
     })
-    if (!wallet) return buildOffsetResponse([], 1, pageSize, 0)
+    if (!wallet) return buildOffsetResponse([], 1, limit, 0)
 
     const where: Prisma.WalletWithdrawalWhereInput = { walletId: wallet.id }
 
     const { items, total } = await offsetPaginate(this.prisma.walletWithdrawal, {
       page,
-      pageSize,
+      limit,
       where,
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 }

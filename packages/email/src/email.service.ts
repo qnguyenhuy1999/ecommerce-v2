@@ -1,8 +1,8 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { EMAIL_MODULE_OPTIONS, EMAIL_TRANSPORTER } from './email.constants';
-import type { EmailModuleOptions } from './email.types';
-import type { Transporter } from 'nodemailer';
-import { EmailServiceBase } from './email-base.service';
+import { Inject, Injectable, Logger } from '@nestjs/common'
+import { EMAIL_MODULE_OPTIONS, EMAIL_TRANSPORTER } from './email.constants'
+import type { EmailModuleOptions } from './email.types'
+import type { Transporter } from 'nodemailer'
+import { EmailServiceBase } from './email-base.service'
 
 @Injectable()
 export class EmailService extends EmailServiceBase {
@@ -12,6 +12,6 @@ export class EmailService extends EmailServiceBase {
     @Inject(EMAIL_MODULE_OPTIONS)
     options: EmailModuleOptions,
   ) {
-    super(transporter, options, new Logger(EmailService.name));
+    super(transporter, options, new Logger(EmailService.name))
   }
 }

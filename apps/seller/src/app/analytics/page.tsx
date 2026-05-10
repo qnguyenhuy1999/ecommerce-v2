@@ -79,22 +79,35 @@ export default function AnalyticsPage() {
       {loading ? (
         <div className="animate-pulse space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[1, 2, 3, 4].map((i) => <div key={i} className="h-24 bg-gray-200 rounded-lg" />)}
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-24 bg-gray-200 rounded-lg" />
+            ))}
           </div>
         </div>
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <StatCard
-              title="Revenue"
+              label="Revenue"
               value={`$${(summary?.revenue.current ?? 0).toLocaleString()}`}
               icon={DollarSign}
-              trend={summary?.revenue.growth ? `${summary.revenue.growth > 0 ? '+' : ''}${summary.revenue.growth.toFixed(1)}%` : undefined}
-              trendUp={(summary?.revenue.growth ?? 0) > 0}
+              trend={summary?.revenue.growth}
             />
-            <StatCard title="Orders" value={revenue?.orderCount ?? 0} icon={ShoppingCart} />
-            <StatCard title="Avg Order Value" value={`$${(revenue?.averageOrderValue ?? 0).toFixed(2)}`} icon={TrendingUp} />
-            <StatCard title="Active Products" value={summary?.activeProducts ?? 0} icon={Package} />
+            <StatCard
+              label="Orders"
+              value={(revenue?.orderCount ?? 0).toString()}
+              icon={ShoppingCart}
+            />
+            <StatCard
+              label="Avg Order Value"
+              value={`$${(revenue?.averageOrderValue ?? 0).toFixed(2)}`}
+              icon={TrendingUp}
+            />
+            <StatCard
+              label="Active Products"
+              value={(summary?.activeProducts ?? 0).toString()}
+              icon={Package}
+            />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
@@ -108,9 +121,13 @@ export default function AnalyticsPage() {
                       <div className="flex items-center gap-2">
                         <div
                           className="h-2 bg-blue-500 rounded"
-                          style={{ width: `${Math.min(200, (d.revenue / Math.max(...revenue.dailyRevenue.map((r) => r.revenue))) * 200)}px` }}
+                          style={{
+                            width: `${Math.min(200, (d.revenue / Math.max(...revenue.dailyRevenue.map((r) => r.revenue))) * 200)}px`,
+                          }}
                         />
-                        <span className="font-medium w-20 text-right">${d.revenue.toLocaleString()}</span>
+                        <span className="font-medium w-20 text-right">
+                          ${d.revenue.toLocaleString()}
+                        </span>
                       </div>
                     </div>
                   ))}

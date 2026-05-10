@@ -23,7 +23,7 @@ export class ReviewsController {
   async findAll(@Query() query: ReviewQueryDto) {
     const result = await this.reviewsService.findAll({
       page: query.page ? parseInt(query.page, 10) : undefined,
-      pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
+      limit: query.limit ? parseInt(query.limit, 10) : undefined,
       status: query.status as ReviewStatus | undefined,
     })
     return result

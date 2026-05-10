@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { EmitEventDto } from './dto/event-streaming.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'\nimport { OffsetPaginationDto } from '@ecom/shared/pagination/core'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
+import { OffsetPaginationDTO } from '@ecom/shared/pagination/core'
 import { randomUUID } from 'crypto'
 
 @Injectable()
@@ -19,8 +20,8 @@ export class EventStreamingService {
     })
   }
 
-  async listEvents(query: OffsetPaginationDto & { eventType?: string; source?: string }) {
-    const { page = 1, pageSize = 20 } = query
+  async listEvents(query: OffsetPaginationDTO & { eventType?: string; source?: string }) {
+    const { page = 1, limit = 20 } = query
 
     const where: Prisma.PlatformEventWhereInput = {
       ...(query.eventType && { eventType: query.eventType }),
@@ -29,12 +30,12 @@ export class EventStreamingService {
 
     const { items, total } = await offsetPaginate(this.prisma.platformEvent, {
       page,
-      pageSize,
+      pageSize: limit,
       where,
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getEventById(id: string) {

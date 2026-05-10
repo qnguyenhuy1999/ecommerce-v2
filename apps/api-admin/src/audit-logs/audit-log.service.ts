@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService, type AuditActionType, Prisma } from '@ecom/database';
-import { offsetPaginate } from '@ecom/shared/pagination/prisma';
-import { buildPaginatedResponse } from '@ecom/shared/pagination/core';
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
 
 interface LogParams {
   adminId: string;
@@ -38,7 +37,7 @@ export class AuditLogService {
 
   async findAll(query: {
     page?: number;
-    pageSize?: number;
+    limit?: number;
     action?: AuditActionType;
     adminId?: string;
   }) {
@@ -48,7 +47,7 @@ export class AuditLogService {
 
     const { items, total } = await offsetPaginate(this.prisma.adminAuditLog, {
       page: query.page,
-      pageSize: query.pageSize,
+      limit: query.limit,
       where,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -58,6 +57,6 @@ export class AuditLogService {
       },
     });
 
-    return buildPaginatedResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
+    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total);
   }
 }

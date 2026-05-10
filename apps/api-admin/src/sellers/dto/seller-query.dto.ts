@@ -13,7 +13,7 @@ export class SellerQueryDto {
   @IsOptional()
   @ApiProperty()
   @IsString()
-  pageSize?: string;
+  limit?: string;
 
   @ApiProperty()
   @IsOptional()

@@ -4,7 +4,7 @@
  * @returns The slugified string
  */
 export function slugify(input: string): string {
-  if (!input) return '';
+  if (!input) return ''
 
   return input
     .toString()
@@ -14,5 +14,5 @@ export function slugify(input: string): string {
     .trim()
     .replace(/[^\w\s-]/g, '') // Remove special characters
     .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
-    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+    .replace(/^-+|-+$/g, '') // Remove leading/trailing hyphens
 }

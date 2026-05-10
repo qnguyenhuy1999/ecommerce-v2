@@ -26,7 +26,7 @@ export class PromotionsController {
   async findAll(@Query() query: VoucherQueryDto) {
     const result = await this.promotionsService.findAll({
       page: query.page ? parseInt(query.page, 10) : undefined,
-      pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
+      limit: query.limit ? parseInt(query.limit, 10) : undefined,
       status: query.status as PlatformVoucherStatus | undefined,
       search: query.search,
     });
@@ -79,7 +79,10 @@ export class PromotionsController {
     @Param('id') id: string,
     @Body() dto: UpdateVoucherDto,
   ) {
-    const voucher = await this.promotionsService.update(id, dto as any);
+    const voucher = await this.promotionsService.update(id, {
+      ...dto,
+      status: dto.status as PlatformVoucherStatus | undefined,
+    });
     return voucher;
   }
 }

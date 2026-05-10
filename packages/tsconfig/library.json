@@ -9,6 +9,8 @@
     "jsx": "react-jsx",
     "declaration": true,
     "declarationMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "composite": true,

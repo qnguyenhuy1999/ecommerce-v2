@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import { PrismaService, Prisma } from '@ecom/database'
 import { WarehouseQueryDto, StockQueryDto, TransferQueryDto } from './dto/warehouse-query.dto'
 import { CreateWarehouseDto } from './dto/create-warehouse.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
 export class WarehouseService {

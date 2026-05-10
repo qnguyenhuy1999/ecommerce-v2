@@ -10,7 +10,7 @@ import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-
 import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { BannerQueryDto, CreateBannerDto, UpdateBannerDto } from './dto/banner.dto';
 import { type BannerPosition, type BannerStatus } from '@ecom/database';
-import { AUDIT_ACTIONS } from '@ecom/constants';
+import { AUDIT_ACTIONS } from '@ecom/shared/constants';
 
 @ApiTags("Banners")
 @Controller('banners')

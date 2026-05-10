@@ -1,5 +1,5 @@
 import { apiFetch } from '@/lib/api';
-import type { PaginatedResponse } from '@ecom/common';
+import type { PaginatedResponse } from '@ecom/shared/pagination/core';
 
 export interface OrderListItem {
   id: string;

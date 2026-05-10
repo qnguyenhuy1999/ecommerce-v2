@@ -6,7 +6,7 @@ import {
   CreateFeatureFlagDto,
   CreateCampaignDto,
 } from './dto/growth.dto'
-import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'\nimport { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 import { randomBytes } from 'crypto'
 
 @Injectable()

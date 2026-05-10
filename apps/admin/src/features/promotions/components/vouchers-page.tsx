@@ -2,7 +2,8 @@
 
 import { useState, useCallback, useRef } from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
-import { CouponStatus, CouponType, PAGINATION_DEFAULTS } from '@ecom/constants'
+import { CouponStatus, CouponType } from '@ecom/contracts';
+import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
 import {
   DataTable,
   StatusBadge,

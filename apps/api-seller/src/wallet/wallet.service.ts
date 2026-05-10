@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { RequestWithdrawalDto } from './dto/wallet.dto'
-import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'\nimport { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 import { randomUUID } from 'crypto'
 
 @Injectable()

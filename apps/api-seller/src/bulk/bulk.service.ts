@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { BulkJobQueryDto } from './dto/bulk-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
 export class BulkService {

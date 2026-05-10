@@ -9,7 +9,7 @@ import { Permissions } from '../auth/decorators/permissions.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { UserQueryDto, UserActionDto } from './dto/user-query.dto';
 import { type UserStatus } from '@ecom/database';
-import { AUDIT_ACTIONS } from '@ecom/constants';
+import { AUDIT_ACTIONS } from '@ecom/shared/constants';
 
 @ApiTags("Users")
 @Controller('users')

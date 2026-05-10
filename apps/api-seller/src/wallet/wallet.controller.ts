@@ -5,7 +5,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ShopService } from '../shop/shop.service'
 import { WalletService } from './wallet.service'
 import { RequestWithdrawalDto } from './dto/wallet.dto'
-import { OffsetPaginationDto } from '@ecom/pagination'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Controller('wallet')
 @UseGuards(AuthGuard)

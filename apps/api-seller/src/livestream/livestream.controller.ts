@@ -5,7 +5,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ShopService } from '../shop/shop.service'
 import { LivestreamService } from './livestream.service'
 import { CreateLivestreamDto, AddLivestreamProductDto, PinProductDto } from './dto/livestream.dto'
-import { OffsetPaginationDto } from '@ecom/pagination'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Controller('livestreams')
 @UseGuards(AuthGuard)

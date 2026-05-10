@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { NotificationQueryDto } from './dto/notification-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
 export class NotificationService {

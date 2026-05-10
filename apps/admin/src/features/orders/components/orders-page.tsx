@@ -3,7 +3,8 @@
 import { useState, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { createColumnHelper } from '@tanstack/react-table'
-import { OrderStatus, PAGINATION_DEFAULTS } from '@ecom/constants'
+import { OrderStatus } from '@ecom/contracts';
+import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
 import {
   DataTable,
   StatusBadge,

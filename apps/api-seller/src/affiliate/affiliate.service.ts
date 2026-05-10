@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
-import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/core'
 import { randomBytes } from 'crypto'
 
 @Injectable()

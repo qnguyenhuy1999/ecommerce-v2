@@ -1,66 +1,24 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [
-    ".env.example"
-  ],
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "dist/**",
-        ".next/**",
-        "!.next/cache/**"
-      ]
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["src/**", "tsconfig.json", "package.json", "tsup.config.ts", "$NODE_ENV"],
+      "outputs": ["dist/**", ".next/**"]
     },
     "dev": {
-      "dependsOn": [],
       "cache": false,
-      "persistent": true
+      "dependsOn": ["^build"]
     },
-    "lint": {},
-    "type-check": {
-      "dependsOn": [
-        "^type-check"
-      ]
+    "lint": {
+      "dependsOn": ["^build"]
     },
     "test": {
-      "dependsOn": [
-        "build"
-      ],
-      "outputs": [
-        "coverage/**"
-      ]
+      "dependsOn": ["^build"]
     },
-    "test:e2e": {
-      "dependsOn": [
-        "build"
-      ]
-    },
-    "db:generate": {
-      "cache": false
-    },
-    "db:migrate": {
-      "cache": false
-    },
-    "db:seed": {
-      "cache": false
-    },
-    "docker:build": {
-      "cache": false
-    },
-    "storybook": {
-      "cache": false,
-      "persistent": true
-    },
-    "build-storybook": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "storybook-static/**"
-      ]
+    "type-check": {
+      "dependsOn": ["^build"]
     }
   }
 }

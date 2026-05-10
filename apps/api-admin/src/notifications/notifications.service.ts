@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService, type AdminNotificationStatus, type NotificationChannel, Prisma } from '@ecom/database';
-import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
 
 @Injectable()
 export class NotificationsService {

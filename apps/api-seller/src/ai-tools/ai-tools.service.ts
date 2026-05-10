@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { CreateAiTaskDto } from './dto/ai-tools.dto'
-import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/core'
 
 @Injectable()
 export class AiToolsService {

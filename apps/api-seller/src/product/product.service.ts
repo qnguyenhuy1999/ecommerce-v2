@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
-import { slugify } from '@ecom/utils'
+import { slugify } from '@ecom/shared/utils'
 import { CreateProductDto } from './dto/create-product.dto'
 import { UpdateProductDto } from './dto/update-product.dto'
 import { ProductQueryDto } from './dto/product-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
 export class ProductService {

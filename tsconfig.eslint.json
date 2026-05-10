@@ -48,11 +48,11 @@
             "@ecom/ui-storefront/*": [
                 "packages/ui-storefront/src/*"
             ],
-            "@ecom/common": [
-                "packages/common/src/index.ts"
+            "@ecom/nestjs-core": [
+                "packages/nestjs-core/src/index.ts"
             ],
-            "@ecom/common/*": [
-                "packages/common/src/*"
+            "@ecom/nestjs-core/*": [
+                "packages/nestjs-core/src/*"
             ]
         }
     },

@@ -8,7 +8,7 @@ import {
   type ColumnDef,
   type RowSelectionState,
 } from '@tanstack/react-table'
-import type { PaginationMeta } from '@ecom/common'
+import type { PaginationMeta } from '@ecom/shared/pagination/core'
 import { cn } from '../lib/utils'
 
 interface DataTableProps<T> {

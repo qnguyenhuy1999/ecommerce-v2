@@ -4,20 +4,54 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./enums": {
+      "types": "./dist/enums/index.d.ts",
+      "import": "./dist/enums/index.mjs"
+    },
+    "./http": {
+      "types": "./dist/http/index.d.ts",
+      "import": "./dist/http/index.mjs"
+    },
+    "./product": {
+      "types": "./dist/product/index.d.ts",
+      "import": "./dist/product/index.mjs"
+    },
+    "./order": {
+      "types": "./dist/order/index.d.ts",
+      "import": "./dist/order/index.mjs"
+    },
+    "./auth": {
+      "types": "./dist/auth/index.d.ts",
+      "import": "./dist/auth/index.mjs"
+    },
+    "./common": {
+      "types": "./dist/common/index.d.ts",
+      "import": "./dist/common/index.mjs"
+    }
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@ecom/constants": "workspace:*",
+    "@ecom/shared": "workspace:*",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@ecom/tsconfig": "workspace:*",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3"
   }

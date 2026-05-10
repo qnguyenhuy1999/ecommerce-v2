@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ReviewStatus, PAGINATION_DEFAULTS } from '@ecom/constants';
+import { ReviewStatus } from '@ecom/contracts';
+import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
 import { DataTable, StatusBadge, StatusTabs } from '@ecom/core-ui';
 import { useReviews, useReviewStatusCounts, useApproveReview, useHideReview, useRejectReview } from '../hooks/use-reviews';
 import type { ReviewListItem } from '../api/reviews.api';

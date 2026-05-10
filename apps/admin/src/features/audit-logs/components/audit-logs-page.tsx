@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { PAGINATION_DEFAULTS } from '@ecom/constants';
+import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
 import { useAuditLogs } from '../hooks/use-audit-logs';
 
 export function AuditLogsPage() {

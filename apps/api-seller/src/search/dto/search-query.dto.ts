@@ -1,6 +1,6 @@
 import { IsOptional, IsString, IsEnum, IsNumber } from 'class-validator'
 import { Type } from 'class-transformer'
-import { OffsetPaginationDto } from '@ecom/pagination'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/core'
 
 export class ProductSearchDto extends OffsetPaginationDto {
   @IsOptional()

@@ -14,7 +14,6 @@
     "noUnusedParameters": true,
     "paths": {
       "@/*": ["src/*"],
-      "@ecom/constants": ["../constants/src"],
       "@ecom/api-types": ["../api-types/src"],
       "@ecom/database": ["../database/src"],
       "@ecom/email": ["../email/src"],

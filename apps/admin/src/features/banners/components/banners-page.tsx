@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
-import { PAGINATION_DEFAULTS } from '@ecom/constants';
+import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
 import { DataTable, StatusBadge, StatusTabs } from '@ecom/core-ui';
 import { useBanners, useCreateBanner } from '../hooks/use-banners';
 import type { BannerListItem } from '../api/banners.api';

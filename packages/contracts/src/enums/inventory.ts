@@ -1,0 +1,7 @@
+export enum InventoryTransactionType {
+  STOCK_IN = 'STOCK_IN',
+  STOCK_OUT = 'STOCK_OUT',
+  RESERVATION = 'RESERVATION',
+  RELEASE = 'RELEASE',
+  ADJUSTMENT = 'ADJUSTMENT',
+}

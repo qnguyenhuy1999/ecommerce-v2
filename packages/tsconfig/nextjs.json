@@ -14,7 +14,9 @@
       "@ecom/ui": ["../ui/src"],
       "@ecom/api-client": ["../api-client/src"],
       "@ecom/api-types": ["../api-types/src"],
-      "@ecom/constants": ["../constants/src"]
+      "@ecom/contracts": ["../contracts/src"],
+      "@ecom/shared": ["../shared/src"],
+      "@ecom/nestjs-core": ["../nestjs-core/src"]
     }
   },
   "include": ["src/**/*", "next.config.js"],

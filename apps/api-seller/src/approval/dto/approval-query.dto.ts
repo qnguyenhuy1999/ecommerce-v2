@@ -1,5 +1,5 @@
 import { IsOptional, IsString, IsEnum } from 'class-validator'
-import { OffsetPaginationDto } from '@ecom/pagination'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 export class ApprovalQueryDto extends OffsetPaginationDto {
   @IsOptional()

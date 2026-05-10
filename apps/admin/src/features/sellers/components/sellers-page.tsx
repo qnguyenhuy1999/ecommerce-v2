@@ -2,7 +2,8 @@
 
 import { useState, useCallback } from 'react';
 import Link from 'next/link';
-import { UserStatus, PAGINATION_DEFAULTS } from '@ecom/constants';
+import { UserStatus } from '@ecom/contracts';
+import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
 import { useSellers, useSellerStatusCounts } from '../hooks/use-sellers';
 
 const STATUS_TABS: string[] = ['ALL', 'PENDING', 'ACTIVE', 'SUSPENDED', 'REJECTED', 'BANNED'];

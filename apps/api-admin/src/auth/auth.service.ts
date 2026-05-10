@@ -15,8 +15,8 @@ const SESSION_EXPIRY_DAYS = 7;
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(SESSION_SERVICE
-    private readonly prisma: PrismaService,)
+    @Inject(SESSION_SERVICE)
+    private readonly prisma: PrismaService,
     private readonly sessionService: SessionService,
   ) {}
 

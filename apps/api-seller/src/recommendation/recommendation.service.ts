@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@ecom/database'
-import { ProductStatus, UserEventType, PAGINATION_DEFAULTS } from '@ecom/constants'
+import { ProductStatus, UserEventType } from '@ecom/contracts'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/constants'
 
 @Injectable()
 export class RecommendationService {

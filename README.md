@@ -27,11 +27,20 @@ ecommerce/
 │   └── worker/            # NestJS — background job processor
 │
 ├── packages/
+│   ├── shared/            # Universal primitives: constants, utils, pagination (layered)
+│   ├── contracts/         # Stable boundary: all domain enums, API types, transport contracts
+│   ├── nestjs-core/       # NestJS infrastructure: filters, interceptors
+│   ├── database/          # Prisma client + repositories
+│   ├── auth/              # Authentication domain
+│   ├── auth-next/         # Next.js auth helpers
+│   ├── redis/             # Redis client
+│   ├── email/             # Email service
+│   ├── api-client/        # Typed API client
 │   ├── core-ui/           # Base React component library (Storybook :6006)
 │   ├── ui-storefront/     # Storefront-specific UI components (Storybook :6009)
 │   ├── ui-seller/         # Seller-specific UI components (Storybook :6008)
 │   ├── ui-admin/          # Admin-specific UI components (Storybook :6007)
-│   ├── common/            # Shared utilities, types & helpers
+│   ├── config/            # App configuration
 │   ├── eslint-config/     # Shared ESLint configuration
 │   └── tsconfig/          # Shared TypeScript configuration presets
 │
@@ -101,11 +110,18 @@ pnpm db:seed        # Seed sample data
 
 | Package | Description |
 | --- | --- |
+| `@ecom/shared` | Universal primitives — constants, utils, pagination (core/prisma/react/nestjs layers) |
+| `@ecom/contracts` | Stable boundary — ALL domain enums, API schemas, transport contracts (`ApiResponse`) |
+| `@ecom/nestjs-core` | NestJS infrastructure — `AllExceptionsFilter`, `ResponseInterceptor` |
+| `@ecom/database` | Prisma client + repository helpers |
+| `@ecom/auth` | Authentication domain (may import database) |
+| `@ecom/redis` | Redis client wrapper |
+| `@ecom/email` | Email service base |
+| `@ecom/api-client` | Typed HTTP API client |
 | `@ecom/core-ui` | Base React component library — buttons, inputs, modals, sidebar, theme provider (Radix UI + shadcn) |
 | `@ecom/ui-storefront` | Storefront-specific components — product cards, storefront chrome |
 | `@ecom/ui-seller` | Seller-specific components — stat cards, charts (Recharts) |
 | `@ecom/ui-admin` | Admin-specific components — data grids, admin shell |
-| `@ecom/common` | Shared utilities, types & helper functions |
 | `@ecom/eslint-config` | Shared ESLint 9 flat config presets |
 | `@ecom/tsconfig` | Shared TypeScript config presets (`base`, `library`, `react-library`, `nextjs`, `nestjs`) |
 
@@ -217,3 +233,22 @@ pnpm db:seed          # Seed the database
 ## License
 
 Private — All rights reserved.
+
+---
+
+## Governance & Scaling
+
+### Package Creation Rules
+- **Create** only for isolated, reusable logic across 3+ apps.
+- **Merge** if <5 exports or overlapping responsibility.
+- **Leaf rule**: `shared` and `contracts` must never import other internal packages.
+
+### Import Standards
+- ✅ `import { X } from '@ecom/contracts'`
+- ✅ `import { Y } from '@ecom/shared/constants'`
+- ❌ `import { Z } from '@ecom/shared/pagination'` (use explicit layers)
+
+### Future Roadmap
+- **Domain Extraction**: Extract `@ecom/domain-*` when logic crosses 3+ apps.
+- **Grouping**: Group into `infrastructure/`, `domains/`, `ui/` when package count >25.
+

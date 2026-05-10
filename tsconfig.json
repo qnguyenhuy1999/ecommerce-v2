@@ -23,7 +23,7 @@
             "path": "./apps/storefront"
         },
         {
-            "path": "./packages/common"
+            "path": "./packages/nestjs-core"
         },
         {
             "path": "./packages/core-ui"

@@ -11,7 +11,7 @@ import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { ProductQueryDto } from './dto/product-query.dto';
 import { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto/product-action.dto';
 import { type ProductStatus, type ProductReportStatus } from '@ecom/database';
-import { AUDIT_ACTIONS } from '@ecom/constants';
+import { AUDIT_ACTIONS } from '@ecom/shared/constants';
 
 @ApiTags("Products")
 @Controller('products')

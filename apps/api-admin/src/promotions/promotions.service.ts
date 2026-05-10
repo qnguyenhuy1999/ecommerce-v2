@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
 import { PrismaService, type PlatformVoucherStatus, type PlatformVoucherType, Prisma } from '@ecom/database';
-import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
 
 @Injectable()
 export class PromotionsService {

@@ -1,0 +1,19 @@
+export enum FlashSaleStatus {
+  UPCOMING = 'UPCOMING',
+  ACTIVE = 'ACTIVE',
+  ENDED = 'ENDED',
+  CANCELLED = 'CANCELLED',
+}
+
+export enum CouponType {
+  PERCENTAGE = 'PERCENTAGE',
+  FIXED_AMOUNT = 'FIXED_AMOUNT',
+  FREE_SHIPPING = 'FREE_SHIPPING',
+}
+
+export enum CouponStatus {
+  ACTIVE = 'ACTIVE',
+  EXPIRED = 'EXPIRED',
+  EXHAUSTED = 'EXHAUSTED',
+  DISABLED = 'DISABLED',
+}

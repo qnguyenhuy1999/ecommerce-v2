@@ -1,7 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '../auth/guards/auth.guard'
 import { LoyaltyService } from './loyalty.service'
-import { OffsetPaginationDto } from '@ecom/pagination'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Controller('loyalty')
 @UseGuards(AuthGuard)

@@ -12,10 +12,9 @@
   },
   "dependencies": {
     "@ecom/auth": "workspace:*",
-    "@ecom/common": "workspace:*",
-    "@ecom/constants": "workspace:*",
+    "@ecom/nestjs-core": "workspace:*",
     "@ecom/database": "workspace:*",
-    "@ecom/pagination": "workspace:*",
+    "@ecom/shared": "workspace:*",
     "@ecom/redis": "workspace:*",
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",

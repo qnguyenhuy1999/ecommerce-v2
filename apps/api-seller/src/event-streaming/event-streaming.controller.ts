@@ -2,7 +2,7 @@ import { Controller, Get, Post, Param, Body, Query, UseGuards } from '@nestjs/co
 import { AuthGuard } from '../auth/guards/auth.guard'
 import { EventStreamingService } from './event-streaming.service'
 import { EmitEventDto } from './dto/event-streaming.dto'
-import { OffsetPaginationDto } from '@ecom/pagination'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Controller('events')
 @UseGuards(AuthGuard)

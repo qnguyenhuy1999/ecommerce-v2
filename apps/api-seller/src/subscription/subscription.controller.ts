@@ -5,7 +5,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ShopService } from '../shop/shop.service'
 import { SubscriptionService } from './subscription.service'
 import { SubscribeDto } from './dto/subscription.dto'
-import { OffsetPaginationDto } from '@ecom/pagination'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Controller('subscriptions')
 @UseGuards(AuthGuard)

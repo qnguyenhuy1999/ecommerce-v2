@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { InventoryQueryDto } from './dto/inventory-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 const LOW_STOCK_THRESHOLD = 10
 

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import { UserStatus } from '@ecom/constants';
+import { UserStatus } from '@ecom/contracts';
 import {
   useSellerDetail,
   useApproveSeller,

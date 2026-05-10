@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
-import { NotificationStatus, PAGINATION_DEFAULTS } from '@ecom/constants';
+import { NotificationStatus } from '@ecom/contracts';
+import { PAGINATION_DEFAULTS } from '@ecom/shared/constants';
 import { DataTable, StatusBadge, StatusTabs } from '@ecom/core-ui';
 import { useNotifications, useCreateNotification, useSendNotification } from '../hooks/use-notifications';
 import type { NotificationListItem } from '../api/notifications.api';

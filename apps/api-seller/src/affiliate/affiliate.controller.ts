@@ -4,7 +4,7 @@ import { AuthGuard } from '../auth/guards/auth.guard'
 import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { AffiliateService } from './affiliate.service'
 import { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
-import { OffsetPaginationDto } from '@ecom/pagination'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/core'
 
 @Controller('affiliates')
 @UseGuards(AuthGuard)

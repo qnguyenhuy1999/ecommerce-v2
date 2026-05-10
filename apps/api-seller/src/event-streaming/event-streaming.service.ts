@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService, Prisma } from '@ecom/database'
 import { EmitEventDto } from './dto/event-streaming.dto'
-import { offsetPaginate, buildOffsetResponse, OffsetPaginationDto } from '@ecom/pagination'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'\nimport { OffsetPaginationDto } from '@ecom/shared/pagination/core'
 import { randomUUID } from 'crypto'
 
 @Injectable()

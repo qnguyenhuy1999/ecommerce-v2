@@ -1,0 +1,66 @@
+{
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        },
+        "./constants": {
+            "types": "./dist/constants/index.d.ts",
+            "import": "./dist/constants/index.mjs"
+        },
+        "./pagination/core": {
+            "types": "./dist/pagination/core/index.d.ts",
+            "import": "./dist/pagination/core/index.mjs"
+        },
+        "./pagination/nestjs": {
+            "types": "./dist/pagination/nestjs/index.d.ts",
+            "import": "./dist/pagination/nestjs/index.mjs"
+        },
+        "./pagination/prisma": {
+            "types": "./dist/pagination/prisma/index.d.ts",
+            "import": "./dist/pagination/prisma/index.mjs"
+        },
+        "./pagination/react": {
+            "types": "./dist/pagination/react/index.d.ts",
+            "import": "./dist/pagination/react/index.mjs"
+        },
+        "./utils": {
+            "types": "./dist/utils/index.d.ts",
+            "import": "./dist/utils/index.mjs"
+        }
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "name": "@ecom/shared",
+    "peerDependenciesMeta": {
+        "@tanstack/react-query": {
+            "optional": true
+        },
+        "react": {
+            "optional": true
+        }
+    },
+    "private": true,
+    "scripts": {
+        "build": "tsup",
+        "clean": "rm -rf dist",
+        "dev": "tsup --watch",
+        "lint": "eslint src/",
+        "test": "vitest run"
+    },
+    "sideEffects": false,
+    "types": "./dist/index.d.ts",
+    "version": "1.0.0",
+    "devDependencies": {
+        "@tanstack/react-query": "^5.100.9",
+        "@types/node": "^25.6.2",
+        "@types/react": "^19.2.14",
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.15.1",
+        "client-only": "^0.0.1",
+        "react": "^19.2.5",
+        "server-only": "^0.0.1",
+        "vitest": "^3.0.7"
+    }
+}

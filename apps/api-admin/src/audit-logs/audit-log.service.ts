@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService, type AuditActionType, Prisma } from '@ecom/database';
-import { offsetPaginate, buildOffsetResponse } from '@ecom/pagination';
+import { offsetPaginate } from '@ecom/shared/pagination/prisma';
+import { buildPaginatedResponse } from '@ecom/shared/pagination/core';
 
 interface LogParams {
   adminId: string;
@@ -57,6 +58,6 @@ export class AuditLogService {
       },
     });
 
-    return buildOffsetResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
+    return buildPaginatedResponse(items, query.page ?? 1, query.pageSize ?? 20, total);
   }
 }

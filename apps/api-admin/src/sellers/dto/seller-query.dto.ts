@@ -1,29 +1,42 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsEnum, IsOptional, IsString, IsInt, Min } from 'class-validator';
+import { Type } from 'class-transformer';
 import { SellerStatus } from '@ecom/database';
 
 export class SellerQueryDto {
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional()
-  @ApiProperty()
-  @IsString()
-  page?: string;
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  page?: number = 1;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional()
-  @ApiProperty()
-  @IsString()
-  limit?: string;
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  limit?: number = 20;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional()
-  @ApiProperty()
   @IsString()
   search?: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional({ enum: SellerStatus })
   @IsOptional()
-  @ApiProperty()
   @IsEnum(SellerStatus)
   status?: SellerStatus;
+}
+
+export class SellerResponseDto {
+  @ApiProperty() id!: string;
+  @ApiProperty() userId!: string;
+  @ApiProperty() shopName!: string;
+  @ApiProperty() shopDescription!: string;
+  @ApiProperty({ enum: SellerStatus }) status!: SellerStatus;
+  @ApiPropertyOptional() phoneNumber?: string;
+  @ApiPropertyOptional() address?: string;
+  @ApiProperty() createdAt!: Date;
+  @ApiProperty() updatedAt!: Date;
 }

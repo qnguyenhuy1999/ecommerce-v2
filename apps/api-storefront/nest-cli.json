@@ -4,8 +4,18 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "deleteOutDir": true,
+    "builder": "tsc",
     "assets": [
       "**/*.hbs"
+    ],
+    "plugins": [
+      {
+        "name": "@nestjs/swagger",
+        "options": {
+          "classValidatorShim": true,
+          "introspectComments": true
+        }
+      }
     ]
   }
 }

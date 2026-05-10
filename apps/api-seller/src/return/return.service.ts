@@ -18,7 +18,19 @@ const VALID_TRANSITIONS: Record<string, string[]> = {
 export class ReturnService {
   constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: ReturnQueryDto) {
-    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, status } = query
+    const {
+      page = 1,
+      pageSize = 20,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      search,
+      status,
+      sort,
+      order,
+    } = query
+
+    const finalSort = sort || sortBy
+    const finalOrder = order || sortOrder
 
     const where: Prisma.ReturnRequestWhereInput = {
       shopId,
@@ -34,7 +46,7 @@ export class ReturnService {
         items: true,
         _count: { select: { evidence: true, timeline: true } },
       },
-      orderBy: { [sort]: order },
+      orderBy: { [finalSort]: finalOrder },
     })
 
     return buildOffsetResponse(items, page, pageSize, total)

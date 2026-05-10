@@ -1,32 +1,33 @@
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger';
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { AuditLogService } from './audit-log.service';
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard';
 import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
-import type { AuditActionType } from '@ecom/database';
+import { AuditLogQueryDto, AuditLogResponseDto } from './dto/audit-log-query.dto';
+import { ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
 
-@ApiTags("Audit-logs")
+@ApiTags("Admin/Audit-logs")
 @Controller('audit-logs')
 @UseGuards(AdminAuthGuard, PermissionGuard)
+@ApiAuth()
+@ApiErrorResponses()
+@ApiExtraModels(AuditLogResponseDto)
 export class AuditLogsController {
   constructor(private readonly auditLogService: AuditLogService) {}
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "List all audit logs" })
+  @ApiPaginatedResponse(AuditLogResponseDto)
   @Get()
   @Permissions('AUDIT_VIEW')
   async findAll(
-    @Query('page') page?: string,
-    @Query('limit') limit?: string,
-    @Query('action') action?: AuditActionType,
-    @Query('adminId') adminId?: string,
+    @Query() query: AuditLogQueryDto,
   ) {
     const result = await this.auditLogService.findAll({
-      page: page ? parseInt(page, 10) : undefined,
-      limit: limit ? parseInt(limit, 10) : undefined,
-      action,
-      adminId,
+      page: query.page,
+      limit: query.limit,
+      action: query.action,
+      adminId: query.adminId,
     });
     return result;
   }

@@ -9,7 +9,20 @@ import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/pri
 export class CouponService {
   constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: CouponQueryDto) {
-    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, status, type } = query
+    const {
+      page = 1,
+      pageSize = 20,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      search,
+      status,
+      type,
+      sort,
+      order,
+    } = query
+
+    const finalSort = sort || sortBy
+    const finalOrder = order || sortOrder
 
     const where: Prisma.CouponWhereInput = {
       shopId,
@@ -27,7 +40,7 @@ export class CouponService {
       include: {
         _count: { select: { couponUsages: true } },
       },
-      orderBy: { [sort]: order },
+      orderBy: { [finalSort]: finalOrder },
     })
 
     return buildOffsetResponse(items, page, pageSize, total)

@@ -1,4 +1,4 @@
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Put, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -8,33 +8,36 @@ import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
-import { VoucherQueryDto, CreateVoucherDto, UpdateVoucherDto } from './dto/voucher.dto';
-import type { PlatformVoucherStatus, PlatformVoucherType } from '@ecom/database';
+import { VoucherQueryDto, CreateVoucherDto, UpdateVoucherDto, VoucherResponseDto } from './dto/voucher.dto';
+import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
 
-@ApiTags("Promotions")
+@ApiTags("Admin/Promotions")
 @Controller('promotions')
 @UseGuards(AdminAuthGuard, PermissionGuard)
+@ApiErrorResponses()
+@ApiAuth()
+@ApiExtraModels(VoucherResponseDto)
 export class PromotionsController {
   constructor(
     private readonly promotionsService: PromotionsService,
   ) {}
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "List all platform vouchers" })
+  @ApiPaginatedResponse(VoucherResponseDto)
   @Get('vouchers')
   @Permissions('MARKETING_MANAGE')
   async findAll(@Query() query: VoucherQueryDto) {
     const result = await this.promotionsService.findAll({
-      page: query.page ? parseInt(query.page, 10) : undefined,
-      limit: query.limit ? parseInt(query.limit, 10) : undefined,
-      status: query.status as PlatformVoucherStatus | undefined,
+      page: query.page,
+      limit: query.limit,
+      status: query.status,
       search: query.search,
     });
     return result;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get voucher status counts" })
+  @ApiOkResponseData(Object)
   @Get('vouchers/status-counts')
   @Permissions('MARKETING_MANAGE')
   async statusCounts() {
@@ -42,8 +45,8 @@ export class PromotionsController {
     return counts;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get voucher by ID" })
+  @ApiOkResponseData(VoucherResponseDto)
   @Get('vouchers/:id')
   @Permissions('MARKETING_MANAGE')
   async findById(@Param('id') id: string) {
@@ -51,8 +54,8 @@ export class PromotionsController {
     return voucher;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Create new platform voucher" })
+  @ApiOkResponseData(VoucherResponseDto)
   @Post('vouchers')
   @Permissions('MARKETING_MANAGE')
   @AuditLog('VOUCHER_CREATED', 'PlatformVoucher', { entityIdPath: 'data.id' })
@@ -62,7 +65,6 @@ export class PromotionsController {
   ) {
     const voucher = await this.promotionsService.create({
       ...dto,
-      type: dto.type as PlatformVoucherType,
       startsAt: new Date(dto.startsAt),
       expiresAt: new Date(dto.expiresAt),
       createdBy: admin.adminId,
@@ -70,8 +72,8 @@ export class PromotionsController {
     return voucher;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Update platform voucher" })
+  @ApiOkResponseData(VoucherResponseDto)
   @Put('vouchers/:id')
   @Permissions('MARKETING_MANAGE')
   @AuditLog('VOUCHER_UPDATED', 'PlatformVoucher', { entityIdParam: 'id' })
@@ -81,7 +83,6 @@ export class PromotionsController {
   ) {
     const voucher = await this.promotionsService.update(id, {
       ...dto,
-      status: dto.status as PlatformVoucherStatus | undefined,
     });
     return voucher;
   }

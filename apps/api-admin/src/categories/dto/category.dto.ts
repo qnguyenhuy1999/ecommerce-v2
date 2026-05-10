@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsBoolean, IsInt } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -51,6 +51,17 @@ export class UpdateCategoryDto {
   @IsOptional() @IsString() metaTitle?: string;
   @ApiProperty()
   @IsOptional() @IsString() metaDesc?: string;
+}
+
+export class CategoryResponseDto {
+  @ApiProperty() id!: string;
+  @ApiProperty() name!: string;
+  @ApiProperty() slug!: string;
+  @ApiPropertyOptional() parentId?: string;
+  @ApiProperty() sortOrder!: number;
+  @ApiProperty() isActive!: boolean;
+  @ApiProperty() createdAt!: Date;
+  @ApiProperty() updatedAt!: Date;
 }
 
 export class ReorderDto {

@@ -10,6 +10,8 @@ export class SearchService {
     const {
       page = 1,
       pageSize = 20,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
       q,
       sku,
       status,
@@ -18,9 +20,12 @@ export class SearchService {
       maxPrice,
       minStock,
       maxStock,
-      sort = 'createdAt',
-      order = 'desc',
+      sort,
+      order,
     } = query
+
+    const finalSort = sort || sortBy
+    const finalOrder = order || sortOrder
 
     const where: Prisma.ProductWhereInput = {
       shopId,
@@ -78,14 +83,28 @@ export class SearchService {
         images: { take: 1, orderBy: { sortOrder: 'asc' } },
         category: { select: { id: true, name: true } },
       },
-      orderBy: { [sort]: order },
+      orderBy: { [finalSort]: finalOrder },
     })
 
     return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async searchOrders(shopId: string, query: OrderSearchDto) {
-    const { page = 1, pageSize = 20, q, status, startDate, endDate, sort = 'createdAt', order = 'desc' } = query
+    const {
+      page = 1,
+      pageSize = 20,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      q,
+      status,
+      startDate,
+      endDate,
+      sort,
+      order,
+    } = query
+
+    const finalSort = sort || sortBy
+    const finalOrder = order || sortOrder
 
     const where: Prisma.SellerOrderWhereInput = {
       shopId,
@@ -112,7 +131,7 @@ export class SearchService {
       include: {
         items: { select: { id: true, productName: true, quantity: true, totalPrice: true } },
       },
-      orderBy: { [sort]: order },
+      orderBy: { [finalSort]: finalOrder },
     })
 
     return buildOffsetResponse(items, page, pageSize, total)

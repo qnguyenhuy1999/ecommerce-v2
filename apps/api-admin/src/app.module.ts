@@ -3,6 +3,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { RedisModule } from '@ecom/redis';
 import { DatabaseModule } from '@ecom/database';
+import { getAdminThrottleConfig, getRedisConfig } from '@ecom/config';
 import { AuthModule } from './auth/auth.module';
 import { SellersModule } from './sellers/sellers.module';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -21,13 +22,9 @@ import { AuditLogInterceptor } from './common/interceptors/audit-log.interceptor
 @Module({
   imports: [
     ThrottlerModule.forRoot({
-      throttlers: [{ ttl: 60_000, limit: 30 }],
+      throttlers: [getAdminThrottleConfig()],
     }),
-    RedisModule.forRoot({
-      host: process.env.REDIS_HOST ?? 'localhost',
-      port: parseInt(process.env.REDIS_PORT ?? '6379', 10),
-      password: process.env.REDIS_PASSWORD,
-    }),
+    RedisModule.forRoot(getRedisConfig()),
     DatabaseModule,
     AuthModule,
     SellersModule,

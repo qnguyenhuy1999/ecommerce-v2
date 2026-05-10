@@ -1,4 +1,2 @@
-// Auth API schemas, DTOs, and Zod validation schemas
-// Placeholder — will be populated with auth-related contracts
-
-export {}
+export * from './dto/login.dto';
+export * from './dto/register.dto';

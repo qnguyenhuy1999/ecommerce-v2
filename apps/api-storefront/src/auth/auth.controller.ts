@@ -9,26 +9,33 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common'
+import { ApiTags, ApiOperation } from '@nestjs/swagger'
 import { Throttle } from '@nestjs/throttler'
 import type { Request, Response } from 'express'
 import { getSessionCookieOptions, SESSION_COOKIE_NAME } from '@ecom/auth'
+import { RegisterDto, LoginDto } from '@ecom/contracts'
+import { ApiErrorResponses, ApiOkResponseData, ApiCreatedResponseData } from '@ecom/nestjs-openapi'
 import { AuthService } from './auth.service'
-import { RegisterDto } from './dto/register.dto'
-import { LoginDto } from './dto/login.dto'
 
+@ApiTags('Storefront/Auth')
+@ApiErrorResponses()
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
+  @ApiOperation({ summary: 'Register a new user' })
+  @ApiCreatedResponseData('any')
   async register(@Body() dto: RegisterDto) {
     const user = await this.authService.register(dto.email, dto.password)
     return { user }
   }
 
   @Post('login')
+  @ApiOperation({ summary: 'Login and receive session cookie' })
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   @HttpCode(HttpStatus.OK)
+  @ApiOkResponseData('any')
   async login(
     @Body() dto: LoginDto,
     @Req() req: Request,
@@ -58,7 +65,9 @@ export class AuthController {
   }
 
   @Post('logout')
+  @ApiOperation({ summary: 'Logout and clear session cookie' })
   @HttpCode(HttpStatus.OK)
+  @ApiOkResponseData('any')
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const sessionId = req.cookies?.[SESSION_COOKIE_NAME]
     if (sessionId) {
@@ -78,6 +87,8 @@ export class AuthController {
   }
 
   @Get('me')
+  @ApiOperation({ summary: 'Get current user session info' })
+  @ApiOkResponseData('any')
   async me(@Req() req: Request) {
     const sessionId = req.cookies?.[SESSION_COOKIE_NAME]
     if (!sessionId) {

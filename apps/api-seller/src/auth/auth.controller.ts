@@ -10,20 +10,29 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
 import { Throttle } from '@nestjs/throttler'
 import type { Request, Response } from 'express'
 import { getSessionCookieOptions, SESSION_COOKIE_NAME } from '@ecom/auth'
+import {
+  ApiOkResponseData,
+  ApiCreatedResponseData,
+  ApiErrorResponses,
+} from '@ecom/nestjs-openapi'
+import { LoginDto } from '@ecom/contracts'
 import { AuthService } from './auth.service'
 import { RegisterDto } from './dto/register.dto'
-import { LoginDto } from './dto/login.dto'
 import { ForgotPasswordDto } from './dto/forgot-password.dto'
 import { ResetPasswordDto } from './dto/reset-password.dto'
 
+@ApiTags('Seller/Auth')
+@ApiErrorResponses()
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
+  @ApiCreatedResponseData(Object)
   async register(@Body() dto: RegisterDto) {
     const user = await this.authService.register(dto.email, dto.password, dto.shopName)
     return user
@@ -32,6 +41,7 @@ export class AuthController {
   @Post('login')
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   @HttpCode(HttpStatus.OK)
+  @ApiOkResponseData(Object)
   async login(
     @Body() dto: LoginDto,
     @Req() req: Request,
@@ -63,6 +73,7 @@ export class AuthController {
 
   @Post('logout')
   @HttpCode(HttpStatus.OK)
+  @ApiOkResponseData(Object)
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const sessionId = req.cookies?.[SESSION_COOKIE_NAME]
     if (sessionId) {
@@ -82,6 +93,7 @@ export class AuthController {
   }
 
   @Get('me')
+  @ApiOkResponseData(Object)
   async me(@Req() req: Request) {
     const sessionId = req.cookies?.[SESSION_COOKIE_NAME]
     if (!sessionId) {
@@ -93,6 +105,7 @@ export class AuthController {
   @Post('forgot-password')
   @Throttle({ default: { limit: 3, ttl: 60_000 } })
   @HttpCode(HttpStatus.OK)
+  @ApiOkResponseData(Object)
   async forgotPassword(@Body() dto: ForgotPasswordDto) {
     await this.authService.forgotPassword(dto.email)
     return { message: 'If that email exists, a reset link has been sent' }
@@ -100,12 +113,14 @@ export class AuthController {
 
   @Post('reset-password')
   @HttpCode(HttpStatus.OK)
+  @ApiOkResponseData(Object)
   async resetPassword(@Body() dto: ResetPasswordDto) {
     await this.authService.resetPassword(dto.token, dto.password)
     return { message: 'Password reset successful' }
   }
 
   @Get('verify-email')
+  @ApiOkResponseData(Object)
   async verifyEmail(@Query('token') token: string) {
     await this.authService.verifyEmail(token)
     return { message: 'Email verified successfully' }

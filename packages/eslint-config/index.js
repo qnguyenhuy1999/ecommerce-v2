@@ -34,11 +34,18 @@ const baseConfig = [
   {
     files: ['packages/contracts/**'],
     rules: {
-      'no-restricted-imports': ['warn', {
+      'no-restricted-imports': ['error', {
         patterns: [
           {
             group: ['@ecom/shared', '@ecom/shared/*'],
             message: '@ecom/contracts is a stable leaf layer — it cannot import from @ecom/shared.'
+          },
+          {
+            // CRITICAL BOUNDARY: contracts must stay framework-light.
+            // DTOs here are reused by frontend, SDK generators, and future GraphQL/gRPC.
+            // Swagger decorators belong in packages/nestjs-openapi or apps/api-*.
+            group: ['@nestjs/swagger', '@nestjs/swagger/*'],
+            message: '@ecom/contracts MUST NOT import @nestjs/swagger. Use class-validator only. Add @ApiProperty in packages/nestjs-openapi or apps/api-* instead.'
           },
         ]
       }]

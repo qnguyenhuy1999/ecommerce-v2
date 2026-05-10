@@ -1,7 +1,8 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
+import { Prisma } from '@ecom/database'
 import { InventoryQueryDto } from './dto/inventory-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { InventoryRepository } from './repositories/inventory.repository'
 
 const LOW_STOCK_THRESHOLD = 10
 
@@ -14,7 +15,8 @@ type VariantWithRelations = Prisma.ProductVariantGetPayload<{
 
 @Injectable()
 export class InventoryService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly inventoryRepository: InventoryRepository) {}
+
   async list(shopId: string, query: InventoryQueryDto) {
     const { page = 1, limit = 20, search, lowStock } = query
 
@@ -31,19 +33,10 @@ export class InventoryService {
       ...(lowStock ? { stock: { lte: LOW_STOCK_THRESHOLD } } : {}),
     }
 
-    const { items: variants, total } = await offsetPaginate(
-      this.prisma.productVariant,
-      {
-        page,
-        limit,
-        where,
-        include: {
-          product: { select: { id: true, name: true, shopId: true } },
-          optionValues: { include: { option: { include: { group: true } } } },
-        },
-        orderBy: { stock: 'asc' },
-      }
-    )
+    const { items: variants, total } = await this.inventoryRepository.findVariants(where, {
+      page,
+      limit,
+    })
 
     const data = (variants as VariantWithRelations[]).map((v) => ({
       variantId: v.id,
@@ -63,8 +56,14 @@ export class InventoryService {
     return buildOffsetResponse(data, page, limit, total)
   }
 
-  async updateStock(shopId: string, variantId: string, quantity: number, type: string, note?: string) {
-    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+  async updateStock(
+    shopId: string,
+    variantId: string,
+    quantity: number,
+    type: string,
+    note?: string,
+  ) {
+    return this.inventoryRepository.$transaction(async (tx: Prisma.TransactionClient) => {
       const variant = await tx.productVariant.findFirst({
         where: { id: variantId, product: { shopId, deletedAt: null } },
       })
@@ -107,7 +106,7 @@ export class InventoryService {
   }
 
   async bulkUpdateStock(shopId: string, items: { variantId: string; stock: number }[]) {
-    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.inventoryRepository.$transaction(async (tx: Prisma.TransactionClient) => {
       const results: { variantId: string; stock: number }[] = []
 
       for (const item of items) {
@@ -141,39 +140,27 @@ export class InventoryService {
   }
 
   async getHistory(shopId: string, variantId: string, page = 1, pageSize = 20) {
-    const variant = await this.prisma.productVariant.findFirst({
-      where: { id: variantId, product: { shopId } },
+    const variant = await this.inventoryRepository.findVariant({
+      id: variantId,
+      product: { shopId },
     })
 
     if (!variant) {
       throw new BadRequestException('Variant not found')
     }
 
-    const { items: transactions, total } = await offsetPaginate(
-      this.prisma.inventoryTransaction,
-      {
-        page,
-        pageSize,
-        where: { variantId },
-        orderBy: { createdAt: 'desc' },
-      }
+    const { items: transactions, total } = await this.inventoryRepository.findTransactions(
+      { variantId },
+      { page, pageSize },
     )
 
     return buildOffsetResponse(transactions, page, pageSize, total)
   }
 
   async getLowStockAlerts(shopId: string) {
-    const variants = await this.prisma.productVariant.findMany({
-      where: {
-        product: { shopId, deletedAt: null },
-        stock: { lte: LOW_STOCK_THRESHOLD },
-      },
-      include: {
-        product: { select: { id: true, name: true } },
-        optionValues: { include: { option: { include: { group: true } } } },
-      },
-      orderBy: { stock: 'asc' },
-      take: 50,
+    const variants = await this.inventoryRepository.findLowStockVariants({
+      product: { shopId, deletedAt: null },
+      stock: { lte: LOW_STOCK_THRESHOLD },
     })
 
     return variants.map((v: typeof variants[number]) => ({

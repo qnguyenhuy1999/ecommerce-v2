@@ -36,7 +36,7 @@ export class AuthService extends BaseUserAuthService {
     redisService: RedisService,
     private readonly prisma: PrismaService,
   ) {
-    super(sessionService, emailService, redisService)
+    super(sessionService, emailService, redisService, prisma)
   }
 
   async register(email: string, password: string, shopName?: string) {

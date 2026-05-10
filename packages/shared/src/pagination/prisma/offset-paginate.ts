@@ -2,15 +2,15 @@ import { OffsetParams } from '../core'
 import { PAGINATION_DEFAULTS, getSkip } from '../core'
 
 type PaginateModelDelegate = {
-  findMany: (args: unknown) => Promise<unknown>
-  count: (args: unknown) => Promise<number>
+  findMany: (args: any) => Promise<any>
+  count: (args: any) => Promise<number>
 }
 
 type ItemOfModelDelegate<TModel extends PaginateModelDelegate> =
   Awaited<ReturnType<TModel['findMany']>> extends Array<infer TItem> ? TItem : never
 
 export interface OffsetPaginateOptions<T> {
-  model: { findMany: (args: unknown) => Promise<T[]>; count: (args: unknown) => Promise<number> }
+  model: { findMany: (args: any) => Promise<T[]>; count: (args: any) => Promise<number> }
   where?: unknown
   include?: unknown
   select?: unknown

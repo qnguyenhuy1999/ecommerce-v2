@@ -1,4 +1,4 @@
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger';
 import {
   Controller,
   Post,
@@ -14,19 +14,21 @@ import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
 import { getSessionCookieOptions, SESSION_COOKIE_NAME } from '@ecom/auth';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login.dto';
+import { LoginDto } from '@ecom/contracts';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
+import { ApiOkResponseData, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
 
-@ApiTags("Auth")
+@ApiTags("Admin/Auth")
 @Controller('auth')
+@ApiErrorResponses()
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
   ) {}
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Login to admin panel" })
+  @ApiOkResponseData(Object)
   @Post('login')
   @Throttle({ default: { limit: 5, ttl: 60_000 } })
   @HttpCode(HttpStatus.OK)
@@ -66,8 +68,9 @@ export class AuthController {
     return result.admin;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Logout from admin panel" })
+  @ApiOkResponseData(Object)
+  @ApiAuth()
   @Post('logout')
   @UseGuards(AdminAuthGuard)
   @HttpCode(HttpStatus.OK)
@@ -93,8 +96,9 @@ export class AuthController {
     return { success: true };
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get current admin profile" })
+  @ApiOkResponseData(Object)
+  @ApiAuth()
   @Get('me')
   @UseGuards(AdminAuthGuard)
   async me(@Req() req: Request) {
@@ -103,8 +107,9 @@ export class AuthController {
     return admin;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Refresh session" })
+  @ApiOkResponseData(Object)
+  @ApiAuth()
   @Post('refresh')
   @UseGuards(AdminAuthGuard)
   @HttpCode(HttpStatus.OK)

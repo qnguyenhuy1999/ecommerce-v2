@@ -1,10 +1,19 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
 import type { SessionData } from '@ecom/auth'
 import { AuthGuard } from '../auth/guards/auth.guard'
 import { CurrentUser } from '../auth/decorators/current-user.decorator'
+import {
+  ApiOkResponseData,
+  ApiErrorResponses,
+  ApiAuth,
+} from '@ecom/nestjs-openapi'
 import { ShopService } from '../shop/shop.service'
 import { AnalyticsService } from './analytics.service'
 
+@ApiTags('Seller/Analytics')
+@ApiAuth()
+@ApiErrorResponses()
 @Controller('analytics')
 @UseGuards(AuthGuard)
 export class AnalyticsController {
@@ -14,12 +23,14 @@ export class AnalyticsController {
   ) {}
 
   @Get('dashboard')
+  @ApiOkResponseData(Object)
   async dashboard(@CurrentUser() user: SessionData) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.analyticsService.getDashboardSummary(shopId)
   }
 
   @Get('revenue')
+  @ApiOkResponseData(Object)
   async revenue(
     @CurrentUser() user: SessionData,
     @Query('startDate') startDate: string,
@@ -32,6 +43,7 @@ export class AnalyticsController {
   }
 
   @Get('orders')
+  @ApiOkResponseData(Object)
   async orders(
     @CurrentUser() user: SessionData,
     @Query('startDate') startDate: string,
@@ -44,6 +56,7 @@ export class AnalyticsController {
   }
 
   @Get('products')
+  @ApiOkResponseData(Object)
   async products(
     @CurrentUser() user: SessionData,
     @Query('startDate') startDate: string,
@@ -56,6 +69,7 @@ export class AnalyticsController {
   }
 
   @Get('conversion')
+  @ApiOkResponseData(Object)
   async conversion(
     @CurrentUser() user: SessionData,
     @Query('startDate') startDate: string,

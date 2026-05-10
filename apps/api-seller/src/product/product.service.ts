@@ -1,16 +1,31 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
+import { Prisma } from '@ecom/database'
 import { slugify } from '@ecom/shared/utils'
 import { CreateProductDto } from './dto/create-product.dto'
 import { UpdateProductDto } from './dto/update-product.dto'
 import { ProductQueryDto } from './dto/product-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { ProductRepository } from './repositories/product.repository'
 
 @Injectable()
 export class ProductService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly productRepository: ProductRepository) {}
+
   async list(shopId: string, query: ProductQueryDto) {
-    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, status, categoryId } = query
+    const {
+      page = 1,
+      pageSize = 20,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      search,
+      status,
+      categoryId,
+      sort,
+      order,
+    } = query
+
+    const finalSort = sort || sortBy
+    const finalOrder = order || sortOrder
 
     const where: Prisma.ProductWhereInput = {
       shopId,
@@ -22,36 +37,20 @@ export class ProductService {
         : {}),
     }
 
-    const { items, total } = await offsetPaginate(this.prisma.product, {
+    const { items, total } = await this.productRepository.findMany(where, {
       page,
       pageSize,
-      where,
-      include: {
-        images: { orderBy: { sortOrder: 'asc' }, take: 1 },
-        category: { select: { id: true, name: true } },
-        _count: { select: { variants: true } },
-      },
-      orderBy: { [sort]: order },
+      orderBy: { [finalSort]: finalOrder },
     })
 
     return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getById(shopId: string, productId: string) {
-    const product = await this.prisma.product.findFirst({
-      where: { id: productId, shopId, deletedAt: null },
-      include: {
-        images: { orderBy: { sortOrder: 'asc' } },
-        category: { select: { id: true, name: true } },
-        variantOptionGroups: {
-          orderBy: { sortOrder: 'asc' },
-          include: { options: { orderBy: { sortOrder: 'asc' } } },
-        },
-        variants: {
-          include: { optionValues: { include: { option: true } } },
-          orderBy: { createdAt: 'asc' },
-        },
-      },
+    const product = await this.productRepository.findOneWithDetails({
+      id: productId,
+      shopId,
+      deletedAt: null,
     })
 
     if (!product) {
@@ -63,10 +62,9 @@ export class ProductService {
 
   async create(shopId: string, dto: CreateProductDto) {
     const slug = slugify(dto.name)
-
     const uniqueSlug = `${slug}-${Date.now().toString(36)}`
 
-    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.productRepository.$transaction(async (tx: Prisma.TransactionClient) => {
       const product = await tx.product.create({
         data: {
           shopId,
@@ -154,8 +152,10 @@ export class ProductService {
   }
 
   async update(shopId: string, productId: string, dto: UpdateProductDto) {
-    const existing = await this.prisma.product.findFirst({
-      where: { id: productId, shopId, deletedAt: null },
+    const existing = await this.productRepository.findOne({
+      id: productId,
+      shopId,
+      deletedAt: null,
     })
 
     if (!existing) {
@@ -176,31 +176,30 @@ export class ProductService {
     if (dto.hasVariants !== undefined) data.hasVariants = dto.hasVariants
     if (dto.status !== undefined) data.status = dto.status as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED'
 
-    await this.prisma.product.update({ where: { id: productId }, data })
+    await this.productRepository.update(productId, data)
 
     return this.getById(shopId, productId)
   }
 
   async delete(shopId: string, productId: string) {
-    const existing = await this.prisma.product.findFirst({
-      where: { id: productId, shopId, deletedAt: null },
+    const existing = await this.productRepository.findOne({
+      id: productId,
+      shopId,
+      deletedAt: null,
     })
 
     if (!existing) {
       throw new NotFoundException('Product not found')
     }
 
-    await this.prisma.product.update({
-      where: { id: productId },
-      data: { deletedAt: new Date() },
-    })
+    await this.productRepository.update(productId, { deletedAt: new Date() })
   }
 
   async bulkUpdateStatus(shopId: string, productIds: string[], status: string) {
-    const result = await this.prisma.product.updateMany({
-      where: { id: { in: productIds }, shopId, deletedAt: null },
-      data: { status: status as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' },
-    })
+    const result = await this.productRepository.updateMany(
+      { id: { in: productIds }, shopId, deletedAt: null },
+      { status: status as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' },
+    )
 
     if (result.count === 0) {
       throw new BadRequestException('No products updated')
@@ -210,24 +209,15 @@ export class ProductService {
   }
 
   async bulkDelete(shopId: string, productIds: string[]) {
-    const result = await this.prisma.product.updateMany({
-      where: { id: { in: productIds }, shopId, deletedAt: null },
-      data: { deletedAt: new Date() },
-    })
+    const result = await this.productRepository.updateMany(
+      { id: { in: productIds }, shopId, deletedAt: null },
+      { deletedAt: new Date() },
+    )
 
     return { deleted: result.count }
   }
 
   async listCategories() {
-    return this.prisma.category.findMany({
-      where: { isActive: true },
-      orderBy: { sortOrder: 'asc' },
-      include: {
-        children: {
-          where: { isActive: true },
-          orderBy: { sortOrder: 'asc' },
-        },
-      },
-    })
+    return this.productRepository.findCategories()
   }
 }

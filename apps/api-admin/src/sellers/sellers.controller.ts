@@ -1,4 +1,4 @@
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -17,34 +17,37 @@ import {
   type AdminSessionData,
 } from '../auth/decorators/current-admin.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
-import { SellerQueryDto } from './dto/seller-query.dto';
+import { SellerQueryDto, SellerResponseDto } from './dto/seller-query.dto';
 import { SellerActionDto } from './dto/seller-action.dto';
-import type { SellerStatus } from '@ecom/database';
+import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
 
-@ApiTags("Sellers")
+@ApiTags("Admin/Sellers")
 @Controller('sellers')
 @UseGuards(AdminAuthGuard, PermissionGuard)
+@ApiErrorResponses()
+@ApiAuth()
+@ApiExtraModels(SellerResponseDto)
 export class SellersController {
   constructor(
     private readonly sellersService: SellersService,
   ) {}
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "List all sellers" })
+  @ApiPaginatedResponse(SellerResponseDto)
   @Get()
   @Permissions('SELLER_VIEW')
   async findAll(@Query() query: SellerQueryDto) {
     const result = await this.sellersService.findAll({
-      page: query.page ? parseInt(query.page, 10) : undefined,
-      limit: query.limit ? parseInt(query.limit, 10) : undefined,
+      page: query.page,
+      limit: query.limit,
       search: query.search,
-      status: query.status as SellerStatus | undefined,
+      status: query.status,
     });
     return result;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get seller status counts" })
+  @ApiOkResponseData(Object)
   @Get('status-counts')
   @Permissions('SELLER_VIEW')
   async statusCounts() {
@@ -52,8 +55,8 @@ export class SellersController {
     return counts;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get seller by ID" })
+  @ApiOkResponseData(SellerResponseDto)
   @Get(':id')
   @Permissions('SELLER_VIEW')
   async findById(@Param('id') id: string) {
@@ -61,8 +64,8 @@ export class SellersController {
     return seller;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Approve seller" })
+  @ApiOkResponseData(SellerResponseDto)
   @Post(':id/approve')
   @Permissions('SELLER_APPROVE')
   @AuditLog('SELLER_APPROVED', 'Seller', { entityIdParam: 'id' })
@@ -74,8 +77,8 @@ export class SellersController {
     return seller;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Reject seller application" })
+  @ApiOkResponseData(SellerResponseDto)
   @Post(':id/reject')
   @Permissions('SELLER_APPROVE')
   @AuditLog('SELLER_REJECTED', 'Seller', {
@@ -95,8 +98,8 @@ export class SellersController {
     return seller;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Suspend seller" })
+  @ApiOkResponseData(SellerResponseDto)
   @Post(':id/suspend')
   @Permissions('SELLER_SUSPEND')
   @AuditLog('SELLER_SUSPENDED', 'Seller', {

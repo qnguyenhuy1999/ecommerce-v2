@@ -1,8 +1,10 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, type OrderStatus, type InventoryTransactionType, Prisma } from '@ecom/database'
+import { Prisma } from '@ecom/database'
+import { OrderStatus, InventoryTransactionType } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { OrderQueryDto } from './dto/order-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { OrderRepository } from './repositories/order.repository'
 
 const VALID_TRANSITIONS: Record<string, string[]> = {
   [OrderStatus.PENDING]: [OrderStatus.CONFIRMED, OrderStatus.CANCELLED],
@@ -15,7 +17,8 @@ const VALID_TRANSITIONS: Record<string, string[]> = {
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly orderRepository: OrderRepository) {}
+
   async list(shopId: string, query: OrderQueryDto) {
     const {
       page = PAGINATION_DEFAULTS.DEFAULT_PAGE,
@@ -38,18 +41,9 @@ export class OrderService {
         : {}),
     }
 
-    const { items, total } = await offsetPaginate(this.prisma.sellerOrder, {
+    const { items, total } = await this.orderRepository.findMany(where, {
       page,
       limit,
-      where,
-      include: {
-        order: {
-          select: { id: true, shippingName: true, shippingPhone: true, shippingAddress: true },
-        },
-        items: { select: { id: true, productName: true, variantLabel: true, quantity: true, unitPrice: true, totalPrice: true } },
-        shipment: { select: { id: true, trackingNumber: true, status: true } },
-        _count: { select: { items: true } },
-      },
       orderBy: { [sortBy]: sortOrder },
     })
 
@@ -57,16 +51,9 @@ export class OrderService {
   }
 
   async getById(shopId: string, sellerOrderId: string) {
-    const sellerOrder = await this.prisma.sellerOrder.findFirst({
-      where: { id: sellerOrderId, shopId },
-      include: {
-        order: true,
-        items: {
-          include: { variant: { include: { product: { select: { id: true, name: true } } } } },
-        },
-        shipment: { include: { provider: true } },
-        auditLogs: { orderBy: { createdAt: 'desc' } },
-      },
+    const sellerOrder = await this.orderRepository.findOneWithDetails({
+      id: sellerOrderId,
+      shopId,
     })
 
     if (!sellerOrder) {
@@ -76,10 +63,14 @@ export class OrderService {
     return sellerOrder
   }
 
-  async updateStatus(shopId: string, sellerOrderId: string, newStatus: string, note?: string, performedBy?: string) {
-    const sellerOrder = await this.prisma.sellerOrder.findFirst({
-      where: { id: sellerOrderId, shopId },
-    })
+  async updateStatus(
+    shopId: string,
+    sellerOrderId: string,
+    newStatus: string,
+    note?: string,
+    performedBy?: string,
+  ) {
+    const sellerOrder = await this.orderRepository.findOne({ id: sellerOrderId, shopId })
 
     if (!sellerOrder) {
       throw new NotFoundException('Order not found')
@@ -94,7 +85,7 @@ export class OrderService {
       )
     }
 
-    return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    return this.orderRepository.$transaction(async (tx: Prisma.TransactionClient) => {
       const updated = await tx.sellerOrder.update({
         where: { id: sellerOrderId },
         data: { status: newStatus as Prisma.SellerOrderUpdateInput['status'] },
@@ -111,16 +102,12 @@ export class OrderService {
       })
 
       if (newStatus === OrderStatus.CONFIRMED) {
-        const items = await tx.sellerOrderItem.findMany({
-          where: { sellerOrderId },
-        })
+        const items = await tx.sellerOrderItem.findMany({ where: { sellerOrderId } })
 
         for (const item of items) {
           await tx.productVariant.update({
             where: { id: item.variantId },
-            data: {
-              reservedStock: { increment: item.quantity },
-            },
+            data: { reservedStock: { increment: item.quantity } },
           })
 
           await tx.inventoryTransaction.create({
@@ -136,9 +123,7 @@ export class OrderService {
       }
 
       if (newStatus === OrderStatus.SHIPPED) {
-        const items = await tx.sellerOrderItem.findMany({
-          where: { sellerOrderId },
-        })
+        const items = await tx.sellerOrderItem.findMany({ where: { sellerOrderId } })
 
         for (const item of items) {
           await tx.productVariant.update({
@@ -163,9 +148,7 @@ export class OrderService {
 
       if (newStatus === OrderStatus.CANCELLED) {
         if (currentStatus === OrderStatus.CONFIRMED || currentStatus === OrderStatus.PACKING) {
-          const items = await tx.sellerOrderItem.findMany({
-            where: { sellerOrderId },
-          })
+          const items = await tx.sellerOrderItem.findMany({ where: { sellerOrderId } })
 
           for (const item of items) {
             await tx.productVariant.update({

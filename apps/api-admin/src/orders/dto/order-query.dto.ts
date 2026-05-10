@@ -1,20 +1,44 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsOptional, IsString, IsInt, Min, IsEnum } from 'class-validator';
+import { Type } from 'class-transformer';
+import { OrderStatus } from '@ecom/database';
 
 export class OrderQueryDto {
-  @ApiProperty()
-  @IsOptional() @IsString() page?: string;
-  @ApiProperty()
-  @IsOptional() @IsString() limit?: string;
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  page?: number = 1;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  limit?: number = 20;
+
+  @ApiPropertyOptional()
   @IsOptional() @IsString() search?: string;
-  @ApiProperty()
-  @IsOptional() @IsString() status?: string;
-  @ApiProperty()
+
+  @ApiPropertyOptional({ enum: OrderStatus })
+  @IsOptional() @IsEnum(OrderStatus) status?: OrderStatus;
+
+  @ApiPropertyOptional()
   @IsOptional() @IsString() buyerId?: string;
 }
 
 export class OrderActionDto {
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional() @IsString() reason?: string;
+}
+
+export class OrderResponseDto {
+  @ApiProperty() id!: string;
+  @ApiProperty() orderNumber!: string;
+  @ApiProperty() totalAmount!: number;
+  @ApiProperty({ enum: OrderStatus }) status!: OrderStatus;
+  @ApiProperty() buyerId!: string;
+  @ApiProperty() createdAt!: Date;
+  @ApiProperty() updatedAt!: Date;
 }

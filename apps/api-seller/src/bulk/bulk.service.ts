@@ -7,7 +7,19 @@ import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/pri
 export class BulkService {
   constructor(private readonly prisma: PrismaService) {}
   async listJobs(shopId: string, query: BulkJobQueryDto) {
-    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', type, status } = query
+    const {
+      page = 1,
+      pageSize = 20,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      type,
+      status,
+      sort,
+      order,
+    } = query
+
+    const finalSort = sort || sortBy
+    const finalOrder = order || sortOrder
 
     const where: Prisma.BulkJobWhereInput = {
       shopId,
@@ -19,7 +31,7 @@ export class BulkService {
       page,
       pageSize,
       where,
-      orderBy: { [sort]: order },
+      orderBy: { [finalSort]: finalOrder },
     })
 
     return buildOffsetResponse(items, page, pageSize, total)

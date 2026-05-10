@@ -1,36 +1,39 @@
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger';
 import { Controller, Get, Post, Param, Query, UseGuards } from '@nestjs/common'
 import { ReviewsService } from './reviews.service'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import { ReviewQueryDto } from './dto/review-query.dto'
-import type { ReviewStatus } from '@ecom/database'
+import { ReviewQueryDto, ReviewResponseDto } from './dto/review-query.dto'
+import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
 
-@ApiTags("Reviews")
+@ApiTags("Admin/Reviews")
 @Controller('reviews')
 @UseGuards(AdminAuthGuard, PermissionGuard)
+@ApiErrorResponses()
+@ApiAuth()
+@ApiExtraModels(ReviewResponseDto)
 export class ReviewsController {
   constructor(
     private readonly reviewsService: ReviewsService,
   ) {}
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "List all reviews" })
+  @ApiPaginatedResponse(ReviewResponseDto)
   @Get()
   @Permissions('REVIEW_MODERATE')
   async findAll(@Query() query: ReviewQueryDto) {
     const result = await this.reviewsService.findAll({
-      page: query.page ? parseInt(query.page, 10) : undefined,
-      limit: query.limit ? parseInt(query.limit, 10) : undefined,
-      status: query.status as ReviewStatus | undefined,
+      page: query.page,
+      limit: query.limit,
+      status: query.status,
     })
     return result
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get review status counts" })
+  @ApiOkResponseData(Object)
   @Get('status-counts')
   @Permissions('REVIEW_MODERATE')
   async statusCounts() {
@@ -38,8 +41,8 @@ export class ReviewsController {
     return counts
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get review by ID" })
+  @ApiOkResponseData(ReviewResponseDto)
   @Get(':id')
   @Permissions('REVIEW_MODERATE')
   async findById(@Param('id') id: string) {
@@ -47,8 +50,8 @@ export class ReviewsController {
     return review
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Approve review" })
+  @ApiOkResponseData(ReviewResponseDto)
   @Post(':id/approve')
   @Permissions('REVIEW_MODERATE')
   @AuditLog('REVIEW_APPROVED', 'Review', { entityIdParam: 'id' })
@@ -59,8 +62,8 @@ export class ReviewsController {
     return review
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Hide review" })
+  @ApiOkResponseData(ReviewResponseDto)
   @Post(':id/hide')
   @Permissions('REVIEW_MODERATE')
   @AuditLog('REVIEW_HIDDEN', 'Review', { entityIdParam: 'id' })
@@ -71,8 +74,8 @@ export class ReviewsController {
     return review
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Reject review" })
+  @ApiOkResponseData(ReviewResponseDto)
   @Post(':id/reject')
   @Permissions('REVIEW_MODERATE')
   @AuditLog('REVIEW_REJECTED', 'Review', { entityIdParam: 'id' })

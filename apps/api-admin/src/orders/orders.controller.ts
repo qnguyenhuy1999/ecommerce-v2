@@ -1,4 +1,4 @@
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -7,34 +7,37 @@ import { AdminAuthGuard } from '../auth/guards/admin-auth.guard';
 import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
-import { OrderQueryDto, OrderActionDto } from './dto/order-query.dto';
-import type { OrderStatus } from '@ecom/database';
+import { OrderQueryDto, OrderActionDto, OrderResponseDto } from './dto/order-query.dto';
+import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
 
-@ApiTags("Orders")
+@ApiTags("Admin/Orders")
 @Controller('orders')
 @UseGuards(AdminAuthGuard, PermissionGuard)
+@ApiAuth()
+@ApiErrorResponses()
+@ApiExtraModels(OrderResponseDto)
 export class OrdersController {
   constructor(
     private readonly ordersService: OrdersService,
   ) {}
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "List all orders" })
+  @ApiPaginatedResponse(OrderResponseDto)
   @Get()
   @Permissions('ORDER_VIEW')
   async findAll(@Query() query: OrderQueryDto) {
     const result = await this.ordersService.findAll({
-      page: query.page ? parseInt(query.page, 10) : undefined,
-      limit: query.limit ? parseInt(query.limit, 10) : undefined,
+      page: query.page,
+      limit: query.limit,
       search: query.search,
-      status: query.status as OrderStatus | undefined,
+      status: query.status,
       buyerId: query.buyerId,
     });
     return result;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get order status counts" })
+  @ApiOkResponseData(Object)
   @Get('status-counts')
   @Permissions('ORDER_VIEW')
   async statusCounts() {
@@ -42,8 +45,8 @@ export class OrdersController {
     return counts;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get order by ID" })
+  @ApiOkResponseData(OrderResponseDto)
   @Get(':id')
   @Permissions('ORDER_VIEW')
   async findById(@Param('id') id: string) {
@@ -51,8 +54,8 @@ export class OrdersController {
     return order;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Force cancel order" })
+  @ApiOkResponseData(OrderResponseDto)
   @Post(':id/force-cancel')
   @Permissions('ORDER_MANAGE')
   @AuditLog('ORDER_FORCE_CANCELLED', 'Order', {
@@ -68,8 +71,8 @@ export class OrdersController {
     return order;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Force complete order" })
+  @ApiOkResponseData(OrderResponseDto)
   @Post(':id/force-complete')
   @Permissions('ORDER_MANAGE')
   @AuditLog('ORDER_FORCE_COMPLETED', 'Order', { entityIdParam: 'id' })

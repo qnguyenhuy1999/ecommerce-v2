@@ -1,43 +1,23 @@
 {
   "name": "@ecom/contracts",
   "version": "0.1.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
   "sideEffects": false,
   "files": [
+    "src",
     "dist"
   ],
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./enums": {
-      "types": "./dist/enums/index.d.ts",
-      "import": "./dist/enums/index.mjs"
-    },
-    "./http": {
-      "types": "./dist/http/index.d.ts",
-      "import": "./dist/http/index.mjs"
-    },
-    "./product": {
-      "types": "./dist/product/index.d.ts",
-      "import": "./dist/product/index.mjs"
-    },
-    "./order": {
-      "types": "./dist/order/index.d.ts",
-      "import": "./dist/order/index.mjs"
-    },
-    "./auth": {
-      "types": "./dist/auth/index.d.ts",
-      "import": "./dist/auth/index.mjs"
-    },
-    "./common": {
-      "types": "./dist/common/index.d.ts",
-      "import": "./dist/common/index.mjs"
-    }
+    ".": "./src/index.ts",
+    "./enums": "./src/enums/index.ts",
+    "./http": "./src/http/index.ts",
+    "./product": "./src/product/index.ts",
+    "./order": "./src/order/index.ts",
+    "./auth": "./src/auth/index.ts",
+    "./common": "./src/common/index.ts"
   },
   "scripts": {
     "build": "tsup",
@@ -46,12 +26,12 @@
   },
   "dependencies": {
     "@ecom/shared": "workspace:*",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@ecom/tsconfig": "workspace:*",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.15.1",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3"
   }

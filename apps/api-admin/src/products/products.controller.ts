@@ -1,4 +1,4 @@
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -8,21 +8,25 @@ import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
-import { ProductQueryDto } from './dto/product-query.dto';
+import { ProductQueryDto, ProductResponseDto } from './dto/product-query.dto';
 import { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto/product-action.dto';
 import { type ProductStatus, type ProductReportStatus } from '@ecom/database';
 import { AUDIT_ACTIONS } from '@ecom/shared/constants';
+import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
 
-@ApiTags("Products")
+@ApiTags("Admin/Products")
 @Controller('products')
 @UseGuards(AdminAuthGuard, PermissionGuard)
+@ApiAuth()
+@ApiErrorResponses()
+@ApiExtraModels(ProductResponseDto)
 export class ProductsController {
   constructor(
     private readonly productsService: ProductsService,
   ) {}
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "List all products" })
+  @ApiPaginatedResponse(ProductResponseDto)
   @Get()
   @Permissions('PRODUCT_VIEW')
   async findAll(@Query() query: ProductQueryDto) {
@@ -37,8 +41,8 @@ export class ProductsController {
     return result;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get product status counts" })
+  @ApiOkResponseData(Object)
   @Get('status-counts')
   @Permissions('PRODUCT_VIEW')
   async statusCounts() {
@@ -46,8 +50,8 @@ export class ProductsController {
     return counts;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "List product reports" })
+  @ApiPaginatedResponse(Object)
   @Get('reports')
   @Permissions('PRODUCT_MODERATE')
   async findReports(@Query() query: ProductQueryDto) {
@@ -59,8 +63,8 @@ export class ProductsController {
     return result;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get product by ID" })
+  @ApiOkResponseData(ProductResponseDto)
   @Get(':id')
   @Permissions('PRODUCT_VIEW')
   async findById(@Param('id') id: string) {
@@ -68,8 +72,8 @@ export class ProductsController {
     return product;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Bulk approve products" })
+  @ApiOkResponseData(Object)
   @Post('bulk/approve')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_BULK_APPROVED', 'Product', {
@@ -82,8 +86,8 @@ export class ProductsController {
     return result;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Bulk reject products" })
+  @ApiOkResponseData(Object)
   @Post('bulk/reject')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_BULK_REJECTED', 'Product', {
@@ -96,8 +100,8 @@ export class ProductsController {
     return result;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Approve product" })
+  @ApiOkResponseData(ProductResponseDto)
   @Post(':id/approve')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_APPROVED', 'Product', {
@@ -113,8 +117,8 @@ export class ProductsController {
     return product;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Reject product" })
+  @ApiOkResponseData(ProductResponseDto)
   @Post(':id/reject')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_REJECTED', 'Product', {
@@ -130,8 +134,8 @@ export class ProductsController {
     return product;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Hide product" })
+  @ApiOkResponseData(ProductResponseDto)
   @Post(':id/hide')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_HIDDEN', 'Product', { entityIdParam: 'id' })
@@ -142,8 +146,8 @@ export class ProductsController {
     return product;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Unhide product" })
+  @ApiOkResponseData(ProductResponseDto)
   @Post(':id/unhide')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog(AUDIT_ACTIONS.PRODUCT_UNHIDDEN, 'Product', { entityIdParam: 'id' })
@@ -154,8 +158,8 @@ export class ProductsController {
     return product;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Resolve product report" })
+  @ApiOkResponseData(Object)
   @Post('reports/:id/resolve')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_REPORT_RESOLVED', 'ProductReport', {
@@ -171,8 +175,8 @@ export class ProductsController {
     return report;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Dismiss product report" })
+  @ApiOkResponseData(Object)
   @Post('reports/:id/dismiss')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_REPORT_DISMISSED', 'ProductReport', {

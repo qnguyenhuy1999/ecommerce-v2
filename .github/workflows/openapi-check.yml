@@ -1,0 +1,114 @@
+name: OpenAPI Contract Check
+
+on:
+  pull_request:
+    paths:
+      # Trigger on any DTO, controller, or main.ts change across all APIs
+      - 'apps/api-admin/src/**'
+      - 'apps/api-seller/src/**'
+      - 'apps/api-storefront/src/**'
+      - 'packages/nestjs-openapi/src/**'
+      - 'packages/contracts/src/**'
+      # Also trigger if committed specs change (baseline update PRs)
+      - 'apps/api-admin/openapi/**'
+      - 'apps/api-seller/openapi/**'
+      - 'apps/api-storefront/openapi/**'
+
+jobs:
+  openapi-breaking-change:
+    name: Detect Breaking API Changes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '11.0.4'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm turbo build --filter=@ecom/nestjs-openapi --filter=@ecom/contracts
+
+      - name: Generate OpenAPI specs (current branch)
+        run: pnpm swagger:gen:all
+        env:
+          NODE_ENV: production
+          # Minimal env vars needed to bootstrap apps without real DB/Redis
+          DATABASE_URL: 'postgresql://user:pass@localhost:5432/ecom_test'
+          REDIS_URL: 'redis://localhost:6379'
+
+      - name: Install openapi-diff
+        run: npm install -g @openapitools/openapi-diff@latest
+
+      - name: Checkout baseline specs from main
+        run: |
+          git fetch origin main
+          git show origin/main:apps/api-admin/openapi/admin.json > /tmp/admin-baseline.json 2>/dev/null || echo '{}' > /tmp/admin-baseline.json
+          git show origin/main:apps/api-seller/openapi/seller.json > /tmp/seller-baseline.json 2>/dev/null || echo '{}' > /tmp/seller-baseline.json
+          git show origin/main:apps/api-storefront/openapi/storefront.json > /tmp/storefront-baseline.json 2>/dev/null || echo '{}' > /tmp/storefront-baseline.json
+
+      - name: Validate generated specs
+        run: |
+          npx @apidevtools/swagger-cli validate apps/api-admin/openapi/admin.json
+          npx @apidevtools/swagger-cli validate apps/api-seller/openapi/seller.json
+          npx @apidevtools/swagger-cli validate apps/api-storefront/openapi/storefront.json
+
+      - name: Diff Admin API spec
+        id: diff-admin
+        run: |
+          # Skip diff if no baseline exists yet (first-time generation)
+          if [ "$(cat /tmp/admin-baseline.json)" = "{}" ]; then
+            echo "No baseline for admin API — skipping diff (first generation)"
+            exit 0
+          fi
+          openapi-diff /tmp/admin-baseline.json apps/api-admin/openapi/admin.json \
+            --fail-on-incompatible \
+            --output-format text \
+            || (echo "::error::Breaking changes detected in Admin API" && exit 1)
+
+      - name: Diff Seller API spec
+        id: diff-seller
+        run: |
+          if [ "$(cat /tmp/seller-baseline.json)" = "{}" ]; then
+            echo "No baseline for seller API — skipping diff (first generation)"
+            exit 0
+          fi
+          openapi-diff /tmp/seller-baseline.json apps/api-seller/openapi/seller.json \
+            --fail-on-incompatible \
+            --output-format text \
+            || (echo "::error::Breaking changes detected in Seller API" && exit 1)
+
+      - name: Diff Storefront API spec
+        id: diff-storefront
+        run: |
+          if [ "$(cat /tmp/storefront-baseline.json)" = "{}" ]; then
+            echo "No baseline for storefront API — skipping diff (first generation)"
+            exit 0
+          fi
+          openapi-diff /tmp/storefront-baseline.json apps/api-storefront/openapi/storefront.json \
+            --fail-on-incompatible \
+            --output-format text \
+            || (echo "::error::Breaking changes detected in Storefront API" && exit 1)
+
+      - name: Upload generated specs as artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openapi-specs-${{ github.sha }}
+          path: |
+            apps/api-admin/openapi/admin.json
+            apps/api-seller/openapi/seller.json
+            apps/api-storefront/openapi/storefront.json
+          retention-days: 30

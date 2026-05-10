@@ -19,6 +19,11 @@
     },
     "type-check": {
       "dependsOn": ["^build"]
+    },
+    "swagger:gen": {
+      "cache": false,
+      "dependsOn": ["^build"],
+      "outputs": ["openapi/**"]
     }
   }
 }

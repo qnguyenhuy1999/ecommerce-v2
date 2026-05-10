@@ -1,4 +1,4 @@
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -8,32 +8,35 @@ import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
-import { RefundQueryDto, RefundActionDto } from './dto/refund-query.dto';
-import type { ReturnStatus } from '@ecom/database';
+import { RefundQueryDto, RefundActionDto, RefundResponseDto } from './dto/refund-query.dto';
+import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
 
-@ApiTags("Refunds")
+@ApiTags("Admin/Refunds")
 @Controller('refunds')
 @UseGuards(AdminAuthGuard, PermissionGuard)
+@ApiErrorResponses()
+@ApiAuth()
+@ApiExtraModels(RefundResponseDto)
 export class RefundsController {
   constructor(
     private readonly refundsService: RefundsService,
   ) {}
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "List all refund requests" })
+  @ApiPaginatedResponse(RefundResponseDto)
   @Get()
   @Permissions('REFUND_VIEW')
   async findAll(@Query() query: RefundQueryDto) {
     const result = await this.refundsService.findAll({
-      page: query.page ? parseInt(query.page, 10) : undefined,
-      limit: query.limit ? parseInt(query.limit, 10) : undefined,
-      status: query.status as ReturnStatus | undefined,
+      page: query.page,
+      limit: query.limit,
+      status: query.status,
     });
     return result;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get refund status counts" })
+  @ApiOkResponseData(Object)
   @Get('status-counts')
   @Permissions('REFUND_VIEW')
   async statusCounts() {
@@ -41,8 +44,8 @@ export class RefundsController {
     return counts;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get refund request by ID" })
+  @ApiOkResponseData(RefundResponseDto)
   @Get(':id')
   @Permissions('REFUND_VIEW')
   async findById(@Param('id') id: string) {
@@ -50,8 +53,8 @@ export class RefundsController {
     return refund;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Approve refund request" })
+  @ApiOkResponseData(RefundResponseDto)
   @Post(':id/approve')
   @Permissions('REFUND_MANAGE')
   @AuditLog('REFUND_APPROVED', 'ReturnRequest', { entityIdParam: 'id' })
@@ -64,8 +67,8 @@ export class RefundsController {
     return refund;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Reject refund request" })
+  @ApiOkResponseData(RefundResponseDto)
   @Post(':id/reject')
   @Permissions('REFUND_MANAGE')
   @AuditLog('REFUND_REJECTED', 'ReturnRequest', { entityIdParam: 'id' })

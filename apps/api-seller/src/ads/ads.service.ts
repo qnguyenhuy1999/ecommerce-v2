@@ -8,7 +8,17 @@ import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 export class AdsService {
   constructor(private readonly prisma: PrismaService) {}
   async listCampaigns(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc' } = query
+    const {
+      page = 1,
+      pageSize = 20,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      sort,
+      order,
+    } = query
+
+    const finalSort = sort || sortBy
+    const finalOrder = order || sortOrder
 
     const where: Prisma.AdCampaignWhereInput = { shopId }
 
@@ -17,7 +27,7 @@ export class AdsService {
       pageSize,
       where,
       include: { _count: { select: { adGroups: true } } },
-      orderBy: { [sort]: order },
+      orderBy: { [finalSort]: finalOrder },
     })
 
     return buildOffsetResponse(items, page, pageSize, total)

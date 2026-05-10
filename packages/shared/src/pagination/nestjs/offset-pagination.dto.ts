@@ -31,7 +31,21 @@ export class OffsetPaginationDto {
   @IsString()
   sortBy?: string = 'createdAt'
 
+  /**
+   * Alias for `sortBy`.
+   */
+  @IsOptional()
+  @IsString()
+  sort?: string = 'createdAt'
+
   @IsOptional()
   @IsIn(['asc', 'desc'])
   sortOrder?: 'asc' | 'desc' = PAGINATION_DEFAULTS.DEFAULT_SORT_ORDER
+
+  /**
+   * Alias for `sortOrder`.
+   */
+  @IsOptional()
+  @IsIn(['asc', 'desc'])
+  order?: 'asc' | 'desc' = PAGINATION_DEFAULTS.DEFAULT_SORT_ORDER
 }

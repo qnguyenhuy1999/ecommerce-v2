@@ -8,8 +8,9 @@ import {
   BaseUserAuthService,
   SESSION_EXPIRY_DAYS,
   VERIFY_TOKEN_TTL,
+  hashPassword,
+  comparePassword,
 } from '@ecom/auth'
-import { hashPassword, comparePassword } from '@ecom/auth/password.utils'
 import { EmailService } from '@ecom/email'
 import { RedisService } from '@ecom/redis'
 import { SESSION_SERVICE } from './session.provider'
@@ -27,7 +28,7 @@ export class AuthService extends BaseUserAuthService {
     redisService: RedisService,
     private readonly prisma: PrismaService,
   ) {
-    super(sessionService, emailService, redisService)
+    super(sessionService, emailService, redisService, prisma)
   }
 
   async register(email: string, password: string) {

@@ -1,11 +1,10 @@
 export enum OrderStatus {
   PENDING = 'PENDING',
   CONFIRMED = 'CONFIRMED',
-  PROCESSING = 'PROCESSING',
-  SHIPPING = 'SHIPPING',
+  PACKING = 'PACKING',
+  SHIPPED = 'SHIPPED',
   DELIVERED = 'DELIVERED',
   CANCELLED = 'CANCELLED',
-  REFUNDED = 'REFUNDED',
 }
 
 export enum PaymentStatus {

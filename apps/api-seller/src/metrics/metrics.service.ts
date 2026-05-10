@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService, Prisma, type OrderStatus, type ReturnStatus } from '@ecom/database'
+import { PrismaService, Prisma, OrderStatus, ReturnStatus } from '@ecom/database'
 
 @Injectable()
 export class MetricsService {

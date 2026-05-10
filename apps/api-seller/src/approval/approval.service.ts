@@ -8,7 +8,18 @@ import { offsetPaginate } from '@ecom/shared/pagination/prisma'
 export class ApprovalService {
   constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: ApprovalQueryDto) {
-    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', status } = query
+    const {
+      page = 1,
+      pageSize = 20,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      status,
+      sort,
+      order,
+    } = query
+
+    const finalSort = sort || sortBy
+    const finalOrder = order || sortOrder
 
     const where: Prisma.ProductApprovalWhereInput = {
       shopId,
@@ -22,14 +33,14 @@ export class ApprovalService {
       include: {
         history: { orderBy: { createdAt: 'desc' }, take: 3 },
       },
-      orderBy: { [sort]: order },
+      orderBy: { [finalSort]: finalOrder },
     })
 
     return buildPaginatedResponse(items, total, {
       page,
       limit: pageSize,
-      sortBy: sort,
-      sortOrder: order,
+      sortBy: finalSort,
+      sortOrder: finalOrder,
     })
   }
 

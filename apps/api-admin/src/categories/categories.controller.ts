@@ -1,4 +1,4 @@
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger';
 import {
   Controller, Get, Post, Put, Delete, Param, Query, Body, UseGuards,
 } from '@nestjs/common';
@@ -7,18 +7,22 @@ import { AdminAuthGuard } from '../auth/guards/admin-auth.guard';
 import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
-import { CategoryQueryDto, CreateCategoryDto, UpdateCategoryDto, ReorderDto } from './dto/category.dto';
+import { CategoryQueryDto, CreateCategoryDto, UpdateCategoryDto, ReorderDto, CategoryResponseDto } from './dto/category.dto';
+import { ApiOkResponseData, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
 
-@ApiTags("Categories")
+@ApiTags("Admin/Categories")
 @Controller('categories')
 @UseGuards(AdminAuthGuard, PermissionGuard)
+@ApiAuth()
+@ApiErrorResponses()
+@ApiExtraModels(CategoryResponseDto)
 export class CategoriesController {
   constructor(
     private readonly categoriesService: CategoriesService,
   ) {}
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "List all categories" })
+  @ApiOkResponseData([CategoryResponseDto])
   @Get()
   @Permissions('PRODUCT_VIEW')
   async findAll(@Query() query: CategoryQueryDto) {
@@ -26,8 +30,8 @@ export class CategoriesController {
     return items;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get category by ID" })
+  @ApiOkResponseData(CategoryResponseDto)
   @Get(':id')
   @Permissions('PRODUCT_VIEW')
   async findById(@Param('id') id: string) {
@@ -35,8 +39,8 @@ export class CategoriesController {
     return cat;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Get category breadcrumb" })
+  @ApiOkResponseData([CategoryResponseDto])
   @Get(':id/breadcrumb')
   @Permissions('PRODUCT_VIEW')
   async breadcrumb(@Param('id') id: string) {
@@ -44,8 +48,8 @@ export class CategoriesController {
     return crumbs;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Create category" })
+  @ApiOkResponseData(CategoryResponseDto)
   @Post()
   @Permissions('CATEGORY_MANAGE')
   @AuditLog('CATEGORY_CREATED', 'Category', { entityIdPath: 'data.id' })
@@ -56,8 +60,8 @@ export class CategoriesController {
     return cat;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Update category" })
+  @ApiOkResponseData(CategoryResponseDto)
   @Put(':id')
   @Permissions('CATEGORY_MANAGE')
   @AuditLog('CATEGORY_UPDATED', 'Category', { entityIdParam: 'id' })
@@ -69,8 +73,8 @@ export class CategoriesController {
     return cat;
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Delete category" })
+  @ApiOkResponseData(Object)
   @Delete(':id')
   @Permissions('CATEGORY_MANAGE')
   @AuditLog('CATEGORY_DELETED', 'Category', { entityIdParam: 'id' })
@@ -81,8 +85,8 @@ export class CategoriesController {
     return { success: true };
   }
 
-  @ApiOperation({ summary: "" })
-  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: "Reorder categories" })
+  @ApiOkResponseData(Object)
   @Post('reorder')
   @Permissions('CATEGORY_MANAGE')
   @AuditLog('CATEGORY_REORDERED', 'Category', {

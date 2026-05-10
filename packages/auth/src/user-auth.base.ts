@@ -1,4 +1,4 @@
-import { prisma } from '@ecom/database'
+import { type PrismaService } from '@ecom/database'
 import { EmailServiceBase } from '@ecom/email'
 import { RedisService } from '@ecom/redis'
 import { SessionService } from './session.service'
@@ -8,11 +8,12 @@ export abstract class BaseUserAuthService {
     protected readonly sessionService: SessionService,
     protected readonly emailService: EmailServiceBase,
     protected readonly redisService: RedisService,
+    protected readonly prisma: PrismaService,
   ) {}
 
   async destroySession(sessionId: string): Promise<void> {
     await this.sessionService.delete(sessionId)
-    await prisma.session.delete({ where: { id: sessionId } }).catch(() => {})
+    await this.prisma.session.delete({ where: { id: sessionId } }).catch(() => {})
   }
 
   async verifyEmail(token: string): Promise<void> {
@@ -21,7 +22,7 @@ export abstract class BaseUserAuthService {
       throw new Error('Invalid or expired verification token')
     }
 
-    await prisma.user.update({
+    await this.prisma.user.update({
       where: { id: userId },
       data: { emailVerified: true },
     })

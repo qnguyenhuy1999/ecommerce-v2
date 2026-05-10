@@ -7,7 +7,22 @@ import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/pri
 export class ReviewService {
   constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: ReviewQueryDto) {
-    const { page = 1, pageSize = 20, sort = 'createdAt', order = 'desc', search, productId, rating, status, replyFilter } = query
+    const {
+      page = 1,
+      pageSize = 20,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      search,
+      productId,
+      rating,
+      status,
+      replyFilter,
+      sort,
+      order,
+    } = query
+
+    const finalSort = sort || sortBy
+    const finalOrder = order || sortOrder
 
     const shopProducts = this.prisma.product.findMany({
       where: { shopId, deletedAt: null },
@@ -34,7 +49,7 @@ export class ReviewService {
         replies: { orderBy: { createdAt: 'asc' } },
         _count: { select: { reports: true } },
       },
-      orderBy: { [sort]: order },
+      orderBy: { [finalSort]: finalOrder },
     })
 
     return buildOffsetResponse(items, page, pageSize, total)

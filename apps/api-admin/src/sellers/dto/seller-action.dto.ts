@@ -1,16 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
 
 export class SellerActionDto {
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional()
-  @ApiProperty()
   @IsString()
   reason?: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional()
-  @ApiProperty()
   @IsString()
   note?: string;
 }

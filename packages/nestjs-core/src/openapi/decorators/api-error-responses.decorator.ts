@@ -1,6 +1,14 @@
-import { applyDecorators } from '@nestjs/common';
-import { ApiUnauthorizedResponse, ApiForbiddenResponse, ApiInternalServerErrorResponse, ApiBadRequestResponse, ApiNotFoundResponse, ApiExtraModels, getSchemaPath } from '@nestjs/swagger';
-import { ErrorResponseDto } from '../dtos';
+import { applyDecorators } from '@nestjs/common'
+import {
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+  ApiInternalServerErrorResponse,
+  ApiBadRequestResponse,
+  ApiNotFoundResponse,
+  ApiExtraModels,
+  getSchemaPath,
+} from '@nestjs/swagger'
+import { ErrorResponseDto } from '../dtos'
 
 export const ApiErrorResponses = () => {
   return applyDecorators(
@@ -25,5 +33,5 @@ export const ApiErrorResponses = () => {
       description: 'Internal Server Error',
       schema: { $ref: getSchemaPath(ErrorResponseDto) },
     }),
-  );
-};
+  )
+}

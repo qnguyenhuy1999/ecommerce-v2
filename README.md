@@ -32,17 +32,14 @@ ecommerce/
 │   ├── nestjs-core/       # NestJS infrastructure: filters, interceptors
 │   ├── database/          # Prisma client + repositories
 │   ├── auth/              # Authentication domain
-│   ├── auth-next/         # Next.js auth helpers
 │   ├── redis/             # Redis client
 │   ├── email/             # Email service
-│   ├── api-client/        # Typed API client
+│   ├── config/            # App configuration & env validation
 │   ├── core-ui/           # Base React component library (Storybook :6006)
 │   ├── ui-storefront/     # Storefront-specific UI components (Storybook :6009)
 │   ├── ui-seller/         # Seller-specific UI components (Storybook :6008)
 │   ├── ui-admin/          # Admin-specific UI components (Storybook :6007)
-│   ├── config/            # App configuration
-│   ├── eslint-config/     # Shared ESLint configuration
-│   └── tsconfig/          # Shared TypeScript configuration presets
+│   └── eslint-config/     # Shared ESLint config + TypeScript presets
 │
 ├── turbo.json             # Turborepo pipeline configuration
 └── pnpm-workspace.yaml    # Workspace package definitions
@@ -104,7 +101,7 @@ pnpm db:seed        # Seed sample data
 | `apps/api-storefront` | Customer-facing REST API — auth, catalog, cart, orders |
 | `apps/api-seller` | Seller management REST API — inventory, fulfillment |
 | `apps/api-admin` | Platform admin REST API — KYC, platform config |
-| `apps/worker` | Background job processor — emails, queues, scheduled tasks |
+| `apps/worker` | Background job processor — emails, queues, scheduled tasks (planned) |
 
 ### Shared Packages
 
@@ -117,13 +114,12 @@ pnpm db:seed        # Seed sample data
 | `@ecom/auth` | Authentication domain (may import database) |
 | `@ecom/redis` | Redis client wrapper |
 | `@ecom/email` | Email service base |
-| `@ecom/api-client` | Typed HTTP API client |
+| `@ecom/config` | Centralised app configuration & env validation |
 | `@ecom/core-ui` | Base React component library — buttons, inputs, modals, sidebar, theme provider (Radix UI + shadcn) |
 | `@ecom/ui-storefront` | Storefront-specific components — product cards, storefront chrome |
 | `@ecom/ui-seller` | Seller-specific components — stat cards, charts (Recharts) |
 | `@ecom/ui-admin` | Admin-specific components — data grids, admin shell |
-| `@ecom/eslint-config` | Shared ESLint 9 flat config presets |
-| `@ecom/tsconfig` | Shared TypeScript config presets (`base`, `library`, `react-library`, `nextjs`, `nestjs`) |
+| `@ecom/eslint-config` | Shared ESLint 9 flat config presets + TypeScript config presets (`base`, `library`, `react-library`, `nextjs`, `nestjs`) |
 
 ## UI Development with Storybook
 
@@ -181,20 +177,20 @@ Notes:
 
 ### TypeScript Configuration
 
-Shared presets are available via `@ecom/tsconfig`:
+Shared presets are available via `@ecom/eslint-config`:
 
 ```jsonc
 // For a Next.js app
-{ "extends": "@ecom/tsconfig/nextjs.json" }
+{ "extends": "@ecom/eslint-config/nextjs.json" }
 
 // For a NestJS service
-{ "extends": "@ecom/tsconfig/nestjs.json" }
+{ "extends": "@ecom/eslint-config/nestjs.json" }
 
 // For a shared library
-{ "extends": "@ecom/tsconfig/library.json" }
+{ "extends": "@ecom/eslint-config/library.json" }
 
 // For a React component library
-{ "extends": "@ecom/tsconfig/react-library.json" }
+{ "extends": "@ecom/eslint-config/react-library.json" }
 ```
 
 ### ESLint Configuration
@@ -233,6 +229,20 @@ pnpm db:seed          # Seed the database
 ## License
 
 Private — All rights reserved.
+
+## Documentation
+
+Detailed documentation lives in the [`docs/`](./docs) directory:
+
+- [Architecture Overview](./docs/architecture/overview.md)
+- [Folder Structure](./docs/conventions/folder-structure.md)
+- [Naming Conventions](./docs/conventions/naming-conventions.md)
+- [API Standards](./docs/engineering/api-standards.md)
+- [Frontend Standards](./docs/engineering/frontend-standards.md)
+- [Backend Standards](./docs/engineering/backend-standards.md)
+- [Testing Standards](./docs/engineering/testing-standards.md)
+- [PR Checklist](./docs/conventions/pull-request-checklist.md)
+- [Getting Started](./docs/onboarding/getting-started.md)
 
 ---
 

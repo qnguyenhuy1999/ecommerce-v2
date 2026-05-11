@@ -12,8 +12,8 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { WalletService } from './wallet.service'
-import { RequestWithdrawalDto } from './dto/wallet.dto'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { RequestWithdrawalDto } from './dto/wallet.dto'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/Wallet')
 @ApiAuth()

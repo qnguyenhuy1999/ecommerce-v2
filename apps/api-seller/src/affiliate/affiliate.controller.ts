@@ -11,8 +11,8 @@ import {
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
 import { AffiliateService } from './affiliate.service'
-import { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/Affiliates')
 @ApiAuth()

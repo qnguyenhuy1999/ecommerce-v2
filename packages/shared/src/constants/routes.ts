@@ -6,8 +6,8 @@ export const AUTH_ROUTES = {
   LOGOUT: '/auth/logout',
   REFRESH: '/auth/refresh',
   VERIFY_EMAIL: '/auth/verify-email',
-  FORGOT_PASSWORD: '/auth/forgot-password',
-  RESET_PASSWORD: '/auth/reset-password',
+  FORGOT_PASSWORD: '/auth/forgot-password', // eslint-disable-line sonarjs/no-hardcoded-passwords -- route path, not a credential
+  RESET_PASSWORD: '/auth/reset-password', // eslint-disable-line sonarjs/no-hardcoded-passwords -- route path, not a credential
   ME: '/auth/me',
 } as const
 

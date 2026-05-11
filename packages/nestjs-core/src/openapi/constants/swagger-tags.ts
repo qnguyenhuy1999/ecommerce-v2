@@ -23,7 +23,7 @@ export const AdminTags = {
   REFUNDS: 'Admin/Refunds',
   AUDIT_LOGS: 'Admin/AuditLogs',
   DASHBOARD: 'Admin/Dashboard',
-} as const;
+} as const
 
 // Seller API tags
 export const SellerTags = {
@@ -55,7 +55,7 @@ export const SellerTags = {
   I18N: 'Seller/I18n',
   EVENT_STREAMING: 'Seller/EventStreaming',
   RECOMMENDATION: 'Seller/Recommendation',
-} as const;
+} as const
 
 // Storefront API tags
 export const StorefrontTags = {
@@ -66,4 +66,4 @@ export const StorefrontTags = {
   ACCOUNT: 'Storefront/Account',
   ORDERS: 'Storefront/Orders',
   SEARCH: 'Storefront/Search',
-} as const;
+} as const

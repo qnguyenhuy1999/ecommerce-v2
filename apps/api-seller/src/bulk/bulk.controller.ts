@@ -20,7 +20,7 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { BulkService } from './bulk.service'
-import { BulkJobQueryDto } from './dto/bulk-query.dto'
+import type { BulkJobQueryDto } from './dto/bulk-query.dto'
 
 @ApiTags('Seller/Bulk')
 @ApiAuth()

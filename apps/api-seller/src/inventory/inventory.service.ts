@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
-import { Prisma } from '@ecom/database'
-import { InventoryQueryDto } from './dto/inventory-query.dto'
+import type { Prisma } from '@ecom/database'
+import type { InventoryQueryDto } from './dto/inventory-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { InventoryRepository } from './repositories/inventory.repository'
 

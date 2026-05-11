@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { ReturnQueryDto } from './dto/return-query.dto'
+import { PrismaService, type Prisma } from '@ecom/database'
+import type { ReturnQueryDto } from './dto/return-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 const VALID_TRANSITIONS: Record<string, string[]> = {

@@ -38,6 +38,6 @@ export const ErrorCodes = {
   SYSTEM_INTERNAL_ERROR: 'SYSTEM_INTERNAL_ERROR',
   SYSTEM_RATE_LIMITED: 'SYSTEM_RATE_LIMITED',
   SYSTEM_MAINTENANCE: 'SYSTEM_MAINTENANCE',
-} as const;
+} as const
 
-export type ErrorCode = (typeof ErrorCodes)[keyof typeof ErrorCodes];
+export type ErrorCode = (typeof ErrorCodes)[keyof typeof ErrorCodes]

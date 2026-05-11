@@ -11,13 +11,13 @@ import {
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
 import { GrowthService } from './growth.service'
-import {
+import type {
   CreateReferralProgramDto,
   CreateExperimentDto,
   CreateFeatureFlagDto,
   CreateCampaignDto,
 } from './dto/growth.dto'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/Growth')
 @ApiAuth()

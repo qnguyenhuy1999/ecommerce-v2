@@ -46,6 +46,7 @@ export default function ReturnsPage() {
   const [statusFilter, setStatusFilter] = useState('')
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,7 +73,7 @@ export default function ReturnsPage() {
       }
     }
     fetchData()
-  }, [page, search, statusFilter])
+  }, [page, search, statusFilter, refreshKey])
 
   const handleUpdateStatus = async (returnId: string, status: string) => {
     try {
@@ -80,7 +81,7 @@ export default function ReturnsPage() {
         method: 'PUT',
         body: JSON.stringify({ status }),
       })
-      setPage(page)
+      setRefreshKey((k) => k + 1)
     } catch {
       /* empty */
     }

@@ -1,6 +1,6 @@
-import { getSchemaPath } from '@nestjs/swagger';
-import { PaginationMetaDto } from '@ecom/contracts';
-import { ApiResponseDto, PaginatedResponseDto } from '../dtos';
+import { getSchemaPath } from '@nestjs/swagger'
+import { PaginationMetaDto } from '@ecom/contracts'
+import { ApiResponseDto, PaginatedResponseDto } from '../dtos'
 
 /**
  * Build an allOf schema wrapping a DTO inside ApiResponseDto<T>.
@@ -25,7 +25,7 @@ export function buildApiResponseSchema(dtoClass: Function) {
         },
       },
     ],
-  };
+  }
 }
 
 /**
@@ -48,7 +48,7 @@ export function buildApiArrayResponseSchema(dtoClass: Function) {
         },
       },
     ],
-  };
+  }
 }
 
 /**
@@ -86,5 +86,5 @@ export function buildPaginatedResponseSchema(dtoClass: Function) {
         },
       },
     ],
-  };
+  }
 }

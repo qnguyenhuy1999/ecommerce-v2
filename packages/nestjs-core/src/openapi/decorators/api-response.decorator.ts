@@ -1,13 +1,13 @@
-import { applyDecorators, Type } from '@nestjs/common';
-import { ApiExtraModels, ApiOkResponse, ApiCreatedResponse, getSchemaPath } from '@nestjs/swagger';
-import { ApiResponseDto, PaginatedResponseDto } from '../dtos';
+import { applyDecorators, Type } from '@nestjs/common'
+import { ApiExtraModels, ApiOkResponse, ApiCreatedResponse, getSchemaPath } from '@nestjs/swagger'
+import { ApiResponseDto, PaginatedResponseDto } from '../dtos'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ApiOkResponseData = <TModel extends Type<any>>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   model: TModel | string | any,
 ) => {
-  const isType = typeof model === 'function';
+  const isType = typeof model === 'function'
   return applyDecorators(
     ApiExtraModels(ApiResponseDto, ...(isType ? [model] : [])),
     ApiOkResponse({
@@ -22,15 +22,15 @@ export const ApiOkResponseData = <TModel extends Type<any>>(
         ],
       },
     }),
-  );
-};
+  )
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ApiCreatedResponseData = <TModel extends Type<any>>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   model: TModel | string | any,
 ) => {
-  const isType = typeof model === 'function';
+  const isType = typeof model === 'function'
   return applyDecorators(
     ApiExtraModels(ApiResponseDto, ...(isType ? [model] : [])),
     ApiCreatedResponse({
@@ -45,8 +45,8 @@ export const ApiCreatedResponseData = <TModel extends Type<any>>(
         ],
       },
     }),
-  );
-};
+  )
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ApiPaginatedResponse = <TModel extends Type<any>>(model: TModel) => {
@@ -72,5 +72,5 @@ export const ApiPaginatedResponse = <TModel extends Type<any>>(model: TModel) =>
         ],
       },
     }),
-  );
-};
+  )
+}

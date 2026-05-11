@@ -19,7 +19,7 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function lazyTypeResolver<T>(factory: () => new (...args: any[]) => T) {
-  return factory;
+  return factory
 }
 
 /**
@@ -35,7 +35,7 @@ export function selfReferenceArrayOptions<T>(factory: () => new (...args: any[])
     type: factory,
     isArray: true,
     required: false,
-  };
+  }
 }
 
 /**
@@ -51,5 +51,5 @@ export function selfReferenceNullableOptions<T>(factory: () => new (...args: any
     type: factory,
     nullable: true,
     required: false,
-  };
+  }
 }

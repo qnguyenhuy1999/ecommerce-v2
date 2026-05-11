@@ -14,5 +14,6 @@ export function slugify(input: string): string {
     .trim()
     .replace(/[^\w\s-]/g, '') // Remove special characters
     .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
+    // eslint-disable-next-line sonarjs/slow-regex -- alternation on anchored positions, no backtracking risk
     .replace(/^-+|-+$/g, '') // Remove leading/trailing hyphens
 }

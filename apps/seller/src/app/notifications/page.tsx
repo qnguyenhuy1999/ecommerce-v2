@@ -94,7 +94,7 @@ export default function NotificationsPage() {
         </label>
       </div>
 
-      {loading ? (
+      {loading && (
         <div className="space-y-3">
           {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className="bg-white rounded-lg border border-gray-200 p-4 animate-pulse">
@@ -103,20 +103,24 @@ export default function NotificationsPage() {
             </div>
           ))}
         </div>
-      ) : notifications.length === 0 ? (
+      )}
+      {!loading && notifications.length === 0 && (
         <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
           <Bell className="h-12 w-12 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500">No notifications</p>
         </div>
-      ) : (
+      )}
+      {!loading && notifications.length > 0 && (
         <div className="space-y-3">
-          {notifications.map((notification) => (
-            <div
-              key={notification.id}
-              className={`bg-white rounded-lg border p-4 ${
-                notification.isRead ? 'border-gray-200' : 'border-blue-200 bg-blue-50'
-              }`}
-            >
+          {notifications.map((notification) => {
+            const cardClass = notification.isRead
+              ? 'border-gray-200'
+              : 'border-blue-200 bg-blue-50'
+            return (
+              <div
+                key={notification.id}
+                className={`bg-white rounded-lg border p-4 ${cardClass}`}
+              >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
@@ -140,7 +144,8 @@ export default function NotificationsPage() {
                 )}
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
       )}
 

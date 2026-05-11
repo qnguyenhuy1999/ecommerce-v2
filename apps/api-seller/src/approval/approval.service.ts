@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { ApprovalQueryDto } from './dto/approval-query.dto'
+import { PrismaService, type Prisma } from '@ecom/database'
+import type { ApprovalQueryDto } from './dto/approval-query.dto'
 import { buildPaginatedResponse } from '@ecom/shared/pagination/core'
 import { offsetPaginate } from '@ecom/shared/pagination/prisma'
 

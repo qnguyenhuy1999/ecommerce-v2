@@ -64,9 +64,8 @@ export class UsersController {
   })
   async suspend(
     @Param('id') id: string,
-    @Body() dto: UserActionDto,
+    @Body() _dto: UserActionDto,
   ) {
-    void dto;
     const user = await this.usersService.suspend(id);
     return user;
   }
@@ -81,9 +80,8 @@ export class UsersController {
   })
   async ban(
     @Param('id') id: string,
-    @Body() dto: UserActionDto,
+    @Body() _dto: UserActionDto,
   ) {
-    void dto;
     const user = await this.usersService.ban(id);
     return user;
   }

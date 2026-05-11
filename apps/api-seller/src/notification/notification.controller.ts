@@ -11,7 +11,7 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { NotificationService } from './notification.service'
-import { NotificationQueryDto } from './dto/notification-query.dto'
+import type { NotificationQueryDto } from './dto/notification-query.dto'
 
 @ApiTags('Seller/Notifications')
 @ApiAuth()

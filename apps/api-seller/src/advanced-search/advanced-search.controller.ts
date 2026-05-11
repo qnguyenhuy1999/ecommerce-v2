@@ -11,7 +11,7 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { AdvancedSearchService } from './advanced-search.service'
-import { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
+import type { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
 
 @ApiTags('Seller/Search')
 @ApiAuth()

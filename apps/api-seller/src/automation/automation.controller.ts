@@ -12,8 +12,8 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { AutomationService } from './automation.service'
-import { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
-import { AutomationQueryDto } from './dto/automation-query.dto'
+import type { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
+import type { AutomationQueryDto } from './dto/automation-query.dto'
 
 @ApiTags('Seller/Automation')
 @ApiAuth()

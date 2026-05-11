@@ -60,9 +60,14 @@ export default function MetricsPage() {
   }
 
   const getRateColor = (rate: number, inverse = false) => {
-    if (inverse)
-      return rate >= 90 ? 'text-green-600' : rate >= 70 ? 'text-yellow-600' : 'text-red-600'
-    return rate <= 2 ? 'text-green-600' : rate <= 5 ? 'text-yellow-600' : 'text-red-600'
+    if (inverse) {
+      if (rate >= 90) return 'text-green-600'
+      if (rate >= 70) return 'text-yellow-600'
+      return 'text-red-600'
+    }
+    if (rate <= 2) return 'text-green-600'
+    if (rate <= 5) return 'text-yellow-600'
+    return 'text-red-600'
   }
 
   return (

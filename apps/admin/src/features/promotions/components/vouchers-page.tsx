@@ -33,7 +33,7 @@ const columns = [
     header: 'Usage',
     cell: (info) => {
       const limit = info.row.original.usageLimit
-      return `${info.getValue()}${limit ? ` / ${limit}` : ''}`
+      return `${info.getValue()}${limit ? ` / ${limit}` : ''}` // eslint-disable-line sonarjs/no-nested-template-literals
     },
   }),
   col.accessor('status', {

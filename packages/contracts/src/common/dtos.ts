@@ -1,24 +1,24 @@
-import { IsBoolean, IsOptional, IsString, IsNumber, Min } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsBoolean, IsOptional, IsString, IsNumber, Min } from 'class-validator'
+import { Type } from 'class-transformer'
 
 export class PaginationMetaDto {
   @IsNumber()
-  total!: number;
+  total!: number
 
   @IsNumber()
-  page!: number;
+  page!: number
 
   @IsNumber()
-  limit!: number;
+  limit!: number
 
   @IsNumber()
-  totalPages!: number;
+  totalPages!: number
 
   @IsBoolean()
-  hasNextPage!: boolean;
+  hasNextPage!: boolean
 
   @IsBoolean()
-  hasPreviousPage!: boolean;
+  hasPreviousPage!: boolean
 }
 
 export class PaginationQueryDto {
@@ -26,19 +26,19 @@ export class PaginationQueryDto {
   @IsNumber()
   @Min(1)
   @Type(() => Number)
-  page?: number = 1;
+  page?: number = 1
 
   @IsOptional()
   @IsNumber()
   @Min(1)
   @Type(() => Number)
-  limit?: number = 10;
+  limit?: number = 10
 
   @IsOptional()
   @IsString()
-  sortBy?: string;
+  sortBy?: string
 
   @IsOptional()
   @IsString()
-  sortOrder?: 'ASC' | 'DESC' = 'ASC';
+  sortOrder?: 'ASC' | 'DESC' = 'ASC'
 }

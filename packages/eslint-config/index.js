@@ -1,6 +1,9 @@
 import js from '@eslint/js'
 import prettier from 'eslint-config-prettier'
 import tseslint from 'typescript-eslint'
+import sonarjs from 'eslint-plugin-sonarjs'
+import unicorn from 'eslint-plugin-unicorn'
+import unusedImports from 'eslint-plugin-unused-imports'
 
 const baseConfig = [
   {
@@ -14,7 +17,49 @@ const baseConfig = [
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  sonarjs.configs.recommended,
+  {
+    plugins: {
+      unicorn,
+      'unused-imports': unusedImports,
+    },
+    rules: {
+      // ─── Core safety ───
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-debugger': 'error',
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
+      'prefer-const': 'error',
+      'no-throw-literal': 'error',
+
+      // ─── Unused imports ───
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
+        'warn',
+        { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
+      ],
+
+      // ─── TypeScript overrides ───
+      '@typescript-eslint/no-unused-vars': 'off', // handled by unused-imports
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/consistent-type-imports': ['warn', { prefer: 'type-imports' }],
+
+      // ─── Unicorn (selective) ───
+      'unicorn/prefer-node-protocol': 'error',
+      'unicorn/no-array-for-each': 'warn',
+      'unicorn/prefer-array-find': 'warn',
+      'unicorn/no-useless-undefined': 'warn',
+
+      // ─── Sonarjs overrides ───
+      'sonarjs/cognitive-complexity': ['warn', 20],
+      'sonarjs/no-duplicate-string': 'off', // too noisy for DTOs
+
+      // ─── Complexity guards ───
+      'max-depth': ['warn', 4],
+      'max-lines-per-function': ['warn', { max: 150, skipBlankLines: true, skipComments: true }],
+    },
+  },
   prettier,
+  // ─── Architectural boundary rules ───
   {
     files: ['packages/shared/**'],
     rules: {
@@ -41,9 +86,6 @@ const baseConfig = [
             message: '@ecom/contracts is a stable leaf layer — it cannot import from @ecom/shared.'
           },
           {
-            // CRITICAL BOUNDARY: contracts must stay framework-light.
-            // DTOs here are reused by frontend, SDK generators, and future GraphQL/gRPC.
-            // Swagger decorators belong in packages/nestjs-openapi or apps/api-*.
             group: ['@nestjs/swagger', '@nestjs/swagger/*'],
             message: '@ecom/contracts MUST NOT import @nestjs/swagger. Use class-validator only. Add @ApiProperty in packages/nestjs-openapi or apps/api-* instead.'
           },

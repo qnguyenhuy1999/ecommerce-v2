@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-nested-functions */
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Toaster } from '.'
 import { Button } from '../../atoms/Button'

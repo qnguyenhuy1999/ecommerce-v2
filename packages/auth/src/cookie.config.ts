@@ -23,15 +23,21 @@ export function getSessionCookieOptions(domain?: string): CookieOptions {
   const secure = sameSite === 'none' ? true : secureBase
 
   // Avoid using obvious placeholder domains in non-production environments
-  const cookieDomain =
-    domain && domain !== '.yourdomain.com' ? domain : isProduction ? domain : undefined
+  let cookieDomain: string | undefined
+  if (domain && domain !== '.yourdomain.com') {
+    cookieDomain = domain
+  } else if (isProduction) {
+    cookieDomain = domain
+  } else {
+    cookieDomain = undefined
+  }
 
   return {
     name: SESSION_COOKIE_NAME,
     httpOnly: true,
     secure,
     sameSite,
-    domain: cookieDomain,
+    ...(cookieDomain !== undefined ? { domain: cookieDomain } : {}),
     path: '/',
     maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
   }

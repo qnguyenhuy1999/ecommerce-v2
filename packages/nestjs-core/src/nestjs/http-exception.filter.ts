@@ -9,6 +9,23 @@ import {
 import type { ApiErrorResponse } from '@ecom/contracts'
 import type { Response } from 'express'
 
+/** Duck-typed shape of our AppError from @ecom/shared/errors. */
+interface AppErrorLike extends Error {
+  code: string
+  statusCode: number
+  details?: unknown
+}
+
+function isAppError(err: unknown): err is AppErrorLike {
+  return (
+    err instanceof Error &&
+    'code' in err &&
+    'statusCode' in err &&
+    typeof (err as AppErrorLike).code === 'string' &&
+    typeof (err as AppErrorLike).statusCode === 'number'
+  )
+}
+
 /** Duck-typed shape of a Prisma known request error (avoids importing @ecom/database). */
 interface PrismaKnownError extends Error {
   code: string
@@ -105,6 +122,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
         if (obj.errors !== undefined) {
           details = obj.errors
         }
+      }
+    } else if (isAppError(exception)) {
+      // Handle typed domain errors from @ecom/shared/errors
+      status = exception.statusCode
+      code = exception.code
+      message = exception.message
+      details = exception.details
+      if (status >= 500) {
+        this.logger.error(exception.message, exception.stack)
       }
     } else if (isPrismaKnownError(exception)) {
       const mapped = mapPrismaError(exception)

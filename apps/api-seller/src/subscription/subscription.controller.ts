@@ -12,8 +12,8 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { SubscriptionService } from './subscription.service'
-import { SubscribeDto } from './dto/subscription.dto'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { SubscribeDto } from './dto/subscription.dto'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/Subscriptions')
 @ApiAuth()

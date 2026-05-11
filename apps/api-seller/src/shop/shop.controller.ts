@@ -9,7 +9,7 @@ import {
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from './shop.service'
-import { UpdateShopDto } from './dto/update-shop.dto'
+import type { UpdateShopDto } from './dto/update-shop.dto'
 
 @ApiTags('Seller/Shop')
 @ApiAuth()

@@ -11,7 +11,10 @@ import { AuthModule } from './auth/auth.module';
     ThrottlerModule.forRoot({
       throttlers: [getDefaultThrottleConfig()],
     }),
-    RedisModule.forRoot(getRedisConfig()),
+    RedisModule.forRoot((() => {
+      const { password, ...rest } = getRedisConfig();
+      return password !== undefined ? { ...rest, password } : rest;
+    })()),
     EmailModule.forRoot(getSmtpConfig()),
     DatabaseModule,
     AuthModule,

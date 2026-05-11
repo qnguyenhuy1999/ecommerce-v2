@@ -11,8 +11,8 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { InventoryService } from './inventory.service'
-import { InventoryQueryDto } from './dto/inventory-query.dto'
-import { UpdateStockDto, BulkUpdateStockDto } from './dto/update-stock.dto'
+import type { InventoryQueryDto } from './dto/inventory-query.dto'
+import type { UpdateStockDto, BulkUpdateStockDto } from './dto/update-stock.dto'
 
 @ApiTags('Seller/Inventory')
 @ApiAuth()

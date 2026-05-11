@@ -7,11 +7,12 @@ import {
   BadRequestException,
 } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
-import { join } from 'node:path'
-import { PrismaService, Prisma } from '@ecom/database'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { PrismaService, type Prisma } from '@ecom/database'
 import {
-  SessionService,
   type SessionData,
+  type SessionService,
   BaseUserAuthService,
   SESSION_EXPIRY_DAYS,
   VERIFY_TOKEN_TTL,
@@ -23,6 +24,8 @@ import { EmailService } from '@ecom/email'
 import { RedisService } from '@ecom/redis'
 import { SESSION_SERVICE } from './session.provider'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
 
 @Injectable()

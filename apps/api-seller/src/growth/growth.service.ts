@@ -1,14 +1,14 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import {
+import { PrismaService, type Prisma } from '@ecom/database'
+import type {
   CreateReferralProgramDto,
   CreateExperimentDto,
   CreateFeatureFlagDto,
   CreateCampaignDto,
 } from './dto/growth.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
-import { randomBytes } from 'crypto'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { randomBytes } from 'node:crypto'
 
 @Injectable()
 export class GrowthService {
@@ -196,7 +196,6 @@ export class GrowthService {
   }
 
   async isFeatureEnabled(key: string, _context?: Record<string, unknown>): Promise<boolean> {
-    void _context
     const flag = await this.prisma.featureFlag.findUnique({ where: { key } })
     if (!flag) return false
     return flag.isEnabled

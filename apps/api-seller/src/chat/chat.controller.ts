@@ -22,7 +22,7 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { ChatService } from './chat.service'
-import { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
+import type { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
 
 @ApiTags('Seller/Chat')
 @ApiAuth()

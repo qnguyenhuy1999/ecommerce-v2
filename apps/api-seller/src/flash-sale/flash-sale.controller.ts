@@ -12,8 +12,8 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { FlashSaleService } from './flash-sale.service'
-import { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/FlashSales')
 @ApiAuth()

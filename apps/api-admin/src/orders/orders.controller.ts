@@ -64,9 +64,8 @@ export class OrdersController {
   })
   async forceCancel(
     @Param('id') id: string,
-    @Body() dto: OrderActionDto,
+    @Body() _dto: OrderActionDto,
   ) {
-    void dto;
     const order = await this.ordersService.forceCancel(id);
     return order;
   }

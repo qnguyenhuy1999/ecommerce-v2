@@ -110,9 +110,8 @@ export class ProductsController {
   })
   async approve(
     @Param('id') id: string,
-    @Body() dto: ProductModerationDto,
+    @Body() _dto: ProductModerationDto,
   ) {
-    void dto;
     const product = await this.productsService.approve(id);
     return product;
   }
@@ -127,9 +126,8 @@ export class ProductsController {
   })
   async reject(
     @Param('id') id: string,
-    @Body() dto: ProductModerationDto,
+    @Body() _dto: ProductModerationDto,
   ) {
-    void dto;
     const product = await this.productsService.reject(id);
     return product;
   }

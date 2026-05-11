@@ -12,8 +12,8 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { AiToolsService } from './ai-tools.service'
-import { CreateAiTaskDto } from './dto/ai-tools.dto'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { CreateAiTaskDto } from './dto/ai-tools.dto'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/AiTools')
 @ApiAuth()

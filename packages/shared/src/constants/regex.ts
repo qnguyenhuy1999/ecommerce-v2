@@ -4,7 +4,7 @@ export const REGEX = {
   slug: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
   uuid: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
   hexColor: /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
-  url: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+  url: /^(https?:\/\/)?([a-z\d]([a-z\d-]*[a-z\d])?\.)+[a-z]{2,6}(\/[^\s]*)?$/i,
   alphanumeric: /^[a-zA-Z0-9]+$/,
   postalCode: /^[A-Za-z0-9\s-]{3,10}$/,
   price: /^\d+(\.\d{1,2})?$/,

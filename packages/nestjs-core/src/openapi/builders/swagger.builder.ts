@@ -1,25 +1,25 @@
-import { INestApplication } from '@nestjs/common';
-import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+import { INestApplication } from '@nestjs/common'
+import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger'
 
 export interface SwaggerConfig {
   /** API title shown in Swagger UI */
-  title: string;
+  title: string
   /** API description shown in Swagger UI */
-  description: string;
+  description: string
   /**
    * Semantic version for the OpenAPI spec info.version field.
    * Does NOT change runtime routes — documentation versioning only.
    * @default '1.0.0'
    */
-  version: string;
+  version: string
   /** URL path where Swagger UI is served. @default 'api/docs' */
-  path?: string;
+  path?: string
   /**
    * API version string added as x-api-version extension on all schemas.
    * Separate from spec info.version — used for future runtime versioning prep.
    * @default same as version
    */
-  apiVersion?: string;
+  apiVersion?: string
 }
 
 /**
@@ -41,11 +41,8 @@ export interface SwaggerConfig {
  *   path: 'docs',
  * });
  */
-export function buildSwaggerDocument(
-  app: INestApplication,
-  config: SwaggerConfig,
-): OpenAPIObject {
-  const apiVersion = config.apiVersion ?? config.version;
+export function buildSwaggerDocument(app: INestApplication, config: SwaggerConfig): OpenAPIObject {
+  const apiVersion = config.apiVersion ?? config.version
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle(config.title)
@@ -53,15 +50,15 @@ export function buildSwaggerDocument(
     .setVersion(config.version)
     .addBearerAuth()
     .addCookieAuth('sessionId')
-    .build();
+    .build()
 
-  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  const document = SwaggerModule.createDocument(app, swaggerConfig)
 
   // Attach x-api-version extension for future runtime versioning prep (Unit 8)
-  (document as unknown as Record<string, unknown>)['x-api-version'] = apiVersion;
+  ;(document as unknown as Record<string, unknown>)['x-api-version'] = apiVersion
 
-  const path = config.path ?? 'api/docs';
-  SwaggerModule.setup(path, app, document);
+  const path = config.path ?? 'api/docs'
+  SwaggerModule.setup(path, app, document)
 
-  return document;
+  return document
 }

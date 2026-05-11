@@ -35,6 +35,7 @@ export default function ApprovalsPage() {
   const [statusFilter, setStatusFilter] = useState('')
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,12 +53,12 @@ export default function ApprovalsPage() {
       }
     }
     fetchData()
-  }, [page, statusFilter])
+  }, [page, statusFilter, refreshKey])
 
   const handleResubmit = async (approvalId: string) => {
     try {
       await api(`/approvals/${approvalId}/resubmit`, { method: 'POST' })
-      setPage(page)
+      setRefreshKey((k) => k + 1)
     } catch {
       /* empty */
     }

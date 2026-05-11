@@ -1,6 +1,7 @@
 import { Inject, Injectable, Logger, UnauthorizedException, ConflictException, BadRequestException } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { PrismaService } from '@ecom/database'
 import {
   SessionService,
@@ -15,6 +16,8 @@ import { EmailService } from '@ecom/email'
 import { RedisService } from '@ecom/redis'
 import { SESSION_SERVICE } from './session.provider'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
 
 @Injectable()
@@ -123,8 +126,8 @@ export class AuthService extends BaseUserAuthService {
       data: {
         id: sessionId,
         userId: user.id,
-        userAgent,
-        ipAddress,
+        userAgent: userAgent ?? null,
+        ipAddress: ipAddress ?? null,
         expiresAt,
       },
     })
@@ -136,7 +139,7 @@ export class AuthService extends BaseUserAuthService {
     await this.destroySession(sessionId)
   }
 
-  async verifyEmail(token: string) {
+  override async verifyEmail(token: string) {
     try {
       await super.verifyEmail(token)
     } catch (err: unknown) {

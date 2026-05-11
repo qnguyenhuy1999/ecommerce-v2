@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { CreateTranslationDto, CreateCurrencyDto, CreateRegionDto } from './dto/i18n.dto'
+import { PrismaService, type Prisma } from '@ecom/database'
+import type { CreateTranslationDto, CreateCurrencyDto, CreateRegionDto } from './dto/i18n.dto'
 
 @Injectable()
 export class I18nService {

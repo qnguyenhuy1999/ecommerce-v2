@@ -26,7 +26,7 @@ export function usePaginatedQuery<TData, TError = Error>({
   return useQuery({
     queryKey: combinedQueryKey,
     queryFn: () => queryFn({ page, limit }),
-    placeholderData: keepPreviousData ? (previousData) => previousData : undefined,
+    ...(keepPreviousData ? { placeholderData: (previousData: PaginatedResponse<TData> | undefined) => previousData } : {}),
     ...queryOptions,
   })
 }

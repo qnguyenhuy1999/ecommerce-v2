@@ -42,6 +42,7 @@ export default function ReviewsPage() {
   const [totalPages, setTotalPages] = useState(1)
   const [replyingTo, setReplyingTo] = useState<string | null>(null)
   const [replyText, setReplyText] = useState('')
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,7 +70,7 @@ export default function ReviewsPage() {
       }
     }
     fetchData()
-  }, [page, search, ratingFilter, replyFilter])
+  }, [page, search, ratingFilter, replyFilter, refreshKey])
 
   const handleReply = async (reviewId: string) => {
     if (!replyText.trim()) return
@@ -80,7 +81,7 @@ export default function ReviewsPage() {
       })
       setReplyingTo(null)
       setReplyText('')
-      setPage(page)
+      setRefreshKey((k) => k + 1)
     } catch {
       /* empty */
     }

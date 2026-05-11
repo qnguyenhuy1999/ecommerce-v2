@@ -1,10 +1,11 @@
-import {
+import type {
   CanActivate,
-  ExecutionContext,
+  ExecutionContext} from '@nestjs/common';
+import {
   Injectable,
   ForbiddenException,
 } from '@nestjs/common'
-import { Reflector } from '@nestjs/core'
+import type { Reflector } from '@nestjs/core'
 import type { Request } from 'express'
 import type { SessionData } from '@ecom/auth'
 import { ROLES_KEY } from '../decorators/roles.decorator'

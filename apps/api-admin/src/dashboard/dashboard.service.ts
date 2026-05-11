@@ -46,7 +46,9 @@ export class DashboardService {
   }
 
   async getAnalytics(period: string = '30d') {
-    const days = period === '7d' ? 7 : period === '90d' ? 90 : 30;
+    let days = 30;
+    if (period === '7d') days = 7;
+    else if (period === '90d') days = 90;
     const since = new Date();
     since.setDate(since.getDate() - days);
 

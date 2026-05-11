@@ -1,5 +1,5 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { PaginationMetaDto } from '@ecom/contracts';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { PaginationMetaDto } from '@ecom/contracts'
 
 /**
  * Swagger schema class for the canonical success response envelope.
@@ -8,16 +8,16 @@ import { PaginationMetaDto } from '@ecom/contracts';
  */
 export class ApiResponseDto<T = unknown> {
   @ApiProperty({ example: true })
-  success!: true;
+  success!: true
 
   @ApiProperty()
-  data!: T;
+  data!: T
 
   @ApiPropertyOptional({ type: 'object', additionalProperties: true })
-  meta?: Record<string, unknown>;
+  meta?: Record<string, unknown>
 
   @ApiProperty({ example: '2024-01-01T00:00:00.000Z' })
-  timestamp!: string;
+  timestamp!: string
 }
 
 /**
@@ -26,7 +26,7 @@ export class ApiResponseDto<T = unknown> {
  */
 export class ErrorResponseDto {
   @ApiProperty({ example: false })
-  success!: false;
+  success!: false
 
   @ApiProperty({
     type: 'object',
@@ -37,13 +37,13 @@ export class ErrorResponseDto {
     },
   })
   error!: {
-    code: string;
-    message: string;
-    details?: unknown;
-  };
+    code: string
+    message: string
+    details?: unknown
+  }
 
   @ApiProperty({ example: '2024-01-01T00:00:00.000Z' })
-  timestamp!: string;
+  timestamp!: string
 }
 
 /**
@@ -52,10 +52,10 @@ export class ErrorResponseDto {
  */
 export class PaginatedResponseDto<T = unknown> {
   @ApiProperty({ example: true })
-  success!: true;
+  success!: true
 
   @ApiProperty({ type: 'object', additionalProperties: true })
-  data!: { items: T[] };
+  data!: { items: T[] }
 
   @ApiProperty({
     type: 'object',
@@ -64,8 +64,8 @@ export class PaginatedResponseDto<T = unknown> {
       pagination: { type: 'object', additionalProperties: true },
     },
   })
-  meta!: { pagination: PaginationMetaDto };
+  meta!: { pagination: PaginationMetaDto }
 
   @ApiProperty({ example: '2024-01-01T00:00:00.000Z' })
-  timestamp!: string;
+  timestamp!: string
 }

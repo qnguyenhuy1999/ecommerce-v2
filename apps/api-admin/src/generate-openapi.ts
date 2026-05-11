@@ -26,4 +26,7 @@ async function generate() {
   await app.close();
 }
 
-generate();
+generate().catch((err) => {
+  console.error('Swagger generation failed:', err);
+  process.exit(1);
+});

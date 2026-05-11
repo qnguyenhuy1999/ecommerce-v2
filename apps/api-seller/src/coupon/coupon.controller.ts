@@ -24,9 +24,9 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { CouponService } from './coupon.service'
-import { CreateCouponDto } from './dto/create-coupon.dto'
-import { UpdateCouponDto } from './dto/update-coupon.dto'
-import { CouponQueryDto } from './dto/coupon-query.dto'
+import type { CreateCouponDto } from './dto/create-coupon.dto'
+import type { UpdateCouponDto } from './dto/update-coupon.dto'
+import type { CouponQueryDto } from './dto/coupon-query.dto'
 
 @ApiTags('Seller/Coupons')
 @ApiAuth()

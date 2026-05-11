@@ -12,6 +12,7 @@ export default {
   bracketSpacing: true,
   arrowParens: 'always',
   endOfLine: 'lf',
+  plugins: ['prettier-plugin-tailwindcss'],
   overrides: [
     {
       files: '*.{json,yaml,yml,md,mdx}',

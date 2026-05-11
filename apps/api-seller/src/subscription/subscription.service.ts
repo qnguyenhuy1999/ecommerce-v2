@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { CreatePlanDto, SubscribeDto } from './dto/subscription.dto'
+import { PrismaService, type Prisma } from '@ecom/database'
+import type { CreatePlanDto, SubscribeDto } from './dto/subscription.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class SubscriptionService {

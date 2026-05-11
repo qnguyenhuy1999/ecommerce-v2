@@ -19,7 +19,7 @@ export function useProtectedRoute(options: UseProtectedRouteOptions = {}) {
   const { requiredRoles, redirectTo = '/login' } = options
 
   return useProtectedRouteBase(useAuth, {
-    requiredRoles,
+    ...(requiredRoles !== undefined ? { requiredRoles } : {}),
     redirectTo,
     onForbiddenRedirect: getForbiddenRedirect,
   })

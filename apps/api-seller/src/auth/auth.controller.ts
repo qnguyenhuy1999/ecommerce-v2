@@ -19,11 +19,11 @@ import {
   ApiCreatedResponseData,
   ApiErrorResponses,
 } from '@ecom/nestjs-core/openapi'
-import { LoginDto } from '@ecom/contracts'
+import type { LoginDto } from '@ecom/contracts'
 import { AuthService } from './auth.service'
-import { RegisterDto } from './dto/register.dto'
-import { ForgotPasswordDto } from './dto/forgot-password.dto'
-import { ResetPasswordDto } from './dto/reset-password.dto'
+import type { RegisterDto } from './dto/register.dto'
+import type { ForgotPasswordDto } from './dto/forgot-password.dto'
+import type { ResetPasswordDto } from './dto/reset-password.dto'
 
 @ApiTags('Seller/Auth')
 @ApiErrorResponses()

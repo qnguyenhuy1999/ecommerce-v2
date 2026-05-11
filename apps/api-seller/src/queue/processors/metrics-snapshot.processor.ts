@@ -1,6 +1,6 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq'
 import { Logger } from '@nestjs/common'
-import { Job } from 'bullmq'
+import type { Job } from 'bullmq'
 import { prisma } from '@ecom/database'
 import { MetricsService } from '../../metrics/metrics.service'
 

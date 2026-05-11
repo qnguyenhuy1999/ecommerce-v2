@@ -24,9 +24,9 @@ import {
 } from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { ProductService } from './product.service'
-import { CreateProductDto } from './dto/create-product.dto'
-import { UpdateProductDto } from './dto/update-product.dto'
-import { ProductQueryDto } from './dto/product-query.dto'
+import type { CreateProductDto } from './dto/create-product.dto'
+import type { UpdateProductDto } from './dto/update-product.dto'
+import type { ProductQueryDto } from './dto/product-query.dto'
 
 @ApiTags('Seller/Products')
 @ApiAuth()

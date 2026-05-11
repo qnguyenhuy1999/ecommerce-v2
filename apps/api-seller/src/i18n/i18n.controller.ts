@@ -6,7 +6,7 @@ import {
   ApiCreatedResponseData,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { I18nService } from './i18n.service'
 import { CreateTranslationDto } from './dto/i18n.dto'
 

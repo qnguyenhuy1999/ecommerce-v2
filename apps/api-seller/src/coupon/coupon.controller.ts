@@ -21,7 +21,7 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { CouponService } from './coupon.service'
 import { CreateCouponDto } from './dto/create-coupon.dto'

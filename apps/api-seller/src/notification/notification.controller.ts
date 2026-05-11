@@ -8,7 +8,7 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { NotificationService } from './notification.service'
 import { NotificationQueryDto } from './dto/notification-query.dto'

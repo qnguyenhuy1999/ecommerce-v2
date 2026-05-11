@@ -1,7 +1,7 @@
 'use client'
 
-import { useProtectedRoute as useProtectedRouteBase } from '@ecom/auth-next/protected-route'
-import type { AuthUser } from '@ecom/auth-next/client'
+import { useProtectedRoute as useProtectedRouteBase } from '@ecom/auth/protected-route'
+import type { AuthUser } from '@ecom/auth/client'
 import { useAuth } from '../providers/auth-provider'
 
 interface UseProtectedRouteOptions {

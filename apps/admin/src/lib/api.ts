@@ -1,4 +1,4 @@
-import { createApiClient } from '@ecom/api-client'
+import { createApiClient } from '@ecom/config/api-client'
 import { API_PORTS } from '@ecom/config'
 
 const API_URL =

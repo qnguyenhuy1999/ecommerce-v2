@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { SESSION_COOKIE_NAME } from '@ecom/auth'
+import { SESSION_COOKIE_NAME } from '../cookie.config'
 
 export interface WithAuthOptions {
   apiUrl?: string

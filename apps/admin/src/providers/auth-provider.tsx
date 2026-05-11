@@ -1,6 +1,6 @@
 'use client'
 
-import { createAuthClient } from '@ecom/auth-next/client'
+import { createAuthClient } from '@ecom/auth/client'
 
 export const { AuthProvider, useAuth } = createAuthClient({
   apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000',

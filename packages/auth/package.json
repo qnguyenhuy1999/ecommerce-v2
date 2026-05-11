@@ -3,19 +3,31 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
       "require": "./dist/index.cjs"
     },
     "./password.utils": {
-      "types": "./dist/password.utils.d.ts",
-      "import": "./dist/password.utils.js",
+      "types": "./src/password.utils.ts",
+      "import": "./src/password.utils.ts",
       "require": "./dist/password.utils.cjs"
+    },
+    "./client": {
+      "import": "./src/next/client.tsx",
+      "types": "./src/next/client.tsx"
+    },
+    "./protected-route": {
+      "import": "./src/next/protected-route.ts",
+      "types": "./src/next/protected-route.ts"
+    },
+    "./middleware": {
+      "import": "./src/next/middleware.ts",
+      "types": "./src/next/middleware.ts"
     }
   },
   "scripts": {
@@ -28,12 +40,24 @@
     "bcryptjs": "^2.4.3",
     "ioredis": "^5.6.0"
   },
+  "peerDependencies": {
+    "next": "^15.0.0 || ^16.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "next": { "optional": true },
+    "react": { "optional": true },
+    "react-dom": { "optional": true }
+  },
   "devDependencies": {
     "@ecom/email": "workspace:*",
+    "@ecom/eslint-config": "workspace:*",
     "@ecom/redis": "workspace:*",
-    "@ecom/tsconfig": "workspace:*",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3"
   }

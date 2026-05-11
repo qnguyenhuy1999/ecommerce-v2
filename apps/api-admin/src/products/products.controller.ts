@@ -12,7 +12,7 @@ import { ProductQueryDto, ProductResponseDto } from './dto/product-query.dto';
 import { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto/product-action.dto';
 import { type ProductStatus, type ProductReportStatus } from '@ecom/database';
 import { AUDIT_ACTIONS } from '@ecom/shared/constants';
-import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
+import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi';
 
 @ApiTags("Admin/Products")
 @Controller('products')

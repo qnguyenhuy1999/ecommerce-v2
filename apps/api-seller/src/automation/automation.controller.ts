@@ -9,7 +9,7 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { AutomationService } from './automation.service'
 import { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'

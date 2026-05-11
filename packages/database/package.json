@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@ecom/eslint-config": "workspace:*",
-    "@ecom/tsconfig": "workspace:*",
     "@nestjs/common": "^11.1.19",
     "@types/node": "^22.15.0",
     "prisma": "^6.8.0",

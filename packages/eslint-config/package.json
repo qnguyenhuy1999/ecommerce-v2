@@ -6,7 +6,12 @@
   "type": "module",
   "exports": {
     ".": "./index.js",
-    "./react-library": "./react-library.js"
+    "./react-library": "./react-library.js",
+    "./base.json": "./tsconfig/base.json",
+    "./library.json": "./tsconfig/library.json",
+    "./react-library.json": "./tsconfig/react-library.json",
+    "./nextjs.json": "./tsconfig/nextjs.json",
+    "./nestjs.json": "./tsconfig/nestjs.json"
   },
   "peerDependencies": {
     "eslint": "^9.0.0",

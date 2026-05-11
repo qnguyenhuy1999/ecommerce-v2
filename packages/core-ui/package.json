@@ -31,7 +31,6 @@
   },
   "devDependencies": {
     "@ecom/eslint-config": "workspace:*",
-    "@ecom/tsconfig": "workspace:*",
     "@storybook/react-vite": "^10.3.6",
     "@tailwindcss/vite": "^4.2.4",
     "@types/react": "^19.0.0",

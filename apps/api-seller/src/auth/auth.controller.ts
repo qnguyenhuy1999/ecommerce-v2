@@ -18,7 +18,7 @@ import {
   ApiOkResponseData,
   ApiCreatedResponseData,
   ApiErrorResponses,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { LoginDto } from '@ecom/contracts'
 import { AuthService } from './auth.service'
 import { RegisterDto } from './dto/register.dto'

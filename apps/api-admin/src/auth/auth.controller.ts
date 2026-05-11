@@ -17,7 +17,7 @@ import { AuthService } from './auth.service';
 import { LoginDto } from '@ecom/contracts';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
-import { ApiOkResponseData, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
+import { ApiOkResponseData, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi';
 
 @ApiTags("Admin/Auth")
 @Controller('auth')

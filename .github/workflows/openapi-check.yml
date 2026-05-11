@@ -7,7 +7,7 @@ on:
       - 'apps/api-admin/src/**'
       - 'apps/api-seller/src/**'
       - 'apps/api-storefront/src/**'
-      - 'packages/nestjs-openapi/src/**'
+      - 'packages/nestjs-core/src/**'
       - 'packages/contracts/src/**'
       # Also trigger if committed specs change (baseline update PRs)
       - 'apps/api-admin/openapi/**'
@@ -39,7 +39,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build packages
-        run: pnpm turbo build --filter=@ecom/nestjs-openapi --filter=@ecom/contracts
+        run: pnpm turbo build --filter=@ecom/nestjs-core --filter=@ecom/contracts
 
       - name: Generate OpenAPI specs (current branch)
         run: pnpm swagger:gen:all

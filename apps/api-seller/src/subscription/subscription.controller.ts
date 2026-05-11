@@ -9,7 +9,7 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { SubscriptionService } from './subscription.service'
 import { SubscribeDto } from './dto/subscription.dto'

@@ -6,7 +6,7 @@ import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
 import { ReviewQueryDto, ReviewResponseDto } from './dto/review-query.dto'
-import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
+import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi';
 
 @ApiTags("Admin/Reviews")
 @Controller('reviews')

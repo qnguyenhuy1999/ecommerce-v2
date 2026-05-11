@@ -9,7 +9,7 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { AffiliateService } from './affiliate.service'
 import { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
 import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'

@@ -8,7 +8,7 @@ import {
   ApiCreatedResponseData,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { ShippingService } from './shipping.service'
 import { CreateShipmentDto } from './dto/create-shipment.dto'

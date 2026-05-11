@@ -21,8 +21,8 @@ const baseConfig = [
       'no-restricted-imports': ['warn', {
         patterns: [
           {
-            group: ['@ecom/contracts', '@ecom/database', '@ecom/auth', '@ecom/auth-next',
-              '@ecom/redis', '@ecom/email', '@ecom/api-client', '@ecom/core-ui',
+            group: ['@ecom/contracts', '@ecom/database', '@ecom/auth',
+              '@ecom/redis', '@ecom/email', '@ecom/core-ui',
               '@ecom/ui-admin', '@ecom/ui-seller', '@ecom/ui-storefront',
               '@ecom/config', '@ecom/nestjs-core'],
             message: '@ecom/shared is a leaf package — it cannot import internal workspace packages. Use external libs only.'

@@ -10,7 +10,7 @@ import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-
 import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { BannerQueryDto, CreateBannerDto, UpdateBannerDto, BannerResponseDto } from './dto/banner.dto';
 import { AUDIT_ACTIONS } from '@ecom/shared/constants';
-import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
+import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi';
 
 @ApiTags("Admin/Banners")
 @Controller('banners')

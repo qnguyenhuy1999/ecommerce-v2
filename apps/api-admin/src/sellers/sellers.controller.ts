@@ -19,7 +19,7 @@ import {
 import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { SellerQueryDto, SellerResponseDto } from './dto/seller-query.dto';
 import { SellerActionDto } from './dto/seller-action.dto';
-import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
+import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi';
 
 @ApiTags("Admin/Sellers")
 @Controller('sellers')

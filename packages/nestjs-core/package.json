@@ -10,6 +10,10 @@
     ".": {
       "import": "./src/index.ts",
       "types": "./src/index.ts"
+    },
+    "./openapi": {
+      "import": "./src/openapi/index.ts",
+      "types": "./src/openapi/index.ts"
     }
   },
   "scripts": {
@@ -17,11 +21,16 @@
     "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
     "type-check": "tsc --noEmit"
   },
-  "devDependencies": {
+  "dependencies": {
     "@ecom/contracts": "workspace:*",
-    "@ecom/eslint-config": "workspace:*",
-    "@ecom/tsconfig": "workspace:*",
     "@nestjs/common": "^11.1.19",
+    "@nestjs/swagger": "^11.0.6",
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {
+    "@ecom/eslint-config": "workspace:*",
+    "@nestjs/common": "^11.1.19",
+    "@nestjs/swagger": "^11.0.6",
     "@types/express": "^5.0.6",
     "express": "^5.2.1",
     "rxjs": "^7.8.2",
@@ -30,7 +39,11 @@
   },
   "peerDependencies": {
     "@nestjs/common": "^11.1.19",
+    "@nestjs/swagger": "^11.0.6",
     "express": "^5.2.1",
     "rxjs": "^7.8.2"
+  },
+  "peerDependenciesMeta": {
+    "@nestjs/swagger": { "optional": true }
   }
 }

@@ -7,7 +7,7 @@ import {
   ApiOkResponseData,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { ShopService } from './shop.service'
 import { UpdateShopDto } from './dto/update-shop.dto'
 

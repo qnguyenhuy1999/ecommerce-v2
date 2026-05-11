@@ -9,7 +9,7 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { FlashSaleService } from './flash-sale.service'
 import { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'

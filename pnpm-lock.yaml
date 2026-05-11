@@ -53,21 +53,15 @@ importers:
 
   apps/admin:
     dependencies:
-      '@ecom/api-client':
+      '@ecom/auth':
         specifier: workspace:*
-        version: link:../../packages/api-client
-      '@ecom/auth-next':
-        specifier: workspace:*
-        version: link:../../packages/auth-next
+        version: link:../../packages/auth
       '@ecom/config':
         specifier: workspace:*
         version: link:../../packages/config
       '@ecom/core-ui':
         specifier: workspace:*
         version: link:../../packages/core-ui
-      '@ecom/nestjs-core':
-        specifier: workspace:*
-        version: link:../../packages/nestjs-core
       '@hookform/resolvers':
         specifier: ^5.0.1
         version: 5.2.2(react-hook-form@7.75.0(react@19.2.5))
@@ -102,9 +96,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
       '@tailwindcss/postcss':
         specifier: ^4.2.4
         version: 4.2.4
@@ -141,9 +132,6 @@ importers:
       '@ecom/nestjs-core':
         specifier: workspace:*
         version: link:../../packages/nestjs-core
-      '@ecom/nestjs-openapi':
-        specifier: workspace:*
-        version: link:../../packages/nestjs-openapi
       '@ecom/redis':
         specifier: workspace:*
         version: link:../../packages/redis
@@ -190,9 +178,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
       '@nestjs/cli':
         specifier: ^11.0.0
         version: 11.0.21(@swc/cli@0.8.1(@swc/core@1.15.33))(@swc/core@1.15.33)(@types/node@22.19.17)(esbuild@0.27.7)(prettier@3.8.3)
@@ -247,9 +232,6 @@ importers:
       '@ecom/nestjs-core':
         specifier: workspace:*
         version: link:../../packages/nestjs-core
-      '@ecom/nestjs-openapi':
-        specifier: workspace:*
-        version: link:../../packages/nestjs-openapi
       '@ecom/redis':
         specifier: workspace:*
         version: link:../../packages/redis
@@ -311,9 +293,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
       '@nestjs/cli':
         specifier: ^11.0.21
         version: 11.0.21(@swc/cli@0.8.1(@swc/core@1.15.33))(@swc/core@1.15.33)(@types/node@22.19.17)(esbuild@0.27.7)(prettier@3.8.3)
@@ -368,9 +347,6 @@ importers:
       '@ecom/nestjs-core':
         specifier: workspace:*
         version: link:../../packages/nestjs-core
-      '@ecom/nestjs-openapi':
-        specifier: workspace:*
-        version: link:../../packages/nestjs-openapi
       '@ecom/redis':
         specifier: workspace:*
         version: link:../../packages/redis
@@ -414,9 +390,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
       '@nestjs/cli':
         specifier: ^11.0.21
         version: 11.0.21(@swc/cli@0.8.1(@swc/core@1.15.33))(@swc/core@1.15.33)(@types/node@22.19.17)(esbuild@0.27.7)(prettier@3.8.3)
@@ -453,12 +426,12 @@ importers:
 
   apps/seller:
     dependencies:
-      '@ecom/api-client':
+      '@ecom/auth':
         specifier: workspace:*
-        version: link:../../packages/api-client
-      '@ecom/auth-next':
+        version: link:../../packages/auth
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../../packages/auth-next
+        version: link:../../packages/config
       '@ecom/core-ui':
         specifier: workspace:*
         version: link:../../packages/core-ui
@@ -478,9 +451,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
       '@types/node':
         specifier: ^22.15.0
         version: 22.19.17
@@ -496,9 +466,9 @@ importers:
 
   apps/storefront:
     dependencies:
-      '@ecom/auth-next':
+      '@ecom/auth':
         specifier: workspace:*
-        version: link:../../packages/auth-next
+        version: link:../../packages/auth
       next:
         specifier: ^16.2.5
         version: 16.2.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -512,9 +482,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
       '@types/node':
         specifier: ^22.15.0
         version: 22.19.17
@@ -529,22 +496,10 @@ importers:
         version: 5.9.3
 
   packages/api-client:
-    devDependencies:
-      '@ecom/eslint-config':
+    dependencies:
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/node':
-        specifier: ^22.15.0
-        version: 22.19.17
-      tsup:
-        specifier: ^8.4.0
-        version: 8.5.1(@swc/core@1.15.33)(jiti@2.6.1)(postcss@8.5.14)(tsx@4.21.0)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.8.3
-        version: 5.9.3
+        version: link:../config
 
   packages/auth:
     dependencies:
@@ -557,22 +512,37 @@ importers:
       ioredis:
         specifier: ^5.6.0
         version: 5.10.1
+      next:
+        specifier: ^15.0.0 || ^16.0.0
+        version: 16.2.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      react:
+        specifier: ^18.0.0 || ^19.0.0
+        version: 19.2.5
+      react-dom:
+        specifier: ^18.0.0 || ^19.0.0
+        version: 19.2.5(react@19.2.5)
     devDependencies:
       '@ecom/email':
         specifier: workspace:*
         version: link:../email
+      '@ecom/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
       '@ecom/redis':
         specifier: workspace:*
         version: link:../redis
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@types/bcryptjs':
         specifier: ^2.4.6
         version: 2.4.6
       '@types/node':
         specifier: ^22.15.0
         version: 22.19.17
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.1.0
+        version: 19.2.3(@types/react@19.2.14)
       tsup:
         specifier: ^8.4.0
         version: 8.5.1(@swc/core@1.15.33)(jiti@2.6.1)(postcss@8.5.14)(tsx@4.21.0)(typescript@5.9.3)
@@ -585,43 +555,12 @@ importers:
       '@ecom/auth':
         specifier: workspace:*
         version: link:../auth
-      next:
-        specifier: ^15.0.0 || ^16.0.0
-        version: 16.2.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      react:
-        specifier: ^18.0.0 || ^19.0.0
-        version: 19.2.5
-      react-dom:
-        specifier: ^18.0.0 || ^19.0.0
-        version: 19.2.5(react@19.2.5)
-    devDependencies:
-      '@ecom/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/node':
-        specifier: ^22.15.0
-        version: 22.19.17
-      '@types/react':
-        specifier: ^19.1.0
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.1.0
-        version: 19.2.3(@types/react@19.2.14)
-      typescript:
-        specifier: ^5.8.3
-        version: 5.9.3
 
   packages/config:
     devDependencies:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@types/node':
         specifier: ^22.15.0
         version: 22.19.17
@@ -644,9 +583,9 @@ importers:
         specifier: ^3.24.2
         version: 3.25.76
     devDependencies:
-      '@ecom/tsconfig':
+      '@ecom/eslint-config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../eslint-config
       tsup:
         specifier: ^8.4.0
         version: 8.5.1(@swc/core@1.15.33)(jiti@2.6.1)(postcss@8.5.14)(tsx@4.21.0)(typescript@5.9.3)
@@ -702,9 +641,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@storybook/react-vite':
         specifier: ^10.3.6
         version: 10.3.6(esbuild@0.27.7)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rollup@4.60.2)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@5.9.3)(vite@8.0.10(@types/node@25.6.2)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))(webpack@5.106.0(@swc/core@1.15.33)(esbuild@0.27.7))
@@ -760,9 +696,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@nestjs/common':
         specifier: ^11.1.19
         version: 11.1.19(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -794,9 +727,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@types/node':
         specifier: ^22.15.0
         version: 22.19.17
@@ -827,36 +757,6 @@ importers:
         version: 8.59.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
 
   packages/nestjs-core:
-    devDependencies:
-      '@ecom/contracts':
-        specifier: workspace:*
-        version: link:../contracts
-      '@ecom/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@nestjs/common':
-        specifier: ^11.1.19
-        version: 11.1.19(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@types/express':
-        specifier: ^5.0.6
-        version: 5.0.6
-      express:
-        specifier: ^5.2.1
-        version: 5.2.1
-      rxjs:
-        specifier: ^7.8.2
-        version: 7.8.2
-      tsup:
-        specifier: ^8.4.0
-        version: 8.5.1(@swc/core@1.15.33)(jiti@2.6.1)(postcss@8.5.14)(tsx@4.21.0)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.8.3
-        version: 5.9.3
-
-  packages/nestjs-openapi:
     dependencies:
       '@ecom/contracts':
         specifier: workspace:*
@@ -874,18 +774,24 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/node':
-        specifier: ^22.13.5
-        version: 22.19.17
+      '@types/express':
+        specifier: ^5.0.6
+        version: 5.0.6
+      express:
+        specifier: ^5.2.1
+        version: 5.2.1
       tsup:
         specifier: ^8.4.0
         version: 8.5.1(@swc/core@1.15.33)(jiti@2.6.1)(postcss@8.5.14)(tsx@4.21.0)(typescript@5.9.3)
       typescript:
         specifier: ^5.8.3
         version: 5.9.3
+
+  packages/nestjs-openapi:
+    dependencies:
+      '@ecom/nestjs-core':
+        specifier: workspace:*
+        version: link:../nestjs-core
 
   packages/redis:
     dependencies:
@@ -899,9 +805,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@types/node':
         specifier: ^22.15.0
         version: 22.19.17
@@ -942,7 +845,11 @@ importers:
         specifier: ^3.0.7
         version: 3.2.4(@types/node@25.6.2)(jiti@2.6.1)(lightningcss@1.32.0)(msw@2.14.2(@types/node@25.6.2)(typescript@5.9.3))(terser@5.46.2)(tsx@4.21.0)
 
-  packages/tsconfig: {}
+  packages/tsconfig:
+    dependencies:
+      '@ecom/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
 
   packages/ui-admin:
     dependencies:
@@ -962,9 +869,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@storybook/react-vite':
         specifier: ^10.3.6
         version: 10.3.6(esbuild@0.27.7)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rollup@4.60.2)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@5.9.3)(vite@8.0.10(@types/node@25.6.2)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))(webpack@5.106.0(@swc/core@1.15.33)(esbuild@0.27.7))
@@ -1029,9 +933,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@storybook/react-vite':
         specifier: ^10.3.6
         version: 10.3.6(esbuild@0.27.7)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rollup@4.60.2)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@5.9.3)(vite@8.0.10(@types/node@25.6.2)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))(webpack@5.106.0(@swc/core@1.15.33)(esbuild@0.27.7))
@@ -1090,9 +991,6 @@ importers:
       '@ecom/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ecom/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@storybook/react-vite':
         specifier: ^10.3.6
         version: 10.3.6(esbuild@0.27.7)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rollup@4.60.2)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@5.9.3)(vite@8.0.10(@types/node@25.6.2)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))(webpack@5.106.0(@swc/core@1.15.33)(esbuild@0.27.7))
@@ -2267,28 +2165,13 @@ packages:
       '@nestjs/platform-socket.io':
         optional: true
 
-  '@next/env@16.2.4':
-    resolution: {integrity: sha512-dKkkOzOSwFYe5RX6y26fZgkSpVAlIOJKQHIiydQcrWH6y/97+RceSOAdjZ14Qa3zLduVUy0TXcn+EiM6t4rPgw==}
-
   '@next/env@16.2.5':
     resolution: {integrity: sha512-Lb9ElHD2klcyeVD25vW+siPFqz9QMzDUSgvFZNO+dZEKoMHex4viJhVuzBhrXKqb+UKnih7mVYbt50/7KLsSCA==}
-
-  '@next/swc-darwin-arm64@16.2.4':
-    resolution: {integrity: sha512-OXTFFox5EKN1Ym08vfrz+OXxmCcEjT4SFMbNRsWZE99dMqt2Kcusl5MqPXcW232RYkMLQTy0hqgAMEsfEd/l2A==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [darwin]
 
   '@next/swc-darwin-arm64@16.2.5':
     resolution: {integrity: sha512-BW+8PGVmsruomXHsitD8JG6gny9lEdobctjBwvtPF8AKtxGDR7nR35FOl/oK9UAPXBOBm+vx0k8qtpeHOXQMGQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
-    os: [darwin]
-
-  '@next/swc-darwin-x64@16.2.4':
-    resolution: {integrity: sha512-XhpVnUfmYWvD3YrXu55XdcAkQtOnvaI6wtQa8fuF5fGoKoxIUZ0kWPtcOfqJEWngFF/lOS9l3+O9CcownhiQxQ==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
     os: [darwin]
 
   '@next/swc-darwin-x64@16.2.5':
@@ -2297,26 +2180,12 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-linux-arm64-gnu@16.2.4':
-    resolution: {integrity: sha512-Mx/tjlNA3G8kg14QvuGAJ4xBwPk1tUHq56JxZ8CXnZwz1Etz714soCEzGQQzVMz4bEnGPowzkV6Xrp6wAkEWOQ==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-    libc: [glibc]
-
   '@next/swc-linux-arm64-gnu@16.2.5':
     resolution: {integrity: sha512-AwcZzMChaWkOTZt3vu+2ZMIj8g4dYQY+B8VUVhlFSQ2JtvyZpefyYHTe00D6b6L7BysYw7vl3zsvs9jix8tl5Q==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
-
-  '@next/swc-linux-arm64-musl@16.2.4':
-    resolution: {integrity: sha512-iVMMp14514u7Nup2umQS03nT/bN9HurK8ufylC3FZNykrwjtx7V1A7+4kvhbDSCeonTVqV3Txnv0Lu+m2oDXNg==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-    libc: [musl]
 
   '@next/swc-linux-arm64-musl@16.2.5':
     resolution: {integrity: sha512-QqMgqWbCBFsfiQ7BF3dUlW8HJy1LWhpcqbTpoHMWA9IV+TnWwDKozQJA5NdIAHjQ00yX2Q7AUkLr/XK4n77q8A==}
@@ -2325,26 +2194,12 @@ packages:
     os: [linux]
     libc: [musl]
 
-  '@next/swc-linux-x64-gnu@16.2.4':
-    resolution: {integrity: sha512-EZOvm1aQWgnI/N/xcWOlnS3RQBk0VtVav5Zo7n4p0A7UKyTDx047k8opDbXgBpHl4CulRqRfbw3QrX2w5UOXMQ==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-    libc: [glibc]
-
   '@next/swc-linux-x64-gnu@16.2.5':
     resolution: {integrity: sha512-3hzeiFGZtyATVx9pCeuzTshXmh50vHZitqaeZiyJZaUmjQyrfjsVUgS8apOj1vEJCIpKJM/55F45yPAV2kpjsA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
-
-  '@next/swc-linux-x64-musl@16.2.4':
-    resolution: {integrity: sha512-h9FxsngCm9cTBf71AR4fGznDEDx1hS7+kSEiIRjq5kO1oXWm07DxVGZjCvk0SGx7TSjlUqhI8oOyz7NfwAdPoA==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-    libc: [musl]
 
   '@next/swc-linux-x64-musl@16.2.5':
     resolution: {integrity: sha512-0mzZV/mAt7Qj2tYNdTB6AqrS8dwng/AQLSYC5Z1YLpZdi2wxqKDPK7RY2RvjB1fXyJfOfdA3l/yTF5yLi+WfuQ==}
@@ -2353,22 +2208,10 @@ packages:
     os: [linux]
     libc: [musl]
 
-  '@next/swc-win32-arm64-msvc@16.2.4':
-    resolution: {integrity: sha512-3NdJV5OXMSOeJYijX+bjaLge3mJBlh4ybydbT4GFoB/2hAojWHtMhl3CYlYoMrjPuodp0nzFVi4Tj2+WaMg+Ow==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [win32]
-
   '@next/swc-win32-arm64-msvc@16.2.5':
     resolution: {integrity: sha512-f/H4nZ2zJBvA8/+HpsB9mNonF9zfQoAU6D0WxJrfzhJDvJLfngVN85oqxUyrDVK99DIFfFYhLpGa5K+c5uotSw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
-    os: [win32]
-
-  '@next/swc-win32-x64-msvc@16.2.4':
-    resolution: {integrity: sha512-kMVGgsqhO5YTYODD9IPGGhA6iprWidQckK3LmPeW08PIFENRmgfb4MjXHO+p//d+ts2rpjvK5gXWzXSMrPl9cw==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
     os: [win32]
 
   '@next/swc-win32-x64-msvc@16.2.5':
@@ -6227,27 +6070,6 @@ packages:
       react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
       react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
-  next@16.2.4:
-    resolution: {integrity: sha512-kPvz56wF5frc+FxlHI5qnklCzbq53HTwORaWBGdT0vNoKh1Aya9XC8aPauH4NJxqtzbWsS5mAbctm4cr+EkQ2Q==}
-    engines: {node: '>=20.9.0'}
-    hasBin: true
-    peerDependencies:
-      '@opentelemetry/api': ^1.1.0
-      '@playwright/test': ^1.51.1
-      babel-plugin-react-compiler: '*'
-      react: ^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0
-      react-dom: ^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0
-      sass: ^1.3.0
-    peerDependenciesMeta:
-      '@opentelemetry/api':
-        optional: true
-      '@playwright/test':
-        optional: true
-      babel-plugin-react-compiler:
-        optional: true
-      sass:
-        optional: true
-
   next@16.2.5:
     resolution: {integrity: sha512-TkVTm9F2WEulkgGljm4wPwNgvCCWCVw6StUHsZb8WZpHFRjepoUWg3d7L4IMg7IyjcJ4Co9eVhpro8e8O+KarQ==}
     engines: {node: '>=20.9.0'}
@@ -8921,53 +8743,27 @@ snapshots:
     optionalDependencies:
       '@nestjs/platform-socket.io': 11.1.19(@nestjs/common@11.1.19(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/websockets@11.1.19)(rxjs@7.8.2)
 
-  '@next/env@16.2.4': {}
-
   '@next/env@16.2.5': {}
 
-  '@next/swc-darwin-arm64@16.2.4':
-    optional: true
-
   '@next/swc-darwin-arm64@16.2.5':
-    optional: true
-
-  '@next/swc-darwin-x64@16.2.4':
     optional: true
 
   '@next/swc-darwin-x64@16.2.5':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@16.2.4':
-    optional: true
-
   '@next/swc-linux-arm64-gnu@16.2.5':
-    optional: true
-
-  '@next/swc-linux-arm64-musl@16.2.4':
     optional: true
 
   '@next/swc-linux-arm64-musl@16.2.5':
     optional: true
 
-  '@next/swc-linux-x64-gnu@16.2.4':
-    optional: true
-
   '@next/swc-linux-x64-gnu@16.2.5':
-    optional: true
-
-  '@next/swc-linux-x64-musl@16.2.4':
     optional: true
 
   '@next/swc-linux-x64-musl@16.2.5':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@16.2.4':
-    optional: true
-
   '@next/swc-win32-arm64-msvc@16.2.5':
-    optional: true
-
-  '@next/swc-win32-x64-msvc@16.2.4':
     optional: true
 
   '@next/swc-win32-x64-msvc@16.2.5':
@@ -12779,30 +12575,6 @@ snapshots:
     dependencies:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
-
-  next@16.2.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
-    dependencies:
-      '@next/env': 16.2.4
-      '@swc/helpers': 0.5.15
-      baseline-browser-mapping: 2.10.25
-      caniuse-lite: 1.0.30001791
-      postcss: 8.4.31
-      react: 19.2.5
-      react-dom: 19.2.5(react@19.2.5)
-      styled-jsx: 5.1.6(react@19.2.5)
-    optionalDependencies:
-      '@next/swc-darwin-arm64': 16.2.4
-      '@next/swc-darwin-x64': 16.2.4
-      '@next/swc-linux-arm64-gnu': 16.2.4
-      '@next/swc-linux-arm64-musl': 16.2.4
-      '@next/swc-linux-x64-gnu': 16.2.4
-      '@next/swc-linux-x64-musl': 16.2.4
-      '@next/swc-win32-arm64-msvc': 16.2.4
-      '@next/swc-win32-x64-msvc': 16.2.4
-      sharp: 0.34.5
-    transitivePeerDependencies:
-      - '@babel/core'
-      - babel-plugin-macros
 
   next@16.2.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
     dependencies:

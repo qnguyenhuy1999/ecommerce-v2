@@ -8,7 +8,7 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { AdvancedSearchService } from './advanced-search.service'
 import { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'

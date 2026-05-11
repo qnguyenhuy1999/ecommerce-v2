@@ -20,7 +20,7 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { SearchService } from './search.service'
 import { ProductSearchDto, OrderSearchDto } from './dto/search-query.dto'

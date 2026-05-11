@@ -8,7 +8,7 @@ import { PermissionGuard } from '../auth/guards/permission.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { AuditLog } from '../common/decorators/audit-log.decorator';
 import { CategoryQueryDto, CreateCategoryDto, UpdateCategoryDto, ReorderDto, CategoryResponseDto } from './dto/category.dto';
-import { ApiOkResponseData, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-openapi';
+import { ApiOkResponseData, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi';
 
 @ApiTags("Admin/Categories")
 @Controller('categories')

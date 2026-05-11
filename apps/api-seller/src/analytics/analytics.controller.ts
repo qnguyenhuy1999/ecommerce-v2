@@ -7,7 +7,7 @@ import {
   ApiOkResponseData,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { AnalyticsService } from './analytics.service'
 

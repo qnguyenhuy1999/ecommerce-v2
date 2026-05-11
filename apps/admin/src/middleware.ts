@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { createWithAuth } from '@ecom/auth-next/middleware'
+import { createWithAuth } from '@ecom/auth/middleware'
 
 const withAuth = createWithAuth({
   apiUrl: process.env.NEXT_PUBLIC_ADMIN_API_URL ?? 'http://localhost:4001',

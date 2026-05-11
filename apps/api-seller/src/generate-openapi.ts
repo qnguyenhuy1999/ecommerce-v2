@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { buildSwaggerDocument } from '@ecom/nestjs-openapi';
+import { buildSwaggerDocument } from '@ecom/nestjs-core/openapi';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 

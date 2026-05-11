@@ -6,7 +6,7 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { LoyaltyService } from './loyalty.service'
 import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 

@@ -16,7 +16,7 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
+} from '@ecom/nestjs-core/openapi'
 import { ShopService } from '../shop/shop.service'
 import { ReviewService } from './review.service'
 import { ReviewQueryDto } from './dto/review-query.dto'

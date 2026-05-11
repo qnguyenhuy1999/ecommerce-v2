@@ -2,15 +2,14 @@
   "name": "@ecom/api-admin",
   "version": "0.0.1",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "nest build",
-    "dev": "nest start --watch",
+    "dev": "node --import @swc-node/register/esm-register --env-file=../../.env --watch src/main.ts",
     "start": "node dist/main",
     "start:prod": "node dist/main",
     "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
     "type-check": "tsc --noEmit",
-    "swagger:gen": "nest start --entryFile generate-openapi"
+    "swagger:gen": "node --import @swc-node/register/esm-register --env-file=../../.env src/generate-openapi.ts"
   },
   "dependencies": {
     "@ecom/auth": "workspace:*",
@@ -46,5 +45,6 @@
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.21.0",
     "typescript": "^5.8.3"
-  }
+  },
+  "type": "module"
 }

@@ -13,8 +13,9 @@
     }
   },
   "scripts": {
+    "dev": "",
     "storybook": "storybook dev -p 6007",
-    "build": "true",
+    "build": "node -e \"\"",
     "clean": "rm -rf dist",
     "build-storybook": "storybook build",
     "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",

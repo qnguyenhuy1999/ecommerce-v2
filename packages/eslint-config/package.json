@@ -13,6 +13,14 @@
     "./nextjs.json": "./tsconfig/nextjs.json",
     "./nestjs.json": "./tsconfig/nestjs.json"
   },
+  "scripts": {
+    "dev": ""
+  },
+  "dependencies": {
+    "eslint-plugin-sonarjs": "^3.0.2",
+    "eslint-plugin-unicorn": "^59.0.1",
+    "eslint-plugin-unused-imports": "^4.1.4"
+  },
   "peerDependencies": {
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^10.1.5",

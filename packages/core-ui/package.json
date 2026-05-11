@@ -12,14 +12,19 @@
       "types": "./src/index.ts"
     },
     "./styles/globals.css": "./src/styles/globals.css",
+    "./tokens": {
+      "import": "./src/tokens/index.ts",
+      "types": "./src/tokens/index.ts"
+    },
     "./providers/ThemeProvider": {
       "import": "./src/providers/ThemeProvider.tsx",
       "types": "./src/providers/ThemeProvider.tsx"
     }
   },
   "scripts": {
+    "dev": "",
     "storybook": "storybook dev -p 6006",
-    "build": "true",
+    "build": "node -e \"\"",
     "clean": "rm -rf dist",
     "build-storybook": "storybook build",
     "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",

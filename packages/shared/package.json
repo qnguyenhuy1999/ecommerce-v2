@@ -34,6 +34,11 @@
             "types": "./dist/utils/index.d.ts",
             "import": "./dist/utils/index.mjs",
             "require": "./dist/utils/index.js"
+        },
+        "./errors": {
+            "types": "./dist/errors/index.d.ts",
+            "import": "./dist/errors/index.mjs",
+            "require": "./dist/errors/index.js"
         }
     },
     "main": "./dist/index.js",

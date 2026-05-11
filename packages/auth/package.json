@@ -31,6 +31,7 @@
     }
   },
   "scripts": {
+    "dev": "tsup --watch",
     "build": "tsup",
     "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
     "type-check": "tsc --noEmit"

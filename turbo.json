@@ -4,11 +4,21 @@
     "build": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["src/**", "tsconfig.json", "package.json", "tsup.config.ts", "$NODE_ENV"],
+      "inputs": [
+        "src/**",
+        "tsconfig.json",
+        "package.json",
+        "tsup.config.ts",
+        "tailwind.config.*",
+        "next.config.*",
+        "postcss.config.*",
+        "$NODE_ENV"
+      ],
       "outputs": ["dist/**", ".next/**"]
     },
     "dev": {
       "cache": false,
+      "persistent": true,
       "dependsOn": ["^build"]
     },
     "lint": {

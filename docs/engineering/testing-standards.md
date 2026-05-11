@@ -2,11 +2,11 @@
 
 ## Test Types
 
-| Type | Tool | Location | Runs In |
-|------|------|----------|---------|
-| Unit tests | Vitest | `*.spec.ts` alongside source | `pnpm test` |
-| Integration tests | Vitest + Supertest | `*.integration.spec.ts` | `pnpm test` |
-| E2E tests | Playwright / Vitest | `test/` directory in app | `pnpm test:e2e` |
+| Type              | Tool                | Location                     | Runs In         |
+| ----------------- | ------------------- | ---------------------------- | --------------- |
+| Unit tests        | Vitest              | `*.spec.ts` alongside source | `pnpm test`     |
+| Integration tests | Vitest + Supertest  | `*.integration.spec.ts`      | `pnpm test`     |
+| E2E tests         | Playwright / Vitest | `test/` directory in app     | `pnpm test:e2e` |
 
 ## Unit Tests
 

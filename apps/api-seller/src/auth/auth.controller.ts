@@ -20,7 +20,7 @@ import {
   ApiErrorResponses,
 } from '@ecom/nestjs-core/openapi'
 import type { LoginDto } from '@ecom/contracts'
-import { AuthService } from './auth.service'
+import type { AuthService } from './auth.service'
 import type { RegisterDto } from './dto/register.dto'
 import type { ForgotPasswordDto } from './dto/forgot-password.dto'
 import type { ResetPasswordDto } from './dto/reset-password.dto'
@@ -48,8 +48,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const userAgent = req.headers['user-agent']
-    const ipAddress =
-      (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ?? req.ip
+    const ipAddress = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ?? req.ip
 
     const { sessionId, userId, roles } = await this.authService.login(
       dto.email,

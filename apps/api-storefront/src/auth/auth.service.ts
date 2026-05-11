@@ -1,10 +1,18 @@
-import { Inject, Injectable, Logger, UnauthorizedException, ConflictException, BadRequestException } from '@nestjs/common'
+import {
+  Inject,
+  Injectable,
+  Logger,
+  UnauthorizedException,
+  ConflictException,
+  BadRequestException,
+} from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
+import type {
+  SessionService} from '@ecom/auth';
 import {
-  SessionService,
   type SessionData,
   BaseUserAuthService,
   SESSION_EXPIRY_DAYS,
@@ -12,8 +20,8 @@ import {
   hashPassword,
   comparePassword,
 } from '@ecom/auth'
-import { EmailService } from '@ecom/email'
-import { RedisService } from '@ecom/redis'
+import type { EmailService } from '@ecom/email'
+import type { RedisService } from '@ecom/redis'
 import { SESSION_SERVICE } from './session.provider'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -143,7 +151,9 @@ export class AuthService extends BaseUserAuthService {
     try {
       await super.verifyEmail(token)
     } catch (err: unknown) {
-      throw new BadRequestException(err instanceof Error ? err.message : 'Invalid or expired verification token')
+      throw new BadRequestException(
+        err instanceof Error ? err.message : 'Invalid or expired verification token',
+      )
     }
   }
 

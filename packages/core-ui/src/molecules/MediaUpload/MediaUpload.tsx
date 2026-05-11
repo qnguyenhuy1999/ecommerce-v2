@@ -36,7 +36,7 @@ function Item({ item, index }: MediaUploadItemProps) {
   const isCover = index === coverIndex && !isUploading
 
   return (
-    <div className="group relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-lg bg-muted">
+    <div className="bg-muted group relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-lg">
       <img
         src={item.url}
         alt={item.alt ?? `Media ${index + 1}`}
@@ -100,7 +100,7 @@ function AddButton() {
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className="flex h-32 w-32 flex-shrink-0 flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+        className="border-border text-muted-foreground hover:border-primary hover:text-primary flex h-32 w-32 flex-shrink-0 flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed transition-colors"
       >
         <Upload className="h-5 w-5" />
         <span className="text-xs">Add</span>

@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Param,
-  Query,
-  Body,
-  UseGuards,
-} from '@nestjs/common'
+import { Controller, Get, Post, Put, Param, Query, Body, UseGuards } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import type { SessionData } from '@ecom/auth'
 import { AuthGuard } from '../auth/guards/auth.guard'
@@ -19,8 +10,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { WarehouseService } from './warehouse.service'
+import type { ShopService } from '../shop/shop.service'
+import type { WarehouseService } from './warehouse.service'
 import type { WarehouseQueryDto, StockQueryDto, TransferQueryDto } from './dto/warehouse-query.dto'
 import type { CreateWarehouseDto } from './dto/create-warehouse.dto'
 
@@ -67,10 +58,22 @@ export class WarehouseController {
   @ApiCreatedResponseData(Object)
   async createTransfer(
     @CurrentUser() user: SessionData,
-    @Body() body: { fromWarehouseId: string; toWarehouseId: string; items: { variantId: string; quantity: number }[]; note?: string },
+    @Body()
+    body: {
+      fromWarehouseId: string
+      toWarehouseId: string
+      items: { variantId: string; quantity: number }[]
+      note?: string
+    },
   ) {
     const shopId = await this.shopService.getShopId(user.userId)
-    return this.warehouseService.createTransfer(shopId, body.fromWarehouseId, body.toWarehouseId, body.items, body.note)
+    return this.warehouseService.createTransfer(
+      shopId,
+      body.fromWarehouseId,
+      body.toWarehouseId,
+      body.items,
+      body.note,
+    )
   }
 
   @Post('transfers/:id/complete')
@@ -89,7 +92,11 @@ export class WarehouseController {
 
   @Get(':id/stock')
   @ApiPaginatedResponse(Object)
-  async getStock(@CurrentUser() user: SessionData, @Param('id') id: string, @Query() query: StockQueryDto) {
+  async getStock(
+    @CurrentUser() user: SessionData,
+    @Param('id') id: string,
+    @Query() query: StockQueryDto,
+  ) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.warehouseService.getWarehouseStock(shopId, id, query)
   }
@@ -102,6 +109,12 @@ export class WarehouseController {
     @Body() body: { variantId: string; stock: number; safetyStock?: number },
   ) {
     const shopId = await this.shopService.getShopId(user.userId)
-    return this.warehouseService.updateStock(shopId, id, body.variantId, body.stock, body.safetyStock)
+    return this.warehouseService.updateStock(
+      shopId,
+      id,
+      body.variantId,
+      body.stock,
+      body.safetyStock,
+    )
   }
 }

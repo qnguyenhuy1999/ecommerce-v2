@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import type { CreateCouponDto } from './dto/create-coupon.dto'
 import type { UpdateCouponDto } from './dto/update-coupon.dto'
 import type { CouponQueryDto } from './dto/coupon-query.dto'
@@ -29,7 +30,12 @@ export class CouponService {
       ...(status ? { status: status as Prisma.CouponWhereInput['status'] } : {}),
       ...(type ? { type: type as Prisma.CouponWhereInput['type'] } : {}),
       ...(search
-        ? { OR: [{ code: { contains: search, mode: 'insensitive' } }, { name: { contains: search, mode: 'insensitive' } }] }
+        ? {
+            OR: [
+              { code: { contains: search, mode: 'insensitive' } },
+              { name: { contains: search, mode: 'insensitive' } },
+            ],
+          }
         : {}),
     }
 

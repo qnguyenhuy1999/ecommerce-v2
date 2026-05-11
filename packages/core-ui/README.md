@@ -52,6 +52,7 @@ Examples:
 - Avatar
 
 👉 Rules:
+
 - No business logic
 - Highly reusable
 - Minimal styling variants
@@ -69,6 +70,7 @@ Examples:
 - FormControl
 
 👉 Rules:
+
 - Still generic
 - No domain-specific logic
 
@@ -85,12 +87,14 @@ Examples:
 - FormSection
 
 👉 Rules:
+
 - Can manage internal state (optional)
 - Still NOT tied to business domain
 
 ---
 
 ⚠️ Note:
+
 - `ui-core` should NOT contain templates or page-level components
 - Domain-specific components belong in:
   - ui-storefront
@@ -104,17 +108,17 @@ Examples:
 Each component follows a modular structure:
 
 ComponentName/
-  ComponentName.tsx              # Pure UI (no "use client")
-  ComponentName.client.tsx       # Optional (interactive)
-  ComponentName.server.tsx       # Optional (server logic)
+ComponentName.tsx # Pure UI (no "use client")
+ComponentName.client.tsx # Optional (interactive)
+ComponentName.server.tsx # Optional (server logic)
 
-  ComponentName.types.ts
-  ComponentName.styles.ts
+ComponentName.types.ts
+ComponentName.styles.ts
 
-  ComponentName.stories.tsx
-  ComponentName.fixtures.ts
+ComponentName.stories.tsx
+ComponentName.fixtures.ts
 
-  index.ts
+index.ts
 
 ---
 
@@ -151,7 +155,7 @@ Use `.server.tsx` for:
 
 Always export via `index.ts`:
 
-export * from "./ComponentName"
+export \* from "./ComponentName"
 
 ---
 
@@ -163,8 +167,8 @@ export * from "./ComponentName"
 Example:
 
 :root {
-  --color-primary: oklch(0.68 0.2 40);
-  --radius: 0.5rem;
+--color-primary: oklch(0.68 0.2 40);
+--radius: 0.5rem;
 }
 
 ---

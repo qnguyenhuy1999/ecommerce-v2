@@ -21,7 +21,7 @@ export function DashboardPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-sm text-muted-foreground">Overview of your marketplace</p>
+        <p className="text-muted-foreground text-sm">Overview of your marketplace</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -80,18 +80,18 @@ export function DashboardPage() {
         />
       </div>
 
-      <div className="rounded-xl border bg-card shadow-sm">
+      <div className="bg-card rounded-xl border shadow-sm">
         <div className="border-b px-6 py-4">
           <h2 className="font-semibold">Recent Sellers</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b bg-muted/50 text-left">
-                <th className="px-6 py-3 font-medium text-muted-foreground">Shop Name</th>
-                <th className="px-6 py-3 font-medium text-muted-foreground">Email</th>
-                <th className="px-6 py-3 font-medium text-muted-foreground">Status</th>
-                <th className="px-6 py-3 font-medium text-muted-foreground">Date</th>
+              <tr className="bg-muted/50 border-b text-left">
+                <th className="text-muted-foreground px-6 py-3 font-medium">Shop Name</th>
+                <th className="text-muted-foreground px-6 py-3 font-medium">Email</th>
+                <th className="text-muted-foreground px-6 py-3 font-medium">Status</th>
+                <th className="text-muted-foreground px-6 py-3 font-medium">Date</th>
               </tr>
             </thead>
             <tbody>
@@ -100,26 +100,26 @@ export function DashboardPage() {
                     <tr key={i} className="border-b">
                       {Array.from({ length: 4 }).map((_, j) => (
                         <td key={j} className="px-6 py-3">
-                          <div className="h-4 w-24 animate-pulse rounded bg-muted" />
+                          <div className="bg-muted h-4 w-24 animate-pulse rounded" />
                         </td>
                       ))}
                     </tr>
                   ))
                 : data?.recentSellers.map((seller) => (
-                    <tr key={seller.id} className="border-b hover:bg-muted/50">
+                    <tr key={seller.id} className="hover:bg-muted/50 border-b">
                       <td className="px-6 py-3 font-medium">{seller.shopName}</td>
-                      <td className="px-6 py-3 text-muted-foreground">{seller.user.email}</td>
+                      <td className="text-muted-foreground px-6 py-3">{seller.user.email}</td>
                       <td className="px-6 py-3">
                         <StatusBadge status={seller.status} />
                       </td>
-                      <td className="px-6 py-3 text-muted-foreground">
+                      <td className="text-muted-foreground px-6 py-3">
                         {new Date(seller.createdAt).toLocaleDateString()}
                       </td>
                     </tr>
                   ))}
               {!isLoading && !data?.recentSellers.length && (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center text-muted-foreground">
+                  <td colSpan={4} className="text-muted-foreground px-6 py-8 text-center">
                     No sellers yet
                   </td>
                 </tr>

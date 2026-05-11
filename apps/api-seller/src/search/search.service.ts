@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import type { ProductSearchDto, OrderSearchDto } from './dto/search-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
@@ -148,7 +149,13 @@ export class SearchService {
     })
   }
 
-  async saveFilter(shopId: string, userId: string, name: string, entity: string, filters: Record<string, unknown>) {
+  async saveFilter(
+    shopId: string,
+    userId: string,
+    name: string,
+    entity: string,
+    filters: Record<string, unknown>,
+  ) {
     return this.prisma.savedFilter.create({
       data: { shopId, userId, name, entity, filters: filters as Prisma.InputJsonValue },
     })

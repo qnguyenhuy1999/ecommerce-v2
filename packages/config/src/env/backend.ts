@@ -37,7 +37,12 @@ export const backendEnvSchema = z.object({
     .string()
     // eslint-disable-next-line sonarjs/no-clear-text-protocols -- localhost dev defaults, not production URLs
     .default('http://localhost:3000,http://localhost:3001,http://localhost:3002')
-    .transform((v) => v.split(',').map((s) => s.trim()).filter(Boolean)),
+    .transform((v) =>
+      v
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean),
+    ),
 
   // Ports
   STOREFRONT_API_PORT: z.coerce.number().int().min(1).max(65535).default(4000),

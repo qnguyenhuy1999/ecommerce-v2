@@ -12,9 +12,9 @@ type Story = StoryObj<typeof Table>
 
 export const Default: Story = {
   render: () => (
-    <div className="w-md rounded-lg bg-surface border border-border overflow-x-auto">
+    <div className="w-md bg-surface border-border overflow-x-auto rounded-lg border">
       <Table className="text-sm">
-        <TableHeader className="bg-secondary text-xs text-muted-foreground uppercase tracking-wider">
+        <TableHeader className="bg-secondary text-muted-foreground text-xs uppercase tracking-wider">
           <TableRow>
             <TableHead>Item</TableHead>
             <TableHead className="text-right">Price</TableHead>

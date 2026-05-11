@@ -16,8 +16,8 @@ interface ApiSuccessResponse<T> {
 interface ApiErrorResponse {
   success: false
   error: {
-    code: string      // Machine-readable error code (e.g., "VALIDATION_ERROR")
-    message: string   // Human-readable message
+    code: string // Machine-readable error code (e.g., "VALIDATION_ERROR")
+    message: string // Human-readable message
     details?: unknown // Additional context (validation errors array, etc.)
   }
   timestamp: string
@@ -28,14 +28,14 @@ interface ApiErrorResponse {
 
 Use typed error classes from `@ecom/shared/errors`:
 
-| Error Class | HTTP Status | Code |
-|-------------|-------------|------|
-| `ValidationError` | 400 | `VALIDATION_ERROR` |
-| `NotFoundError` | 404 | `NOT_FOUND` |
-| `PermissionError` | 403 | `PERMISSION_DENIED` |
-| `BusinessRuleError` | 422 | Custom (e.g., `INSUFFICIENT_STOCK`) |
-| `ExternalServiceError` | 502 | `EXTERNAL_SERVICE_ERROR` |
-| `AppError` (base) | 500 | `APP_ERROR` |
+| Error Class            | HTTP Status | Code                                |
+| ---------------------- | ----------- | ----------------------------------- |
+| `ValidationError`      | 400         | `VALIDATION_ERROR`                  |
+| `NotFoundError`        | 404         | `NOT_FOUND`                         |
+| `PermissionError`      | 403         | `PERMISSION_DENIED`                 |
+| `BusinessRuleError`    | 422         | Custom (e.g., `INSUFFICIENT_STOCK`) |
+| `ExternalServiceError` | 502         | `EXTERNAL_SERVICE_ERROR`            |
+| `AppError` (base)      | 500         | `APP_ERROR`                         |
 
 ## Pagination
 
@@ -44,8 +44,8 @@ Paginated endpoints use the shared pagination utilities from `@ecom/shared/pagin
 ```typescript
 // Request query params
 interface PaginationQuery {
-  page?: number    // 1-based, default 1
-  limit?: number   // default 20, max 100
+  page?: number // 1-based, default 1
+  limit?: number // default 20, max 100
   sortBy?: string
   sortOrder?: 'asc' | 'desc'
 }

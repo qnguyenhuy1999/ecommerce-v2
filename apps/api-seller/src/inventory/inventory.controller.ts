@@ -9,8 +9,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { InventoryService } from './inventory.service'
+import type { ShopService } from '../shop/shop.service'
+import type { InventoryService } from './inventory.service'
 import type { InventoryQueryDto } from './dto/inventory-query.dto'
 import type { UpdateStockDto, BulkUpdateStockDto } from './dto/update-stock.dto'
 
@@ -60,7 +60,13 @@ export class InventoryController {
   @ApiOkResponseData(Object)
   async updateStock(@CurrentUser() user: SessionData, @Body() dto: UpdateStockDto) {
     const shopId = await this.shopService.getShopId(user.userId)
-    return this.inventoryService.updateStock(shopId, dto.variantId, dto.quantity, dto.type, dto.note)
+    return this.inventoryService.updateStock(
+      shopId,
+      dto.variantId,
+      dto.quantity,
+      dto.type,
+      dto.note,
+    )
   }
 
   @Post('bulk-update')

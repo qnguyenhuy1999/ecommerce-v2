@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import type { BulkJobQueryDto } from './dto/bulk-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
@@ -49,7 +50,12 @@ export class BulkService {
     return job
   }
 
-  async createImportJob(shopId: string, fileName: string, fileUrl: string, type: 'PRODUCT_IMPORT' | 'INVENTORY_UPDATE' | 'PRICE_UPDATE') {
+  async createImportJob(
+    shopId: string,
+    fileName: string,
+    fileUrl: string,
+    type: 'PRODUCT_IMPORT' | 'INVENTORY_UPDATE' | 'PRICE_UPDATE',
+  ) {
     return this.prisma.bulkJob.create({
       data: {
         shopId,
@@ -72,17 +78,32 @@ export class BulkService {
     })
   }
 
-  async updateJobProgress(jobId: string, data: { processedRows?: number; successRows?: number; errorRows?: number; status?: string; errors?: unknown; resultUrl?: string }) {
+  async updateJobProgress(
+    jobId: string,
+    data: {
+      processedRows?: number
+      successRows?: number
+      errorRows?: number
+      status?: string
+      errors?: unknown
+      resultUrl?: string
+    },
+  ) {
     const updateData: Prisma.BulkJobUpdateInput = {}
     if (data.processedRows !== undefined) updateData.processedRows = data.processedRows
     if (data.successRows !== undefined) updateData.successRows = data.successRows
     if (data.errorRows !== undefined) updateData.errorRows = data.errorRows
-    if (data.status !== undefined) updateData.status = data.status as Prisma.BulkJobUpdateInput['status']
+    if (data.status !== undefined)
+      updateData.status = data.status as Prisma.BulkJobUpdateInput['status']
     if (data.errors !== undefined) updateData.errors = data.errors as Prisma.InputJsonValue
     if (data.resultUrl !== undefined) updateData.resultUrl = data.resultUrl
 
     if (data.status === 'PROCESSING') updateData.startedAt = new Date()
-    if (data.status === 'COMPLETED' || data.status === 'FAILED' || data.status === 'PARTIALLY_COMPLETED') {
+    if (
+      data.status === 'COMPLETED' ||
+      data.status === 'FAILED' ||
+      data.status === 'PARTIALLY_COMPLETED'
+    ) {
       updateData.completedAt = new Date()
     }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { Prisma, OrderStatus, ReturnStatus } from '@ecom/database'
 
 @Injectable()
@@ -45,8 +45,11 @@ export class MetricsService {
       select: { sellerUnread: true },
     })
     const totalConversations = conversations.length
-    const respondedConversations = conversations.filter((c: { sellerUnread: number }) => c.sellerUnread === 0).length
-    const responseRate = totalConversations > 0 ? (respondedConversations / totalConversations) * 100 : 100
+    const respondedConversations = conversations.filter(
+      (c: { sellerUnread: number }) => c.sellerUnread === 0,
+    ).length
+    const responseRate =
+      totalConversations > 0 ? (respondedConversations / totalConversations) * 100 : 100
 
     const sellerScore = Math.max(
       0,
@@ -56,7 +59,8 @@ export class MetricsService {
     return {
       period: { start: thirtyDaysAgo.toISOString(), end: now.toISOString() },
       cancellationRate: Math.round(cancellationRate * 100) / 100,
-      lateShipmentRate: totalOrders > 0 ? Math.round((lateShipments / totalOrders) * 10000) / 100 : 0,
+      lateShipmentRate:
+        totalOrders > 0 ? Math.round((lateShipments / totalOrders) * 10000) / 100 : 0,
       responseRate: Math.round(responseRate * 100) / 100,
       refundRate: Math.round(refundRate * 100) / 100,
       sellerScore: Math.round(sellerScore * 100) / 100,

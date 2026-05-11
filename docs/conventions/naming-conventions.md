@@ -2,15 +2,15 @@
 
 ## Layer-Specific Verb Prefixes
 
-| Layer | Verb | Example |
-|-------|------|---------|
-| Controller methods | `find`, `create`, `update`, `remove` | `findAll()`, `findOne()`, `create()`, `update()`, `remove()` |
-| Service methods | `find`, `create`, `update`, `remove`, `validate` | `findById()`, `createProduct()` |
-| React hooks | `use` | `useProducts()`, `useAuth()` |
-| Client API calls | `fetch` | `fetchProducts()`, `fetchOrderById()` |
-| Event handlers | `handle`, `on` | `handleSubmit()`, `onOrderCreated()` |
-| Boolean variables | `is`, `has`, `can`, `should` | `isLoading`, `hasPermission` |
-| Factories | `create`, `build` | `createOrderDto()`, `buildQuery()` |
+| Layer              | Verb                                             | Example                                                      |
+| ------------------ | ------------------------------------------------ | ------------------------------------------------------------ |
+| Controller methods | `find`, `create`, `update`, `remove`             | `findAll()`, `findOne()`, `create()`, `update()`, `remove()` |
+| Service methods    | `find`, `create`, `update`, `remove`, `validate` | `findById()`, `createProduct()`                              |
+| React hooks        | `use`                                            | `useProducts()`, `useAuth()`                                 |
+| Client API calls   | `fetch`                                          | `fetchProducts()`, `fetchOrderById()`                        |
+| Event handlers     | `handle`, `on`                                   | `handleSubmit()`, `onOrderCreated()`                         |
+| Boolean variables  | `is`, `has`, `can`, `should`                     | `isLoading`, `hasPermission`                                 |
+| Factories          | `create`, `build`                                | `createOrderDto()`, `buildQuery()`                           |
 
 ## Avoid
 
@@ -20,16 +20,16 @@
 
 ## File Naming
 
-| Type | Convention | Example |
-|------|-----------|---------|
-| NestJS module | `<name>.module.ts` | `products.module.ts` |
-| NestJS controller | `<name>.controller.ts` | `products.controller.ts` |
-| NestJS service | `<name>.service.ts` | `products.service.ts` |
-| DTO | `<action>-<entity>.dto.ts` | `create-product.dto.ts` |
-| React component | `PascalCase.tsx` | `ProductCard.tsx` |
-| React hook | `use<Name>.ts` | `useProducts.ts` |
-| Constants | `kebab-case.ts` | `cache-keys.ts` |
-| Types/interfaces | `<name>.types.ts` or inline | `product.types.ts` |
+| Type              | Convention                  | Example                  |
+| ----------------- | --------------------------- | ------------------------ |
+| NestJS module     | `<name>.module.ts`          | `products.module.ts`     |
+| NestJS controller | `<name>.controller.ts`      | `products.controller.ts` |
+| NestJS service    | `<name>.service.ts`         | `products.service.ts`    |
+| DTO               | `<action>-<entity>.dto.ts`  | `create-product.dto.ts`  |
+| React component   | `PascalCase.tsx`            | `ProductCard.tsx`        |
+| React hook        | `use<Name>.ts`              | `useProducts.ts`         |
+| Constants         | `kebab-case.ts`             | `cache-keys.ts`          |
+| Types/interfaces  | `<name>.types.ts` or inline | `product.types.ts`       |
 
 ## Enum Naming
 

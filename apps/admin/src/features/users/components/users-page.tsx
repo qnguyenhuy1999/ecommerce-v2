@@ -71,7 +71,7 @@ export function UsersPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Buyers</h1>
-        <p className="text-sm text-muted-foreground">Manage platform users</p>
+        <p className="text-muted-foreground text-sm">Manage platform users</p>
       </div>
 
       <StatusTabs

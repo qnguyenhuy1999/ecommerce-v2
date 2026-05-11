@@ -10,9 +10,13 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { AdsService } from './ads.service'
-import type { CreateAdCampaignDto, CreateAdGroupDto, CreateAdDto } from './dto/create-ad-campaign.dto'
+import type { ShopService } from '../shop/shop.service'
+import type { AdsService } from './ads.service'
+import type {
+  CreateAdCampaignDto,
+  CreateAdGroupDto,
+  CreateAdDto,
+} from './dto/create-ad-campaign.dto'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/Ads')

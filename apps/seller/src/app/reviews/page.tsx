@@ -92,7 +92,7 @@ export default function ReviewsPage() {
       {[1, 2, 3, 4, 5].map((i) => (
         <Star
           key={i}
-          className={`h-4 w-4 ${i <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+          className={`h-4 w-4 ${i <= rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
         />
       ))}
     </div>
@@ -109,8 +109,8 @@ export default function ReviewsPage() {
       header: 'Review',
       render: (row: Review) => (
         <div className="max-w-md">
-          {row.title && <div className="font-medium text-sm">{row.title}</div>}
-          <div className="text-sm text-gray-600 truncate">{row.comment ?? '—'}</div>
+          {row.title && <div className="text-sm font-medium">{row.title}</div>}
+          <div className="truncate text-sm text-gray-600">{row.comment ?? '—'}</div>
         </div>
       ),
     },
@@ -124,11 +124,11 @@ export default function ReviewsPage() {
       header: 'Reply',
       render: (row: Review) =>
         row.replies.length > 0 ? (
-          <span className="text-green-600 text-sm">Replied</span>
+          <span className="text-sm text-green-600">Replied</span>
         ) : (
           <button
             onClick={() => setReplyingTo(row.id)}
-            className="text-blue-600 text-sm hover:underline"
+            className="text-sm text-blue-600 hover:underline"
           >
             Reply
           </button>
@@ -145,15 +145,15 @@ export default function ReviewsPage() {
     <DashboardLayout>
       <PageHeader title="Reviews" description="Manage product reviews and ratings" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <StatCard title="Total Reviews" value={analytics?.totalReviews ?? 0} icon={MessageSquare} />
         <StatCard
           title="Average Rating"
           value={(analytics?.averageRating ?? 0).toFixed(1)}
           icon={Star}
         />
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <p className="text-sm font-medium text-gray-500 mb-2">Rating Distribution</p>
+        <div className="rounded-lg border border-gray-200 bg-white p-6">
+          <p className="mb-2 text-sm font-medium text-gray-500">Rating Distribution</p>
           <div className="space-y-1">
             {[5, 4, 3, 2, 1].map((r) => {
               const count = analytics?.ratingDistribution.find((d) => d.rating === r)?.count ?? 0
@@ -161,9 +161,9 @@ export default function ReviewsPage() {
               return (
                 <div key={r} className="flex items-center gap-2 text-xs">
                   <span className="w-3">{r}</span>
-                  <div className="flex-1 h-2 bg-gray-100 rounded overflow-hidden">
+                  <div className="h-2 flex-1 overflow-hidden rounded bg-gray-100">
                     <div
-                      className="h-full bg-yellow-400 rounded"
+                      className="h-full rounded bg-yellow-400"
                       style={{ width: `${(count / total) * 100}%` }}
                     />
                   </div>
@@ -175,9 +175,9 @@ export default function ReviewsPage() {
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search reviews..."
@@ -186,7 +186,7 @@ export default function ReviewsPage() {
               setSearch(e.target.value)
               setPage(1)
             }}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+            className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-4 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <select
@@ -195,7 +195,7 @@ export default function ReviewsPage() {
             setRatingFilter(e.target.value)
             setPage(1)
           }}
-          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">All Ratings</option>
           {[5, 4, 3, 2, 1].map((r) => (
@@ -210,7 +210,7 @@ export default function ReviewsPage() {
             setReplyFilter(e.target.value)
             setPage(1)
           }}
-          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">All Reviews</option>
           <option value="hasReply">With Reply</option>
@@ -219,19 +219,19 @@ export default function ReviewsPage() {
       </div>
 
       {replyingTo && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+        <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
           <div className="flex gap-3">
             <textarea
               value={replyText}
               onChange={(e) => setReplyText(e.target.value)}
               placeholder="Write your reply..."
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm resize-none"
+              className="flex-1 resize-none rounded-lg border border-gray-300 px-3 py-2 text-sm"
               rows={2}
             />
             <div className="flex flex-col gap-2">
               <button
                 onClick={() => handleReply(replyingTo)}
-                className="px-4 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
+                className="rounded bg-blue-600 px-4 py-1 text-sm text-white hover:bg-blue-700"
               >
                 Send
               </button>
@@ -240,7 +240,7 @@ export default function ReviewsPage() {
                   setReplyingTo(null)
                   setReplyText('')
                 }}
-                className="px-4 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50"
+                className="rounded border border-gray-300 px-4 py-1 text-sm hover:bg-gray-50"
               >
                 Cancel
               </button>
@@ -252,11 +252,11 @@ export default function ReviewsPage() {
       <DataTable columns={columns} data={reviews} loading={loading} emptyMessage="No reviews yet" />
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-4">
+        <div className="mt-4 flex items-center justify-center gap-2">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Previous
           </button>
@@ -266,7 +266,7 @@ export default function ReviewsPage() {
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Next
           </button>

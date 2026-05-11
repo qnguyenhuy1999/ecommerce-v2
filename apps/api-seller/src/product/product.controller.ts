@@ -22,8 +22,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { ProductService } from './product.service'
+import type { ShopService } from '../shop/shop.service'
+import type { ProductService } from './product.service'
 import type { CreateProductDto } from './dto/create-product.dto'
 import type { UpdateProductDto } from './dto/update-product.dto'
 import type { ProductQueryDto } from './dto/product-query.dto'
@@ -97,10 +97,7 @@ export class ProductController {
 
   @Post('bulk/delete')
   @ApiOkResponseData(Object)
-  async bulkDelete(
-    @CurrentUser() user: SessionData,
-    @Body() body: { productIds: string[] },
-  ) {
+  async bulkDelete(@CurrentUser() user: SessionData, @Body() body: { productIds: string[] }) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.productService.bulkDelete(shopId, body.productIds)
   }

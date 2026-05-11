@@ -28,15 +28,15 @@ apps/* ──► @ecom/config (env validation, port helpers)
 
 ## App Responsibilities
 
-| App | Stack | Purpose |
-|-----|-------|---------|
-| `apps/storefront` | Next.js | Consumer shopping experience |
-| `apps/seller` | Next.js | Seller dashboard |
-| `apps/admin` | Next.js | Platform admin |
-| `apps/api-storefront` | NestJS | Customer-facing REST API |
-| `apps/api-seller` | NestJS | Seller management REST API |
-| `apps/api-admin` | NestJS | Platform admin REST API |
-| `apps/worker` | NestJS | Background job processor (planned) |
+| App                   | Stack   | Purpose                            |
+| --------------------- | ------- | ---------------------------------- |
+| `apps/storefront`     | Next.js | Consumer shopping experience       |
+| `apps/seller`         | Next.js | Seller dashboard                   |
+| `apps/admin`          | Next.js | Platform admin                     |
+| `apps/api-storefront` | NestJS  | Customer-facing REST API           |
+| `apps/api-seller`     | NestJS  | Seller management REST API         |
+| `apps/api-admin`      | NestJS  | Platform admin REST API            |
+| `apps/worker`         | NestJS  | Background job processor (planned) |
 
 ## API Response Contract
 

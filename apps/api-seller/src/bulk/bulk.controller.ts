@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Param,
-  Query,
-  Body,
-  UseGuards,
-} from '@nestjs/common'
+import { Controller, Get, Post, Param, Query, Body, UseGuards } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import type { SessionData } from '@ecom/auth'
 import { AuthGuard } from '../auth/guards/auth.guard'
@@ -18,8 +10,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { BulkService } from './bulk.service'
+import type { ShopService } from '../shop/shop.service'
+import type { BulkService } from './bulk.service'
 import type { BulkJobQueryDto } from './dto/bulk-query.dto'
 
 @ApiTags('Seller/Bulk')
@@ -51,7 +43,12 @@ export class BulkController {
   @ApiCreatedResponseData(Object)
   async createImport(
     @CurrentUser() user: SessionData,
-    @Body() body: { fileName: string; fileUrl: string; type: 'PRODUCT_IMPORT' | 'INVENTORY_UPDATE' | 'PRICE_UPDATE' },
+    @Body()
+    body: {
+      fileName: string
+      fileUrl: string
+      type: 'PRODUCT_IMPORT' | 'INVENTORY_UPDATE' | 'PRICE_UPDATE'
+    },
   ) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.bulkService.createImportJob(shopId, body.fileName, body.fileUrl, body.type)
@@ -59,10 +56,7 @@ export class BulkController {
 
   @Post('export')
   @ApiCreatedResponseData(Object)
-  async createExport(
-    @CurrentUser() user: SessionData,
-    @Body() body: { fileName: string },
-  ) {
+  async createExport(@CurrentUser() user: SessionData, @Body() body: { fileName: string }) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.bulkService.createExportJob(shopId, body.fileName)
   }

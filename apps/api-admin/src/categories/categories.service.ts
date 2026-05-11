@@ -1,5 +1,5 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
-import { PrismaService } from '@ecom/database';
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
+import type { PrismaService } from '@ecom/database'
 
 @Injectable()
 export class CategoriesService {
@@ -15,7 +15,7 @@ export class CategoriesService {
         _count: { select: { products: true } },
       },
       orderBy: { sortOrder: 'asc' },
-    });
+    })
   }
 
   async findById(id: string) {
@@ -27,44 +27,61 @@ export class CategoriesService {
         categoryAttributes: true,
         _count: { select: { products: true } },
       },
-    });
-    if (!cat) throw new NotFoundException('Category not found');
-    return cat;
+    })
+    if (!cat) throw new NotFoundException('Category not found')
+    return cat
   }
 
   async create(data: {
-    name: string; slug: string; parentId?: string;
-    sortOrder?: number; isActive?: boolean; description?: string;
-    icon?: string; banner?: string; metaTitle?: string; metaDesc?: string;
+    name: string
+    slug: string
+    parentId?: string
+    sortOrder?: number
+    isActive?: boolean
+    description?: string
+    icon?: string
+    banner?: string
+    metaTitle?: string
+    metaDesc?: string
   }) {
-    const existing = await this.prisma.category.findUnique({ where: { slug: data.slug } });
-    if (existing) throw new ConflictException('Slug already exists');
-    return this.prisma.category.create({ data });
+    const existing = await this.prisma.category.findUnique({ where: { slug: data.slug } })
+    if (existing) throw new ConflictException('Slug already exists')
+    return this.prisma.category.create({ data })
   }
 
-  async update(id: string, data: {
-    name?: string; slug?: string; parentId?: string | null;
-    sortOrder?: number; isActive?: boolean; description?: string;
-    icon?: string; banner?: string; metaTitle?: string; metaDesc?: string;
-  }) {
-    await this.findById(id);
+  async update(
+    id: string,
+    data: {
+      name?: string
+      slug?: string
+      parentId?: string | null
+      sortOrder?: number
+      isActive?: boolean
+      description?: string
+      icon?: string
+      banner?: string
+      metaTitle?: string
+      metaDesc?: string
+    },
+  ) {
+    await this.findById(id)
     if (data.slug) {
       const existing = await this.prisma.category.findFirst({
         where: { slug: data.slug, id: { not: id } },
-      });
-      if (existing) throw new ConflictException('Slug already exists');
+      })
+      if (existing) throw new ConflictException('Slug already exists')
     }
-    return this.prisma.category.update({ where: { id }, data });
+    return this.prisma.category.update({ where: { id }, data })
   }
 
   async delete(id: string) {
-    await this.findById(id);
-    const childCount = await this.prisma.category.count({ where: { parentId: id } });
-    if (childCount > 0) throw new ConflictException('Cannot delete category with children');
+    await this.findById(id)
+    const childCount = await this.prisma.category.count({ where: { parentId: id } })
+    if (childCount > 0) throw new ConflictException('Cannot delete category with children')
     return this.prisma.category.update({
       where: { id },
       data: { isActive: false },
-    });
+    })
   }
 
   async reorder(items: { id: string; sortOrder: number }[]) {
@@ -75,29 +92,29 @@ export class CategoriesService {
           data: { sortOrder: item.sortOrder },
         }),
       ),
-    );
-    return { success: true };
+    )
+    return { success: true }
   }
 
   async getBreadcrumb(id: string): Promise<{ id: string; name: string; slug: string }[]> {
-    const crumbs: { id: string; name: string; slug: string }[] = [];
+    const crumbs: { id: string; name: string; slug: string }[] = []
     let current = await this.prisma.category.findUnique({
       where: { id },
       select: { id: true, name: true, slug: true, parentId: true },
-    });
+    })
 
-    let depth = 0;
-    const MAX_DEPTH = 10;
+    let depth = 0
+    const MAX_DEPTH = 10
 
     while (current && depth < MAX_DEPTH) {
-      crumbs.unshift({ id: current.id, name: current.name, slug: current.slug });
-      if (!current.parentId) break;
+      crumbs.unshift({ id: current.id, name: current.name, slug: current.slug })
+      if (!current.parentId) break
       current = await this.prisma.category.findUnique({
         where: { id: current.parentId },
         select: { id: true, name: true, slug: true, parentId: true },
-      });
-      depth++;
+      })
+      depth++
     }
-    return crumbs;
+    return crumbs
   }
 }

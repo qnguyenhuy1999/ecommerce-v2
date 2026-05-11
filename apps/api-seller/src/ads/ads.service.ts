@@ -1,6 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
-import type { CreateAdCampaignDto, CreateAdGroupDto, CreateAdDto } from './dto/create-ad-campaign.dto'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
+import type {
+  CreateAdCampaignDto,
+  CreateAdGroupDto,
+  CreateAdDto,
+} from './dto/create-ad-campaign.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
@@ -8,14 +13,7 @@ import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 export class AdsService {
   constructor(private readonly prisma: PrismaService) {}
   async listCampaigns(shopId: string, query: OffsetPaginationDto) {
-    const {
-      page = 1,
-      pageSize = 20,
-      sortBy = 'createdAt',
-      sortOrder = 'desc',
-      sort,
-      order,
-    } = query
+    const { page = 1, pageSize = 20, sortBy = 'createdAt', sortOrder = 'desc', sort, order } = query
 
     const finalSort = sort || sortBy
     const finalOrder = order || sortOrder

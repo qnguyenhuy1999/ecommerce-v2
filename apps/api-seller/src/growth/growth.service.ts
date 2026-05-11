@@ -1,12 +1,13 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import type {
   CreateReferralProgramDto,
   CreateExperimentDto,
   CreateFeatureFlagDto,
   CreateCampaignDto,
 } from './dto/growth.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 import { randomBytes } from 'node:crypto'
 
@@ -152,7 +153,10 @@ export class GrowthService {
     if (bucket >= experiment.trafficPercent) return null
 
     let cumWeight = 0
-    const totalWeight = experiment.variants.reduce((sum: number, v: { weight: number }) => sum + v.weight, 0)
+    const totalWeight = experiment.variants.reduce(
+      (sum: number, v: { weight: number }) => sum + v.weight,
+      0,
+    )
     const variantBucket = hash % totalWeight
 
     let selectedVariant = experiment.variants[0]

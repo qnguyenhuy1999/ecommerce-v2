@@ -17,7 +17,7 @@ const columns = [
     cell: (info) => (
       <Link
         href={`/orders/${info.getValue()}`}
-        className="font-medium hover:underline font-mono text-xs"
+        className="font-mono text-xs font-medium hover:underline"
       >
         {info.getValue().slice(0, 8)}...
       </Link>
@@ -67,7 +67,7 @@ export function OrdersPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Orders</h1>
-        <p className="text-sm text-muted-foreground">Manage marketplace orders</p>
+        <p className="text-muted-foreground text-sm">Manage marketplace orders</p>
       </div>
 
       <StatusTabs

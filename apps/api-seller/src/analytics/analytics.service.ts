@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 
 @Injectable()
 export class AnalyticsService {
@@ -130,7 +130,8 @@ export class AnalyticsService {
         }),
       ])
 
-    const revenueGrowth = previousRevenue > 0 ? ((currentRevenue - previousRevenue) / previousRevenue) * 100 : 0
+    const revenueGrowth =
+      previousRevenue > 0 ? ((currentRevenue - previousRevenue) / previousRevenue) * 100 : 0
 
     return {
       revenue: { current: currentRevenue, previous: previousRevenue, growth: revenueGrowth },

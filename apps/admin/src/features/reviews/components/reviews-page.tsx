@@ -62,7 +62,7 @@ const columns = [
           ) && (
             <button
               onClick={() => hide.mutate(review.id)}
-              className="rounded border px-2 py-0.5 text-xs hover:bg-muted"
+              className="hover:bg-muted rounded border px-2 py-0.5 text-xs"
             >
               Hide
             </button>
@@ -98,7 +98,7 @@ export function ReviewsPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Reviews</h1>
-        <p className="text-sm text-muted-foreground">Moderate user reviews & reports</p>
+        <p className="text-muted-foreground text-sm">Moderate user reviews & reports</p>
       </div>
 
       <StatusTabs

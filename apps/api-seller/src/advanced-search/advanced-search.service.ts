@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import type { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
@@ -37,9 +38,7 @@ export class AdvancedSearchService {
     }
 
     const orderBy: Prisma.ProductOrderByWithRelationInput =
-      sortBy === 'price'
-        ? { basePrice: sortOrder as Prisma.SortOrder }
-        : { createdAt: 'desc' }
+      sortBy === 'price' ? { basePrice: sortOrder as Prisma.SortOrder } : { createdAt: 'desc' }
 
     const { items, total } = await offsetPaginate(this.prisma.product, {
       page,

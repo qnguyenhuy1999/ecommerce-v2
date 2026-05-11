@@ -10,11 +10,11 @@ function Header({ label, icon: Icon }: StatCardHeader) {
 
   return (
     <div className="flex items-start justify-between gap-2">
-      <span className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">
+      <span className="text-muted-foreground text-[11px] font-semibold uppercase tracking-wider">
         {label}
       </span>
       {Icon && (
-        <span className={cn('h-7 w-7 rounded-md flex items-center justify-center', colors.soft)}>
+        <span className={cn('flex h-7 w-7 items-center justify-center rounded-md', colors.soft)}>
           <Icon className="h-3.5 w-3.5" />
         </span>
       )}
@@ -27,10 +27,10 @@ function Chart({ value, spark }: StatChartProps) {
 
   return (
     <div className="flex items-end justify-between gap-2">
-      <div className="font-display font-bold text-2xl tabular-nums leading-none">{value}</div>
+      <div className="font-display text-2xl font-bold tabular-nums leading-none">{value}</div>
 
       {spark && (
-        <div className="h-8 w-20 -mr-1">
+        <div className="-mr-1 h-8 w-20">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={spark}>
               <defs>
@@ -87,7 +87,7 @@ function Root({
     <StatCardContext.Provider value={{ accent, colors }}>
       <div
         className={cn(
-          'rounded-lg bg-surface border border-border p-3.5 flex flex-col gap-2',
+          'bg-surface border-border flex flex-col gap-2 rounded-lg border p-3.5',
           className,
         )}
       >

@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Param,
-  Query,
-  Body,
-  UseGuards,
-} from '@nestjs/common'
+import { Controller, Get, Post, Put, Param, Query, Body, UseGuards } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import type { SessionData } from '@ecom/auth'
 import { AuthGuard } from '../auth/guards/auth.guard'
@@ -19,8 +10,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { ReturnService } from './return.service'
+import type { ShopService } from '../shop/shop.service'
+import type { ReturnService } from './return.service'
 import type { ReturnQueryDto } from './dto/return-query.dto'
 
 @ApiTags('Seller/Returns')

@@ -4,14 +4,14 @@ A production-grade, multi-vendor e-commerce marketplace (Shopee-like) built as a
 
 ## Tech Stack
 
-| Layer | Technology |
-| --- | --- |
-| Frontend | Next.js (App Router) · React 19 · Tailwind CSS v4 |
-| Backend API | NestJS · Prisma · PostgreSQL |
-| UI Components | Radix UI · shadcn · Storybook 10 |
-| Monorepo | PNPM 11 · Turborepo |
-| Language | TypeScript (strict, end-to-end) |
-| Node | >= 24 |
+| Layer         | Technology                                        |
+| ------------- | ------------------------------------------------- |
+| Frontend      | Next.js (App Router) · React 19 · Tailwind CSS v4 |
+| Backend API   | NestJS · Prisma · PostgreSQL                      |
+| UI Components | Radix UI · shadcn · Storybook 10                  |
+| Monorepo      | PNPM 11 · Turborepo                               |
+| Language      | TypeScript (strict, end-to-end)                   |
+| Node          | >= 24                                             |
 
 ## Architecture
 
@@ -49,10 +49,10 @@ ecommerce/
 
 ### Prerequisites
 
-| Tool | Version |
-| --- | --- |
-| Node.js | >= 24 |
-| PNPM | >= 11 |
+| Tool    | Version |
+| ------- | ------- |
+| Node.js | >= 24   |
+| PNPM    | >= 11   |
 
 ### Installation
 
@@ -93,32 +93,32 @@ pnpm db:seed        # Seed sample data
 
 ### Apps
 
-| Package | Description |
-| --- | --- |
-| `apps/storefront` | Consumer-facing shopping experience — browsing, cart, checkout |
-| `apps/seller` | Seller dashboard — product management, orders, analytics |
-| `apps/admin` | Platform admin — user management, moderation, settings |
-| `apps/api-storefront` | Customer-facing REST API — auth, catalog, cart, orders |
-| `apps/api-seller` | Seller management REST API — inventory, fulfillment |
-| `apps/api-admin` | Platform admin REST API — KYC, platform config |
-| `apps/worker` | Background job processor — emails, queues, scheduled tasks (planned) |
+| Package               | Description                                                          |
+| --------------------- | -------------------------------------------------------------------- |
+| `apps/storefront`     | Consumer-facing shopping experience — browsing, cart, checkout       |
+| `apps/seller`         | Seller dashboard — product management, orders, analytics             |
+| `apps/admin`          | Platform admin — user management, moderation, settings               |
+| `apps/api-storefront` | Customer-facing REST API — auth, catalog, cart, orders               |
+| `apps/api-seller`     | Seller management REST API — inventory, fulfillment                  |
+| `apps/api-admin`      | Platform admin REST API — KYC, platform config                       |
+| `apps/worker`         | Background job processor — emails, queues, scheduled tasks (planned) |
 
 ### Shared Packages
 
-| Package | Description |
-| --- | --- |
-| `@ecom/shared` | Universal primitives — constants, utils, pagination (core/prisma/react/nestjs layers) |
-| `@ecom/contracts` | Stable boundary — ALL domain enums, API schemas, transport contracts (`ApiResponse`) |
-| `@ecom/nestjs-core` | NestJS infrastructure — `AllExceptionsFilter`, `ResponseInterceptor` |
-| `@ecom/database` | Prisma client + repository helpers |
-| `@ecom/auth` | Authentication domain (may import database) |
-| `@ecom/redis` | Redis client wrapper |
-| `@ecom/email` | Email service base |
-| `@ecom/config` | Centralised app configuration & env validation |
-| `@ecom/core-ui` | Base React component library — buttons, inputs, modals, sidebar, theme provider (Radix UI + shadcn) |
-| `@ecom/ui-storefront` | Storefront-specific components — product cards, storefront chrome |
-| `@ecom/ui-seller` | Seller-specific components — stat cards, charts (Recharts) |
-| `@ecom/ui-admin` | Admin-specific components — data grids, admin shell |
+| Package               | Description                                                                                                              |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `@ecom/shared`        | Universal primitives — constants, utils, pagination (core/prisma/react/nestjs layers)                                    |
+| `@ecom/contracts`     | Stable boundary — ALL domain enums, API schemas, transport contracts (`ApiResponse`)                                     |
+| `@ecom/nestjs-core`   | NestJS infrastructure — `AllExceptionsFilter`, `ResponseInterceptor`                                                     |
+| `@ecom/database`      | Prisma client + repository helpers                                                                                       |
+| `@ecom/auth`          | Authentication domain (may import database)                                                                              |
+| `@ecom/redis`         | Redis client wrapper                                                                                                     |
+| `@ecom/email`         | Email service base                                                                                                       |
+| `@ecom/config`        | Centralised app configuration & env validation                                                                           |
+| `@ecom/core-ui`       | Base React component library — buttons, inputs, modals, sidebar, theme provider (Radix UI + shadcn)                      |
+| `@ecom/ui-storefront` | Storefront-specific components — product cards, storefront chrome                                                        |
+| `@ecom/ui-seller`     | Seller-specific components — stat cards, charts (Recharts)                                                               |
+| `@ecom/ui-admin`      | Admin-specific components — data grids, admin shell                                                                      |
 | `@ecom/eslint-config` | Shared ESLint 9 flat config presets + TypeScript config presets (`base`, `library`, `react-library`, `nextjs`, `nestjs`) |
 
 ## UI Development with Storybook
@@ -160,18 +160,19 @@ cp .env.example .env
 
 Key variables:
 
-| Variable | Description |
-| --- | --- |
-| `DATABASE_URL` | PostgreSQL connection string |
-| `REDIS_HOST` / `REDIS_PORT` | Redis connection |
-| `JWT_ACCESS_SECRET` | JWT signing secret |
-| `STRIPE_SECRET_KEY` | Stripe API key |
-| `NEXT_PUBLIC_API_URL` | API base URL for frontend apps |
-| `COOKIE_DOMAIN` | Cookie domain (e.g. `.example.com` for subdomains) |
-| `COOKIE_SAMESITE` | `lax` (default), `strict`, or `none` — use `none` for cross-site deployments |
-| `COOKIE_SECURE` | `true/false` — defaults to `true` in production; required when `COOKIE_SAMESITE=none` |
+| Variable                    | Description                                                                           |
+| --------------------------- | ------------------------------------------------------------------------------------- |
+| `DATABASE_URL`              | PostgreSQL connection string                                                          |
+| `REDIS_HOST` / `REDIS_PORT` | Redis connection                                                                      |
+| `JWT_ACCESS_SECRET`         | JWT signing secret                                                                    |
+| `STRIPE_SECRET_KEY`         | Stripe API key                                                                        |
+| `NEXT_PUBLIC_API_URL`       | API base URL for frontend apps                                                        |
+| `COOKIE_DOMAIN`             | Cookie domain (e.g. `.example.com` for subdomains)                                    |
+| `COOKIE_SAMESITE`           | `lax` (default), `strict`, or `none` — use `none` for cross-site deployments          |
+| `COOKIE_SECURE`             | `true/false` — defaults to `true` in production; required when `COOKIE_SAMESITE=none` |
 
 Notes:
+
 - `SameSite=lax` is usually fine for local dev (e.g. `localhost:3000` -> `localhost:4000`) and subdomains on the same registrable domain (e.g. `api.example.com` + `store.example.com`).
 - If your frontend and API are on different "sites" (different registrable domains), browsers will not send cookies on cross-site `fetch`/XHR unless you use `SameSite=None` + `Secure` (HTTPS).
 
@@ -199,10 +200,10 @@ Shared flat configs are available via `@ecom/eslint-config`:
 
 ```js
 // For a standard package
-import config from '@ecom/eslint-config';
+import config from '@ecom/eslint-config'
 
 // For a React component library
-import config from '@ecom/eslint-config/react-library';
+import config from '@ecom/eslint-config/react-library'
 ```
 
 ## Scripts Reference
@@ -249,16 +250,18 @@ Detailed documentation lives in the [`docs/`](./docs) directory:
 ## Governance & Scaling
 
 ### Package Creation Rules
+
 - **Create** only for isolated, reusable logic across 3+ apps.
 - **Merge** if <5 exports or overlapping responsibility.
 - **Leaf rule**: `shared` and `contracts` must never import other internal packages.
 
 ### Import Standards
+
 - ✅ `import { X } from '@ecom/contracts'`
 - ✅ `import { Y } from '@ecom/shared/constants'`
 - ❌ `import { Z } from '@ecom/shared/pagination'` (use explicit layers)
 
 ### Future Roadmap
+
 - **Domain Extraction**: Extract `@ecom/domain-*` when logic crosses 3+ apps.
 - **Grouping**: Group into `infrastructure/`, `domains/`, `ui/` when package count >25.
-

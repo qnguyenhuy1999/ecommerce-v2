@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 
 @Injectable()
 export class ShippingService {
@@ -32,7 +32,12 @@ export class ShippingService {
     })
   }
 
-  async createShipment(shopId: string, sellerOrderId: string, providerId: string, trackingNumber?: string) {
+  async createShipment(
+    shopId: string,
+    sellerOrderId: string,
+    providerId: string,
+    trackingNumber?: string,
+  ) {
     const sellerOrder = await this.prisma.sellerOrder.findFirst({
       where: { id: sellerOrderId, shopId },
       include: { shipment: true },
@@ -47,7 +52,9 @@ export class ShippingService {
     }
 
     if (sellerOrder.status !== 'PACKING' && sellerOrder.status !== 'CONFIRMED') {
-      throw new BadRequestException('Order must be in CONFIRMED or PACKING status to create shipment')
+      throw new BadRequestException(
+        'Order must be in CONFIRMED or PACKING status to create shipment',
+      )
     }
 
     return this.prisma.shipment.create({

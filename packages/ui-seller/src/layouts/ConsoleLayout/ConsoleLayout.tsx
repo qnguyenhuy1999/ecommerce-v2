@@ -22,11 +22,11 @@ import { sidebarGroups } from './ConsoleLayout.fixtures'
 export const ConsoleLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarProvider defaultOpen>
-      <div className="flex min-h-svh w-full bg-background">
+      <div className="bg-background flex min-h-svh w-full">
         <SidebarShell
           header={
             <div className="flex items-center gap-2 px-3 py-2 text-sm font-semibold">
-              <span className="flex size-7 items-center justify-center rounded-md bg-primary text-white">
+              <span className="bg-primary flex size-7 items-center justify-center rounded-md text-white">
                 K
               </span>
               Kavi.
@@ -53,21 +53,21 @@ export const ConsoleLayout = ({ children }: { children: React.ReactNode }) => {
               </div>
               <div className="flex items-center gap-5">
                 <div className="relative">
-                  <Bell className="w-4 h-4" />
-                  <div className="absolute -top-2 -right-2 flex size-4 items-center justify-center rounded-full bg-primary text-white">
+                  <Bell className="h-4 w-4" />
+                  <div className="bg-primary absolute -right-2 -top-2 flex size-4 items-center justify-center rounded-full text-white">
                     <span className="text-xs">3</span>
                   </div>
                 </div>
 
                 <div className="relative">
-                  <MessageCircle className="w-4 h-4" />
-                  <div className="absolute -top-2 -right-2 flex size-4 items-center justify-center rounded-full bg-primary text-white">
+                  <MessageCircle className="h-4 w-4" />
+                  <div className="bg-primary absolute -right-2 -top-2 flex size-4 items-center justify-center rounded-full text-white">
                     <span className="text-xs">3</span>
                   </div>
                 </div>
 
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center gap-2 rounded-md hover:bg-secondary px-2 py-1">
+                  <DropdownMenuTrigger className="hover:bg-secondary flex items-center gap-2 rounded-md px-2 py-1">
                     <Avatar className="size-7">
                       <AvatarImage src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
                       <AvatarFallback>ER</AvatarFallback>
@@ -81,8 +81,8 @@ export const ConsoleLayout = ({ children }: { children: React.ReactNode }) => {
                       </Avatar>
 
                       <div className="ml-2 min-w-0">
-                        <p className="text-sm font-medium truncate">Evil Rabbit</p>
-                        <p className="text-xs text-muted-foreground truncate">
+                        <p className="truncate text-sm font-medium">Evil Rabbit</p>
+                        <p className="text-muted-foreground truncate text-xs">
                           evil.rabbit@example.com
                         </p>
                       </div>

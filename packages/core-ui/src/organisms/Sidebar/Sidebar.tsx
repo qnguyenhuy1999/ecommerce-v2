@@ -11,7 +11,7 @@ import {
   SidebarMenuItem as UIItem,
 } from '../../primitives/ui/sidebar'
 import type { SidebarGroup as Group } from './Sidebar.types'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 type SidebarMenuRendererProps = {
   groups: Group[]
@@ -39,7 +39,7 @@ export function SidebarMenuRenderer({ groups }: SidebarMenuRendererProps) {
                       {item.label}
 
                       {item.badge != null && (
-                        <span className="ml-auto inline-flex min-w-5 items-center justify-center rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-primary-foreground tabular-nums">
+                        <span className="bg-primary text-primary-foreground ml-auto inline-flex min-w-5 items-center justify-center rounded-full px-2 py-0.5 text-xs font-semibold tabular-nums">
                           {item.badge}
                         </span>
                       )}

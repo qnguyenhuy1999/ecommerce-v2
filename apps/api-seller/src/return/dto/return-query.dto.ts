@@ -7,6 +7,15 @@ export class ReturnQueryDto extends OffsetPaginationDto {
   search?: string
 
   @IsOptional()
-  @IsEnum(['REQUESTED', 'REVIEWING', 'APPROVED', 'REJECTED', 'RETURN_SHIPPING', 'RECEIVED', 'REFUNDED', 'CLOSED'])
+  @IsEnum([
+    'REQUESTED',
+    'REVIEWING',
+    'APPROVED',
+    'REJECTED',
+    'RETURN_SHIPPING',
+    'RECEIVED',
+    'REFUNDED',
+    'CLOSED',
+  ])
   status?: string
 }

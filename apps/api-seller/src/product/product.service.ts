@@ -5,7 +5,7 @@ import type { CreateProductDto } from './dto/create-product.dto'
 import type { UpdateProductDto } from './dto/update-product.dto'
 import type { ProductQueryDto } from './dto/product-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { ProductRepository } from './repositories/product.repository'
+import type { ProductRepository } from './repositories/product.repository'
 
 @Injectable()
 export class ProductService {
@@ -33,7 +33,12 @@ export class ProductService {
       ...(status ? { status: status as Prisma.ProductWhereInput['status'] } : {}),
       ...(categoryId ? { categoryId } : {}),
       ...(search
-        ? { OR: [{ name: { contains: search, mode: 'insensitive' } }, { baseSku: { contains: search, mode: 'insensitive' } }] }
+        ? {
+            OR: [
+              { name: { contains: search, mode: 'insensitive' } },
+              { baseSku: { contains: search, mode: 'insensitive' } },
+            ],
+          }
         : {}),
     }
 

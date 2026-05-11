@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import type { NotificationQueryDto } from './dto/notification-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
@@ -47,7 +48,13 @@ export class NotificationService {
     return { updated: result.count }
   }
 
-  async create(shopId: string, type: string, title: string, message: string, metadata?: Record<string, unknown>) {
+  async create(
+    shopId: string,
+    type: string,
+    title: string,
+    message: string,
+    metadata?: Record<string, unknown>,
+  ) {
     return this.prisma.notification.create({
       data: {
         shopId,

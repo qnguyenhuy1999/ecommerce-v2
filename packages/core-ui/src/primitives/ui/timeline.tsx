@@ -19,7 +19,7 @@ function Timeline({ title, items, ...props }: TimelineProps) {
   return (
     <div data-slot="timeline" {...props}>
       {title && (
-        <p className="mb-4 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
+        <p className="text-muted-foreground mb-4 text-xs font-semibold uppercase tracking-widest">
           {title}
         </p>
       )}
@@ -48,7 +48,7 @@ function TimelineItem({
             status === 'completed' ? 'bg-orange-400' : 'bg-muted-foreground/30',
           )}
         />
-        {!isLast && <span className="mt-1 w-px grow bg-border" />}
+        {!isLast && <span className="bg-border mt-1 w-px grow" />}
       </div>
 
       {/* Content */}
@@ -61,7 +61,7 @@ function TimelineItem({
         >
           {label}
         </p>
-        <p className="mt-0.5 text-xs text-muted-foreground">{timestamp}</p>
+        <p className="text-muted-foreground mt-0.5 text-xs">{timestamp}</p>
       </div>
     </li>
   )

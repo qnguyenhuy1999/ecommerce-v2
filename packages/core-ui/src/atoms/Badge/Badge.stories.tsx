@@ -28,7 +28,7 @@ export const AllVariants: Story = {
         <Badge variant="link">Link</Badge>
       </div>
 
-      <TypographyH1 className="mt-10 mb-2">All Sizes</TypographyH1>
+      <TypographyH1 className="mb-2 mt-10">All Sizes</TypographyH1>
       <div className="flex items-center gap-2">
         <Badge size="sm">Small</Badge>
         <Badge size="default">Default</Badge>

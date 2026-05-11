@@ -128,7 +128,7 @@ export default function SearchPage() {
               className="h-10 w-10 rounded object-cover"
             />
           ) : (
-            <div className="h-10 w-10 bg-gray-100 rounded" />
+            <div className="h-10 w-10 rounded bg-gray-100" />
           )}
           <div>
             <div className="font-medium">{row.name}</div>
@@ -169,48 +169,48 @@ export default function SearchPage() {
     <DashboardLayout>
       <PageHeader title="Search & Filter" description="Advanced product search and filtering" />
 
-      <div className="bg-white rounded-lg border border-gray-200 p-4 mb-4">
-        <div className="flex gap-3 mb-3">
+      <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4">
+        <div className="mb-3 flex gap-3">
           <div className="relative flex-1">
-            <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
               placeholder="Search products by name, description..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+              className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-4 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50"
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm hover:bg-gray-50"
           >
             <Filter className="h-4 w-4" />
             Filters
           </button>
           <button
             onClick={handleSearch}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
+            className="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700"
           >
             Search
           </button>
         </div>
 
         {showFilters && (
-          <div className="border-t border-gray-200 pt-3 space-y-3">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="space-y-3 border-t border-gray-200 pt-3">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               <input
                 type="text"
                 placeholder="SKU"
                 value={sku}
                 onChange={(e) => setSku(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
+                className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
               />
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
+                className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">All Status</option>
                 <option value="DRAFT">Draft</option>
@@ -222,14 +222,14 @@ export default function SearchPage() {
                 placeholder="Min Price"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
+                className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="number"
                 placeholder="Max Price"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
+                className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div className="flex items-center gap-2">
@@ -238,11 +238,11 @@ export default function SearchPage() {
                 placeholder="Filter name"
                 value={filterName}
                 onChange={(e) => setFilterName(e.target.value)}
-                className="px-3 py-1.5 border border-gray-300 rounded text-sm outline-none focus:ring-2 focus:ring-blue-500"
+                className="rounded border border-gray-300 px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 onClick={handleSaveFilter}
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-blue-600 border border-blue-300 rounded text-xs hover:bg-blue-50"
+                className="inline-flex items-center gap-1 rounded border border-blue-300 px-3 py-1.5 text-xs text-blue-600 hover:bg-blue-50"
               >
                 <Bookmark className="h-3 w-3" /> Save Filter
               </button>
@@ -251,11 +251,11 @@ export default function SearchPage() {
         )}
 
         {savedFilters.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-3">
+          <div className="mt-3 flex flex-wrap gap-2">
             {savedFilters.map((f) => (
               <div
                 key={f.id}
-                className="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 rounded-full text-xs"
+                className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs"
               >
                 <button onClick={() => handleLoadFilter(f)} className="hover:text-blue-600">
                   {f.name}
@@ -280,11 +280,11 @@ export default function SearchPage() {
       />
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-4">
+        <div className="mt-4 flex items-center justify-center gap-2">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Previous
           </button>
@@ -294,7 +294,7 @@ export default function SearchPage() {
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Next
           </button>

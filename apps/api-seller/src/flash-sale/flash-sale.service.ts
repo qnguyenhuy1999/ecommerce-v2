@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import { FlashSaleStatus, ProductStatus } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import type { CreateFlashSaleCampaignDto } from './dto/create-flash-sale.dto'
@@ -11,7 +12,8 @@ import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 export class FlashSaleService {
   constructor(private readonly prisma: PrismaService) {}
   async listCampaigns(query: OffsetPaginationDto) {
-    const { page = PAGINATION_DEFAULTS.DEFAULT_PAGE, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
+    const { page = PAGINATION_DEFAULTS.DEFAULT_PAGE, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } =
+      query
 
     const where: Prisma.FlashSaleCampaignWhereInput = {
       status: { in: [FlashSaleStatus.SCHEDULED, FlashSaleStatus.ACTIVE] },
@@ -79,7 +81,10 @@ export class FlashSaleService {
     })
 
     if (!campaign) throw new NotFoundException('Campaign not found')
-    if (campaign.status !== FlashSaleStatus.DRAFT && campaign.status !== FlashSaleStatus.SCHEDULED) {
+    if (
+      campaign.status !== FlashSaleStatus.DRAFT &&
+      campaign.status !== FlashSaleStatus.SCHEDULED
+    ) {
       throw new BadRequestException('Campaign is not accepting applications')
     }
 
@@ -112,7 +117,8 @@ export class FlashSaleService {
   }
 
   async listSellerSlots(shopId: string, query: OffsetPaginationDto) {
-    const { page = PAGINATION_DEFAULTS.DEFAULT_PAGE, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
+    const { page = PAGINATION_DEFAULTS.DEFAULT_PAGE, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } =
+      query
 
     const where: Prisma.FlashSaleSlotWhereInput = { shopId }
 

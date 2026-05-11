@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import type { CreateLoyaltyTierDto, CreateMissionDto, RedeemPointsDto } from './dto/loyalty.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()

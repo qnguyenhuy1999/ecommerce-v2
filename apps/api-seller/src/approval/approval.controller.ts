@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Param,
-  Query,
-  UseGuards,
-} from '@nestjs/common'
+import { Controller, Get, Post, Param, Query, UseGuards } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import type { SessionData } from '@ecom/auth'
 import { AuthGuard } from '../auth/guards/auth.guard'
@@ -17,8 +10,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { ApprovalService } from './approval.service'
+import type { ShopService } from '../shop/shop.service'
+import type { ApprovalService } from './approval.service'
 import type { ApprovalQueryDto } from './dto/approval-query.dto'
 
 @ApiTags('Seller/Approvals')

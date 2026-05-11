@@ -1,7 +1,7 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsString, IsEnum, IsInt, Min } from 'class-validator';
-import { Type } from 'class-transformer';
-import { ReturnStatus } from '@ecom/database';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { IsOptional, IsString, IsEnum, IsInt, Min } from 'class-validator'
+import { Type } from 'class-transformer'
+import { ReturnStatus } from '@ecom/database'
 
 export class RefundQueryDto {
   @ApiPropertyOptional()
@@ -9,33 +9,37 @@ export class RefundQueryDto {
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  page?: number = 1;
+  page?: number = 1
 
   @ApiPropertyOptional()
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  limit?: number = 20;
+  limit?: number = 20
 
   @ApiPropertyOptional({ enum: ReturnStatus })
-  @IsOptional() @IsEnum(ReturnStatus) status?: ReturnStatus;
+  @IsOptional()
+  @IsEnum(ReturnStatus)
+  status?: ReturnStatus
 }
 
 export class RefundActionDto {
   @ApiPropertyOptional()
-  @IsOptional() @IsString() note?: string;
+  @IsOptional()
+  @IsString()
+  note?: string
 }
 
 export class RefundResponseDto {
-  @ApiProperty() id!: string;
-  @ApiProperty() orderId!: string;
-  @ApiProperty() sellerId!: string;
-  @ApiProperty() userId!: string;
-  @ApiProperty({ enum: ReturnStatus }) status!: ReturnStatus;
-  @ApiProperty() reason!: string;
-  @ApiPropertyOptional() note?: string;
-  @ApiProperty() amount!: number;
-  @ApiProperty() createdAt!: Date;
-  @ApiProperty() updatedAt!: Date;
+  @ApiProperty() id!: string
+  @ApiProperty() orderId!: string
+  @ApiProperty() sellerId!: string
+  @ApiProperty() userId!: string
+  @ApiProperty({ enum: ReturnStatus }) status!: ReturnStatus
+  @ApiProperty() reason!: string
+  @ApiPropertyOptional() note?: string
+  @ApiProperty() amount!: number
+  @ApiProperty() createdAt!: Date
+  @ApiProperty() updatedAt!: Date
 }

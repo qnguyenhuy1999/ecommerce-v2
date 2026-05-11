@@ -1,9 +1,11 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString, IsArray, ArrayNotEmpty, ArrayMaxSize } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger'
+import { IsOptional, IsString, IsArray, ArrayNotEmpty, ArrayMaxSize } from 'class-validator'
 
 export class ProductModerationDto {
   @ApiProperty()
-  @IsOptional() @IsString() note?: string;
+  @IsOptional()
+  @IsString()
+  note?: string
 }
 
 export class BulkModerationDto {
@@ -13,12 +15,16 @@ export class BulkModerationDto {
   @ArrayMaxSize(100)
   @ApiProperty()
   @IsString({ each: true })
-  ids!: string[];
+  ids!: string[]
   @ApiProperty()
-  @IsOptional() @IsString() note?: string;
+  @IsOptional()
+  @IsString()
+  note?: string
 }
 
 export class ResolveReportDto {
   @ApiProperty()
-  @IsOptional() @IsString() adminNote?: string;
+  @IsOptional()
+  @IsString()
+  adminNote?: string
 }

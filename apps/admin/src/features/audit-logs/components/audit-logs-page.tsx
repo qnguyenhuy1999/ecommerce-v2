@@ -12,19 +12,19 @@ export function AuditLogsPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Audit Logs</h1>
-        <p className="text-sm text-muted-foreground">Track all admin actions</p>
+        <p className="text-muted-foreground text-sm">Track all admin actions</p>
       </div>
 
-      <div className="rounded-xl border bg-card shadow-sm">
+      <div className="bg-card rounded-xl border shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b bg-muted/50 text-left">
-                <th className="px-4 py-3 font-medium text-muted-foreground">Action</th>
-                <th className="px-4 py-3 font-medium text-muted-foreground">Admin</th>
-                <th className="px-4 py-3 font-medium text-muted-foreground">Entity</th>
-                <th className="px-4 py-3 font-medium text-muted-foreground">IP Address</th>
-                <th className="px-4 py-3 font-medium text-muted-foreground">Date</th>
+              <tr className="bg-muted/50 border-b text-left">
+                <th className="text-muted-foreground px-4 py-3 font-medium">Action</th>
+                <th className="text-muted-foreground px-4 py-3 font-medium">Admin</th>
+                <th className="text-muted-foreground px-4 py-3 font-medium">Entity</th>
+                <th className="text-muted-foreground px-4 py-3 font-medium">IP Address</th>
+                <th className="text-muted-foreground px-4 py-3 font-medium">Date</th>
               </tr>
             </thead>
             <tbody>
@@ -33,37 +33,37 @@ export function AuditLogsPage() {
                     <tr key={i} className="border-b">
                       {Array.from({ length: 5 }).map((_, j) => (
                         <td key={j} className="px-4 py-3">
-                          <div className="h-4 w-20 animate-pulse rounded bg-muted" />
+                          <div className="bg-muted h-4 w-20 animate-pulse rounded" />
                         </td>
                       ))}
                     </tr>
                   ))
                 : data?.items.map((log) => (
-                    <tr key={log.id} className="border-b hover:bg-muted/50">
+                    <tr key={log.id} className="hover:bg-muted/50 border-b">
                       <td className="px-4 py-3">
-                        <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+                        <span className="bg-muted rounded px-1.5 py-0.5 font-mono text-xs">
                           {log.action}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">
+                      <td className="text-muted-foreground px-4 py-3">
                         {log.admin ? `${log.admin.firstName} ${log.admin.lastName}` : 'System'}
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">
+                      <td className="text-muted-foreground px-4 py-3">
                         {log.entityType
                           ? `${log.entityType} ${log.entityId?.slice(0, 8) ?? ''}`
                           : '—'}
                       </td>
-                      <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
+                      <td className="text-muted-foreground px-4 py-3 font-mono text-xs">
                         {log.ipAddress ?? '—'}
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">
+                      <td className="text-muted-foreground px-4 py-3">
                         {new Date(log.createdAt).toLocaleString()}
                       </td>
                     </tr>
                   ))}
               {!isLoading && !data?.items.length && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
+                  <td colSpan={5} className="text-muted-foreground px-4 py-8 text-center">
                     No audit logs yet
                   </td>
                 </tr>
@@ -74,7 +74,7 @@ export function AuditLogsPage() {
 
         {data && data.meta.totalPages > 1 && (
           <div className="flex items-center justify-between border-t px-4 py-3">
-            <span className="text-sm text-muted-foreground">
+            <span className="text-muted-foreground text-sm">
               Page {data.meta.page} of {data.meta.totalPages}
             </span>
             <div className="flex gap-2">

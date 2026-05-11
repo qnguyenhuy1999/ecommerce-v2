@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { ProductStatus, UserEventType } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 
@@ -65,7 +65,9 @@ export class RecommendationService {
       select: { entityId: true },
     })
 
-    const productIds = [...new Set(recentEvents.map((e: { entityId: string }) => e.entityId))] as string[]
+    const productIds = [
+      ...new Set(recentEvents.map((e: { entityId: string }) => e.entityId)),
+    ] as string[]
 
     if (productIds.length === 0) {
       return this.getTrendingProducts(limit)
@@ -76,7 +78,9 @@ export class RecommendationService {
       select: { categoryId: true },
     })
 
-    const categoryIds = [...new Set(products.map((p: { categoryId: string | null }) => p.categoryId).filter(Boolean))] as string[]
+    const categoryIds = [
+      ...new Set(products.map((p: { categoryId: string | null }) => p.categoryId).filter(Boolean)),
+    ] as string[]
 
     return this.prisma.product.findMany({
       where: {
@@ -116,10 +120,18 @@ export class RecommendationService {
 
     const [views, clicks] = await Promise.all([
       this.prisma.userEvent.count({
-        where: { entityId: { in: productIds }, event: UserEventType.PRODUCT_VIEW, entityType: 'PRODUCT' },
+        where: {
+          entityId: { in: productIds },
+          event: UserEventType.PRODUCT_VIEW,
+          entityType: 'PRODUCT',
+        },
       }),
       this.prisma.userEvent.count({
-        where: { entityId: { in: productIds }, event: UserEventType.PRODUCT_CLICK, entityType: 'PRODUCT' },
+        where: {
+          entityId: { in: productIds },
+          event: UserEventType.PRODUCT_CLICK,
+          entityType: 'PRODUCT',
+        },
       }),
     ])
 

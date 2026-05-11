@@ -33,32 +33,32 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
+        <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-gray-900">Seller Center</h1>
-          <p className="text-gray-500 mt-2">Reset your password</p>
+          <p className="mt-2 text-gray-500">Reset your password</p>
         </div>
 
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="rounded-lg border border-gray-200 bg-white p-6">
           {sent ? (
             <div className="text-center">
-              <div className="text-green-600 mb-2 text-lg font-medium">Email sent!</div>
-              <p className="text-sm text-gray-500 mb-4">
+              <div className="mb-2 text-lg font-medium text-green-600">Email sent!</div>
+              <p className="mb-4 text-sm text-gray-500">
                 If an account with that email exists, you will receive a password reset link.
               </p>
-              <Link href="/login" className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+              <Link href="/login" className="text-sm font-medium text-blue-600 hover:text-blue-700">
                 Back to login
               </Link>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
-                <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>
+                <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
               )}
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
                   Email
                 </label>
                 <input
@@ -67,7 +67,7 @@ export default function ForgotPasswordPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   placeholder="seller@example.com"
                 />
               </div>
@@ -75,7 +75,7 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? 'Sending...' : 'Send reset link'}
               </button>

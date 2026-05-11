@@ -33,19 +33,19 @@ export function AdminSidebar({ children }: { children: React.ReactNode }) {
       <SidebarShell
         header={
           <Link href="/" className="flex items-center gap-2 px-2 py-1">
-            <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <div className="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-lg">
               <Store className="size-4" />
             </div>
             <div className="flex flex-col leading-none">
               <span className="text-sm font-semibold">Admin Panel</span>
-              <span className="text-xs text-muted-foreground">Marketplace</span>
+              <span className="text-muted-foreground text-xs">Marketplace</span>
             </div>
           </Link>
         }
         footer={
           <button
             onClick={() => logout.mutate()}
-            className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"
+            className="text-muted-foreground hover:bg-accent hover:text-foreground flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm"
           >
             <LogOut className="size-4" />
             <span>Sign out</span>
@@ -58,13 +58,13 @@ export function AdminSidebar({ children }: { children: React.ReactNode }) {
       <SidebarInset>
         <header className="flex h-14 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
-          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+          <div className="text-muted-foreground flex items-center gap-1 text-sm">
             <ChevronRight className="size-3" />
-            <span className="font-medium text-foreground">{getCurrentPageTitle(pathname)}</span>
+            <span className="text-foreground font-medium">{getCurrentPageTitle(pathname)}</span>
           </div>
           <div className="ml-auto flex items-center gap-2">
             {profile && (
-              <span className="text-sm text-muted-foreground">
+              <span className="text-muted-foreground text-sm">
                 {profile.firstName} {profile.lastName}
               </span>
             )}

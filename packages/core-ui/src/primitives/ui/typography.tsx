@@ -6,7 +6,7 @@ interface TypographyProps {
 function TypographyH1({ children, className }: TypographyProps) {
   return (
     <h1
-      className={`scroll-m-20 text-4xl font-extrabold tracking-tight text-balance ${className || ''}`}
+      className={`scroll-m-20 text-balance text-4xl font-extrabold tracking-tight ${className || ''}`}
     >
       {children}
     </h1>
@@ -40,7 +40,7 @@ function TypographyH4({ children, className }: TypographyProps) {
 }
 
 function TypographyP({ children, className }: TypographyProps) {
-  return <p className={`leading-7 not-first:mt-6 ${className || ''}`}>{children}</p>
+  return <p className={`not-first:mt-6 leading-7 ${className || ''}`}>{children}</p>
 }
 
 function TypographyBlockquote({ children, className }: TypographyProps) {
@@ -51,7 +51,7 @@ function TypographyBlockquote({ children, className }: TypographyProps) {
 
 function TypographySmall({ className }: TypographyProps) {
   return (
-    <small className={`text-sm leading-none font-medium ${className || ''}`}>Email address</small>
+    <small className={`text-sm font-medium leading-none ${className || ''}`}>Email address</small>
   )
 }
 

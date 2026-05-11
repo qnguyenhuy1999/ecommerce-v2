@@ -29,7 +29,7 @@ function Stepper({ steps, current = 1, className, ...props }: StepperProps) {
             {index < steps.length - 1 && (
               <span
                 className={cn(
-                  'mx-3 h-px flex-1 min-w-6',
+                  'mx-3 h-px min-w-6 flex-1',
                   status === 'completed' ? 'bg-orange-400' : 'bg-border',
                 )}
               />

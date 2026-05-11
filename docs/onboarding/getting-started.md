@@ -2,11 +2,11 @@
 
 ## Prerequisites
 
-| Tool | Version | Install |
-|------|---------|---------|
-| Node.js | >= 24 | [nodejs.org](https://nodejs.org/) |
-| PNPM | >= 11 | `npm install -g pnpm@11` |
-| Docker | Latest | [docker.com](https://www.docker.com/) (for PostgreSQL + Redis) |
+| Tool    | Version | Install                                                        |
+| ------- | ------- | -------------------------------------------------------------- |
+| Node.js | >= 24   | [nodejs.org](https://nodejs.org/)                              |
+| PNPM    | >= 11   | `npm install -g pnpm@11`                                       |
+| Docker  | Latest  | [docker.com](https://www.docker.com/) (for PostgreSQL + Redis) |
 
 ## Setup
 
@@ -40,14 +40,14 @@ pnpm dev
 
 ## Local URLs
 
-| App | URL |
-|-----|-----|
-| Storefront | http://localhost:3000 |
-| Seller Dashboard | http://localhost:3001 |
-| Admin Dashboard | http://localhost:3002 |
-| Storefront API | http://localhost:4000 |
-| Admin API | http://localhost:4002 |
-| Seller API | http://localhost:4003 |
+| App                 | URL                   |
+| ------------------- | --------------------- |
+| Storefront          | http://localhost:3000 |
+| Seller Dashboard    | http://localhost:3001 |
+| Admin Dashboard     | http://localhost:3002 |
+| Storefront API      | http://localhost:4000 |
+| Admin API           | http://localhost:4002 |
+| Seller API          | http://localhost:4003 |
 | Storybook (core-ui) | http://localhost:6006 |
 
 ## Common Tasks

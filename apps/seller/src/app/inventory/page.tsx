@@ -81,9 +81,9 @@ export default function InventoryPage() {
       key: 'available',
       header: 'Available',
       render: (row: InventoryItem) => (
-        <span className={row.isLowStock ? 'text-red-600 font-medium' : ''}>
+        <span className={row.isLowStock ? 'font-medium text-red-600' : ''}>
           {row.availableStock}
-          {row.isLowStock && <AlertTriangle className="inline ml-1 h-3 w-3" />}
+          {row.isLowStock && <AlertTriangle className="ml-1 inline h-3 w-3" />}
         </span>
       ),
     },
@@ -93,9 +93,9 @@ export default function InventoryPage() {
     <DashboardLayout>
       <PageHeader title="Inventory" description="Monitor and manage stock levels" />
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search by product or SKU..."
@@ -104,10 +104,10 @@ export default function InventoryPage() {
               setSearch(e.target.value)
               setPage(1)
             }}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+            className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-4 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
           />
         </div>
-        <label className="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg text-sm cursor-pointer">
+        <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm">
           <input
             type="checkbox"
             checked={lowStockOnly}
@@ -129,11 +129,11 @@ export default function InventoryPage() {
       />
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-4">
+        <div className="mt-4 flex items-center justify-center gap-2">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Previous
           </button>
@@ -143,7 +143,7 @@ export default function InventoryPage() {
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Next
           </button>

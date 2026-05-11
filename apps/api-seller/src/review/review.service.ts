@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import type { ReviewQueryDto } from './dto/review-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
@@ -35,7 +36,14 @@ export class ReviewService {
       ...(productId ? { productId } : {}),
       ...(rating ? { rating } : {}),
       ...(status ? { status: status as Prisma.ReviewWhereInput['status'] } : {}),
-      ...(search ? { OR: [{ title: { contains: search, mode: 'insensitive' } }, { comment: { contains: search, mode: 'insensitive' } }] } : {}),
+      ...(search
+        ? {
+            OR: [
+              { title: { contains: search, mode: 'insensitive' } },
+              { comment: { contains: search, mode: 'insensitive' } },
+            ],
+          }
+        : {}),
       ...(replyFilter === 'hasReply' ? { replies: { some: {} } } : {}),
       ...(replyFilter === 'noReply' ? { replies: { none: {} } } : {}),
     }
@@ -119,7 +127,10 @@ export class ReviewService {
     return {
       totalReviews,
       averageRating: avgRating._avg.rating ?? 0,
-      ratingDistribution: ratingDist.map((r: { rating: number; _count: number }) => ({ rating: r.rating, count: r._count })),
+      ratingDistribution: ratingDist.map((r: { rating: number; _count: number }) => ({
+        rating: r.rating,
+        count: r._count,
+      })),
     }
   }
 

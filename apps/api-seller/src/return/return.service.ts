@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import type { ReturnQueryDto } from './dto/return-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
@@ -69,7 +70,13 @@ export class ReturnService {
     return returnRequest
   }
 
-  async updateStatus(shopId: string, returnId: string, newStatus: string, note?: string, performedBy?: string) {
+  async updateStatus(
+    shopId: string,
+    returnId: string,
+    newStatus: string,
+    note?: string,
+    performedBy?: string,
+  ) {
     const returnRequest = await this.prisma.returnRequest.findFirst({
       where: { id: returnId, shopId },
     })
@@ -115,7 +122,13 @@ export class ReturnService {
     })
   }
 
-  async addEvidence(shopId: string, returnId: string, uploadedBy: string, url: string, description?: string) {
+  async addEvidence(
+    shopId: string,
+    returnId: string,
+    uploadedBy: string,
+    url: string,
+    description?: string,
+  ) {
     const returnRequest = await this.prisma.returnRequest.findFirst({
       where: { id: returnId, shopId },
     })
@@ -132,7 +145,9 @@ export class ReturnService {
   async getStats(shopId: string) {
     const [total, pending, approved, refunded] = await Promise.all([
       this.prisma.returnRequest.count({ where: { shopId } }),
-      this.prisma.returnRequest.count({ where: { shopId, status: { in: ['REQUESTED', 'REVIEWING'] } } }),
+      this.prisma.returnRequest.count({
+        where: { shopId, status: { in: ['REQUESTED', 'REVIEWING'] } },
+      }),
       this.prisma.returnRequest.count({ where: { shopId, status: 'APPROVED' } }),
       this.prisma.returnRequest.count({ where: { shopId, status: 'REFUNDED' } }),
     ])

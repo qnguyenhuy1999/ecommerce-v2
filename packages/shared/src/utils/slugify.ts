@@ -6,14 +6,16 @@
 export function slugify(input: string): string {
   if (!input) return ''
 
-  return input
-    .toString()
-    .normalize('NFKD') // Decompose accented characters
-    .replace(/[̀-ͯ]/g, '') // Remove diacritics
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '') // Remove special characters
-    .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
-    // eslint-disable-next-line sonarjs/slow-regex -- alternation on anchored positions, no backtracking risk
-    .replace(/^-+|-+$/g, '') // Remove leading/trailing hyphens
+  return (
+    input
+      .toString()
+      .normalize('NFKD') // Decompose accented characters
+      .replace(/[̀-ͯ]/g, '') // Remove diacritics
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '') // Remove special characters
+      .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
+      // eslint-disable-next-line sonarjs/slow-regex -- alternation on anchored positions, no backtracking risk
+      .replace(/^-+|-+$/g, '')
+  ) // Remove leading/trailing hyphens
 }

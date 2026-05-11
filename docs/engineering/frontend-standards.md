@@ -2,12 +2,12 @@
 
 ## State Management
 
-| Data Type | Tool | Location |
-|-----------|------|----------|
-| Server state (API data) | TanStack Query | Feature hooks (`useProducts()`) |
-| Client-only UI state | Zustand | Feature stores or component state |
-| Form state | React Hook Form | Component-local |
-| URL state | Next.js `searchParams` | Page components |
+| Data Type               | Tool                   | Location                          |
+| ----------------------- | ---------------------- | --------------------------------- |
+| Server state (API data) | TanStack Query         | Feature hooks (`useProducts()`)   |
+| Client-only UI state    | Zustand                | Feature stores or component state |
+| Form state              | React Hook Form        | Component-local                   |
+| URL state               | Next.js `searchParams` | Page components                   |
 
 **Rule**: If data comes from the server, it belongs in TanStack Query — not Zustand.
 

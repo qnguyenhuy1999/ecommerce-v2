@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { NotificationsController } from './notifications.controller';
-import { NotificationsService } from './notifications.service';
-import { AuditLogsModule } from '../audit-logs/audit-logs.module';
+import { Module } from '@nestjs/common'
+import { NotificationsController } from './notifications.controller'
+import { NotificationsService } from './notifications.service'
+import { AuditLogsModule } from '../audit-logs/audit-logs.module'
 
 @Module({
   imports: [AuditLogsModule],

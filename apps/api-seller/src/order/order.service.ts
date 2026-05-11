@@ -4,7 +4,7 @@ import { OrderStatus, InventoryTransactionType } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import type { OrderQueryDto } from './dto/order-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OrderRepository } from './repositories/order.repository'
+import type { OrderRepository } from './repositories/order.repository'
 
 const VALID_TRANSITIONS: Record<string, string[]> = {
   [OrderStatus.PENDING]: [OrderStatus.CONFIRMED, OrderStatus.CANCELLED],
@@ -34,9 +34,7 @@ export class OrderService {
       ...(status ? { status: status as Prisma.SellerOrderWhereInput['status'] } : {}),
       ...(search
         ? {
-            OR: [
-              { order: { shippingName: { contains: search, mode: 'insensitive' as const } } },
-            ],
+            OR: [{ order: { shippingName: { contains: search, mode: 'insensitive' as const } } }],
           }
         : {}),
     }

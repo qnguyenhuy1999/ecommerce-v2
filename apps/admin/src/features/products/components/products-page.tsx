@@ -90,7 +90,7 @@ export function ProductsPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Products</h1>
-        <p className="text-sm text-muted-foreground">Moderate marketplace products</p>
+        <p className="text-muted-foreground text-sm">Moderate marketplace products</p>
       </div>
 
       <StatusTabs

@@ -1,6 +1,4 @@
-import type {
-  OnGatewayConnection,
-  OnGatewayDisconnect} from '@nestjs/websockets';
+import type { OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets'
 import {
   WebSocketGateway,
   WebSocketServer,
@@ -9,7 +7,7 @@ import {
   ConnectedSocket,
 } from '@nestjs/websockets'
 import type { Server, Socket } from 'socket.io'
-import { ChatService } from './chat.service'
+import type { ChatService } from './chat.service'
 
 @WebSocketGateway({
   cors: { origin: '*' },

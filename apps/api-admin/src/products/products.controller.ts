@@ -1,31 +1,33 @@
-import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger'
+import { Controller, Get, Post, Param, Query, Body, UseGuards } from '@nestjs/common'
+import type { ProductsService } from './products.service'
+import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
+import { PermissionGuard } from '../auth/guards/permission.guard'
+import { Permissions } from '../auth/decorators/permissions.decorator'
+import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator'
+import { AuditLog } from '../common/decorators/audit-log.decorator'
+import type { ProductQueryDto} from './dto/product-query.dto';
+import { ProductResponseDto } from './dto/product-query.dto'
+import type { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto/product-action.dto'
+import { type ProductStatus, type ProductReportStatus } from '@ecom/database'
+import { AUDIT_ACTIONS } from '@ecom/shared/constants'
 import {
-  Controller, Get, Post, Param, Query, Body, UseGuards,
-} from '@nestjs/common';
-import { ProductsService } from './products.service';
-import { AdminAuthGuard } from '../auth/guards/admin-auth.guard';
-import { PermissionGuard } from '../auth/guards/permission.guard';
-import { Permissions } from '../auth/decorators/permissions.decorator';
-import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator';
-import { AuditLog } from '../common/decorators/audit-log.decorator';
-import { ProductQueryDto, ProductResponseDto } from './dto/product-query.dto';
-import { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto/product-action.dto';
-import { type ProductStatus, type ProductReportStatus } from '@ecom/database';
-import { AUDIT_ACTIONS } from '@ecom/shared/constants';
-import { ApiOkResponseData, ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi';
+  ApiOkResponseData,
+  ApiPaginatedResponse,
+  ApiErrorResponses,
+  ApiAuth,
+} from '@ecom/nestjs-core/openapi'
 
-@ApiTags("Admin/Products")
+@ApiTags('Admin/Products')
 @Controller('products')
 @UseGuards(AdminAuthGuard, PermissionGuard)
 @ApiAuth()
 @ApiErrorResponses()
 @ApiExtraModels(ProductResponseDto)
 export class ProductsController {
-  constructor(
-    private readonly productsService: ProductsService,
-  ) {}
+  constructor(private readonly productsService: ProductsService) {}
 
-  @ApiOperation({ summary: "List all products" })
+  @ApiOperation({ summary: 'List all products' })
   @ApiPaginatedResponse(ProductResponseDto)
   @Get()
   @Permissions('PRODUCT_VIEW')
@@ -37,20 +39,20 @@ export class ProductsController {
       status: query.status as ProductStatus | undefined,
       shopId: query.shopId,
       categoryId: query.categoryId,
-    });
-    return result;
+    })
+    return result
   }
 
-  @ApiOperation({ summary: "Get product status counts" })
+  @ApiOperation({ summary: 'Get product status counts' })
   @ApiOkResponseData(Object)
   @Get('status-counts')
   @Permissions('PRODUCT_VIEW')
   async statusCounts() {
-    const counts = await this.productsService.getStatusCounts();
-    return counts;
+    const counts = await this.productsService.getStatusCounts()
+    return counts
   }
 
-  @ApiOperation({ summary: "List product reports" })
+  @ApiOperation({ summary: 'List product reports' })
   @ApiPaginatedResponse(Object)
   @Get('reports')
   @Permissions('PRODUCT_MODERATE')
@@ -59,48 +61,44 @@ export class ProductsController {
       page: query.page,
       limit: query.limit,
       status: query.status as ProductReportStatus | undefined,
-    });
-    return result;
+    })
+    return result
   }
 
-  @ApiOperation({ summary: "Get product by ID" })
+  @ApiOperation({ summary: 'Get product by ID' })
   @ApiOkResponseData(ProductResponseDto)
   @Get(':id')
   @Permissions('PRODUCT_VIEW')
   async findById(@Param('id') id: string) {
-    const product = await this.productsService.findById(id);
-    return product;
+    const product = await this.productsService.findById(id)
+    return product
   }
 
-  @ApiOperation({ summary: "Bulk approve products" })
+  @ApiOperation({ summary: 'Bulk approve products' })
   @ApiOkResponseData(Object)
   @Post('bulk/approve')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_BULK_APPROVED', 'Product', {
     metadataExtractor: (_result, body) => ({ count: (body as BulkModerationDto).ids.length }),
   })
-  async bulkApprove(
-    @Body() dto: BulkModerationDto,
-  ) {
-    const result = await this.productsService.bulkApprove(dto.ids);
-    return result;
+  async bulkApprove(@Body() dto: BulkModerationDto) {
+    const result = await this.productsService.bulkApprove(dto.ids)
+    return result
   }
 
-  @ApiOperation({ summary: "Bulk reject products" })
+  @ApiOperation({ summary: 'Bulk reject products' })
   @ApiOkResponseData(Object)
   @Post('bulk/reject')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_BULK_REJECTED', 'Product', {
     metadataExtractor: (_result, body) => ({ count: (body as BulkModerationDto).ids.length }),
   })
-  async bulkReject(
-    @Body() dto: BulkModerationDto,
-  ) {
-    const result = await this.productsService.bulkReject(dto.ids);
-    return result;
+  async bulkReject(@Body() dto: BulkModerationDto) {
+    const result = await this.productsService.bulkReject(dto.ids)
+    return result
   }
 
-  @ApiOperation({ summary: "Approve product" })
+  @ApiOperation({ summary: 'Approve product' })
   @ApiOkResponseData(ProductResponseDto)
   @Post(':id/approve')
   @Permissions('PRODUCT_MODERATE')
@@ -108,15 +106,12 @@ export class ProductsController {
     entityIdParam: 'id',
     metadataExtractor: (_result, body) => ({ note: (body as { note?: string }).note }),
   })
-  async approve(
-    @Param('id') id: string,
-    @Body() _dto: ProductModerationDto,
-  ) {
-    const product = await this.productsService.approve(id);
-    return product;
+  async approve(@Param('id') id: string, @Body() _dto: ProductModerationDto) {
+    const product = await this.productsService.approve(id)
+    return product
   }
 
-  @ApiOperation({ summary: "Reject product" })
+  @ApiOperation({ summary: 'Reject product' })
   @ApiOkResponseData(ProductResponseDto)
   @Post(':id/reject')
   @Permissions('PRODUCT_MODERATE')
@@ -124,39 +119,32 @@ export class ProductsController {
     entityIdParam: 'id',
     metadataExtractor: (_result, body) => ({ note: (body as { note?: string }).note }),
   })
-  async reject(
-    @Param('id') id: string,
-    @Body() _dto: ProductModerationDto,
-  ) {
-    const product = await this.productsService.reject(id);
-    return product;
+  async reject(@Param('id') id: string, @Body() _dto: ProductModerationDto) {
+    const product = await this.productsService.reject(id)
+    return product
   }
 
-  @ApiOperation({ summary: "Hide product" })
+  @ApiOperation({ summary: 'Hide product' })
   @ApiOkResponseData(ProductResponseDto)
   @Post(':id/hide')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog('PRODUCT_HIDDEN', 'Product', { entityIdParam: 'id' })
-  async hide(
-    @Param('id') id: string,
-  ) {
-    const product = await this.productsService.hide(id);
-    return product;
+  async hide(@Param('id') id: string) {
+    const product = await this.productsService.hide(id)
+    return product
   }
 
-  @ApiOperation({ summary: "Unhide product" })
+  @ApiOperation({ summary: 'Unhide product' })
   @ApiOkResponseData(ProductResponseDto)
   @Post(':id/unhide')
   @Permissions('PRODUCT_MODERATE')
   @AuditLog(AUDIT_ACTIONS.PRODUCT_UNHIDDEN, 'Product', { entityIdParam: 'id' })
-  async unhide(
-    @Param('id') id: string,
-  ) {
-    const product = await this.productsService.unhide(id);
-    return product;
+  async unhide(@Param('id') id: string) {
+    const product = await this.productsService.unhide(id)
+    return product
   }
 
-  @ApiOperation({ summary: "Resolve product report" })
+  @ApiOperation({ summary: 'Resolve product report' })
   @ApiOkResponseData(Object)
   @Post('reports/:id/resolve')
   @Permissions('PRODUCT_MODERATE')
@@ -169,11 +157,11 @@ export class ProductsController {
     @Body() dto: ResolveReportDto,
     @CurrentAdmin() admin: AdminSessionData,
   ) {
-    const report = await this.productsService.resolveReport(id, admin.adminId, dto.adminNote);
-    return report;
+    const report = await this.productsService.resolveReport(id, admin.adminId, dto.adminNote)
+    return report
   }
 
-  @ApiOperation({ summary: "Dismiss product report" })
+  @ApiOperation({ summary: 'Dismiss product report' })
   @ApiOkResponseData(Object)
   @Post('reports/:id/dismiss')
   @Permissions('PRODUCT_MODERATE')
@@ -186,7 +174,7 @@ export class ProductsController {
     @Body() dto: ResolveReportDto,
     @CurrentAdmin() admin: AdminSessionData,
   ) {
-    const report = await this.productsService.dismissReport(id, admin.adminId, dto.adminNote);
-    return report;
+    const report = await this.productsService.dismissReport(id, admin.adminId, dto.adminNote)
+    return report
   }
 }

@@ -20,7 +20,7 @@ export function ProductDetailPage({ id }: { id: string }) {
     return (
       <div className="space-y-4">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="h-20 animate-pulse rounded-xl bg-muted" />
+          <div key={i} className="bg-muted h-20 animate-pulse rounded-xl" />
         ))}
       </div>
     )
@@ -33,7 +33,7 @@ export function ProductDetailPage({ id }: { id: string }) {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">{product.name}</h1>
-          <p className="text-sm text-muted-foreground">by {product.shop.name}</p>
+          <p className="text-muted-foreground text-sm">by {product.shop.name}</p>
         </div>
         <div className="flex items-center gap-2">
           <StatusBadge status={product.status} />
@@ -56,7 +56,7 @@ export function ProductDetailPage({ id }: { id: string }) {
           {product.status === 'PUBLISHED' && (
             <button
               onClick={() => hide.mutate(id)}
-              className="rounded border px-3 py-1.5 text-sm hover:bg-muted"
+              className="hover:bg-muted rounded border px-3 py-1.5 text-sm"
             >
               Hide
             </button>
@@ -64,7 +64,7 @@ export function ProductDetailPage({ id }: { id: string }) {
           {product.status === 'ARCHIVED' && (
             <button
               onClick={() => unhide.mutate(id)}
-              className="rounded border px-3 py-1.5 text-sm hover:bg-muted"
+              className="hover:bg-muted rounded border px-3 py-1.5 text-sm"
             >
               Unhide
             </button>
@@ -73,7 +73,7 @@ export function ProductDetailPage({ id }: { id: string }) {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-xl border bg-card p-6 shadow-sm">
+        <div className="bg-card rounded-xl border p-6 shadow-sm">
           <h2 className="mb-4 font-semibold">Product Info</h2>
           <dl className="space-y-2 text-sm">
             <div className="flex justify-between">
@@ -99,43 +99,43 @@ export function ProductDetailPage({ id }: { id: string }) {
           </dl>
         </div>
 
-        <div className="rounded-xl border bg-card p-6 shadow-sm">
+        <div className="bg-card rounded-xl border p-6 shadow-sm">
           <h2 className="mb-4 font-semibold">Images</h2>
           {product.images.length > 0 ? (
             <div className="grid grid-cols-3 gap-2">
               {product.images.map((img, i) => (
-                <div key={i} className="aspect-square overflow-hidden rounded-lg border bg-muted">
+                <div key={i} className="bg-muted aspect-square overflow-hidden rounded-lg border">
                   <img src={img.url} alt="" className="h-full w-full object-cover" />
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-sm text-muted-foreground">No images</p>
+            <p className="text-muted-foreground text-sm">No images</p>
           )}
         </div>
       </div>
 
       {product.description && (
-        <div className="rounded-xl border bg-card p-6 shadow-sm">
+        <div className="bg-card rounded-xl border p-6 shadow-sm">
           <h2 className="mb-2 font-semibold">Description</h2>
-          <p className="text-sm text-muted-foreground whitespace-pre-wrap">{product.description}</p>
+          <p className="text-muted-foreground whitespace-pre-wrap text-sm">{product.description}</p>
         </div>
       )}
 
       {product.hasVariants && product.variants.length > 0 && (
-        <div className="rounded-xl border bg-card shadow-sm">
+        <div className="bg-card rounded-xl border shadow-sm">
           <div className="border-b px-6 py-4">
             <h2 className="font-semibold">Variants ({product.variants.length})</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b bg-muted/50 text-left">
-                  <th className="px-4 py-3 font-medium text-muted-foreground">Variant</th>
-                  <th className="px-4 py-3 font-medium text-muted-foreground">SKU</th>
-                  <th className="px-4 py-3 font-medium text-muted-foreground">Price</th>
-                  <th className="px-4 py-3 font-medium text-muted-foreground">Stock</th>
-                  <th className="px-4 py-3 font-medium text-muted-foreground">Active</th>
+                <tr className="bg-muted/50 border-b text-left">
+                  <th className="text-muted-foreground px-4 py-3 font-medium">Variant</th>
+                  <th className="text-muted-foreground px-4 py-3 font-medium">SKU</th>
+                  <th className="text-muted-foreground px-4 py-3 font-medium">Price</th>
+                  <th className="text-muted-foreground px-4 py-3 font-medium">Stock</th>
+                  <th className="text-muted-foreground px-4 py-3 font-medium">Active</th>
                 </tr>
               </thead>
               <tbody>
@@ -146,7 +146,7 @@ export function ProductDetailPage({ id }: { id: string }) {
                         .map((ov) => `${ov.option.group.name}: ${ov.option.value}`)
                         .join(', ') || '—'}
                     </td>
-                    <td className="px-4 py-3 text-muted-foreground">{v.sku ?? '—'}</td>
+                    <td className="text-muted-foreground px-4 py-3">{v.sku ?? '—'}</td>
                     <td className="px-4 py-3">${Number(v.price).toFixed(2)}</td>
                     <td className="px-4 py-3">{v.stock}</td>
                     <td className="px-4 py-3">

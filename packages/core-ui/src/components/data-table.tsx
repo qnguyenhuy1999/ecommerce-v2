@@ -69,22 +69,22 @@ export function DataTable<T extends { id: string }>({
       {toolbar && <div>{toolbar}</div>}
 
       {selectedCount > 0 && bulkActions && (
-        <div className="flex items-center gap-2 rounded-lg border bg-muted/50 p-2 text-sm">
+        <div className="bg-muted/50 flex items-center gap-2 rounded-lg border p-2 text-sm">
           <span className="font-medium">{selectedCount} selected</span>
           {bulkActions}
         </div>
       )}
 
-      <div className="rounded-xl border bg-card shadow-sm">
+      <div className="bg-card rounded-xl border shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               {table.getHeaderGroups().map((hg) => (
-                <tr key={hg.id} className="border-b bg-muted/50 text-left">
+                <tr key={hg.id} className="bg-muted/50 border-b text-left">
                   {hg.headers.map((header) => (
                     <th
                       key={header.id}
-                      className="sticky top-0 px-4 py-3 font-medium text-muted-foreground"
+                      className="text-muted-foreground sticky top-0 px-4 py-3 font-medium"
                     >
                       {header.isPlaceholder
                         ? null
@@ -100,13 +100,13 @@ export function DataTable<T extends { id: string }>({
                     <tr key={i} className="border-b">
                       {columns.map((_, j) => (
                         <td key={j} className="px-4 py-3">
-                          <div className="h-4 w-20 animate-pulse rounded bg-muted" />
+                          <div className="bg-muted h-4 w-20 animate-pulse rounded" />
                         </td>
                       ))}
                     </tr>
                   ))
                 : table.getRowModel().rows.map((row) => (
-                    <tr key={row.id} className="border-b hover:bg-muted/50">
+                    <tr key={row.id} className="hover:bg-muted/50 border-b">
                       {row.getVisibleCells().map((cell) => (
                         <td key={cell.id} className="px-4 py-3">
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -118,7 +118,7 @@ export function DataTable<T extends { id: string }>({
                 <tr>
                   <td
                     colSpan={columns.length}
-                    className="px-4 py-8 text-center text-muted-foreground"
+                    className="text-muted-foreground px-4 py-8 text-center"
                   >
                     No results found
                   </td>
@@ -230,7 +230,7 @@ export function TableToolbar({
         placeholder={placeholder}
         value={search}
         onChange={(e) => onSearchChange(e.target.value)}
-        className="flex h-9 w-full max-w-sm rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full max-w-sm rounded-md border px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1"
       />
       {children}
     </div>
@@ -257,13 +257,13 @@ export function StatusTabs({
           className={cn(
             'px-3 py-2 text-sm font-medium transition-colors',
             value === tab
-              ? 'border-b-2 border-primary text-primary'
+              ? 'border-primary text-primary border-b-2'
               : 'text-muted-foreground hover:text-foreground',
           )}
         >
           {tab}
           {counts && tab !== 'ALL' && counts[tab] != null && (
-            <span className="ml-1.5 text-xs text-muted-foreground">({counts[tab]})</span>
+            <span className="text-muted-foreground ml-1.5 text-xs">({counts[tab]})</span>
           )}
         </button>
       ))}

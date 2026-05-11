@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import type { CreatePlanDto, SubscribeDto } from './dto/subscription.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
@@ -130,7 +131,9 @@ export class SubscriptionService {
       return { allowed: false }
     }
 
-    const entitlement = subscription.plan.entitlements.find((e: { feature: string }) => e.feature === feature)
+    const entitlement = subscription.plan.entitlements.find(
+      (e: { feature: string }) => e.feature === feature,
+    )
     return entitlement ? { allowed: true, value: entitlement.value } : { allowed: false }
   }
 

@@ -22,6 +22,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Fetch main branch
+        run: git fetch origin main:main
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -54,16 +57,16 @@ jobs:
           restore-keys: turbo-${{ runner.os }}-
 
       - name: Lint (affected)
-        run: pnpm turbo lint --filter=...origin/main
+        run: pnpm turbo lint --filter=...[main]
 
       - name: Type-check (affected)
-        run: pnpm turbo type-check --filter=...origin/main
+        run: pnpm turbo type-check --filter=...[main]
 
       - name: Test (affected)
-        run: pnpm turbo test --filter=...origin/main
+        run: pnpm turbo test --filter=...[main]
 
       - name: Build (affected)
-        run: pnpm turbo build --filter=...origin/main
+        run: pnpm turbo build --filter=...[main]
 
   format:
     name: Prettier check

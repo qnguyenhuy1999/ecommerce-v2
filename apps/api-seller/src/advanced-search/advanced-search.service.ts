@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import type { PrismaService} from '@ecom/database';
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import type { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'

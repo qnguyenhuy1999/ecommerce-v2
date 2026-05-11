@@ -9,11 +9,9 @@ import { AuditLog } from '../common/decorators/audit-log.decorator'
 import type {
   NotificationQueryDto,
   CreateNotificationDto,
-  CreateTemplateDto} from './dto/notification.dto';
-import {
-  NotificationResponseDto,
-  NotificationTemplateResponseDto,
+  CreateTemplateDto,
 } from './dto/notification.dto'
+import { NotificationResponseDto, NotificationTemplateResponseDto } from './dto/notification.dto'
 import {
   ApiOkResponseData,
   ApiPaginatedResponse,

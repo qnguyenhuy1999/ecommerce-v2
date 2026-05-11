@@ -9,10 +9,9 @@ import type {
   CategoryQueryDto,
   CreateCategoryDto,
   UpdateCategoryDto,
-  ReorderDto} from './dto/category.dto';
-import {
-  CategoryResponseDto,
+  ReorderDto,
 } from './dto/category.dto'
+import { CategoryResponseDto } from './dto/category.dto'
 import { ApiOkResponseData, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi'
 
 @ApiTags('Admin/Categories')

@@ -1,4 +1,4 @@
-import type { UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
+import type { UseQueryOptions, UseQueryResult } from '@tanstack/react-query'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type { PaginationState } from './use-pagination'
 import type { PaginatedResponse } from '../core'

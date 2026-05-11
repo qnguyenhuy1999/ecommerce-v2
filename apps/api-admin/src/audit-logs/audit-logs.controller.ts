@@ -4,7 +4,7 @@ import type { AuditLogService } from './audit-log.service'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
-import type { AuditLogQueryDto} from './dto/audit-log-query.dto';
+import type { AuditLogQueryDto } from './dto/audit-log-query.dto'
 import { AuditLogResponseDto } from './dto/audit-log-query.dto'
 import { ApiPaginatedResponse, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi'
 

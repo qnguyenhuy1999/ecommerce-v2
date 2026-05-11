@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import type { PrismaService} from '@ecom/database';
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import type { WarehouseQueryDto, StockQueryDto, TransferQueryDto } from './dto/warehouse-query.dto'
 import type { CreateWarehouseDto } from './dto/create-warehouse.dto'

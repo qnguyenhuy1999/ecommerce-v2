@@ -5,7 +5,7 @@ import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import type { ReviewQueryDto} from './dto/review-query.dto';
+import type { ReviewQueryDto } from './dto/review-query.dto'
 import { ReviewResponseDto } from './dto/review-query.dto'
 import {
   ApiOkResponseData,

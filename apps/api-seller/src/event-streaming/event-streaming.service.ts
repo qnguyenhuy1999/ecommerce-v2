@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import type { PrismaService} from '@ecom/database';
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import type { EmitEventDto } from './dto/event-streaming.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'

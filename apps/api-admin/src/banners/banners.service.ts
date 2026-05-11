@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import type { PrismaService, Prisma } from '@ecom/database';
+import type { PrismaService, Prisma } from '@ecom/database'
 import { type BannerPosition, type BannerStatus } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 

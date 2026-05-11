@@ -10,8 +10,7 @@ import { randomUUID } from 'node:crypto'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { PrismaService } from '@ecom/database'
-import type {
-  SessionService} from '@ecom/auth';
+import type { SessionService } from '@ecom/auth'
 import {
   type SessionData,
   BaseUserAuthService,

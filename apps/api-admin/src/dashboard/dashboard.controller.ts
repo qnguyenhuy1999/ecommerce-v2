@@ -4,7 +4,7 @@ import type { DashboardService } from './dashboard.service'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
-import type { AnalyticsQueryDto} from './dto/dashboard.dto';
+import type { AnalyticsQueryDto } from './dto/dashboard.dto'
 import { DashboardMetricsDto, DashboardAnalyticsDto } from './dto/dashboard.dto'
 import { ApiOkResponseData, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi'
 

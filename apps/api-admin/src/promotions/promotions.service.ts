@@ -4,13 +4,8 @@ import {
   ConflictException,
   BadRequestException,
 } from '@nestjs/common'
-import type {
-  PrismaService,
-  Prisma} from '@ecom/database';
-import {
-  type PlatformVoucherStatus,
-  type PlatformVoucherType
-} from '@ecom/database'
+import type { PrismaService, Prisma } from '@ecom/database'
+import { type PlatformVoucherStatus, type PlatformVoucherType } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()

@@ -1,4 +1,4 @@
-import type { NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
+import type { NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 import type { Reflector } from '@nestjs/core'
 import type { Observable } from 'rxjs'

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import type { PrismaService} from '@ecom/database';
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import type { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
 import type { AutomationQueryDto } from './dto/automation-query.dto'

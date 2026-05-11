@@ -6,9 +6,13 @@ import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import type { ProductQueryDto} from './dto/product-query.dto';
+import type { ProductQueryDto } from './dto/product-query.dto'
 import { ProductResponseDto } from './dto/product-query.dto'
-import type { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto/product-action.dto'
+import type {
+  ProductModerationDto,
+  BulkModerationDto,
+  ResolveReportDto,
+} from './dto/product-action.dto'
 import { type ProductStatus, type ProductReportStatus } from '@ecom/database'
 import { AUDIT_ACTIONS } from '@ecom/shared/constants'
 import {

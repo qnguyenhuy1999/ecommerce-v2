@@ -6,7 +6,7 @@ import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import type { SellerQueryDto} from './dto/seller-query.dto';
+import type { SellerQueryDto } from './dto/seller-query.dto'
 import { SellerResponseDto } from './dto/seller-query.dto'
 import type { SellerActionDto } from './dto/seller-action.dto'
 import {

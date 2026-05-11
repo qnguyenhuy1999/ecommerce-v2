@@ -5,7 +5,7 @@ import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import type { OrderQueryDto, OrderActionDto} from './dto/order-query.dto';
+import type { OrderQueryDto, OrderActionDto } from './dto/order-query.dto'
 import { OrderResponseDto } from './dto/order-query.dto'
 import {
   ApiOkResponseData,

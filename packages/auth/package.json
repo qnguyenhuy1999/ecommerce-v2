@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@ecom/database": "workspace:*",
-    "bcryptjs": "^2.4.3",
+    "bcryptjs": "^3.0.3",
     "ioredis": "^5.6.0"
   },
   "peerDependencies": {
@@ -55,7 +55,7 @@
     "@ecom/email": "workspace:*",
     "@ecom/eslint-config": "workspace:*",
     "@ecom/redis": "workspace:*",
-    "@types/bcryptjs": "^2.4.6",
+    "@types/bcryptjs": "^3.0.0",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",

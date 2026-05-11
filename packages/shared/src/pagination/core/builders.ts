@@ -1,4 +1,4 @@
-import { PaginationMeta, PaginatedResponse, OffsetParams } from './types'
+import type { PaginationMeta, PaginatedResponse, OffsetParams } from './types'
 import { PAGINATION_DEFAULTS } from './constants'
 
 export function buildPaginationMeta(total: number, page: number, limit: number): PaginationMeta {

@@ -1,4 +1,4 @@
-import { OffsetParams } from '../core'
+import type { OffsetParams } from '../core'
 import { PAGINATION_DEFAULTS, getSkip } from '../core'
 
 type PaginateModelDelegate = {

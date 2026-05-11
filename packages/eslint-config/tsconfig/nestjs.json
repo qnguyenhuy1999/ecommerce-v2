@@ -1,25 +1,15 @@
 {
   "extends": "./base.json",
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "declaration": false,
     "declarationMap": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "baseUrl": ".",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "paths": {
-      "@/*": ["src/*"],
-      "@ecom/api-types": ["../api-types/src"],
-      "@ecom/database": ["../database/src"],
-      "@ecom/email": ["../email/src"],
-      "@ecom/redis": ["../redis/src"],
-      "@ecom/shared": ["../shared/src"],
-      "@ecom/shared/*": ["../shared/src/*"]
-    }
+    "baseUrl": "."
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test"]

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { ProductStatusPill } from './ProductStatusPill'
-import { ProductStatusPillVariantProps } from './ProductStatusPill.fixtures'
+import type { ProductStatusPillVariantProps } from './ProductStatusPill.fixtures'
 
 const meta: Meta = {
   title: 'atoms/ProductStatusPill',

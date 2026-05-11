@@ -1,4 +1,4 @@
-import { CursorParams, CursorResponse } from '../core'
+import type { CursorParams, CursorResponse } from '../core'
 import { PAGINATION_DEFAULTS } from '../core'
 
 export interface CursorPaginateOptions<T> {

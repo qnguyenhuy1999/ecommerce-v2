@@ -49,8 +49,6 @@ jobs:
           DATABASE_URL: 'postgresql://user:pass@localhost:5432/ecom_test'
           REDIS_URL: 'redis://localhost:6379'
 
-      - name: Install openapi-diff
-        run: npm install -g @openapitools/openapi-diff@latest
 
       - name: Checkout baseline specs from main
         run: |
@@ -73,7 +71,7 @@ jobs:
             echo "No baseline for admin API — skipping diff (first generation)"
             exit 0
           fi
-          openapi-diff /tmp/admin-baseline.json apps/api-admin/openapi/admin.json \
+          npx --yes @openapitools/openapi-diff@latest /tmp/admin-baseline.json apps/api-admin/openapi/admin.json \
             --fail-on-incompatible \
             --output-format text \
             || (echo "::error::Breaking changes detected in Admin API" && exit 1)
@@ -85,7 +83,7 @@ jobs:
             echo "No baseline for seller API — skipping diff (first generation)"
             exit 0
           fi
-          openapi-diff /tmp/seller-baseline.json apps/api-seller/openapi/seller.json \
+          npx --yes @openapitools/openapi-diff@latest /tmp/seller-baseline.json apps/api-seller/openapi/seller.json \
             --fail-on-incompatible \
             --output-format text \
             || (echo "::error::Breaking changes detected in Seller API" && exit 1)
@@ -97,7 +95,7 @@ jobs:
             echo "No baseline for storefront API — skipping diff (first generation)"
             exit 0
           fi
-          openapi-diff /tmp/storefront-baseline.json apps/api-storefront/openapi/storefront.json \
+          npx --yes @openapitools/openapi-diff@latest /tmp/storefront-baseline.json apps/api-storefront/openapi/storefront.json \
             --fail-on-incompatible \
             --output-format text \
             || (echo "::error::Breaking changes detected in Storefront API" && exit 1)

@@ -1,6 +1,7 @@
-import { useQuery, useQueryClient, UseQueryOptions, UseQueryResult } from '@tanstack/react-query'
-import { PaginationState } from './use-pagination'
-import { PaginatedResponse } from '../core'
+import type { UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import type { PaginationState } from './use-pagination'
+import type { PaginatedResponse } from '../core'
 
 export interface UsePaginatedQueryOptions<TData, TError = Error> extends Omit<
   UseQueryOptions<PaginatedResponse<TData>, TError>,

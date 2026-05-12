@@ -57,15 +57,14 @@ jobs:
         run: pnpm lint
 
       - name: Typecheck
-        run: pnpm typecheck
+        run: pnpm type-check
 
       - name: OpenAPI + contracts generation
         run: pnpm contracts:check
 
       - name: Generated contract drift check
         run: |
-          pnpm openapi:generate
-          pnpm contracts:generate
+          pnpm openapi:sync
           git diff --exit-code
 
       - name: Test

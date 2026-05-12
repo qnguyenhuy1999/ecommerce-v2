@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
+import { ProductStatus } from '@ecom/contracts/enums'
 import type { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
@@ -20,7 +21,7 @@ export class AdvancedSearchService {
     } = dto
 
     const where: Prisma.ProductWhereInput = {
-      status: 'PUBLISHED',
+      status: ProductStatus.PUBLISHED,
       deletedAt: null,
       OR: [
         { name: { contains: query, mode: 'insensitive' } },
@@ -61,7 +62,7 @@ export class AdvancedSearchService {
 
     const products = await this.prisma.product.findMany({
       where: {
-        status: 'PUBLISHED',
+        status: ProductStatus.PUBLISHED,
         deletedAt: null,
         name: { contains: query, mode: 'insensitive' },
       },
@@ -89,7 +90,7 @@ export class AdvancedSearchService {
 
   async getSearchAnalytics(shopId: string) {
     const products = await this.prisma.product.findMany({
-      where: { shopId, status: 'PUBLISHED', deletedAt: null },
+      where: { shopId, status: ProductStatus.PUBLISHED, deletedAt: null },
       select: { id: true, name: true },
     })
 

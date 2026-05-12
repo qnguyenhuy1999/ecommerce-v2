@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
+import { SellerStatus, ReturnStatus } from '@ecom/contracts/enums'
 
 @Injectable()
 export class DashboardService {
@@ -17,12 +18,12 @@ export class DashboardService {
       recentSellers,
     ] = await Promise.all([
       this.prisma.seller.count({ where: { deletedAt: null } }),
-      this.prisma.seller.count({ where: { status: 'ACTIVE', deletedAt: null } }),
-      this.prisma.seller.count({ where: { status: 'PENDING', deletedAt: null } }),
+      this.prisma.seller.count({ where: { status: SellerStatus.ACTIVE, deletedAt: null } }),
+      this.prisma.seller.count({ where: { status: SellerStatus.PENDING, deletedAt: null } }),
       this.prisma.user.count(),
       this.prisma.order.count(),
       this.prisma.product.count({ where: { deletedAt: null } }),
-      this.prisma.returnRequest.count({ where: { status: { in: ['REQUESTED', 'REVIEWING'] } } }),
+      this.prisma.returnRequest.count({ where: { status: { in: [ReturnStatus.REQUESTED, ReturnStatus.REVIEWING] } } }),
       this.prisma.review.count(),
       this.prisma.seller.findMany({
         where: { deletedAt: null },

@@ -3,11 +3,11 @@ import { randomUUID } from 'node:crypto'
 import * as bcrypt from 'bcrypt'
 import type { PrismaService } from '@ecom/database'
 import type { SessionData, SessionService } from '@ecom/auth'
+import { AdminStatus } from '@ecom/contracts/enums'
 import { SESSION_SERVICE } from './session.provider'
 import type { AdminSessionData } from './decorators/current-admin.decorator'
 
 const SESSION_EXPIRY_DAYS = 7
-const ACTIVE_STATUS = 'ACTIVE'
 
 @Injectable()
 export class AuthService {
@@ -35,7 +35,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials')
     }
 
-    if (admin.status !== ACTIVE_STATUS) {
+    if (admin.status !== AdminStatus.ACTIVE) {
       throw new UnauthorizedException('Account is not active')
     }
 
@@ -120,7 +120,7 @@ export class AuthService {
       },
     })
 
-    if (!admin || admin.status !== ACTIVE_STATUS) {
+    if (!admin || admin.status !== AdminStatus.ACTIVE) {
       throw new UnauthorizedException('Admin account not found or inactive')
     }
 

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import type { PrismaService, Prisma } from '@ecom/database'
-import { type ReturnStatus } from '@ecom/database'
+import { type ReturnStatus, ReturnStatus as RTS } from '@ecom/contracts/enums'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { withDefined, nullable } from '@ecom/shared/utils'
 
@@ -42,20 +42,20 @@ export class RefundsService {
     const refund = await this.findById(id)
     const fromStatus = refund.status
 
-    if (fromStatus !== 'REQUESTED' && fromStatus !== 'REVIEWING') {
+    if (fromStatus !== RTS.REQUESTED && fromStatus !== RTS.REVIEWING) {
       throw new BadRequestException('Invalid status transition')
     }
 
     const updated = await this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const result = await tx.returnRequest.update({
         where: { id },
-        data: { status: 'APPROVED', resolvedAt: new Date() },
+        data: { status: RTS.APPROVED, resolvedAt: new Date() },
       })
       await tx.returnTimeline.create({
         data: {
           returnRequestId: id,
           fromStatus,
-          toStatus: 'APPROVED',
+          toStatus: RTS.APPROVED,
           note: nullable(note),
           performedBy: adminId,
         },
@@ -70,20 +70,20 @@ export class RefundsService {
     const refund = await this.findById(id)
     const fromStatus = refund.status
 
-    if (fromStatus !== 'REQUESTED' && fromStatus !== 'REVIEWING') {
+    if (fromStatus !== RTS.REQUESTED && fromStatus !== RTS.REVIEWING) {
       throw new BadRequestException('Invalid status transition')
     }
 
     const updated = await this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const result = await tx.returnRequest.update({
         where: { id },
-        data: { status: 'REJECTED', resolvedAt: new Date() },
+        data: { status: RTS.REJECTED, resolvedAt: new Date() },
       })
       await tx.returnTimeline.create({
         data: {
           returnRequestId: id,
           fromStatus,
-          toStatus: 'REJECTED',
+          toStatus: RTS.REJECTED,
           note: nullable(note),
           performedBy: adminId,
         },

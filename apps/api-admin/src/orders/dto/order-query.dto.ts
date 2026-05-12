@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { IsOptional, IsString, IsInt, Min, IsEnum } from 'class-validator'
 import { Type } from 'class-transformer'
-import { OrderStatus } from '@ecom/database'
+import { OrderStatus } from '@ecom/contracts/enums'
 
 export class OrderQueryDto {
   @ApiPropertyOptional()

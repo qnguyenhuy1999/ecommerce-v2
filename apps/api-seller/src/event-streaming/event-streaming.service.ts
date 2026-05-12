@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
+import { PlatformEventStatus } from '@ecom/contracts/enums'
 import type { EmitEventDto } from './dto/event-streaming.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import type { OffsetPaginationDTO } from '@ecom/shared/pagination/core'
@@ -67,7 +68,7 @@ export class EventStreamingService {
     })
 
     const failedEvents = await this.prisma.platformEvent.count({
-      where: { status: 'FAILED' },
+      where: { status: PlatformEventStatus.FAILED },
     })
 
     return { totalEvents, recentEvents, failedEvents }
@@ -76,7 +77,7 @@ export class EventStreamingService {
   async markEventProcessed(id: string) {
     return this.prisma.platformEvent.update({
       where: { id },
-      data: { status: 'DELIVERED', processedAt: new Date() },
+      data: { status: PlatformEventStatus.DELIVERED, processedAt: new Date() },
     })
   }
 
@@ -87,7 +88,7 @@ export class EventStreamingService {
     return this.prisma.platformEvent.update({
       where: { id },
       data: {
-        status: 'FAILED',
+        status: PlatformEventStatus.FAILED,
         metadata: {
           ...((event.metadata as Record<string, unknown>) ?? {}),
           lastError: error,

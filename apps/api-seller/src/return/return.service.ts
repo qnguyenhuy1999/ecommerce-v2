@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { ReturnStatus } from '@ecom/database'
+import { ReturnStatus } from '@ecom/contracts/enums'
 import type { ReturnQueryDto } from './dto/return-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
@@ -150,10 +150,10 @@ export class ReturnService {
     const [total, pending, approved, refunded] = await Promise.all([
       this.prisma.returnRequest.count({ where: { shopId } }),
       this.prisma.returnRequest.count({
-        where: { shopId, status: { in: ['REQUESTED', 'REVIEWING'] } },
+        where: { shopId, status: { in: [ReturnStatus.REQUESTED, ReturnStatus.REVIEWING] } },
       }),
-      this.prisma.returnRequest.count({ where: { shopId, status: 'APPROVED' } }),
-      this.prisma.returnRequest.count({ where: { shopId, status: 'REFUNDED' } }),
+      this.prisma.returnRequest.count({ where: { shopId, status: ReturnStatus.APPROVED } }),
+      this.prisma.returnRequest.count({ where: { shopId, status: ReturnStatus.REFUNDED } }),
     ])
 
     return { total, pending, approved, refunded }

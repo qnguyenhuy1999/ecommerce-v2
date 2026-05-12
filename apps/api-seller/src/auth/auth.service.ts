@@ -23,13 +23,13 @@ import {
 } from '@ecom/auth'
 import type { EmailService } from '@ecom/email'
 import type { RedisService } from '@ecom/redis'
+import { UserStatus } from '@ecom/contracts/enums'
 import { SESSION_SERVICE } from './session.provider'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
 const SELLER_ROLE = 'seller'
-const ACTIVE_STATUS = 'ACTIVE'
 
 @Injectable()
 export class AuthService extends BaseUserAuthService {
@@ -132,7 +132,7 @@ export class AuthService extends BaseUserAuthService {
       throw new UnauthorizedException('Invalid credentials')
     }
 
-    if (user.status !== ACTIVE_STATUS) {
+    if (user.status !== UserStatus.ACTIVE) {
       throw new UnauthorizedException('Account is not active')
     }
 
@@ -195,7 +195,7 @@ export class AuthService extends BaseUserAuthService {
       },
     })
 
-    if (!user || user.status !== ACTIVE_STATUS) {
+    if (!user || user.status !== UserStatus.ACTIVE) {
       throw new UnauthorizedException('User account is not active')
     }
 

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import type { PrismaService, Prisma } from '@ecom/database'
-import { type SellerStatus } from '@ecom/database'
+import { type SellerStatus, SellerStatus as SS } from '@ecom/contracts/enums'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { withDefined, nullable } from '@ecom/shared/utils'
 
@@ -56,14 +56,14 @@ export class SellersService {
   async approve(id: string, adminId: string) {
     const seller = await this.findById(id)
 
-    if (seller.status === 'ACTIVE') {
+    if (seller.status === SS.ACTIVE) {
       throw new BadRequestException('Seller is already active')
     }
 
     return this.prisma.seller.update({
       where: { id: seller.id },
       data: {
-        status: 'ACTIVE',
+        status: SS.ACTIVE,
         approvedAt: new Date(),
         approvedBy: adminId,
       },
@@ -73,14 +73,14 @@ export class SellersService {
   async reject(id: string, adminId: string, reason?: string) {
     const seller = await this.findById(id)
 
-    if (seller.status === 'REJECTED') {
+    if (seller.status === SS.REJECTED) {
       throw new BadRequestException('Seller is already rejected')
     }
 
     return this.prisma.seller.update({
       where: { id: seller.id },
       data: {
-        status: 'REJECTED',
+        status: SS.REJECTED,
         rejectedAt: new Date(),
         rejectedBy: adminId,
         rejectReason: nullable(reason),
@@ -91,14 +91,14 @@ export class SellersService {
   async suspend(id: string, adminId: string, reason?: string) {
     const seller = await this.findById(id)
 
-    if (seller.status === 'SUSPENDED') {
+    if (seller.status === SS.SUSPENDED) {
       throw new BadRequestException('Seller is already suspended')
     }
 
     return this.prisma.seller.update({
       where: { id: seller.id },
       data: {
-        status: 'SUSPENDED',
+        status: SS.SUSPENDED,
         suspendedAt: new Date(),
         suspendedBy: adminId,
         suspendReason: nullable(reason),

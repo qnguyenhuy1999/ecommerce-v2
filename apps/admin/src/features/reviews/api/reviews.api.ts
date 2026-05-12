@@ -1,11 +1,12 @@
 import { apiFetch } from '@/lib/api'
+import type { ReviewStatus } from '@ecom/contracts'
 import type { PaginatedResponse } from '@ecom/shared/pagination/core'
 
 export interface ReviewListItem {
   id: string
   rating: number
   comment: string | null
-  status: string
+  status: ReviewStatus
   createdAt: string
   images: { id: string; url: string }[]
   reports: { id: string }[]

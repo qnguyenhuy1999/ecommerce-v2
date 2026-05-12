@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { IsOptional, IsString, IsEnum, IsInt, Min } from 'class-validator'
 import { Type } from 'class-transformer'
-import { ReturnStatus } from '@ecom/database'
+import { ReturnStatus } from '@ecom/contracts/enums'
 
 export class RefundQueryDto {
   @ApiPropertyOptional()

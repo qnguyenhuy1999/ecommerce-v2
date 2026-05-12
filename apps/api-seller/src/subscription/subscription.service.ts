@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
+import { SubscriptionStatus } from '@ecom/contracts/enums'
 import type { CreatePlanDto, SubscribeDto } from './dto/subscription.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
@@ -46,7 +47,7 @@ export class SubscriptionService {
     if (!plan) throw new NotFoundException('Plan not found')
 
     const existing = await this.prisma.sellerSubscription.findUnique({ where: { shopId } })
-    if (existing && existing.status === 'ACTIVE') {
+    if (existing && existing.status === SubscriptionStatus.ACTIVE) {
       throw new BadRequestException('Shop already has an active subscription')
     }
 
@@ -65,7 +66,7 @@ export class SubscriptionService {
             where: { shopId },
             data: {
               planId: dto.planId,
-              status: 'ACTIVE',
+              status: SubscriptionStatus.ACTIVE,
               billingCycle,
               currentPeriodStart: now,
               currentPeriodEnd: periodEnd,
@@ -114,7 +115,7 @@ export class SubscriptionService {
 
     return this.prisma.sellerSubscription.update({
       where: { shopId },
-      data: { status: 'CANCELLED', cancelledAt: new Date() },
+      data: { status: SubscriptionStatus.CANCELLED, cancelledAt: new Date() },
     })
   }
 
@@ -127,7 +128,7 @@ export class SubscriptionService {
       include: { plan: { include: { entitlements: true } } },
     })
 
-    if (!subscription || subscription.status !== 'ACTIVE') {
+    if (!subscription || subscription.status !== SubscriptionStatus.ACTIVE) {
       return { allowed: false }
     }
 

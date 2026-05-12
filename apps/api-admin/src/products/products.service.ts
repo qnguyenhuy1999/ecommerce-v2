@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import type { PrismaService, Prisma } from '@ecom/database'
-import { type ProductStatus, type ProductReportStatus } from '@ecom/database'
+import { type ProductStatus, type ProductReportStatus, ProductStatus as PS, ProductReportStatus as PRS } from '@ecom/contracts/enums'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { withDefined, nullable } from '@ecom/shared/utils'
 
@@ -65,59 +65,59 @@ export class ProductsService {
 
   async approve(id: string) {
     const product = await this.findById(id)
-    if (product.status !== 'DRAFT') {
+    if (product.status !== PS.DRAFT) {
       throw new BadRequestException('Invalid status transition')
     }
     return this.prisma.product.update({
       where: { id },
-      data: { status: 'PUBLISHED' },
+      data: { status: PS.PUBLISHED },
     })
   }
 
   async reject(id: string) {
     const product = await this.findById(id)
-    if (product.status !== 'DRAFT') {
+    if (product.status !== PS.DRAFT) {
       throw new BadRequestException('Invalid status transition')
     }
     return this.prisma.product.update({
       where: { id },
-      data: { status: 'REJECTED' },
+      data: { status: PS.REJECTED },
     })
   }
 
   async hide(id: string) {
     const product = await this.findById(id)
-    if (product.status !== 'PUBLISHED') {
+    if (product.status !== PS.PUBLISHED) {
       throw new BadRequestException('Invalid status transition')
     }
     return this.prisma.product.update({
       where: { id },
-      data: { status: 'ARCHIVED' },
+      data: { status: PS.ARCHIVED },
     })
   }
 
   async unhide(id: string) {
     const product = await this.findById(id)
-    if (product.status !== 'ARCHIVED') {
+    if (product.status !== PS.ARCHIVED) {
       throw new BadRequestException('Invalid status transition')
     }
     return this.prisma.product.update({
       where: { id },
-      data: { status: 'PUBLISHED' },
+      data: { status: PS.PUBLISHED },
     })
   }
 
   async bulkApprove(ids: string[]) {
     return this.prisma.product.updateMany({
       where: { id: { in: ids }, deletedAt: null },
-      data: { status: 'PUBLISHED' },
+      data: { status: PS.PUBLISHED },
     })
   }
 
   async bulkReject(ids: string[]) {
     return this.prisma.product.updateMany({
       where: { id: { in: ids }, deletedAt: null },
-      data: { status: 'REJECTED' },
+      data: { status: PS.REJECTED },
     })
   }
 
@@ -152,7 +152,7 @@ export class ProductsService {
     return this.prisma.productReport.update({
       where: { id },
       data: {
-        status: 'RESOLVED',
+        status: PRS.RESOLVED,
         resolvedBy: adminId,
         resolvedAt: new Date(),
         adminNote: nullable(adminNote),
@@ -164,7 +164,7 @@ export class ProductsService {
     return this.prisma.productReport.update({
       where: { id },
       data: {
-        status: 'DISMISSED',
+        status: PRS.DISMISSED,
         resolvedBy: adminId,
         resolvedAt: new Date(),
         adminNote: nullable(adminNote),

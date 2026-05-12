@@ -14,7 +14,7 @@ import {
 import type { ShopService } from '../shop/shop.service'
 import type { ReturnService } from './return.service'
 import type { ReturnQueryDto } from './dto/return-query.dto'
-import { ReturnStatus } from '@ecom/database'
+import { ReturnStatus } from '@ecom/contracts/enums'
 
 class UpdateReturnStatusDto {
   @IsEnum(ReturnStatus)

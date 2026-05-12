@@ -57,8 +57,8 @@ const columns = [
               Approve
             </button>
           )}
-          {[ReviewStatus.PENDING, ReviewStatus.APPROVED].includes(
-            review.status as ReviewStatus,
+          {([ReviewStatus.PENDING, ReviewStatus.APPROVED] as ReviewStatus[]).includes(
+            review.status,
           ) && (
             <button
               onClick={() => hide.mutate(review.id)}

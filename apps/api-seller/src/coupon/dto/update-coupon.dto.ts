@@ -11,8 +11,7 @@ import {
 } from 'class-validator'
 import { Type } from 'class-transformer'
 import { ApiPropertyOptional } from '@nestjs/swagger'
-import { CouponStatus, CouponType } from '@ecom/database'
-import { CouponScope } from './create-coupon.dto'
+import { CouponStatus, CouponType, CouponScope } from '@ecom/database'
 
 export class UpdateCouponDto {
   @ApiPropertyOptional({ description: 'Coupon display name', maxLength: 200 })

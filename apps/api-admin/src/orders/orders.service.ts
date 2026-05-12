@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import type { PrismaService, Prisma } from '@ecom/database'
-import { type OrderStatus } from '@ecom/database'
+import { type OrderStatus, OrderStatus as OS } from '@ecom/contracts/enums'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { withDefined } from '@ecom/shared/utils'
 
@@ -61,11 +61,11 @@ export class OrdersService {
     return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.sellerOrder.updateMany({
         where: { orderId: order.id },
-        data: { status: 'CANCELLED' },
+        data: { status: OS.CANCELLED },
       })
       return tx.order.update({
         where: { id: order.id },
-        data: { status: 'CANCELLED' },
+        data: { status: OS.CANCELLED },
       })
     })
   }
@@ -75,11 +75,11 @@ export class OrdersService {
     return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.sellerOrder.updateMany({
         where: { orderId: order.id },
-        data: { status: 'DELIVERED' },
+        data: { status: OS.DELIVERED },
       })
       return tx.order.update({
         where: { id: order.id },
-        data: { status: 'DELIVERED' },
+        data: { status: OS.DELIVERED },
       })
     })
   }

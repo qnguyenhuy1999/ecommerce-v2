@@ -1,12 +1,10 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
-import { type Prisma } from '@ecom/database'
+import { type Prisma, CouponType, CouponStatus, CouponScope } from '@ecom/database'
 import type { CreateCouponDto } from './dto/create-coupon.dto'
-import { CouponScope } from './dto/create-coupon.dto'
 import type { UpdateCouponDto } from './dto/update-coupon.dto'
 import type { CouponQueryDto } from './dto/coupon-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { CouponStatus, CouponType } from '@ecom/database'
 
 @Injectable()
 export class CouponService {

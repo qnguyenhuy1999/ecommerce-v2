@@ -13,7 +13,7 @@ import type {
   BulkModerationDto,
   ResolveReportDto,
 } from './dto/product-action.dto'
-import { type ProductReportStatus } from '@ecom/database'
+import { type ProductReportStatus } from '@ecom/contracts/enums'
 import { AUDIT_ACTIONS } from '@ecom/shared/constants'
 import { withDefined } from '@ecom/shared/utils'
 import {

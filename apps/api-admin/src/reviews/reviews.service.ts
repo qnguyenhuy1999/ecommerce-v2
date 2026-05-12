@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import type { PrismaService, Prisma } from '@ecom/database'
-import { type ReviewStatus } from '@ecom/database'
+import { type ReviewStatus, ReviewStatus as RS } from '@ecom/contracts/enums'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { withDefined } from '@ecom/shared/utils'
 
@@ -40,17 +40,17 @@ export class ReviewsService {
 
   async approve(id: string) {
     await this.findById(id)
-    return this.prisma.review.update({ where: { id }, data: { status: 'APPROVED' } })
+    return this.prisma.review.update({ where: { id }, data: { status: RS.APPROVED } })
   }
 
   async hide(id: string) {
     await this.findById(id)
-    return this.prisma.review.update({ where: { id }, data: { status: 'HIDDEN' } })
+    return this.prisma.review.update({ where: { id }, data: { status: RS.HIDDEN } })
   }
 
   async reject(id: string) {
     await this.findById(id)
-    return this.prisma.review.update({ where: { id }, data: { status: 'REJECTED' } })
+    return this.prisma.review.update({ where: { id }, data: { status: RS.REJECTED } })
   }
 
   async getStatusCounts() {

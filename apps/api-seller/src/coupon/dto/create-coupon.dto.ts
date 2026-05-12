@@ -11,14 +11,7 @@ import {
 } from 'class-validator'
 import { Type } from 'class-transformer'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import { CouponType } from '@ecom/database'
-
-/** Coupon scope — mirrors the Prisma CouponScope enum. */
-export enum CouponScope {
-  ALL_PRODUCTS = 'ALL_PRODUCTS',
-  SPECIFIC_PRODUCTS = 'SPECIFIC_PRODUCTS',
-  SPECIFIC_CATEGORIES = 'SPECIFIC_CATEGORIES',
-}
+import { CouponType, CouponScope } from '@ecom/database'
 
 export class CreateCouponDto {
   @ApiProperty({ description: 'Unique coupon code', maxLength: 50 })

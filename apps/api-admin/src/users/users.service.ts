@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import type { PrismaService, Prisma } from '@ecom/database'
-import { type UserStatus } from '@ecom/database'
+import { type UserStatus, UserStatus as US } from '@ecom/contracts/enums'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { withDefined } from '@ecom/shared/utils'
 
@@ -66,7 +66,7 @@ export class UsersService {
     await this.findById(id)
     return this.prisma.user.update({
       where: { id },
-      data: { status: 'SUSPENDED' },
+      data: { status: US.SUSPENDED },
     })
   }
 
@@ -74,7 +74,7 @@ export class UsersService {
     await this.findById(id)
     return this.prisma.user.update({
       where: { id },
-      data: { status: 'BANNED' },
+      data: { status: US.BANNED },
     })
   }
 
@@ -82,7 +82,7 @@ export class UsersService {
     await this.findById(id)
     return this.prisma.user.update({
       where: { id },
-      data: { status: 'ACTIVE' },
+      data: { status: US.ACTIVE },
     })
   }
 

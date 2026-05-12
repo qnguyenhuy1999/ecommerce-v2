@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { FlashSaleStatus, ProductStatus } from '@ecom/contracts'
+import { FlashSaleStatus, FlashSaleSlotStatus, ProductStatus } from '@ecom/contracts/enums'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import type { CreateFlashSaleCampaignDto } from './dto/create-flash-sale.dto'
 import type { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
@@ -147,7 +147,7 @@ export class FlashSaleService {
   async rejectSlot(slotId: string) {
     return this.prisma.flashSaleSlot.update({
       where: { id: slotId },
-      data: { status: 'REJECTED' as const },
+      data: { status: FlashSaleSlotStatus.REJECTED },
     })
   }
 }

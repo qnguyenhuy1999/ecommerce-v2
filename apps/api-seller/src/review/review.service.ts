@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
+import { ReviewStatus } from '@ecom/contracts/enums'
 import type { ReviewQueryDto } from './dto/review-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { ReviewStatus } from '@ecom/database'
 
 @Injectable()
 export class ReviewService {

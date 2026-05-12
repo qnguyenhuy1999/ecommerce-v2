@@ -52,6 +52,9 @@ jobs:
       - name: Generate TypeScript types from OpenAPI specs
         run: pnpm openapi:gen
 
+      - name: Type-check generated contracts
+        run: pnpm type-check --filter=@ecom/contracts
+
       - name: Checkout baseline specs from main
         run: |
           git fetch origin main

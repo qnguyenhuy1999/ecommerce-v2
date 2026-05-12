@@ -38,6 +38,10 @@
     "openapi:gen": {
       "cache": false,
       "dependsOn": ["swagger:gen"]
+    },
+    "contracts:check": {
+      "cache": false,
+      "dependsOn": ["openapi:gen"]
     }
   }
 }

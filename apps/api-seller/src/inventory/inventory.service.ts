@@ -95,7 +95,7 @@ export class InventoryService {
       await tx.inventoryTransaction.create({
         data: {
           variantId,
-          type: type as Prisma.InventoryTransactionCreateInput['type'],
+          type: type,
           quantity,
           ...(note !== undefined ? { note } : {}),
         },

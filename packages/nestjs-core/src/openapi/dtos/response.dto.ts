@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import type { PaginationMetaDto } from '@ecom/contracts'
+import { PaginationMetaDto } from '@ecom/contracts'
 
 /**
  * Swagger schema class for the canonical success response envelope.
@@ -33,8 +33,9 @@ export class ErrorResponseDto {
     properties: {
       code: { type: 'string', example: 'NOT_FOUND' },
       message: { type: 'string', example: 'The requested resource was not found.' },
-      details: { nullable: true },
+      details: { type: 'object', nullable: true, additionalProperties: true },
     },
+    required: ['code', 'message'],
   })
   error!: {
     code: string
@@ -54,15 +55,19 @@ export class PaginatedResponseDto<T = unknown> {
   @ApiProperty({ example: true })
   success!: true
 
-  @ApiProperty({ type: 'object', additionalProperties: true })
+  @ApiProperty({
+    type: 'object',
+    properties: {
+      items: { type: 'array', items: { type: 'object' } },
+    },
+    required: ['items'],
+  })
   data!: { items: T[] }
 
   @ApiProperty({
     type: 'object',
-    additionalProperties: false,
-    properties: {
-      pagination: { type: 'object', additionalProperties: true },
-    },
+    additionalProperties: true,
+    description: 'Contains pagination metadata',
   })
   meta!: { pagination: PaginationMetaDto }
 

@@ -40,12 +40,12 @@ export class ProductQueryDto {
 }
 
 export class ProductResponseDto {
-  @ApiProperty() id!: string
-  @ApiProperty() name!: string
-  @ApiProperty() slug!: string
-  @ApiProperty() description!: string
-  @ApiProperty() price!: number
-  @ApiProperty() status!: string
-  @ApiProperty() createdAt!: Date
-  @ApiProperty() updatedAt!: Date
+  @ApiProperty({ description: 'Product ID' }) id!: string
+  @ApiProperty({ description: 'Product name' }) name!: string
+  @ApiProperty({ description: 'URL-friendly slug' }) slug!: string
+  @ApiProperty({ description: 'Product description' }) description!: string
+  @ApiProperty({ description: 'Base price' }) price!: number
+  @ApiProperty({ description: 'Product status', enum: ['DRAFT', 'PUBLISHED', 'ARCHIVED', 'REJECTED'] }) status!: string
+  @ApiProperty({ description: 'Creation timestamp', format: 'date-time' }) createdAt!: Date
+  @ApiProperty({ description: 'Last update timestamp', format: 'date-time' }) updatedAt!: Date
 }

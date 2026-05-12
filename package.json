@@ -22,7 +22,9 @@
     "db:seed": "cd packages/database && npx prisma db seed",
     "swagger:gen:all": "turbo swagger:gen",
     "openapi:gen": "node packages/contracts/scripts/generate-types.mjs",
+    "openapi:validate": "npx @apidevtools/swagger-cli validate apps/api-admin/openapi/admin.json && npx @apidevtools/swagger-cli validate apps/api-seller/openapi/seller.json && npx @apidevtools/swagger-cli validate apps/api-storefront/openapi/storefront.json",
     "openapi:sync": "pnpm swagger:gen:all && pnpm openapi:gen",
+    "contracts:check": "pnpm openapi:sync && pnpm openapi:validate && pnpm type-check --filter=@ecom/contracts",
     "prepare": "husky"
   },
   "devDependencies": {

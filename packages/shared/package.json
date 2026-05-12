@@ -45,6 +45,9 @@
     "module": "./dist/index.mjs",
     "name": "@ecom/shared",
     "peerDependenciesMeta": {
+        "@nestjs/swagger": {
+            "optional": true
+        },
         "@tanstack/react-query": {
             "optional": true
         },
@@ -64,6 +67,7 @@
     "types": "./dist/index.d.ts",
     "version": "1.0.0",
     "devDependencies": {
+        "@nestjs/swagger": "^11.0.6",
         "@tanstack/react-query": "^5.100.9",
         "@types/node": "^25.6.2",
         "@types/react": "^19.2.14",
@@ -73,5 +77,8 @@
         "react": "^19.2.5",
         "server-only": "^0.0.1",
         "vitest": "^3.0.7"
+    },
+    "peerDependencies": {
+        "@nestjs/swagger": ">=7.0.0"
     }
 }

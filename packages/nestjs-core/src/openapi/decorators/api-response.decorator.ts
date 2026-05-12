@@ -1,6 +1,7 @@
 import type { Type } from '@nestjs/common'
 import { applyDecorators } from '@nestjs/common'
 import { ApiExtraModels, ApiOkResponse, ApiCreatedResponse, getSchemaPath } from '@nestjs/swagger'
+import { PaginationMetaDto } from '@ecom/contracts'
 import { ApiResponseDto, PaginatedResponseDto } from '../dtos'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -52,7 +53,7 @@ export const ApiCreatedResponseData = <TModel extends Type<any>>(
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ApiPaginatedResponse = <TModel extends Type<any>>(model: TModel) => {
   return applyDecorators(
-    ApiExtraModels(PaginatedResponseDto, model),
+    ApiExtraModels(PaginatedResponseDto, PaginationMetaDto, model),
     ApiOkResponse({
       schema: {
         allOf: [

@@ -57,6 +57,9 @@ export function buildApiArrayResponseSchema(dtoClass: Function) {
  * Produces the standard pagination envelope:
  * { success, data: { items: T[] }, meta: { pagination: PaginationMetaDto }, error: null }
  *
+ * NOTE: Ensure @ApiExtraModels(PaginatedResponseDto, PaginationMetaDto, YourDto)
+ * is applied on the controller or method so all $ref targets resolve.
+ *
  * @example
  * @ApiExtraModels(PaginatedResponseDto, PaginationMetaDto, ProductDto)
  * @ApiOkResponse({ schema: buildPaginatedResponseSchema(ProductDto) })

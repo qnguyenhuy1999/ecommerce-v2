@@ -4,6 +4,7 @@ import { ThrottlerModule } from '@nestjs/throttler'
 import { RedisModule } from '@ecom/redis'
 import { DatabaseModule } from '@ecom/database'
 import { getAdminThrottleConfig, getRedisConfig } from '@ecom/config'
+import { withDefined } from '@ecom/shared/utils'
 import { AuthModule } from './auth/auth.module'
 import { SellersModule } from './sellers/sellers.module'
 import { DashboardModule } from './dashboard/dashboard.module'
@@ -24,7 +25,16 @@ import { AuditLogInterceptor } from './common/interceptors/audit-log.interceptor
     ThrottlerModule.forRoot({
       throttlers: [getAdminThrottleConfig()],
     }),
-    RedisModule.forRoot(getRedisConfig()),
+    RedisModule.forRoot(
+      (() => {
+        const redis = getRedisConfig()
+        return {
+          host: redis.host,
+          port: redis.port,
+          ...(redis.password !== undefined ? { password: redis.password } : {}),
+        }
+      })(),
+    ),
     DatabaseModule,
     AuthModule,
     SellersModule,

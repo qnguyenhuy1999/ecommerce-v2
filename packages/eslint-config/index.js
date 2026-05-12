@@ -17,7 +17,16 @@ const baseConfig = [
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
   sonarjs.configs.recommended,
+  {
+    files: ['**/*.{ts,tsx,mts,cts}'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
+    },
+  },
   {
     plugins: {
       unicorn,
@@ -40,8 +49,12 @@ const baseConfig = [
 
       // ─── TypeScript overrides ───
       '@typescript-eslint/no-unused-vars': 'off', // handled by unused-imports
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/consistent-type-imports': ['warn', { prefer: 'type-imports' }],
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unsafe-assignment': 'error',
+      '@typescript-eslint/no-unsafe-call': 'error',
+      '@typescript-eslint/no-unsafe-member-access': 'error',
+      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+      '@typescript-eslint/no-non-null-assertion': 'warn',
 
       // ─── Unicorn (selective) ───
       'unicorn/prefer-node-protocol': 'error',
@@ -119,6 +132,15 @@ const baseConfig = [
         ]
       }]
     }
+  },
+  {
+    files: ['**/generated/**'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+    },
   },
 ]
 

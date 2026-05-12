@@ -90,7 +90,7 @@ export function ReviewsPage() {
   const { data, isLoading } = useReviews({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
   const { data: counts } = useReviewStatusCounts()
 
@@ -108,15 +108,15 @@ export function ReviewsPage() {
           setStatusFilter(t)
           setPage(1)
         }}
-        counts={counts}
+        {...(counts !== undefined ? { counts } : {})}
       />
 
       <DataTable
         columns={columns}
         data={data?.items ?? []}
-        meta={data?.meta}
+        {...(data?.meta !== undefined ? { meta: data.meta } : {})}
         loading={isLoading}
-        onPageChange={setPage}
+        onPageChange={(p) => setPage(p)}
       />
     </div>
   )

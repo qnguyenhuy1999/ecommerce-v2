@@ -30,7 +30,7 @@ export class MetricsService {
         this.prisma.returnRequest.count({
           where: {
             shopId,
-            status: ReturnStatus.REFUNDED as Prisma.ReturnRequestWhereInput['status'],
+            status: ReturnStatus.REFUNDED as NonNullable<Prisma.ReturnRequestWhereInput['status']>,
             createdAt: { gte: thirtyDaysAgo },
           },
         }),

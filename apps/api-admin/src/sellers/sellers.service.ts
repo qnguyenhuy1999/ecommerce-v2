@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import type { PrismaService, Prisma } from '@ecom/database'
 import { type SellerStatus } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { withDefined, nullable } from '@ecom/shared/utils'
 
 @Injectable()
 export class SellersService {
@@ -19,8 +20,7 @@ export class SellersService {
     }
 
     const { items, total } = await offsetPaginate(this.prisma.seller, {
-      page: query.page,
-      limit: query.limit,
+      ...withDefined({ page: query.page, limit: query.limit }),
       where,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -83,7 +83,7 @@ export class SellersService {
         status: 'REJECTED',
         rejectedAt: new Date(),
         rejectedBy: adminId,
-        rejectReason: reason,
+        rejectReason: nullable(reason),
       },
     })
   }
@@ -101,7 +101,7 @@ export class SellersService {
         status: 'SUSPENDED',
         suspendedAt: new Date(),
         suspendedBy: adminId,
-        suspendReason: reason,
+        suspendReason: nullable(reason),
       },
     })
   }

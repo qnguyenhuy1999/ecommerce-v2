@@ -81,7 +81,7 @@ export class GrowthService {
       const experiment = await tx.experiment.create({
         data: {
           name: dto.name,
-          description: dto.description,
+          ...(dto.description !== undefined ? { description: dto.description } : {}),
           trafficPercent: dto.trafficPercentage ?? 100,
         },
       })
@@ -150,7 +150,7 @@ export class GrowthService {
       data: {
         key: dto.key,
         name: dto.key,
-        description: dto.description,
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
         isEnabled: dto.isEnabled ?? false,
         targetRules: (dto.rules ?? {}) as Prisma.InputJsonValue,
       },
@@ -188,11 +188,11 @@ export class GrowthService {
     return this.prisma.growthCampaign.create({
       data: {
         name: dto.name,
-        description: dto.description,
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
         type: dto.type,
         config: (dto.config ?? {}) as Prisma.InputJsonValue,
-        startsAt: dto.startsAt ? new Date(dto.startsAt) : undefined,
-        endsAt: dto.endsAt ? new Date(dto.endsAt) : undefined,
+        ...(dto.startsAt !== undefined ? { startsAt: new Date(dto.startsAt) } : {}),
+        ...(dto.endsAt !== undefined ? { endsAt: new Date(dto.endsAt) } : {}),
       },
     })
   }

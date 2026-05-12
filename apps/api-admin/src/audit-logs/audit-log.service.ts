@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import type { PrismaService, Prisma } from '@ecom/database'
 import { type AuditActionType } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { withDefined, nullable } from '@ecom/shared/utils'
 
 interface LogParams {
   adminId: string
@@ -24,11 +25,13 @@ export class AuditLogService {
         data: {
           adminId: params.adminId,
           action: params.action,
-          entityType: params.entityType,
-          entityId: params.entityId,
-          metadata: params.metadata ? (params.metadata as Prisma.InputJsonValue) : undefined,
-          ipAddress: params.ipAddress,
-          userAgent: params.userAgent,
+          entityType: nullable(params.entityType),
+          entityId: nullable(params.entityId),
+          ...(params.metadata !== undefined
+            ? { metadata: params.metadata as Prisma.InputJsonValue }
+            : {}),
+          ipAddress: nullable(params.ipAddress),
+          userAgent: nullable(params.userAgent),
         },
       })
     } catch (error) {
@@ -47,8 +50,7 @@ export class AuditLogService {
     if (query.adminId) where.adminId = query.adminId
 
     const { items, total } = await offsetPaginate(this.prisma.adminAuditLog, {
-      page: query.page,
-      limit: query.limit,
+      ...withDefined({ page: query.page, limit: query.limit }),
       where,
       orderBy: { createdAt: 'desc' },
       include: {

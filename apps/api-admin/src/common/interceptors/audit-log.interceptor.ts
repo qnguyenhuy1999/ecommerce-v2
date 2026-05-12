@@ -45,10 +45,12 @@ export class AuditLogInterceptor implements NestInterceptor {
           adminId: admin.adminId,
           action: metadata.action as unknown as AuditActionType,
           entityType: metadata.entityType,
-          entityId,
-          metadata: extractedMetadata,
-          ipAddress: request.ip,
-          userAgent: request.headers['user-agent'],
+          ...(entityId !== undefined ? { entityId } : {}),
+          ...(extractedMetadata !== undefined ? { metadata: extractedMetadata } : {}),
+          ...(request.ip !== undefined ? { ipAddress: request.ip } : {}),
+          ...(request.headers['user-agent'] !== undefined
+            ? { userAgent: request.headers['user-agent'] }
+            : {}),
         })
       }),
     )

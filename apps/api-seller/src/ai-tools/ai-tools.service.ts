@@ -22,7 +22,7 @@ export class AiToolsService {
           | 'SEO'
           | 'TRANSLATION'
           | 'SALES_INSIGHT',
-        productId: dto.productId,
+        ...(dto.productId !== undefined ? { productId: dto.productId } : {}),
         inputData: (dto.input ?? {}) as Prisma.InputJsonValue,
         status: 'QUEUED',
       },

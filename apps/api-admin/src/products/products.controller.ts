@@ -15,6 +15,7 @@ import type {
 } from './dto/product-action.dto'
 import { type ProductStatus, type ProductReportStatus } from '@ecom/database'
 import { AUDIT_ACTIONS } from '@ecom/shared/constants'
+import { withDefined } from '@ecom/shared/utils'
 import {
   ApiOkResponseData,
   ApiPaginatedResponse,
@@ -37,12 +38,11 @@ export class ProductsController {
   @Permissions('PRODUCT_VIEW')
   async findAll(@Query() query: ProductQueryDto) {
     const result = await this.productsService.findAll({
-      page: query.page,
-      limit: query.limit,
-      search: query.search,
-      status: query.status as ProductStatus | undefined,
-      shopId: query.shopId,
-      categoryId: query.categoryId,
+      ...withDefined({ page: query.page, limit: query.limit }),
+      ...(query.search !== undefined ? { search: query.search } : {}),
+      ...(query.status !== undefined ? { status: query.status as ProductStatus } : {}),
+      ...(query.shopId !== undefined ? { shopId: query.shopId } : {}),
+      ...(query.categoryId !== undefined ? { categoryId: query.categoryId } : {}),
     })
     return result
   }
@@ -62,9 +62,8 @@ export class ProductsController {
   @Permissions('PRODUCT_MODERATE')
   async findReports(@Query() query: ProductQueryDto) {
     const result = await this.productsService.findReports({
-      page: query.page,
-      limit: query.limit,
-      status: query.status as ProductReportStatus | undefined,
+      ...withDefined({ page: query.page, limit: query.limit }),
+      ...(query.status !== undefined ? { status: query.status as ProductReportStatus } : {}),
     })
     return result
   }

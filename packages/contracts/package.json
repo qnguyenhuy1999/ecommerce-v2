@@ -17,12 +17,17 @@
     "./product": "./src/product/index.ts",
     "./order": "./src/order/index.ts",
     "./auth": "./src/auth/index.ts",
-    "./common": "./src/common/index.ts"
+    "./common": "./src/common/index.ts",
+    "./generated": "./src/generated/index.ts",
+    "./generated/admin": "./src/generated/admin.ts",
+    "./generated/seller": "./src/generated/seller.ts",
+    "./generated/storefront": "./src/generated/storefront.ts"
   },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "openapi:gen": "node scripts/generate-types.mjs"
   },
   "dependencies": {
     "@ecom/shared": "workspace:*",
@@ -32,6 +37,7 @@
   },
   "devDependencies": {
     "@ecom/eslint-config": "workspace:*",
+    "openapi-typescript": "^7.13.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3"
   }

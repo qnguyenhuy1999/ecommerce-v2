@@ -28,11 +28,7 @@ export class ReviewsController {
   @Get()
   @Permissions('REVIEW_MODERATE')
   async findAll(@Query() query: ReviewQueryDto) {
-    const result = await this.reviewsService.findAll({
-      page: query.page,
-      limit: query.limit,
-      status: query.status,
-    })
+    const result = await this.reviewsService.findAll({ ...query })
     return result
   }
 

@@ -18,7 +18,7 @@ export class AnalyticsService {
     const totalRevenue = orders.reduce((sum: number, o) => sum + Number(o.subtotal), 0)
     const dailyRevenue: Record<string, number> = {}
     for (const order of orders) {
-      const day = order.createdAt.toISOString().split('T')[0]
+      const day = order.createdAt.toISOString().split('T')[0] ?? 'unknown'
       dailyRevenue[day] = (dailyRevenue[day] ?? 0) + Number(order.subtotal)
     }
 

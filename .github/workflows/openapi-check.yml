@@ -49,6 +49,8 @@ jobs:
           DATABASE_URL: 'postgresql://user:pass@localhost:5432/ecom_test'
           REDIS_URL: 'redis://localhost:6379'
 
+      - name: Generate TypeScript types from OpenAPI specs
+        run: pnpm openapi:gen
 
       - name: Checkout baseline specs from main
         run: |
@@ -109,4 +111,7 @@ jobs:
             apps/api-admin/openapi/admin.json
             apps/api-seller/openapi/seller.json
             apps/api-storefront/openapi/storefront.json
+            packages/contracts/src/generated/admin.ts
+            packages/contracts/src/generated/seller.ts
+            packages/contracts/src/generated/storefront.ts
           retention-days: 30

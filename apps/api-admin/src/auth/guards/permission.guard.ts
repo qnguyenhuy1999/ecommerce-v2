@@ -5,6 +5,8 @@ import type { Request } from 'express'
 import { PERMISSIONS_KEY } from '../decorators/permissions.decorator'
 import type { AdminSessionData } from '../decorators/current-admin.decorator'
 
+type AdminRequest = Request & { admin?: AdminSessionData }
+
 @Injectable()
 export class PermissionGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
@@ -19,8 +21,8 @@ export class PermissionGuard implements CanActivate {
       return true
     }
 
-    const request = context.switchToHttp().getRequest<Request>()
-    const admin = (request as Request & { admin: AdminSessionData }).admin
+    const request = context.switchToHttp().getRequest<AdminRequest>()
+    const admin = request.admin
 
     if (!admin) {
       throw new ForbiddenException('Access denied')

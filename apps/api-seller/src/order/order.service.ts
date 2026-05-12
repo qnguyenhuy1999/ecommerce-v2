@@ -6,7 +6,7 @@ import type { OrderQueryDto } from './dto/order-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import type { OrderRepository } from './repositories/order.repository'
 
-const VALID_TRANSITIONS: Record<string, string[]> = {
+const VALID_TRANSITIONS: Record<OrderStatus, readonly OrderStatus[]> = {
   [OrderStatus.PENDING]: [OrderStatus.CONFIRMED, OrderStatus.CANCELLED],
   [OrderStatus.CONFIRMED]: [OrderStatus.PACKING, OrderStatus.CANCELLED],
   [OrderStatus.PACKING]: [OrderStatus.SHIPPED],
@@ -31,7 +31,7 @@ export class OrderService {
 
     const where: Prisma.SellerOrderWhereInput = {
       shopId,
-      ...(status ? { status: status as Prisma.SellerOrderWhereInput['status'] } : {}),
+      ...(status ? { status } : {}),
       ...(search
         ? {
             OR: [{ order: { shippingName: { contains: search, mode: 'insensitive' as const } } }],
@@ -64,7 +64,7 @@ export class OrderService {
   async updateStatus(
     shopId: string,
     sellerOrderId: string,
-    newStatus: string,
+    newStatus: OrderStatus,
     note?: string,
     performedBy?: string,
   ) {
@@ -74,7 +74,7 @@ export class OrderService {
       throw new NotFoundException('Order not found')
     }
 
-    const currentStatus = sellerOrder.status
+    const currentStatus = sellerOrder.status as OrderStatus
     const allowed = VALID_TRANSITIONS[currentStatus] ?? []
 
     if (!allowed.includes(newStatus)) {
@@ -86,7 +86,7 @@ export class OrderService {
     return this.orderRepository.$transaction(async (tx: Prisma.TransactionClient) => {
       const updated = await tx.sellerOrder.update({
         where: { id: sellerOrderId },
-        data: { status: newStatus as Prisma.SellerOrderUpdateInput['status'] },
+        data: { status: newStatus },
       })
 
       await tx.orderAuditLog.create({
@@ -94,8 +94,8 @@ export class OrderService {
           sellerOrderId,
           fromStatus: currentStatus,
           toStatus: newStatus,
-          note,
-          performedBy,
+          ...(note !== undefined ? { note } : {}),
+          ...(performedBy !== undefined ? { performedBy } : {}),
         },
       })
 

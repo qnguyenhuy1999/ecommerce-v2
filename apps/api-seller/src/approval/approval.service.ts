@@ -24,7 +24,9 @@ export class ApprovalService {
 
     const where: Prisma.ProductApprovalWhereInput = {
       shopId,
-      ...(status ? { status: status as Prisma.ProductApprovalWhereInput['status'] } : {}),
+    }
+    if (status) {
+      where.status = status as NonNullable<Prisma.ProductApprovalWhereInput['status']>
     }
 
     const { items, total } = await offsetPaginate(this.prisma.productApproval, {

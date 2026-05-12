@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import type { PrismaService, Prisma } from '@ecom/database'
 import { type ProductStatus, type ProductReportStatus } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { withDefined, nullable } from '@ecom/shared/utils'
 
 @Injectable()
 export class ProductsService {
@@ -26,8 +27,7 @@ export class ProductsService {
     }
 
     const { items, total } = await offsetPaginate(this.prisma.product, {
-      page: query.page,
-      limit: query.limit,
+      ...withDefined({ page: query.page, limit: query.limit }),
       where,
       include: {
         shop: { select: { id: true, name: true } },
@@ -140,8 +140,7 @@ export class ProductsService {
     if (query.status) where.status = query.status
 
     const { items, total } = await offsetPaginate(this.prisma.productReport, {
-      page: query.page,
-      limit: query.limit,
+      ...withDefined({ page: query.page, limit: query.limit }),
       where,
       orderBy: { createdAt: 'desc' },
     })
@@ -152,14 +151,24 @@ export class ProductsService {
   async resolveReport(id: string, adminId: string, adminNote?: string) {
     return this.prisma.productReport.update({
       where: { id },
-      data: { status: 'RESOLVED', resolvedBy: adminId, resolvedAt: new Date(), adminNote },
+      data: {
+        status: 'RESOLVED',
+        resolvedBy: adminId,
+        resolvedAt: new Date(),
+        adminNote: nullable(adminNote),
+      },
     })
   }
 
   async dismissReport(id: string, adminId: string, adminNote?: string) {
     return this.prisma.productReport.update({
       where: { id },
-      data: { status: 'DISMISSED', resolvedBy: adminId, resolvedAt: new Date(), adminNote },
+      data: {
+        status: 'DISMISSED',
+        resolvedBy: adminId,
+        resolvedAt: new Date(),
+        adminNote: nullable(adminNote),
+      },
     })
   }
 }

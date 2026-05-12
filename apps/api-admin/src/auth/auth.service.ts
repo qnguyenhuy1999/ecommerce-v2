@@ -2,11 +2,12 @@ import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
 import * as bcrypt from 'bcrypt'
 import type { PrismaService } from '@ecom/database'
-import type { SessionService } from '@ecom/auth'
+import type { SessionData, SessionService } from '@ecom/auth'
 import { SESSION_SERVICE } from './session.provider'
 import type { AdminSessionData } from './decorators/current-admin.decorator'
 
 const SESSION_EXPIRY_DAYS = 7
+const ACTIVE_STATUS = 'ACTIVE'
 
 @Injectable()
 export class AuthService {
@@ -34,7 +35,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials')
     }
 
-    if (admin.status !== 'ACTIVE') {
+    if (admin.status !== ACTIVE_STATUS) {
       throw new UnauthorizedException('Account is not active')
     }
 
@@ -58,22 +59,20 @@ export class AuthService {
     const sessionId = randomUUID()
     const expiresAt = new Date(Date.now() + SESSION_EXPIRY_DAYS * 24 * 60 * 60 * 1000)
 
-    const sessionData: AdminSessionData = {
+    const sessionData: SessionData & AdminSessionData = {
+      userId: admin.id,
       adminId: admin.id,
       permissions,
       roles,
     }
-    await this.sessionService.create(
-      sessionId,
-      sessionData as unknown as { userId: string; roles: string[] },
-    )
+    await this.sessionService.create(sessionId, sessionData)
 
     await this.prisma.adminSession.create({
       data: {
         id: sessionId,
         adminId: admin.id,
-        userAgent,
-        ipAddress,
+        userAgent: userAgent ?? null,
+        ipAddress: ipAddress ?? null,
         expiresAt,
       },
     })
@@ -108,7 +107,7 @@ export class AuthService {
       throw new UnauthorizedException('Session expired or invalid')
     }
 
-    const adminSession = session as unknown as AdminSessionData
+    const adminSession = parseAdminSessionData(session)
     const admin = await this.prisma.admin.findUnique({
       where: { id: adminSession.adminId, deletedAt: null },
       select: {
@@ -121,7 +120,7 @@ export class AuthService {
       },
     })
 
-    if (!admin || admin.status !== 'ACTIVE') {
+    if (!admin || admin.status !== ACTIVE_STATUS) {
       throw new UnauthorizedException('Admin account not found or inactive')
     }
 
@@ -134,5 +133,23 @@ export class AuthService {
 
   async refreshSession(sessionId: string) {
     await this.sessionService.refresh(sessionId)
+  }
+}
+
+function parseAdminSessionData(session: SessionData): AdminSessionData {
+  const adminId = session.adminId
+  const permissions = session.permissions
+  if (
+    typeof adminId !== 'string' ||
+    !Array.isArray(permissions) ||
+    !permissions.every((permission) => typeof permission === 'string')
+  ) {
+    throw new UnauthorizedException('Session payload is invalid')
+  }
+
+  return {
+    adminId,
+    permissions,
+    roles: session.roles,
   }
 }

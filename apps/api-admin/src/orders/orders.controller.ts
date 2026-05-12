@@ -28,13 +28,7 @@ export class OrdersController {
   @Get()
   @Permissions('ORDER_VIEW')
   async findAll(@Query() query: OrderQueryDto) {
-    const result = await this.ordersService.findAll({
-      page: query.page,
-      limit: query.limit,
-      search: query.search,
-      status: query.status,
-      buyerId: query.buyerId,
-    })
+    const result = await this.ordersService.findAll({ ...query })
     return result
   }
 

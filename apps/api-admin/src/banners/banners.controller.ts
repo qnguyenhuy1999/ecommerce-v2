@@ -30,12 +30,7 @@ export class BannersController {
   @Get()
   @Permissions('BANNER_MANAGE')
   async findAll(@Query() query: BannerQueryDto) {
-    const result = await this.bannersService.findAll({
-      page: query.page,
-      limit: query.limit,
-      position: query.position,
-      status: query.status,
-    })
+    const result = await this.bannersService.findAll({ ...query })
     return result
   }
 
@@ -55,10 +50,15 @@ export class BannersController {
   @AuditLog(AUDIT_ACTIONS.BANNER_CREATED, 'Banner', { entityIdPath: 'data.id' })
   async create(@Body() dto: CreateBannerDto, @CurrentAdmin() admin: AdminSessionData) {
     const banner = await this.bannersService.create({
-      ...dto,
-      startsAt: dto.startsAt ? new Date(dto.startsAt) : undefined,
-      endsAt: dto.endsAt ? new Date(dto.endsAt) : undefined,
+      title: dto.title,
+      position: dto.position,
+      imageUrl: dto.imageUrl,
       createdBy: admin.adminId,
+      ...(dto.mobileImageUrl !== undefined ? { mobileImageUrl: dto.mobileImageUrl } : {}),
+      ...(dto.linkUrl !== undefined ? { linkUrl: dto.linkUrl } : {}),
+      ...(dto.sortOrder !== undefined ? { sortOrder: dto.sortOrder } : {}),
+      ...(dto.startsAt !== undefined ? { startsAt: new Date(dto.startsAt) } : {}),
+      ...(dto.endsAt !== undefined ? { endsAt: new Date(dto.endsAt) } : {}),
     })
     return banner
   }

@@ -46,7 +46,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const userAgent = req.headers['user-agent']
-    const ipAddress = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ?? req.ip
+    const ipAddress = getClientIp(req)
 
     const { sessionId, userId, roles } = await this.authService.login(
       dto.email,
@@ -87,7 +87,7 @@ export class AuthController {
       ...(cookieOptions.domain ? { domain: cookieOptions.domain } : {}),
     })
 
-    return { success: true }
+    return { data: { success: true } }
   }
 
   @Get('me')
@@ -102,4 +102,12 @@ export class AuthController {
     const session = await this.authService.getMe(sessionId)
     return { userId: session.userId, roles: session.roles }
   }
+}
+
+function getClientIp(req: Request): string {
+  const forwardedFor = req.headers['x-forwarded-for']
+  if (typeof forwardedFor === 'string') {
+    return forwardedFor.split(',')[0]?.trim() ?? req.ip ?? ''
+  }
+  return req.ip ?? ''
 }

@@ -22,12 +22,7 @@ export class AuditLogsController {
   @Get()
   @Permissions('AUDIT_VIEW')
   async findAll(@Query() query: AuditLogQueryDto) {
-    const result = await this.auditLogService.findAll({
-      page: query.page,
-      limit: query.limit,
-      action: query.action,
-      adminId: query.adminId,
-    })
+    const result = await this.auditLogService.findAll(query)
     return result
   }
 }

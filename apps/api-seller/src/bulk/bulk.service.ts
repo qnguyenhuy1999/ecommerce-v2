@@ -22,11 +22,9 @@ export class BulkService {
     const finalSort = sort || sortBy
     const finalOrder = order || sortOrder
 
-    const where: Prisma.BulkJobWhereInput = {
-      shopId,
-      ...(type ? { type: type as Prisma.BulkJobWhereInput['type'] } : {}),
-      ...(status ? { status: status as Prisma.BulkJobWhereInput['status'] } : {}),
-    }
+    const where: Prisma.BulkJobWhereInput = { shopId }
+    if (type) where.type = type as NonNullable<Prisma.BulkJobWhereInput['type']>
+    if (status) where.status = status as NonNullable<Prisma.BulkJobWhereInput['status']>
 
     const { items, total } = await offsetPaginate(this.prisma.bulkJob, {
       page,
@@ -94,7 +92,7 @@ export class BulkService {
     if (data.successRows !== undefined) updateData.successRows = data.successRows
     if (data.errorRows !== undefined) updateData.errorRows = data.errorRows
     if (data.status !== undefined)
-      updateData.status = data.status as Prisma.BulkJobUpdateInput['status']
+      updateData.status = data.status as NonNullable<Prisma.BulkJobUpdateInput['status']>
     if (data.errors !== undefined) updateData.errors = data.errors as Prisma.InputJsonValue
     if (data.resultUrl !== undefined) updateData.resultUrl = data.resultUrl
 

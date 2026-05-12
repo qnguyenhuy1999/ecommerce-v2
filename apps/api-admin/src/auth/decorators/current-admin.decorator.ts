@@ -8,9 +8,14 @@ export interface AdminSessionData {
   roles: string[]
 }
 
+type AdminRequest = Request & { admin?: AdminSessionData }
+
 export const CurrentAdmin = createParamDecorator(
   (_data: unknown, ctx: ExecutionContext): AdminSessionData => {
-    const request = ctx.switchToHttp().getRequest<Request>()
-    return (request as Request & { admin: AdminSessionData }).admin
+    const request = ctx.switchToHttp().getRequest<AdminRequest>()
+    if (!request.admin) {
+      throw new Error('Admin session was not attached to request')
+    }
+    return request.admin
   },
 )

@@ -86,7 +86,7 @@ function DropdownMenuCheckboxItem({
         "outline-hidden focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground data-inset:pl-8 data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-default select-none items-center gap-2 rounded-sm py-1.5 pl-2 pr-8 text-sm [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className,
       )}
-      checked={checked}
+      {...(checked !== undefined ? { checked } : {})}
       {...props}
     >
       <span

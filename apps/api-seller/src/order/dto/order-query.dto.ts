@@ -1,10 +1,11 @@
-import { IsOptional, IsString } from 'class-validator'
+import { IsEnum, IsOptional, IsString } from 'class-validator'
+import { OrderStatus } from '@ecom/contracts'
 import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 export class OrderQueryDto extends OffsetPaginationDto {
   @IsOptional()
-  @IsString()
-  status?: string
+  @IsEnum(OrderStatus)
+  status?: OrderStatus
 
   @IsOptional()
   @IsString()

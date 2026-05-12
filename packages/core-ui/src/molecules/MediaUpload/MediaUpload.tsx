@@ -23,7 +23,15 @@ function Root({
 
   return (
     <MediaUploadContext.Provider
-      value={{ items, maxItems, coverIndex, accept, canAdd, onAdd, onRemove }}
+      value={{
+        items,
+        maxItems,
+        coverIndex,
+        accept,
+        canAdd,
+        ...(onAdd !== undefined ? { onAdd } : {}),
+        ...(onRemove !== undefined ? { onRemove } : {}),
+      }}
     >
       <div className={cn('flex flex-wrap gap-2', className)}>{children}</div>
     </MediaUploadContext.Provider>

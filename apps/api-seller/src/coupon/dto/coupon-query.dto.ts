@@ -1,5 +1,6 @@
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { CouponStatus, CouponType } from '@ecom/contracts'
 
 export class CouponQueryDto extends OffsetPaginationDto {
   @IsOptional()
@@ -7,10 +8,10 @@ export class CouponQueryDto extends OffsetPaginationDto {
   search?: string
 
   @IsOptional()
-  @IsEnum(['DRAFT', 'ACTIVE', 'PAUSED', 'EXPIRED', 'DEPLETED'])
-  status?: string
+  @IsEnum(CouponStatus)
+  status?: CouponStatus
 
   @IsOptional()
-  @IsEnum(['PERCENTAGE', 'FIXED_AMOUNT'])
-  type?: string
+  @IsEnum(CouponType)
+  type?: CouponType
 }

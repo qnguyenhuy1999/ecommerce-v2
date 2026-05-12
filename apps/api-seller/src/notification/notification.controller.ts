@@ -53,7 +53,7 @@ export class NotificationController {
   async markAsRead(@CurrentUser() user: SessionData, @Param('id') id: string) {
     const shopId = await this.shopService.getShopId(user.userId)
     await this.notificationService.markAsRead(shopId, id)
-    return { message: 'Marked as read' }
+    return { data: { message: 'Marked as read' } }
   }
 
   @Post('read-all')

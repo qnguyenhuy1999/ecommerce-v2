@@ -14,7 +14,11 @@ export class ApiError extends Error {
   }
 }
 
-export async function createApiClient(defaultOptions: { baseUrl: string }) {
+function isApiErrorBody(value: unknown): value is Record<string, unknown> & { message?: string } {
+  return !!value && typeof value === 'object'
+}
+
+export function createApiClient(defaultOptions: { baseUrl: string }) {
   return async <T = unknown>(path: string, options: ApiOptions = {}): Promise<T> => {
     const { params, baseUrl, ...fetchOptions } = options
     const base = baseUrl ?? defaultOptions.baseUrl
@@ -42,12 +46,15 @@ export async function createApiClient(defaultOptions: { baseUrl: string }) {
     })
 
     if (!res.ok) {
-      const body = await res.json().catch(() => ({}))
-      throw new ApiError(res.status, body.message ?? 'Request failed', body)
+      const body: unknown = await res.json().catch(() => ({}))
+      const message = isApiErrorBody(body) && typeof body.message === 'string'
+        ? body.message
+        : 'Request failed'
+      throw new ApiError(res.status, message, isApiErrorBody(body) ? body : undefined)
     }
 
-    if (res.status === 204) return undefined as T
+    if (res.status === 204) return undefined as unknown as T
 
-    return res.json()
+    return (await res.json()) as T
   }
 }

@@ -58,7 +58,11 @@ export class ShippingService {
     }
 
     return this.prisma.shipment.create({
-      data: { sellerOrderId, providerId, trackingNumber },
+      data: {
+        sellerOrderId,
+        providerId,
+        ...(trackingNumber !== undefined ? { trackingNumber } : {}),
+      },
       include: { provider: true },
     })
   }

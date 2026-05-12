@@ -79,8 +79,8 @@ export function ProductsPage() {
   const { data, isLoading } = useProducts({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    search: debouncedSearch || undefined,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(debouncedSearch ? { search: debouncedSearch } : {}),
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
   const { data: counts } = useProductStatusCounts()
   const bulkApprove = useBulkApproveProducts()
@@ -100,15 +100,15 @@ export function ProductsPage() {
           setStatusFilter(t)
           setPage(1)
         }}
-        counts={counts}
+        {...(counts !== undefined ? { counts } : {})}
       />
 
       <DataTable
         columns={columns}
         data={data?.items ?? []}
-        meta={data?.meta}
+        {...(data?.meta !== undefined ? { meta: data.meta } : {})}
         loading={isLoading}
-        onPageChange={setPage}
+        onPageChange={(p) => setPage(p)}
         enableRowSelection
         onSelectionChange={setSelected}
         toolbar={

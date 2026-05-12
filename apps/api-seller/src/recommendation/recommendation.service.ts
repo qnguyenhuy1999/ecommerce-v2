@@ -20,7 +20,7 @@ export class RecommendationService {
   ) {
     return this.prisma.userEvent.create({
       data: {
-        userId,
+        ...(userId !== undefined ? { userId } : {}),
         sessionId,
         event: eventType,
         entityType: 'PRODUCT',

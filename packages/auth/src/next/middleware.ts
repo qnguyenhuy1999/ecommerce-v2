@@ -48,8 +48,9 @@ export function createWithAuth(options: WithAuthOptions = {}) {
       }
 
       if (requiredRole) {
-        const data = (await res.json()) as { roles?: string[] }
-        if (!data.roles?.includes(requiredRole)) {
+        const payload: unknown = await res.json()
+        const roles = parseRoles(payload)
+        if (!roles.includes(requiredRole)) {
           return NextResponse.redirect(new URL(forbiddenRedirectTo, request.url))
         }
       }
@@ -59,4 +60,11 @@ export function createWithAuth(options: WithAuthOptions = {}) {
       return NextResponse.redirect(new URL(loginPath, request.url))
     }
   }
+}
+
+function parseRoles(value: unknown): string[] {
+  if (!value || typeof value !== 'object') return []
+  const roles = (value as Record<string, unknown>).roles
+  if (!Array.isArray(roles)) return []
+  return roles.filter((role): role is string => typeof role === 'string')
 }

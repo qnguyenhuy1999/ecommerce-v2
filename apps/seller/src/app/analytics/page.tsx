@@ -91,7 +91,7 @@ export default function AnalyticsPage() {
               label="Revenue"
               value={`$${(summary?.revenue.current ?? 0).toLocaleString()}`}
               icon={DollarSign}
-              trend={summary?.revenue.growth}
+              {...(summary?.revenue.growth !== undefined ? { trend: summary.revenue.growth } : {})}
             />
             <StatCard
               label="Orders"

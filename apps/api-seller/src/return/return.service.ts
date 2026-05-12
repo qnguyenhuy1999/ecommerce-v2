@@ -33,11 +33,9 @@ export class ReturnService {
     const finalSort = sort || sortBy
     const finalOrder = order || sortOrder
 
-    const where: Prisma.ReturnRequestWhereInput = {
-      shopId,
-      ...(status ? { status: status as Prisma.ReturnRequestWhereInput['status'] } : {}),
-      ...(search ? { description: { contains: search, mode: 'insensitive' } } : {}),
-    }
+    const where: Prisma.ReturnRequestWhereInput = { shopId }
+    if (status) where.status = status as NonNullable<Prisma.ReturnRequestWhereInput['status']>
+    if (search) where.description = { contains: search, mode: 'insensitive' }
 
     const { items, total } = await offsetPaginate(this.prisma.returnRequest, {
       page,
@@ -96,7 +94,7 @@ export class ReturnService {
 
     return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const data: Prisma.ReturnRequestUpdateInput = {
-        status: newStatus as Prisma.ReturnRequestUpdateInput['status'],
+        status: newStatus as NonNullable<Prisma.ReturnRequestUpdateInput['status']>,
       }
 
       if (newStatus === 'REFUNDED' || newStatus === 'CLOSED') {
@@ -113,8 +111,8 @@ export class ReturnService {
           returnRequestId: returnId,
           fromStatus: currentStatus,
           toStatus: newStatus,
-          note,
-          performedBy,
+          ...(note !== undefined ? { note } : {}),
+          ...(performedBy !== undefined ? { performedBy } : {}),
         },
       })
 
@@ -138,7 +136,12 @@ export class ReturnService {
     }
 
     return this.prisma.returnEvidence.create({
-      data: { returnRequestId: returnId, uploadedBy, url, description },
+      data: {
+        returnRequestId: returnId,
+        uploadedBy,
+        url,
+        ...(description !== undefined ? { description } : {}),
+      },
     })
   }
 

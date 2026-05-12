@@ -97,7 +97,7 @@ export class InventoryService {
           variantId,
           type: type as Prisma.InventoryTransactionCreateInput['type'],
           quantity,
-          note,
+          ...(note !== undefined ? { note } : {}),
         },
       })
 

@@ -55,8 +55,8 @@ export class WalletService {
             | 'DEPOSIT',
           amount,
           balanceAfter: Number(wallet.balance) + Number(wallet.pendingBalance),
-          referenceId,
-          description,
+          ...(referenceId !== undefined ? { referenceId } : {}),
+          ...(description !== undefined ? { description } : {}),
           idempotencyKey,
           status: 'COMPLETED',
         },
@@ -117,10 +117,10 @@ export class WalletService {
         data: {
           walletId: wallet.id,
           amount: dto.amount,
-          bankName: dto.bankName,
-          accountNumber: dto.bankAccountNumber,
-          accountHolder: dto.bankAccountName,
-          note: dto.note,
+          ...(dto.bankName !== undefined ? { bankName: dto.bankName } : {}),
+          ...(dto.bankAccountNumber !== undefined ? { accountNumber: dto.bankAccountNumber } : {}),
+          ...(dto.bankAccountName !== undefined ? { accountHolder: dto.bankAccountName } : {}),
+          ...(dto.note !== undefined ? { note: dto.note } : {}),
         },
       })
 

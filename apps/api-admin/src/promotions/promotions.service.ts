@@ -7,6 +7,7 @@ import {
 import type { PrismaService, Prisma } from '@ecom/database'
 import { type PlatformVoucherStatus, type PlatformVoucherType } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { withDefined, nullable } from '@ecom/shared/utils'
 
 @Injectable()
 export class PromotionsService {
@@ -27,8 +28,7 @@ export class PromotionsService {
     }
 
     const { items, total } = await offsetPaginate(this.prisma.platformVoucher, {
-      page: query.page,
-      limit: query.limit,
+      ...withDefined({ page: query.page, limit: query.limit }),
       where,
       orderBy: { createdAt: 'desc' },
     })
@@ -67,8 +67,8 @@ export class PromotionsService {
       data: {
         ...data,
         discountValue: data.discountValue,
-        maxDiscountAmount: data.maxDiscountAmount,
-        minOrderAmount: data.minOrderAmount,
+        maxDiscountAmount: nullable(data.maxDiscountAmount),
+        minOrderAmount: nullable(data.minOrderAmount),
       },
     })
   }

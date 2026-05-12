@@ -5,6 +5,8 @@ import type { Request } from 'express'
 import type { SessionData } from '@ecom/auth'
 import { ROLES_KEY } from '../decorators/roles.decorator'
 
+type UserRequest = Request & { user?: SessionData }
+
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
@@ -19,8 +21,8 @@ export class RolesGuard implements CanActivate {
       return true
     }
 
-    const request = context.switchToHttp().getRequest<Request>()
-    const user = (request as Request & { user: SessionData }).user
+    const request = context.switchToHttp().getRequest<UserRequest>()
+    const user = request.user
 
     if (!user) {
       throw new ForbiddenException('Access denied')

@@ -108,9 +108,13 @@ export function StatCardBase({
   className,
 }: StatCardProps) {
   return (
-    <Root accent={accent} className={className}>
-      <Header label={label} title={title} icon={icon} />
-      <Chart value={value} spark={spark} />
+    <Root accent={accent} {...(className !== undefined ? { className } : {})}>
+      <Header
+        {...(label !== undefined ? { label } : {})}
+        {...(title !== undefined ? { title } : {})}
+        {...(icon !== undefined ? { icon } : {})}
+      />
+      <Chart value={value} {...(spark !== undefined ? { spark } : {})} />
       {typeof trend === 'number' && <Trend trend={trend} />}
     </Root>
   )

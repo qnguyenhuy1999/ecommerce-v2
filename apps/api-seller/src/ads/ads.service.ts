@@ -57,10 +57,10 @@ export class AdsService {
           (dto.type as 'SPONSORED_PRODUCT' | 'SEARCH_AD' | 'RECOMMENDATION_AD' | 'BANNER') ??
           'SPONSORED_PRODUCT',
         dailyBudget: dto.dailyBudget,
-        totalBudget: dto.totalBudget,
+        ...(dto.totalBudget !== undefined ? { totalBudget: dto.totalBudget } : {}),
         bidAmount: dto.bidAmount,
         startsAt: new Date(dto.startsAt),
-        endsAt: dto.endsAt ? new Date(dto.endsAt) : undefined,
+        ...(dto.endsAt !== undefined ? { endsAt: new Date(dto.endsAt) } : {}),
       },
     })
   }
@@ -94,7 +94,7 @@ export class AdsService {
           data: dto.keywords.map((kw) => ({
             adGroupId: group.id,
             keyword: kw.keyword.toLowerCase(),
-            bidAmount: kw.bidAmount,
+            ...(kw.bidAmount !== undefined ? { bidAmount: kw.bidAmount } : {}),
           })),
         })
       }

@@ -10,11 +10,9 @@ export class NotificationService {
   async list(shopId: string, query: NotificationQueryDto) {
     const { page = 1, pageSize = 20, unreadOnly, type } = query
 
-    const where: Prisma.NotificationWhereInput = {
-      shopId,
-      ...(unreadOnly ? { isRead: false } : {}),
-      ...(type ? { type: type as Prisma.NotificationWhereInput['type'] } : {}),
-    }
+    const where: Prisma.NotificationWhereInput = { shopId }
+    if (unreadOnly) where.isRead = false
+    if (type) where.type = type as NonNullable<Prisma.NotificationWhereInput['type']>
 
     const { items, total } = await offsetPaginate(this.prisma.notification, {
       page,
@@ -61,7 +59,7 @@ export class NotificationService {
         type: type as Prisma.NotificationCreateInput['type'],
         title,
         message,
-        metadata: metadata as Prisma.InputJsonValue,
+        ...(metadata !== undefined ? { metadata: metadata as Prisma.InputJsonValue } : {}),
       },
     })
   }

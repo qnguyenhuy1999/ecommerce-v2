@@ -33,11 +33,7 @@ export class NotificationsController {
   @Get()
   @Permissions('NOTIFICATION_MANAGE')
   async findAll(@Query() query: NotificationQueryDto) {
-    const result = await this.notificationsService.findAll({
-      page: query.page,
-      limit: query.limit,
-      status: query.status,
-    })
+    const result = await this.notificationsService.findAll({ ...query })
     return result
   }
 

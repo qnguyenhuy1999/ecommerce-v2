@@ -27,7 +27,7 @@ export class I18nService {
         name: dto.name,
         defaultLocale: dto.defaultLocale,
         defaultCurrencyId: dto.defaultCurrency,
-        timezone: dto.timezone,
+        ...(dto.timezone !== undefined ? { timezone: dto.timezone } : {}),
         taxRates: {
           create: {
             name: 'Default',

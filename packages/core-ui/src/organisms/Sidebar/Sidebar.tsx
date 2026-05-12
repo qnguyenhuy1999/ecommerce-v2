@@ -33,7 +33,10 @@ export function SidebarMenuRenderer({ groups }: SidebarMenuRendererProps) {
             <SidebarMenu>
               {group.items.map((item) => (
                 <UIItem key={item.id}>
-                  <SidebarMenuButton asChild isActive={item.isActive}>
+                  <SidebarMenuButton
+                    asChild
+                    {...(item.isActive !== undefined ? { isActive: item.isActive } : {})}
+                  >
                     <a href={item.href || '#'}>
                       {item.icon && <item.icon className="mr-2 h-4 w-4" />}
                       {item.label}

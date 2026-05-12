@@ -30,12 +30,7 @@ export class SellersController {
   @Get()
   @Permissions('SELLER_VIEW')
   async findAll(@Query() query: SellerQueryDto) {
-    const result = await this.sellersService.findAll({
-      page: query.page,
-      limit: query.limit,
-      search: query.search,
-      status: query.status,
-    })
+    const result = await this.sellersService.findAll({ ...query })
     return result
   }
 

@@ -28,6 +28,8 @@ import { SESSION_SERVICE } from './session.provider'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
+const SELLER_ROLE = 'seller'
+const ACTIVE_STATUS = 'ACTIVE'
 
 @Injectable()
 export class AuthService extends BaseUserAuthService {
@@ -51,7 +53,7 @@ export class AuthService extends BaseUserAuthService {
 
     const hashedPassword = await hashPassword(password)
 
-    const sellerRole = await this.prisma.role.findUnique({ where: { name: 'seller' } })
+    const sellerRole = await this.prisma.role.findUnique({ where: { name: SELLER_ROLE } })
     if (!sellerRole) {
       throw new Error('Default seller role not found. Run db:seed first.')
     }
@@ -130,12 +132,12 @@ export class AuthService extends BaseUserAuthService {
       throw new UnauthorizedException('Invalid credentials')
     }
 
-    if (user.status !== 'ACTIVE') {
+    if (user.status !== ACTIVE_STATUS) {
       throw new UnauthorizedException('Account is not active')
     }
 
     const isSeller = user.userRoles.some(
-      (ur: { role: { name: string } }) => ur.role.name === 'seller',
+      (ur: { role: { name: string } }) => ur.role.name === SELLER_ROLE,
     )
     if (!isSeller) {
       throw new UnauthorizedException('Not a seller account')
@@ -154,7 +156,13 @@ export class AuthService extends BaseUserAuthService {
     await this.sessionService.create(sessionId, sessionData)
 
     await this.prisma.session.create({
-      data: { id: sessionId, userId: user.id, userAgent, ipAddress, expiresAt },
+      data: {
+        id: sessionId,
+        userId: user.id,
+        userAgent: userAgent ?? null,
+        ipAddress: ipAddress ?? null,
+        expiresAt,
+      },
     })
 
     return { sessionId, userId: user.id, roles }
@@ -164,7 +172,7 @@ export class AuthService extends BaseUserAuthService {
     await this.destroySession(sessionId)
   }
 
-  async verifyEmail(token: string) {
+  override async verifyEmail(token: string) {
     try {
       await super.verifyEmail(token)
     } catch (err: unknown) {
@@ -187,7 +195,7 @@ export class AuthService extends BaseUserAuthService {
       },
     })
 
-    if (!user || user.status !== 'ACTIVE') {
+    if (!user || user.status !== ACTIVE_STATUS) {
       throw new UnauthorizedException('User account is not active')
     }
 

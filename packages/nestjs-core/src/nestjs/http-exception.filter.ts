@@ -11,12 +11,11 @@ interface AppErrorLike extends Error {
 }
 
 function isAppError(err: unknown): err is AppErrorLike {
+  if (!(err instanceof Error)) return false
+  const candidate = err as Partial<AppErrorLike>
   return (
-    err instanceof Error &&
-    'code' in err &&
-    'statusCode' in err &&
-    typeof (err as AppErrorLike).code === 'string' &&
-    typeof (err as AppErrorLike).statusCode === 'number'
+    typeof candidate.code === 'string' &&
+    typeof candidate.statusCode === 'number'
   )
 }
 
@@ -27,11 +26,11 @@ interface PrismaKnownError extends Error {
 }
 
 function isPrismaKnownError(err: unknown): err is PrismaKnownError {
+  if (!(err instanceof Error)) return false
+  const candidate = err as Partial<PrismaKnownError>
   return (
-    err instanceof Error &&
-    'code' in err &&
-    typeof (err as Record<string, unknown>).code === 'string' &&
-    /^P\d{4}$/.test((err as PrismaKnownError).code)
+    typeof candidate.code === 'string' &&
+    /^P\d{4}$/.test(candidate.code)
   )
 }
 

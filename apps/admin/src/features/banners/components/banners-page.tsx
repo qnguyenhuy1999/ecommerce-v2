@@ -53,7 +53,7 @@ export function BannersPage() {
   const { data, isLoading } = useBanners({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
 
   const handleCreate = () => {
@@ -173,9 +173,9 @@ export function BannersPage() {
       <DataTable
         columns={columns}
         data={data?.items ?? []}
-        meta={data?.meta}
+        {...(data?.meta !== undefined ? { meta: data.meta } : {})}
         loading={isLoading}
-        onPageChange={setPage}
+        onPageChange={(p) => setPage(p)}
       />
     </div>
   )

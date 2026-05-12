@@ -55,12 +55,12 @@ export class FlashSaleService {
     return this.prisma.flashSaleCampaign.create({
       data: {
         name: dto.name,
-        description: dto.description,
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
         startsAt,
         endsAt,
         maxSlotsPerSeller: dto.maxSlotsPerSeller ?? 5,
         isVisible: dto.isVisible ?? false,
-        createdBy,
+        ...(createdBy !== undefined ? { createdBy } : {}),
       },
     })
   }
@@ -71,7 +71,7 @@ export class FlashSaleService {
 
     return this.prisma.flashSaleCampaign.update({
       where: { id },
-      data: { status: status as Prisma.FlashSaleCampaignUpdateInput['status'] },
+      data: { status: status as NonNullable<Prisma.FlashSaleCampaignUpdateInput['status']> },
     })
   }
 
@@ -107,7 +107,7 @@ export class FlashSaleService {
         campaignId: dto.campaignId,
         shopId,
         productId: dto.productId,
-        variantId: dto.variantId,
+        ...(dto.variantId !== undefined ? { variantId: dto.variantId } : {}),
         originalPrice: product.basePrice ?? 0,
         salePrice: dto.salePrice,
         totalStock: dto.totalStock,

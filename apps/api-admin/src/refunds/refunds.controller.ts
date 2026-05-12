@@ -29,11 +29,7 @@ export class RefundsController {
   @Get()
   @Permissions('REFUND_VIEW')
   async findAll(@Query() query: RefundQueryDto) {
-    const result = await this.refundsService.findAll({
-      page: query.page,
-      limit: query.limit,
-      status: query.status,
-    })
+    const result = await this.refundsService.findAll({ ...query })
     return result
   }
 

@@ -30,13 +30,13 @@ export class SubscriptionService {
       data: {
         name: dto.name,
         slug: dto.slug,
-        description: dto.description,
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
         monthlyPrice: dto.monthlyPrice,
-        yearlyPrice: dto.yearlyPrice,
-        productLimit: dto.productLimit,
-        orderLimit: dto.orderLimit,
-        storageLimit: dto.storageLimit,
-        staffLimit: dto.staffLimit,
+        ...(dto.yearlyPrice !== undefined ? { yearlyPrice: dto.yearlyPrice } : {}),
+        ...(dto.productLimit !== undefined ? { productLimit: dto.productLimit } : {}),
+        ...(dto.orderLimit !== undefined ? { orderLimit: dto.orderLimit } : {}),
+        ...(dto.storageLimit !== undefined ? { storageLimit: dto.storageLimit } : {}),
+        ...(dto.staffLimit !== undefined ? { staffLimit: dto.staffLimit } : {}),
       },
     })
   }

@@ -131,7 +131,9 @@ export function DataTable<T extends { id: string }>({
         </div>
       </div>
 
-      {meta && meta.totalPages > 1 && <Pagination meta={meta} onPageChange={onPageChange} />}
+      {meta && meta.totalPages > 1 && (
+        <Pagination meta={meta} {...(onPageChange !== undefined ? { onPageChange } : {})} />
+      )}
     </div>
   )
 }

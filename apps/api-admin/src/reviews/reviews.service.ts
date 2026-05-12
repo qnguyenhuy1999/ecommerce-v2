@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import type { PrismaService, Prisma } from '@ecom/database'
 import { type ReviewStatus } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
 
 @Injectable()
 export class ReviewsService {
@@ -11,8 +12,7 @@ export class ReviewsService {
     if (query.status) where.status = query.status
 
     const { items, total } = await offsetPaginate(this.prisma.review, {
-      page: query.page,
-      limit: query.limit,
+      ...withDefined({ page: query.page, limit: query.limit }),
       where,
       orderBy: { createdAt: 'desc' },
       include: {

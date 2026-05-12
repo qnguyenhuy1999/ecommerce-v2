@@ -10,6 +10,7 @@ import {
   MaxLength,
 } from 'class-validator'
 import { Type } from 'class-transformer'
+import { CouponStatus, CouponType } from '@ecom/contracts'
 
 export class UpdateCouponDto {
   @IsOptional()
@@ -22,16 +23,16 @@ export class UpdateCouponDto {
   description?: string
 
   @IsOptional()
-  @IsEnum(['PERCENTAGE', 'FIXED_AMOUNT'])
-  type?: 'PERCENTAGE' | 'FIXED_AMOUNT'
+  @IsEnum(CouponType)
+  type?: CouponType
 
   @IsOptional()
   @IsEnum(['ALL_PRODUCTS', 'SPECIFIC_PRODUCTS', 'SPECIFIC_CATEGORIES'])
   scope?: 'ALL_PRODUCTS' | 'SPECIFIC_PRODUCTS' | 'SPECIFIC_CATEGORIES'
 
   @IsOptional()
-  @IsEnum(['DRAFT', 'ACTIVE', 'PAUSED'])
-  status?: 'DRAFT' | 'ACTIVE' | 'PAUSED'
+  @IsEnum(CouponStatus)
+  status?: CouponStatus
 
   @IsOptional()
   @Type(() => Number)

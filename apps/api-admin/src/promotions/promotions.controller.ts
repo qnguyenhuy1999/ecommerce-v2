@@ -29,12 +29,7 @@ export class PromotionsController {
   @Get('vouchers')
   @Permissions('MARKETING_MANAGE')
   async findAll(@Query() query: VoucherQueryDto) {
-    const result = await this.promotionsService.findAll({
-      page: query.page,
-      limit: query.limit,
-      status: query.status,
-      search: query.search,
-    })
+    const result = await this.promotionsService.findAll({ ...query })
     return result
   }
 

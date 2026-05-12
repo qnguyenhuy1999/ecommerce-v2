@@ -33,20 +33,18 @@ export class ReviewService {
 
     const where: Prisma.ReviewWhereInput = {
       productId: { in: productIds },
-      ...(productId ? { productId } : {}),
-      ...(rating ? { rating } : {}),
-      ...(status ? { status: status as Prisma.ReviewWhereInput['status'] } : {}),
-      ...(search
-        ? {
-            OR: [
-              { title: { contains: search, mode: 'insensitive' } },
-              { comment: { contains: search, mode: 'insensitive' } },
-            ],
-          }
-        : {}),
-      ...(replyFilter === 'hasReply' ? { replies: { some: {} } } : {}),
-      ...(replyFilter === 'noReply' ? { replies: { none: {} } } : {}),
     }
+    if (productId) where.productId = productId
+    if (rating) where.rating = rating
+    if (status) where.status = status as NonNullable<Prisma.ReviewWhereInput['status']>
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: 'insensitive' } },
+        { comment: { contains: search, mode: 'insensitive' } },
+      ]
+    }
+    if (replyFilter === 'hasReply') where.replies = { some: {} }
+    if (replyFilter === 'noReply') where.replies = { none: {} }
 
     const { items, total } = await offsetPaginate(this.prisma.review, {
       page,
@@ -104,7 +102,12 @@ export class ReviewService {
     }
 
     return this.prisma.reviewReport.create({
-      data: { reviewId, shopId, reason, details },
+      data: {
+        reviewId,
+        shopId,
+        reason,
+        ...(details !== undefined ? { details } : {}),
+      },
     })
   }
 

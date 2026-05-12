@@ -5,6 +5,7 @@ import type { CreateCouponDto } from './dto/create-coupon.dto'
 import type { UpdateCouponDto } from './dto/update-coupon.dto'
 import type { CouponQueryDto } from './dto/coupon-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { CouponStatus, CouponType } from '@ecom/contracts'
 
 @Injectable()
 export class CouponService {
@@ -25,18 +26,14 @@ export class CouponService {
     const finalSort = sort || sortBy
     const finalOrder = order || sortOrder
 
-    const where: Prisma.CouponWhereInput = {
-      shopId,
-      ...(status ? { status: status as Prisma.CouponWhereInput['status'] } : {}),
-      ...(type ? { type: type as Prisma.CouponWhereInput['type'] } : {}),
-      ...(search
-        ? {
-            OR: [
-              { code: { contains: search, mode: 'insensitive' } },
-              { name: { contains: search, mode: 'insensitive' } },
-            ],
-          }
-        : {}),
+    const where: Prisma.CouponWhereInput = { shopId }
+    if (status) where.status = status
+    if (type) where.type = type as NonNullable<Prisma.CouponWhereInput['type']>
+    if (search) {
+      where.OR = [
+        { code: { contains: search, mode: 'insensitive' } },
+        { name: { contains: search, mode: 'insensitive' } },
+      ]
     }
 
     const { items, total } = await offsetPaginate(this.prisma.coupon, {
@@ -70,7 +67,7 @@ export class CouponService {
   }
 
   async create(shopId: string, dto: CreateCouponDto) {
-    if (dto.type === 'PERCENTAGE' && dto.discountValue > 100) {
+    if (dto.type === CouponType.PERCENTAGE && dto.discountValue > 100) {
       throw new BadRequestException('Percentage discount cannot exceed 100')
     }
 
@@ -84,14 +81,18 @@ export class CouponService {
           shopId,
           code: dto.code.toUpperCase(),
           name: dto.name,
-          description: dto.description,
+          ...(dto.description !== undefined ? { description: dto.description } : {}),
           type: dto.type,
           scope: dto.scope ?? 'ALL_PRODUCTS',
           discountValue: dto.discountValue,
-          maxDiscountAmount: dto.maxDiscountAmount,
-          minOrderAmount: dto.minOrderAmount,
-          usageLimit: dto.usageLimit,
-          usageLimitPerUser: dto.usageLimitPerUser,
+          ...(dto.maxDiscountAmount !== undefined
+            ? { maxDiscountAmount: dto.maxDiscountAmount }
+            : {}),
+          ...(dto.minOrderAmount !== undefined ? { minOrderAmount: dto.minOrderAmount } : {}),
+          ...(dto.usageLimit !== undefined ? { usageLimit: dto.usageLimit } : {}),
+          ...(dto.usageLimitPerUser !== undefined
+            ? { usageLimitPerUser: dto.usageLimitPerUser }
+            : {}),
           autoApply: dto.autoApply ?? false,
           startsAt: new Date(dto.startsAt),
           expiresAt: new Date(dto.expiresAt),
@@ -129,7 +130,11 @@ export class CouponService {
       throw new NotFoundException('Coupon not found')
     }
 
-    if (dto.type === 'PERCENTAGE' && dto.discountValue !== undefined && dto.discountValue > 100) {
+    if (
+      dto.type === CouponType.PERCENTAGE &&
+      dto.discountValue !== undefined &&
+      dto.discountValue > 100
+    ) {
       throw new BadRequestException('Percentage discount cannot exceed 100')
     }
 
@@ -137,7 +142,8 @@ export class CouponService {
       const data: Prisma.CouponUpdateInput = {}
       if (dto.name !== undefined) data.name = dto.name
       if (dto.description !== undefined) data.description = dto.description
-      if (dto.type !== undefined) data.type = dto.type
+      if (dto.type !== undefined)
+        data.type = dto.type as NonNullable<Prisma.CouponUpdateInput['type']>
       if (dto.scope !== undefined) data.scope = dto.scope
       if (dto.status !== undefined) data.status = dto.status
       if (dto.discountValue !== undefined) data.discountValue = dto.discountValue
@@ -194,7 +200,12 @@ export class CouponService {
     const [total, active, totalUsages] = await Promise.all([
       this.prisma.coupon.count({ where: { shopId } }),
       this.prisma.coupon.count({
-        where: { shopId, status: 'ACTIVE', startsAt: { lte: now }, expiresAt: { gte: now } },
+        where: {
+          shopId,
+          status: CouponStatus.ACTIVE,
+          startsAt: { lte: now },
+          expiresAt: { gte: now },
+        },
       }),
       this.prisma.couponUsage.count({
         where: { coupon: { shopId } },

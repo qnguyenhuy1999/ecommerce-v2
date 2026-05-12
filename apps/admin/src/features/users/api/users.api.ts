@@ -1,4 +1,5 @@
 import { apiFetch } from '@/lib/api'
+import type { TypedApiResponse } from '@/lib/api-types'
 import type { PaginatedResponse } from '@ecom/shared/pagination/core'
 
 export interface UserListItem {
@@ -33,33 +34,33 @@ export async function getUsers(params: {
   if (params.limit) query.set('limit', String(params.limit))
   if (params.search) query.set('search', params.search)
   if (params.status) query.set('status', params.status)
-  return apiFetch<{ success: boolean; data: PaginatedResponse<UserListItem> }>(
+  return apiFetch<TypedApiResponse<PaginatedResponse<UserListItem>>>(
     `/admin/users?${query.toString()}`,
   )
 }
 
 export async function getUser(id: string) {
-  return apiFetch<{ success: boolean; data: UserDetail }>(`/admin/users/${id}`)
+  return apiFetch<TypedApiResponse<UserDetail>>(`/admin/users/${id}`)
 }
 
 export async function getUserStatusCounts() {
-  return apiFetch<{ success: boolean; data: Record<string, number> }>('/admin/users/status-counts')
+  return apiFetch<TypedApiResponse<Record<string, number>>>('/admin/users/status-counts')
 }
 
 export async function suspendUser(id: string, reason?: string) {
-  return apiFetch<{ success: boolean }>(`/admin/users/${id}/suspend`, {
+  return apiFetch<TypedApiResponse<never>>(`/admin/users/${id}/suspend`, {
     method: 'POST',
     body: JSON.stringify({ reason }),
   })
 }
 
 export async function banUser(id: string, reason?: string) {
-  return apiFetch<{ success: boolean }>(`/admin/users/${id}/ban`, {
+  return apiFetch<TypedApiResponse<never>>(`/admin/users/${id}/ban`, {
     method: 'POST',
     body: JSON.stringify({ reason }),
   })
 }
 
 export async function activateUser(id: string) {
-  return apiFetch<{ success: boolean }>(`/admin/users/${id}/activate`, { method: 'POST' })
+  return apiFetch<TypedApiResponse<never>>(`/admin/users/${id}/activate`, { method: 'POST' })
 }

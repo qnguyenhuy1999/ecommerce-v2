@@ -37,7 +37,7 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
 
   const AuthContext = createContext<AuthContextValue | null>(null)
 
-  function AuthProvider({ children }: { children: ReactNode }) {
+  function AuthProvider({ children }: Readonly<{ children: ReactNode }>) {
     const [user, setUser] = useState<AuthUser | null>(null)
     const [loading, setLoading] = useState(true)
     const router = useRouter()
@@ -49,10 +49,11 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
         })
 
         if (res.ok) {
-          const data = (await res.json()) as Record<string, unknown>
+          const payload: unknown = await res.json()
+          const data = isRecord(payload) ? payload : {}
           const authUser: AuthUser = {
-            userId: (data.userId || data.adminId || data.id) as string,
-            roles: (data.roles || (data.role ? [data.role] : [])) as string[],
+            userId: getString(data.userId) ?? getString(data.adminId) ?? getString(data.id) ?? '',
+            roles: getRoles(data),
             ...data,
           }
 
@@ -74,7 +75,7 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
     }, [apiUrl, forbiddenRedirectTo, requiredRole, router, meEndpoint])
 
     useEffect(() => {
-      refresh()
+      void refresh()
     }, [refresh])
 
     const login = async (email: string, password: string) => {
@@ -86,8 +87,9 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
       })
 
       if (!res.ok) {
-        const error = (await res.json()) as { message?: string }
-        throw new Error(error.message ?? 'Login failed')
+        const payload: unknown = await res.json()
+        const errorMessage = isRecord(payload) ? getString(payload.message) : undefined
+        throw new Error(errorMessage ?? 'Login failed')
       }
 
       await refresh()
@@ -117,4 +119,20 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
   }
 
   return { AuthProvider, useAuth }
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return !!value && typeof value === 'object'
+}
+
+function getString(value: unknown): string | undefined {
+  return typeof value === 'string' ? value : undefined
+}
+
+function getRoles(data: Record<string, unknown>): string[] {
+  if (Array.isArray(data.roles)) {
+    return data.roles.filter((role): role is string => typeof role === 'string')
+  }
+  const role = getString(data.role)
+  return role ? [role] : []
 }

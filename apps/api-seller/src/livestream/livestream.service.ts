@@ -42,8 +42,8 @@ export class LivestreamService {
       data: {
         shopId,
         title: dto.title,
-        description: dto.description,
-        thumbnailUrl: dto.thumbnailUrl,
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
+        ...(dto.thumbnailUrl !== undefined ? { thumbnailUrl: dto.thumbnailUrl } : {}),
         scheduledAt: new Date(dto.scheduledAt),
       },
     })
@@ -91,7 +91,7 @@ export class LivestreamService {
       data: {
         sessionId,
         productId: dto.productId,
-        specialPrice: dto.specialPrice,
+        ...(dto.specialPrice !== undefined ? { specialPrice: dto.specialPrice } : {}),
       },
     })
   }

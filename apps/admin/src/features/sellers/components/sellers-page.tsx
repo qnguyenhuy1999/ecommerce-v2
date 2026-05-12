@@ -29,8 +29,8 @@ export function SellersPage() {
   const { data, isLoading } = useSellers({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    search: debouncedSearch || undefined,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(debouncedSearch ? { search: debouncedSearch } : {}),
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
 
   const { data: counts } = useSellerStatusCounts()

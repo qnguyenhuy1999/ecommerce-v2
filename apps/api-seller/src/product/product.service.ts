@@ -30,16 +30,14 @@ export class ProductService {
     const where: Prisma.ProductWhereInput = {
       shopId,
       deletedAt: null,
-      ...(status ? { status: status as Prisma.ProductWhereInput['status'] } : {}),
-      ...(categoryId ? { categoryId } : {}),
-      ...(search
-        ? {
-            OR: [
-              { name: { contains: search, mode: 'insensitive' } },
-              { baseSku: { contains: search, mode: 'insensitive' } },
-            ],
-          }
-        : {}),
+    }
+    if (status) where.status = status as NonNullable<Prisma.ProductWhereInput['status']>
+    if (categoryId) where.categoryId = categoryId
+    if (search) {
+      where.OR = [
+        { name: { contains: search, mode: 'insensitive' } },
+        { baseSku: { contains: search, mode: 'insensitive' } },
+      ]
     }
 
     const { items, total } = await this.productRepository.findMany(where, {
@@ -75,13 +73,13 @@ export class ProductService {
           shopId,
           name: dto.name,
           slug: uniqueSlug,
-          description: dto.description,
-          categoryId: dto.categoryId,
-          basePrice: dto.basePrice,
-          baseSku: dto.baseSku,
+          ...(dto.description !== undefined ? { description: dto.description } : {}),
+          ...(dto.categoryId !== undefined ? { categoryId: dto.categoryId } : {}),
+          ...(dto.basePrice !== undefined ? { basePrice: dto.basePrice } : {}),
+          ...(dto.baseSku !== undefined ? { baseSku: dto.baseSku } : {}),
           baseStock: dto.baseStock ?? 0,
           hasVariants: dto.hasVariants ?? false,
-          weight: dto.weight,
+          ...(dto.weight !== undefined ? { weight: dto.weight } : {}),
           status: (dto.status as 'DRAFT' | 'PUBLISHED') ?? 'DRAFT',
         },
       })
@@ -91,7 +89,7 @@ export class ProductService {
           data: dto.images.map((img, idx) => ({
             productId: product.id,
             url: img.url,
-            alt: img.alt,
+            ...(img.alt !== undefined ? { alt: img.alt } : {}),
             sortOrder: idx,
             isCover: img.isCover ?? idx === 0,
           })),
@@ -101,6 +99,7 @@ export class ProductService {
       if (dto.hasVariants && dto.variantOptionGroups?.length) {
         for (let gi = 0; gi < dto.variantOptionGroups.length; gi++) {
           const group = dto.variantOptionGroups[gi]
+          if (!group) continue
           const createdGroup = await tx.productVariantOptionGroup.create({
             data: {
               productId: product.id,
@@ -110,10 +109,12 @@ export class ProductService {
           })
 
           for (let oi = 0; oi < group.options.length; oi++) {
+            const option = group.options[oi]
+            if (!option) continue
             await tx.productVariantOption.create({
               data: {
                 groupId: createdGroup.id,
-                value: group.options[oi].value,
+                value: option.value,
                 sortOrder: oi,
               },
             })
@@ -130,7 +131,7 @@ export class ProductService {
             const variant = await tx.productVariant.create({
               data: {
                 productId: product.id,
-                sku: v.sku,
+                ...(v.sku !== undefined ? { sku: v.sku } : {}),
                 price: v.price,
                 stock: v.stock,
               },

@@ -80,8 +80,8 @@ export function VouchersPage() {
   const { data, isLoading } = useVouchers({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    search: debouncedSearch || undefined,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(debouncedSearch ? { search: debouncedSearch } : {}),
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
   const { data: counts } = useVoucherStatusCounts()
 
@@ -214,15 +214,15 @@ export function VouchersPage() {
           setStatusFilter(t)
           setPage(1)
         }}
-        counts={counts}
+        {...(counts !== undefined ? { counts } : {})}
       />
 
       <DataTable
         columns={columns}
         data={data?.items ?? []}
-        meta={data?.meta}
+        {...(data?.meta !== undefined ? { meta: data.meta } : {})}
         loading={isLoading}
-        onPageChange={setPage}
+        onPageChange={(p) => setPage(p)}
         toolbar={
           <TableToolbar
             search={search}

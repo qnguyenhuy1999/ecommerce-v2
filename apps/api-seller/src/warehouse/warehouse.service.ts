@@ -48,7 +48,7 @@ export class WarehouseService {
         shopId,
         name: dto.name,
         code: dto.code.toUpperCase(),
-        address: dto.address,
+        ...(dto.address !== undefined ? { address: dto.address } : {}),
         isDefault: dto.isDefault ?? false,
       },
     })
@@ -140,7 +140,7 @@ export class WarehouseService {
         shopId,
         fromWarehouseId,
         toWarehouseId,
-        note,
+        ...(note !== undefined ? { note } : {}),
         items: {
           create: items.map((item) => ({
             variantId: item.variantId,
@@ -155,10 +155,8 @@ export class WarehouseService {
   async listTransfers(shopId: string, query: TransferQueryDto) {
     const { page = 1, pageSize = 20, status } = query
 
-    const where: Prisma.InventoryTransferWhereInput = {
-      shopId,
-      ...(status ? { status: status as Prisma.InventoryTransferWhereInput['status'] } : {}),
-    }
+    const where: Prisma.InventoryTransferWhereInput = { shopId }
+    if (status) where.status = status as NonNullable<Prisma.InventoryTransferWhereInput['status']>
 
     const { items, total } = await offsetPaginate(this.prisma.inventoryTransfer, {
       page,

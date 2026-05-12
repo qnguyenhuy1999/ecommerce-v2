@@ -41,8 +41,8 @@ export class AffiliateService {
     return this.prisma.affiliateLink.create({
       data: {
         partnerId,
-        productId: dto.productId,
-        shopId: dto.shopId,
+        ...(dto.productId !== undefined ? { productId: dto.productId } : {}),
+        ...(dto.shopId !== undefined ? { shopId: dto.shopId } : {}),
         code,
         url: dto.url,
       },
@@ -76,7 +76,13 @@ export class AffiliateService {
 
     await this.prisma.$transaction([
       this.prisma.affiliateClick.create({
-        data: { linkId: link.id, visitorId, ipAddress, userAgent, referer },
+        data: {
+          linkId: link.id,
+          ...(visitorId !== undefined ? { visitorId } : {}),
+          ...(ipAddress !== undefined ? { ipAddress } : {}),
+          ...(userAgent !== undefined ? { userAgent } : {}),
+          ...(referer !== undefined ? { referer } : {}),
+        },
       }),
       this.prisma.affiliateLink.update({
         where: { id: link.id },
@@ -136,8 +142,8 @@ export class AffiliateService {
         data: {
           partnerId,
           amount: dto.amount,
-          paymentMethod: dto.paymentMethod,
-          note: dto.note,
+          ...(dto.paymentMethod !== undefined ? { paymentMethod: dto.paymentMethod } : {}),
+          ...(dto.note !== undefined ? { note: dto.note } : {}),
         },
       })
 

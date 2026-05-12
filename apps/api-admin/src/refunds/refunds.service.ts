@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import type { PrismaService, Prisma } from '@ecom/database'
 import { type ReturnStatus } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { withDefined, nullable } from '@ecom/shared/utils'
 
 @Injectable()
 export class RefundsService {
@@ -11,8 +12,7 @@ export class RefundsService {
     if (query.status) where.status = query.status
 
     const { items, total } = await offsetPaginate(this.prisma.returnRequest, {
-      page: query.page,
-      limit: query.limit,
+      ...withDefined({ page: query.page, limit: query.limit }),
       where,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -56,7 +56,7 @@ export class RefundsService {
           returnRequestId: id,
           fromStatus,
           toStatus: 'APPROVED',
-          note,
+          note: nullable(note),
           performedBy: adminId,
         },
       })
@@ -84,7 +84,7 @@ export class RefundsService {
           returnRequestId: id,
           fromStatus,
           toStatus: 'REJECTED',
-          note,
+          note: nullable(note),
           performedBy: adminId,
         },
       })

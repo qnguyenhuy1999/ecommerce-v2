@@ -29,12 +29,7 @@ export class UsersController {
   @Get()
   @Permissions('USER_VIEW')
   async findAll(@Query() query: UserQueryDto) {
-    const result = await this.usersService.findAll({
-      page: query.page,
-      limit: query.limit,
-      search: query.search,
-      status: query.status,
-    })
+    const result = await this.usersService.findAll({ ...query })
     return result
   }
 

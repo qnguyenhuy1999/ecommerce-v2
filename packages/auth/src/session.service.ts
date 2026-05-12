@@ -3,6 +3,7 @@ import type Redis from 'ioredis'
 export interface SessionData {
   userId: string
   roles: string[]
+  [key: string]: unknown
 }
 
 export interface SessionServiceOptions {
@@ -36,7 +37,9 @@ export class SessionService {
   async get(sessionId: string): Promise<SessionData | null> {
     const raw = await this.redis.get(this.key(sessionId))
     if (!raw) return null
-    return JSON.parse(raw) as SessionData
+    const parsed: unknown = JSON.parse(raw)
+    if (!isSessionData(parsed)) return null
+    return parsed
   }
 
   async delete(sessionId: string): Promise<void> {
@@ -46,4 +49,14 @@ export class SessionService {
   async refresh(sessionId: string): Promise<void> {
     await this.redis.expire(this.key(sessionId), this.ttl)
   }
+}
+
+function isSessionData(value: unknown): value is SessionData {
+  if (!value || typeof value !== 'object') return false
+  const candidate = value as Record<string, unknown>
+  return (
+    typeof candidate.userId === 'string' &&
+    Array.isArray(candidate.roles) &&
+    candidate.roles.every((role) => typeof role === 'string')
+  )
 }

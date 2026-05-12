@@ -21,6 +21,8 @@
     "db:migrate": "cd packages/database && npx prisma migrate dev",
     "db:seed": "cd packages/database && npx prisma db seed",
     "swagger:gen:all": "turbo swagger:gen",
+    "openapi:gen": "node packages/contracts/scripts/generate-types.mjs",
+    "openapi:sync": "pnpm swagger:gen:all && pnpm openapi:gen",
     "prepare": "husky"
   },
   "devDependencies": {

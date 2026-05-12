@@ -53,7 +53,7 @@ export default function InventoryPage() {
         setLoading(false)
       }
     }
-    fetchInventory()
+    void fetchInventory()
   }, [page, search, lowStockOnly])
 
   const columns = [

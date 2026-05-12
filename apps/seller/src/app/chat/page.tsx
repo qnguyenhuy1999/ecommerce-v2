@@ -57,7 +57,7 @@ export default function ChatPage() {
         setLoading(false)
       }
     }
-    fetchConversations()
+    void fetchConversations()
   }, [search])
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export default function ChatPage() {
         /* empty */
       }
     }
-    fetchMessages()
+    void fetchMessages()
   }, [selectedConversation])
 
   useEffect(() => {
@@ -193,12 +193,14 @@ export default function ChatPage() {
                       type="text"
                       value={messageText}
                       onChange={(e) => setMessageText(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') void handleSend()
+                      }}
                       placeholder="Type a message..."
                       className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <button
-                      onClick={handleSend}
+                      onClick={() => void handleSend()}
                       disabled={!messageText.trim()}
                       className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
                     >

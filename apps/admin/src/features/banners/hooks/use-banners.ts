@@ -32,8 +32,8 @@ export function useBanner(id: string) {
 function useInvalidateBanners() {
   const qc = useQueryClient()
   return () => {
-    qc.invalidateQueries({ queryKey: ['banners'] })
-    qc.invalidateQueries({ queryKey: ['banner'] })
+    void qc.invalidateQueries({ queryKey: ['banners'] })
+    void qc.invalidateQueries({ queryKey: ['banner'] })
   }
 }
 

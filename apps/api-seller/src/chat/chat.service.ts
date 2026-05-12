@@ -55,7 +55,7 @@ export class ChatService {
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items.reverse(), page, pageSize, total)
+    return buildOffsetResponse(items.slice().reverse(), page, pageSize, total)
   }
 
   async sendMessage(

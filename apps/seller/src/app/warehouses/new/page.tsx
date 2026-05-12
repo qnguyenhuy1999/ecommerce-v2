@@ -20,7 +20,7 @@ export default function NewWarehousePage() {
     isDefault: false,
   })
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
     try {
@@ -46,7 +46,7 @@ export default function NewWarehousePage() {
       <PageHeader title="Add Warehouse" description="Create a new warehouse location" />
 
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(e) => void handleSubmit(e)}
         className="max-w-2xl rounded-lg border border-gray-200 bg-white p-6"
       >
         <div className="space-y-4">

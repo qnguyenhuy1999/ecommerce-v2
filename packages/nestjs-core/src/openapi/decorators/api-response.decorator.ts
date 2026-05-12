@@ -8,7 +8,34 @@ type SwaggerModel = Type<unknown> | string
 
 const isSwaggerClass = (model: SwaggerModel): model is Type<unknown> => typeof model === 'function'
 
-export const ApiOkResponseData = <TModel extends Type<unknown>>(model: TModel | string) => {
+const isModelArray = (model: unknown): model is Type<unknown>[] =>
+  Array.isArray(model) && model.every((m) => typeof m === 'function')
+
+export const ApiOkResponseData = <TModel extends Type<unknown>>(
+  model: TModel | TModel[] | string,
+) => {
+  if (isModelArray(model)) {
+    const itemModel = model[0] as TModel
+    return applyDecorators(
+      ApiExtraModels(ApiResponseDto, itemModel),
+      ApiOkResponse({
+        schema: {
+          allOf: [
+            { $ref: getSchemaPath(ApiResponseDto) },
+            {
+              properties: {
+                data: {
+                  type: 'array',
+                  items: { $ref: getSchemaPath(itemModel) },
+                },
+              },
+            },
+          ],
+        },
+      }),
+    )
+  }
+
   const shouldReferenceModel = isSwaggerClass(model)
   return applyDecorators(
     ApiExtraModels(ApiResponseDto, ...(shouldReferenceModel ? [model] : [])),

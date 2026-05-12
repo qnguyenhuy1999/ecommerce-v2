@@ -38,7 +38,7 @@ export class AdvancedSearchController {
 
   @Get('popular')
   @ApiOkResponseData(Object)
-  async getPopularSearches() {
+  getPopularSearches() {
     return this.searchService.getPopularSearches()
   }
 

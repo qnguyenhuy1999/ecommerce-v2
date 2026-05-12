@@ -33,8 +33,8 @@ export function useCategory(id: string) {
 function useInvalidateCategories() {
   const qc = useQueryClient()
   return () => {
-    qc.invalidateQueries({ queryKey: ['categories'] })
-    qc.invalidateQueries({ queryKey: ['category'] })
+    void qc.invalidateQueries({ queryKey: ['categories'] })
+    void qc.invalidateQueries({ queryKey: ['category'] })
   }
 }
 

@@ -1,10 +1,10 @@
 import { SetMetadata } from '@nestjs/common'
-import { AuditActionType } from '@ecom/database'
+import type { AuditActionType } from '@ecom/database'
 
 export const AUDIT_LOG_KEY = 'audit_log'
 
 export interface AuditLogMetadata {
-  action: AuditActionType | string
+  action: AuditActionType
   entityType: string
   entityIdParam?: string
   entityIdPath?: string
@@ -12,7 +12,7 @@ export interface AuditLogMetadata {
 }
 
 export const AuditLog = (
-  action: AuditActionType | string,
+  action: AuditActionType,
   entityType: string,
   options?: {
     entityIdParam?: string

@@ -75,7 +75,7 @@ export class AutomationService {
           conditions: {
             ...(rule.conditions as object),
             schedule: dto.schedule,
-          } as Prisma.InputJsonValue,
+          },
         }),
       },
     })
@@ -100,7 +100,7 @@ export class AutomationService {
 
     try {
       const actions = rule.actions as Record<string, unknown>
-      actionResults = await this.performAction(
+      actionResults = this.performAction(
         (actions.type as string) ?? '',
         (actions.config as Record<string, unknown>) ?? {},
         triggerData,
@@ -133,11 +133,11 @@ export class AutomationService {
     return { success, duration, error }
   }
 
-  private async performAction(
+  private performAction(
     action: string,
     _config: Record<string, unknown>,
     _triggerData: Record<string, unknown>,
-  ): Promise<Record<string, unknown>> {
+  ): Record<string, unknown> {
     switch (action) {
       case 'SEND_NOTIFICATION':
       case 'SEND_MESSAGE':

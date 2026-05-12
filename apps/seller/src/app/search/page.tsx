@@ -75,7 +75,7 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
-    handleSearch()
+    void handleSearch()
   }, [page])
 
   const handleSaveFilter = async () => {
@@ -179,7 +179,9 @@ export default function SearchPage() {
               placeholder="Search products by name, description..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') void handleSearch()
+              }}
               className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-4 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -191,7 +193,7 @@ export default function SearchPage() {
             Filters
           </button>
           <button
-            onClick={handleSearch}
+            onClick={() => void handleSearch()}
             className="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700"
           >
             Search
@@ -242,7 +244,7 @@ export default function SearchPage() {
                 className="rounded border border-gray-300 px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
-                onClick={handleSaveFilter}
+                onClick={() => void handleSaveFilter()}
                 className="inline-flex items-center gap-1 rounded border border-blue-300 px-3 py-1.5 text-xs text-blue-600 hover:bg-blue-50"
               >
                 <Bookmark className="h-3 w-3" /> Save Filter
@@ -262,7 +264,7 @@ export default function SearchPage() {
                   {f.name}
                 </button>
                 <button
-                  onClick={() => handleDeleteFilter(f.id)}
+                  onClick={() => void handleDeleteFilter(f.id)}
                   className="text-gray-400 hover:text-red-500"
                 >
                   <X className="h-3 w-3" />

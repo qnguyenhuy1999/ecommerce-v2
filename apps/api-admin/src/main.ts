@@ -54,4 +54,4 @@ async function bootstrap() {
   console.log(`Admin API running on http://localhost:${port}`)
 }
 
-bootstrap()
+void bootstrap()

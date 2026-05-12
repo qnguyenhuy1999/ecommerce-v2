@@ -1,4 +1,4 @@
-import { Provider } from '@nestjs/common'
+import type { Provider } from '@nestjs/common'
 import { SessionService } from '@ecom/auth'
 import { REDIS_CLIENT } from '@ecom/redis'
 import type Redis from 'ioredis'

@@ -61,7 +61,7 @@ export class AiToolsService {
       data: { status: 'PROCESSING', startedAt: new Date() },
     })
 
-    const output = await this.executeAiTask(task.type, task.inputData as Record<string, unknown>)
+    const output = this.executeAiTask(task.type, task.inputData as Record<string, unknown>)
 
     await this.prisma.aiTask.update({
       where: { id: taskId },
@@ -77,10 +77,7 @@ export class AiToolsService {
     return this.prisma.aiTask.findUnique({ where: { id: taskId } })
   }
 
-  private async executeAiTask(
-    type: string,
-    _input: Record<string, unknown>,
-  ): Promise<Record<string, unknown>> {
+  private executeAiTask(type: string, _input: Record<string, unknown>): Record<string, unknown> {
     switch (type) {
       case 'DESCRIPTION':
         return {

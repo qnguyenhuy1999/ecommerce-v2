@@ -16,13 +16,13 @@ export class GrowthService {
   constructor(private readonly prisma: PrismaService) {}
   // --- Referral Program ---
 
-  async listReferralPrograms(query: OffsetPaginationDto) {
+  listReferralPrograms(query: OffsetPaginationDto) {
     const { limit = 20 } = query
     // ReferralProgram model missing in schema
     return buildOffsetResponse([], 1, limit, 0)
   }
 
-  async createReferralProgram(_dto: CreateReferralProgramDto) {
+  createReferralProgram(_dto: CreateReferralProgramDto) {
     // ReferralProgram model missing in schema
     throw new BadRequestException('Referral program not implemented in schema')
   }

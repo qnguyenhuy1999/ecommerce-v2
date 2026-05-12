@@ -74,7 +74,7 @@ export default function OrdersPage() {
         setLoading(false)
       }
     }
-    fetchOrders()
+    void fetchOrders()
   }, [page, search, statusFilter])
 
   const columns = [

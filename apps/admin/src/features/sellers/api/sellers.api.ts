@@ -36,18 +36,18 @@ type SellersListQuery = NonNullable<
   AdminOperations['SellersController_findAll']['parameters']['query']
 >
 export type { SellersListQuery }
-type SellersListResponse =
-  AdminOperations['SellersController_findAll']['responses']['200']['content']['application/json'] & {
-    data: PaginatedResponse<Seller>
-  }
-type SellerDetailResponse =
-  AdminOperations['SellersController_findById']['responses']['200']['content']['application/json'] & {
-    data: SellerDetail
-  }
-type SellerStatusCountsResponse =
-  AdminOperations['SellersController_statusCounts']['responses']['200']['content']['application/json'] & {
-    data: Record<string, number>
-  }
+type SellersListResponse = Omit<
+  AdminOperations['SellersController_findAll']['responses']['200']['content']['application/json'],
+  'data'
+> & { data: PaginatedResponse<Seller> }
+type SellerDetailResponse = Omit<
+  AdminOperations['SellersController_findById']['responses']['200']['content']['application/json'],
+  'data'
+> & { data: SellerDetail }
+type SellerStatusCountsResponse = Omit<
+  AdminOperations['SellersController_statusCounts']['responses']['200']['content']['application/json'],
+  'data'
+> & { data: Record<string, number> }
 type SellerActionBody =
   AdminOperations['SellersController_reject']['requestBody']['content']['application/json']
 type SellerActionResponse =

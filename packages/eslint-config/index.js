@@ -65,6 +65,9 @@ const baseConfig = [
       // ─── Sonarjs overrides ───
       'sonarjs/cognitive-complexity': ['warn', 20],
       'sonarjs/no-duplicate-string': 'off', // too noisy for DTOs
+      'sonarjs/prefer-read-only-props': 'off', // too noisy for React prop interfaces
+      'sonarjs/no-nested-conditional': 'off', // spread spread-based optional props trigger false positives
+      'sonarjs/function-return-type': 'off', // useMemo return type inference is sufficient
 
       // ─── Complexity guards ───
       'max-depth': ['warn', 4],

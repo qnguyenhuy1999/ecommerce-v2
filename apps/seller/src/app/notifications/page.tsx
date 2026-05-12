@@ -42,7 +42,7 @@ export default function NotificationsPage() {
         setLoading(false)
       }
     }
-    fetchNotifications()
+    void fetchNotifications()
   }, [page, unreadOnly])
 
   const markAsRead = async (id: string) => {
@@ -70,7 +70,7 @@ export default function NotificationsPage() {
         description="Stay updated with your store activity"
         actions={
           <button
-            onClick={markAllAsRead}
+            onClick={() => void markAllAsRead()}
             className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
           >
             <Check className="h-4 w-4" />
@@ -131,7 +131,7 @@ export default function NotificationsPage() {
                   </div>
                   {!notification.isRead && (
                     <button
-                      onClick={() => markAsRead(notification.id)}
+                      onClick={() => void markAsRead(notification.id)}
                       className="shrink-0 text-xs font-medium text-blue-600 hover:text-blue-700"
                     >
                       Mark read

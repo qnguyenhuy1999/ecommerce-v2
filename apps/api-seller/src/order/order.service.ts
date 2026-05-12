@@ -74,7 +74,7 @@ export class OrderService {
       throw new NotFoundException('Order not found')
     }
 
-    const currentStatus = sellerOrder.status as OrderStatus
+    const currentStatus = sellerOrder.status
     const allowed = VALID_TRANSITIONS[currentStatus] ?? []
 
     if (!allowed.includes(newStatus)) {

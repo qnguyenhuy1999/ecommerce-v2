@@ -48,9 +48,9 @@ export function useVoucherStatusCounts() {
 function useInvalidateVouchers() {
   const qc = useQueryClient()
   return () => {
-    qc.invalidateQueries({ queryKey: ['vouchers'] })
-    qc.invalidateQueries({ queryKey: ['voucher'] })
-    qc.invalidateQueries({ queryKey: ['voucher-status-counts'] })
+    void qc.invalidateQueries({ queryKey: ['vouchers'] })
+    void qc.invalidateQueries({ queryKey: ['voucher'] })
+    void qc.invalidateQueries({ queryKey: ['voucher-status-counts'] })
   }
 }
 

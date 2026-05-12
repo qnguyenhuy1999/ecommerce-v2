@@ -32,7 +32,7 @@ export function useTemplates() {
 function useInvalidateNotifications() {
   const qc = useQueryClient()
   return () => {
-    qc.invalidateQueries({ queryKey: ['notifications'] })
+    void qc.invalidateQueries({ queryKey: ['notifications'] })
   }
 }
 
@@ -50,6 +50,6 @@ export function useCreateTemplate() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: createTemplate,
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['notification-templates'] }),
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ['notification-templates'] }),
   })
 }

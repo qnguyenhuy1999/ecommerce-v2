@@ -55,7 +55,7 @@ export class EventStreamingService {
         metadata: {
           ...((event.metadata as Record<string, unknown>) ?? {}),
           replayedFrom: event.id,
-        } as Prisma.InputJsonValue,
+        },
       },
     })
   }
@@ -92,7 +92,7 @@ export class EventStreamingService {
         metadata: {
           ...((event.metadata as Record<string, unknown>) ?? {}),
           lastError: error,
-        } as Prisma.InputJsonValue,
+        },
       },
     })
   }

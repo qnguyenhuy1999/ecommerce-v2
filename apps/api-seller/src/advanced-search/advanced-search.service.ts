@@ -83,7 +83,7 @@ export class AdvancedSearchService {
     }
   }
 
-  async getPopularSearches(_limit = 20) {
+  getPopularSearches(_limit = 20) {
     // SearchQuery model not in schema — return empty
     return []
   }

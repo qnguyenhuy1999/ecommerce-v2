@@ -29,13 +29,13 @@ export class GrowthController {
 
   @Get('referrals')
   @ApiPaginatedResponse(Object)
-  async listReferralPrograms(@Query() query: OffsetPaginationDto) {
+  listReferralPrograms(@Query() query: OffsetPaginationDto) {
     return this.growthService.listReferralPrograms(query)
   }
 
   @Post('referrals/programs')
   @ApiCreatedResponseData(Object)
-  async createReferralProgram(@Body() dto: CreateReferralProgramDto) {
+  createReferralProgram(@Body() dto: CreateReferralProgramDto) {
     return this.growthService.createReferralProgram(dto)
   }
 

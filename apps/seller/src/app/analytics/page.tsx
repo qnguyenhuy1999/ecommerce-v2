@@ -55,7 +55,7 @@ export default function AnalyticsPage() {
         setLoading(false)
       }
     }
-    fetchData()
+    void fetchData()
   }, [dateRange])
 
   return (
@@ -91,7 +91,9 @@ export default function AnalyticsPage() {
               label="Revenue"
               value={`$${(summary?.revenue.current ?? 0).toLocaleString()}`}
               icon={DollarSign}
-              {...(summary?.revenue.growth !== undefined ? { trend: summary.revenue.growth } : {})}
+              {...(typeof summary?.revenue.growth === 'number'
+                ? { trend: summary.revenue.growth }
+                : {})}
             />
             <StatCard
               label="Orders"

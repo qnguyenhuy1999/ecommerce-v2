@@ -13,7 +13,7 @@ export class NotificationService {
 
     const where: Prisma.NotificationWhereInput = { shopId }
     if (unreadOnly) where.isRead = false
-    if (type !== undefined) where.type = type as NotificationType
+    if (type !== undefined) where.type = type
 
     const { items, total } = await offsetPaginate(this.prisma.notification, {
       page,

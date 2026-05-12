@@ -52,7 +52,7 @@ export default function ApprovalsPage() {
         setLoading(false)
       }
     }
-    fetchData()
+    void fetchData()
   }, [page, statusFilter, refreshKey])
 
   const handleResubmit = async (approvalId: string) => {
@@ -90,7 +90,9 @@ export default function ApprovalsPage() {
         if (row.status === 'REJECTED' || row.status === 'REVISION_REQUESTED') {
           return (
             <button
-              onClick={() => handleResubmit(row.id)}
+              onClick={() => {
+                void handleResubmit(row.id)
+              }}
               className="text-xs text-blue-600 hover:underline"
             >
               Resubmit

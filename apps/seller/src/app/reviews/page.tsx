@@ -70,7 +70,7 @@ export default function ReviewsPage() {
         setLoading(false)
       }
     }
-    fetchData()
+    void fetchData()
   }, [page, search, ratingFilter, replyFilter, refreshKey])
 
   const handleReply = async (reviewId: string) => {
@@ -231,7 +231,7 @@ export default function ReviewsPage() {
             />
             <div className="flex flex-col gap-2">
               <button
-                onClick={() => handleReply(replyingTo)}
+                onClick={() => void handleReply(replyingTo)}
                 className="rounded bg-blue-600 px-4 py-1 text-sm text-white hover:bg-blue-700"
               >
                 Send

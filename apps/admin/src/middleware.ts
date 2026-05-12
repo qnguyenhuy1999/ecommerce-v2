@@ -9,9 +9,7 @@ const withAuth = createWithAuth({
 })
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
-  return withAuth(
-    request as unknown as Parameters<typeof withAuth>[0],
-  ) as unknown as Promise<NextResponse>
+  return withAuth(request)
 }
 
 export const config = {

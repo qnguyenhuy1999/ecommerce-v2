@@ -34,7 +34,7 @@ export default function NewProductPage() {
   const [weight, setWeight] = useState('')
   const [status, setStatus] = useState('DRAFT')
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
     setLoading(true)
@@ -67,7 +67,7 @@ export default function NewProductPage() {
       <PageHeader title="New Product" description="Add a new product to your catalog" />
 
       <div className="max-w-2xl">
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={(e) => void handleSubmit(e)} className="space-y-6">
           {error && (
             <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
           )}

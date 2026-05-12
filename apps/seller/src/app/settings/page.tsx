@@ -63,10 +63,10 @@ export default function SettingsPage() {
         setLoading(false)
       }
     }
-    fetchShop()
+    void fetchShop()
   }, [])
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
     setSuccess('')
@@ -117,7 +117,7 @@ export default function SettingsPage() {
       />
 
       <div className="max-w-2xl">
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={(e) => void handleSubmit(e)} className="space-y-6">
           {error && (
             <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
           )}

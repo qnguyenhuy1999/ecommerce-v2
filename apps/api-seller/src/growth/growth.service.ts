@@ -1,14 +1,14 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import type {
+import {
   CreateReferralProgramDto,
   CreateExperimentDto,
   CreateFeatureFlagDto,
   CreateCampaignDto,
 } from './dto/growth.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 import { randomBytes } from 'node:crypto'
 
 @Injectable()
@@ -16,13 +16,13 @@ export class GrowthService {
   constructor(private readonly prisma: PrismaService) {}
   // --- Referral Program ---
 
-  async listReferralPrograms(query: OffsetPaginationDto) {
+  listReferralPrograms(query: OffsetPaginationDto) {
     const { limit = 20 } = query
     // ReferralProgram model missing in schema
     return buildOffsetResponse([], 1, limit, 0)
   }
 
-  async createReferralProgram(_dto: CreateReferralProgramDto) {
+  createReferralProgram(_dto: CreateReferralProgramDto) {
     // ReferralProgram model missing in schema
     throw new BadRequestException('Referral program not implemented in schema')
   }

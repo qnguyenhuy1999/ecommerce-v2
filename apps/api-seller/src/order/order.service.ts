@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import type { Prisma } from '@ecom/database'
+import { Prisma } from '@ecom/database'
 import { OrderStatus, InventoryTransactionType } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
-import type { OrderQueryDto } from './dto/order-query.dto'
+import { OrderQueryDto } from './dto/order-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import type { OrderRepository } from './repositories/order.repository'
+import { OrderRepository } from './repositories/order.repository'
 
 const VALID_TRANSITIONS: Record<OrderStatus, readonly OrderStatus[]> = {
   [OrderStatus.PENDING]: [OrderStatus.CONFIRMED, OrderStatus.CANCELLED],
@@ -74,7 +74,7 @@ export class OrderService {
       throw new NotFoundException('Order not found')
     }
 
-    const currentStatus = sellerOrder.status as OrderStatus
+    const currentStatus = sellerOrder.status
     const allowed = VALID_TRANSITIONS[currentStatus] ?? []
 
     if (!allowed.includes(newStatus)) {

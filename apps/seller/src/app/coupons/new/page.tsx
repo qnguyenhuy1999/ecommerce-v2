@@ -27,7 +27,7 @@ export default function NewCouponPage() {
     expiresAt: '',
   })
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
     try {
@@ -64,7 +64,7 @@ export default function NewCouponPage() {
       <PageHeader title="Create Coupon" description="Create a new discount coupon" />
 
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(e) => void handleSubmit(e)}
         className="max-w-2xl rounded-lg border border-gray-200 bg-white p-6"
       >
         <div className="space-y-4">

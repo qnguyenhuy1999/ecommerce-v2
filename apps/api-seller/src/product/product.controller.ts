@@ -23,11 +23,11 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { ProductService } from './product.service'
-import type { CreateProductDto } from './dto/create-product.dto'
-import type { UpdateProductDto } from './dto/update-product.dto'
-import type { ProductQueryDto } from './dto/product-query.dto'
+import { ShopService } from '../shop/shop.service'
+import { ProductService } from './product.service'
+import { CreateProductDto } from './dto/create-product.dto'
+import { UpdateProductDto } from './dto/update-product.dto'
+import { ProductQueryDto } from './dto/product-query.dto'
 import { ProductStatus } from '@ecom/contracts'
 
 class BulkUpdateStatusDto {
@@ -98,10 +98,7 @@ export class ProductController {
 
   @Post('bulk/status')
   @ApiOkResponseData(Object)
-  async bulkUpdateStatus(
-    @CurrentUser() user: SessionData,
-    @Body() body: BulkUpdateStatusDto,
-  ) {
+  async bulkUpdateStatus(@CurrentUser() user: SessionData, @Body() body: BulkUpdateStatusDto) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.productService.bulkUpdateStatus(shopId, body.productIds, body.status)
   }

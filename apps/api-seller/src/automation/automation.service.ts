@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import type { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
-import type { AutomationQueryDto } from './dto/automation-query.dto'
+import { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
+import { AutomationQueryDto } from './dto/automation-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
@@ -75,7 +75,7 @@ export class AutomationService {
           conditions: {
             ...(rule.conditions as object),
             schedule: dto.schedule,
-          } as Prisma.InputJsonValue,
+          },
         }),
       },
     })
@@ -100,7 +100,7 @@ export class AutomationService {
 
     try {
       const actions = rule.actions as Record<string, unknown>
-      actionResults = await this.performAction(
+      actionResults = this.performAction(
         (actions.type as string) ?? '',
         (actions.config as Record<string, unknown>) ?? {},
         triggerData,
@@ -133,11 +133,11 @@ export class AutomationService {
     return { success, duration, error }
   }
 
-  private async performAction(
+  private performAction(
     action: string,
     _config: Record<string, unknown>,
     _triggerData: Record<string, unknown>,
-  ): Promise<Record<string, unknown>> {
+  ): Record<string, unknown> {
     switch (action) {
       case 'SEND_NOTIFICATION':
       case 'SEND_MESSAGE':

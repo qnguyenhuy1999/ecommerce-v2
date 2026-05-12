@@ -89,9 +89,7 @@
           }
         },
         "summary": "Register a new user",
-        "tags": [
-          "Storefront/Auth"
-        ]
+        "tags": ["Storefront/Auth"]
       }
     },
     "/auth/login": {
@@ -182,9 +180,7 @@
           }
         },
         "summary": "Login and receive session cookie",
-        "tags": [
-          "Storefront/Auth"
-        ]
+        "tags": ["Storefront/Auth"]
       }
     },
     "/auth/logout": {
@@ -265,9 +261,7 @@
           }
         },
         "summary": "Logout and clear session cookie",
-        "tags": [
-          "Storefront/Auth"
-        ]
+        "tags": ["Storefront/Auth"]
       }
     },
     "/auth/me": {
@@ -348,9 +342,7 @@
           }
         },
         "summary": "Get current user session info",
-        "tags": [
-          "Storefront/Auth"
-        ]
+        "tags": ["Storefront/Auth"]
       }
     }
   },
@@ -383,6 +375,10 @@
             "type": "boolean",
             "example": false
           },
+          "message": {
+            "type": "string",
+            "example": "The requested resource was not found."
+          },
           "error": {
             "type": "object",
             "properties": {
@@ -395,20 +391,27 @@
                 "example": "The requested resource was not found."
               },
               "details": {
-                "nullable": true
+                "type": "object",
+                "nullable": true,
+                "additionalProperties": true
               }
-            }
+            },
+            "required": ["code", "message"]
+          },
+          "statusCode": {
+            "type": "number",
+            "example": 404
           },
           "timestamp": {
             "type": "string",
             "example": "2024-01-01T00:00:00.000Z"
+          },
+          "path": {
+            "type": "string",
+            "example": "/admin/products/123"
           }
         },
-        "required": [
-          "success",
-          "error",
-          "timestamp"
-        ]
+        "required": ["success", "message", "statusCode", "timestamp", "path"]
       },
       "ApiResponseDto": {
         "type": "object",
@@ -418,7 +421,12 @@
             "example": true
           },
           "data": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation completed successfully"
           },
           "meta": {
             "type": "object",
@@ -429,19 +437,42 @@
             "example": "2024-01-01T00:00:00.000Z"
           }
         },
-        "required": [
-          "success",
-          "data",
-          "timestamp"
-        ]
+        "required": ["success", "data", "timestamp"]
       },
       "RegisterDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email address",
+            "format": "email",
+            "example": "user@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password (minimum 8 characters)",
+            "format": "password",
+            "minLength": 8
+          }
+        },
+        "required": ["email", "password"]
       },
       "LoginDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email address",
+            "format": "email",
+            "example": "admin@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password",
+            "format": "password"
+          }
+        },
+        "required": ["email", "password"]
       }
     }
   },

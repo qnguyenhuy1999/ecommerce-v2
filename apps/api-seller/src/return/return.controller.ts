@@ -11,9 +11,9 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { ReturnService } from './return.service'
-import type { ReturnQueryDto } from './dto/return-query.dto'
+import { ShopService } from '../shop/shop.service'
+import { ReturnService } from './return.service'
+import { ReturnQueryDto } from './dto/return-query.dto'
 import { ReturnStatus } from '@ecom/contracts/enums'
 
 class UpdateReturnStatusDto {

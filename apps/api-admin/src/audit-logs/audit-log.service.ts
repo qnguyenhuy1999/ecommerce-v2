@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common'
-import type { PrismaService, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { type AuditActionType } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { withDefined, nullable } from '@ecom/shared/utils'

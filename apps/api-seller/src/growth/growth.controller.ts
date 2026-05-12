@@ -10,14 +10,14 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { GrowthService } from './growth.service'
-import type {
+import { GrowthService } from './growth.service'
+import {
   CreateReferralProgramDto,
   CreateExperimentDto,
   CreateFeatureFlagDto,
   CreateCampaignDto,
 } from './dto/growth.dto'
-import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/Growth')
 @ApiAuth()
@@ -29,13 +29,13 @@ export class GrowthController {
 
   @Get('referrals')
   @ApiPaginatedResponse(Object)
-  async listReferralPrograms(@Query() query: OffsetPaginationDto) {
+  listReferralPrograms(@Query() query: OffsetPaginationDto) {
     return this.growthService.listReferralPrograms(query)
   }
 
   @Post('referrals/programs')
   @ApiCreatedResponseData(Object)
-  async createReferralProgram(@Body() dto: CreateReferralProgramDto) {
+  createReferralProgram(@Body() dto: CreateReferralProgramDto) {
     return this.growthService.createReferralProgram(dto)
   }
 

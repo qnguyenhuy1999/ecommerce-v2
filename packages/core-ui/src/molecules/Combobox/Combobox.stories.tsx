@@ -31,7 +31,7 @@ export const Default: Story = {
       <ComboboxContent>
         <ComboboxEmpty>No items found.</ComboboxEmpty>
         <ComboboxList>
-          {(item) => (
+          {(item: string) => (
             <ComboboxItem key={item} value={item}>
               {item}
             </ComboboxItem>
@@ -59,7 +59,7 @@ export const MultipleSelection: Story = {
         <ComboboxContent>
           <ComboboxEmpty>No items found.</ComboboxEmpty>
           <ComboboxList>
-            {(item) => (
+            {(item: string) => (
               <ComboboxItem key={item} value={item}>
                 {item}
               </ComboboxItem>

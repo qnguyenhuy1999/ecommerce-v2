@@ -7,10 +7,10 @@ import { PaginationMetaDto } from '@ecom/contracts'
  * Used only for OpenAPI schema generation — not for runtime validation.
  */
 export class ApiResponseDto<T = unknown> {
-  @ApiProperty({ example: true })
+  @ApiProperty({ type: 'boolean', example: true })
   success!: true
 
-  @ApiProperty()
+  @ApiProperty({ type: 'object', additionalProperties: true })
   data!: T
 
   @ApiPropertyOptional({ type: 'string', example: 'Operation completed successfully' })
@@ -19,7 +19,7 @@ export class ApiResponseDto<T = unknown> {
   @ApiPropertyOptional({ type: 'object', additionalProperties: true })
   meta?: Record<string, unknown>
 
-  @ApiProperty({ example: '2024-01-01T00:00:00.000Z' })
+  @ApiProperty({ type: 'string', example: '2024-01-01T00:00:00.000Z' })
   timestamp!: string
 }
 
@@ -28,10 +28,10 @@ export class ApiResponseDto<T = unknown> {
  * Mirrors the ApiErrorResponse interface from @ecom/contracts.
  */
 export class ErrorResponseDto {
-  @ApiProperty({ example: false })
+  @ApiProperty({ type: 'boolean', example: false })
   success!: false
 
-  @ApiProperty({ example: 'The requested resource was not found.' })
+  @ApiProperty({ type: 'string', example: 'The requested resource was not found.' })
   message!: string
 
   @ApiProperty({
@@ -49,13 +49,13 @@ export class ErrorResponseDto {
     details?: unknown
   }
 
-  @ApiProperty({ example: 404 })
+  @ApiProperty({ type: 'number', example: 404 })
   statusCode!: number
 
-  @ApiProperty({ example: '2024-01-01T00:00:00.000Z' })
+  @ApiProperty({ type: 'string', example: '2024-01-01T00:00:00.000Z' })
   timestamp!: string
 
-  @ApiProperty({ example: '/admin/products/123' })
+  @ApiProperty({ type: 'string', example: '/admin/products/123' })
   path!: string
 }
 
@@ -65,7 +65,7 @@ export class ErrorResponseDto {
  * `{ success: true, data: { items: T[] }, meta: PaginationMeta, timestamp }`
  */
 export class PaginatedResponseDto<T = unknown> {
-  @ApiProperty({ example: true })
+  @ApiProperty({ type: 'boolean', example: true })
   success!: true
 
   @ApiProperty({
@@ -83,6 +83,6 @@ export class PaginatedResponseDto<T = unknown> {
   @ApiProperty({ type: () => PaginationMetaDto })
   meta!: PaginationMetaDto
 
-  @ApiProperty({ example: '2024-01-01T00:00:00.000Z' })
+  @ApiProperty({ type: 'string', example: '2024-01-01T00:00:00.000Z' })
   timestamp!: string
 }

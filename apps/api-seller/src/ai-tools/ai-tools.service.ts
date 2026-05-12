@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import type { CreateAiTaskDto } from './dto/ai-tools.dto'
+import { CreateAiTaskDto } from './dto/ai-tools.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class AiToolsService {
@@ -61,7 +61,7 @@ export class AiToolsService {
       data: { status: 'PROCESSING', startedAt: new Date() },
     })
 
-    const output = await this.executeAiTask(task.type, task.inputData as Record<string, unknown>)
+    const output = this.executeAiTask(task.type, task.inputData as Record<string, unknown>)
 
     await this.prisma.aiTask.update({
       where: { id: taskId },
@@ -77,10 +77,7 @@ export class AiToolsService {
     return this.prisma.aiTask.findUnique({ where: { id: taskId } })
   }
 
-  private async executeAiTask(
-    type: string,
-    _input: Record<string, unknown>,
-  ): Promise<Record<string, unknown>> {
+  private executeAiTask(type: string, _input: Record<string, unknown>): Record<string, unknown> {
     switch (type) {
       case 'DESCRIPTION':
         return {

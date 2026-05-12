@@ -79,7 +79,7 @@ export default function ProductsPage() {
         setLoading(false)
       }
     }
-    fetchProducts()
+    void fetchProducts()
   }, [page, search, statusFilter])
 
   const columns = [

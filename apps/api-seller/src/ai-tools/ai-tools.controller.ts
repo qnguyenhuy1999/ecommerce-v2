@@ -10,10 +10,10 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { AiToolsService } from './ai-tools.service'
-import type { CreateAiTaskDto } from './dto/ai-tools.dto'
-import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { ShopService } from '../shop/shop.service'
+import { AiToolsService } from './ai-tools.service'
+import { CreateAiTaskDto } from './dto/ai-tools.dto'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/AiTools')
 @ApiAuth()

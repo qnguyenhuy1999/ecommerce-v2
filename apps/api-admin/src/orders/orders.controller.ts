@@ -1,11 +1,11 @@
 import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger'
 import { Controller, Get, Post, Param, Query, Body, UseGuards } from '@nestjs/common'
-import type { OrdersService } from './orders.service'
+import { OrdersService } from './orders.service'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import type { OrderQueryDto, OrderActionDto } from './dto/order-query.dto'
+import { OrderQueryDto, OrderActionDto } from './dto/order-query.dto'
 import { OrderResponseDto } from './dto/order-query.dto'
 import {
   ApiOkResponseData,

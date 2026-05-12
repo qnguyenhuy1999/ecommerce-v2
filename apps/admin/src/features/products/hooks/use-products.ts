@@ -48,9 +48,9 @@ export function useProductStatusCounts() {
 function useInvalidateProducts() {
   const qc = useQueryClient()
   return () => {
-    qc.invalidateQueries({ queryKey: ['products'] })
-    qc.invalidateQueries({ queryKey: ['product'] })
-    qc.invalidateQueries({ queryKey: ['product-status-counts'] })
+    void qc.invalidateQueries({ queryKey: ['products'] })
+    void qc.invalidateQueries({ queryKey: ['product'] })
+    void qc.invalidateQueries({ queryKey: ['product-status-counts'] })
   }
 }
 

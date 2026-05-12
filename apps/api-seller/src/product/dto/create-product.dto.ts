@@ -136,7 +136,11 @@ export class CreateProductDto {
   @Type(() => ProductImageDto)
   images?: ProductImageDto[]
 
-  @ApiPropertyOptional({ enum: ProductStatus, default: ProductStatus.DRAFT, description: 'Initial product status' })
+  @ApiPropertyOptional({
+    enum: ProductStatus,
+    default: ProductStatus.DRAFT,
+    description: 'Initial product status',
+  })
   @IsOptional()
   @IsEnum(ProductStatus)
   status?: ProductStatus

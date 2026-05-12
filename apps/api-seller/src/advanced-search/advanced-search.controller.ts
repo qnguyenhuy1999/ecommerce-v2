@@ -9,9 +9,9 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { AdvancedSearchService } from './advanced-search.service'
-import type { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
+import { ShopService } from '../shop/shop.service'
+import { AdvancedSearchService } from './advanced-search.service'
+import { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
 
 @ApiTags('Seller/Search')
 @ApiAuth()
@@ -38,7 +38,7 @@ export class AdvancedSearchController {
 
   @Get('popular')
   @ApiOkResponseData(Object)
-  async getPopularSearches() {
+  getPopularSearches() {
     return this.searchService.getPopularSearches()
   }
 

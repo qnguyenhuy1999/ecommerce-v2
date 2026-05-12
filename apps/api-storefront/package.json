@@ -7,10 +7,10 @@
     "build": "nest build",
     "dev": "nest start --watch",
     "start": "node --env-file=../../.env dist/main.js",
-    "start:prod": "node --env-file=../../.env dist/main.js",
+    "start:prod": "node dist/main.js",
     "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
     "type-check": "tsc --noEmit",
-    "swagger:gen": "node --import @swc-node/register/esm-register --env-file=../../.env src/generate-openapi.ts"
+    "swagger:gen": "node --import @swc-node/register/esm-register --env-file-if-exists=../../.env src/generate-openapi.ts"
   },
   "dependencies": {
     "@ecom/auth": "workspace:*",

@@ -38,8 +38,7 @@ export const SubscriptionStatus = {
   EXPIRED: 'EXPIRED',
 } as const
 
-export type SubscriptionStatus =
-  (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
+export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
 
 // ─── Withdrawal Status ──────────────────────────────────────────
 export const WithdrawalStatus = {
@@ -50,8 +49,7 @@ export const WithdrawalStatus = {
   REJECTED: 'REJECTED',
 } as const
 
-export type WithdrawalStatus =
-  (typeof WithdrawalStatus)[keyof typeof WithdrawalStatus]
+export type WithdrawalStatus = (typeof WithdrawalStatus)[keyof typeof WithdrawalStatus]
 
 // ─── Wallet Transaction Status ──────────────────────────────────
 export const WalletTransactionStatus = {
@@ -70,5 +68,4 @@ export const AutomationStatus = {
   DRAFT: 'DRAFT',
 } as const
 
-export type AutomationStatus =
-  (typeof AutomationStatus)[keyof typeof AutomationStatus]
+export type AutomationStatus = (typeof AutomationStatus)[keyof typeof AutomationStatus]

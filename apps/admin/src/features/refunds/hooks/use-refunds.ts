@@ -43,9 +43,9 @@ export function useRefundStatusCounts() {
 function useInvalidateRefunds() {
   const qc = useQueryClient()
   return () => {
-    qc.invalidateQueries({ queryKey: ['refunds'] })
-    qc.invalidateQueries({ queryKey: ['refund'] })
-    qc.invalidateQueries({ queryKey: ['refund-status-counts'] })
+    void qc.invalidateQueries({ queryKey: ['refunds'] })
+    void qc.invalidateQueries({ queryKey: ['refund'] })
+    void qc.invalidateQueries({ queryKey: ['refund-status-counts'] })
   }
 }
 

@@ -32,8 +32,8 @@ export function useReviewStatusCounts() {
 function useInvalidateReviews() {
   const qc = useQueryClient()
   return () => {
-    qc.invalidateQueries({ queryKey: ['reviews'] })
-    qc.invalidateQueries({ queryKey: ['review-status-counts'] })
+    void qc.invalidateQueries({ queryKey: ['reviews'] })
+    void qc.invalidateQueries({ queryKey: ['review-status-counts'] })
   }
 }
 

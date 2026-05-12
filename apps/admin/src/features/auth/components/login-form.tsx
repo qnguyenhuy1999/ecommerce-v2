@@ -21,7 +21,12 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form
+      onSubmit={(e) => {
+        void handleSubmit(onSubmit)(e)
+      }}
+      className="space-y-4"
+    >
       <div className="space-y-2">
         <label htmlFor="email" className="text-foreground text-sm font-medium">
           Email

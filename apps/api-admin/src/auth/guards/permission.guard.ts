@@ -1,9 +1,9 @@
 import type { CanActivate, ExecutionContext } from '@nestjs/common'
 import { Injectable, ForbiddenException } from '@nestjs/common'
-import type { Reflector } from '@nestjs/core'
+import { Reflector } from '@nestjs/core'
 import type { Request } from 'express'
 import { PERMISSIONS_KEY } from '../decorators/permissions.decorator'
-import type { AdminSessionData } from '../decorators/current-admin.decorator'
+import { AdminSessionData } from '../decorators/current-admin.decorator'
 
 type AdminRequest = Request & { admin?: AdminSessionData }
 

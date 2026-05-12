@@ -44,9 +44,9 @@ export function useOrderStatusCounts() {
 function useInvalidateOrders() {
   const qc = useQueryClient()
   return () => {
-    qc.invalidateQueries({ queryKey: ['orders'] })
-    qc.invalidateQueries({ queryKey: ['order'] })
-    qc.invalidateQueries({ queryKey: ['order-status-counts'] })
+    void qc.invalidateQueries({ queryKey: ['orders'] })
+    void qc.invalidateQueries({ queryKey: ['order'] })
+    void qc.invalidateQueries({ queryKey: ['order-status-counts'] })
   }
 }
 

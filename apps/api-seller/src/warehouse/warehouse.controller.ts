@@ -10,10 +10,10 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { WarehouseService } from './warehouse.service'
-import type { WarehouseQueryDto, StockQueryDto, TransferQueryDto } from './dto/warehouse-query.dto'
-import type { CreateWarehouseDto } from './dto/create-warehouse.dto'
+import { ShopService } from '../shop/shop.service'
+import { WarehouseService } from './warehouse.service'
+import { WarehouseQueryDto, StockQueryDto, TransferQueryDto } from './dto/warehouse-query.dto'
+import { CreateWarehouseDto } from './dto/create-warehouse.dto'
 
 @ApiTags('Seller/Warehouse')
 @ApiAuth()

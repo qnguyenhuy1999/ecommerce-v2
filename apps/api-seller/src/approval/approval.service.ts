@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { ApprovalStatus } from '@ecom/contracts/enums'
-import type { ApprovalQueryDto } from './dto/approval-query.dto'
+import { ApprovalQueryDto } from './dto/approval-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
@@ -98,7 +98,10 @@ export class ApprovalService {
       throw new NotFoundException('Approval request not found')
     }
 
-    if (approval.status !== ApprovalStatus.REVISION_REQUESTED && approval.status !== ApprovalStatus.REJECTED) {
+    if (
+      approval.status !== ApprovalStatus.REVISION_REQUESTED &&
+      approval.status !== ApprovalStatus.REJECTED
+    ) {
       throw new BadRequestException('Can only resubmit revision-requested or rejected approvals')
     }
 

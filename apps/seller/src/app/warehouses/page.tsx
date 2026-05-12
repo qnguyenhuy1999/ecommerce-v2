@@ -56,7 +56,7 @@ export default function WarehousesPage() {
         setLoading(false)
       }
     }
-    fetchData()
+    void fetchData()
   }, [page, search])
 
   const columns = [

@@ -73,7 +73,7 @@ export default function ReturnsPage() {
         setLoading(false)
       }
     }
-    fetchData()
+    void fetchData()
   }, [page, search, statusFilter, refreshKey])
 
   const handleUpdateStatus = async (returnId: string, status: string) => {
@@ -124,7 +124,7 @@ export default function ReturnsPage() {
           return (
             <div className="flex gap-1">
               <button
-                onClick={() => handleUpdateStatus(row.id, 'REVIEWING')}
+                onClick={() => void handleUpdateStatus(row.id, 'REVIEWING')}
                 className="text-xs text-blue-600 hover:underline"
               >
                 Review
@@ -136,13 +136,13 @@ export default function ReturnsPage() {
           return (
             <div className="flex gap-1">
               <button
-                onClick={() => handleUpdateStatus(row.id, 'APPROVED')}
+                onClick={() => void handleUpdateStatus(row.id, 'APPROVED')}
                 className="text-xs text-green-600 hover:underline"
               >
                 Approve
               </button>
               <button
-                onClick={() => handleUpdateStatus(row.id, 'REJECTED')}
+                onClick={() => void handleUpdateStatus(row.id, 'REJECTED')}
                 className="text-xs text-red-600 hover:underline"
               >
                 Reject

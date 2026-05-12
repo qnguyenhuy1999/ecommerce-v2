@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import type { Prisma } from '@ecom/database'
+import { Prisma } from '@ecom/database'
 import { slugify } from '@ecom/shared/utils'
-import type { CreateProductDto } from './dto/create-product.dto'
-import type { UpdateProductDto } from './dto/update-product.dto'
-import type { ProductQueryDto } from './dto/product-query.dto'
+import { CreateProductDto } from './dto/create-product.dto'
+import { UpdateProductDto } from './dto/update-product.dto'
+import { ProductQueryDto } from './dto/product-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import type { ProductRepository } from './repositories/product.repository'
+import { ProductRepository } from './repositories/product.repository'
 import { ProductStatus } from '@ecom/contracts'
 
 @Injectable()

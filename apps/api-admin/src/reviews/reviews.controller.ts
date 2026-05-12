@@ -1,11 +1,11 @@
 import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger'
 import { Controller, Get, Post, Param, Query, UseGuards } from '@nestjs/common'
-import type { ReviewsService } from './reviews.service'
+import { ReviewsService } from './reviews.service'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import type { ReviewQueryDto } from './dto/review-query.dto'
+import { ReviewQueryDto } from './dto/review-query.dto'
 import { ReviewResponseDto } from './dto/review-query.dto'
 import {
   ApiOkResponseData,

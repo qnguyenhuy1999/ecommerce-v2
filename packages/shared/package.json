@@ -1,84 +1,85 @@
 {
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.js"
-        },
-        "./constants": {
-            "types": "./dist/constants/index.d.ts",
-            "import": "./dist/constants/index.mjs",
-            "require": "./dist/constants/index.js"
-        },
-        "./pagination/core": {
-            "types": "./dist/pagination/core/index.d.ts",
-            "import": "./dist/pagination/core/index.mjs",
-            "require": "./dist/pagination/core/index.js"
-        },
-        "./pagination/nestjs": {
-            "types": "./dist/pagination/nestjs/index.d.ts",
-            "import": "./dist/pagination/nestjs/index.mjs",
-            "require": "./dist/pagination/nestjs/index.js"
-        },
-        "./pagination/prisma": {
-            "types": "./dist/pagination/prisma/index.d.ts",
-            "import": "./dist/pagination/prisma/index.mjs",
-            "require": "./dist/pagination/prisma/index.js"
-        },
-        "./pagination/react": {
-            "types": "./dist/pagination/react/index.d.ts",
-            "import": "./dist/pagination/react/index.mjs",
-            "require": "./dist/pagination/react/index.js"
-        },
-        "./utils": {
-            "types": "./dist/utils/index.d.ts",
-            "import": "./dist/utils/index.mjs",
-            "require": "./dist/utils/index.js"
-        },
-        "./errors": {
-            "types": "./dist/errors/index.d.ts",
-            "import": "./dist/errors/index.mjs",
-            "require": "./dist/errors/index.js"
-        }
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
-    "main": "./dist/index.js",
-    "module": "./dist/index.mjs",
-    "name": "@ecom/shared",
-    "peerDependenciesMeta": {
-        "@nestjs/swagger": {
-            "optional": true
-        },
-        "@tanstack/react-query": {
-            "optional": true
-        },
-        "react": {
-            "optional": true
-        }
+    "./constants": {
+      "types": "./dist/constants/index.d.ts",
+      "import": "./dist/constants/index.mjs",
+      "require": "./dist/constants/index.js"
     },
-    "private": true,
-    "scripts": {
-        "build": "tsup",
-        "clean": "rm -rf dist",
-        "dev": "tsup --watch",
-        "lint": "eslint src/",
-        "test": "vitest run"
+    "./pagination/core": {
+      "types": "./dist/pagination/core/index.d.ts",
+      "import": "./dist/pagination/core/index.mjs",
+      "require": "./dist/pagination/core/index.js"
     },
-    "sideEffects": false,
-    "types": "./dist/index.d.ts",
-    "version": "1.0.0",
-    "devDependencies": {
-        "@nestjs/swagger": "^11.0.6",
-        "@tanstack/react-query": "^5.100.9",
-        "@types/node": "^25.6.2",
-        "@types/react": "^19.2.14",
-        "class-transformer": "^0.5.1",
-        "class-validator": "^0.15.1",
-        "client-only": "^0.0.1",
-        "react": "^19.2.5",
-        "server-only": "^0.0.1",
-        "vitest": "^3.0.7"
+    "./pagination/nestjs": {
+      "types": "./dist/pagination/nestjs/index.d.ts",
+      "import": "./dist/pagination/nestjs/index.mjs",
+      "require": "./dist/pagination/nestjs/index.js"
     },
-    "peerDependencies": {
-        "@nestjs/swagger": ">=7.0.0"
+    "./pagination/prisma": {
+      "types": "./dist/pagination/prisma/index.d.ts",
+      "import": "./dist/pagination/prisma/index.mjs",
+      "require": "./dist/pagination/prisma/index.js"
+    },
+    "./pagination/react": {
+      "types": "./dist/pagination/react/index.d.ts",
+      "import": "./dist/pagination/react/index.mjs",
+      "require": "./dist/pagination/react/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.mjs",
+      "require": "./dist/utils/index.js"
+    },
+    "./errors": {
+      "types": "./dist/errors/index.d.ts",
+      "import": "./dist/errors/index.mjs",
+      "require": "./dist/errors/index.js"
     }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "name": "@ecom/shared",
+  "peerDependenciesMeta": {
+    "@nestjs/swagger": {
+      "optional": true
+    },
+    "@tanstack/react-query": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  },
+  "private": true,
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "test": "vitest run"
+  },
+  "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@nestjs/swagger": "^11.0.6",
+    "@tanstack/react-query": "^5.100.9",
+    "@types/node": "^25.6.2",
+    "@types/react": "^19.2.14",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "client-only": "^0.0.1",
+    "react": "^19.2.5",
+    "server-only": "^0.0.1",
+    "vitest": "^3.0.7"
+  },
+  "peerDependencies": {
+    "@nestjs/swagger": ">=7.0.0"
+  }
 }

@@ -6,8 +6,7 @@ export const NotificationStatus = {
   ARCHIVED: 'ARCHIVED',
 } as const
 
-export type NotificationStatus =
-  (typeof NotificationStatus)[keyof typeof NotificationStatus]
+export type NotificationStatus = (typeof NotificationStatus)[keyof typeof NotificationStatus]
 
 // ─── Notification Type ──────────────────────────────────────────
 export const NotificationType = {
@@ -18,8 +17,7 @@ export const NotificationType = {
   SYSTEM: 'SYSTEM',
 } as const
 
-export type NotificationType =
-  (typeof NotificationType)[keyof typeof NotificationType]
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
 
 // ─── Notification Channel ───────────────────────────────────────
 export const NotificationChannel = {
@@ -28,8 +26,7 @@ export const NotificationChannel = {
   PUSH: 'PUSH',
 } as const
 
-export type NotificationChannel =
-  (typeof NotificationChannel)[keyof typeof NotificationChannel]
+export type NotificationChannel = (typeof NotificationChannel)[keyof typeof NotificationChannel]
 
 // ─── Admin Notification Status ──────────────────────────────────
 export const AdminNotificationStatus = {
@@ -60,5 +57,4 @@ export const PlatformEventStatus = {
   REPLAYED: 'REPLAYED',
 } as const
 
-export type PlatformEventStatus =
-  (typeof PlatformEventStatus)[keyof typeof PlatformEventStatus]
+export type PlatformEventStatus = (typeof PlatformEventStatus)[keyof typeof PlatformEventStatus]

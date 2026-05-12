@@ -4,21 +4,48 @@ import { ApiExtraModels, ApiOkResponse, ApiCreatedResponse, getSchemaPath } from
 import { PaginationMetaDto } from '@ecom/contracts'
 import { ApiResponseDto, PaginatedResponseDto } from '../dtos'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ApiOkResponseData = <TModel extends Type<any>>(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  model: TModel | string | any,
+type SwaggerModel = Type<unknown> | string
+
+const isSwaggerClass = (model: SwaggerModel): model is Type<unknown> => typeof model === 'function'
+
+const isModelArray = (model: unknown): model is Type<unknown>[] =>
+  Array.isArray(model) && model.every((m) => typeof m === 'function')
+
+export const ApiOkResponseData = <TModel extends Type<unknown>>(
+  model: TModel | TModel[] | string,
 ) => {
-  const isType = typeof model === 'function'
+  if (isModelArray(model)) {
+    const itemModel = model[0] as TModel
+    return applyDecorators(
+      ApiExtraModels(ApiResponseDto, itemModel),
+      ApiOkResponse({
+        schema: {
+          allOf: [
+            { $ref: getSchemaPath(ApiResponseDto) },
+            {
+              properties: {
+                data: {
+                  type: 'array',
+                  items: { $ref: getSchemaPath(itemModel) },
+                },
+              },
+            },
+          ],
+        },
+      }),
+    )
+  }
+
+  const shouldReferenceModel = isSwaggerClass(model)
   return applyDecorators(
-    ApiExtraModels(ApiResponseDto, ...(isType ? [model] : [])),
+    ApiExtraModels(ApiResponseDto, ...(shouldReferenceModel ? [model] : [])),
     ApiOkResponse({
       schema: {
         allOf: [
           { $ref: getSchemaPath(ApiResponseDto) },
           {
             properties: {
-              data: isType ? { $ref: getSchemaPath(model) } : { type: 'object' },
+              data: shouldReferenceModel ? { $ref: getSchemaPath(model) } : { type: 'object' },
             },
           },
         ],
@@ -27,21 +54,17 @@ export const ApiOkResponseData = <TModel extends Type<any>>(
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ApiCreatedResponseData = <TModel extends Type<any>>(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  model: TModel | string | any,
-) => {
-  const isType = typeof model === 'function'
+export const ApiCreatedResponseData = <TModel extends Type<unknown>>(model: TModel | string) => {
+  const shouldReferenceModel = isSwaggerClass(model)
   return applyDecorators(
-    ApiExtraModels(ApiResponseDto, ...(isType ? [model] : [])),
+    ApiExtraModels(ApiResponseDto, ...(shouldReferenceModel ? [model] : [])),
     ApiCreatedResponse({
       schema: {
         allOf: [
           { $ref: getSchemaPath(ApiResponseDto) },
           {
             properties: {
-              data: isType ? { $ref: getSchemaPath(model) } : { type: 'object' },
+              data: shouldReferenceModel ? { $ref: getSchemaPath(model) } : { type: 'object' },
             },
           },
         ],
@@ -50,8 +73,7 @@ export const ApiCreatedResponseData = <TModel extends Type<any>>(
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ApiPaginatedResponse = <TModel extends Type<any>>(model: TModel) => {
+export const ApiPaginatedResponse = <TModel extends Type<unknown>>(model: TModel) => {
   return applyDecorators(
     ApiExtraModels(PaginatedResponseDto, PaginationMetaDto, model),
     ApiOkResponse({

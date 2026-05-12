@@ -10,10 +10,10 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { AutomationService } from './automation.service'
-import type { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
-import type { AutomationQueryDto } from './dto/automation-query.dto'
+import { ShopService } from '../shop/shop.service'
+import { AutomationService } from './automation.service'
+import { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
+import { AutomationQueryDto } from './dto/automation-query.dto'
 
 @ApiTags('Seller/Automation')
 @ApiAuth()

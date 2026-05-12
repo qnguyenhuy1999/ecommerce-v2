@@ -1,7 +1,7 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq'
 import { Logger } from '@nestjs/common'
-import type { Job } from 'bullmq'
-import type { BulkService } from '../../bulk/bulk.service'
+import { Job } from 'bullmq'
+import { BulkService } from '../../bulk/bulk.service'
 
 @Processor('bulk-jobs')
 export class BulkJobProcessor extends WorkerHost {

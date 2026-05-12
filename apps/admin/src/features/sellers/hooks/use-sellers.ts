@@ -47,9 +47,9 @@ export function useApproveSeller() {
   return useMutation({
     mutationFn: approveSeller,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['sellers'] })
-      queryClient.invalidateQueries({ queryKey: ['seller'] })
-      queryClient.invalidateQueries({ queryKey: ['seller-status-counts'] })
+      void queryClient.invalidateQueries({ queryKey: ['sellers'] })
+      void queryClient.invalidateQueries({ queryKey: ['seller'] })
+      void queryClient.invalidateQueries({ queryKey: ['seller-status-counts'] })
     },
   })
 }
@@ -59,9 +59,9 @@ export function useRejectSeller() {
   return useMutation({
     mutationFn: ({ id, reason }: { id: string; reason?: string }) => rejectSeller(id, reason),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['sellers'] })
-      queryClient.invalidateQueries({ queryKey: ['seller'] })
-      queryClient.invalidateQueries({ queryKey: ['seller-status-counts'] })
+      void queryClient.invalidateQueries({ queryKey: ['sellers'] })
+      void queryClient.invalidateQueries({ queryKey: ['seller'] })
+      void queryClient.invalidateQueries({ queryKey: ['seller-status-counts'] })
     },
   })
 }
@@ -71,9 +71,9 @@ export function useSuspendSeller() {
   return useMutation({
     mutationFn: ({ id, reason }: { id: string; reason?: string }) => suspendSeller(id, reason),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['sellers'] })
-      queryClient.invalidateQueries({ queryKey: ['seller'] })
-      queryClient.invalidateQueries({ queryKey: ['seller-status-counts'] })
+      void queryClient.invalidateQueries({ queryKey: ['sellers'] })
+      void queryClient.invalidateQueries({ queryKey: ['seller'] })
+      void queryClient.invalidateQueries({ queryKey: ['seller-status-counts'] })
     },
   })
 }

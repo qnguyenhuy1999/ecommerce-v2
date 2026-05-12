@@ -10,14 +10,10 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { LivestreamService } from './livestream.service'
-import type {
-  CreateLivestreamDto,
-  AddLivestreamProductDto,
-  PinProductDto,
-} from './dto/livestream.dto'
-import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { ShopService } from '../shop/shop.service'
+import { LivestreamService } from './livestream.service'
+import { CreateLivestreamDto, AddLivestreamProductDto, PinProductDto } from './dto/livestream.dto'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/Livestream')
 @ApiAuth()

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { ProductStatus } from '@ecom/contracts/enums'
-import type { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
+import { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
@@ -83,7 +83,7 @@ export class AdvancedSearchService {
     }
   }
 
-  async getPopularSearches(_limit = 20) {
+  getPopularSearches(_limit = 20) {
     // SearchQuery model not in schema — return empty
     return []
   }

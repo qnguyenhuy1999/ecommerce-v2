@@ -17,7 +17,7 @@ export default function RegisterPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
     setLoading(true)
@@ -54,7 +54,7 @@ export default function RegisterPage() {
         </div>
 
         <div className="rounded-lg border border-gray-200 bg-white p-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={(e) => void handleSubmit(e)} className="space-y-4">
             {error && (
               <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
             )}

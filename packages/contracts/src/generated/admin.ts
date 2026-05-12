@@ -1046,20 +1046,32 @@ export type components = {
     ErrorResponseDto: {
       /** @example false */
       success: boolean
-      error: {
+      /** @example The requested resource was not found. */
+      message: string
+      error?: {
         /** @example NOT_FOUND */
-        code?: string
+        code: string
         /** @example The requested resource was not found. */
-        message?: string
-        details?: unknown
+        message: string
+        details?: {
+          [key: string]: unknown
+        } | null
       }
+      /** @example 404 */
+      statusCode: number
       /** @example 2024-01-01T00:00:00.000Z */
       timestamp: string
+      /** @example /admin/products/123 */
+      path: string
     }
     ApiResponseDto: {
       /** @example true */
       success: boolean
-      data: Record<string, never>
+      data: {
+        [key: string]: unknown
+      }
+      /** @example Operation completed successfully */
+      message?: string
       meta?: {
         [key: string]: unknown
       }
@@ -1067,7 +1079,19 @@ export type components = {
       timestamp: string
     }
     Object: Record<string, never>
-    LoginDto: Record<string, never>
+    LoginDto: {
+      /**
+       * Format: email
+       * @description User email address
+       * @example admin@example.com
+       */
+      email: string
+      /**
+       * Format: password
+       * @description User password
+       */
+      password: string
+    }
     AuditLogResponseDto: {
       id?: string
       adminId?: string
@@ -1125,17 +1149,47 @@ export type components = {
       createdAt?: string
       admin?: Record<string, never>
     }
+    PaginationMetaDto: {
+      /**
+       * @description Total number of items
+       * @example 100
+       */
+      total: number
+      /**
+       * @description Current page number
+       * @example 1
+       */
+      page: number
+      /**
+       * @description Items per page
+       * @example 20
+       */
+      limit: number
+      /**
+       * @description Total number of pages
+       * @example 5
+       */
+      totalPages: number
+      /**
+       * @description Whether there is a next page
+       * @example true
+       */
+      hasNextPage: boolean
+      /**
+       * @description Whether there is a previous page
+       * @example false
+       */
+      hasPreviousPage: boolean
+    }
     PaginatedResponseDto: {
       /** @example true */
       success: boolean
-      data: {
-        [key: string]: unknown
+      data?: {
+        items: Record<string, never>[]
       }
-      meta: {
-        pagination?: {
-          [key: string]: unknown
-        }
-      }
+      /** @example Items fetched successfully */
+      message?: string
+      meta: components['schemas']['PaginationMetaDto']
       /** @example 2024-01-01T00:00:00.000Z */
       timestamp: string
     }
@@ -1173,26 +1227,45 @@ export type components = {
       topCategories: Record<string, never>[]
     }
     ProductResponseDto: {
+      /** @description Product ID */
       id: string
+      /** @description Product name */
       name: string
+      /** @description URL-friendly slug */
       slug: string
+      /** @description Product description */
       description: string
+      /** @description Base price */
       price: number
-      status: string
-      /** Format: date-time */
+      /**
+       * @description Product status
+       * @enum {string}
+       */
+      status: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' | 'REJECTED'
+      /**
+       * Format: date-time
+       * @description Creation timestamp
+       */
       createdAt: string
-      /** Format: date-time */
+      /**
+       * Format: date-time
+       * @description Last update timestamp
+       */
       updatedAt: string
     }
     BulkModerationDto: {
+      /** @description Product IDs to moderate */
       ids: string[]
-      note: string
+      /** @description Optional moderation note */
+      note?: string
     }
     ProductModerationDto: {
-      note: string
+      /** @description Optional moderation note */
+      note?: string
     }
     ResolveReportDto: {
-      adminNote: string
+      /** @description Admin note for the resolution */
+      adminNote?: string
     }
     CategoryResponseDto: {
       id: string
@@ -1788,6 +1861,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['AuditLogResponseDto'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -1861,6 +1935,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['SellerResponseDto'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -2416,6 +2491,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['ProductResponseDto'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -2557,6 +2633,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -3747,6 +3824,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['OrderResponseDto'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -4101,6 +4179,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['RefundResponseDto'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -4452,6 +4531,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['UserResponseDto'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -4871,6 +4951,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['VoucherResponseDto'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -5220,6 +5301,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['BannerResponseDto'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -5570,6 +5652,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['NotificationResponseDto'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -5984,6 +6067,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['ReviewResponseDto'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }

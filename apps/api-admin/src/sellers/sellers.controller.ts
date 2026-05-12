@@ -1,14 +1,14 @@
 import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger'
 import { Controller, Get, Post, Param, Query, Body, UseGuards } from '@nestjs/common'
-import type { SellersService } from './sellers.service'
+import { SellersService } from './sellers.service'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import type { SellerQueryDto } from './dto/seller-query.dto'
+import { SellerQueryDto } from './dto/seller-query.dto'
 import { SellerResponseDto } from './dto/seller-query.dto'
-import type { SellerActionDto } from './dto/seller-action.dto'
+import { SellerActionDto } from './dto/seller-action.dto'
 import {
   ApiOkResponseData,
   ApiPaginatedResponse,

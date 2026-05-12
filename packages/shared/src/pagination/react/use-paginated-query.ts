@@ -49,7 +49,7 @@ export function usePrefetchPaginatedQuery<TData>({
   // Prefetch next page if exists
   if (page < totalPages) {
     const nextPage = page + 1
-    queryClient.prefetchQuery({
+    void queryClient.prefetchQuery({
       queryKey: [...queryKey, { page: nextPage, limit }],
       queryFn: () => queryFn({ page: nextPage, limit }),
     })
@@ -58,7 +58,7 @@ export function usePrefetchPaginatedQuery<TData>({
   // Prefetch previous page if exists
   if (page > 1) {
     const prevPage = page - 1
-    queryClient.prefetchQuery({
+    void queryClient.prefetchQuery({
       queryKey: [...queryKey, { page: prevPage, limit }],
       queryFn: () => queryFn({ page: prevPage, limit }),
     })

@@ -96,7 +96,10 @@ export class UpdateCouponDto {
   @IsString({ each: true })
   productIds?: string[]
 
-  @ApiPropertyOptional({ description: 'Category IDs for SPECIFIC_CATEGORIES scope', type: [String] })
+  @ApiPropertyOptional({
+    description: 'Category IDs for SPECIFIC_CATEGORIES scope',
+    type: [String],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

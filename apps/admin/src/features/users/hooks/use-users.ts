@@ -45,9 +45,9 @@ export function useUserStatusCounts() {
 function useInvalidateUsers() {
   const qc = useQueryClient()
   return () => {
-    qc.invalidateQueries({ queryKey: ['users'] })
-    qc.invalidateQueries({ queryKey: ['user'] })
-    qc.invalidateQueries({ queryKey: ['user-status-counts'] })
+    void qc.invalidateQueries({ queryKey: ['users'] })
+    void qc.invalidateQueries({ queryKey: ['user'] })
+    void qc.invalidateQueries({ queryKey: ['user-status-counts'] })
   }
 }
 

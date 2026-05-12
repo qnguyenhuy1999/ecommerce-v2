@@ -1,4 +1,4 @@
-import type { OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets'
+import { OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets'
 import {
   WebSocketGateway,
   WebSocketServer,
@@ -6,8 +6,8 @@ import {
   MessageBody,
   ConnectedSocket,
 } from '@nestjs/websockets'
-import type { Server, Socket } from 'socket.io'
-import type { ChatService } from './chat.service'
+import { Server, Socket } from 'socket.io'
+import { ChatService } from './chat.service'
 
 @WebSocketGateway({
   cors: { origin: '*' },
@@ -25,7 +25,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const userId = client.handshake.query.userId as string
     if (userId) {
       this.connectedUsers.set(client.id, userId)
-      client.join(`user:${userId}`)
+      void client.join(`user:${userId}`)
     }
   }
 
@@ -38,7 +38,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { conversationId: string },
   ) {
-    client.join(`conversation:${data.conversationId}`)
+    void client.join(`conversation:${data.conversationId}`)
   }
 
   @SubscribeMessage('leave_conversation')
@@ -46,7 +46,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { conversationId: string },
   ) {
-    client.leave(`conversation:${data.conversationId}`)
+    void client.leave(`conversation:${data.conversationId}`)
   }
 
   @SubscribeMessage('send_message')

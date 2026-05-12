@@ -5,6 +5,16 @@
       "post": {
         "operationId": "AuthController_register",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -78,15 +88,23 @@
             }
           }
         },
-        "tags": [
-          "Seller/Auth"
-        ]
+        "tags": ["Seller/Auth"]
       }
     },
     "/auth/login": {
       "post": {
         "operationId": "AuthController_login",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -160,9 +178,7 @@
             }
           }
         },
-        "tags": [
-          "Seller/Auth"
-        ]
+        "tags": ["Seller/Auth"]
       }
     },
     "/auth/logout": {
@@ -242,9 +258,7 @@
             }
           }
         },
-        "tags": [
-          "Seller/Auth"
-        ]
+        "tags": ["Seller/Auth"]
       }
     },
     "/auth/me": {
@@ -324,15 +338,23 @@
             }
           }
         },
-        "tags": [
-          "Seller/Auth"
-        ]
+        "tags": ["Seller/Auth"]
       }
     },
     "/auth/forgot-password": {
       "post": {
         "operationId": "AuthController_forgotPassword",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -406,15 +428,23 @@
             }
           }
         },
-        "tags": [
-          "Seller/Auth"
-        ]
+        "tags": ["Seller/Auth"]
       }
     },
     "/auth/reset-password": {
       "post": {
         "operationId": "AuthController_resetPassword",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -488,9 +518,7 @@
             }
           }
         },
-        "tags": [
-          "Seller/Auth"
-        ]
+        "tags": ["Seller/Auth"]
       }
     },
     "/auth/verify-email": {
@@ -579,9 +607,7 @@
             }
           }
         },
-        "tags": [
-          "Seller/Auth"
-        ]
+        "tags": ["Seller/Auth"]
       }
     },
     "/shop": {
@@ -669,13 +695,21 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Shop"
-        ]
+        "tags": ["Seller/Shop"]
       },
       "put": {
         "operationId": "ShopController_updateShop",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateShopDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -757,15 +791,123 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Shop"
-        ]
+        "tags": ["Seller/Shop"]
       }
     },
     "/products": {
       "get": {
         "operationId": "ProductController_list",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search by product name or SKU",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by product status",
+            "schema": {
+              "type": "string",
+              "enum": ["DRAFT", "PUBLISHED", "ARCHIVED", "REJECTED"]
+            }
+          },
+          {
+            "name": "categoryId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by category ID",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -788,6 +930,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -855,13 +1000,21 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Products"
-        ]
+        "tags": ["Seller/Products"]
       },
       "post": {
         "operationId": "ProductController_create",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProductDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -943,9 +1096,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Products"
-        ]
+        "tags": ["Seller/Products"]
       }
     },
     "/products/categories": {
@@ -1033,9 +1184,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Products"
-        ]
+        "tags": ["Seller/Products"]
       }
     },
     "/products/{id}": {
@@ -1132,9 +1281,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Products"
-        ]
+        "tags": ["Seller/Products"]
       },
       "put": {
         "operationId": "ProductController_update",
@@ -1148,6 +1295,16 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -1229,9 +1386,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Products"
-        ]
+        "tags": ["Seller/Products"]
       },
       "delete": {
         "operationId": "ProductController_delete",
@@ -1326,15 +1481,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Products"
-        ]
+        "tags": ["Seller/Products"]
       }
     },
     "/products/bulk/status": {
       "post": {
         "operationId": "ProductController_bulkUpdateStatus",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpdateStatusDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -1416,9 +1579,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Products"
-        ]
+        "tags": ["Seller/Products"]
       }
     },
     "/products/bulk/delete": {
@@ -1506,15 +1667,113 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Products"
-        ]
+        "tags": ["Seller/Products"]
       }
     },
     "/orders": {
       "get": {
         "operationId": "OrderController_list",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by order status",
+            "schema": {
+              "type": "string",
+              "enum": ["PENDING", "CONFIRMED", "PACKING", "SHIPPED", "DELIVERED", "CANCELLED"]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search by order number or customer name",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -1537,6 +1796,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -1604,9 +1866,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Orders"
-        ]
+        "tags": ["Seller/Orders"]
       }
     },
     "/orders/{id}": {
@@ -1703,9 +1963,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Orders"
-        ]
+        "tags": ["Seller/Orders"]
       }
     },
     "/orders/{id}/status": {
@@ -1721,6 +1979,16 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOrderStatusDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -1802,15 +2070,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Orders"
-        ]
+        "tags": ["Seller/Orders"]
       }
     },
     "/inventory": {
       "get": {
         "operationId": "InventoryController_list",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -1833,6 +2180,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -1900,9 +2250,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Inventory"
-        ]
+        "tags": ["Seller/Inventory"]
       }
     },
     "/inventory/low-stock": {
@@ -1990,9 +2338,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Inventory"
-        ]
+        "tags": ["Seller/Inventory"]
       }
     },
     "/inventory/{variantId}/history": {
@@ -2046,6 +2392,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -2113,15 +2462,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Inventory"
-        ]
+        "tags": ["Seller/Inventory"]
       }
     },
     "/inventory/update": {
       "post": {
         "operationId": "InventoryController_updateStock",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStockDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -2203,15 +2560,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Inventory"
-        ]
+        "tags": ["Seller/Inventory"]
       }
     },
     "/inventory/bulk-update": {
       "post": {
         "operationId": "InventoryController_bulkUpdate",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpdateStockDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -2293,9 +2658,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Inventory"
-        ]
+        "tags": ["Seller/Inventory"]
       }
     },
     "/shipping/providers": {
@@ -2383,9 +2746,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Shipping"
-        ]
+        "tags": ["Seller/Shipping"]
       }
     },
     "/shipping/methods": {
@@ -2473,9 +2834,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Shipping"
-        ]
+        "tags": ["Seller/Shipping"]
       }
     },
     "/shipping/methods/{providerId}/toggle": {
@@ -2572,15 +2931,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Shipping"
-        ]
+        "tags": ["Seller/Shipping"]
       }
     },
     "/shipping/shipments": {
       "post": {
         "operationId": "ShippingController_createShipment",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateShipmentDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -2662,9 +3029,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Shipping"
-        ]
+        "tags": ["Seller/Shipping"]
       }
     },
     "/shipping/shipments/{id}/tracking": {
@@ -2761,15 +3126,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Shipping"
-        ]
+        "tags": ["Seller/Shipping"]
       }
     },
     "/notifications": {
       "get": {
         "operationId": "NotificationController_list",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -2792,6 +3236,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -2859,9 +3306,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Notifications"
-        ]
+        "tags": ["Seller/Notifications"]
       }
     },
     "/notifications/unread-count": {
@@ -2949,9 +3394,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Notifications"
-        ]
+        "tags": ["Seller/Notifications"]
       }
     },
     "/notifications/{id}/read": {
@@ -3048,9 +3491,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Notifications"
-        ]
+        "tags": ["Seller/Notifications"]
       }
     },
     "/notifications/read-all": {
@@ -3138,15 +3579,123 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Notifications"
-        ]
+        "tags": ["Seller/Notifications"]
       }
     },
     "/coupons": {
       "get": {
         "operationId": "CouponController_list",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search by coupon code or name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by coupon status",
+            "schema": {
+              "type": "string",
+              "enum": ["DRAFT", "ACTIVE", "PAUSED", "EXPIRED", "DEPLETED"]
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Filter by coupon type",
+            "schema": {
+              "type": "string",
+              "enum": ["PERCENTAGE", "FIXED_AMOUNT"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -3169,6 +3718,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -3236,13 +3788,21 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Coupons"
-        ]
+        "tags": ["Seller/Coupons"]
       },
       "post": {
         "operationId": "CouponController_create",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCouponDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -3324,9 +3884,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Coupons"
-        ]
+        "tags": ["Seller/Coupons"]
       }
     },
     "/coupons/stats": {
@@ -3414,9 +3972,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Coupons"
-        ]
+        "tags": ["Seller/Coupons"]
       }
     },
     "/coupons/{id}": {
@@ -3513,9 +4069,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Coupons"
-        ]
+        "tags": ["Seller/Coupons"]
       },
       "put": {
         "operationId": "CouponController_update",
@@ -3529,6 +4083,16 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCouponDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -3610,9 +4174,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Coupons"
-        ]
+        "tags": ["Seller/Coupons"]
       },
       "delete": {
         "operationId": "CouponController_delete",
@@ -3707,9 +4269,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Coupons"
-        ]
+        "tags": ["Seller/Coupons"]
       }
     },
     "/analytics/dashboard": {
@@ -3797,9 +4357,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Analytics"
-        ]
+        "tags": ["Seller/Analytics"]
       }
     },
     "/analytics/revenue": {
@@ -3904,9 +4462,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Analytics"
-        ]
+        "tags": ["Seller/Analytics"]
       }
     },
     "/analytics/orders": {
@@ -4011,9 +4567,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Analytics"
-        ]
+        "tags": ["Seller/Analytics"]
       }
     },
     "/analytics/products": {
@@ -4118,9 +4672,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Analytics"
-        ]
+        "tags": ["Seller/Analytics"]
       }
     },
     "/analytics/conversion": {
@@ -4225,15 +4777,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Analytics"
-        ]
+        "tags": ["Seller/Analytics"]
       }
     },
     "/bulk/jobs": {
       "get": {
         "operationId": "BulkController_listJobs",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -4256,6 +4887,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -4323,9 +4957,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Bulk"
-        ]
+        "tags": ["Seller/Bulk"]
       }
     },
     "/bulk/jobs/{id}": {
@@ -4422,9 +5054,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Bulk"
-        ]
+        "tags": ["Seller/Bulk"]
       }
     },
     "/bulk/import": {
@@ -4512,9 +5142,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Bulk"
-        ]
+        "tags": ["Seller/Bulk"]
       }
     },
     "/bulk/export": {
@@ -4602,15 +5230,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Bulk"
-        ]
+        "tags": ["Seller/Bulk"]
       }
     },
     "/reviews": {
       "get": {
         "operationId": "ReviewController_list",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -4633,6 +5340,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -4700,9 +5410,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Reviews"
-        ]
+        "tags": ["Seller/Reviews"]
       }
     },
     "/reviews/analytics": {
@@ -4790,9 +5498,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Reviews"
-        ]
+        "tags": ["Seller/Reviews"]
       }
     },
     "/reviews/{id}": {
@@ -4889,9 +5595,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Reviews"
-        ]
+        "tags": ["Seller/Reviews"]
       }
     },
     "/reviews/{id}/reply": {
@@ -4988,9 +5692,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Reviews"
-        ]
+        "tags": ["Seller/Reviews"]
       }
     },
     "/reviews/{id}/report": {
@@ -5087,15 +5789,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Reviews"
-        ]
+        "tags": ["Seller/Reviews"]
       }
     },
     "/chat/conversations": {
       "get": {
         "operationId": "ChatController_listConversations",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -5118,6 +5899,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -5185,9 +5969,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Chat"
-        ]
+        "tags": ["Seller/Chat"]
       }
     },
     "/chat/unread": {
@@ -5275,9 +6057,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Chat"
-        ]
+        "tags": ["Seller/Chat"]
       }
     },
     "/chat/conversations/{id}": {
@@ -5374,9 +6154,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Chat"
-        ]
+        "tags": ["Seller/Chat"]
       }
     },
     "/chat/conversations/{id}/messages": {
@@ -5389,6 +6167,86 @@
             "in": "path",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
             }
           }
         ],
@@ -5414,6 +6272,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -5481,9 +6342,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Chat"
-        ]
+        "tags": ["Seller/Chat"]
       },
       "post": {
         "operationId": "ChatController_sendMessage",
@@ -5578,9 +6437,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Chat"
-        ]
+        "tags": ["Seller/Chat"]
       }
     },
     "/chat/conversations/{id}/read": {
@@ -5677,15 +6534,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Chat"
-        ]
+        "tags": ["Seller/Chat"]
       }
     },
     "/returns": {
       "get": {
         "operationId": "ReturnController_list",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -5708,6 +6644,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -5775,9 +6714,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Returns"
-        ]
+        "tags": ["Seller/Returns"]
       }
     },
     "/returns/stats": {
@@ -5865,9 +6802,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Returns"
-        ]
+        "tags": ["Seller/Returns"]
       }
     },
     "/returns/{id}": {
@@ -5964,9 +6899,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Returns"
-        ]
+        "tags": ["Seller/Returns"]
       }
     },
     "/returns/{id}/status": {
@@ -5982,6 +6915,16 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateReturnStatusDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -6063,9 +7006,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Returns"
-        ]
+        "tags": ["Seller/Returns"]
       }
     },
     "/returns/{id}/evidence": {
@@ -6162,15 +7103,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Returns"
-        ]
+        "tags": ["Seller/Returns"]
       }
     },
     "/approvals": {
       "get": {
         "operationId": "ApprovalController_list",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -6193,6 +7213,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -6260,9 +7283,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Approvals"
-        ]
+        "tags": ["Seller/Approvals"]
       }
     },
     "/approvals/{id}": {
@@ -6359,9 +7380,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Approvals"
-        ]
+        "tags": ["Seller/Approvals"]
       }
     },
     "/approvals/product/{productId}": {
@@ -6458,9 +7477,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Approvals"
-        ]
+        "tags": ["Seller/Approvals"]
       }
     },
     "/approvals/product/{productId}/submit": {
@@ -6557,9 +7574,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Approvals"
-        ]
+        "tags": ["Seller/Approvals"]
       }
     },
     "/approvals/{id}/resubmit": {
@@ -6656,15 +7671,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Approvals"
-        ]
+        "tags": ["Seller/Approvals"]
       }
     },
     "/warehouses": {
       "get": {
         "operationId": "WarehouseController_list",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -6687,6 +7781,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -6754,13 +7851,21 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Warehouse"
-        ]
+        "tags": ["Seller/Warehouse"]
       },
       "post": {
         "operationId": "WarehouseController_create",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWarehouseDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -6842,9 +7947,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Warehouse"
-        ]
+        "tags": ["Seller/Warehouse"]
       }
     },
     "/warehouses/alerts": {
@@ -6932,15 +8035,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Warehouse"
-        ]
+        "tags": ["Seller/Warehouse"]
       }
     },
     "/warehouses/transfers": {
       "get": {
         "operationId": "WarehouseController_listTransfers",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -6963,6 +8145,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -7030,9 +8215,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Warehouse"
-        ]
+        "tags": ["Seller/Warehouse"]
       },
       "post": {
         "operationId": "WarehouseController_createTransfer",
@@ -7118,9 +8301,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Warehouse"
-        ]
+        "tags": ["Seller/Warehouse"]
       }
     },
     "/warehouses/transfers/{id}/complete": {
@@ -7217,9 +8398,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Warehouse"
-        ]
+        "tags": ["Seller/Warehouse"]
       }
     },
     "/warehouses/{id}": {
@@ -7316,9 +8495,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Warehouse"
-        ]
+        "tags": ["Seller/Warehouse"]
       }
     },
     "/warehouses/{id}/stock": {
@@ -7331,6 +8508,86 @@
             "in": "path",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
             }
           }
         ],
@@ -7356,6 +8613,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -7423,9 +8683,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Warehouse"
-        ]
+        "tags": ["Seller/Warehouse"]
       },
       "put": {
         "operationId": "WarehouseController_updateStock",
@@ -7520,9 +8778,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Warehouse"
-        ]
+        "tags": ["Seller/Warehouse"]
       }
     },
     "/metrics": {
@@ -7610,9 +8866,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Metrics"
-        ]
+        "tags": ["Seller/Metrics"]
       }
     },
     "/metrics/history": {
@@ -7709,9 +8963,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Metrics"
-        ]
+        "tags": ["Seller/Metrics"]
       }
     },
     "/metrics/snapshot": {
@@ -7799,9 +9051,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Metrics"
-        ]
+        "tags": ["Seller/Metrics"]
       }
     },
     "/search/products": {
@@ -7830,6 +9080,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -7897,15 +9150,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Search"
-        ]
+        "tags": ["Seller/Search"]
       }
     },
     "/search/orders": {
       "get": {
         "operationId": "SearchController_searchOrders",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -7928,6 +9260,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -7995,9 +9330,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Search"
-        ]
+        "tags": ["Seller/Search"]
       }
     },
     "/search/filters": {
@@ -8094,9 +9427,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Search"
-        ]
+        "tags": ["Seller/Search"]
       },
       "post": {
         "operationId": "SearchController_saveFilter",
@@ -8182,9 +9513,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Search"
-        ]
+        "tags": ["Seller/Search"]
       }
     },
     "/search/filters/{id}": {
@@ -8281,15 +9610,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Search"
-        ]
+        "tags": ["Seller/Search"]
       }
     },
     "/flash-sales/campaigns": {
       "get": {
         "operationId": "FlashSaleController_listCampaigns",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -8312,6 +9720,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -8379,9 +9790,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/FlashSales"
-        ]
+        "tags": ["Seller/FlashSales"]
       }
     },
     "/flash-sales/campaigns/{id}": {
@@ -8478,15 +9887,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/FlashSales"
-        ]
+        "tags": ["Seller/FlashSales"]
       }
     },
     "/flash-sales/slots/apply": {
       "post": {
         "operationId": "FlashSaleController_applySlot",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyFlashSaleSlotDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -8568,15 +9985,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/FlashSales"
-        ]
+        "tags": ["Seller/FlashSales"]
       }
     },
     "/flash-sales/slots": {
       "get": {
         "operationId": "FlashSaleController_listMySlots",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -8599,6 +10095,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -8666,15 +10165,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/FlashSales"
-        ]
+        "tags": ["Seller/FlashSales"]
       }
     },
     "/ads/campaigns": {
       "get": {
         "operationId": "AdsController_listCampaigns",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -8697,6 +10275,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -8764,13 +10345,21 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Ads"
-        ]
+        "tags": ["Seller/Ads"]
       },
       "post": {
         "operationId": "AdsController_createCampaign",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAdCampaignDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -8852,9 +10441,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Ads"
-        ]
+        "tags": ["Seller/Ads"]
       }
     },
     "/ads/campaigns/{id}": {
@@ -8951,9 +10538,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Ads"
-        ]
+        "tags": ["Seller/Ads"]
       }
     },
     "/ads/campaigns/{id}/status": {
@@ -8969,6 +10554,16 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAdCampaignStatusDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -9050,15 +10645,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Ads"
-        ]
+        "tags": ["Seller/Ads"]
       }
     },
     "/ads/groups": {
       "post": {
         "operationId": "AdsController_createAdGroup",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAdGroupDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -9140,15 +10743,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Ads"
-        ]
+        "tags": ["Seller/Ads"]
       }
     },
     "/ads/items": {
       "post": {
         "operationId": "AdsController_createAd",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAdDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -9230,9 +10841,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Ads"
-        ]
+        "tags": ["Seller/Ads"]
       }
     },
     "/ads/campaigns/{id}/analytics": {
@@ -9329,9 +10938,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Ads"
-        ]
+        "tags": ["Seller/Ads"]
       }
     },
     "/affiliates/me": {
@@ -9419,9 +11026,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Affiliates"
-        ]
+        "tags": ["Seller/Affiliates"]
       }
     },
     "/affiliates/me/analytics": {
@@ -9509,15 +11114,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Affiliates"
-        ]
+        "tags": ["Seller/Affiliates"]
       }
     },
     "/affiliates/links": {
       "post": {
         "operationId": "AffiliateController_createLink",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAffiliateLinkDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -9599,13 +11212,92 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Affiliates"
-        ]
+        "tags": ["Seller/Affiliates"]
       },
       "get": {
         "operationId": "AffiliateController_listLinks",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -9628,6 +11320,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -9695,15 +11390,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Affiliates"
-        ]
+        "tags": ["Seller/Affiliates"]
       }
     },
     "/affiliates/payouts": {
       "post": {
         "operationId": "AffiliateController_requestPayout",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestPayoutDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -9785,9 +11488,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Affiliates"
-        ]
+        "tags": ["Seller/Affiliates"]
       }
     },
     "/subscriptions/plans": {
@@ -9875,9 +11576,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Subscriptions"
-        ]
+        "tags": ["Seller/Subscriptions"]
       }
     },
     "/subscriptions/plans/{id}": {
@@ -9974,9 +11673,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Subscriptions"
-        ]
+        "tags": ["Seller/Subscriptions"]
       }
     },
     "/subscriptions/current": {
@@ -10064,15 +11761,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Subscriptions"
-        ]
+        "tags": ["Seller/Subscriptions"]
       }
     },
     "/subscriptions/subscribe": {
       "post": {
         "operationId": "SubscriptionController_subscribe",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscribeDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -10154,9 +11859,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Subscriptions"
-        ]
+        "tags": ["Seller/Subscriptions"]
       }
     },
     "/subscriptions/cancel": {
@@ -10244,15 +11947,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Subscriptions"
-        ]
+        "tags": ["Seller/Subscriptions"]
       }
     },
     "/subscriptions/invoices": {
       "get": {
         "operationId": "SubscriptionController_listInvoices",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -10275,6 +12057,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -10342,9 +12127,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Subscriptions"
-        ]
+        "tags": ["Seller/Subscriptions"]
       }
     },
     "/subscriptions/entitlements/{feature}": {
@@ -10441,15 +12224,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Subscriptions"
-        ]
+        "tags": ["Seller/Subscriptions"]
       }
     },
     "/livestreams": {
       "get": {
         "operationId": "LivestreamController_listSessions",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -10472,6 +12334,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -10539,13 +12404,21 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Livestream"
-        ]
+        "tags": ["Seller/Livestream"]
       },
       "post": {
         "operationId": "LivestreamController_createSession",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLivestreamDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -10627,9 +12500,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Livestream"
-        ]
+        "tags": ["Seller/Livestream"]
       }
     },
     "/livestreams/{id}": {
@@ -10726,9 +12597,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Livestream"
-        ]
+        "tags": ["Seller/Livestream"]
       }
     },
     "/livestreams/{id}/start": {
@@ -10825,9 +12694,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Livestream"
-        ]
+        "tags": ["Seller/Livestream"]
       }
     },
     "/livestreams/{id}/end": {
@@ -10924,9 +12791,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Livestream"
-        ]
+        "tags": ["Seller/Livestream"]
       }
     },
     "/livestreams/{id}/products": {
@@ -10942,6 +12807,16 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddLivestreamProductDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -11023,9 +12898,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Livestream"
-        ]
+        "tags": ["Seller/Livestream"]
       }
     },
     "/livestreams/{id}/products/{productId}/pin": {
@@ -11049,6 +12922,16 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PinProductDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -11130,15 +13013,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Livestream"
-        ]
+        "tags": ["Seller/Livestream"]
       }
     },
     "/ai-tools/tasks": {
       "post": {
         "operationId": "AiToolsController_createTask",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAiTaskDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -11220,13 +13111,92 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/AiTools"
-        ]
+        "tags": ["Seller/AiTools"]
       },
       "get": {
         "operationId": "AiToolsController_listTasks",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -11249,6 +13219,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -11316,9 +13289,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/AiTools"
-        ]
+        "tags": ["Seller/AiTools"]
       }
     },
     "/ai-tools/tasks/{id}": {
@@ -11415,9 +13386,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/AiTools"
-        ]
+        "tags": ["Seller/AiTools"]
       }
     },
     "/ai-tools/tasks/{id}/process": {
@@ -11514,9 +13483,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/AiTools"
-        ]
+        "tags": ["Seller/AiTools"]
       }
     },
     "/ai-tools/usage": {
@@ -11604,9 +13571,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/AiTools"
-        ]
+        "tags": ["Seller/AiTools"]
       }
     },
     "/recommendations/stats": {
@@ -11694,9 +13659,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Recommendations"
-        ]
+        "tags": ["Seller/Recommendations"]
       }
     },
     "/loyalty/tiers": {
@@ -11784,15 +13747,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Loyalty"
-        ]
+        "tags": ["Seller/Loyalty"]
       }
     },
     "/loyalty/missions": {
       "get": {
         "operationId": "LoyaltyController_listMissions",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -11815,6 +13857,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -11882,9 +13927,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Loyalty"
-        ]
+        "tags": ["Seller/Loyalty"]
       }
     },
     "/wallet": {
@@ -11972,15 +14015,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Wallet"
-        ]
+        "tags": ["Seller/Wallet"]
       }
     },
     "/wallet/transactions": {
       "get": {
         "operationId": "WalletController_listTransactions",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -12003,6 +14125,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -12070,15 +14195,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Wallet"
-        ]
+        "tags": ["Seller/Wallet"]
       }
     },
     "/wallet/withdrawals": {
       "post": {
         "operationId": "WalletController_requestWithdrawal",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestWithdrawalDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -12160,13 +14293,92 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Wallet"
-        ]
+        "tags": ["Seller/Wallet"]
       },
       "get": {
         "operationId": "WalletController_listWithdrawals",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -12189,6 +14401,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -12256,9 +14471,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Wallet"
-        ]
+        "tags": ["Seller/Wallet"]
       }
     },
     "/search/suggestions": {
@@ -12346,9 +14559,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Search"
-        ]
+        "tags": ["Seller/Search"]
       }
     },
     "/search/popular": {
@@ -12436,9 +14647,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Search"
-        ]
+        "tags": ["Seller/Search"]
       }
     },
     "/search/analytics": {
@@ -12526,15 +14735,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Search"
-        ]
+        "tags": ["Seller/Search"]
       }
     },
     "/automations": {
       "get": {
         "operationId": "AutomationController_listRules",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -12557,6 +14845,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -12624,13 +14915,21 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Automation"
-        ]
+        "tags": ["Seller/Automation"]
       },
       "post": {
         "operationId": "AutomationController_createRule",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAutomationRuleDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -12712,9 +15011,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Automation"
-        ]
+        "tags": ["Seller/Automation"]
       }
     },
     "/automations/{id}": {
@@ -12811,9 +15108,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Automation"
-        ]
+        "tags": ["Seller/Automation"]
       },
       "put": {
         "operationId": "AutomationController_updateRule",
@@ -12827,6 +15122,16 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAutomationRuleDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -12908,9 +15213,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Automation"
-        ]
+        "tags": ["Seller/Automation"]
       },
       "delete": {
         "operationId": "AutomationController_deleteRule",
@@ -13005,9 +15308,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Automation"
-        ]
+        "tags": ["Seller/Automation"]
       }
     },
     "/i18n/regions": {
@@ -13095,9 +15396,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/I18n"
-        ]
+        "tags": ["Seller/I18n"]
       }
     },
     "/i18n/regions/{code}": {
@@ -13194,9 +15493,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/I18n"
-        ]
+        "tags": ["Seller/I18n"]
       }
     },
     "/i18n/currencies": {
@@ -13284,15 +15581,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/I18n"
-        ]
+        "tags": ["Seller/I18n"]
       }
     },
     "/i18n/translations": {
       "post": {
         "operationId": "I18nController_setTranslation",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTranslationDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -13374,9 +15679,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/I18n"
-        ]
+        "tags": ["Seller/I18n"]
       }
     },
     "/i18n/translations/{entityType}/{entityId}": {
@@ -13489,9 +15792,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/I18n"
-        ]
+        "tags": ["Seller/I18n"]
       }
     },
     "/i18n/pricing/{productId}": {
@@ -13588,9 +15889,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/I18n"
-        ]
+        "tags": ["Seller/I18n"]
       },
       "post": {
         "operationId": "I18nController_setRegionalPricing",
@@ -13685,9 +15984,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/I18n"
-        ]
+        "tags": ["Seller/I18n"]
       }
     },
     "/i18n/convert": {
@@ -13800,15 +16097,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/I18n"
-        ]
+        "tags": ["Seller/I18n"]
       }
     },
     "/events": {
       "post": {
         "operationId": "EventStreamingController_emitEvent",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmitEventDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -13890,9 +16195,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Events"
-        ]
+        "tags": ["Seller/Events"]
       },
       "get": {
         "operationId": "EventStreamingController_listEvents",
@@ -13919,6 +16222,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -13986,9 +16292,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Events"
-        ]
+        "tags": ["Seller/Events"]
       }
     },
     "/events/stats": {
@@ -14076,9 +16380,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Events"
-        ]
+        "tags": ["Seller/Events"]
       }
     },
     "/events/{id}": {
@@ -14175,9 +16477,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Events"
-        ]
+        "tags": ["Seller/Events"]
       }
     },
     "/events/{id}/replay": {
@@ -14274,15 +16574,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Events"
-        ]
+        "tags": ["Seller/Events"]
       }
     },
     "/growth/referrals": {
       "get": {
         "operationId": "GrowthController_listReferralPrograms",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -14305,6 +16684,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -14372,15 +16754,23 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       }
     },
     "/growth/referrals/programs": {
       "post": {
         "operationId": "GrowthController_createReferralProgram",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReferralProgramDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -14462,9 +16852,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       }
     },
     "/growth/referrals/create": {
@@ -14552,15 +16940,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       }
     },
     "/growth/experiments": {
       "get": {
         "operationId": "GrowthController_listExperiments",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -14583,6 +17050,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -14650,13 +17120,21 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       },
       "post": {
         "operationId": "GrowthController_createExperiment",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateExperimentDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -14738,9 +17216,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       }
     },
     "/growth/experiments/{id}/variant": {
@@ -14837,9 +17313,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       }
     },
     "/growth/feature-flags": {
@@ -14927,13 +17401,21 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       },
       "post": {
         "operationId": "GrowthController_createFeatureFlag",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFeatureFlagDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -15015,9 +17497,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       }
     },
     "/growth/feature-flags/{key}/toggle": {
@@ -15114,9 +17594,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       }
     },
     "/growth/feature-flags/{key}/check": {
@@ -15213,15 +17691,94 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       }
     },
     "/growth/campaigns": {
       "get": {
         "operationId": "GrowthController_listCampaigns",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (1-indexed)",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (alias for limit, deprecated)",
+            "deprecated": true,
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by (alias for sortBy)",
+            "deprecated": true,
+            "schema": {
+              "default": "createdAt",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction (alias for sortOrder)",
+            "deprecated": true,
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -15244,6 +17801,9 @@
                               }
                             }
                           }
+                        },
+                        "meta": {
+                          "$ref": "#/components/schemas/PaginationMetaDto"
                         }
                       }
                     }
@@ -15311,13 +17871,21 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       },
       "post": {
         "operationId": "GrowthController_createCampaign",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCampaignDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -15399,9 +17967,7 @@
             "sessionId": []
           }
         ],
-        "tags": [
-          "Seller/Growth"
-        ]
+        "tags": ["Seller/Growth"]
       }
     }
   },
@@ -15434,6 +18000,10 @@
             "type": "boolean",
             "example": false
           },
+          "message": {
+            "type": "string",
+            "example": "The requested resource was not found."
+          },
           "error": {
             "type": "object",
             "properties": {
@@ -15446,20 +18016,27 @@
                 "example": "The requested resource was not found."
               },
               "details": {
-                "nullable": true
+                "type": "object",
+                "nullable": true,
+                "additionalProperties": true
               }
-            }
+            },
+            "required": ["code", "message"]
+          },
+          "statusCode": {
+            "type": "number",
+            "example": 404
           },
           "timestamp": {
             "type": "string",
             "example": "2024-01-01T00:00:00.000Z"
+          },
+          "path": {
+            "type": "string",
+            "example": "/admin/products/123"
           }
         },
-        "required": [
-          "success",
-          "error",
-          "timestamp"
-        ]
+        "required": ["success", "message", "statusCode", "timestamp", "path"]
       },
       "ApiResponseDto": {
         "type": "object",
@@ -15469,7 +18046,12 @@
             "example": true
           },
           "data": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation completed successfully"
           },
           "meta": {
             "type": "object",
@@ -15480,15 +18062,80 @@
             "example": "2024-01-01T00:00:00.000Z"
           }
         },
-        "required": [
-          "success",
-          "data",
-          "timestamp"
-        ]
+        "required": ["success", "data", "timestamp"]
       },
       "Object": {
         "type": "object",
         "properties": {}
+      },
+      "RegisterDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email address",
+            "format": "email",
+            "example": "admin@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password",
+            "format": "password"
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "ForgotPasswordDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "ResetPasswordDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateShopDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "PaginationMetaDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "description": "Total number of items",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "description": "Current page number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "description": "Items per page",
+            "example": 20
+          },
+          "totalPages": {
+            "type": "number",
+            "description": "Total number of pages",
+            "example": 5
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "description": "Whether there is a next page",
+            "example": true
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "description": "Whether there is a previous page",
+            "example": false
+          }
+        },
+        "required": ["total", "page", "limit", "totalPages", "hasNextPage", "hasPreviousPage"]
       },
       "PaginatedResponseDto": {
         "type": "object",
@@ -15499,29 +18146,511 @@
           },
           "data": {
             "type": "object",
-            "additionalProperties": true
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": ["items"]
+          },
+          "message": {
+            "type": "string",
+            "example": "Items fetched successfully"
           },
           "meta": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "pagination": {
-                "type": "object",
-                "additionalProperties": true
-              }
-            }
+            "$ref": "#/components/schemas/PaginationMetaDto"
           },
           "timestamp": {
             "type": "string",
             "example": "2024-01-01T00:00:00.000Z"
           }
         },
-        "required": [
-          "success",
-          "data",
-          "meta",
-          "timestamp"
-        ]
+        "required": ["success", "meta", "timestamp"]
+      },
+      "VariantOptionValueDto": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Option value (e.g. \"Red\", \"XL\")"
+          }
+        },
+        "required": ["value"]
+      },
+      "VariantOptionGroupDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Option group name (e.g. \"Color\", \"Size\")"
+          },
+          "options": {
+            "description": "Available option values",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VariantOptionValueDto"
+            }
+          }
+        },
+        "required": ["name", "options"]
+      },
+      "ProductVariantDto": {
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string",
+            "description": "SKU for this variant"
+          },
+          "price": {
+            "type": "number",
+            "description": "Variant price",
+            "minimum": 0
+          },
+          "stock": {
+            "type": "number",
+            "description": "Variant stock quantity",
+            "minimum": 0
+          },
+          "optionValues": {
+            "description": "Selected option values for this variant",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["price", "stock", "optionValues"]
+      },
+      "ProductImageDto": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Image URL"
+          },
+          "alt": {
+            "type": "string",
+            "description": "Alt text for the image"
+          },
+          "isCover": {
+            "type": "boolean",
+            "description": "Whether this is the cover image",
+            "default": false
+          }
+        },
+        "required": ["url"]
+      },
+      "CreateProductDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Product name",
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "description": "Product description",
+            "maxLength": 5000
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "Category ID (UUID)",
+            "format": "uuid"
+          },
+          "basePrice": {
+            "type": "number",
+            "description": "Base price",
+            "minimum": 0
+          },
+          "baseSku": {
+            "type": "string",
+            "description": "Base SKU"
+          },
+          "baseStock": {
+            "type": "number",
+            "description": "Base stock quantity",
+            "minimum": 0
+          },
+          "weight": {
+            "type": "number",
+            "description": "Product weight in grams",
+            "minimum": 0
+          },
+          "hasVariants": {
+            "type": "boolean",
+            "description": "Whether product has variants",
+            "default": false
+          },
+          "variantOptionGroups": {
+            "description": "Variant option groups",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VariantOptionGroupDto"
+            }
+          },
+          "variants": {
+            "description": "Product variants",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantDto"
+            }
+          },
+          "images": {
+            "description": "Product images",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductImageDto"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["DRAFT", "PUBLISHED", "ARCHIVED", "REJECTED"],
+            "default": "DRAFT",
+            "description": "Initial product status"
+          }
+        },
+        "required": ["name"]
+      },
+      "UpdateProductDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Product name",
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "description": "Product description",
+            "maxLength": 5000
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "Category ID",
+            "format": "uuid"
+          },
+          "basePrice": {
+            "type": "number",
+            "description": "Base price",
+            "minimum": 0
+          },
+          "baseSku": {
+            "type": "string",
+            "description": "Base SKU"
+          },
+          "baseStock": {
+            "type": "number",
+            "description": "Base stock quantity",
+            "minimum": 0
+          },
+          "weight": {
+            "type": "number",
+            "description": "Product weight in grams",
+            "minimum": 0
+          },
+          "hasVariants": {
+            "type": "boolean",
+            "description": "Whether product has variants"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["DRAFT", "PUBLISHED", "ARCHIVED", "REJECTED"],
+            "description": "Product status"
+          }
+        }
+      },
+      "BulkUpdateStatusDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateOrderStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["PENDING", "CONFIRMED", "PACKING", "SHIPPED", "DELIVERED", "CANCELLED"],
+            "description": "New order status"
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional note for the status change"
+          }
+        },
+        "required": ["status"]
+      },
+      "UpdateStockDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "BulkUpdateStockDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateShipmentDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateCouponDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Unique coupon code",
+            "maxLength": 50
+          },
+          "name": {
+            "type": "string",
+            "description": "Coupon display name",
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "description": "Coupon description"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["PERCENTAGE", "FIXED_AMOUNT"],
+            "description": "Discount type"
+          },
+          "scope": {
+            "type": "string",
+            "enum": ["ALL_PRODUCTS", "SPECIFIC_PRODUCTS", "SPECIFIC_CATEGORIES"],
+            "description": "Coupon applicability scope"
+          },
+          "discountValue": {
+            "type": "number",
+            "description": "Discount value (percentage or fixed amount)",
+            "minimum": 0
+          },
+          "maxDiscountAmount": {
+            "type": "number",
+            "description": "Maximum discount amount (for percentage coupons)",
+            "minimum": 0
+          },
+          "minOrderAmount": {
+            "type": "number",
+            "description": "Minimum order amount to apply coupon",
+            "minimum": 0
+          },
+          "usageLimit": {
+            "type": "number",
+            "description": "Total usage limit",
+            "minimum": 1
+          },
+          "usageLimitPerUser": {
+            "type": "number",
+            "description": "Usage limit per user",
+            "minimum": 1
+          },
+          "autoApply": {
+            "type": "boolean",
+            "description": "Whether coupon is auto-applied at checkout",
+            "default": false
+          },
+          "startsAt": {
+            "type": "string",
+            "description": "Coupon start date (ISO 8601)",
+            "format": "date-time"
+          },
+          "expiresAt": {
+            "type": "string",
+            "description": "Coupon expiration date (ISO 8601)",
+            "format": "date-time"
+          },
+          "productIds": {
+            "description": "Product IDs for SPECIFIC_PRODUCTS scope",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "categoryIds": {
+            "description": "Category IDs for SPECIFIC_CATEGORIES scope",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["code", "name", "type", "discountValue", "startsAt", "expiresAt"]
+      },
+      "UpdateCouponDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Coupon display name",
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "description": "Coupon description"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["PERCENTAGE", "FIXED_AMOUNT"],
+            "description": "Discount type"
+          },
+          "scope": {
+            "type": "string",
+            "enum": ["ALL_PRODUCTS", "SPECIFIC_PRODUCTS", "SPECIFIC_CATEGORIES"],
+            "description": "Coupon applicability scope"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["DRAFT", "ACTIVE", "PAUSED", "EXPIRED", "DEPLETED"],
+            "description": "Coupon status"
+          },
+          "discountValue": {
+            "type": "number",
+            "description": "Discount value",
+            "minimum": 0
+          },
+          "maxDiscountAmount": {
+            "type": "number",
+            "description": "Maximum discount amount",
+            "minimum": 0
+          },
+          "minOrderAmount": {
+            "type": "number",
+            "description": "Minimum order amount",
+            "minimum": 0
+          },
+          "usageLimit": {
+            "type": "number",
+            "description": "Total usage limit",
+            "minimum": 1
+          },
+          "usageLimitPerUser": {
+            "type": "number",
+            "description": "Usage limit per user",
+            "minimum": 1
+          },
+          "autoApply": {
+            "type": "boolean",
+            "description": "Whether coupon is auto-applied"
+          },
+          "startsAt": {
+            "type": "string",
+            "description": "Coupon start date (ISO 8601)",
+            "format": "date-time"
+          },
+          "expiresAt": {
+            "type": "string",
+            "description": "Coupon expiration date (ISO 8601)",
+            "format": "date-time"
+          },
+          "productIds": {
+            "description": "Product IDs for SPECIFIC_PRODUCTS scope",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "categoryIds": {
+            "description": "Category IDs for SPECIFIC_CATEGORIES scope",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "UpdateReturnStatusDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateWarehouseDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "ApplyFlashSaleSlotDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateAdCampaignDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateAdCampaignStatusDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateAdGroupDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateAdDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateAffiliateLinkDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "RequestPayoutDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "SubscribeDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateLivestreamDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "AddLivestreamProductDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "PinProductDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateAiTaskDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "RequestWithdrawalDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateAutomationRuleDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateAutomationRuleDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateTranslationDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "EmitEventDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateReferralProgramDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateExperimentDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateFeatureFlagDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateCampaignDto": {
+        "type": "object",
+        "properties": {}
       }
     }
   },

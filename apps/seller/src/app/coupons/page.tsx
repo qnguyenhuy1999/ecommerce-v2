@@ -109,7 +109,7 @@ export default function CouponsPage() {
         setLoading(false)
       }
     }
-    fetchData()
+    void fetchData()
   }, [page, search, statusFilter])
 
   const columns = [

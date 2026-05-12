@@ -13,13 +13,13 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger'
 import { Throttle } from '@nestjs/throttler'
 import type { Request, Response } from 'express'
 import { getSessionCookieOptions, SESSION_COOKIE_NAME } from '@ecom/auth'
-import type { RegisterDto, LoginDto } from '@ecom/contracts'
+import { RegisterDto, LoginDto } from '@ecom/contracts'
 import {
   ApiErrorResponses,
   ApiOkResponseData,
   ApiCreatedResponseData,
 } from '@ecom/nestjs-core/openapi'
-import type { AuthService } from './auth.service'
+import { AuthService } from './auth.service'
 
 @ApiTags('Storefront/Auth')
 @ApiErrorResponses()
@@ -73,7 +73,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiOkResponseData('any')
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    const sessionId = req.cookies?.[SESSION_COOKIE_NAME]
+    const sessionId = getCookieValue(req, SESSION_COOKIE_NAME)
     if (sessionId) {
       await this.authService.logout(sessionId)
     }
@@ -94,7 +94,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Get current user session info' })
   @ApiOkResponseData('any')
   async me(@Req() req: Request) {
-    const sessionId = req.cookies?.[SESSION_COOKIE_NAME]
+    const sessionId = getCookieValue(req, SESSION_COOKIE_NAME)
     if (!sessionId) {
       throw new UnauthorizedException('No session cookie')
     }
@@ -110,4 +110,10 @@ function getClientIp(req: Request): string {
     return forwardedFor.split(',')[0]?.trim() ?? req.ip ?? ''
   }
   return req.ip ?? ''
+}
+
+function getCookieValue(req: Request, key: string): string | undefined {
+  const cookies = req.cookies as Record<string, unknown> | undefined
+  const value = cookies?.[key]
+  return typeof value === 'string' ? value : undefined
 }

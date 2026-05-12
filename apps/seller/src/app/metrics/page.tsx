@@ -50,7 +50,7 @@ export default function MetricsPage() {
         setLoading(false)
       }
     }
-    fetchData()
+    void fetchData()
   }, [days])
 
   const getScoreColor = (score: number) => {

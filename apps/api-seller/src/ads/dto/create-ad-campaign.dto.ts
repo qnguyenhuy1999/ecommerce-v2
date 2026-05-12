@@ -1,4 +1,13 @@
-import { IsString, IsOptional, IsDateString, IsNumber, IsEnum, IsArray, ValidateNested, IsInt, Min } from 'class-validator'
+import {
+  IsString,
+  IsOptional,
+  IsDateString,
+  IsNumber,
+  IsEnum,
+  IsArray,
+  ValidateNested,
+  Min,
+} from 'class-validator'
 import { Type } from 'class-transformer'
 import { AdType } from '@ecom/database'
 

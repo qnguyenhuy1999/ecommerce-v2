@@ -1,12 +1,12 @@
 import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger'
 import { Controller, Get, Post, Put, Param, Query, Body, UseGuards } from '@nestjs/common'
-import type { PromotionsService } from './promotions.service'
+import { PromotionsService } from './promotions.service'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import type { VoucherQueryDto, CreateVoucherDto, UpdateVoucherDto } from './dto/voucher.dto'
+import { VoucherQueryDto, CreateVoucherDto, UpdateVoucherDto } from './dto/voucher.dto'
 import { VoucherResponseDto } from './dto/voucher.dto'
 import {
   ApiOkResponseData,

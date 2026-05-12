@@ -1,4 +1,13 @@
-import { IsString, IsOptional, IsNumber, IsBoolean, IsUUID, MaxLength, Min, IsEnum } from 'class-validator'
+import {
+  IsString,
+  IsOptional,
+  IsNumber,
+  IsBoolean,
+  IsUUID,
+  MaxLength,
+  Min,
+  IsEnum,
+} from 'class-validator'
 import { ApiPropertyOptional } from '@nestjs/swagger'
 import { ProductStatus } from '@ecom/contracts'
 

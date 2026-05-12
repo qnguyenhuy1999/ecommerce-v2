@@ -8,12 +8,12 @@ export interface AuthUser {
 
 export function parseCookies(cookieHeader: string | undefined): Record<string, string> {
   if (!cookieHeader) return {}
-  return Object.fromEntries(
-    cookieHeader.split(';').map((pair) => {
-      const [key, ...rest] = pair.trim().split('=')
-      return [key, rest.join('=')]
-    }),
-  )
+  return cookieHeader.split(';').reduce<Record<string, string>>((acc, pair) => {
+    const [key, ...rest] = pair.trim().split('=')
+    if (!key) return acc
+    acc[key] = rest.join('=')
+    return acc
+  }, {})
 }
 
 export function getSessionId(

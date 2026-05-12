@@ -1,8 +1,8 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
-import type { Prisma } from '@ecom/database'
-import type { InventoryQueryDto } from './dto/inventory-query.dto'
+import { Prisma } from '@ecom/database'
+import { InventoryQueryDto } from './dto/inventory-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import type { InventoryRepository } from './repositories/inventory.repository'
+import { InventoryRepository } from './repositories/inventory.repository'
 
 const LOW_STOCK_THRESHOLD = 10
 

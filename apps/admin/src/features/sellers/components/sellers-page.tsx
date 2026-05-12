@@ -130,7 +130,9 @@ export function SellersPage() {
                 : data?.items.map((seller) => (
                     <tr key={seller.id} className="hover:bg-muted/50 border-b">
                       <td className="px-4 py-3 font-medium">{seller.shopName}</td>
-                      <td className="text-muted-foreground px-4 py-3">{getSellerEmail(seller) ?? '—'}</td>
+                      <td className="text-muted-foreground px-4 py-3">
+                        {getSellerEmail(seller) ?? '—'}
+                      </td>
                       <td className="px-4 py-3">
                         <StatusBadge status={seller.status} />
                       </td>

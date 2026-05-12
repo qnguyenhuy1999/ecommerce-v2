@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import type { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
-import type { AutomationQueryDto } from './dto/automation-query.dto'
+import { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
+import { AutomationQueryDto } from './dto/automation-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()

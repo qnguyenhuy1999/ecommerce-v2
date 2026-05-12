@@ -1,11 +1,11 @@
 import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger'
 import { Controller, Get, Post, Param, Query, Body, UseGuards } from '@nestjs/common'
-import type { UsersService } from './users.service'
+import { UsersService } from './users.service'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import type { UserQueryDto, UserActionDto } from './dto/user-query.dto'
+import { UserQueryDto, UserActionDto } from './dto/user-query.dto'
 import { UserResponseDto } from './dto/user-query.dto'
 import { AUDIT_ACTIONS } from '@ecom/shared/constants'
 import {

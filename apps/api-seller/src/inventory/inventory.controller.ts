@@ -9,10 +9,10 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { InventoryService } from './inventory.service'
-import type { InventoryQueryDto } from './dto/inventory-query.dto'
-import type { UpdateStockDto, BulkUpdateStockDto } from './dto/update-stock.dto'
+import { ShopService } from '../shop/shop.service'
+import { InventoryService } from './inventory.service'
+import { InventoryQueryDto } from './dto/inventory-query.dto'
+import { UpdateStockDto, BulkUpdateStockDto } from './dto/update-stock.dto'
 
 @ApiTags('Seller/Inventory')
 @ApiAuth()

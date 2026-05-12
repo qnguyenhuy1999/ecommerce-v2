@@ -13,13 +13,13 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger'
 import { Throttle } from '@nestjs/throttler'
 import type { Request, Response } from 'express'
 import { getSessionCookieOptions, SESSION_COOKIE_NAME } from '@ecom/auth'
-import type { RegisterDto, LoginDto } from '@ecom/contracts'
+import { RegisterDto, LoginDto } from '@ecom/contracts'
 import {
   ApiErrorResponses,
   ApiOkResponseData,
   ApiCreatedResponseData,
 } from '@ecom/nestjs-core/openapi'
-import type { AuthService } from './auth.service'
+import { AuthService } from './auth.service'
 
 @ApiTags('Storefront/Auth')
 @ApiErrorResponses()

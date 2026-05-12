@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { ReviewStatus } from '@ecom/contracts/enums'
-import type { ReviewQueryDto } from './dto/review-query.dto'
+import { ReviewQueryDto } from './dto/review-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
@@ -116,7 +116,9 @@ export class ReviewService {
     const productIds = await this.getShopProductIds(shopId)
 
     const [totalReviews, ratingDist, avgRating] = await Promise.all([
-      this.prisma.review.count({ where: { productId: { in: productIds }, status: ReviewStatus.APPROVED } }),
+      this.prisma.review.count({
+        where: { productId: { in: productIds }, status: ReviewStatus.APPROVED },
+      }),
       this.prisma.review.groupBy({
         by: ['rating'],
         where: { productId: { in: productIds }, status: ReviewStatus.APPROVED },

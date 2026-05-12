@@ -4,7 +4,7 @@ import {
   ConflictException,
   BadRequestException,
 } from '@nestjs/common'
-import type { PrismaService, Prisma } from '@ecom/database'
+import { PrismaService, Prisma } from '@ecom/database'
 import { type PlatformVoucherStatus, type PlatformVoucherType } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { withDefined, nullable } from '@ecom/shared/utils'
@@ -77,7 +77,9 @@ export class PromotionsService {
       minOrderAmount: nullable(data.minOrderAmount),
       ...(data.description !== undefined ? { description: data.description } : {}),
       ...(data.usageLimit !== undefined ? { usageLimit: data.usageLimit } : {}),
-      ...(data.usageLimitPerUser !== undefined ? { usageLimitPerUser: data.usageLimitPerUser } : {}),
+      ...(data.usageLimitPerUser !== undefined
+        ? { usageLimitPerUser: data.usageLimitPerUser }
+        : {}),
       ...(data.createdBy !== undefined ? { createdBy: data.createdBy } : {}),
     }
 

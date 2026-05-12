@@ -44,7 +44,10 @@ export class CreateCouponDto {
   @Min(0)
   discountValue!: number
 
-  @ApiPropertyOptional({ description: 'Maximum discount amount (for percentage coupons)', minimum: 0 })
+  @ApiPropertyOptional({
+    description: 'Maximum discount amount (for percentage coupons)',
+    minimum: 0,
+  })
   @IsOptional()
   @Type(() => Number)
   @IsNumber()
@@ -72,7 +75,10 @@ export class CreateCouponDto {
   @Min(1)
   usageLimitPerUser?: number
 
-  @ApiPropertyOptional({ description: 'Whether coupon is auto-applied at checkout', default: false })
+  @ApiPropertyOptional({
+    description: 'Whether coupon is auto-applied at checkout',
+    default: false,
+  })
   @IsOptional()
   @IsBoolean()
   autoApply?: boolean
@@ -91,7 +97,10 @@ export class CreateCouponDto {
   @IsString({ each: true })
   productIds?: string[]
 
-  @ApiPropertyOptional({ description: 'Category IDs for SPECIFIC_CATEGORIES scope', type: [String] })
+  @ApiPropertyOptional({
+    description: 'Category IDs for SPECIFIC_CATEGORIES scope',
+    type: [String],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

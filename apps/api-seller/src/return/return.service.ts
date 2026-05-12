@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { ReturnStatus } from '@ecom/contracts/enums'
-import type { ReturnQueryDto } from './dto/return-query.dto'
+import { ReturnQueryDto } from './dto/return-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 const VALID_TRANSITIONS: Partial<Record<ReturnStatus, ReturnStatus[]>> = {

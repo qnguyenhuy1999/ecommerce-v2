@@ -10,9 +10,9 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { BulkService } from './bulk.service'
-import type { BulkJobQueryDto } from './dto/bulk-query.dto'
+import { ShopService } from '../shop/shop.service'
+import { BulkService } from './bulk.service'
+import { BulkJobQueryDto } from './dto/bulk-query.dto'
 
 @ApiTags('Seller/Bulk')
 @ApiAuth()

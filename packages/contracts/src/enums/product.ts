@@ -38,8 +38,7 @@ export const ProductReportReason = {
   OTHER: 'OTHER',
 } as const
 
-export type ProductReportReason =
-  (typeof ProductReportReason)[keyof typeof ProductReportReason]
+export type ProductReportReason = (typeof ProductReportReason)[keyof typeof ProductReportReason]
 
 // ─── Product Report Status ──────────────────────────────────────
 export const ProductReportStatus = {
@@ -49,5 +48,4 @@ export const ProductReportStatus = {
   DISMISSED: 'DISMISSED',
 } as const
 
-export type ProductReportStatus =
-  (typeof ProductReportStatus)[keyof typeof ProductReportStatus]
+export type ProductReportStatus = (typeof ProductReportStatus)[keyof typeof ProductReportStatus]

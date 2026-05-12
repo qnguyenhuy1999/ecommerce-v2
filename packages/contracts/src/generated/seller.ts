@@ -2208,20 +2208,32 @@ export type components = {
     ErrorResponseDto: {
       /** @example false */
       success: boolean
-      error: {
+      /** @example The requested resource was not found. */
+      message: string
+      error?: {
         /** @example NOT_FOUND */
-        code?: string
+        code: string
         /** @example The requested resource was not found. */
-        message?: string
-        details?: unknown
+        message: string
+        details?: {
+          [key: string]: unknown
+        } | null
       }
+      /** @example 404 */
+      statusCode: number
       /** @example 2024-01-01T00:00:00.000Z */
       timestamp: string
+      /** @example /admin/products/123 */
+      path: string
     }
     ApiResponseDto: {
       /** @example true */
       success: boolean
-      data: Record<string, never>
+      data: {
+        [key: string]: unknown
+      }
+      /** @example Operation completed successfully */
+      message?: string
       meta?: {
         [key: string]: unknown
       }
@@ -2229,20 +2241,290 @@ export type components = {
       timestamp: string
     }
     Object: Record<string, never>
+    RegisterDto: Record<string, never>
+    LoginDto: {
+      /**
+       * Format: email
+       * @description User email address
+       * @example admin@example.com
+       */
+      email: string
+      /**
+       * Format: password
+       * @description User password
+       */
+      password: string
+    }
+    ForgotPasswordDto: Record<string, never>
+    ResetPasswordDto: Record<string, never>
+    UpdateShopDto: Record<string, never>
+    PaginationMetaDto: {
+      /**
+       * @description Total number of items
+       * @example 100
+       */
+      total: number
+      /**
+       * @description Current page number
+       * @example 1
+       */
+      page: number
+      /**
+       * @description Items per page
+       * @example 20
+       */
+      limit: number
+      /**
+       * @description Total number of pages
+       * @example 5
+       */
+      totalPages: number
+      /**
+       * @description Whether there is a next page
+       * @example true
+       */
+      hasNextPage: boolean
+      /**
+       * @description Whether there is a previous page
+       * @example false
+       */
+      hasPreviousPage: boolean
+    }
     PaginatedResponseDto: {
       /** @example true */
       success: boolean
-      data: {
-        [key: string]: unknown
+      data?: {
+        items: Record<string, never>[]
       }
-      meta: {
-        pagination?: {
-          [key: string]: unknown
-        }
-      }
+      /** @example Items fetched successfully */
+      message?: string
+      meta: components['schemas']['PaginationMetaDto']
       /** @example 2024-01-01T00:00:00.000Z */
       timestamp: string
     }
+    VariantOptionValueDto: {
+      /** @description Option value (e.g. "Red", "XL") */
+      value: string
+    }
+    VariantOptionGroupDto: {
+      /** @description Option group name (e.g. "Color", "Size") */
+      name: string
+      /** @description Available option values */
+      options: components['schemas']['VariantOptionValueDto'][]
+    }
+    ProductVariantDto: {
+      /** @description SKU for this variant */
+      sku?: string
+      /** @description Variant price */
+      price: number
+      /** @description Variant stock quantity */
+      stock: number
+      /** @description Selected option values for this variant */
+      optionValues: string[]
+    }
+    ProductImageDto: {
+      /** @description Image URL */
+      url: string
+      /** @description Alt text for the image */
+      alt?: string
+      /**
+       * @description Whether this is the cover image
+       * @default false
+       */
+      isCover: boolean
+    }
+    CreateProductDto: {
+      /** @description Product name */
+      name: string
+      /** @description Product description */
+      description?: string
+      /**
+       * Format: uuid
+       * @description Category ID (UUID)
+       */
+      categoryId?: string
+      /** @description Base price */
+      basePrice?: number
+      /** @description Base SKU */
+      baseSku?: string
+      /** @description Base stock quantity */
+      baseStock?: number
+      /** @description Product weight in grams */
+      weight?: number
+      /**
+       * @description Whether product has variants
+       * @default false
+       */
+      hasVariants: boolean
+      /** @description Variant option groups */
+      variantOptionGroups?: components['schemas']['VariantOptionGroupDto'][]
+      /** @description Product variants */
+      variants?: components['schemas']['ProductVariantDto'][]
+      /** @description Product images */
+      images?: components['schemas']['ProductImageDto'][]
+      /**
+       * @description Initial product status
+       * @default DRAFT
+       * @enum {string}
+       */
+      status: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' | 'REJECTED'
+    }
+    UpdateProductDto: {
+      /** @description Product name */
+      name?: string
+      /** @description Product description */
+      description?: string
+      /**
+       * Format: uuid
+       * @description Category ID
+       */
+      categoryId?: string
+      /** @description Base price */
+      basePrice?: number
+      /** @description Base SKU */
+      baseSku?: string
+      /** @description Base stock quantity */
+      baseStock?: number
+      /** @description Product weight in grams */
+      weight?: number
+      /** @description Whether product has variants */
+      hasVariants?: boolean
+      /**
+       * @description Product status
+       * @enum {string}
+       */
+      status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' | 'REJECTED'
+    }
+    BulkUpdateStatusDto: Record<string, never>
+    UpdateOrderStatusDto: {
+      /**
+       * @description New order status
+       * @enum {string}
+       */
+      status: 'PENDING' | 'CONFIRMED' | 'PACKING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED'
+      /** @description Optional note for the status change */
+      note?: string
+    }
+    UpdateStockDto: Record<string, never>
+    BulkUpdateStockDto: Record<string, never>
+    CreateShipmentDto: Record<string, never>
+    CreateCouponDto: {
+      /** @description Unique coupon code */
+      code: string
+      /** @description Coupon display name */
+      name: string
+      /** @description Coupon description */
+      description?: string
+      /**
+       * @description Discount type
+       * @enum {string}
+       */
+      type: 'PERCENTAGE' | 'FIXED_AMOUNT'
+      /**
+       * @description Coupon applicability scope
+       * @enum {string}
+       */
+      scope?: 'ALL_PRODUCTS' | 'SPECIFIC_PRODUCTS' | 'SPECIFIC_CATEGORIES'
+      /** @description Discount value (percentage or fixed amount) */
+      discountValue: number
+      /** @description Maximum discount amount (for percentage coupons) */
+      maxDiscountAmount?: number
+      /** @description Minimum order amount to apply coupon */
+      minOrderAmount?: number
+      /** @description Total usage limit */
+      usageLimit?: number
+      /** @description Usage limit per user */
+      usageLimitPerUser?: number
+      /**
+       * @description Whether coupon is auto-applied at checkout
+       * @default false
+       */
+      autoApply: boolean
+      /**
+       * Format: date-time
+       * @description Coupon start date (ISO 8601)
+       */
+      startsAt: string
+      /**
+       * Format: date-time
+       * @description Coupon expiration date (ISO 8601)
+       */
+      expiresAt: string
+      /** @description Product IDs for SPECIFIC_PRODUCTS scope */
+      productIds?: string[]
+      /** @description Category IDs for SPECIFIC_CATEGORIES scope */
+      categoryIds?: string[]
+    }
+    UpdateCouponDto: {
+      /** @description Coupon display name */
+      name?: string
+      /** @description Coupon description */
+      description?: string
+      /**
+       * @description Discount type
+       * @enum {string}
+       */
+      type?: 'PERCENTAGE' | 'FIXED_AMOUNT'
+      /**
+       * @description Coupon applicability scope
+       * @enum {string}
+       */
+      scope?: 'ALL_PRODUCTS' | 'SPECIFIC_PRODUCTS' | 'SPECIFIC_CATEGORIES'
+      /**
+       * @description Coupon status
+       * @enum {string}
+       */
+      status?: 'DRAFT' | 'ACTIVE' | 'PAUSED' | 'EXPIRED' | 'DEPLETED'
+      /** @description Discount value */
+      discountValue?: number
+      /** @description Maximum discount amount */
+      maxDiscountAmount?: number
+      /** @description Minimum order amount */
+      minOrderAmount?: number
+      /** @description Total usage limit */
+      usageLimit?: number
+      /** @description Usage limit per user */
+      usageLimitPerUser?: number
+      /** @description Whether coupon is auto-applied */
+      autoApply?: boolean
+      /**
+       * Format: date-time
+       * @description Coupon start date (ISO 8601)
+       */
+      startsAt?: string
+      /**
+       * Format: date-time
+       * @description Coupon expiration date (ISO 8601)
+       */
+      expiresAt?: string
+      /** @description Product IDs for SPECIFIC_PRODUCTS scope */
+      productIds?: string[]
+      /** @description Category IDs for SPECIFIC_CATEGORIES scope */
+      categoryIds?: string[]
+    }
+    UpdateReturnStatusDto: Record<string, never>
+    CreateWarehouseDto: Record<string, never>
+    ApplyFlashSaleSlotDto: Record<string, never>
+    CreateAdCampaignDto: Record<string, never>
+    UpdateAdCampaignStatusDto: Record<string, never>
+    CreateAdGroupDto: Record<string, never>
+    CreateAdDto: Record<string, never>
+    CreateAffiliateLinkDto: Record<string, never>
+    RequestPayoutDto: Record<string, never>
+    SubscribeDto: Record<string, never>
+    CreateLivestreamDto: Record<string, never>
+    AddLivestreamProductDto: Record<string, never>
+    PinProductDto: Record<string, never>
+    CreateAiTaskDto: Record<string, never>
+    RequestWithdrawalDto: Record<string, never>
+    CreateAutomationRuleDto: Record<string, never>
+    UpdateAutomationRuleDto: Record<string, never>
+    CreateTranslationDto: Record<string, never>
+    EmitEventDto: Record<string, never>
+    CreateReferralProgramDto: Record<string, never>
+    CreateExperimentDto: Record<string, never>
+    CreateFeatureFlagDto: Record<string, never>
+    CreateCampaignDto: Record<string, never>
   }
   responses: never
   parameters: never
@@ -2259,7 +2541,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['RegisterDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -2325,7 +2611,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['LoginDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -2523,7 +2813,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ForgotPasswordDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -2589,7 +2883,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ResetPasswordDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -2789,7 +3087,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateShopDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -2850,7 +3152,37 @@ export interface operations {
   }
   ProductController_list: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+        /** @description Search by product name or SKU */
+        search?: string
+        /** @description Filter by product status */
+        status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' | 'REJECTED'
+        /** @description Filter by category ID */
+        categoryId?: string
+      }
       header?: never
       path?: never
       cookie?: never
@@ -2866,6 +3198,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -2923,7 +3256,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateProductDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -3125,7 +3462,11 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateProductDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -3259,7 +3600,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['BulkUpdateStatusDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -3386,7 +3731,35 @@ export interface operations {
   }
   OrderController_list: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+        /** @description Filter by order status */
+        status?: 'PENDING' | 'CONFIRMED' | 'PACKING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED'
+        /** @description Search by order number or customer name */
+        search?: string
+      }
       header?: never
       path?: never
       cookie?: never
@@ -3402,6 +3775,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -3529,7 +3903,11 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateOrderStatusDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -3590,7 +3968,31 @@ export interface operations {
   }
   InventoryController_list: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -3606,6 +4008,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -3745,6 +4148,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -3802,7 +4206,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateStockDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -3868,7 +4276,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['BulkUpdateStockDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -4134,7 +4546,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateShipmentDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -4263,7 +4679,31 @@ export interface operations {
   }
   NotificationController_list: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -4279,6 +4719,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -4531,7 +4972,37 @@ export interface operations {
   }
   CouponController_list: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+        /** @description Search by coupon code or name */
+        search?: string
+        /** @description Filter by coupon status */
+        status?: 'DRAFT' | 'ACTIVE' | 'PAUSED' | 'EXPIRED' | 'DEPLETED'
+        /** @description Filter by coupon type */
+        type?: 'PERCENTAGE' | 'FIXED_AMOUNT'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -4547,6 +5018,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -4604,7 +5076,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateCouponDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -4806,7 +5282,11 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateCouponDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -5277,7 +5757,31 @@ export interface operations {
   }
   BulkController_listJobs: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -5293,6 +5797,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -5545,7 +6050,31 @@ export interface operations {
   }
   ReviewController_list: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -5561,6 +6090,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -5883,7 +6413,31 @@ export interface operations {
   }
   ChatController_listConversations: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -5899,6 +6453,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -6085,7 +6640,31 @@ export interface operations {
   }
   ChatController_getMessages: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path: {
         id: string
@@ -6103,6 +6682,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -6291,7 +6871,31 @@ export interface operations {
   }
   ReturnController_list: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -6307,6 +6911,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -6500,7 +7105,11 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateReturnStatusDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -6629,7 +7238,31 @@ export interface operations {
   }
   ApprovalController_list: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -6645,6 +7278,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -6969,7 +7603,31 @@ export interface operations {
   }
   WarehouseController_list: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -6985,6 +7643,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -7042,7 +7701,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateWarehouseDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -7169,7 +7832,31 @@ export interface operations {
   }
   WarehouseController_listTransfers: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -7185,6 +7872,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -7439,7 +8127,31 @@ export interface operations {
   }
   WarehouseController_getStock: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path: {
         id: string
@@ -7457,6 +8169,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -7793,6 +8506,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -7845,7 +8559,31 @@ export interface operations {
   }
   SearchController_searchOrders: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -7861,6 +8599,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -8115,7 +8854,31 @@ export interface operations {
   }
   FlashSaleController_listCampaigns: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -8131,6 +8894,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -8256,7 +9020,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ApplyFlashSaleSlotDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -8317,7 +9085,31 @@ export interface operations {
   }
   FlashSaleController_listMySlots: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -8333,6 +9125,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -8385,7 +9178,31 @@ export interface operations {
   }
   AdsController_listCampaigns: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -8401,6 +9218,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -8458,7 +9276,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateAdCampaignDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -8594,7 +9416,11 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateAdCampaignStatusDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -8660,7 +9486,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateAdGroupDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -8726,7 +9556,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateAdDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -8987,7 +9821,31 @@ export interface operations {
   }
   AffiliateController_listLinks: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -9003,6 +9861,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -9060,7 +9919,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateAffiliateLinkDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -9126,7 +9989,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['RequestPayoutDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -9392,7 +10259,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SubscribeDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -9519,7 +10390,31 @@ export interface operations {
   }
   SubscriptionController_listInvoices: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -9535,6 +10430,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -9655,7 +10551,31 @@ export interface operations {
   }
   LivestreamController_listSessions: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -9671,6 +10591,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -9728,7 +10649,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateLivestreamDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -10000,7 +10925,11 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AddLivestreamProductDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -10069,7 +10998,11 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PinProductDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -10130,7 +11063,31 @@ export interface operations {
   }
   AiToolsController_listTasks: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -10146,6 +11103,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -10203,7 +11161,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateAiTaskDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -10598,7 +11560,31 @@ export interface operations {
   }
   LoyaltyController_listMissions: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -10614,6 +11600,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -10732,7 +11719,31 @@ export interface operations {
   }
   WalletController_listTransactions: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -10748,6 +11759,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -10800,7 +11812,31 @@ export interface operations {
   }
   WalletController_listWithdrawals: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -10816,6 +11852,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -10873,7 +11910,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['RequestWithdrawalDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -11132,7 +12173,31 @@ export interface operations {
   }
   AutomationController_listRules: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -11148,6 +12213,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -11205,7 +12271,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateAutomationRuleDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -11341,7 +12411,11 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateAutomationRuleDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -11675,7 +12749,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateTranslationDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -12029,6 +13107,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -12086,7 +13165,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['EmitEventDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -12349,7 +13432,31 @@ export interface operations {
   }
   GrowthController_listReferralPrograms: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -12365,6 +13472,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -12422,7 +13530,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateReferralProgramDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -12549,7 +13661,31 @@ export interface operations {
   }
   GrowthController_listExperiments: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -12565,6 +13701,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -12622,7 +13759,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateExperimentDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -12822,7 +13963,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateFeatureFlagDto']
+      }
+    }
     responses: {
       201: {
         headers: {
@@ -13019,7 +14164,31 @@ export interface operations {
   }
   GrowthController_listCampaigns: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Page number (1-indexed) */
+        page?: number
+        /** @description Items per page */
+        limit?: number
+        /**
+         * @deprecated
+         * @description Items per page (alias for limit, deprecated)
+         */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /**
+         * @deprecated
+         * @description Field to sort by (alias for sortBy)
+         */
+        sort?: string
+        /** @description Sort direction */
+        sortOrder?: 'asc' | 'desc'
+        /**
+         * @deprecated
+         * @description Sort direction (alias for sortOrder)
+         */
+        order?: 'asc' | 'desc'
+      }
       header?: never
       path?: never
       cookie?: never
@@ -13035,6 +14204,7 @@ export interface operations {
             data?: {
               items?: components['schemas']['Object'][]
             }
+            meta?: components['schemas']['PaginationMetaDto']
           }
         }
       }
@@ -13092,7 +14262,11 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: never
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateCampaignDto']
+      }
+    }
     responses: {
       201: {
         headers: {

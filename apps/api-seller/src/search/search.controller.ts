@@ -21,9 +21,9 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { SearchService } from './search.service'
-import type { ProductSearchDto, OrderSearchDto } from './dto/search-query.dto'
+import { ShopService } from '../shop/shop.service'
+import { SearchService } from './search.service'
+import { ProductSearchDto, OrderSearchDto } from './dto/search-query.dto'
 
 @ApiTags('Seller/Search')
 @ApiAuth()

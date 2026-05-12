@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { NotificationType } from '@ecom/database'
-import type { NotificationQueryDto } from './dto/notification-query.dto'
+import { NotificationQueryDto } from './dto/notification-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()

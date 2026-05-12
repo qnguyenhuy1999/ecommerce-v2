@@ -1,5 +1,5 @@
 import { SetMetadata } from '@nestjs/common'
-import type { AuditActionType } from '@ecom/database'
+import { AuditActionType } from '@ecom/database'
 
 export const AUDIT_LOG_KEY = 'audit_log'
 

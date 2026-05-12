@@ -63,7 +63,9 @@ export function SellerDetailPage({ id }: { id: string }) {
             <Row label="User Status" value={seller.user?.status ?? '—'} />
             <Row
               label="Registered"
-              value={seller.user?.createdAt ? new Date(seller.user.createdAt).toLocaleString() : '—'}
+              value={
+                seller.user?.createdAt ? new Date(seller.user.createdAt).toLocaleString() : '—'
+              }
             />
           </dl>
         </div>

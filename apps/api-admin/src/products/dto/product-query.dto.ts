@@ -45,7 +45,11 @@ export class ProductResponseDto {
   @ApiProperty({ description: 'URL-friendly slug' }) slug!: string
   @ApiProperty({ description: 'Product description' }) description!: string
   @ApiProperty({ description: 'Base price' }) price!: number
-  @ApiProperty({ description: 'Product status', enum: ['DRAFT', 'PUBLISHED', 'ARCHIVED', 'REJECTED'] }) status!: string
+  @ApiProperty({
+    description: 'Product status',
+    enum: ['DRAFT', 'PUBLISHED', 'ARCHIVED', 'REJECTED'],
+  })
+  status!: string
   @ApiProperty({ description: 'Creation timestamp', format: 'date-time' }) createdAt!: Date
   @ApiProperty({ description: 'Last update timestamp', format: 'date-time' }) updatedAt!: Date
 }

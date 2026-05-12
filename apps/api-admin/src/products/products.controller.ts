@@ -1,18 +1,14 @@
 import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger'
 import { Controller, Get, Post, Param, Query, Body, UseGuards } from '@nestjs/common'
-import type { ProductsService } from './products.service'
+import { ProductsService } from './products.service'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import type { ProductQueryDto } from './dto/product-query.dto'
+import { ProductQueryDto } from './dto/product-query.dto'
 import { ProductResponseDto } from './dto/product-query.dto'
-import type {
-  ProductModerationDto,
-  BulkModerationDto,
-  ResolveReportDto,
-} from './dto/product-action.dto'
+import { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto/product-action.dto'
 import { type ProductReportStatus } from '@ecom/contracts/enums'
 import { AUDIT_ACTIONS } from '@ecom/shared/constants'
 import { withDefined } from '@ecom/shared/utils'

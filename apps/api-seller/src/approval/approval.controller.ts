@@ -10,9 +10,9 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { ApprovalService } from './approval.service'
-import type { ApprovalQueryDto } from './dto/approval-query.dto'
+import { ShopService } from '../shop/shop.service'
+import { ApprovalService } from './approval.service'
+import { ApprovalQueryDto } from './dto/approval-query.dto'
 
 @ApiTags('Seller/Approvals')
 @ApiAuth()

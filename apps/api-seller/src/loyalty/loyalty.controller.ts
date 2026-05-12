@@ -7,8 +7,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { LoyaltyService } from './loyalty.service'
-import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { LoyaltyService } from './loyalty.service'
+import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/Loyalty')
 @ApiAuth()

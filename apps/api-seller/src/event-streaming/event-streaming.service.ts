@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { PlatformEventStatus } from '@ecom/contracts/enums'
-import type { EmitEventDto } from './dto/event-streaming.dto'
+import { EmitEventDto } from './dto/event-streaming.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import type { OffsetPaginationDTO } from '@ecom/shared/pagination/core'
+import { OffsetPaginationDTO } from '@ecom/shared/pagination/core'
 @Injectable()
 export class EventStreamingService {
   constructor(private readonly prisma: PrismaService) {}

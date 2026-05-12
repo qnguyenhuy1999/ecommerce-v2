@@ -9,7 +9,7 @@ import {
 import { randomUUID } from 'node:crypto'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import {
   type SessionData,
@@ -21,8 +21,8 @@ import {
   hashPassword,
   comparePassword,
 } from '@ecom/auth'
-import type { EmailService } from '@ecom/email'
-import type { RedisService } from '@ecom/redis'
+import { EmailService } from '@ecom/email'
+import { RedisService } from '@ecom/redis'
 import { UserStatus } from '@ecom/contracts/enums'
 import { SESSION_SERVICE } from './session.provider'
 

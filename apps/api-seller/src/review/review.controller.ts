@@ -9,9 +9,9 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { ShopService } from '../shop/shop.service'
-import type { ReviewService } from './review.service'
-import type { ReviewQueryDto } from './dto/review-query.dto'
+import { ShopService } from '../shop/shop.service'
+import { ReviewService } from './review.service'
+import { ReviewQueryDto } from './dto/review-query.dto'
 
 @ApiTags('Seller/Reviews')
 @ApiAuth()

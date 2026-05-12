@@ -7,8 +7,7 @@ export const BannerPosition = {
   ANNOUNCEMENT: 'ANNOUNCEMENT',
 } as const
 
-export type BannerPosition =
-  (typeof BannerPosition)[keyof typeof BannerPosition]
+export type BannerPosition = (typeof BannerPosition)[keyof typeof BannerPosition]
 
 // ─── Banner Status ──────────────────────────────────────────────
 export const BannerStatus = {

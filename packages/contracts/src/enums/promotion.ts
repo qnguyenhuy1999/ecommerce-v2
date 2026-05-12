@@ -7,8 +7,7 @@ export const FlashSaleStatus = {
   CANCELLED: 'CANCELLED',
 } as const
 
-export type FlashSaleStatus =
-  (typeof FlashSaleStatus)[keyof typeof FlashSaleStatus]
+export type FlashSaleStatus = (typeof FlashSaleStatus)[keyof typeof FlashSaleStatus]
 
 // ─── Flash Sale Slot Status ─────────────────────────────────────
 export const FlashSaleSlotStatus = {
@@ -19,8 +18,7 @@ export const FlashSaleSlotStatus = {
   CANCELLED: 'CANCELLED',
 } as const
 
-export type FlashSaleSlotStatus =
-  (typeof FlashSaleSlotStatus)[keyof typeof FlashSaleSlotStatus]
+export type FlashSaleSlotStatus = (typeof FlashSaleSlotStatus)[keyof typeof FlashSaleSlotStatus]
 
 // ─── Coupon Type ────────────────────────────────────────────────
 export const CouponType = {
@@ -57,8 +55,7 @@ export const PlatformVoucherType = {
   FIXED_AMOUNT: 'FIXED_AMOUNT',
 } as const
 
-export type PlatformVoucherType =
-  (typeof PlatformVoucherType)[keyof typeof PlatformVoucherType]
+export type PlatformVoucherType = (typeof PlatformVoucherType)[keyof typeof PlatformVoucherType]
 
 // ─── Platform Voucher Status ────────────────────────────────────
 export const PlatformVoucherStatus = {

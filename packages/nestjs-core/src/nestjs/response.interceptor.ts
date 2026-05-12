@@ -9,7 +9,9 @@ type PaginatedData = { items: unknown[]; meta: Record<string, unknown> }
 function isPaginatedData(data: unknown): data is PaginatedData {
   if (!data || typeof data !== 'object') return false
   const candidate = data as Record<string, unknown>
-  return Array.isArray(candidate.items) && typeof candidate.meta === 'object' && candidate.meta !== null
+  return (
+    Array.isArray(candidate.items) && typeof candidate.meta === 'object' && candidate.meta !== null
+  )
 }
 
 @Injectable()

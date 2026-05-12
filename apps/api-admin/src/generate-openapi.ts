@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
+import { buildSwaggerDocument } from '@ecom/nestjs-core/openapi'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
-import { buildSwaggerDocument } from '@ecom/nestjs-core/openapi'
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 
@@ -24,7 +24,11 @@ async function generate() {
   fs.writeFileSync(outputPath, JSON.stringify(document, null, 2))
   console.log(`OpenAPI schema generated at ${outputPath}`)
 
-  await app.close()
+  try {
+    await app.close()
+  } catch {
+    // SwaggerModule.setup binds routes that may not fully close in headless mode
+  }
 }
 
 generate().catch((err) => {

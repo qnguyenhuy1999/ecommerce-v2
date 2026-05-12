@@ -13,10 +13,7 @@ interface AppErrorLike extends Error {
 function isAppError(err: unknown): err is AppErrorLike {
   if (!(err instanceof Error)) return false
   const candidate = err as Partial<AppErrorLike>
-  return (
-    typeof candidate.code === 'string' &&
-    typeof candidate.statusCode === 'number'
-  )
+  return typeof candidate.code === 'string' && typeof candidate.statusCode === 'number'
 }
 
 /** Duck-typed shape of a Prisma known request error (avoids importing @ecom/database). */
@@ -28,10 +25,7 @@ interface PrismaKnownError extends Error {
 function isPrismaKnownError(err: unknown): err is PrismaKnownError {
   if (!(err instanceof Error)) return false
   const candidate = err as Partial<PrismaKnownError>
-  return (
-    typeof candidate.code === 'string' &&
-    /^P\d{4}$/.test(candidate.code)
-  )
+  return typeof candidate.code === 'string' && /^P\d{4}$/.test(candidate.code)
 }
 
 function isPrismaValidationError(err: unknown): err is Error {

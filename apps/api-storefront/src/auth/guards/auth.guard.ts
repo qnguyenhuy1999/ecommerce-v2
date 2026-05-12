@@ -1,7 +1,7 @@
 import type { CanActivate, ExecutionContext } from '@nestjs/common'
 import { Injectable, Inject, UnauthorizedException } from '@nestjs/common'
 import type { Request } from 'express'
-import type { SessionService } from '@ecom/auth'
+import { SessionService } from '@ecom/auth'
 import { SESSION_COOKIE_NAME } from '@ecom/auth'
 import { SESSION_SERVICE } from '../session.provider'
 

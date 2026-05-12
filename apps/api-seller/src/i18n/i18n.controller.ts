@@ -7,8 +7,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import type { I18nService } from './i18n.service'
-import type { CreateTranslationDto } from './dto/i18n.dto'
+import { I18nService } from './i18n.service'
+import { CreateTranslationDto } from './dto/i18n.dto'
 
 @ApiTags('Seller/I18n')
 @ApiAuth()

@@ -84,28 +84,64 @@ export type components = {
     ErrorResponseDto: {
       /** @example false */
       success: boolean
-      error: {
+      /** @example The requested resource was not found. */
+      message: string
+      error?: {
         /** @example NOT_FOUND */
-        code?: string
+        code: string
         /** @example The requested resource was not found. */
-        message?: string
-        details?: unknown
+        message: string
+        details?: {
+          [key: string]: unknown
+        } | null
       }
+      /** @example 404 */
+      statusCode: number
       /** @example 2024-01-01T00:00:00.000Z */
       timestamp: string
+      /** @example /admin/products/123 */
+      path: string
     }
     ApiResponseDto: {
       /** @example true */
       success: boolean
-      data: Record<string, never>
+      data: {
+        [key: string]: unknown
+      }
+      /** @example Operation completed successfully */
+      message?: string
       meta?: {
         [key: string]: unknown
       }
       /** @example 2024-01-01T00:00:00.000Z */
       timestamp: string
     }
-    RegisterDto: Record<string, never>
-    LoginDto: Record<string, never>
+    RegisterDto: {
+      /**
+       * Format: email
+       * @description User email address
+       * @example user@example.com
+       */
+      email: string
+      /**
+       * Format: password
+       * @description User password (minimum 8 characters)
+       */
+      password: string
+    }
+    LoginDto: {
+      /**
+       * Format: email
+       * @description User email address
+       * @example admin@example.com
+       */
+      email: string
+      /**
+       * Format: password
+       * @description User password
+       */
+      password: string
+    }
   }
   responses: never
   parameters: never

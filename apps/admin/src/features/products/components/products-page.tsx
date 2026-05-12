@@ -58,13 +58,19 @@ const columns = [
   }),
 ]
 
-const STATUS_TABS: string[] = ['ALL', ...(Object.values(ProductStatus) as string[])]
+type ProductStatusFilter = (typeof ProductStatus)[keyof typeof ProductStatus] | 'ALL'
+
+const STATUS_TABS: ProductStatusFilter[] = ['ALL', ...Object.values(ProductStatus)]
+
+function isProductStatusFilter(value: string): value is ProductStatusFilter {
+  return value === 'ALL' || Object.values(ProductStatus).some((status) => status === value)
+}
 
 export function ProductsPage() {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState('ALL')
+  const [statusFilter, setStatusFilter] = useState<ProductStatusFilter>('ALL')
   const [selected, setSelected] = useState<ProductListItem[]>([])
 
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
@@ -97,8 +103,10 @@ export function ProductsPage() {
         tabs={STATUS_TABS}
         value={statusFilter}
         onChange={(t) => {
-          setStatusFilter(t)
-          setPage(1)
+          if (isProductStatusFilter(t)) {
+            setStatusFilter(t)
+            setPage(1)
+          }
         }}
         {...(counts !== undefined ? { counts } : {})}
       />

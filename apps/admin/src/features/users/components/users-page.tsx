@@ -42,13 +42,24 @@ const columns = [
   }),
 ]
 
-const STATUS_TABS: string[] = ['ALL', UserStatus.ACTIVE, UserStatus.SUSPENDED, UserStatus.BANNED]
+type UserStatusFilter = (typeof UserStatus)[keyof typeof UserStatus] | 'ALL'
+
+const STATUS_TABS: UserStatusFilter[] = [
+  'ALL',
+  UserStatus.ACTIVE,
+  UserStatus.SUSPENDED,
+  UserStatus.BANNED,
+]
+
+function isUserStatusFilter(value: string): value is UserStatusFilter {
+  return value === 'ALL' || Object.values(UserStatus).some((status) => status === value)
+}
 
 export function UsersPage() {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState('ALL')
+  const [statusFilter, setStatusFilter] = useState<UserStatusFilter>('ALL')
 
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
   const debounce = useCallback((value: string) => {
@@ -78,8 +89,10 @@ export function UsersPage() {
         tabs={STATUS_TABS}
         value={statusFilter}
         onChange={(t) => {
-          setStatusFilter(t)
-          setPage(1)
+          if (isUserStatusFilter(t)) {
+            setStatusFilter(t)
+            setPage(1)
+          }
         }}
         {...(counts !== undefined ? { counts } : {})}
       />

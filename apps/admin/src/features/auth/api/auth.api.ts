@@ -1,4 +1,5 @@
 import { apiFetch } from '@/lib/api'
+import type { AdminOperations } from '@ecom/contracts/generated'
 
 export interface AdminProfile {
   id: string
@@ -11,24 +12,37 @@ export interface AdminProfile {
   permissions: string[]
 }
 
-export interface AuthResponse {
-  success: boolean
-  data: AdminProfile
+type LoginResponse =
+  AdminOperations['AuthController_login']['responses']['200']['content']['application/json'] & {
+    data: AdminProfile
+  }
+type ProfileResponse =
+  AdminOperations['AuthController_me']['responses']['200']['content']['application/json'] & {
+    data: AdminProfile
+  }
+type LogoutResponse =
+  AdminOperations['AuthController_logout']['responses']['200']['content']['application/json']
+
+type LoginBody = {
+  email: string
+  password: string
 }
 
 export async function loginAdmin(email: string, password: string) {
-  return apiFetch<AuthResponse>('/admin/auth/login', {
+  const body: LoginBody = { email, password }
+
+  return apiFetch<LoginResponse>('/admin/auth/login', {
     method: 'POST',
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify(body),
   })
 }
 
 export async function logoutAdmin() {
-  return apiFetch<{ success: boolean }>('/admin/auth/logout', {
+  return apiFetch<LogoutResponse>('/admin/auth/logout', {
     method: 'POST',
   })
 }
 
 export async function getAdminProfile() {
-  return apiFetch<AuthResponse>('/admin/auth/me')
+  return apiFetch<ProfileResponse>('/admin/auth/me')
 }

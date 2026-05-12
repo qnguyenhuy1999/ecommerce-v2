@@ -39,7 +39,7 @@ export function SellerDetailPage({ id }: { id: string }) {
         </Link>
         <div>
           <h1 className="text-2xl font-bold">{seller.shopName}</h1>
-          <p className="text-muted-foreground text-sm">{seller.user.email}</p>
+          <p className="text-muted-foreground text-sm">{seller.user?.email ?? '—'}</p>
         </div>
         <StatusBadge status={seller.status} />
       </div>
@@ -59,9 +59,12 @@ export function SellerDetailPage({ id }: { id: string }) {
         <div className="bg-card rounded-xl border p-6 shadow-sm">
           <h2 className="mb-4 font-semibold">Owner Information</h2>
           <dl className="space-y-3 text-sm">
-            <Row label="Email" value={seller.user.email} />
-            <Row label="User Status" value={seller.user.status} />
-            <Row label="Registered" value={new Date(seller.user.createdAt).toLocaleString()} />
+            <Row label="Email" value={seller.user?.email ?? '—'} />
+            <Row label="User Status" value={seller.user?.status ?? '—'} />
+            <Row
+              label="Registered"
+              value={seller.user?.createdAt ? new Date(seller.user.createdAt).toLocaleString() : '—'}
+            />
           </dl>
         </div>
       </div>

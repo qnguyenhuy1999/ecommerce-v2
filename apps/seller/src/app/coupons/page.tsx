@@ -9,6 +9,7 @@ import { DataTable } from '@ecom/core-ui'
 import { StatusBadge } from '../../components/status-badge'
 import { StatCard } from '@ecom/core-ui'
 import { api } from '../../lib/api'
+import type { SellerPaths } from '@ecom/contracts/generated'
 
 interface Coupon {
   id: string
@@ -34,6 +35,47 @@ interface CouponStats {
   totalUsages: number
 }
 
+type CouponsListResponse =
+  SellerPaths['/coupons']['get']['responses']['200']['content']['application/json']
+type CouponStatsResponse =
+  SellerPaths['/coupons/stats']['get']['responses']['200']['content']['application/json']
+
+const getItems = <T,>(data: unknown): T[] => {
+  if (!data || typeof data !== 'object') return []
+  const items = (data as { items?: unknown }).items
+  if (Array.isArray(items)) return items as T[]
+  const nested = (data as { data?: unknown }).data
+  if (Array.isArray(nested)) return nested as T[]
+  return []
+}
+
+const getTotalPages = (meta: unknown): number | undefined => {
+  if (!meta || typeof meta !== 'object') return undefined
+  const pagination = (meta as { pagination?: unknown }).pagination
+  if (pagination && typeof pagination === 'object') {
+    const totalPages = (pagination as { totalPages?: unknown }).totalPages
+    if (typeof totalPages === 'number') return totalPages
+  }
+  const totalPages = (meta as { totalPages?: unknown }).totalPages
+  return typeof totalPages === 'number' ? totalPages : undefined
+}
+
+const getStats = (value: CouponStatsResponse): CouponStats => {
+  const data = (value as { data?: unknown }).data
+  if (data && typeof data === 'object') {
+    const stats = data as Partial<CouponStats>
+    if (
+      typeof stats.total === 'number' &&
+      typeof stats.active === 'number' &&
+      typeof stats.totalUsages === 'number'
+    ) {
+      return stats as CouponStats
+    }
+  }
+
+  return value as unknown as CouponStats
+}
+
 export default function CouponsPage() {
   const [coupons, setCoupons] = useState<Coupon[]>([])
   const [stats, setStats] = useState<CouponStats>({ total: 0, active: 0, totalUsages: 0 })
@@ -48,19 +90,19 @@ export default function CouponsPage() {
       setLoading(true)
       try {
         const [couponsRes, statsRes] = await Promise.all([
-          api<CouponsResponse>('/coupons', {
+          api<CouponsListResponse>('/coupons', {
             params: {
               page,
               limit: 20,
-              search: search || undefined,
-              status: statusFilter || undefined,
+              ...(search ? { search } : {}),
+              ...(statusFilter ? { status: statusFilter } : {}),
             },
           }),
-          api<CouponStats>('/coupons/stats'),
+          api<CouponStatsResponse>('/coupons/stats'),
         ])
-        setCoupons(couponsRes.data)
-        setTotalPages(couponsRes.meta.totalPages)
-        setStats(statsRes)
+        setCoupons(getItems<Coupon>(couponsRes.data))
+        setTotalPages(getTotalPages(couponsRes.meta) ?? 1)
+        setStats(getStats(statsRes))
       } catch {
         /* empty */
       } finally {

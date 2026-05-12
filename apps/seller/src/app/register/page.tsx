@@ -4,6 +4,10 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { api, ApiError } from '../../lib/api'
+import type { SellerPaths } from '@ecom/contracts/generated'
+
+type RegisterResponse =
+  SellerPaths['/auth/register']['post']['responses']['201']['content']['application/json']
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -19,9 +23,15 @@ export default function RegisterPage() {
     setLoading(true)
 
     try {
-      await api('/auth/register', {
+      const payload = {
+        email,
+        password,
+        ...(shopName ? { shopName } : {}),
+      }
+
+      await api<RegisterResponse>('/auth/register', {
         method: 'POST',
-        body: JSON.stringify({ email, password, shopName: shopName || undefined }),
+        body: JSON.stringify(payload),
       })
       router.push('/login?registered=true')
     } catch (err) {

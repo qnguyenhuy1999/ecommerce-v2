@@ -3,6 +3,10 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { api, ApiError } from '../../lib/api'
+import type { SellerPaths } from '@ecom/contracts/generated'
+
+type ForgotPasswordResponse =
+  SellerPaths['/auth/forgot-password']['post']['responses']['200']['content']['application/json']
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
@@ -16,7 +20,7 @@ export default function ForgotPasswordPage() {
     setLoading(true)
 
     try {
-      await api('/auth/forgot-password', {
+      await api<ForgotPasswordResponse>('/auth/forgot-password', {
         method: 'POST',
         body: JSON.stringify({ email }),
       })

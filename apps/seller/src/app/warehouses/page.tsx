@@ -8,6 +8,7 @@ import { PageHeader } from '../../components/page-header'
 import { DataTable } from '@ecom/core-ui'
 import { StatusBadge } from '../../components/status-badge'
 import { api } from '../../lib/api'
+import type { SellerPaths } from '@ecom/contracts/generated'
 
 interface WarehouseItem {
   id: string
@@ -25,6 +26,10 @@ interface WarehousesResponse {
   meta: { page: number; limit: number; total: number; totalPages: number }
 }
 
+type WarehousesListResponse =
+  SellerPaths['/warehouses']['get']['responses']['200']['content']['application/json'] &
+    WarehousesResponse
+
 export default function WarehousesPage() {
   const [warehouses, setWarehouses] = useState<WarehouseItem[]>([])
   const [loading, setLoading] = useState(true)
@@ -36,8 +41,12 @@ export default function WarehousesPage() {
     const fetchData = async () => {
       setLoading(true)
       try {
-        const res = await api<WarehousesResponse>('/warehouses', {
-          params: { page, limit: 20, search: search || undefined },
+        const res = await api<WarehousesListResponse>('/warehouses', {
+          params: {
+            page,
+            limit: 20,
+            ...(search ? { search } : {}),
+          },
         })
         setWarehouses(res.data)
         setTotalPages(res.meta.totalPages)

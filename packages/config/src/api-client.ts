@@ -1,6 +1,9 @@
+export type ApiParams = Record<string, string | number | boolean>
+export type ApiParamsInput = Record<string, string | number | boolean | null | undefined>
+
 export interface ApiOptions extends RequestInit {
   baseUrl?: string
-  params?: Record<string, string | number | boolean | undefined>
+  params?: ApiParamsInput
 }
 
 export class ApiError extends Error {
@@ -28,7 +31,7 @@ export function createApiClient(defaultOptions: { baseUrl: string }) {
     if (params) {
       const searchParams = new URLSearchParams()
       for (const [key, value] of Object.entries(params)) {
-        if (value !== undefined) {
+        if (value !== undefined && value !== null) {
           searchParams.set(key, String(value))
         }
       }
@@ -47,9 +50,8 @@ export function createApiClient(defaultOptions: { baseUrl: string }) {
 
     if (!res.ok) {
       const body: unknown = await res.json().catch(() => ({}))
-      const message = isApiErrorBody(body) && typeof body.message === 'string'
-        ? body.message
-        : 'Request failed'
+      const message =
+        isApiErrorBody(body) && typeof body.message === 'string' ? body.message : 'Request failed'
       throw new ApiError(res.status, message, isApiErrorBody(body) ? body : undefined)
     }
 

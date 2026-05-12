@@ -4,6 +4,10 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useAuth } from '../../providers/auth-provider'
 import { api, ApiError } from '../../lib/api'
+import type { SellerPaths } from '@ecom/contracts/generated'
+
+type LoginResponse =
+  SellerPaths['/auth/login']['post']['responses']['200']['content']['application/json']
 
 export default function LoginPage() {
   const { refresh } = useAuth()
@@ -18,7 +22,7 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      await api('/auth/login', {
+      await api<LoginResponse>('/auth/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
       })

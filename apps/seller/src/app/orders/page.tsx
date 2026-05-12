@@ -7,6 +7,7 @@ import { PageHeader } from '../../components/page-header'
 import { DataTable } from '@ecom/core-ui'
 import { StatusBadge } from '../../components/status-badge'
 import { api } from '../../lib/api'
+import type { SellerPaths } from '@ecom/contracts/generated'
 
 interface SellerOrder {
   id: string
@@ -22,6 +23,29 @@ interface OrdersResponse {
   meta: { page: number; limit: number; total: number; totalPages: number }
 }
 
+type OrdersListResponse =
+  SellerPaths['/orders']['get']['responses']['200']['content']['application/json']
+
+const getItems = <T,>(data: unknown): T[] => {
+  if (!data || typeof data !== 'object') return []
+  const items = (data as { items?: unknown }).items
+  if (Array.isArray(items)) return items as T[]
+  const nested = (data as { data?: unknown }).data
+  if (Array.isArray(nested)) return nested as T[]
+  return []
+}
+
+const getTotalPages = (meta: unknown): number | undefined => {
+  if (!meta || typeof meta !== 'object') return undefined
+  const pagination = (meta as { pagination?: unknown }).pagination
+  if (pagination && typeof pagination === 'object') {
+    const totalPages = (pagination as { totalPages?: unknown }).totalPages
+    if (typeof totalPages === 'number') return totalPages
+  }
+  const totalPages = (meta as { totalPages?: unknown }).totalPages
+  return typeof totalPages === 'number' ? totalPages : undefined
+}
+
 export default function OrdersPage() {
   const [orders, setOrders] = useState<SellerOrder[]>([])
   const [loading, setLoading] = useState(true)
@@ -34,16 +58,16 @@ export default function OrdersPage() {
     const fetchOrders = async () => {
       setLoading(true)
       try {
-        const res = await api<{ data: OrdersResponse }>('/orders', {
+        const res = await api<OrdersListResponse>('/orders', {
           params: {
             page,
             limit: 20,
-            search: search || undefined,
-            status: statusFilter || undefined,
+            ...(search ? { search } : {}),
+            ...(statusFilter ? { status: statusFilter } : {}),
           },
         })
-        setOrders(res.data.data)
-        setTotalPages(res.data.meta.totalPages)
+        setOrders(getItems<SellerOrder>(res.data))
+        setTotalPages(getTotalPages(res.meta) ?? 1)
       } catch {
         /* empty */
       } finally {

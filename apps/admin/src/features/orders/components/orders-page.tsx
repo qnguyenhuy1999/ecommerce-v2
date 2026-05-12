@@ -38,13 +38,19 @@ const columns = [
   }),
 ]
 
-const STATUS_TABS: string[] = ['ALL', ...(Object.values(OrderStatus) as string[])]
+type OrderStatusFilter = (typeof OrderStatus)[keyof typeof OrderStatus] | 'ALL'
+
+const STATUS_TABS: OrderStatusFilter[] = ['ALL', ...Object.values(OrderStatus)]
+
+function isOrderStatusFilter(value: string): value is OrderStatusFilter {
+  return value === 'ALL' || Object.values(OrderStatus).some((status) => status === value)
+}
 
 export function OrdersPage() {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState('ALL')
+  const [statusFilter, setStatusFilter] = useState<OrderStatusFilter>('ALL')
 
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
   const debounce = useCallback((value: string) => {
@@ -74,8 +80,10 @@ export function OrdersPage() {
         tabs={STATUS_TABS}
         value={statusFilter}
         onChange={(t) => {
-          setStatusFilter(t)
-          setPage(1)
+          if (isOrderStatusFilter(t)) {
+            setStatusFilter(t)
+            setPage(1)
+          }
         }}
         {...(counts !== undefined ? { counts } : {})}
       />

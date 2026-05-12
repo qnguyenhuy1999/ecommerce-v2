@@ -6,6 +6,10 @@ import { useRouter } from 'next/navigation'
 import { DashboardLayout } from '../../../components/dashboard-layout'
 import { PageHeader } from '../../../components/page-header'
 import { api } from '../../../lib/api'
+import type { SellerPaths } from '@ecom/contracts/generated'
+
+type CreateCouponResponse =
+  SellerPaths['/coupons']['post']['responses']['201']['content']['application/json']
 
 export default function NewCouponPage() {
   const router = useRouter()
@@ -27,20 +31,25 @@ export default function NewCouponPage() {
     e.preventDefault()
     setLoading(true)
     try {
-      await api('/coupons', {
+      const minOrderAmount = Number(form.minOrderAmount)
+      const maxDiscountAmount = Number(form.maxDiscountAmount)
+      const usageLimit = Number(form.usageLimit)
+      const usageLimitPerUser = Number(form.usageLimitPerUser)
+
+      const payload = {
+        ...form,
+        discountValue: Number(form.discountValue),
+        ...(minOrderAmount ? { minOrderAmount } : {}),
+        ...(maxDiscountAmount ? { maxDiscountAmount } : {}),
+        ...(usageLimit ? { usageLimit } : {}),
+        ...(usageLimitPerUser ? { usageLimitPerUser } : {}),
+        startsAt: form.startsAt ? new Date(form.startsAt).toISOString() : new Date().toISOString(),
+        ...(form.expiresAt ? { expiresAt: new Date(form.expiresAt).toISOString() } : {}),
+      }
+
+      await api<CreateCouponResponse>('/coupons', {
         method: 'POST',
-        body: JSON.stringify({
-          ...form,
-          discountValue: Number(form.discountValue),
-          minOrderAmount: Number(form.minOrderAmount) || undefined,
-          maxDiscountAmount: Number(form.maxDiscountAmount) || undefined,
-          usageLimit: Number(form.usageLimit) || undefined,
-          usageLimitPerUser: Number(form.usageLimitPerUser) || undefined,
-          startsAt: form.startsAt
-            ? new Date(form.startsAt).toISOString()
-            : new Date().toISOString(),
-          expiresAt: form.expiresAt ? new Date(form.expiresAt).toISOString() : undefined,
-        }),
+        body: JSON.stringify(payload),
       })
       router.push('/coupons')
     } catch {

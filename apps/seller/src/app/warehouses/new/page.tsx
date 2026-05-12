@@ -5,6 +5,10 @@ import { useRouter } from 'next/navigation'
 import { DashboardLayout } from '../../../components/dashboard-layout'
 import { PageHeader } from '../../../components/page-header'
 import { api } from '../../../lib/api'
+import type { SellerPaths } from '@ecom/contracts/generated'
+
+type CreateWarehouseResponse =
+  SellerPaths['/warehouses']['post']['responses']['201']['content']['application/json']
 
 export default function NewWarehousePage() {
   const router = useRouter()
@@ -20,12 +24,14 @@ export default function NewWarehousePage() {
     e.preventDefault()
     setLoading(true)
     try {
-      await api('/warehouses', {
+      const payload = {
+        ...form,
+        ...(form.address ? { address: form.address } : {}),
+      }
+
+      await api<CreateWarehouseResponse>('/warehouses', {
         method: 'POST',
-        body: JSON.stringify({
-          ...form,
-          address: form.address || undefined,
-        }),
+        body: JSON.stringify(payload),
       })
       router.push('/warehouses')
     } catch {

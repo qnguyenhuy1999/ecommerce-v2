@@ -3,17 +3,32 @@
 
 import { useState, useCallback } from 'react'
 import Link from 'next/link'
-// import { UserStatus } from '@ecom/contracts'
+import { SellerStatus } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { useSellers, useSellerStatusCounts } from '../hooks/use-sellers'
 
-const STATUS_TABS: string[] = ['ALL', 'PENDING', 'ACTIVE', 'SUSPENDED', 'REJECTED', 'BANNED']
+type SellerStatusFilter = (typeof SellerStatus)[keyof typeof SellerStatus] | 'ALL'
+
+const STATUS_TABS: SellerStatusFilter[] = ['ALL', ...Object.values(SellerStatus)]
+
+function isSellerStatusFilter(value: string): value is SellerStatusFilter {
+  return value === 'ALL' || Object.values(SellerStatus).some((status) => status === value)
+}
+
+function getSellerEmail(seller: unknown): string | null {
+  if (!seller || typeof seller !== 'object' || !('user' in seller)) return null
+
+  const user = seller.user
+  if (!user || typeof user !== 'object' || !('email' in user)) return null
+
+  return typeof user.email === 'string' ? user.email : null
+}
 
 export function SellersPage() {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState<string>('ALL')
+  const [statusFilter, setStatusFilter] = useState<SellerStatusFilter>('ALL')
 
   const debounceTimeout = useCallback(() => {
     let timer: ReturnType<typeof setTimeout>
@@ -49,8 +64,10 @@ export function SellersPage() {
           <button
             key={tab}
             onClick={() => {
-              setStatusFilter(tab)
-              setPage(1)
+              if (isSellerStatusFilter(tab)) {
+                setStatusFilter(tab)
+                setPage(1)
+              }
             }}
             className={`px-3 py-2 text-sm font-medium transition-colors ${
               statusFilter === tab
@@ -113,7 +130,7 @@ export function SellersPage() {
                 : data?.items.map((seller) => (
                     <tr key={seller.id} className="hover:bg-muted/50 border-b">
                       <td className="px-4 py-3 font-medium">{seller.shopName}</td>
-                      <td className="text-muted-foreground px-4 py-3">{seller.user.email}</td>
+                      <td className="text-muted-foreground px-4 py-3">{getSellerEmail(seller) ?? '—'}</td>
                       <td className="px-4 py-3">
                         <StatusBadge status={seller.status} />
                       </td>

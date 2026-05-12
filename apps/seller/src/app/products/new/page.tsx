@@ -6,6 +6,20 @@ import { useRouter } from 'next/navigation'
 import { DashboardLayout } from '../../../components/dashboard-layout'
 import { PageHeader } from '../../../components/page-header'
 import { api, ApiError } from '../../../lib/api'
+import type { SellerPaths } from '@ecom/contracts/generated'
+
+type CreateProductResponse =
+  SellerPaths['/products']['post']['responses']['201']['content']['application/json']
+
+type CreateProductPayload = {
+  name: string
+  description?: string
+  basePrice?: number
+  baseSku?: string
+  baseStock: number
+  weight?: number
+  status: string
+}
 
 export default function NewProductPage() {
   const router = useRouter()
@@ -26,17 +40,19 @@ export default function NewProductPage() {
     setLoading(true)
 
     try {
-      await api('/products', {
+      const payload: CreateProductPayload = {
+        name,
+        ...(description ? { description } : {}),
+        ...(basePrice ? { basePrice: parseFloat(basePrice) } : {}),
+        ...(baseSku ? { baseSku } : {}),
+        baseStock: baseStock ? parseInt(baseStock, 10) : 0,
+        ...(weight ? { weight: parseFloat(weight) } : {}),
+        status,
+      }
+
+      await api<CreateProductResponse>('/products', {
         method: 'POST',
-        body: JSON.stringify({
-          name,
-          description: description || undefined,
-          basePrice: basePrice ? parseFloat(basePrice) : undefined,
-          baseSku: baseSku || undefined,
-          baseStock: baseStock ? parseInt(baseStock, 10) : 0,
-          weight: weight ? parseFloat(weight) : undefined,
-          status,
-        }),
+        body: JSON.stringify(payload),
       })
       router.push('/products')
     } catch (err) {

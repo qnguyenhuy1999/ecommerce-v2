@@ -7,15 +7,10 @@ import {
   getOrderStatusCounts,
   forceCancelOrder,
   forceCompleteOrder,
+  type OrderListQuery,
 } from '../api/orders.api'
 
-export function useOrders(params: {
-  page?: number
-  limit?: number
-  search?: string
-  status?: string
-  buyerId?: string
-}) {
+export function useOrders(params: OrderListQuery) {
   return useQuery({
     queryKey: ['orders', params],
     queryFn: async () => {

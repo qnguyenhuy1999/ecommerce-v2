@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { DashboardLayout } from '../../components/dashboard-layout'
 import { PageHeader } from '../../components/page-header'
 import { api } from '../../lib/api'
+import type { SellerPaths } from '@ecom/contracts/generated'
 
 interface ShippingProvider {
   id: string
@@ -19,6 +20,19 @@ interface SellerMethod {
   provider: ShippingProvider
 }
 
+type ShippingProvidersResponse =
+  SellerPaths['/shipping/providers']['get']['responses']['200']['content']['application/json'] & {
+    data: ShippingProvider[]
+  }
+type ShippingMethodsResponse =
+  SellerPaths['/shipping/methods']['get']['responses']['200']['content']['application/json'] & {
+    data: SellerMethod[]
+  }
+type ToggleShippingMethodResponse =
+  SellerPaths['/shipping/methods/{providerId}/toggle']['post']['responses']['200']['content']['application/json'] & {
+    data: SellerMethod
+  }
+
 export default function ShippingPage() {
   const [providers, setProviders] = useState<ShippingProvider[]>([])
   const [methods, setMethods] = useState<SellerMethod[]>([])
@@ -29,8 +43,8 @@ export default function ShippingPage() {
       setLoading(true)
       try {
         const [providersRes, methodsRes] = await Promise.all([
-          api<{ data: ShippingProvider[] }>('/shipping/providers'),
-          api<{ data: SellerMethod[] }>('/shipping/methods'),
+          api<ShippingProvidersResponse>('/shipping/providers'),
+          api<ShippingMethodsResponse>('/shipping/methods'),
         ])
         setProviders(providersRes.data)
         setMethods(methodsRes.data)
@@ -49,10 +63,13 @@ export default function ShippingPage() {
 
   const toggleProvider = async (providerId: string, enabled: boolean) => {
     try {
-      const res = await api<{ data: SellerMethod }>(`/shipping/methods/${providerId}/toggle`, {
-        method: 'POST',
-        body: JSON.stringify({ isEnabled: enabled }),
-      })
+      const res = await api<ToggleShippingMethodResponse>(
+        `/shipping/methods/${providerId}/toggle`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ isEnabled: enabled }),
+        },
+      )
       setMethods((prev) => {
         const idx = prev.findIndex((m) => m.providerId === providerId)
         if (idx >= 0) {

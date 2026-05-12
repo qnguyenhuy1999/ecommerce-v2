@@ -58,13 +58,19 @@ const columns = [
   }),
 ]
 
-const STATUS_TABS: string[] = ['ALL', ...(Object.values(ProductStatus) as string[])]
+type ProductStatusFilter = (typeof ProductStatus)[keyof typeof ProductStatus] | 'ALL'
+
+const STATUS_TABS: ProductStatusFilter[] = ['ALL', ...Object.values(ProductStatus)]
+
+function isProductStatusFilter(value: string): value is ProductStatusFilter {
+  return value === 'ALL' || Object.values(ProductStatus).some((status) => status === value)
+}
 
 export function ProductsPage() {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState('ALL')
+  const [statusFilter, setStatusFilter] = useState<ProductStatusFilter>('ALL')
   const [selected, setSelected] = useState<ProductListItem[]>([])
 
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
@@ -79,8 +85,8 @@ export function ProductsPage() {
   const { data, isLoading } = useProducts({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    search: debouncedSearch || undefined,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(debouncedSearch ? { search: debouncedSearch } : {}),
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
   const { data: counts } = useProductStatusCounts()
   const bulkApprove = useBulkApproveProducts()
@@ -90,25 +96,27 @@ export function ProductsPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Products</h1>
-        <p className="text-sm text-muted-foreground">Moderate marketplace products</p>
+        <p className="text-muted-foreground text-sm">Moderate marketplace products</p>
       </div>
 
       <StatusTabs
         tabs={STATUS_TABS}
         value={statusFilter}
         onChange={(t) => {
-          setStatusFilter(t)
-          setPage(1)
+          if (isProductStatusFilter(t)) {
+            setStatusFilter(t)
+            setPage(1)
+          }
         }}
-        counts={counts}
+        {...(counts !== undefined ? { counts } : {})}
       />
 
       <DataTable
         columns={columns}
         data={data?.items ?? []}
-        meta={data?.meta}
+        {...(data?.meta !== undefined ? { meta: data.meta } : {})}
         loading={isLoading}
-        onPageChange={setPage}
+        onPageChange={(p) => setPage(p)}
         enableRowSelection
         onSelectionChange={setSelected}
         toolbar={

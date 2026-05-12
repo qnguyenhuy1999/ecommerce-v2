@@ -99,12 +99,12 @@ export default function BulkPage() {
           <div className="flex gap-2">
             <button
               onClick={handleExport}
-              className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
             >
               <Download className="h-4 w-4" />
               Export Products
             </button>
-            <label className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors cursor-pointer">
+            <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700">
               <Upload className="h-4 w-4" />
               Import Products
               <input type="file" accept=".csv,.xlsx" className="hidden" />
@@ -113,14 +113,14 @@ export default function BulkPage() {
         }
       />
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row">
         <select
           value={typeFilter}
           onChange={(e) => {
             setTypeFilter(e.target.value)
             setPage(1)
           }}
-          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">All Types</option>
           <option value="PRODUCT_IMPORT">Product Import</option>
@@ -133,11 +133,11 @@ export default function BulkPage() {
       <DataTable columns={columns} data={jobs} loading={loading} emptyMessage="No bulk jobs yet" />
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-4">
+        <div className="mt-4 flex items-center justify-center gap-2">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Previous
           </button>
@@ -147,7 +147,7 @@ export default function BulkPage() {
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Next
           </button>

@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/pseudo-random, sonarjs/no-nested-functions */
 import * as React from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { MediaUpload } from './MediaUpload'
@@ -88,7 +89,7 @@ export const Interactive: Story = {
       setItems((prev) => [...prev, ...newItems])
 
       // Simulate upload progress
-      newItems.forEach((item) => {
+      for (const item of newItems) {
         let progress = 0
         const interval = setInterval(() => {
           progress += 20
@@ -98,7 +99,7 @@ export const Interactive: Story = {
             setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, progress: undefined } : i)))
           }
         }, 300)
-      })
+      }
     }
 
     const handleRemove = (id: string) => {

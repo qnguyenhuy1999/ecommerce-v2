@@ -1,1 +1,1 @@
-export { ResponseInterceptor, AllExceptionsFilter } from './nestjs'
+export { ResponseInterceptor, AllExceptionsFilter, EcomLoggerModule } from './nestjs'

@@ -67,7 +67,7 @@ export default function AnalyticsPage() {
           <select
             value={dateRange}
             onChange={(e) => setDateRange(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+            className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="7">Last 7 days</option>
             <option value="30">Last 30 days</option>
@@ -78,20 +78,20 @@ export default function AnalyticsPage() {
 
       {loading ? (
         <div className="animate-pulse space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-24 bg-gray-200 rounded-lg" />
+              <div key={i} className="h-24 rounded-lg bg-gray-200" />
             ))}
           </div>
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <StatCard
               label="Revenue"
               value={`$${(summary?.revenue.current ?? 0).toLocaleString()}`}
               icon={DollarSign}
-              trend={summary?.revenue.growth}
+              {...(summary?.revenue.growth !== undefined ? { trend: summary.revenue.growth } : {})}
             />
             <StatCard
               label="Orders"
@@ -110,9 +110,9 @@ export default function AnalyticsPage() {
             />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Daily Revenue</h3>
+          <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <div className="rounded-lg border border-gray-200 bg-white p-6">
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">Daily Revenue</h3>
               {revenue?.dailyRevenue.length ? (
                 <div className="space-y-2">
                   {revenue.dailyRevenue.slice(-10).map((d) => (
@@ -120,12 +120,12 @@ export default function AnalyticsPage() {
                       <span className="text-gray-600">{d.date}</span>
                       <div className="flex items-center gap-2">
                         <div
-                          className="h-2 bg-blue-500 rounded"
+                          className="h-2 rounded bg-blue-500"
                           style={{
                             width: `${Math.min(200, (d.revenue / Math.max(...revenue.dailyRevenue.map((r) => r.revenue))) * 200)}px`,
                           }}
                         />
-                        <span className="font-medium w-20 text-right">
+                        <span className="w-20 text-right font-medium">
                           ${d.revenue.toLocaleString()}
                         </span>
                       </div>
@@ -137,17 +137,17 @@ export default function AnalyticsPage() {
               )}
             </div>
 
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Products</h3>
+            <div className="rounded-lg border border-gray-200 bg-white p-6">
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">Top Products</h3>
               {topProducts.length ? (
                 <div className="space-y-3">
                   {topProducts.slice(0, 10).map((p, idx) => (
                     <div key={idx} className="flex items-center justify-between text-sm">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-gray-400 w-5">{idx + 1}.</span>
+                      <div className="flex min-w-0 items-center gap-2">
+                        <span className="w-5 text-gray-400">{idx + 1}.</span>
                         <span className="truncate">{p.productName}</span>
                       </div>
-                      <div className="flex items-center gap-4 ml-4">
+                      <div className="ml-4 flex items-center gap-4">
                         <span className="text-gray-500">{p.unitsSold} sold</span>
                         <span className="font-medium">${p.revenue.toLocaleString()}</span>
                       </div>

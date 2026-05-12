@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { RequestWithdrawalDto } from './dto/wallet.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
-import { randomUUID } from 'crypto'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import type { RequestWithdrawalDto } from './dto/wallet.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { randomUUID } from 'node:crypto'
 
 @Injectable()
 export class WalletService {
@@ -54,8 +55,8 @@ export class WalletService {
             | 'DEPOSIT',
           amount,
           balanceAfter: Number(wallet.balance) + Number(wallet.pendingBalance),
-          referenceId,
-          description,
+          ...(referenceId !== undefined ? { referenceId } : {}),
+          ...(description !== undefined ? { description } : {}),
           idempotencyKey,
           status: 'COMPLETED',
         },
@@ -116,10 +117,10 @@ export class WalletService {
         data: {
           walletId: wallet.id,
           amount: dto.amount,
-          bankName: dto.bankName,
-          accountNumber: dto.bankAccountNumber,
-          accountHolder: dto.bankAccountName,
-          note: dto.note,
+          ...(dto.bankName !== undefined ? { bankName: dto.bankName } : {}),
+          ...(dto.bankAccountNumber !== undefined ? { accountNumber: dto.bankAccountNumber } : {}),
+          ...(dto.bankAccountName !== undefined ? { accountHolder: dto.bankAccountName } : {}),
+          ...(dto.note !== undefined ? { note: dto.note } : {}),
         },
       })
 

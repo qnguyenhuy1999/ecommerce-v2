@@ -1,6 +1,7 @@
-import { IsOptional, IsBoolean, IsString } from 'class-validator'
+import { IsOptional, IsBoolean, IsEnum } from 'class-validator'
 import { Type } from 'class-transformer'
 import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { NotificationType } from '@ecom/database'
 
 export class NotificationQueryDto extends OffsetPaginationDto {
   @IsOptional()
@@ -9,6 +10,6 @@ export class NotificationQueryDto extends OffsetPaginationDto {
   unreadOnly?: boolean
 
   @IsOptional()
-  @IsString()
-  type?: string
+  @IsEnum(NotificationType)
+  type?: NotificationType
 }

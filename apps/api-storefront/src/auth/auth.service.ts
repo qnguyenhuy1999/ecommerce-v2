@@ -1,9 +1,17 @@
-import { Inject, Injectable, Logger, UnauthorizedException, ConflictException, BadRequestException } from '@nestjs/common'
-import { randomUUID } from 'node:crypto'
-import { join } from 'node:path'
-import { PrismaService } from '@ecom/database'
 import {
-  SessionService,
+  Inject,
+  Injectable,
+  Logger,
+  UnauthorizedException,
+  ConflictException,
+  BadRequestException,
+} from '@nestjs/common'
+import { randomUUID } from 'node:crypto'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import type { PrismaService } from '@ecom/database'
+import type { SessionService } from '@ecom/auth'
+import {
   type SessionData,
   BaseUserAuthService,
   SESSION_EXPIRY_DAYS,
@@ -11,10 +19,12 @@ import {
   hashPassword,
   comparePassword,
 } from '@ecom/auth'
-import { EmailService } from '@ecom/email'
-import { RedisService } from '@ecom/redis'
+import type { EmailService } from '@ecom/email'
+import type { RedisService } from '@ecom/redis'
 import { SESSION_SERVICE } from './session.provider'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
 
 @Injectable()
@@ -123,8 +133,8 @@ export class AuthService extends BaseUserAuthService {
       data: {
         id: sessionId,
         userId: user.id,
-        userAgent,
-        ipAddress,
+        userAgent: userAgent ?? null,
+        ipAddress: ipAddress ?? null,
         expiresAt,
       },
     })
@@ -136,11 +146,13 @@ export class AuthService extends BaseUserAuthService {
     await this.destroySession(sessionId)
   }
 
-  async verifyEmail(token: string) {
+  override async verifyEmail(token: string) {
     try {
       await super.verifyEmail(token)
     } catch (err: unknown) {
-      throw new BadRequestException(err instanceof Error ? err.message : 'Invalid or expired verification token')
+      throw new BadRequestException(
+        err instanceof Error ? err.message : 'Invalid or expired verification token',
+      )
     }
   }
 

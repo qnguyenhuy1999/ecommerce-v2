@@ -8,11 +8,11 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
-import { ShopService } from '../shop/shop.service'
-import { OrderService } from './order.service'
-import { OrderQueryDto } from './dto/order-query.dto'
-import { UpdateOrderStatusDto } from './dto/update-order-status.dto'
+} from '@ecom/nestjs-core/openapi'
+import type { ShopService } from '../shop/shop.service'
+import type { OrderService } from './order.service'
+import type { OrderQueryDto } from './dto/order-query.dto'
+import type { UpdateOrderStatusDto } from './dto/update-order-status.dto'
 
 @ApiTags('Seller/Orders')
 @ApiAuth()

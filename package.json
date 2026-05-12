@@ -9,33 +9,54 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
-    "lint": "turbo lint && pnpm -w run lint:comments",
-    "lint:comments": "echo 'comment linting not yet configured'",
-    "format": "pnpm -w exec prettier --write \"**/*.{ts,tsx,md,stories.tsx}\" --ignore-path .prettierignore \"!apps/api-admin/**\" \"!apps/api-seller/**\" \"!apps/api-storefront/**\" \"!apps/worker/**\" \"!packages/database/**\"",
-    "format:check": "pnpm -w exec prettier --check \"**/*.{ts,tsx,md,stories.tsx}\" --ignore-path .prettierignore \"!apps/api-admin/**\" \"!apps/api-seller/**\" \"!apps/api-storefront/**\" \"!apps/worker/**\" \"!packages/database/**\"",
+    "lint": "turbo lint",
+    "lint:circular": "madge --circular --extensions ts,tsx apps packages --exclude node_modules|dist|\\.next",
+    "lint:deps": "depcruise apps packages --config .dependency-cruiser.js",
+    "format": "pnpm -w exec prettier --write \"**/*.{ts,tsx,md,stories.tsx}\" --ignore-path .prettierignore",
+    "format:check": "pnpm -w exec prettier --check \"**/*.{ts,tsx,md,stories.tsx}\" --ignore-path .prettierignore",
     "type-check": "turbo type-check",
     "test": "turbo test",
     "test:e2e": "turbo test:e2e",
     "db:generate": "cd packages/database && npx prisma generate",
     "db:migrate": "cd packages/database && npx prisma migrate dev",
     "db:seed": "cd packages/database && npx prisma db seed",
-    "swagger:gen:all": "turbo swagger:gen"
+    "swagger:gen:all": "turbo swagger:gen",
+    "openapi:gen": "node packages/contracts/scripts/generate-types.mjs",
+    "openapi:validate": "npx @apidevtools/swagger-cli validate apps/api-admin/openapi/admin.json && npx @apidevtools/swagger-cli validate apps/api-seller/openapi/seller.json && npx @apidevtools/swagger-cli validate apps/api-storefront/openapi/storefront.json",
+    "openapi:sync": "pnpm swagger:gen:all && pnpm openapi:gen",
+    "contracts:check": "pnpm openapi:sync && pnpm openapi:validate && pnpm type-check --filter=@ecom/contracts",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
     "@ecom/eslint-config": "workspace:*",
     "@eslint/js": "^9.26.0",
     "@storybook/react-vite": "^10.3.6",
     "@swc-node/register": "^1.11.1",
     "@swc/core": "^1.15.33",
+    "chokidar": "^5.0.0",
     "dependency-cruiser": "^16.10.0",
     "eslint": "^9.26.0",
     "eslint-config-prettier": "^10.1.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
     "madge": "^8.0.0",
     "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "tsup": "^8.4.0",
     "turbo": "^2.5.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix --no-error-on-unmatched-pattern"
+    ],
+    "*.{json,yaml,yml,md,mdx}": [
+      "prettier --write"
+    ]
   },
   "prettier": "./.prettierrc.mjs",
   "engines": {

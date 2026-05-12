@@ -71,7 +71,7 @@ export default function NotificationsPage() {
         actions={
           <button
             onClick={markAllAsRead}
-            className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
           >
             <Check className="h-4 w-4" />
             Mark all as read
@@ -80,7 +80,7 @@ export default function NotificationsPage() {
       />
 
       <div className="mb-4">
-        <label className="inline-flex items-center gap-2 text-sm cursor-pointer">
+        <label className="inline-flex cursor-pointer items-center gap-2 text-sm">
           <input
             type="checkbox"
             checked={unreadOnly}
@@ -94,62 +94,62 @@ export default function NotificationsPage() {
         </label>
       </div>
 
-      {loading ? (
+      {loading && (
         <div className="space-y-3">
           {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="bg-white rounded-lg border border-gray-200 p-4 animate-pulse">
-              <div className="h-4 bg-gray-200 rounded w-1/3 mb-2" />
-              <div className="h-3 bg-gray-200 rounded w-2/3" />
-            </div>
-          ))}
-        </div>
-      ) : notifications.length === 0 ? (
-        <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
-          <Bell className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500">No notifications</p>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          {notifications.map((notification) => (
-            <div
-              key={notification.id}
-              className={`bg-white rounded-lg border p-4 ${
-                notification.isRead ? 'border-gray-200' : 'border-blue-200 bg-blue-50'
-              }`}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-medium text-gray-900">{notification.title}</h3>
-                    <span className="text-xs text-gray-400 px-2 py-0.5 bg-gray-100 rounded">
-                      {notification.type}
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-600 mt-1">{notification.message}</p>
-                  <p className="text-xs text-gray-400 mt-2">
-                    {new Date(notification.createdAt).toLocaleString()}
-                  </p>
-                </div>
-                {!notification.isRead && (
-                  <button
-                    onClick={() => markAsRead(notification.id)}
-                    className="text-blue-600 hover:text-blue-700 text-xs font-medium shrink-0"
-                  >
-                    Mark read
-                  </button>
-                )}
-              </div>
+            <div key={i} className="animate-pulse rounded-lg border border-gray-200 bg-white p-4">
+              <div className="mb-2 h-4 w-1/3 rounded bg-gray-200" />
+              <div className="h-3 w-2/3 rounded bg-gray-200" />
             </div>
           ))}
         </div>
       )}
+      {!loading && notifications.length === 0 && (
+        <div className="rounded-lg border border-gray-200 bg-white p-12 text-center">
+          <Bell className="mx-auto mb-3 h-12 w-12 text-gray-300" />
+          <p className="text-gray-500">No notifications</p>
+        </div>
+      )}
+      {!loading && notifications.length > 0 && (
+        <div className="space-y-3">
+          {notifications.map((notification) => {
+            const cardClass = notification.isRead ? 'border-gray-200' : 'border-blue-200 bg-blue-50'
+            return (
+              <div key={notification.id} className={`rounded-lg border bg-white p-4 ${cardClass}`}>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-medium text-gray-900">{notification.title}</h3>
+                      <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-400">
+                        {notification.type}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-sm text-gray-600">{notification.message}</p>
+                    <p className="mt-2 text-xs text-gray-400">
+                      {new Date(notification.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                  {!notification.isRead && (
+                    <button
+                      onClick={() => markAsRead(notification.id)}
+                      className="shrink-0 text-xs font-medium text-blue-600 hover:text-blue-700"
+                    >
+                      Mark read
+                    </button>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-4">
+        <div className="mt-4 flex items-center justify-center gap-2">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Previous
           </button>
@@ -159,7 +159,7 @@ export default function NotificationsPage() {
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Next
           </button>

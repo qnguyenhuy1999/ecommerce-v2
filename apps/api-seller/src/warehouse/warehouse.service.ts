@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { WarehouseQueryDto, StockQueryDto, TransferQueryDto } from './dto/warehouse-query.dto'
-import { CreateWarehouseDto } from './dto/create-warehouse.dto'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import type { WarehouseQueryDto, StockQueryDto, TransferQueryDto } from './dto/warehouse-query.dto'
+import type { CreateWarehouseDto } from './dto/create-warehouse.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
@@ -13,7 +14,14 @@ export class WarehouseService {
     const where: Prisma.WarehouseWhereInput = {
       shopId,
       ...(isActive !== undefined ? { isActive } : {}),
-      ...(search ? { OR: [{ name: { contains: search, mode: 'insensitive' } }, { code: { contains: search, mode: 'insensitive' } }] } : {}),
+      ...(search
+        ? {
+            OR: [
+              { name: { contains: search, mode: 'insensitive' } },
+              { code: { contains: search, mode: 'insensitive' } },
+            ],
+          }
+        : {}),
     }
 
     const { items, total } = await offsetPaginate(this.prisma.warehouse, {
@@ -40,7 +48,7 @@ export class WarehouseService {
         shopId,
         name: dto.name,
         code: dto.code.toUpperCase(),
-        address: dto.address,
+        ...(dto.address !== undefined ? { address: dto.address } : {}),
         isDefault: dto.isDefault ?? false,
       },
     })
@@ -85,7 +93,13 @@ export class WarehouseService {
     return buildOffsetResponse(items, page, pageSize, total)
   }
 
-  async updateStock(shopId: string, warehouseId: string, variantId: string, stock: number, safetyStock?: number) {
+  async updateStock(
+    shopId: string,
+    warehouseId: string,
+    variantId: string,
+    stock: number,
+    safetyStock?: number,
+  ) {
     const warehouse = await this.prisma.warehouse.findFirst({
       where: { id: warehouseId, shopId },
     })
@@ -101,7 +115,13 @@ export class WarehouseService {
     })
   }
 
-  async createTransfer(shopId: string, fromWarehouseId: string, toWarehouseId: string, items: { variantId: string; quantity: number }[], note?: string) {
+  async createTransfer(
+    shopId: string,
+    fromWarehouseId: string,
+    toWarehouseId: string,
+    items: { variantId: string; quantity: number }[],
+    note?: string,
+  ) {
     if (fromWarehouseId === toWarehouseId) {
       throw new BadRequestException('Cannot transfer to the same warehouse')
     }
@@ -120,7 +140,7 @@ export class WarehouseService {
         shopId,
         fromWarehouseId,
         toWarehouseId,
-        note,
+        ...(note !== undefined ? { note } : {}),
         items: {
           create: items.map((item) => ({
             variantId: item.variantId,
@@ -135,10 +155,8 @@ export class WarehouseService {
   async listTransfers(shopId: string, query: TransferQueryDto) {
     const { page = 1, pageSize = 20, status } = query
 
-    const where: Prisma.InventoryTransferWhereInput = {
-      shopId,
-      ...(status ? { status: status as Prisma.InventoryTransferWhereInput['status'] } : {}),
-    }
+    const where: Prisma.InventoryTransferWhereInput = { shopId }
+    if (status) where.status = status as NonNullable<Prisma.InventoryTransferWhereInput['status']>
 
     const { items, total } = await offsetPaginate(this.prisma.inventoryTransfer, {
       page,
@@ -172,13 +190,27 @@ export class WarehouseService {
     return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       for (const item of transfer.items) {
         await tx.warehouseStock.update({
-          where: { warehouseId_variantId: { warehouseId: transfer.fromWarehouseId, variantId: item.variantId } },
+          where: {
+            warehouseId_variantId: {
+              warehouseId: transfer.fromWarehouseId,
+              variantId: item.variantId,
+            },
+          },
           data: { stock: { decrement: item.quantity } },
         })
 
         await tx.warehouseStock.upsert({
-          where: { warehouseId_variantId: { warehouseId: transfer.toWarehouseId, variantId: item.variantId } },
-          create: { warehouseId: transfer.toWarehouseId, variantId: item.variantId, stock: item.quantity },
+          where: {
+            warehouseId_variantId: {
+              warehouseId: transfer.toWarehouseId,
+              variantId: item.variantId,
+            },
+          },
+          create: {
+            warehouseId: transfer.toWarehouseId,
+            variantId: item.variantId,
+            stock: item.quantity,
+          },
           update: { stock: { increment: item.quantity } },
         })
       }
@@ -198,7 +230,9 @@ export class WarehouseService {
 
     const warehouseIds = warehouses.map((w: { id: string }) => w.id)
 
-    const lowStockItems = await this.prisma.$queryRaw<Array<{ warehouse_id: string; variant_id: string; stock: number; safety_stock: number }>>`
+    const lowStockItems = await this.prisma.$queryRaw<
+      Array<{ warehouse_id: string; variant_id: string; stock: number; safety_stock: number }>
+    >`
       SELECT warehouse_id, variant_id, stock, safety_stock
       FROM warehouse_stocks
       WHERE warehouse_id = ANY(${warehouseIds}::uuid[])

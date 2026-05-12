@@ -9,11 +9,11 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
-import { ShopService } from '../shop/shop.service'
-import { SubscriptionService } from './subscription.service'
-import { SubscribeDto } from './dto/subscription.dto'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+} from '@ecom/nestjs-core/openapi'
+import type { ShopService } from '../shop/shop.service'
+import type { SubscriptionService } from './subscription.service'
+import type { SubscribeDto } from './dto/subscription.dto'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @ApiTags('Seller/Subscriptions')
 @ApiAuth()

@@ -10,10 +10,13 @@ import {
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = 'system' } = useTheme()
+  // Cast is safe: useTheme() returns string | undefined, but we default to 'system'
+  // which is always a valid ToasterProps['theme'] value.
+  const resolvedTheme = (theme as ToasterProps['theme']) ?? 'system'
 
   return (
     <Sonner
-      theme={theme as ToasterProps['theme']}
+      theme={resolvedTheme}
       className="toaster group"
       icons={{
         success: <CircleCheckIcon className="size-4" />,

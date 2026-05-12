@@ -4,8 +4,24 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "outDir": "./dist",
-    "rootDir": "./src",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@ecom/contracts": ["../../packages/contracts/src"],
+      "@ecom/contracts/*": ["../../packages/contracts/src/*"],
+      "@ecom/database": ["../../packages/database/src"],
+      "@ecom/database/*": ["../../packages/database/src/*"],
+      "@ecom/nestjs-core": ["../../packages/nestjs-core/src"],
+      "@ecom/nestjs-core/*": ["../../packages/nestjs-core/src/*"],
+      "@ecom/shared": ["../../packages/shared/src"],
+      "@ecom/shared/constants": ["../../packages/shared/src/constants"],
+      "@ecom/shared/pagination/core": ["../../packages/shared/src/pagination/core"],
+      "@ecom/shared/pagination/nestjs": ["../../packages/shared/src/pagination/nestjs"],
+      "@ecom/shared/pagination/prisma": ["../../packages/shared/src/pagination/prisma"],
+      "@ecom/shared/utils": ["../../packages/shared/src/utils"],
+      "@ecom/shared/errors": ["../../packages/shared/src/errors"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test"]

@@ -21,12 +21,12 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
-import { ShopService } from '../shop/shop.service'
-import { CouponService } from './coupon.service'
-import { CreateCouponDto } from './dto/create-coupon.dto'
-import { UpdateCouponDto } from './dto/update-coupon.dto'
-import { CouponQueryDto } from './dto/coupon-query.dto'
+} from '@ecom/nestjs-core/openapi'
+import type { ShopService } from '../shop/shop.service'
+import type { CouponService } from './coupon.service'
+import type { CreateCouponDto } from './dto/create-coupon.dto'
+import type { UpdateCouponDto } from './dto/update-coupon.dto'
+import type { CouponQueryDto } from './dto/coupon-query.dto'
 
 @ApiTags('Seller/Coupons')
 @ApiAuth()
@@ -69,7 +69,11 @@ export class CouponController {
 
   @Put(':id')
   @ApiOkResponseData(Object)
-  async update(@CurrentUser() user: SessionData, @Param('id') id: string, @Body() dto: UpdateCouponDto) {
+  async update(
+    @CurrentUser() user: SessionData,
+    @Param('id') id: string,
+    @Body() dto: UpdateCouponDto,
+  ) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.couponService.update(shopId, id, dto)
   }

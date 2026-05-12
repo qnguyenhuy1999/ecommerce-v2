@@ -7,6 +7,7 @@ import { PageHeader } from '../../components/page-header'
 import { DataTable } from '@ecom/core-ui'
 import { StatusBadge } from '../../components/status-badge'
 import { api } from '../../lib/api'
+import type { SellerPaths } from '@ecom/contracts/generated'
 
 interface SellerOrder {
   id: string
@@ -22,6 +23,29 @@ interface OrdersResponse {
   meta: { page: number; limit: number; total: number; totalPages: number }
 }
 
+type OrdersListResponse =
+  SellerPaths['/orders']['get']['responses']['200']['content']['application/json']
+
+const getItems = <T,>(data: unknown): T[] => {
+  if (!data || typeof data !== 'object') return []
+  const items = (data as { items?: unknown }).items
+  if (Array.isArray(items)) return items as T[]
+  const nested = (data as { data?: unknown }).data
+  if (Array.isArray(nested)) return nested as T[]
+  return []
+}
+
+const getTotalPages = (meta: unknown): number | undefined => {
+  if (!meta || typeof meta !== 'object') return undefined
+  const pagination = (meta as { pagination?: unknown }).pagination
+  if (pagination && typeof pagination === 'object') {
+    const totalPages = (pagination as { totalPages?: unknown }).totalPages
+    if (typeof totalPages === 'number') return totalPages
+  }
+  const totalPages = (meta as { totalPages?: unknown }).totalPages
+  return typeof totalPages === 'number' ? totalPages : undefined
+}
+
 export default function OrdersPage() {
   const [orders, setOrders] = useState<SellerOrder[]>([])
   const [loading, setLoading] = useState(true)
@@ -34,16 +58,16 @@ export default function OrdersPage() {
     const fetchOrders = async () => {
       setLoading(true)
       try {
-        const res = await api<{ data: OrdersResponse }>('/orders', {
+        const res = await api<OrdersListResponse>('/orders', {
           params: {
             page,
             limit: 20,
-            search: search || undefined,
-            status: statusFilter || undefined,
+            ...(search ? { search } : {}),
+            ...(statusFilter ? { status: statusFilter } : {}),
           },
         })
-        setOrders(res.data.data)
-        setTotalPages(res.data.meta.totalPages)
+        setOrders(getItems<SellerOrder>(res.data))
+        setTotalPages(getTotalPages(res.meta) ?? 1)
       } catch {
         /* empty */
       } finally {
@@ -84,9 +108,9 @@ export default function OrdersPage() {
     <DashboardLayout>
       <PageHeader title="Orders" description="Manage your seller orders" />
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search orders..."
@@ -95,7 +119,7 @@ export default function OrdersPage() {
               setSearch(e.target.value)
               setPage(1)
             }}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+            className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-4 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <select
@@ -104,7 +128,7 @@ export default function OrdersPage() {
             setStatusFilter(e.target.value)
             setPage(1)
           }}
-          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">All Status</option>
           <option value="PENDING">Pending</option>
@@ -119,11 +143,11 @@ export default function OrdersPage() {
       <DataTable columns={columns} data={orders} loading={loading} emptyMessage="No orders yet" />
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-4">
+        <div className="mt-4 flex items-center justify-center gap-2">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Previous
           </button>
@@ -133,7 +157,7 @@ export default function OrdersPage() {
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Next
           </button>

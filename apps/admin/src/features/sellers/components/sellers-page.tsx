@@ -1,18 +1,34 @@
+/* eslint-disable max-lines-per-function */
 'use client'
 
 import { useState, useCallback } from 'react'
 import Link from 'next/link'
-// import { UserStatus } from '@ecom/contracts'
+import { SellerStatus } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { useSellers, useSellerStatusCounts } from '../hooks/use-sellers'
 
-const STATUS_TABS: string[] = ['ALL', 'PENDING', 'ACTIVE', 'SUSPENDED', 'REJECTED', 'BANNED']
+type SellerStatusFilter = (typeof SellerStatus)[keyof typeof SellerStatus] | 'ALL'
+
+const STATUS_TABS: SellerStatusFilter[] = ['ALL', ...Object.values(SellerStatus)]
+
+function isSellerStatusFilter(value: string): value is SellerStatusFilter {
+  return value === 'ALL' || Object.values(SellerStatus).some((status) => status === value)
+}
+
+function getSellerEmail(seller: unknown): string | null {
+  if (!seller || typeof seller !== 'object' || !('user' in seller)) return null
+
+  const user = seller.user
+  if (!user || typeof user !== 'object' || !('email' in user)) return null
+
+  return typeof user.email === 'string' ? user.email : null
+}
 
 export function SellersPage() {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState<string>('ALL')
+  const [statusFilter, setStatusFilter] = useState<SellerStatusFilter>('ALL')
 
   const debounceTimeout = useCallback(() => {
     let timer: ReturnType<typeof setTimeout>
@@ -28,8 +44,8 @@ export function SellersPage() {
   const { data, isLoading } = useSellers({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    search: debouncedSearch || undefined,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(debouncedSearch ? { search: debouncedSearch } : {}),
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
 
   const { data: counts } = useSellerStatusCounts()
@@ -39,7 +55,7 @@ export function SellersPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Sellers</h1>
-          <p className="text-sm text-muted-foreground">Manage marketplace sellers</p>
+          <p className="text-muted-foreground text-sm">Manage marketplace sellers</p>
         </div>
       </div>
 
@@ -48,18 +64,20 @@ export function SellersPage() {
           <button
             key={tab}
             onClick={() => {
-              setStatusFilter(tab)
-              setPage(1)
+              if (isSellerStatusFilter(tab)) {
+                setStatusFilter(tab)
+                setPage(1)
+              }
             }}
             className={`px-3 py-2 text-sm font-medium transition-colors ${
               statusFilter === tab
-                ? 'border-b-2 border-primary text-primary'
+                ? 'border-primary text-primary border-b-2'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             {tab}
             {counts && tab !== 'ALL' && counts[tab] != null && (
-              <span className="ml-1.5 text-xs text-muted-foreground">({counts[tab]})</span>
+              <span className="text-muted-foreground ml-1.5 text-xs">({counts[tab]})</span>
             )}
           </button>
         ))}
@@ -74,26 +92,26 @@ export function SellersPage() {
             setSearch(e.target.value)
             debounceTimeout(e.target.value)
           }}
-          className="flex h-9 w-full max-w-sm rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full max-w-sm rounded-md border px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1"
         />
       </div>
 
-      <div className="rounded-xl border bg-card shadow-sm">
+      <div className="bg-card rounded-xl border shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b bg-muted/50 text-left">
-                <th className="sticky top-0 px-4 py-3 font-medium text-muted-foreground">
+              <tr className="bg-muted/50 border-b text-left">
+                <th className="text-muted-foreground sticky top-0 px-4 py-3 font-medium">
                   Shop Name
                 </th>
-                <th className="sticky top-0 px-4 py-3 font-medium text-muted-foreground">
+                <th className="text-muted-foreground sticky top-0 px-4 py-3 font-medium">
                   Owner Email
                 </th>
-                <th className="sticky top-0 px-4 py-3 font-medium text-muted-foreground">Status</th>
-                <th className="sticky top-0 px-4 py-3 font-medium text-muted-foreground">
+                <th className="text-muted-foreground sticky top-0 px-4 py-3 font-medium">Status</th>
+                <th className="text-muted-foreground sticky top-0 px-4 py-3 font-medium">
                   Created
                 </th>
-                <th className="sticky top-0 px-4 py-3 font-medium text-muted-foreground">
+                <th className="text-muted-foreground sticky top-0 px-4 py-3 font-medium">
                   Actions
                 </th>
               </tr>
@@ -104,25 +122,25 @@ export function SellersPage() {
                     <tr key={i} className="border-b">
                       {Array.from({ length: 5 }).map((_, j) => (
                         <td key={j} className="px-4 py-3">
-                          <div className="h-4 w-20 animate-pulse rounded bg-muted" />
+                          <div className="bg-muted h-4 w-20 animate-pulse rounded" />
                         </td>
                       ))}
                     </tr>
                   ))
                 : data?.items.map((seller) => (
-                    <tr key={seller.id} className="border-b hover:bg-muted/50">
+                    <tr key={seller.id} className="hover:bg-muted/50 border-b">
                       <td className="px-4 py-3 font-medium">{seller.shopName}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{seller.user.email}</td>
+                      <td className="text-muted-foreground px-4 py-3">{getSellerEmail(seller) ?? '—'}</td>
                       <td className="px-4 py-3">
                         <StatusBadge status={seller.status} />
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">
+                      <td className="text-muted-foreground px-4 py-3">
                         {new Date(seller.createdAt).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-3">
                         <Link
                           href={`/sellers/${seller.id}`}
-                          className="text-sm font-medium text-primary hover:underline"
+                          className="text-primary text-sm font-medium hover:underline"
                         >
                           View
                         </Link>
@@ -131,7 +149,7 @@ export function SellersPage() {
                   ))}
               {!isLoading && !data?.items.length && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
+                  <td colSpan={5} className="text-muted-foreground px-4 py-8 text-center">
                     No sellers found
                   </td>
                 </tr>
@@ -142,7 +160,7 @@ export function SellersPage() {
 
         {data && data.meta.totalPages > 1 && (
           <div className="flex items-center justify-between border-t px-4 py-3">
-            <span className="text-sm text-muted-foreground">
+            <span className="text-muted-foreground text-sm">
               Page {data.meta.page} of {data.meta.totalPages} ({data.meta.total} total)
             </span>
             <div className="flex gap-2">

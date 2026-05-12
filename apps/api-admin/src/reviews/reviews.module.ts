@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { ReviewsController } from './reviews.controller';
-import { ReviewsService } from './reviews.service';
-import { AuditLogsModule } from '../audit-logs/audit-logs.module';
+import { Module } from '@nestjs/common'
+import { ReviewsController } from './reviews.controller'
+import { ReviewsService } from './reviews.service'
+import { AuditLogsModule } from '../audit-logs/audit-logs.module'
 
 @Module({
   imports: [AuditLogsModule],

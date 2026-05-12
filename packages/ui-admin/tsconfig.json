@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig/react-library.json",
+  "extends": "../eslint-config/tsconfig/react-library.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",

@@ -1,4 +1,5 @@
 import { apiFetch } from '@/lib/api'
+import type { AdminOperations } from '@ecom/contracts/generated'
 import type { PaginatedResponse } from '@ecom/shared/pagination/core'
 
 export interface UserListItem {
@@ -22,44 +23,66 @@ export interface UserDetail extends UserListItem {
   }[]
 }
 
-export async function getUsers(params: {
-  page?: number
-  limit?: number
-  search?: string
-  status?: string
-}) {
-  const query = new URLSearchParams()
-  if (params.page) query.set('page', String(params.page))
-  if (params.limit) query.set('limit', String(params.limit))
-  if (params.search) query.set('search', params.search)
-  if (params.status) query.set('status', params.status)
-  return apiFetch<{ success: boolean; data: PaginatedResponse<UserListItem> }>(
-    `/admin/users?${query.toString()}`,
-  )
+type UserListQuery = NonNullable<AdminOperations['UsersController_findAll']['parameters']['query']>
+export type { UserListQuery }
+type UserListResponse =
+  AdminOperations['UsersController_findAll']['responses']['200']['content']['application/json'] & {
+    data: PaginatedResponse<UserListItem>
+  }
+type UserDetailResponse =
+  AdminOperations['UsersController_findById']['responses']['200']['content']['application/json'] & {
+    data: UserDetail
+  }
+type UserStatusCountsResponse =
+  AdminOperations['UsersController_statusCounts']['responses']['200']['content']['application/json'] & {
+    data: Record<string, number>
+  }
+type UserActionBody =
+  AdminOperations['UsersController_suspend']['requestBody']['content']['application/json']
+type UserActionResponse =
+  AdminOperations['UsersController_suspend']['responses']['200']['content']['application/json']
+
+export async function getUsers(params: UserListQuery = {}) {
+  const query: UserListQuery = {
+    ...(params.page !== undefined && { page: params.page }),
+    ...(params.limit !== undefined && { limit: params.limit }),
+    ...(params.search !== undefined && { search: params.search }),
+    ...(params.status !== undefined && { status: params.status }),
+  }
+
+  return apiFetch<UserListResponse>('/admin/users', { params: query })
 }
 
 export async function getUser(id: string) {
-  return apiFetch<{ success: boolean; data: UserDetail }>(`/admin/users/${id}`)
+  return apiFetch<UserDetailResponse>(`/admin/users/${id}`)
 }
 
 export async function getUserStatusCounts() {
-  return apiFetch<{ success: boolean; data: Record<string, number> }>('/admin/users/status-counts')
+  return apiFetch<UserStatusCountsResponse>('/admin/users/status-counts')
 }
 
 export async function suspendUser(id: string, reason?: string) {
-  return apiFetch<{ success: boolean }>(`/admin/users/${id}/suspend`, {
+  const body: UserActionBody = {
+    ...(reason !== undefined && { reason }),
+  }
+
+  return apiFetch<UserActionResponse>(`/admin/users/${id}/suspend`, {
     method: 'POST',
-    body: JSON.stringify({ reason }),
+    body: JSON.stringify(body),
   })
 }
 
 export async function banUser(id: string, reason?: string) {
-  return apiFetch<{ success: boolean }>(`/admin/users/${id}/ban`, {
+  const body: UserActionBody = {
+    ...(reason !== undefined && { reason }),
+  }
+
+  return apiFetch<UserActionResponse>(`/admin/users/${id}/ban`, {
     method: 'POST',
-    body: JSON.stringify({ reason }),
+    body: JSON.stringify(body),
   })
 }
 
 export async function activateUser(id: string) {
-  return apiFetch<{ success: boolean }>(`/admin/users/${id}/activate`, { method: 'POST' })
+  return apiFetch<UserActionResponse>(`/admin/users/${id}/activate`, { method: 'POST' })
 }

@@ -57,12 +57,12 @@ const columns = [
               Approve
             </button>
           )}
-          {[ReviewStatus.PENDING, ReviewStatus.APPROVED].includes(
-            review.status as ReviewStatus,
+          {([ReviewStatus.PENDING, ReviewStatus.APPROVED] as ReviewStatus[]).includes(
+            review.status,
           ) && (
             <button
               onClick={() => hide.mutate(review.id)}
-              className="rounded border px-2 py-0.5 text-xs hover:bg-muted"
+              className="hover:bg-muted rounded border px-2 py-0.5 text-xs"
             >
               Hide
             </button>
@@ -90,7 +90,7 @@ export function ReviewsPage() {
   const { data, isLoading } = useReviews({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
   const { data: counts } = useReviewStatusCounts()
 
@@ -98,7 +98,7 @@ export function ReviewsPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Reviews</h1>
-        <p className="text-sm text-muted-foreground">Moderate user reviews & reports</p>
+        <p className="text-muted-foreground text-sm">Moderate user reviews & reports</p>
       </div>
 
       <StatusTabs
@@ -108,15 +108,15 @@ export function ReviewsPage() {
           setStatusFilter(t)
           setPage(1)
         }}
-        counts={counts}
+        {...(counts !== undefined ? { counts } : {})}
       />
 
       <DataTable
         columns={columns}
         data={data?.items ?? []}
-        meta={data?.meta}
+        {...(data?.meta !== undefined ? { meta: data.meta } : {})}
         loading={isLoading}
-        onPageChange={setPage}
+        onPageChange={(p) => setPage(p)}
       />
     </div>
   )

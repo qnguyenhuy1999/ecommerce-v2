@@ -1,6 +1,6 @@
 'use client'
 
-import { createAuthClient, type AuthUser } from '@ecom/auth-next/client'
+import { createAuthClient, type AuthUser } from '@ecom/auth/client'
 
 export type { AuthUser }
 

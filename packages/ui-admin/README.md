@@ -57,6 +57,7 @@ ComponentName/
 Admin-specific smallest building blocks that extend `core-ui` atoms.
 
 Rules:
+
 - No business logic
 - Compose or extend `@ecom/core-ui` atoms
 - Admin-specific variants only

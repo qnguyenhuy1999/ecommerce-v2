@@ -1,13 +1,13 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  Inject,
-  UnauthorizedException,
-} from '@nestjs/common'
+import type { CanActivate, ExecutionContext } from '@nestjs/common'
+import { Injectable, Inject, UnauthorizedException } from '@nestjs/common'
 import type { Request } from 'express'
-import { SessionService, SESSION_COOKIE_NAME } from '@ecom/auth'
+import type { SessionService } from '@ecom/auth'
+import { SESSION_COOKIE_NAME } from '@ecom/auth'
 import { SESSION_SERVICE } from '../session.provider'
+
+type UserRequest = Request & { user?: { userId: string; roles: string[] } }
+
+const SELLER_ROLE = 'seller'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -17,8 +17,8 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest<Request>()
-    const sessionId = request.cookies?.[SESSION_COOKIE_NAME]
+    const request = context.switchToHttp().getRequest<UserRequest>()
+    const sessionId = getSessionIdFromRequest(request)
 
     if (!sessionId) {
       throw new UnauthorizedException('Authentication required')
@@ -29,11 +29,18 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('Session expired or invalid')
     }
 
-    if (!session.roles.includes('seller')) {
+    if (!session.roles.includes(SELLER_ROLE)) {
       throw new UnauthorizedException('Seller access required')
     }
 
-    ;(request as Request & { user: unknown }).user = session
+    request.user = session
     return true
   }
+}
+
+function getSessionIdFromRequest(req: Request): string | undefined {
+  const cookies = req.cookies as unknown
+  if (!cookies || typeof cookies !== 'object') return undefined
+  const sessionId = (cookies as Record<string, unknown>)[SESSION_COOKIE_NAME]
+  return typeof sessionId === 'string' ? sessionId : undefined
 }

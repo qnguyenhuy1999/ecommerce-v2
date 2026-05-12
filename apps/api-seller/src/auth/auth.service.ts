@@ -7,11 +7,13 @@ import {
   BadRequestException,
 } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
-import { join } from 'node:path'
-import { PrismaService, Prisma } from '@ecom/database'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
 import {
-  SessionService,
   type SessionData,
+  type SessionService,
   BaseUserAuthService,
   SESSION_EXPIRY_DAYS,
   VERIFY_TOKEN_TTL,
@@ -19,11 +21,15 @@ import {
   hashPassword,
   comparePassword,
 } from '@ecom/auth'
-import { EmailService } from '@ecom/email'
-import { RedisService } from '@ecom/redis'
+import type { EmailService } from '@ecom/email'
+import type { RedisService } from '@ecom/redis'
+import { UserStatus } from '@ecom/contracts/enums'
 import { SESSION_SERVICE } from './session.provider'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
+const SELLER_ROLE = 'seller'
 
 @Injectable()
 export class AuthService extends BaseUserAuthService {
@@ -47,7 +53,7 @@ export class AuthService extends BaseUserAuthService {
 
     const hashedPassword = await hashPassword(password)
 
-    const sellerRole = await this.prisma.role.findUnique({ where: { name: 'seller' } })
+    const sellerRole = await this.prisma.role.findUnique({ where: { name: SELLER_ROLE } })
     if (!sellerRole) {
       throw new Error('Default seller role not found. Run db:seed first.')
     }
@@ -126,12 +132,12 @@ export class AuthService extends BaseUserAuthService {
       throw new UnauthorizedException('Invalid credentials')
     }
 
-    if (user.status !== 'ACTIVE') {
+    if (user.status !== UserStatus.ACTIVE) {
       throw new UnauthorizedException('Account is not active')
     }
 
     const isSeller = user.userRoles.some(
-      (ur: { role: { name: string } }) => ur.role.name === 'seller',
+      (ur: { role: { name: string } }) => ur.role.name === SELLER_ROLE,
     )
     if (!isSeller) {
       throw new UnauthorizedException('Not a seller account')
@@ -150,7 +156,13 @@ export class AuthService extends BaseUserAuthService {
     await this.sessionService.create(sessionId, sessionData)
 
     await this.prisma.session.create({
-      data: { id: sessionId, userId: user.id, userAgent, ipAddress, expiresAt },
+      data: {
+        id: sessionId,
+        userId: user.id,
+        userAgent: userAgent ?? null,
+        ipAddress: ipAddress ?? null,
+        expiresAt,
+      },
     })
 
     return { sessionId, userId: user.id, roles }
@@ -160,11 +172,13 @@ export class AuthService extends BaseUserAuthService {
     await this.destroySession(sessionId)
   }
 
-  async verifyEmail(token: string) {
+  override async verifyEmail(token: string) {
     try {
       await super.verifyEmail(token)
     } catch (err: unknown) {
-      throw new BadRequestException(err instanceof Error ? err.message : 'Invalid or expired verification token')
+      throw new BadRequestException(
+        err instanceof Error ? err.message : 'Invalid or expired verification token',
+      )
     }
   }
 
@@ -181,7 +195,7 @@ export class AuthService extends BaseUserAuthService {
       },
     })
 
-    if (!user || user.status !== 'ACTIVE') {
+    if (!user || user.status !== UserStatus.ACTIVE) {
       throw new UnauthorizedException('User account is not active')
     }
 

@@ -1,11 +1,12 @@
-import { Module, forwardRef } from '@nestjs/common';
-import { APP_GUARD } from '@nestjs/core';
-import { ThrottlerGuard } from '@nestjs/throttler';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { SessionProvider } from './session.provider';
-import { AuditLogsModule } from '../audit-logs/audit-logs.module';
+import { Global, Module, forwardRef } from '@nestjs/common'
+import { APP_GUARD } from '@nestjs/core'
+import { ThrottlerGuard } from '@nestjs/throttler'
+import { AuthController } from './auth.controller'
+import { AuthService } from './auth.service'
+import { SessionProvider } from './session.provider'
+import { AuditLogsModule } from '../audit-logs/audit-logs.module'
 
+@Global()
 @Module({
   imports: [forwardRef(() => AuditLogsModule)],
   controllers: [AuthController],

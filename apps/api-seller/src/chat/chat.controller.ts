@@ -19,10 +19,10 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
-import { ShopService } from '../shop/shop.service'
-import { ChatService } from './chat.service'
-import { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
+} from '@ecom/nestjs-core/openapi'
+import type { ShopService } from '../shop/shop.service'
+import type { ChatService } from './chat.service'
+import type { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
 
 @ApiTags('Seller/Chat')
 @ApiAuth()
@@ -72,10 +72,22 @@ export class ChatController {
   async sendMessage(
     @CurrentUser() user: SessionData,
     @Param('id') id: string,
-    @Body() body: { content: string; type?: 'TEXT' | 'IMAGE' | 'PRODUCT'; metadata?: Record<string, unknown> },
+    @Body()
+    body: {
+      content: string
+      type?: 'TEXT' | 'IMAGE' | 'PRODUCT'
+      metadata?: Record<string, unknown>
+    },
   ) {
     const shopId = await this.shopService.getShopId(user.userId)
-    return this.chatService.sendMessage(shopId, id, user.userId, body.content, body.type, body.metadata)
+    return this.chatService.sendMessage(
+      shopId,
+      id,
+      user.userId,
+      body.content,
+      body.type,
+      body.metadata,
+    )
   }
 
   @Post('conversations/:id/read')

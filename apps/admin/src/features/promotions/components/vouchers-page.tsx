@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 'use client'
 
 import { useState, useCallback, useRef } from 'react'
@@ -33,7 +34,7 @@ const columns = [
     header: 'Usage',
     cell: (info) => {
       const limit = info.row.original.usageLimit
-      return `${info.getValue()}${limit ? ` / ${limit}` : ''}`
+      return `${info.getValue()}${limit ? ` / ${limit}` : ''}` // eslint-disable-line sonarjs/no-nested-template-literals
     },
   }),
   col.accessor('status', {
@@ -79,8 +80,8 @@ export function VouchersPage() {
   const { data, isLoading } = useVouchers({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    search: debouncedSearch || undefined,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(debouncedSearch ? { search: debouncedSearch } : {}),
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
   const { data: counts } = useVoucherStatusCounts()
 
@@ -119,18 +120,18 @@ export function VouchersPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Vouchers</h1>
-          <p className="text-sm text-muted-foreground">Platform promotion management</p>
+          <p className="text-muted-foreground text-sm">Platform promotion management</p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground hover:bg-primary/90"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm"
         >
           Create Voucher
         </button>
       </div>
 
       {showForm && (
-        <div className="rounded-xl border bg-card p-6 shadow-sm space-y-3">
+        <div className="bg-card space-y-3 rounded-xl border p-6 shadow-sm">
           <h2 className="font-semibold">New Voucher</h2>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <input
@@ -192,13 +193,13 @@ export function VouchersPage() {
             <button
               onClick={handleCreate}
               disabled={createVoucher.isPending}
-              className="rounded bg-primary px-4 py-1.5 text-sm text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded px-4 py-1.5 text-sm disabled:opacity-50"
             >
               {createVoucher.isPending ? 'Creating...' : 'Create'}
             </button>
             <button
               onClick={() => setShowForm(false)}
-              className="rounded border px-4 py-1.5 text-sm hover:bg-muted"
+              className="hover:bg-muted rounded border px-4 py-1.5 text-sm"
             >
               Cancel
             </button>
@@ -213,15 +214,15 @@ export function VouchersPage() {
           setStatusFilter(t)
           setPage(1)
         }}
-        counts={counts}
+        {...(counts !== undefined ? { counts } : {})}
       />
 
       <DataTable
         columns={columns}
         data={data?.items ?? []}
-        meta={data?.meta}
+        {...(data?.meta !== undefined ? { meta: data.meta } : {})}
         loading={isLoading}
-        onPageChange={setPage}
+        onPageChange={(p) => setPage(p)}
         toolbar={
           <TableToolbar
             search={search}

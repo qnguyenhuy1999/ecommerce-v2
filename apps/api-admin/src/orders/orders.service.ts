@@ -1,29 +1,28 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService, type OrderStatus, Prisma } from '@ecom/database';
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
+import { Injectable, NotFoundException } from '@nestjs/common'
+import type { PrismaService, Prisma } from '@ecom/database'
+import { type OrderStatus, OrderStatus as OS } from '@ecom/contracts/enums'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
 
 @Injectable()
 export class OrdersService {
   constructor(private readonly prisma: PrismaService) {}
   async findAll(query: {
-    page?: number;
-    limit?: number;
-    search?: string;
-    status?: OrderStatus;
-    buyerId?: string;
+    page?: number
+    limit?: number
+    search?: string
+    status?: OrderStatus
+    buyerId?: string
   }) {
-    const where: Prisma.OrderWhereInput = {};
-    if (query.status) where.status = query.status;
-    if (query.buyerId) where.buyerId = query.buyerId;
+    const where: Prisma.OrderWhereInput = {}
+    if (query.status) where.status = query.status
+    if (query.buyerId) where.buyerId = query.buyerId
     if (query.search) {
-      where.OR = [
-        { id: query.search },
-      ];
+      where.OR = [{ id: query.search }]
     }
 
     const { items, total } = await offsetPaginate(this.prisma.order, {
-      page: query.page,
-      limit: query.limit,
+      ...withDefined({ page: query.page, limit: query.limit }),
       where,
       include: {
         sellerOrders: {
@@ -34,9 +33,9 @@ export class OrdersService {
         },
       },
       orderBy: { createdAt: 'desc' },
-    });
+    })
 
-    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total);
+    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total)
   }
 
   async findById(id: string) {
@@ -52,48 +51,48 @@ export class OrdersService {
           },
         },
       },
-    });
-    if (!order) throw new NotFoundException('Order not found');
-    return order;
+    })
+    if (!order) throw new NotFoundException('Order not found')
+    return order
   }
 
   async forceCancel(id: string) {
-    const order = await this.findById(id);
+    const order = await this.findById(id)
     return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.sellerOrder.updateMany({
         where: { orderId: order.id },
-        data: { status: 'CANCELLED' },
-      });
+        data: { status: OS.CANCELLED },
+      })
       return tx.order.update({
         where: { id: order.id },
-        data: { status: 'CANCELLED' },
-      });
-    });
+        data: { status: OS.CANCELLED },
+      })
+    })
   }
 
   async forceComplete(id: string) {
-    const order = await this.findById(id);
+    const order = await this.findById(id)
     return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.sellerOrder.updateMany({
         where: { orderId: order.id },
-        data: { status: 'DELIVERED' },
-      });
+        data: { status: OS.DELIVERED },
+      })
       return tx.order.update({
         where: { id: order.id },
-        data: { status: 'DELIVERED' },
-      });
-    });
+        data: { status: OS.DELIVERED },
+      })
+    })
   }
 
   async getStatusCounts() {
     const counts = await this.prisma.order.groupBy({
       by: ['status'],
       _count: { status: true },
-    });
-    const result: Record<string, number> = {};
+    })
+    const result: Record<string, number> = {}
     for (const item of counts) {
-      result[item.status] = item._count.status;
+      result[item.status] = item._count.status
     }
-    return result;
+    return result
   }
 }

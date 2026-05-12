@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { Prisma } from '@ecom/database'
+import type { Prisma } from '@ecom/database'
 import { slugify } from '@ecom/shared/utils'
-import { CreateProductDto } from './dto/create-product.dto'
-import { UpdateProductDto } from './dto/update-product.dto'
-import { ProductQueryDto } from './dto/product-query.dto'
+import type { CreateProductDto } from './dto/create-product.dto'
+import type { UpdateProductDto } from './dto/update-product.dto'
+import type { ProductQueryDto } from './dto/product-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { ProductRepository } from './repositories/product.repository'
+import type { ProductRepository } from './repositories/product.repository'
+import { ProductStatus } from '@ecom/contracts'
 
 @Injectable()
 export class ProductService {
@@ -30,11 +31,14 @@ export class ProductService {
     const where: Prisma.ProductWhereInput = {
       shopId,
       deletedAt: null,
-      ...(status ? { status: status as Prisma.ProductWhereInput['status'] } : {}),
-      ...(categoryId ? { categoryId } : {}),
-      ...(search
-        ? { OR: [{ name: { contains: search, mode: 'insensitive' } }, { baseSku: { contains: search, mode: 'insensitive' } }] }
-        : {}),
+    }
+    if (status) where.status = status
+    if (categoryId) where.categoryId = categoryId
+    if (search) {
+      where.OR = [
+        { name: { contains: search, mode: 'insensitive' } },
+        { baseSku: { contains: search, mode: 'insensitive' } },
+      ]
     }
 
     const { items, total } = await this.productRepository.findMany(where, {
@@ -70,14 +74,14 @@ export class ProductService {
           shopId,
           name: dto.name,
           slug: uniqueSlug,
-          description: dto.description,
-          categoryId: dto.categoryId,
-          basePrice: dto.basePrice,
-          baseSku: dto.baseSku,
+          ...(dto.description !== undefined ? { description: dto.description } : {}),
+          ...(dto.categoryId !== undefined ? { categoryId: dto.categoryId } : {}),
+          ...(dto.basePrice !== undefined ? { basePrice: dto.basePrice } : {}),
+          ...(dto.baseSku !== undefined ? { baseSku: dto.baseSku } : {}),
           baseStock: dto.baseStock ?? 0,
           hasVariants: dto.hasVariants ?? false,
-          weight: dto.weight,
-          status: (dto.status as 'DRAFT' | 'PUBLISHED') ?? 'DRAFT',
+          ...(dto.weight !== undefined ? { weight: dto.weight } : {}),
+          status: dto.status ?? ProductStatus.DRAFT,
         },
       })
 
@@ -86,7 +90,7 @@ export class ProductService {
           data: dto.images.map((img, idx) => ({
             productId: product.id,
             url: img.url,
-            alt: img.alt,
+            ...(img.alt !== undefined ? { alt: img.alt } : {}),
             sortOrder: idx,
             isCover: img.isCover ?? idx === 0,
           })),
@@ -96,6 +100,7 @@ export class ProductService {
       if (dto.hasVariants && dto.variantOptionGroups?.length) {
         for (let gi = 0; gi < dto.variantOptionGroups.length; gi++) {
           const group = dto.variantOptionGroups[gi]
+          if (!group) continue
           const createdGroup = await tx.productVariantOptionGroup.create({
             data: {
               productId: product.id,
@@ -105,10 +110,12 @@ export class ProductService {
           })
 
           for (let oi = 0; oi < group.options.length; oi++) {
+            const option = group.options[oi]
+            if (!option) continue
             await tx.productVariantOption.create({
               data: {
                 groupId: createdGroup.id,
-                value: group.options[oi].value,
+                value: option.value,
                 sortOrder: oi,
               },
             })
@@ -125,7 +132,7 @@ export class ProductService {
             const variant = await tx.productVariant.create({
               data: {
                 productId: product.id,
-                sku: v.sku,
+                ...(v.sku !== undefined ? { sku: v.sku } : {}),
                 price: v.price,
                 stock: v.stock,
               },
@@ -174,7 +181,7 @@ export class ProductService {
     if (dto.baseStock !== undefined) data.baseStock = dto.baseStock
     if (dto.weight !== undefined) data.weight = dto.weight
     if (dto.hasVariants !== undefined) data.hasVariants = dto.hasVariants
-    if (dto.status !== undefined) data.status = dto.status as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED'
+    if (dto.status !== undefined) data.status = dto.status
 
     await this.productRepository.update(productId, data)
 
@@ -195,10 +202,10 @@ export class ProductService {
     await this.productRepository.update(productId, { deletedAt: new Date() })
   }
 
-  async bulkUpdateStatus(shopId: string, productIds: string[], status: string) {
+  async bulkUpdateStatus(shopId: string, productIds: string[], status: ProductStatus) {
     const result = await this.productRepository.updateMany(
       { id: { in: productIds }, shopId, deletedAt: null },
-      { status: status as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' },
+      { status },
     )
 
     if (result.count === 0) {

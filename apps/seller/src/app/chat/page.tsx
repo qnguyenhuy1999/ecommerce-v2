@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
@@ -101,87 +102,92 @@ export default function ChatPage() {
       <PageHeader title="Chat" description="Manage buyer conversations" />
 
       <div
-        className="bg-white rounded-lg border border-gray-200 overflow-hidden"
+        className="overflow-hidden rounded-lg border border-gray-200 bg-white"
         style={{ height: 'calc(100vh - 220px)' }}
       >
         <div className="flex h-full">
           {/* Conversation list */}
-          <div className="w-80 border-r border-gray-200 flex flex-col">
-            <div className="p-3 border-b border-gray-200">
+          <div className="flex w-80 flex-col border-r border-gray-200">
+            <div className="border-b border-gray-200 p-3">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Search conversations..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-4 text-sm outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
             <div className="flex-1 overflow-y-auto">
-              {loading ? (
-                <div className="p-4 space-y-3">
+              {loading && (
+                <div className="space-y-3 p-4">
                   {[1, 2, 3].map((i) => (
-                    <div key={i} className="h-16 bg-gray-100 rounded animate-pulse" />
+                    <div key={i} className="h-16 animate-pulse rounded bg-gray-100" />
                   ))}
                 </div>
-              ) : conversations.length === 0 ? (
+              )}
+              {!loading && conversations.length === 0 && (
                 <div className="p-4 text-center text-sm text-gray-500">No conversations</div>
-              ) : (
+              )}
+              {!loading &&
+                conversations.length > 0 &&
                 conversations.map((conv) => (
                   <button
                     key={conv.id}
                     onClick={() => setSelectedConversation(conv.id)}
-                    className={`w-full text-left p-3 border-b border-gray-100 hover:bg-gray-50 ${selectedConversation === conv.id ? 'bg-blue-50' : ''}`}
+                    className={`w-full border-b border-gray-100 p-3 text-left hover:bg-gray-50 ${selectedConversation === conv.id ? 'bg-blue-50' : ''}`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium truncate">Buyer</span>
+                      <span className="truncate text-sm font-medium">Buyer</span>
                       {conv.sellerUnread > 0 && (
-                        <span className="bg-blue-600 text-white text-xs rounded-full px-2 py-0.5">
+                        <span className="rounded-full bg-blue-600 px-2 py-0.5 text-xs text-white">
                           {conv.sellerUnread}
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-gray-500 truncate mt-1">
+                    <p className="mt-1 truncate text-xs text-gray-500">
                       {conv.lastMessageText ?? 'No messages'}
                     </p>
                     {conv.lastMessageAt && (
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="mt-1 text-xs text-gray-400">
                         {new Date(conv.lastMessageAt).toLocaleString()}
                       </p>
                     )}
                   </button>
-                ))
-              )}
+                ))}
             </div>
           </div>
 
           {/* Messages area */}
-          <div className="flex-1 flex flex-col">
+          <div className="flex flex-1 flex-col">
             {selectedConversation ? (
               <>
-                <div className="flex-1 overflow-y-auto p-4 space-y-3">
-                  {messages.map((msg) => (
-                    <div
-                      key={msg.id}
-                      className={`flex ${msg.senderId === selectedConversation ? 'justify-start' : 'justify-end'}`}
-                    >
+                <div className="flex-1 space-y-3 overflow-y-auto p-4">
+                  {messages.map((msg) => {
+                    const isBuyerMessage = msg.senderId === selectedConversation
+                    return (
                       <div
-                        className={`max-w-xs px-4 py-2 rounded-lg text-sm ${msg.senderId === selectedConversation ? 'bg-gray-100' : 'bg-blue-600 text-white'}`}
+                        key={msg.id}
+                        className={`flex ${isBuyerMessage ? 'justify-start' : 'justify-end'}`}
                       >
-                        <p>{msg.content}</p>
-                        <p
-                          className={`text-xs mt-1 ${msg.senderId === selectedConversation ? 'text-gray-400' : 'text-blue-200'}`}
+                        <div
+                          className={`max-w-xs rounded-lg px-4 py-2 text-sm ${isBuyerMessage ? 'bg-gray-100' : 'bg-blue-600 text-white'}`}
                         >
-                          {new Date(msg.createdAt).toLocaleTimeString()}
-                        </p>
+                          <p>{msg.content}</p>
+                          <p
+                            className={`mt-1 text-xs ${isBuyerMessage ? 'text-gray-400' : 'text-blue-200'}`}
+                          >
+                            {new Date(msg.createdAt).toLocaleTimeString()}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  })}
                   <div ref={messagesEndRef} />
                 </div>
-                <div className="p-3 border-t border-gray-200">
+                <div className="border-t border-gray-200 p-3">
                   <div className="flex gap-2">
                     <input
                       type="text"
@@ -189,12 +195,12 @@ export default function ChatPage() {
                       onChange={(e) => setMessageText(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                       placeholder="Type a message..."
-                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
+                      className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <button
                       onClick={handleSend}
                       disabled={!messageText.trim()}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                      className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
                     >
                       <Send className="h-4 w-4" />
                     </button>
@@ -202,7 +208,7 @@ export default function ChatPage() {
                 </div>
               </>
             ) : (
-              <div className="flex-1 flex items-center justify-center text-gray-400">
+              <div className="flex flex-1 items-center justify-center text-gray-400">
                 Select a conversation to start chatting
               </div>
             )}

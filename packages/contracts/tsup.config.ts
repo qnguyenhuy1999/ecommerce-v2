@@ -9,6 +9,7 @@ export default defineConfig({
     'src/order/index.ts',
     'src/auth/index.ts',
     'src/common/index.ts',
+    'src/generated/index.ts',
   ],
   format: ['cjs', 'esm'],
   dts: true,

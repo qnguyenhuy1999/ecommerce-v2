@@ -18,12 +18,12 @@ import {
   ApiOkResponseData,
   ApiCreatedResponseData,
   ApiErrorResponses,
-} from '@ecom/nestjs-openapi'
-import { LoginDto } from '@ecom/contracts'
-import { AuthService } from './auth.service'
-import { RegisterDto } from './dto/register.dto'
-import { ForgotPasswordDto } from './dto/forgot-password.dto'
-import { ResetPasswordDto } from './dto/reset-password.dto'
+} from '@ecom/nestjs-core/openapi'
+import type { LoginDto } from '@ecom/contracts'
+import type { AuthService } from './auth.service'
+import type { RegisterDto } from './dto/register.dto'
+import type { ForgotPasswordDto } from './dto/forgot-password.dto'
+import type { ResetPasswordDto } from './dto/reset-password.dto'
 
 @ApiTags('Seller/Auth')
 @ApiErrorResponses()
@@ -48,8 +48,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const userAgent = req.headers['user-agent']
-    const ipAddress =
-      (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ?? req.ip
+    const ipAddress = getClientIp(req)
 
     const { sessionId, userId, roles } = await this.authService.login(
       dto.email,
@@ -75,7 +74,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiOkResponseData(Object)
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    const sessionId = req.cookies?.[SESSION_COOKIE_NAME]
+    const sessionId = getSessionIdFromRequest(req)
     if (sessionId) {
       await this.authService.logout(sessionId)
     }
@@ -89,13 +88,13 @@ export class AuthController {
       ...(cookieOptions.domain ? { domain: cookieOptions.domain } : {}),
     })
 
-    return { message: 'Logged out' }
+    return { data: { message: 'Logged out' } }
   }
 
   @Get('me')
   @ApiOkResponseData(Object)
   async me(@Req() req: Request) {
-    const sessionId = req.cookies?.[SESSION_COOKIE_NAME]
+    const sessionId = getSessionIdFromRequest(req)
     if (!sessionId) {
       throw new UnauthorizedException('No session cookie')
     }
@@ -108,7 +107,7 @@ export class AuthController {
   @ApiOkResponseData(Object)
   async forgotPassword(@Body() dto: ForgotPasswordDto) {
     await this.authService.forgotPassword(dto.email)
-    return { message: 'If that email exists, a reset link has been sent' }
+    return { data: { message: 'If that email exists, a reset link has been sent' } }
   }
 
   @Post('reset-password')
@@ -116,13 +115,28 @@ export class AuthController {
   @ApiOkResponseData(Object)
   async resetPassword(@Body() dto: ResetPasswordDto) {
     await this.authService.resetPassword(dto.token, dto.password)
-    return { message: 'Password reset successful' }
+    return { data: { message: 'Password reset successful' } }
   }
 
   @Get('verify-email')
   @ApiOkResponseData(Object)
   async verifyEmail(@Query('token') token: string) {
     await this.authService.verifyEmail(token)
-    return { message: 'Email verified successfully' }
+    return { data: { message: 'Email verified successfully' } }
   }
+}
+
+function getClientIp(req: Request): string {
+  const forwardedFor = req.headers['x-forwarded-for']
+  if (typeof forwardedFor === 'string') {
+    return forwardedFor.split(',')[0]?.trim() ?? req.ip ?? ''
+  }
+  return req.ip ?? ''
+}
+
+function getSessionIdFromRequest(req: Request): string | undefined {
+  const cookies = req.cookies as unknown
+  if (!cookies || typeof cookies !== 'object') return undefined
+  const sessionId = (cookies as Record<string, unknown>)[SESSION_COOKIE_NAME]
+  return typeof sessionId === 'string' ? sessionId : undefined
 }

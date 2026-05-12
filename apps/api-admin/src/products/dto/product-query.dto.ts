@@ -1,7 +1,7 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsString, IsInt, Min, IsEnum } from 'class-validator';
-import { Type } from 'class-transformer';
-import { ProductStatus } from '@ecom/database';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { IsOptional, IsString, IsInt, Min, IsEnum } from 'class-validator'
+import { Type } from 'class-transformer'
+import { ProductStatus } from '@ecom/contracts/enums'
 
 export class ProductQueryDto {
   @ApiPropertyOptional()
@@ -9,35 +9,43 @@ export class ProductQueryDto {
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  page?: number = 1;
+  page?: number = 1
 
   @ApiPropertyOptional()
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  limit?: number = 20;
+  limit?: number = 20
 
   @ApiPropertyOptional()
-  @IsOptional() @IsString() search?: string;
+  @IsOptional()
+  @IsString()
+  search?: string
 
   @ApiPropertyOptional({ enum: ProductStatus })
-  @IsOptional() @IsEnum(ProductStatus) status?: ProductStatus;
+  @IsOptional()
+  @IsEnum(ProductStatus)
+  status?: ProductStatus
 
   @ApiPropertyOptional()
-  @IsOptional() @IsString() shopId?: string;
+  @IsOptional()
+  @IsString()
+  shopId?: string
 
   @ApiPropertyOptional()
-  @IsOptional() @IsString() categoryId?: string;
+  @IsOptional()
+  @IsString()
+  categoryId?: string
 }
 
 export class ProductResponseDto {
-  @ApiProperty() id!: string;
-  @ApiProperty() name!: string;
-  @ApiProperty() slug!: string;
-  @ApiProperty() description!: string;
-  @ApiProperty() price!: number;
-  @ApiProperty() status!: string;
-  @ApiProperty() createdAt!: Date;
-  @ApiProperty() updatedAt!: Date;
+  @ApiProperty({ description: 'Product ID' }) id!: string
+  @ApiProperty({ description: 'Product name' }) name!: string
+  @ApiProperty({ description: 'URL-friendly slug' }) slug!: string
+  @ApiProperty({ description: 'Product description' }) description!: string
+  @ApiProperty({ description: 'Base price' }) price!: number
+  @ApiProperty({ description: 'Product status', enum: ['DRAFT', 'PUBLISHED', 'ARCHIVED', 'REJECTED'] }) status!: string
+  @ApiProperty({ description: 'Creation timestamp', format: 'date-time' }) createdAt!: Date
+  @ApiProperty({ description: 'Last update timestamp', format: 'date-time' }) updatedAt!: Date
 }

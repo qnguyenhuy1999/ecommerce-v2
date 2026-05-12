@@ -8,10 +8,10 @@ import {
   ApiCreatedResponseData,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
-import { ShopService } from '../shop/shop.service'
-import { ShippingService } from './shipping.service'
-import { CreateShipmentDto } from './dto/create-shipment.dto'
+} from '@ecom/nestjs-core/openapi'
+import type { ShopService } from '../shop/shop.service'
+import type { ShippingService } from './shipping.service'
+import type { CreateShipmentDto } from './dto/create-shipment.dto'
 
 @ApiTags('Seller/Shipping')
 @ApiAuth()
@@ -52,7 +52,12 @@ export class ShippingController {
   @ApiCreatedResponseData(Object)
   async createShipment(@CurrentUser() user: SessionData, @Body() dto: CreateShipmentDto) {
     const shopId = await this.shopService.getShopId(user.userId)
-    return this.shippingService.createShipment(shopId, dto.sellerOrderId, dto.providerId, dto.trackingNumber)
+    return this.shippingService.createShipment(
+      shopId,
+      dto.sellerOrderId,
+      dto.providerId,
+      dto.trackingNumber,
+    )
   }
 
   @Put('shipments/:id/tracking')

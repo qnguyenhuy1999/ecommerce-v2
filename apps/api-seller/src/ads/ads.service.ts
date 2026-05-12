@@ -1,21 +1,20 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { CreateAdCampaignDto, CreateAdGroupDto, CreateAdDto } from './dto/create-ad-campaign.dto'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import { AdType, AdCampaignStatus } from '@ecom/database'
+import type {
+  CreateAdCampaignDto,
+  CreateAdGroupDto,
+  CreateAdDto,
+} from './dto/create-ad-campaign.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class AdsService {
   constructor(private readonly prisma: PrismaService) {}
   async listCampaigns(shopId: string, query: OffsetPaginationDto) {
-    const {
-      page = 1,
-      pageSize = 20,
-      sortBy = 'createdAt',
-      sortOrder = 'desc',
-      sort,
-      order,
-    } = query
+    const { page = 1, pageSize = 20, sortBy = 'createdAt', sortOrder = 'desc', sort, order } = query
 
     const finalSort = sort || sortBy
     const finalOrder = order || sortOrder
@@ -55,25 +54,23 @@ export class AdsService {
       data: {
         shopId,
         name: dto.name,
-        type:
-          (dto.type as 'SPONSORED_PRODUCT' | 'SEARCH_AD' | 'RECOMMENDATION_AD' | 'BANNER') ??
-          'SPONSORED_PRODUCT',
+        type: dto.type ?? AdType.SPONSORED_PRODUCT,
         dailyBudget: dto.dailyBudget,
-        totalBudget: dto.totalBudget,
+        ...(dto.totalBudget !== undefined ? { totalBudget: dto.totalBudget } : {}),
         bidAmount: dto.bidAmount,
         startsAt: new Date(dto.startsAt),
-        endsAt: dto.endsAt ? new Date(dto.endsAt) : undefined,
+        ...(dto.endsAt !== undefined ? { endsAt: new Date(dto.endsAt) } : {}),
       },
     })
   }
 
-  async updateCampaignStatus(shopId: string, id: string, status: string) {
+  async updateCampaignStatus(shopId: string, id: string, status: AdCampaignStatus) {
     const campaign = await this.prisma.adCampaign.findFirst({ where: { id, shopId } })
     if (!campaign) throw new NotFoundException('Campaign not found')
 
     return this.prisma.adCampaign.update({
       where: { id },
-      data: { status: status as 'DRAFT' | 'ACTIVE' | 'PAUSED' | 'ENDED' | 'DEPLETED' },
+      data: { status },
     })
   }
 
@@ -96,7 +93,7 @@ export class AdsService {
           data: dto.keywords.map((kw) => ({
             adGroupId: group.id,
             keyword: kw.keyword.toLowerCase(),
-            bidAmount: kw.bidAmount,
+            ...(kw.bidAmount !== undefined ? { bidAmount: kw.bidAmount } : {}),
           })),
         })
       }

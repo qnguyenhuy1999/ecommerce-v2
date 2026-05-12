@@ -1,4 +1,5 @@
-import { Badge, BadgeProps } from '@ecom/core-ui'
+import { Badge } from '@ecom/core-ui'
+import type { BadgeProps } from '@ecom/core-ui'
 
 import { cn } from '../../lib/utils'
 import {

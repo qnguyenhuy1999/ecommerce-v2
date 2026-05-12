@@ -1,4 +1,4 @@
-import { createWithAuth } from '@ecom/auth-next/middleware'
+import { createWithAuth } from '@ecom/auth/middleware'
 
 export const withAuth = createWithAuth({
   publicPaths: ['/login', '/register', '/forgot-password'],

@@ -184,9 +184,7 @@ function _parsePort(raw: string | undefined, fallback: number): number {
   if (raw === undefined || raw === '') return fallback
   const n = parseInt(raw, 10)
   if (!Number.isInteger(n) || n < 1 || n > 65535) {
-    throw new Error(
-      `Invalid port value "${raw}". Expected an integer between 1 and 65535.`,
-    )
+    throw new Error(`Invalid port value "${raw}". Expected an integer between 1 and 65535.`)
   }
   return n
 }
@@ -195,9 +193,7 @@ function _parsePositiveInt(raw: string | undefined, fallback: number): number {
   if (raw === undefined || raw === '') return fallback
   const n = parseInt(raw, 10)
   if (!Number.isInteger(n) || n < 1) {
-    throw new Error(
-      `Invalid positive integer value "${raw}". Expected a positive integer.`,
-    )
+    throw new Error(`Invalid positive integer value "${raw}". Expected a positive integer.`)
   }
   return n
 }

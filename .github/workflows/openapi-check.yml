@@ -7,7 +7,7 @@ on:
       - 'apps/api-admin/src/**'
       - 'apps/api-seller/src/**'
       - 'apps/api-storefront/src/**'
-      - 'packages/nestjs-openapi/src/**'
+      - 'packages/nestjs-core/src/**'
       - 'packages/contracts/src/**'
       # Also trigger if committed specs change (baseline update PRs)
       - 'apps/api-admin/openapi/**'
@@ -39,7 +39,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build packages
-        run: pnpm turbo build --filter=@ecom/nestjs-openapi --filter=@ecom/contracts
+        run: pnpm turbo build --filter=@ecom/nestjs-core --filter=@ecom/contracts
 
       - name: Generate OpenAPI specs (current branch)
         run: pnpm swagger:gen:all
@@ -49,8 +49,11 @@ jobs:
           DATABASE_URL: 'postgresql://user:pass@localhost:5432/ecom_test'
           REDIS_URL: 'redis://localhost:6379'
 
-      - name: Install openapi-diff
-        run: npm install -g @openapitools/openapi-diff@latest
+      - name: Generate TypeScript types from OpenAPI specs
+        run: pnpm openapi:gen
+
+      - name: Type-check generated contracts
+        run: pnpm type-check --filter=@ecom/contracts
 
       - name: Checkout baseline specs from main
         run: |
@@ -73,7 +76,7 @@ jobs:
             echo "No baseline for admin API — skipping diff (first generation)"
             exit 0
           fi
-          openapi-diff /tmp/admin-baseline.json apps/api-admin/openapi/admin.json \
+          npx --yes @openapitools/openapi-diff@latest /tmp/admin-baseline.json apps/api-admin/openapi/admin.json \
             --fail-on-incompatible \
             --output-format text \
             || (echo "::error::Breaking changes detected in Admin API" && exit 1)
@@ -85,7 +88,7 @@ jobs:
             echo "No baseline for seller API — skipping diff (first generation)"
             exit 0
           fi
-          openapi-diff /tmp/seller-baseline.json apps/api-seller/openapi/seller.json \
+          npx --yes @openapitools/openapi-diff@latest /tmp/seller-baseline.json apps/api-seller/openapi/seller.json \
             --fail-on-incompatible \
             --output-format text \
             || (echo "::error::Breaking changes detected in Seller API" && exit 1)
@@ -97,7 +100,7 @@ jobs:
             echo "No baseline for storefront API — skipping diff (first generation)"
             exit 0
           fi
-          openapi-diff /tmp/storefront-baseline.json apps/api-storefront/openapi/storefront.json \
+          npx --yes @openapitools/openapi-diff@latest /tmp/storefront-baseline.json apps/api-storefront/openapi/storefront.json \
             --fail-on-incompatible \
             --output-format text \
             || (echo "::error::Breaking changes detected in Storefront API" && exit 1)
@@ -111,4 +114,7 @@ jobs:
             apps/api-admin/openapi/admin.json
             apps/api-seller/openapi/seller.json
             apps/api-storefront/openapi/storefront.json
+            packages/contracts/src/generated/admin.ts
+            packages/contracts/src/generated/seller.ts
+            packages/contracts/src/generated/storefront.ts
           retention-days: 30

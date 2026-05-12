@@ -14,10 +14,7 @@ import { MetricsModule } from '../metrics/metrics.module'
         password: process.env.REDIS_PASSWORD,
       },
     }),
-    BullModule.registerQueue(
-      { name: 'bulk-jobs' },
-      { name: 'metrics-snapshots' },
-    ),
+    BullModule.registerQueue({ name: 'bulk-jobs' }, { name: 'metrics-snapshots' }),
     BulkModule,
     MetricsModule,
   ],

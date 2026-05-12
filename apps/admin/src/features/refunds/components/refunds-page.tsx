@@ -17,7 +17,7 @@ const columns = [
     cell: (info) => (
       <Link
         href={`/refunds/${info.getValue()}`}
-        className="font-medium hover:underline font-mono text-xs"
+        className="font-mono text-xs font-medium hover:underline"
       >
         {info.getValue().slice(0, 8)}...
       </Link>
@@ -47,7 +47,7 @@ export function RefundsPage() {
   const { data, isLoading } = useRefunds({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
   const { data: counts } = useRefundStatusCounts()
 
@@ -55,7 +55,7 @@ export function RefundsPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Refunds</h1>
-        <p className="text-sm text-muted-foreground">Manage return requests & refunds</p>
+        <p className="text-muted-foreground text-sm">Manage return requests & refunds</p>
       </div>
 
       <StatusTabs
@@ -65,15 +65,15 @@ export function RefundsPage() {
           setStatusFilter(t)
           setPage(1)
         }}
-        counts={counts}
+        {...(counts !== undefined ? { counts } : {})}
       />
 
       <DataTable
         columns={columns}
         data={data?.items ?? []}
-        meta={data?.meta}
+        {...(data?.meta !== undefined ? { meta: data.meta } : {})}
         loading={isLoading}
-        onPageChange={setPage}
+        onPageChange={(p) => setPage(p)}
       />
     </div>
   )

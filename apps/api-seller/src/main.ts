@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 import { NestFactory } from '@nestjs/core'
 import { ValidationPipe } from '@nestjs/common'
 import cookieParser from 'cookie-parser'
 import { AppModule } from './app.module'
 import { AllExceptionsFilter, ResponseInterceptor } from '@ecom/nestjs-core'
-import { buildSwaggerDocument } from '@ecom/nestjs-openapi'
+import { buildSwaggerDocument } from '@ecom/nestjs-core/openapi'
 import { getCorsOrigins, getSellerPort } from '@ecom/config'
 
 async function bootstrap() {

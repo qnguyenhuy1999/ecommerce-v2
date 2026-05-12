@@ -2114,7 +2114,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client",
+      "value": "C:\\Users\\User\\Desktop\\ecommerce-v2\\packages\\database\\src\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -2123,12 +2123,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/mac/Desktop/ecommerce-v2/packages/database/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\User\\Desktop\\ecommerce-v2\\packages\\database\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

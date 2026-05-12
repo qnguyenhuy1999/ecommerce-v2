@@ -1,9 +1,11 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import { AffiliateStatus } from '@ecom/database'
+import type { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
-import { randomBytes } from 'crypto'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { randomBytes } from 'node:crypto'
 
 @Injectable()
 export class AffiliateService {
@@ -24,13 +26,13 @@ export class AffiliateService {
     return buildOffsetResponse(items, page, pageSize, total)
   }
 
-  async updatePartnerStatus(partnerId: string, status: string) {
+  async updatePartnerStatus(partnerId: string, status: AffiliateStatus) {
     const partner = await this.prisma.affiliatePartner.findUnique({ where: { id: partnerId } })
     if (!partner) throw new NotFoundException('Partner not found')
 
     return this.prisma.affiliatePartner.update({
       where: { id: partnerId },
-      data: { status: status as 'PENDING' | 'APPROVED' | 'REJECTED' | 'SUSPENDED' },
+      data: { status },
     })
   }
 
@@ -40,8 +42,8 @@ export class AffiliateService {
     return this.prisma.affiliateLink.create({
       data: {
         partnerId,
-        productId: dto.productId,
-        shopId: dto.shopId,
+        ...(dto.productId !== undefined ? { productId: dto.productId } : {}),
+        ...(dto.shopId !== undefined ? { shopId: dto.shopId } : {}),
         code,
         url: dto.url,
       },
@@ -75,7 +77,13 @@ export class AffiliateService {
 
     await this.prisma.$transaction([
       this.prisma.affiliateClick.create({
-        data: { linkId: link.id, visitorId, ipAddress, userAgent, referer },
+        data: {
+          linkId: link.id,
+          ...(visitorId !== undefined ? { visitorId } : {}),
+          ...(ipAddress !== undefined ? { ipAddress } : {}),
+          ...(userAgent !== undefined ? { userAgent } : {}),
+          ...(referer !== undefined ? { referer } : {}),
+        },
       }),
       this.prisma.affiliateLink.update({
         where: { id: link.id },
@@ -135,8 +143,8 @@ export class AffiliateService {
         data: {
           partnerId,
           amount: dto.amount,
-          paymentMethod: dto.paymentMethod,
-          note: dto.note,
+          ...(dto.paymentMethod !== undefined ? { paymentMethod: dto.paymentMethod } : {}),
+          ...(dto.note !== undefined ? { note: dto.note } : {}),
         },
       })
 

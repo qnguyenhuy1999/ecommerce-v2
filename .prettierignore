@@ -1,16 +1,22 @@
-# Prettier ignore file
+# Build outputs
 dist
+.next
+storybook-static
+
+# Dependencies & caches
 node_modules
 .turbo
-storybook-static
-.env
-*.log
 .pnpm-store
 coverage
 .cache
+
+# Generated / lock files
 pnpm-lock.yaml
-.next
 next-env.d.ts
 
-# Ignore all markdown files
-*.md
+# Prisma migrations (auto-generated SQL)
+packages/database/prisma/migrations
+
+# Environment & logs
+.env
+*.log

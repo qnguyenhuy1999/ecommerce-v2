@@ -38,7 +38,8 @@ export const RedisKeys = {
 
   // Feature Flags
   featureFlag: (key: string) => `feature:${key}`,
-  experimentVariant: (experimentId: string, userId: string) => `experiment:${experimentId}:${userId}`,
+  experimentVariant: (experimentId: string, userId: string) =>
+    `experiment:${experimentId}:${userId}`,
 
   // Search
   searchCache: (query: string) => `search:cache:${query}`,

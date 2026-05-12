@@ -1,8 +1,8 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
-import { Prisma } from '@ecom/database'
-import { InventoryQueryDto } from './dto/inventory-query.dto'
+import type { Prisma } from '@ecom/database'
+import type { InventoryQueryDto } from './dto/inventory-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { InventoryRepository } from './repositories/inventory.repository'
+import type { InventoryRepository } from './repositories/inventory.repository'
 
 const LOW_STOCK_THRESHOLD = 10
 
@@ -95,9 +95,9 @@ export class InventoryService {
       await tx.inventoryTransaction.create({
         data: {
           variantId,
-          type: type as Prisma.InventoryTransactionCreateInput['type'],
+          type: type,
           quantity,
-          note,
+          ...(note !== undefined ? { note } : {}),
         },
       })
 
@@ -163,14 +163,14 @@ export class InventoryService {
       stock: { lte: LOW_STOCK_THRESHOLD },
     })
 
-    return variants.map((v: typeof variants[number]) => ({
+    return variants.map((v: (typeof variants)[number]) => ({
       variantId: v.id,
       productId: v.product.id,
       productName: v.product.name,
       sku: v.sku,
       stock: v.stock,
       reservedStock: v.reservedStock,
-      options: v.optionValues.map((ov: typeof v.optionValues[number]) => ({
+      options: v.optionValues.map((ov: (typeof v.optionValues)[number]) => ({
         group: ov.option.group.name,
         value: ov.option.value,
       })),

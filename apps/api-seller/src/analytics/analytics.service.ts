@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
+import { OrderStatus, ProductStatus } from '@ecom/contracts/enums'
 
 @Injectable()
 export class AnalyticsService {
@@ -9,7 +10,7 @@ export class AnalyticsService {
       where: {
         shopId,
         createdAt: { gte: startDate, lte: endDate },
-        status: { in: ['CONFIRMED', 'PACKING', 'SHIPPED', 'DELIVERED'] },
+        status: { in: [OrderStatus.CONFIRMED, OrderStatus.PACKING, OrderStatus.SHIPPED, OrderStatus.DELIVERED] },
       },
       select: { subtotal: true, createdAt: true, status: true },
       orderBy: { createdAt: 'asc' },
@@ -18,7 +19,7 @@ export class AnalyticsService {
     const totalRevenue = orders.reduce((sum: number, o) => sum + Number(o.subtotal), 0)
     const dailyRevenue: Record<string, number> = {}
     for (const order of orders) {
-      const day = order.createdAt.toISOString().split('T')[0]
+      const day = order.createdAt.toISOString().split('T')[0] ?? 'unknown'
       dailyRevenue[day] = (dailyRevenue[day] ?? 0) + Number(order.subtotal)
     }
 
@@ -63,11 +64,11 @@ export class AnalyticsService {
     return topProducts.map(
       (p: {
         variantId: string
-        _sum: { quantity: number | null; totalPrice: number | null }
+        _sum: { quantity: number | null; totalPrice: { toNumber(): number } | null }
         _count: number
       }) => ({
         variantId: p.variantId,
-        unitsSold: p._sum.quantity ?? 0,
+        unitsSold: Number(p._sum.quantity ?? 0),
         revenue: Number(p._sum.totalPrice ?? 0),
         orders: p._count,
       }),
@@ -80,10 +81,10 @@ export class AnalyticsService {
         where: { shopId, createdAt: { gte: startDate, lte: endDate } },
       }),
       this.prisma.sellerOrder.count({
-        where: { shopId, status: 'DELIVERED', createdAt: { gte: startDate, lte: endDate } },
+        where: { shopId, status: OrderStatus.DELIVERED, createdAt: { gte: startDate, lte: endDate } },
       }),
       this.prisma.sellerOrder.count({
-        where: { shopId, status: 'CANCELLED', createdAt: { gte: startDate, lte: endDate } },
+        where: { shopId, status: OrderStatus.CANCELLED, createdAt: { gte: startDate, lte: endDate } },
       }),
     ])
 
@@ -108,7 +109,7 @@ export class AnalyticsService {
             where: {
               shopId,
               createdAt: { gte: thirtyDaysAgo },
-              status: { in: ['CONFIRMED', 'PACKING', 'SHIPPED', 'DELIVERED'] },
+              status: { in: [OrderStatus.CONFIRMED, OrderStatus.PACKING, OrderStatus.SHIPPED, OrderStatus.DELIVERED] },
             },
             _sum: { subtotal: true },
           })
@@ -118,19 +119,20 @@ export class AnalyticsService {
             where: {
               shopId,
               createdAt: { gte: sixtyDaysAgo, lt: thirtyDaysAgo },
-              status: { in: ['CONFIRMED', 'PACKING', 'SHIPPED', 'DELIVERED'] },
+              status: { in: [OrderStatus.CONFIRMED, OrderStatus.PACKING, OrderStatus.SHIPPED, OrderStatus.DELIVERED] },
             },
             _sum: { subtotal: true },
           })
           .then((r) => Number(r._sum.subtotal ?? 0)),
-        this.prisma.sellerOrder.count({ where: { shopId, status: 'PENDING' } }),
-        this.prisma.product.count({ where: { shopId, status: 'PUBLISHED', deletedAt: null } }),
+        this.prisma.sellerOrder.count({ where: { shopId, status: OrderStatus.PENDING } }),
+        this.prisma.product.count({ where: { shopId, status: ProductStatus.PUBLISHED, deletedAt: null } }),
         this.prisma.productVariant.count({
           where: { product: { shopId, deletedAt: null }, stock: { lte: 10 } },
         }),
       ])
 
-    const revenueGrowth = previousRevenue > 0 ? ((currentRevenue - previousRevenue) / previousRevenue) * 100 : 0
+    const revenueGrowth =
+      previousRevenue > 0 ? ((currentRevenue - previousRevenue) / previousRevenue) * 100 : 0
 
     return {
       revenue: { current: currentRevenue, previous: previousRevenue, growth: revenueGrowth },

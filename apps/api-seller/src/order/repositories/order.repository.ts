@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
 import { offsetPaginate } from '@ecom/shared/pagination/prisma'
 
 @Injectable()

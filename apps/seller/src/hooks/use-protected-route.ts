@@ -1,6 +1,6 @@
 'use client'
 
-import { useProtectedRoute as useProtectedRouteBase } from '@ecom/auth-next/protected-route'
+import { useProtectedRoute as useProtectedRouteBase } from '@ecom/auth/protected-route'
 import { useAuth } from '../providers/auth-provider'
 
 const REQUIRED_ROLES: string[] = ['seller']

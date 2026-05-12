@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -101,8 +102,8 @@ export default function SettingsPage() {
       <DashboardLayout>
         <PageHeader title="Shop Settings" />
         <div className="max-w-2xl animate-pulse space-y-4">
-          <div className="h-40 bg-gray-200 rounded-lg" />
-          <div className="h-40 bg-gray-200 rounded-lg" />
+          <div className="h-40 rounded-lg bg-gray-200" />
+          <div className="h-40 rounded-lg bg-gray-200" />
         </div>
       </DashboardLayout>
     )
@@ -118,17 +119,17 @@ export default function SettingsPage() {
       <div className="max-w-2xl">
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>
+            <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
           )}
           {success && (
-            <div className="bg-green-50 text-green-700 px-4 py-3 rounded-lg text-sm">{success}</div>
+            <div className="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">{success}</div>
           )}
 
-          <div className="bg-white rounded-lg border border-gray-200 p-6 space-y-4">
+          <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-6">
             <h2 className="text-lg font-semibold text-gray-900">Shop Profile</h2>
 
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="name" className="mb-1 block text-sm font-medium text-gray-700">
                 Shop Name
               </label>
               <input
@@ -136,12 +137,12 @@ export default function SettingsPage() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="description" className="mb-1 block text-sm font-medium text-gray-700">
                 Description
               </label>
               <textarea
@@ -149,7 +150,7 @@ export default function SettingsPage() {
                 rows={3}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                className="w-full resize-none rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -160,12 +161,12 @@ export default function SettingsPage() {
             )}
           </div>
 
-          <div className="bg-white rounded-lg border border-gray-200 p-6 space-y-4">
+          <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-6">
             <h2 className="text-lg font-semibold text-gray-900">Contact Information</h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="phone" className="mb-1 block text-sm font-medium text-gray-700">
                   Phone
                 </label>
                 <input
@@ -173,11 +174,11 @@ export default function SettingsPage() {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
                   Email
                 </label>
                 <input
@@ -185,19 +186,19 @@ export default function SettingsPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg border border-gray-200 p-6 space-y-4">
+          <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-6">
             <h2 className="text-lg font-semibold text-gray-900">Pickup Address</h2>
 
             <div>
               <label
                 htmlFor="addressLine1"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="mb-1 block text-sm font-medium text-gray-700"
               >
                 Address Line 1
               </label>
@@ -206,14 +207,14 @@ export default function SettingsPage() {
                 type="text"
                 value={addressLine1}
                 onChange={(e) => setAddressLine1(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <div>
               <label
                 htmlFor="addressLine2"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="mb-1 block text-sm font-medium text-gray-700"
               >
                 Address Line 2
               </label>
@@ -222,13 +223,13 @@ export default function SettingsPage() {
                 type="text"
                 value={addressLine2}
                 onChange={(e) => setAddressLine2(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               <div>
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="city" className="mb-1 block text-sm font-medium text-gray-700">
                   City
                 </label>
                 <input
@@ -236,11 +237,11 @@ export default function SettingsPage() {
                   type="text"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
-                <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="state" className="mb-1 block text-sm font-medium text-gray-700">
                   State
                 </label>
                 <input
@@ -248,13 +249,13 @@ export default function SettingsPage() {
                   type="text"
                   value={state}
                   onChange={(e) => setState(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
                 <label
                   htmlFor="postalCode"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="mb-1 block text-sm font-medium text-gray-700"
                 >
                   Postal Code
                 </label>
@@ -263,11 +264,11 @@ export default function SettingsPage() {
                   type="text"
                   value={postalCode}
                   onChange={(e) => setPostalCode(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
-                <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="country" className="mb-1 block text-sm font-medium text-gray-700">
                   Country
                 </label>
                 <input
@@ -275,7 +276,7 @@ export default function SettingsPage() {
                   type="text"
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
@@ -284,7 +285,7 @@ export default function SettingsPage() {
           <button
             type="submit"
             disabled={saving}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            className="rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-colors hover:bg-blue-700 disabled:opacity-50"
           >
             {saving ? 'Saving...' : 'Save Changes'}
           </button>

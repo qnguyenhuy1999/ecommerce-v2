@@ -19,7 +19,7 @@ export const decorators = [
     const isDark = context.globals.theme === 'dark'
 
     return (
-      <div className={isDark ? 'dark bg-background text-foreground min-w-screen min-h-screen' : ''}>
+      <div className={isDark ? 'bg-background text-foreground min-w-screen dark min-h-screen' : ''}>
         <Story />
       </div>
     )

@@ -1,21 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService, type ReviewStatus, Prisma } from '@ecom/database';
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
+import { Injectable, NotFoundException } from '@nestjs/common'
+import type { PrismaService, Prisma } from '@ecom/database'
+import { type ReviewStatus, ReviewStatus as RS } from '@ecom/contracts/enums'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
 
 @Injectable()
 export class ReviewsService {
   constructor(private readonly prisma: PrismaService) {}
-  async findAll(query: {
-    page?: number;
-    limit?: number;
-    status?: ReviewStatus;
-  }) {
-    const where: Prisma.ReviewWhereInput = {};
-    if (query.status) where.status = query.status;
+  async findAll(query: { page?: number; limit?: number; status?: ReviewStatus }) {
+    const where: Prisma.ReviewWhereInput = {}
+    if (query.status) where.status = query.status
 
     const { items, total } = await offsetPaginate(this.prisma.review, {
-      page: query.page,
-      limit: query.limit,
+      ...withDefined({ page: query.page, limit: query.limit }),
       where,
       orderBy: { createdAt: 'desc' },
       include: {
@@ -23,9 +20,9 @@ export class ReviewsService {
         reports: true,
         _count: { select: { reports: true } },
       },
-    });
+    })
 
-    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total);
+    return buildOffsetResponse(items, query.page ?? 1, query.limit ?? 20, total)
   }
 
   async findById(id: string) {
@@ -36,35 +33,35 @@ export class ReviewsService {
         replies: true,
         reports: true,
       },
-    });
-    if (!review) throw new NotFoundException('Review not found');
-    return review;
+    })
+    if (!review) throw new NotFoundException('Review not found')
+    return review
   }
 
   async approve(id: string) {
-    await this.findById(id);
-    return this.prisma.review.update({ where: { id }, data: { status: 'APPROVED' } });
+    await this.findById(id)
+    return this.prisma.review.update({ where: { id }, data: { status: RS.APPROVED } })
   }
 
   async hide(id: string) {
-    await this.findById(id);
-    return this.prisma.review.update({ where: { id }, data: { status: 'HIDDEN' } });
+    await this.findById(id)
+    return this.prisma.review.update({ where: { id }, data: { status: RS.HIDDEN } })
   }
 
   async reject(id: string) {
-    await this.findById(id);
-    return this.prisma.review.update({ where: { id }, data: { status: 'REJECTED' } });
+    await this.findById(id)
+    return this.prisma.review.update({ where: { id }, data: { status: RS.REJECTED } })
   }
 
   async getStatusCounts() {
     const counts = await this.prisma.review.groupBy({
       by: ['status'],
       _count: { status: true },
-    });
-    const result: Record<string, number> = {};
+    })
+    const result: Record<string, number> = {}
     for (const item of counts) {
-      result[item.status] = item._count.status;
+      result[item.status] = item._count.status
     }
-    return result;
+    return result
   }
 }

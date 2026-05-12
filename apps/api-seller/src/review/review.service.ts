@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { ReviewQueryDto } from './dto/review-query.dto'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import { ReviewStatus } from '@ecom/contracts/enums'
+import type { ReviewQueryDto } from './dto/review-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
@@ -32,13 +34,18 @@ export class ReviewService {
 
     const where: Prisma.ReviewWhereInput = {
       productId: { in: productIds },
-      ...(productId ? { productId } : {}),
-      ...(rating ? { rating } : {}),
-      ...(status ? { status: status as Prisma.ReviewWhereInput['status'] } : {}),
-      ...(search ? { OR: [{ title: { contains: search, mode: 'insensitive' } }, { comment: { contains: search, mode: 'insensitive' } }] } : {}),
-      ...(replyFilter === 'hasReply' ? { replies: { some: {} } } : {}),
-      ...(replyFilter === 'noReply' ? { replies: { none: {} } } : {}),
     }
+    if (productId) where.productId = productId
+    if (rating) where.rating = rating
+    if (status !== undefined) where.status = status
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: 'insensitive' } },
+        { comment: { contains: search, mode: 'insensitive' } },
+      ]
+    }
+    if (replyFilter === 'hasReply') where.replies = { some: {} }
+    if (replyFilter === 'noReply') where.replies = { none: {} }
 
     const { items, total } = await offsetPaginate(this.prisma.review, {
       page,
@@ -96,7 +103,12 @@ export class ReviewService {
     }
 
     return this.prisma.reviewReport.create({
-      data: { reviewId, shopId, reason, details },
+      data: {
+        reviewId,
+        shopId,
+        reason,
+        ...(details !== undefined ? { details } : {}),
+      },
     })
   }
 
@@ -104,14 +116,14 @@ export class ReviewService {
     const productIds = await this.getShopProductIds(shopId)
 
     const [totalReviews, ratingDist, avgRating] = await Promise.all([
-      this.prisma.review.count({ where: { productId: { in: productIds }, status: 'APPROVED' } }),
+      this.prisma.review.count({ where: { productId: { in: productIds }, status: ReviewStatus.APPROVED } }),
       this.prisma.review.groupBy({
         by: ['rating'],
-        where: { productId: { in: productIds }, status: 'APPROVED' },
+        where: { productId: { in: productIds }, status: ReviewStatus.APPROVED },
         _count: true,
       }),
       this.prisma.review.aggregate({
-        where: { productId: { in: productIds }, status: 'APPROVED' },
+        where: { productId: { in: productIds }, status: ReviewStatus.APPROVED },
         _avg: { rating: true },
       }),
     ])
@@ -119,7 +131,10 @@ export class ReviewService {
     return {
       totalReviews,
       averageRating: avgRating._avg.rating ?? 0,
-      ratingDistribution: ratingDist.map((r: { rating: number; _count: number }) => ({ rating: r.rating, count: r._count })),
+      ratingDistribution: ratingDist.map((r: { rating: number; _count: number }) => ({
+        rating: r.rating,
+        count: r._count,
+      })),
     }
   }
 

@@ -13,7 +13,7 @@ export function UserDetailPage({ id }: { id: string }) {
     return (
       <div className="space-y-4">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="h-20 animate-pulse rounded-xl bg-muted" />
+          <div key={i} className="bg-muted h-20 animate-pulse rounded-xl" />
         ))}
       </div>
     )
@@ -26,7 +26,7 @@ export function UserDetailPage({ id }: { id: string }) {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">{user.email}</h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             {[user.firstName, user.lastName].filter(Boolean).join(' ') || 'No name'}
           </p>
         </div>
@@ -60,7 +60,7 @@ export function UserDetailPage({ id }: { id: string }) {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-xl border bg-card p-6 shadow-sm">
+        <div className="bg-card rounded-xl border p-6 shadow-sm">
           <h2 className="mb-4 font-semibold">Profile</h2>
           <dl className="space-y-2 text-sm">
             <div className="flex justify-between">
@@ -82,7 +82,7 @@ export function UserDetailPage({ id }: { id: string }) {
           </dl>
         </div>
 
-        <div className="rounded-xl border bg-card p-6 shadow-sm">
+        <div className="bg-card rounded-xl border p-6 shadow-sm">
           <h2 className="mb-4 font-semibold">Sessions ({user.sessions.length})</h2>
           {user.sessions.length > 0 ? (
             <div className="space-y-2">
@@ -96,7 +96,7 @@ export function UserDetailPage({ id }: { id: string }) {
               ))}
             </div>
           ) : (
-            <p className="text-sm text-muted-foreground">No active sessions</p>
+            <p className="text-muted-foreground text-sm">No active sessions</p>
           )}
         </div>
       </div>

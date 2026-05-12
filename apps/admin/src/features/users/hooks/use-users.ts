@@ -8,14 +8,10 @@ import {
   suspendUser,
   banUser,
   activateUser,
+  type UserListQuery,
 } from '../api/users.api'
 
-export function useUsers(params: {
-  page?: number
-  limit?: number
-  search?: string
-  status?: string
-}) {
+export function useUsers(params: UserListQuery) {
   return useQuery({
     queryKey: ['users', params],
     queryFn: async () => {

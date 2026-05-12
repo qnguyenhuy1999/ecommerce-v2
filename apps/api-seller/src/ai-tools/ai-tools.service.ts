@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { CreateAiTaskDto } from './dto/ai-tools.dto'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import type { CreateAiTaskDto } from './dto/ai-tools.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class AiToolsService {
@@ -21,7 +22,7 @@ export class AiToolsService {
           | 'SEO'
           | 'TRANSLATION'
           | 'SALES_INSIGHT',
-        productId: dto.productId,
+        ...(dto.productId !== undefined ? { productId: dto.productId } : {}),
         inputData: (dto.input ?? {}) as Prisma.InputJsonValue,
         status: 'QUEUED',
       },
@@ -80,7 +81,6 @@ export class AiToolsService {
     type: string,
     _input: Record<string, unknown>,
   ): Promise<Record<string, unknown>> {
-    void _input
     switch (type) {
       case 'DESCRIPTION':
         return {

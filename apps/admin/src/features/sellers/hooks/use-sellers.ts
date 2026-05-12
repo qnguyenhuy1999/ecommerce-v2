@@ -8,14 +8,10 @@ import {
   rejectSeller,
   suspendSeller,
   getSellerStatusCounts,
+  type SellersListQuery,
 } from '../api/sellers.api'
 
-export function useSellers(params: {
-  page?: number
-  limit?: number
-  search?: string
-  status?: string
-}) {
+export function useSellers(params: SellersListQuery) {
   return useQuery({
     queryKey: ['sellers', params],
     queryFn: async () => {

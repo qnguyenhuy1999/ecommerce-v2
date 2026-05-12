@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -46,6 +47,7 @@ export default function ReturnsPage() {
   const [statusFilter, setStatusFilter] = useState('')
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,7 +74,7 @@ export default function ReturnsPage() {
       }
     }
     fetchData()
-  }, [page, search, statusFilter])
+  }, [page, search, statusFilter, refreshKey])
 
   const handleUpdateStatus = async (returnId: string, status: string) => {
     try {
@@ -80,7 +82,7 @@ export default function ReturnsPage() {
         method: 'PUT',
         body: JSON.stringify({ status }),
       })
-      setPage(page)
+      setRefreshKey((k) => k + 1)
     } catch {
       /* empty */
     }
@@ -123,7 +125,7 @@ export default function ReturnsPage() {
             <div className="flex gap-1">
               <button
                 onClick={() => handleUpdateStatus(row.id, 'REVIEWING')}
-                className="text-blue-600 text-xs hover:underline"
+                className="text-xs text-blue-600 hover:underline"
               >
                 Review
               </button>
@@ -135,13 +137,13 @@ export default function ReturnsPage() {
             <div className="flex gap-1">
               <button
                 onClick={() => handleUpdateStatus(row.id, 'APPROVED')}
-                className="text-green-600 text-xs hover:underline"
+                className="text-xs text-green-600 hover:underline"
               >
                 Approve
               </button>
               <button
                 onClick={() => handleUpdateStatus(row.id, 'REJECTED')}
-                className="text-red-600 text-xs hover:underline"
+                className="text-xs text-red-600 hover:underline"
               >
                 Reject
               </button>
@@ -162,16 +164,16 @@ export default function ReturnsPage() {
     <DashboardLayout>
       <PageHeader title="Returns & Refunds" description="Manage return requests and refunds" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
+      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-4">
         <StatCard title="Total Returns" value={stats.total} icon={RotateCcw} />
         <StatCard title="Pending" value={stats.pending} icon={Clock} />
         <StatCard title="Approved" value={stats.approved} icon={CheckCircle} />
         <StatCard title="Refunded" value={stats.refunded} icon={CheckCircle} />
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search returns..."
@@ -180,7 +182,7 @@ export default function ReturnsPage() {
               setSearch(e.target.value)
               setPage(1)
             }}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+            className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-4 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <select
@@ -189,7 +191,7 @@ export default function ReturnsPage() {
             setStatusFilter(e.target.value)
             setPage(1)
           }}
-          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">All Status</option>
           <option value="REQUESTED">Requested</option>
@@ -210,11 +212,11 @@ export default function ReturnsPage() {
       />
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-4">
+        <div className="mt-4 flex items-center justify-center gap-2">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Previous
           </button>
@@ -224,7 +226,7 @@ export default function ReturnsPage() {
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Next
           </button>

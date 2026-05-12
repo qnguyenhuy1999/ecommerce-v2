@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { CreateLivestreamDto, AddLivestreamProductDto } from './dto/livestream.dto'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import type { CreateLivestreamDto, AddLivestreamProductDto } from './dto/livestream.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class LivestreamService {
@@ -41,8 +42,8 @@ export class LivestreamService {
       data: {
         shopId,
         title: dto.title,
-        description: dto.description,
-        thumbnailUrl: dto.thumbnailUrl,
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
+        ...(dto.thumbnailUrl !== undefined ? { thumbnailUrl: dto.thumbnailUrl } : {}),
         scheduledAt: new Date(dto.scheduledAt),
       },
     })
@@ -90,7 +91,7 @@ export class LivestreamService {
       data: {
         sessionId,
         productId: dto.productId,
-        specialPrice: dto.specialPrice,
+        ...(dto.specialPrice !== undefined ? { specialPrice: dto.specialPrice } : {}),
       },
     })
   }

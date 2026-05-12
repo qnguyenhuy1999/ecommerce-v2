@@ -42,7 +42,16 @@ import { GrowthModule } from './growth/growth.module'
     ThrottlerModule.forRoot({
       throttlers: [getDefaultThrottleConfig()],
     }),
-    RedisModule.forRoot(getRedisConfig()),
+    RedisModule.forRoot(
+      (() => {
+        const redis = getRedisConfig()
+        return {
+          host: redis.host,
+          port: redis.port,
+          ...(redis.password !== undefined ? { password: redis.password } : {}),
+        }
+      })(),
+    ),
     EmailModule.forRoot(getSmtpConfig()),
     DatabaseModule,
     AuthModule,

@@ -6,7 +6,20 @@
   "type": "module",
   "exports": {
     ".": "./index.js",
-    "./react-library": "./react-library.js"
+    "./react-library": "./react-library.js",
+    "./base.json": "./tsconfig/base.json",
+    "./library.json": "./tsconfig/library.json",
+    "./react-library.json": "./tsconfig/react-library.json",
+    "./nextjs.json": "./tsconfig/nextjs.json",
+    "./nestjs.json": "./tsconfig/nestjs.json"
+  },
+  "scripts": {
+    "dev": ""
+  },
+  "dependencies": {
+    "eslint-plugin-sonarjs": "^3.0.2",
+    "eslint-plugin-unicorn": "^59.0.1",
+    "eslint-plugin-unused-imports": "^4.1.4"
   },
   "peerDependencies": {
     "eslint": "^9.0.0",

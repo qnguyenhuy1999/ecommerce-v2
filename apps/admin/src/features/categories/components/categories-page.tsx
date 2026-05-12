@@ -49,18 +49,18 @@ export function CategoriesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Categories</h1>
-          <p className="text-sm text-muted-foreground">Manage product category tree</p>
+          <p className="text-muted-foreground text-sm">Manage product category tree</p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground hover:bg-primary/90"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm"
         >
           Add Category
         </button>
       </div>
 
       {showForm && (
-        <div className="rounded-xl border bg-card p-6 shadow-sm space-y-3">
+        <div className="bg-card space-y-3 rounded-xl border p-6 shadow-sm">
           <h2 className="font-semibold">New Category</h2>
           <div className="grid gap-3 sm:grid-cols-2">
             <input
@@ -98,13 +98,13 @@ export function CategoriesPage() {
             <button
               onClick={handleCreate}
               disabled={createCategory.isPending}
-              className="rounded bg-primary px-4 py-1.5 text-sm text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded px-4 py-1.5 text-sm disabled:opacity-50"
             >
               {createCategory.isPending ? 'Creating...' : 'Create'}
             </button>
             <button
               onClick={() => setShowForm(false)}
-              className="rounded border px-4 py-1.5 text-sm hover:bg-muted"
+              className="hover:bg-muted rounded border px-4 py-1.5 text-sm"
             >
               Cancel
             </button>
@@ -112,11 +112,11 @@ export function CategoriesPage() {
         </div>
       )}
 
-      <div className="rounded-xl border bg-card shadow-sm">
+      <div className="bg-card rounded-xl border shadow-sm">
         {isLoading ? (
-          <div className="p-6 space-y-3">
+          <div className="space-y-3 p-6">
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="h-8 animate-pulse rounded bg-muted" />
+              <div key={i} className="bg-muted h-8 animate-pulse rounded" />
             ))}
           </div>
         ) : (
@@ -135,7 +135,7 @@ export function CategoriesPage() {
               />
             ))}
             {categories?.length === 0 && (
-              <p className="px-6 py-8 text-center text-muted-foreground">No categories yet</p>
+              <p className="text-muted-foreground px-6 py-8 text-center">No categories yet</p>
             )}
           </div>
         )}
@@ -164,7 +164,7 @@ function CategoryTreeNode({
   return (
     <div>
       <div
-        className={`flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-muted/50 cursor-pointer ${selectedId === node.id ? 'bg-muted' : ''}`}
+        className={`hover:bg-muted/50 flex cursor-pointer items-center gap-2 px-4 py-2.5 text-sm ${selectedId === node.id ? 'bg-muted' : ''}`}
         style={{ paddingLeft: `${16 + depth * 24}px` }}
         onClick={() => onSelect(node.id)}
       >
@@ -180,7 +180,7 @@ function CategoryTreeNode({
           </button>
         )}
         <span className="font-medium">{node.name}</span>
-        <span className="text-xs text-muted-foreground">({node._count.products})</span>
+        <span className="text-muted-foreground text-xs">({node._count.products})</span>
         <StatusBadge status={node.isActive ? 'ACTIVE' : 'INACTIVE'} />
         <div className="ml-auto flex gap-1">
           <button
@@ -188,7 +188,7 @@ function CategoryTreeNode({
               e.stopPropagation()
               onToggleActive(node.id, node.isActive)
             }}
-            className="rounded px-2 py-0.5 text-xs text-muted-foreground hover:bg-muted"
+            className="text-muted-foreground hover:bg-muted rounded px-2 py-0.5 text-xs"
           >
             {node.isActive ? 'Deactivate' : 'Activate'}
           </button>

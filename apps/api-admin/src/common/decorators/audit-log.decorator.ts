@@ -23,9 +23,11 @@ export const AuditLog = (
   const metadata: AuditLogMetadata = {
     action,
     entityType,
-    entityIdParam: options?.entityIdParam,
-    entityIdPath: options?.entityIdPath,
-    metadataExtractor: options?.metadataExtractor,
+    ...(options?.entityIdParam !== undefined ? { entityIdParam: options.entityIdParam } : {}),
+    ...(options?.entityIdPath !== undefined ? { entityIdPath: options.entityIdPath } : {}),
+    ...(options?.metadataExtractor !== undefined
+      ? { metadataExtractor: options.metadataExtractor }
+      : {}),
   }
   return SetMetadata(AUDIT_LOG_KEY, metadata)
 }

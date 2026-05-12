@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
-import { AutomationQueryDto } from './dto/automation-query.dto'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import type { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/automation.dto'
+import type { AutomationQueryDto } from './dto/automation-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
@@ -70,7 +71,12 @@ export class AutomationService {
         ...(dto.conditions && { conditions: dto.conditions as Prisma.InputJsonValue }),
         ...(dto.actionConfig && { actions: dto.actionConfig as Prisma.InputJsonValue }),
         ...(dto.isActive !== undefined && { status: dto.isActive ? 'ACTIVE' : 'PAUSED' }),
-        ...(dto.schedule !== undefined && { conditions: { ...(rule.conditions as object), schedule: dto.schedule } as Prisma.InputJsonValue }),
+        ...(dto.schedule !== undefined && {
+          conditions: {
+            ...(rule.conditions as object),
+            schedule: dto.schedule,
+          } as Prisma.InputJsonValue,
+        }),
       },
     })
   }
@@ -132,8 +138,6 @@ export class AutomationService {
     _config: Record<string, unknown>,
     _triggerData: Record<string, unknown>,
   ): Promise<Record<string, unknown>> {
-    void _config
-    void _triggerData
     switch (action) {
       case 'SEND_NOTIFICATION':
       case 'SEND_MESSAGE':

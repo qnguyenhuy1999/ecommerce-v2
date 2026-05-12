@@ -1,4 +1,5 @@
-import { DynamicModule, Module } from '@nestjs/common'
+import type { DynamicModule } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { createTransport } from 'nodemailer'
 import { EMAIL_MODULE_OPTIONS, EMAIL_TRANSPORTER } from './email.constants'
 import { EmailService } from './email.service'

@@ -20,10 +20,10 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
-import { ShopService } from '../shop/shop.service'
-import { SearchService } from './search.service'
-import { ProductSearchDto, OrderSearchDto } from './dto/search-query.dto'
+} from '@ecom/nestjs-core/openapi'
+import type { ShopService } from '../shop/shop.service'
+import type { SearchService } from './search.service'
+import type { ProductSearchDto, OrderSearchDto } from './dto/search-query.dto'
 
 @ApiTags('Seller/Search')
 @ApiAuth()
@@ -52,10 +52,7 @@ export class SearchController {
 
   @Get('filters')
   @ApiOkResponseData(Object)
-  async listFilters(
-    @CurrentUser() user: SessionData,
-    @Query('entity') entity?: string,
-  ) {
+  async listFilters(@CurrentUser() user: SessionData, @Query('entity') entity?: string) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.searchService.listSavedFilters(shopId, user.userId, entity)
   }

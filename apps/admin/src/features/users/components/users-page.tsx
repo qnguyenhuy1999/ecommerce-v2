@@ -42,13 +42,24 @@ const columns = [
   }),
 ]
 
-const STATUS_TABS: string[] = ['ALL', UserStatus.ACTIVE, UserStatus.SUSPENDED, UserStatus.BANNED]
+type UserStatusFilter = (typeof UserStatus)[keyof typeof UserStatus] | 'ALL'
+
+const STATUS_TABS: UserStatusFilter[] = [
+  'ALL',
+  UserStatus.ACTIVE,
+  UserStatus.SUSPENDED,
+  UserStatus.BANNED,
+]
+
+function isUserStatusFilter(value: string): value is UserStatusFilter {
+  return value === 'ALL' || Object.values(UserStatus).some((status) => status === value)
+}
 
 export function UsersPage() {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState('ALL')
+  const [statusFilter, setStatusFilter] = useState<UserStatusFilter>('ALL')
 
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
   const debounce = useCallback((value: string) => {
@@ -62,8 +73,8 @@ export function UsersPage() {
   const { data, isLoading } = useUsers({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    search: debouncedSearch || undefined,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(debouncedSearch ? { search: debouncedSearch } : {}),
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
   const { data: counts } = useUserStatusCounts()
 
@@ -71,25 +82,27 @@ export function UsersPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Buyers</h1>
-        <p className="text-sm text-muted-foreground">Manage platform users</p>
+        <p className="text-muted-foreground text-sm">Manage platform users</p>
       </div>
 
       <StatusTabs
         tabs={STATUS_TABS}
         value={statusFilter}
         onChange={(t) => {
-          setStatusFilter(t)
-          setPage(1)
+          if (isUserStatusFilter(t)) {
+            setStatusFilter(t)
+            setPage(1)
+          }
         }}
-        counts={counts}
+        {...(counts !== undefined ? { counts } : {})}
       />
 
       <DataTable
         columns={columns}
         data={data?.items ?? []}
-        meta={data?.meta}
+        {...(data?.meta !== undefined ? { meta: data.meta } : {})}
         loading={isLoading}
-        onPageChange={setPage}
+        onPageChange={(p) => setPage(p)}
         toolbar={
           <TableToolbar
             search={search}

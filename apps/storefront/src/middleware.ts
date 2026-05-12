@@ -1,5 +1,5 @@
 import { type NextRequest } from 'next/server'
-import { createWithAuth } from '@ecom/auth-next/middleware'
+import { createWithAuth } from '@ecom/auth/middleware'
 
 const withAuth = createWithAuth({
   publicPaths: ['/', '/products', '/search', '/login', '/register'],

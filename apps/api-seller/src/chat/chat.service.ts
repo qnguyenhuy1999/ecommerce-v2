@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import type { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
@@ -57,7 +58,14 @@ export class ChatService {
     return buildOffsetResponse(items.reverse(), page, pageSize, total)
   }
 
-  async sendMessage(shopId: string, conversationId: string, senderId: string, content: string, type: 'TEXT' | 'IMAGE' | 'PRODUCT' = 'TEXT', metadata?: Record<string, unknown>) {
+  async sendMessage(
+    shopId: string,
+    conversationId: string,
+    senderId: string,
+    content: string,
+    type: 'TEXT' | 'IMAGE' | 'PRODUCT' = 'TEXT',
+    metadata?: Record<string, unknown>,
+  ) {
     const conversation = await this.prisma.conversation.findFirst({
       where: { id: conversationId, shopId },
     })

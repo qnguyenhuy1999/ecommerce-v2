@@ -17,7 +17,7 @@ const columns = [
     cell: (info) => (
       <Link
         href={`/orders/${info.getValue()}`}
-        className="font-medium hover:underline font-mono text-xs"
+        className="font-mono text-xs font-medium hover:underline"
       >
         {info.getValue().slice(0, 8)}...
       </Link>
@@ -38,13 +38,19 @@ const columns = [
   }),
 ]
 
-const STATUS_TABS: string[] = ['ALL', ...(Object.values(OrderStatus) as string[])]
+type OrderStatusFilter = (typeof OrderStatus)[keyof typeof OrderStatus] | 'ALL'
+
+const STATUS_TABS: OrderStatusFilter[] = ['ALL', ...Object.values(OrderStatus)]
+
+function isOrderStatusFilter(value: string): value is OrderStatusFilter {
+  return value === 'ALL' || Object.values(OrderStatus).some((status) => status === value)
+}
 
 export function OrdersPage() {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState('ALL')
+  const [statusFilter, setStatusFilter] = useState<OrderStatusFilter>('ALL')
 
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
   const debounce = useCallback((value: string) => {
@@ -58,8 +64,8 @@ export function OrdersPage() {
   const { data, isLoading } = useOrders({
     page,
     limit: PAGINATION_DEFAULTS.PAGE_SIZE,
-    search: debouncedSearch || undefined,
-    status: statusFilter === 'ALL' ? undefined : statusFilter,
+    ...(debouncedSearch ? { search: debouncedSearch } : {}),
+    ...(statusFilter !== 'ALL' ? { status: statusFilter } : {}),
   })
   const { data: counts } = useOrderStatusCounts()
 
@@ -67,25 +73,27 @@ export function OrdersPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Orders</h1>
-        <p className="text-sm text-muted-foreground">Manage marketplace orders</p>
+        <p className="text-muted-foreground text-sm">Manage marketplace orders</p>
       </div>
 
       <StatusTabs
         tabs={STATUS_TABS}
         value={statusFilter}
         onChange={(t) => {
-          setStatusFilter(t)
-          setPage(1)
+          if (isOrderStatusFilter(t)) {
+            setStatusFilter(t)
+            setPage(1)
+          }
         }}
-        counts={counts}
+        {...(counts !== undefined ? { counts } : {})}
       />
 
       <DataTable
         columns={columns}
         data={data?.items ?? []}
-        meta={data?.meta}
+        {...(data?.meta !== undefined ? { meta: data.meta } : {})}
         loading={isLoading}
-        onPageChange={setPage}
+        onPageChange={(p) => setPage(p)}
         toolbar={
           <TableToolbar
             search={search}

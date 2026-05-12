@@ -1,17 +1,19 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { FlashSaleStatus, ProductStatus } from '@ecom/contracts'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import { FlashSaleStatus, FlashSaleSlotStatus, ProductStatus } from '@ecom/contracts/enums'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
-import { CreateFlashSaleCampaignDto } from './dto/create-flash-sale.dto'
-import { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
+import type { CreateFlashSaleCampaignDto } from './dto/create-flash-sale.dto'
+import type { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class FlashSaleService {
   constructor(private readonly prisma: PrismaService) {}
   async listCampaigns(query: OffsetPaginationDto) {
-    const { page = PAGINATION_DEFAULTS.DEFAULT_PAGE, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
+    const { page = PAGINATION_DEFAULTS.DEFAULT_PAGE, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } =
+      query
 
     const where: Prisma.FlashSaleCampaignWhereInput = {
       status: { in: [FlashSaleStatus.SCHEDULED, FlashSaleStatus.ACTIVE] },
@@ -53,12 +55,12 @@ export class FlashSaleService {
     return this.prisma.flashSaleCampaign.create({
       data: {
         name: dto.name,
-        description: dto.description,
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
         startsAt,
         endsAt,
         maxSlotsPerSeller: dto.maxSlotsPerSeller ?? 5,
         isVisible: dto.isVisible ?? false,
-        createdBy,
+        ...(createdBy !== undefined ? { createdBy } : {}),
       },
     })
   }
@@ -69,7 +71,7 @@ export class FlashSaleService {
 
     return this.prisma.flashSaleCampaign.update({
       where: { id },
-      data: { status: status as Prisma.FlashSaleCampaignUpdateInput['status'] },
+      data: { status: status as NonNullable<Prisma.FlashSaleCampaignUpdateInput['status']> },
     })
   }
 
@@ -79,7 +81,10 @@ export class FlashSaleService {
     })
 
     if (!campaign) throw new NotFoundException('Campaign not found')
-    if (campaign.status !== FlashSaleStatus.DRAFT && campaign.status !== FlashSaleStatus.SCHEDULED) {
+    if (
+      campaign.status !== FlashSaleStatus.DRAFT &&
+      campaign.status !== FlashSaleStatus.SCHEDULED
+    ) {
       throw new BadRequestException('Campaign is not accepting applications')
     }
 
@@ -102,7 +107,7 @@ export class FlashSaleService {
         campaignId: dto.campaignId,
         shopId,
         productId: dto.productId,
-        variantId: dto.variantId,
+        ...(dto.variantId !== undefined ? { variantId: dto.variantId } : {}),
         originalPrice: product.basePrice ?? 0,
         salePrice: dto.salePrice,
         totalStock: dto.totalStock,
@@ -112,7 +117,8 @@ export class FlashSaleService {
   }
 
   async listSellerSlots(shopId: string, query: OffsetPaginationDto) {
-    const { page = PAGINATION_DEFAULTS.DEFAULT_PAGE, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
+    const { page = PAGINATION_DEFAULTS.DEFAULT_PAGE, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } =
+      query
 
     const where: Prisma.FlashSaleSlotWhereInput = { shopId }
 
@@ -134,14 +140,14 @@ export class FlashSaleService {
   async approveSlot(slotId: string) {
     return this.prisma.flashSaleSlot.update({
       where: { id: slotId },
-      data: { status: 'APPROVED' },
+      data: { status: 'APPROVED' as const },
     })
   }
 
   async rejectSlot(slotId: string) {
     return this.prisma.flashSaleSlot.update({
       where: { id: slotId },
-      data: { status: 'REJECTED' },
+      data: { status: FlashSaleSlotStatus.REJECTED },
     })
   }
 }

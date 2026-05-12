@@ -1,4 +1,4 @@
-import { PaginationMeta, PaginatedResponse, OffsetParams } from './types'
+import type { PaginationMeta, PaginatedResponse, OffsetParams } from './types'
 import { PAGINATION_DEFAULTS } from './constants'
 
 export function buildPaginationMeta(total: number, page: number, limit: number): PaginationMeta {
@@ -14,7 +14,7 @@ export function buildPaginationMeta(total: number, page: number, limit: number):
 }
 
 export function buildPaginatedResponse<T>(
-  data: T[],
+  items: T[],
   total: number,
   params: OffsetParams,
 ): PaginatedResponse<T> {
@@ -24,7 +24,7 @@ export function buildPaginatedResponse<T>(
     PAGINATION_DEFAULTS.MAX_LIMIT,
   )
   const meta = buildPaginationMeta(total, page, limit)
-  return { data, meta }
+  return { items, meta }
 }
 
 export function normalizeOffsetParams(params: OffsetParams): Required<OffsetParams> {

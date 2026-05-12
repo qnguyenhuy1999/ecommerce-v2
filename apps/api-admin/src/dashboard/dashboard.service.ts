@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '@ecom/database';
+import { Injectable } from '@nestjs/common'
+import type { PrismaService } from '@ecom/database'
+import { SellerStatus, ReturnStatus } from '@ecom/contracts/enums'
 
 @Injectable()
 export class DashboardService {
@@ -17,12 +18,12 @@ export class DashboardService {
       recentSellers,
     ] = await Promise.all([
       this.prisma.seller.count({ where: { deletedAt: null } }),
-      this.prisma.seller.count({ where: { status: 'ACTIVE', deletedAt: null } }),
-      this.prisma.seller.count({ where: { status: 'PENDING', deletedAt: null } }),
+      this.prisma.seller.count({ where: { status: SellerStatus.ACTIVE, deletedAt: null } }),
+      this.prisma.seller.count({ where: { status: SellerStatus.PENDING, deletedAt: null } }),
       this.prisma.user.count(),
       this.prisma.order.count(),
       this.prisma.product.count({ where: { deletedAt: null } }),
-      this.prisma.returnRequest.count({ where: { status: { in: ['REQUESTED', 'REVIEWING'] } } }),
+      this.prisma.returnRequest.count({ where: { status: { in: [ReturnStatus.REQUESTED, ReturnStatus.REVIEWING] } } }),
       this.prisma.review.count(),
       this.prisma.seller.findMany({
         where: { deletedAt: null },
@@ -30,7 +31,7 @@ export class DashboardService {
         orderBy: { createdAt: 'desc' },
         take: 10,
       }),
-    ]);
+    ])
 
     return {
       totalSellers,
@@ -42,13 +43,15 @@ export class DashboardService {
       pendingRefunds,
       totalReviews,
       recentSellers,
-    };
+    }
   }
 
   async getAnalytics(period: string = '30d') {
-    const days = period === '7d' ? 7 : period === '90d' ? 90 : 30;
-    const since = new Date();
-    since.setDate(since.getDate() - days);
+    let days = 30
+    if (period === '7d') days = 7
+    else if (period === '90d') days = 90
+    const since = new Date()
+    since.setDate(since.getDate() - days)
 
     const [ordersByStatus, topCategories] = await Promise.all([
       this.prisma.order.groupBy({
@@ -64,8 +67,8 @@ export class DashboardService {
         orderBy: { _count: { id: 'desc' } },
         take: 10,
       }),
-    ]);
+    ])
 
-    return { ordersByStatus, topCategories };
+    return { ordersByStatus, topCategories }
   }
 }

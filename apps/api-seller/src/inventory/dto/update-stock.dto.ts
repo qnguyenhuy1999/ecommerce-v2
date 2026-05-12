@@ -1,4 +1,12 @@
-import { IsString, IsNumber, IsOptional, IsUUID, Min, IsArray, ValidateNested } from 'class-validator'
+import {
+  IsString,
+  IsNumber,
+  IsOptional,
+  IsUUID,
+  Min,
+  IsArray,
+  ValidateNested,
+} from 'class-validator'
 import { Type } from 'class-transformer'
 
 export class UpdateStockDto {

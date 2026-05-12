@@ -1,74 +1,46 @@
 {
-    "$schema": "https://json.schemastore.org/tsconfig",
-    "extends": "./tsconfig.json",
-    "compilerOptions": {
-        "noEmit": true,
-        "target": "ES2022",
-        "lib": [
-            "ES2022",
-            "DOM",
-            "DOM.Iterable"
-        ],
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "jsx": "react-jsx",
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "skipLibCheck": true,
-        "types": [
-            "node",
-            "react",
-            "react-dom"
-        ],
-        "strictNullChecks": true,
-        "baseUrl": ".",
-        "paths": {
-            "@ecom/core-ui": [
-                "packages/core-ui/src/index.ts"
-            ],
-            "@ecom/core-ui/*": [
-                "packages/core-ui/src/*"
-            ],
-            "@ecom/ui-admin": [
-                "packages/ui-admin/src/index.ts"
-            ],
-            "@ecom/ui-admin/*": [
-                "packages/ui-admin/src/*"
-            ],
-            "@ecom/ui-seller": [
-                "packages/ui-seller/src/index.ts"
-            ],
-            "@ecom/ui-seller/*": [
-                "packages/ui-seller/src/*"
-            ],
-            "@ecom/ui-storefront": [
-                "packages/ui-storefront/src/index.ts"
-            ],
-            "@ecom/ui-storefront/*": [
-                "packages/ui-storefront/src/*"
-            ],
-            "@ecom/nestjs-core": [
-                "packages/nestjs-core/src/index.ts"
-            ],
-            "@ecom/nestjs-core/*": [
-                "packages/nestjs-core/src/*"
-            ]
-        }
-    },
-    "include": [
-        "apps/*/src/**/*.ts",
-        "apps/*/src/**/*.tsx",
-        "apps/*/next-env.d.ts",
-        "packages/*/src/**/*.ts",
-        "packages/*/src/**/*.tsx"
-    ],
-    "exclude": [
-        "**/node_modules/**",
-        "**/dist/**",
-        "**/.turbo/**",
-        "**/.next/**",
-        "**/storybook-static/**",
-        "**/*.stories.tsx"
-    ]
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "types": ["node", "react", "react-dom"],
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ecom/core-ui": ["packages/core-ui/src/index.ts"],
+      "@ecom/core-ui/*": ["packages/core-ui/src/*"],
+      "@ecom/ui-admin": ["packages/ui-admin/src/index.ts"],
+      "@ecom/ui-admin/*": ["packages/ui-admin/src/*"],
+      "@ecom/ui-seller": ["packages/ui-seller/src/index.ts"],
+      "@ecom/ui-seller/*": ["packages/ui-seller/src/*"],
+      "@ecom/ui-storefront": ["packages/ui-storefront/src/index.ts"],
+      "@ecom/ui-storefront/*": ["packages/ui-storefront/src/*"],
+      "@ecom/nestjs-core": ["packages/nestjs-core/src/index.ts"],
+      "@ecom/nestjs-core/*": ["packages/nestjs-core/src/*"]
+    }
+  },
+  "include": [
+    "apps/*/src/**/*.ts",
+    "apps/*/src/**/*.tsx",
+    "apps/*/next-env.d.ts",
+    "packages/*/src/**/*.ts",
+    "packages/*/src/**/*.tsx"
+  ],
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/.turbo/**",
+    "**/.next/**",
+    "**/storybook-static/**",
+    "**/*.stories.tsx"
+  ]
 }

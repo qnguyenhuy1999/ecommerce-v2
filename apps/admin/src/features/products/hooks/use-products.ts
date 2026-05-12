@@ -11,16 +11,10 @@ import {
   unhideProduct,
   bulkApproveProducts,
   bulkRejectProducts,
+  type ProductListQuery,
 } from '../api/products.api'
 
-export function useProducts(params: {
-  page?: number
-  limit?: number
-  search?: string
-  status?: string
-  shopId?: string
-  categoryId?: string
-}) {
+export function useProducts(params: ProductListQuery) {
   return useQuery({
     queryKey: ['products', params],
     queryFn: async () => {
@@ -88,10 +82,16 @@ export function useUnhideProduct() {
 
 export function useBulkApproveProducts() {
   const invalidate = useInvalidateProducts()
-  return useMutation({ mutationFn: bulkApproveProducts, onSuccess: invalidate })
+  return useMutation({
+    mutationFn: (ids: string[]) => bulkApproveProducts(ids),
+    onSuccess: invalidate,
+  })
 }
 
 export function useBulkRejectProducts() {
   const invalidate = useInvalidateProducts()
-  return useMutation({ mutationFn: bulkRejectProducts, onSuccess: invalidate })
+  return useMutation({
+    mutationFn: (ids: string[]) => bulkRejectProducts(ids),
+    onSuccess: invalidate,
+  })
 }

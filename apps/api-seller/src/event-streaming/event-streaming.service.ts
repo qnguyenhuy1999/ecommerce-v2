@@ -1,21 +1,20 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { EmitEventDto } from './dto/event-streaming.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
-import { OffsetPaginationDTO } from '@ecom/shared/pagination/core'
-import { randomUUID } from 'crypto'
-
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import { PlatformEventStatus } from '@ecom/contracts/enums'
+import type { EmitEventDto } from './dto/event-streaming.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import type { OffsetPaginationDTO } from '@ecom/shared/pagination/core'
 @Injectable()
 export class EventStreamingService {
   constructor(private readonly prisma: PrismaService) {}
   async emitEvent(dto: EmitEventDto) {
     return this.prisma.platformEvent.create({
       data: {
-        eventType: dto.eventType,
+        type: dto.eventType,
         source: dto.source,
-        payload: dto.payload ?? {},
-        metadata: dto.metadata ?? {},
-        idempotencyKey: randomUUID(),
+        payload: (dto.payload ?? {}) as Prisma.InputJsonValue,
+        metadata: (dto.metadata ?? {}) as Prisma.InputJsonValue,
       },
     })
   }
@@ -24,7 +23,7 @@ export class EventStreamingService {
     const { page = 1, limit = 20 } = query
 
     const where: Prisma.PlatformEventWhereInput = {
-      ...(query.eventType && { eventType: query.eventType }),
+      ...(query.eventType && { type: query.eventType }),
       ...(query.source && { source: query.source }),
     }
 
@@ -50,14 +49,13 @@ export class EventStreamingService {
 
     return this.prisma.platformEvent.create({
       data: {
-        eventType: event.eventType,
+        type: event.type,
         source: event.source,
         payload: event.payload ?? {},
         metadata: {
           ...((event.metadata as Record<string, unknown>) ?? {}),
           replayedFrom: event.id,
-        },
-        idempotencyKey: randomUUID(),
+        } as Prisma.InputJsonValue,
       },
     })
   }
@@ -70,7 +68,7 @@ export class EventStreamingService {
     })
 
     const failedEvents = await this.prisma.platformEvent.count({
-      where: { status: 'FAILED' },
+      where: { status: PlatformEventStatus.FAILED },
     })
 
     return { totalEvents, recentEvents, failedEvents }
@@ -79,7 +77,7 @@ export class EventStreamingService {
   async markEventProcessed(id: string) {
     return this.prisma.platformEvent.update({
       where: { id },
-      data: { status: 'PROCESSED', processedAt: new Date() },
+      data: { status: PlatformEventStatus.DELIVERED, processedAt: new Date() },
     })
   }
 
@@ -90,9 +88,11 @@ export class EventStreamingService {
     return this.prisma.platformEvent.update({
       where: { id },
       data: {
-        status: 'FAILED',
-        retryCount: { increment: 1 },
-        metadata: { ...((event.metadata as Record<string, unknown>) ?? {}), lastError: error },
+        status: PlatformEventStatus.FAILED,
+        metadata: {
+          ...((event.metadata as Record<string, unknown>) ?? {}),
+          lastError: error,
+        } as Prisma.InputJsonValue,
       },
     })
   }

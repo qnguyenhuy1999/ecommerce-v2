@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { CreateLoyaltyTierDto, CreateMissionDto, RedeemPointsDto } from './dto/loyalty.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import type { CreateLoyaltyTierDto, CreateMissionDto, RedeemPointsDto } from './dto/loyalty.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class LoyaltyService {
@@ -17,7 +18,7 @@ export class LoyaltyService {
         name: dto.name,
         minPoints: dto.minPoints,
         multiplier: dto.pointMultiplier ?? 1,
-        benefits: dto.benefits ?? {},
+        benefits: (dto.benefits ?? {}) as Prisma.InputJsonValue,
       },
     })
   }
@@ -31,7 +32,10 @@ export class LoyaltyService {
     if (!account) {
       const defaultTier = await this.prisma.loyaltyTier.findFirst({ orderBy: { minPoints: 'asc' } })
       account = await this.prisma.loyaltyAccount.create({
-        data: { userId, tierId: defaultTier?.id },
+        data: {
+          userId,
+          ...(defaultTier?.id !== undefined ? { tierId: defaultTier.id } : {}),
+        },
         include: { tier: true },
       })
     }
@@ -63,8 +67,8 @@ export class LoyaltyService {
           type: type as 'EARN' | 'SPEND' | 'EXPIRE' | 'ADJUST' | 'REFUND',
           points,
           balance: account.availablePoints + points,
-          referenceId,
-          description,
+          ...(referenceId !== undefined ? { referenceId } : {}),
+          ...(description !== undefined ? { description } : {}),
         },
       })
 
@@ -94,7 +98,7 @@ export class LoyaltyService {
           type: 'SPEND',
           points: -dto.points,
           balance: account.availablePoints - dto.points,
-          referenceId: dto.orderId,
+          ...(dto.orderId !== undefined ? { referenceId: dto.orderId } : {}),
           description: dto.description ?? 'Points redeemed',
         },
       })
@@ -103,6 +107,8 @@ export class LoyaltyService {
 
   async dailyCheckIn(userId: string) {
     const membership = await this.getMembership(userId)
+    // getMembership always creates if not found, so membership is never null here
+    if (!membership) throw new BadRequestException('Could not get or create loyalty account')
 
     if (membership.lastCheckIn) {
       const today = new Date()
@@ -160,12 +166,12 @@ export class LoyaltyService {
     return this.prisma.loyaltyMission.create({
       data: {
         name: dto.name,
-        description: dto.description,
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
         eventType: dto.type,
         rewardPoints: dto.rewardPoints,
         targetCount: dto.targetCount ?? 1,
-        startsAt: dto.startsAt ? new Date(dto.startsAt) : undefined,
-        endsAt: dto.endsAt ? new Date(dto.endsAt) : undefined,
+        ...(dto.startsAt !== undefined ? { startsAt: new Date(dto.startsAt) } : {}),
+        ...(dto.endsAt !== undefined ? { endsAt: new Date(dto.endsAt) } : {}),
       },
     })
   }

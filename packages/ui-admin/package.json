@@ -13,8 +13,9 @@
     }
   },
   "scripts": {
+    "dev": "",
     "storybook": "storybook dev -p 6007",
-    "build": "true",
+    "build": "node -e \"\"",
     "clean": "rm -rf dist",
     "build-storybook": "storybook build",
     "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
@@ -30,7 +31,6 @@
   },
   "devDependencies": {
     "@ecom/eslint-config": "workspace:*",
-    "@ecom/tsconfig": "workspace:*",
     "@storybook/react-vite": "^10.3.6",
     "@tailwindcss/vite": "^4.2.4",
     "@types/react": "^19.0.0",

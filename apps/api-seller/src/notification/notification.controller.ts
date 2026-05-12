@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Param, Query, UseGuards, HttpCode, HttpStatus } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Query,
+  UseGuards,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import type { SessionData } from '@ecom/auth'
 import { AuthGuard } from '../auth/guards/auth.guard'
@@ -8,10 +17,10 @@ import {
   ApiPaginatedResponse,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
-import { ShopService } from '../shop/shop.service'
-import { NotificationService } from './notification.service'
-import { NotificationQueryDto } from './dto/notification-query.dto'
+} from '@ecom/nestjs-core/openapi'
+import type { ShopService } from '../shop/shop.service'
+import type { NotificationService } from './notification.service'
+import type { NotificationQueryDto } from './dto/notification-query.dto'
 
 @ApiTags('Seller/Notifications')
 @ApiAuth()
@@ -44,7 +53,7 @@ export class NotificationController {
   async markAsRead(@CurrentUser() user: SessionData, @Param('id') id: string) {
     const shopId = await this.shopService.getShopId(user.userId)
     await this.notificationService.markAsRead(shopId, id)
-    return { message: 'Marked as read' }
+    return { data: { message: 'Marked as read' } }
   }
 
   @Post('read-all')

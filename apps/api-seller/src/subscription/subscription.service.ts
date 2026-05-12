@@ -1,8 +1,10 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { CreatePlanDto, SubscribeDto } from './dto/subscription.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma';
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import { SubscriptionStatus } from '@ecom/contracts/enums'
+import type { CreatePlanDto, SubscribeDto } from './dto/subscription.dto'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 
 @Injectable()
 export class SubscriptionService {
@@ -29,13 +31,13 @@ export class SubscriptionService {
       data: {
         name: dto.name,
         slug: dto.slug,
-        description: dto.description,
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
         monthlyPrice: dto.monthlyPrice,
-        yearlyPrice: dto.yearlyPrice,
-        productLimit: dto.productLimit,
-        orderLimit: dto.orderLimit,
-        storageLimit: dto.storageLimit,
-        staffLimit: dto.staffLimit,
+        ...(dto.yearlyPrice !== undefined ? { yearlyPrice: dto.yearlyPrice } : {}),
+        ...(dto.productLimit !== undefined ? { productLimit: dto.productLimit } : {}),
+        ...(dto.orderLimit !== undefined ? { orderLimit: dto.orderLimit } : {}),
+        ...(dto.storageLimit !== undefined ? { storageLimit: dto.storageLimit } : {}),
+        ...(dto.staffLimit !== undefined ? { staffLimit: dto.staffLimit } : {}),
       },
     })
   }
@@ -45,7 +47,7 @@ export class SubscriptionService {
     if (!plan) throw new NotFoundException('Plan not found')
 
     const existing = await this.prisma.sellerSubscription.findUnique({ where: { shopId } })
-    if (existing && existing.status === 'ACTIVE') {
+    if (existing && existing.status === SubscriptionStatus.ACTIVE) {
       throw new BadRequestException('Shop already has an active subscription')
     }
 
@@ -64,7 +66,7 @@ export class SubscriptionService {
             where: { shopId },
             data: {
               planId: dto.planId,
-              status: 'ACTIVE',
+              status: SubscriptionStatus.ACTIVE,
               billingCycle,
               currentPeriodStart: now,
               currentPeriodEnd: periodEnd,
@@ -113,7 +115,7 @@ export class SubscriptionService {
 
     return this.prisma.sellerSubscription.update({
       where: { shopId },
-      data: { status: 'CANCELLED', cancelledAt: new Date() },
+      data: { status: SubscriptionStatus.CANCELLED, cancelledAt: new Date() },
     })
   }
 
@@ -126,11 +128,13 @@ export class SubscriptionService {
       include: { plan: { include: { entitlements: true } } },
     })
 
-    if (!subscription || subscription.status !== 'ACTIVE') {
+    if (!subscription || subscription.status !== SubscriptionStatus.ACTIVE) {
       return { allowed: false }
     }
 
-    const entitlement = subscription.plan.entitlements.find((e: { feature: string }) => e.feature === feature)
+    const entitlement = subscription.plan.entitlements.find(
+      (e: { feature: string }) => e.feature === feature,
+    )
     return entitlement ? { allowed: true, value: entitlement.value } : { allowed: false }
   }
 

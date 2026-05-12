@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService, Prisma, OrderStatus, ReturnStatus } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
+import { OrderStatus, ReturnStatus } from '@ecom/contracts/enums'
 
 @Injectable()
 export class MetricsService {
@@ -21,7 +22,6 @@ export class MetricsService {
             shopId,
             status: OrderStatus.SHIPPED,
             createdAt: { gte: thirtyDaysAgo },
-            shippedAt: { not: null },
           },
         }),
         this.prisma.returnRequest.count({
@@ -30,7 +30,7 @@ export class MetricsService {
         this.prisma.returnRequest.count({
           where: {
             shopId,
-            status: ReturnStatus.REFUNDED as Prisma.ReturnRequestWhereInput['status'],
+            status: ReturnStatus.REFUNDED,
             createdAt: { gte: thirtyDaysAgo },
           },
         }),
@@ -44,8 +44,11 @@ export class MetricsService {
       select: { sellerUnread: true },
     })
     const totalConversations = conversations.length
-    const respondedConversations = conversations.filter((c: { sellerUnread: number }) => c.sellerUnread === 0).length
-    const responseRate = totalConversations > 0 ? (respondedConversations / totalConversations) * 100 : 100
+    const respondedConversations = conversations.filter(
+      (c: { sellerUnread: number }) => c.sellerUnread === 0,
+    ).length
+    const responseRate =
+      totalConversations > 0 ? (respondedConversations / totalConversations) * 100 : 100
 
     const sellerScore = Math.max(
       0,
@@ -55,7 +58,8 @@ export class MetricsService {
     return {
       period: { start: thirtyDaysAgo.toISOString(), end: now.toISOString() },
       cancellationRate: Math.round(cancellationRate * 100) / 100,
-      lateShipmentRate: totalOrders > 0 ? Math.round((lateShipments / totalOrders) * 10000) / 100 : 0,
+      lateShipmentRate:
+        totalOrders > 0 ? Math.round((lateShipments / totalOrders) * 10000) / 100 : 0,
       responseRate: Math.round(responseRate * 100) / 100,
       refundRate: Math.round(refundRate * 100) / 100,
       sellerScore: Math.round(sellerScore * 100) / 100,
@@ -85,22 +89,22 @@ export class MetricsService {
       create: {
         shopId,
         date: today,
-        cancellationRate: new Prisma.Decimal(metrics.cancellationRate),
-        lateShipmentRate: new Prisma.Decimal(metrics.lateShipmentRate),
-        responseRate: new Prisma.Decimal(metrics.responseRate),
-        refundRate: new Prisma.Decimal(metrics.refundRate),
-        sellerScore: new Prisma.Decimal(metrics.sellerScore),
+        cancellationRate: metrics.cancellationRate,
+        lateShipmentRate: metrics.lateShipmentRate,
+        responseRate: metrics.responseRate,
+        refundRate: metrics.refundRate,
+        sellerScore: metrics.sellerScore,
         totalOrders: metrics.totalOrders,
-        totalReturns: metrics.totalReturns,
+        totalRefunds: metrics.totalReturns,
       },
       update: {
-        cancellationRate: new Prisma.Decimal(metrics.cancellationRate),
-        lateShipmentRate: new Prisma.Decimal(metrics.lateShipmentRate),
-        responseRate: new Prisma.Decimal(metrics.responseRate),
-        refundRate: new Prisma.Decimal(metrics.refundRate),
-        sellerScore: new Prisma.Decimal(metrics.sellerScore),
+        cancellationRate: metrics.cancellationRate,
+        lateShipmentRate: metrics.lateShipmentRate,
+        responseRate: metrics.responseRate,
+        refundRate: metrics.refundRate,
+        sellerScore: metrics.sellerScore,
         totalOrders: metrics.totalOrders,
-        totalReturns: metrics.totalReturns,
+        totalRefunds: metrics.totalReturns,
       },
     })
   }

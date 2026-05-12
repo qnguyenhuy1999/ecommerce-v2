@@ -6,11 +6,11 @@
   "scripts": {
     "build": "nest build",
     "dev": "nest start --watch",
-    "start": "node dist/main",
-    "start:prod": "node dist/main",
+    "start": "node --env-file=../../.env dist/main.js",
+    "start:prod": "node --env-file=../../.env dist/main.js",
     "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
     "type-check": "tsc --noEmit",
-    "swagger:gen": "nest start --entryFile generate-openapi"
+    "swagger:gen": "node --import @swc-node/register/esm-register --env-file=../../.env src/generate-openapi.ts"
   },
   "dependencies": {
     "@ecom/auth": "workspace:*",
@@ -19,7 +19,6 @@
     "@ecom/database": "workspace:*",
     "@ecom/email": "workspace:*",
     "@ecom/nestjs-core": "workspace:*",
-    "@ecom/nestjs-openapi": "workspace:*",
     "@ecom/redis": "workspace:*",
     "@ecom/shared": "workspace:*",
     "@nestjs/bullmq": "^11.0.4",
@@ -42,7 +41,6 @@
   },
   "devDependencies": {
     "@ecom/eslint-config": "workspace:*",
-    "@ecom/tsconfig": "workspace:*",
     "@nestjs/cli": "^11.0.21",
     "@swc/cli": "^0.8.1",
     "@swc/core": "^1.15.33",

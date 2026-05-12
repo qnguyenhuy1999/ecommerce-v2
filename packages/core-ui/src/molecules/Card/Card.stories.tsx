@@ -19,7 +19,7 @@ export const Default: Story = {
       <CardHeader>
         <CardTitle>Order summary</CardTitle>
       </CardHeader>
-      <CardContent className="text-sm text-muted-foreground">3 items • $89.00</CardContent>
+      <CardContent className="text-muted-foreground text-sm">3 items • $89.00</CardContent>
     </Card>
   ),
 }

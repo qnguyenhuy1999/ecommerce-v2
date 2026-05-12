@@ -3,13 +3,9 @@ import { ApiTags } from '@nestjs/swagger'
 import type { SessionData } from '@ecom/auth'
 import { AuthGuard } from '../auth/guards/auth.guard'
 import { CurrentUser } from '../auth/decorators/current-user.decorator'
-import {
-  ApiOkResponseData,
-  ApiErrorResponses,
-  ApiAuth,
-} from '@ecom/nestjs-openapi'
-import { ShopService } from './shop.service'
-import { UpdateShopDto } from './dto/update-shop.dto'
+import { ApiOkResponseData, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi'
+import type { ShopService } from './shop.service'
+import type { UpdateShopDto } from './dto/update-shop.dto'
 
 @ApiTags('Seller/Shop')
 @ApiAuth()

@@ -12,7 +12,7 @@
     }
   },
   "scripts": {
-    "build": "true",
+    "build": "node -e \"\"",
     "dev": "tsup --watch",
     "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
     "type-check": "tsc --noEmit"
@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@ecom/eslint-config": "workspace:*",
-    "@ecom/tsconfig": "workspace:*",
     "@types/node": "^22.15.0",
     "@types/nodemailer": "^6.4.17",
     "tsup": "^8.4.0",

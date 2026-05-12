@@ -21,8 +21,8 @@ export function SellerDetailPage({ id }: { id: string }) {
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-48 animate-pulse rounded bg-muted" />
-        <div className="h-64 animate-pulse rounded-xl bg-muted" />
+        <div className="bg-muted h-8 w-48 animate-pulse rounded" />
+        <div className="bg-muted h-64 animate-pulse rounded-xl" />
       </div>
     )
   }
@@ -34,18 +34,18 @@ export function SellerDetailPage({ id }: { id: string }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <Link href="/sellers" className="rounded-md p-1 hover:bg-muted">
+        <Link href="/sellers" className="hover:bg-muted rounded-md p-1">
           <ArrowLeft className="size-5" />
         </Link>
         <div>
           <h1 className="text-2xl font-bold">{seller.shopName}</h1>
-          <p className="text-sm text-muted-foreground">{seller.user.email}</p>
+          <p className="text-muted-foreground text-sm">{seller.user?.email ?? '—'}</p>
         </div>
         <StatusBadge status={seller.status} />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border bg-card p-6 shadow-sm">
+        <div className="bg-card rounded-xl border p-6 shadow-sm">
           <h2 className="mb-4 font-semibold">Store Information</h2>
           <dl className="space-y-3 text-sm">
             <Row label="Shop Name" value={seller.shopName} />
@@ -56,25 +56,28 @@ export function SellerDetailPage({ id }: { id: string }) {
           </dl>
         </div>
 
-        <div className="rounded-xl border bg-card p-6 shadow-sm">
+        <div className="bg-card rounded-xl border p-6 shadow-sm">
           <h2 className="mb-4 font-semibold">Owner Information</h2>
           <dl className="space-y-3 text-sm">
-            <Row label="Email" value={seller.user.email} />
-            <Row label="User Status" value={seller.user.status} />
-            <Row label="Registered" value={new Date(seller.user.createdAt).toLocaleString()} />
+            <Row label="Email" value={seller.user?.email ?? '—'} />
+            <Row label="User Status" value={seller.user?.status ?? '—'} />
+            <Row
+              label="Registered"
+              value={seller.user?.createdAt ? new Date(seller.user.createdAt).toLocaleString() : '—'}
+            />
           </dl>
         </div>
       </div>
 
       {seller.verifications.length > 0 && (
-        <div className="rounded-xl border bg-card p-6 shadow-sm">
+        <div className="bg-card rounded-xl border p-6 shadow-sm">
           <h2 className="mb-4 font-semibold">Verification Documents</h2>
           <div className="space-y-3">
             {seller.verifications.map((v) => (
               <div key={v.id} className="flex items-center justify-between rounded-lg border p-3">
                 <div>
                   <p className="text-sm font-medium">{v.documentType}</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-muted-foreground text-xs">
                     Submitted {new Date(v.createdAt).toLocaleDateString()}
                   </p>
                 </div>
@@ -86,7 +89,7 @@ export function SellerDetailPage({ id }: { id: string }) {
       )}
 
       {(seller.status === UserStatus.ACTIVE || seller.status === 'PENDING') && (
-        <div className="rounded-xl border bg-card p-6 shadow-sm">
+        <div className="bg-card rounded-xl border p-6 shadow-sm">
           <h2 className="mb-4 font-semibold">Actions</h2>
           <div className="space-y-3">
             <textarea
@@ -94,7 +97,7 @@ export function SellerDetailPage({ id }: { id: string }) {
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               rows={2}
-              className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring flex w-full rounded-md border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1"
             />
             <div className="flex flex-wrap gap-2">
               {seller.status === 'PENDING' && (
@@ -109,7 +112,7 @@ export function SellerDetailPage({ id }: { id: string }) {
                   <button
                     onClick={() => reject.mutate({ id: seller.id, reason })}
                     disabled={reject.isPending}
-                    className="rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground hover:bg-destructive/90 disabled:opacity-50"
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-md px-4 py-2 text-sm font-medium disabled:opacity-50"
                   >
                     {reject.isPending ? 'Rejecting...' : 'Reject'}
                   </button>

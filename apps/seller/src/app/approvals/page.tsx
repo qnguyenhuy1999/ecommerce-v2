@@ -35,6 +35,7 @@ export default function ApprovalsPage() {
   const [statusFilter, setStatusFilter] = useState('')
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,12 +53,12 @@ export default function ApprovalsPage() {
       }
     }
     fetchData()
-  }, [page, statusFilter])
+  }, [page, statusFilter, refreshKey])
 
   const handleResubmit = async (approvalId: string) => {
     try {
       await api(`/approvals/${approvalId}/resubmit`, { method: 'POST' })
-      setPage(page)
+      setRefreshKey((k) => k + 1)
     } catch {
       /* empty */
     }
@@ -90,7 +91,7 @@ export default function ApprovalsPage() {
           return (
             <button
               onClick={() => handleResubmit(row.id)}
-              className="text-blue-600 text-xs hover:underline"
+              className="text-xs text-blue-600 hover:underline"
             >
               Resubmit
             </button>
@@ -110,14 +111,14 @@ export default function ApprovalsPage() {
     <DashboardLayout>
       <PageHeader title="Product Approvals" description="Track product approval status" />
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row">
         <select
           value={statusFilter}
           onChange={(e) => {
             setStatusFilter(e.target.value)
             setPage(1)
           }}
-          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">All Status</option>
           <option value="PENDING_REVIEW">Pending Review</option>
@@ -130,11 +131,11 @@ export default function ApprovalsPage() {
       <DataTable columns={columns} data={approvals} loading={loading} />
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-4">
+        <div className="mt-4 flex items-center justify-center gap-2">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Previous
           </button>
@@ -144,7 +145,7 @@ export default function ApprovalsPage() {
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50"
+            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
           >
             Next
           </button>

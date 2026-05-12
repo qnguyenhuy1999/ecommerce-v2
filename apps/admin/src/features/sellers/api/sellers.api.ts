@@ -1,4 +1,5 @@
 import { apiFetch } from '@/lib/api'
+import type { AdminOperations } from '@ecom/contracts/generated'
 import type { PaginatedResponse } from '@ecom/shared/pagination/core'
 
 export interface Seller {
@@ -15,11 +16,11 @@ export interface Seller {
   suspendReason: string | null
   createdAt: string
   updatedAt: string
-  user: { id: string; email: string; status: string }
+  user?: { id: string; email: string; status: string }
 }
 
 export interface SellerDetail extends Seller {
-  user: { id: string; email: string; status: string; createdAt: string }
+  user?: { id: string; email: string; status: string; createdAt: string }
   verifications: {
     id: string
     documentType: string
@@ -31,51 +32,70 @@ export interface SellerDetail extends Seller {
   }[]
 }
 
-interface SellersResponse {
-  success: boolean
-  data: PaginatedResponse<Seller>
-}
+type SellersListQuery = NonNullable<
+  AdminOperations['SellersController_findAll']['parameters']['query']
+>
+export type { SellersListQuery }
+type SellersListResponse =
+  AdminOperations['SellersController_findAll']['responses']['200']['content']['application/json'] & {
+    data: PaginatedResponse<Seller>
+  }
+type SellerDetailResponse =
+  AdminOperations['SellersController_findById']['responses']['200']['content']['application/json'] & {
+    data: SellerDetail
+  }
+type SellerStatusCountsResponse =
+  AdminOperations['SellersController_statusCounts']['responses']['200']['content']['application/json'] & {
+    data: Record<string, number>
+  }
+type SellerActionBody =
+  AdminOperations['SellersController_reject']['requestBody']['content']['application/json']
+type SellerActionResponse =
+  AdminOperations['SellersController_reject']['responses']['200']['content']['application/json']
 
-export async function getSellers(params: {
-  page?: number
-  limit?: number
-  search?: string
-  status?: string
-}) {
-  const query = new URLSearchParams()
-  if (params.page) query.set('page', String(params.page))
-  if (params.limit) query.set('limit', String(params.limit))
-  if (params.search) query.set('search', params.search)
-  if (params.status) query.set('status', params.status)
-  return apiFetch<SellersResponse>(`/admin/sellers?${query.toString()}`)
+export async function getSellers(params: SellersListQuery = {}) {
+  const query: SellersListQuery = {
+    ...(params.page !== undefined && { page: params.page }),
+    ...(params.limit !== undefined && { limit: params.limit }),
+    ...(params.search !== undefined && { search: params.search }),
+    ...(params.status !== undefined && { status: params.status }),
+  }
+
+  return apiFetch<SellersListResponse>('/admin/sellers', { params: query })
 }
 
 export async function getSellerById(id: string) {
-  return apiFetch<{ success: boolean; data: SellerDetail }>(`/admin/sellers/${id}`)
+  return apiFetch<SellerDetailResponse>(`/admin/sellers/${id}`)
 }
 
 export async function approveSeller(id: string) {
-  return apiFetch<{ success: boolean }>(`/admin/sellers/${id}/approve`, {
+  return apiFetch<SellerActionResponse>(`/admin/sellers/${id}/approve`, {
     method: 'POST',
   })
 }
 
 export async function rejectSeller(id: string, reason?: string) {
-  return apiFetch<{ success: boolean }>(`/admin/sellers/${id}/reject`, {
+  const body: SellerActionBody = {
+    ...(reason !== undefined && { reason }),
+  }
+
+  return apiFetch<SellerActionResponse>(`/admin/sellers/${id}/reject`, {
     method: 'POST',
-    body: JSON.stringify({ reason }),
+    body: JSON.stringify(body),
   })
 }
 
 export async function suspendSeller(id: string, reason?: string) {
-  return apiFetch<{ success: boolean }>(`/admin/sellers/${id}/suspend`, {
+  const body: SellerActionBody = {
+    ...(reason !== undefined && { reason }),
+  }
+
+  return apiFetch<SellerActionResponse>(`/admin/sellers/${id}/suspend`, {
     method: 'POST',
-    body: JSON.stringify({ reason }),
+    body: JSON.stringify(body),
   })
 }
 
 export async function getSellerStatusCounts() {
-  return apiFetch<{ success: boolean; data: Record<string, number> }>(
-    '/admin/sellers/status-counts',
-  )
+  return apiFetch<SellerStatusCountsResponse>('/admin/sellers/status-counts')
 }

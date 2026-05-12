@@ -6,9 +6,9 @@ import {
   ApiCreatedResponseData,
   ApiErrorResponses,
   ApiAuth,
-} from '@ecom/nestjs-openapi'
-import { I18nService } from './i18n.service'
-import { CreateTranslationDto } from './dto/i18n.dto'
+} from '@ecom/nestjs-core/openapi'
+import type { I18nService } from './i18n.service'
+import type { CreateTranslationDto } from './dto/i18n.dto'
 
 @ApiTags('Seller/I18n')
 @ApiAuth()
@@ -62,14 +62,9 @@ export class I18nController {
   @ApiOkResponseData(Object)
   async setRegionalPricing(
     @Param('productId') productId: string,
-    @Body() body: { regionCode: string; price: number; compareAtPrice?: number },
+    @Body() body: { regionCode: string; price: number },
   ) {
-    return this.i18nService.setRegionalPricing(
-      productId,
-      body.regionCode,
-      body.price,
-      body.compareAtPrice,
-    )
+    return this.i18nService.setRegionalPricing(productId, body.regionCode, body.price)
   }
 
   @Get('convert')

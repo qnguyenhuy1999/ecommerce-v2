@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
-import { ProductSearchDto, OrderSearchDto } from './dto/search-query.dto'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import type { ProductSearchDto, OrderSearchDto } from './dto/search-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
@@ -30,48 +31,28 @@ export class SearchService {
     const where: Prisma.ProductWhereInput = {
       shopId,
       deletedAt: null,
-      ...(status ? { status: status as Prisma.ProductWhereInput['status'] } : {}),
-      ...(categoryId ? { categoryId } : {}),
-      ...(q
-        ? {
-            OR: [
-              { name: { contains: q, mode: 'insensitive' } },
-              { description: { contains: q, mode: 'insensitive' } },
-              { slug: { contains: q, mode: 'insensitive' } },
-            ],
-          }
-        : {}),
-      ...(sku
-        ? {
-            variants: {
-              some: { sku: { contains: sku, mode: 'insensitive' } },
-            },
-          }
-        : {}),
-      ...(minPrice || maxPrice
-        ? {
-            variants: {
-              some: {
-                price: {
-                  ...(minPrice ? { gte: minPrice } : {}),
-                  ...(maxPrice ? { lte: maxPrice } : {}),
-                },
-              },
-            },
-          }
-        : {}),
-      ...(minStock !== undefined || maxStock !== undefined
-        ? {
-            variants: {
-              some: {
-                stock: {
-                  ...(minStock !== undefined ? { gte: minStock } : {}),
-                  ...(maxStock !== undefined ? { lte: maxStock } : {}),
-                },
-              },
-            },
-          }
-        : {}),
+    }
+    if (status) where.status = status as NonNullable<Prisma.ProductWhereInput['status']>
+    if (categoryId) where.categoryId = categoryId
+    if (q) {
+      where.OR = [
+        { name: { contains: q, mode: 'insensitive' } },
+        { description: { contains: q, mode: 'insensitive' } },
+        { slug: { contains: q, mode: 'insensitive' } },
+      ]
+    }
+    if (sku) where.variants = { some: { sku: { contains: sku, mode: 'insensitive' } } }
+    if (minPrice !== undefined || maxPrice !== undefined) {
+      const priceFilter: { gte?: number; lte?: number } = {}
+      if (minPrice !== undefined) priceFilter.gte = minPrice
+      if (maxPrice !== undefined) priceFilter.lte = maxPrice
+      where.variants = { some: { price: priceFilter } }
+    }
+    if (minStock !== undefined || maxStock !== undefined) {
+      const stockFilter: { gte?: number; lte?: number } = {}
+      if (minStock !== undefined) stockFilter.gte = minStock
+      if (maxStock !== undefined) stockFilter.lte = maxStock
+      where.variants = { some: { stock: stockFilter } }
     }
 
     const { items, total } = await offsetPaginate(this.prisma.product, {
@@ -106,23 +87,15 @@ export class SearchService {
     const finalSort = sort || sortBy
     const finalOrder = order || sortOrder
 
-    const where: Prisma.SellerOrderWhereInput = {
-      shopId,
-      ...(status ? { status: status as Prisma.SellerOrderWhereInput['status'] } : {}),
-      ...(startDate || endDate
-        ? {
-            createdAt: {
-              ...(startDate ? { gte: new Date(startDate) } : {}),
-              ...(endDate ? { lte: new Date(endDate) } : {}),
-            },
-          }
-        : {}),
-      ...(q
-        ? {
-            items: { some: { productName: { contains: q, mode: 'insensitive' } } },
-          }
-        : {}),
+    const where: Prisma.SellerOrderWhereInput = { shopId }
+    if (status) where.status = status as NonNullable<Prisma.SellerOrderWhereInput['status']>
+    if (startDate || endDate) {
+      const createdAt: { gte?: Date; lte?: Date } = {}
+      if (startDate) createdAt.gte = new Date(startDate)
+      if (endDate) createdAt.lte = new Date(endDate)
+      where.createdAt = createdAt
     }
+    if (q) where.items = { some: { productName: { contains: q, mode: 'insensitive' } } }
 
     const { items, total } = await offsetPaginate(this.prisma.sellerOrder, {
       page,
@@ -137,26 +110,31 @@ export class SearchService {
     return buildOffsetResponse(items, page, pageSize, total)
   }
 
-  async listSavedFilters(shopId: string, userId: string, entity?: string) {
+  async listSavedFilters(shopId: string, _userId: string, entity?: string) {
     return this.prisma.savedFilter.findMany({
       where: {
         shopId,
-        userId,
         ...(entity ? { entity } : {}),
       },
       orderBy: { createdAt: 'desc' },
     })
   }
 
-  async saveFilter(shopId: string, userId: string, name: string, entity: string, filters: Record<string, unknown>) {
+  async saveFilter(
+    shopId: string,
+    _userId: string,
+    name: string,
+    entity: string,
+    filters: Record<string, unknown>,
+  ) {
     return this.prisma.savedFilter.create({
-      data: { shopId, userId, name, entity, filters: filters as Prisma.InputJsonValue },
+      data: { shopId, name, entity, filters: filters as Prisma.InputJsonValue },
     })
   }
 
-  async deleteFilter(shopId: string, userId: string, filterId: string) {
+  async deleteFilter(shopId: string, _userId: string, filterId: string) {
     const filter = await this.prisma.savedFilter.findFirst({
-      where: { id: filterId, shopId, userId },
+      where: { id: filterId, shopId },
     })
 
     if (!filter) {

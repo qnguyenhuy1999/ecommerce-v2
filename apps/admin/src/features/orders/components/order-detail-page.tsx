@@ -12,7 +12,7 @@ export function OrderDetailPage({ id }: { id: string }) {
     return (
       <div className="space-y-4">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="h-24 animate-pulse rounded-xl bg-muted" />
+          <div key={i} className="bg-muted h-24 animate-pulse rounded-xl" />
         ))}
       </div>
     )
@@ -24,8 +24,8 @@ export function OrderDetailPage({ id }: { id: string }) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight font-mono">{order.id.slice(0, 8)}...</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="font-mono text-2xl font-bold tracking-tight">{order.id.slice(0, 8)}...</h1>
+          <p className="text-muted-foreground text-sm">
             {new Date(order.createdAt).toLocaleString()}
           </p>
         </div>
@@ -50,9 +50,9 @@ export function OrderDetailPage({ id }: { id: string }) {
         </div>
       </div>
 
-      <div className="rounded-xl border bg-card p-6 shadow-sm">
+      <div className="bg-card rounded-xl border p-6 shadow-sm">
         <h2 className="mb-2 font-semibold">Summary</h2>
-        <dl className="grid gap-2 sm:grid-cols-3 text-sm">
+        <dl className="grid gap-2 text-sm sm:grid-cols-3">
           <div>
             <dt className="text-muted-foreground">Total</dt>
             <dd className="font-medium">${Number(order.totalAmount).toFixed(2)}</dd>
@@ -69,11 +69,11 @@ export function OrderDetailPage({ id }: { id: string }) {
       </div>
 
       {order.sellerOrders.map((so) => (
-        <div key={so.id} className="rounded-xl border bg-card shadow-sm">
-          <div className="border-b px-6 py-4 flex items-center justify-between">
+        <div key={so.id} className="bg-card rounded-xl border shadow-sm">
+          <div className="flex items-center justify-between border-b px-6 py-4">
             <div>
               <h3 className="font-semibold">{so.shop.name}</h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-muted-foreground text-xs">
                 Subtotal: ${Number(so.subtotal).toFixed(2)}
               </p>
             </div>
@@ -82,11 +82,11 @@ export function OrderDetailPage({ id }: { id: string }) {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b bg-muted/50 text-left">
-                  <th className="px-4 py-3 font-medium text-muted-foreground">Product</th>
-                  <th className="px-4 py-3 font-medium text-muted-foreground">Qty</th>
-                  <th className="px-4 py-3 font-medium text-muted-foreground">Price</th>
-                  <th className="px-4 py-3 font-medium text-muted-foreground">Total</th>
+                <tr className="bg-muted/50 border-b text-left">
+                  <th className="text-muted-foreground px-4 py-3 font-medium">Product</th>
+                  <th className="text-muted-foreground px-4 py-3 font-medium">Qty</th>
+                  <th className="text-muted-foreground px-4 py-3 font-medium">Price</th>
+                  <th className="text-muted-foreground px-4 py-3 font-medium">Total</th>
                 </tr>
               </thead>
               <tbody>

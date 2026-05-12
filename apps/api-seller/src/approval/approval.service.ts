@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
+import { ApprovalStatus } from '@ecom/database'
 import type { ApprovalQueryDto } from './dto/approval-query.dto'
-import { buildPaginatedResponse } from '@ecom/shared/pagination/core'
-import { offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()
 export class ApprovalService {
@@ -25,8 +25,8 @@ export class ApprovalService {
     const where: Prisma.ProductApprovalWhereInput = {
       shopId,
     }
-    if (status) {
-      where.status = status as NonNullable<Prisma.ProductApprovalWhereInput['status']>
+    if (status !== undefined) {
+      where.status = status
     }
 
     const { items, total } = await offsetPaginate(this.prisma.productApproval, {
@@ -39,12 +39,7 @@ export class ApprovalService {
       orderBy: { [finalSort]: finalOrder },
     })
 
-    return buildPaginatedResponse(items, total, {
-      page,
-      limit: pageSize,
-      sortBy: finalSort,
-      sortOrder: finalOrder,
-    })
+    return buildOffsetResponse(items, page, pageSize, total)
   }
 
   async getById(shopId: string, approvalId: string) {
@@ -72,7 +67,7 @@ export class ApprovalService {
     }
 
     const existing = await this.prisma.productApproval.findFirst({
-      where: { productId, status: 'PENDING_REVIEW' },
+      where: { productId, status: ApprovalStatus.PENDING_REVIEW },
     })
 
     if (existing) {
@@ -88,7 +83,7 @@ export class ApprovalService {
       data: {
         productId,
         shopId,
-        status: 'PENDING_REVIEW',
+        status: ApprovalStatus.PENDING_REVIEW,
         version: (latestApproval?.version ?? 0) + 1,
       },
     })
@@ -103,7 +98,7 @@ export class ApprovalService {
       throw new NotFoundException('Approval request not found')
     }
 
-    if (approval.status !== 'REVISION_REQUESTED' && approval.status !== 'REJECTED') {
+    if (approval.status !== ApprovalStatus.REVISION_REQUESTED && approval.status !== ApprovalStatus.REJECTED) {
       throw new BadRequestException('Can only resubmit revision-requested or rejected approvals')
     }
 
@@ -111,7 +106,7 @@ export class ApprovalService {
       const updated = await tx.productApproval.update({
         where: { id: approvalId },
         data: {
-          status: 'PENDING_REVIEW',
+          status: ApprovalStatus.PENDING_REVIEW,
           version: { increment: 1 },
         },
       })
@@ -120,7 +115,7 @@ export class ApprovalService {
         data: {
           approvalId,
           fromStatus: approval.status,
-          toStatus: 'PENDING_REVIEW',
+          toStatus: ApprovalStatus.PENDING_REVIEW,
           note: 'Resubmitted for review',
         },
       })

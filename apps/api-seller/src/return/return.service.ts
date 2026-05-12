@@ -1,18 +1,19 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
+import { ReturnStatus } from '@ecom/database'
 import type { ReturnQueryDto } from './dto/return-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
-const VALID_TRANSITIONS: Record<string, string[]> = {
-  REQUESTED: ['REVIEWING', 'REJECTED'],
-  REVIEWING: ['APPROVED', 'REJECTED'],
-  APPROVED: ['RETURN_SHIPPING'],
-  REJECTED: ['CLOSED'],
-  RETURN_SHIPPING: ['RECEIVED'],
-  RECEIVED: ['REFUNDED'],
-  REFUNDED: ['CLOSED'],
-  CLOSED: [],
+const VALID_TRANSITIONS: Partial<Record<ReturnStatus, ReturnStatus[]>> = {
+  [ReturnStatus.REQUESTED]: [ReturnStatus.REVIEWING, ReturnStatus.REJECTED],
+  [ReturnStatus.REVIEWING]: [ReturnStatus.APPROVED, ReturnStatus.REJECTED],
+  [ReturnStatus.APPROVED]: [ReturnStatus.RETURN_SHIPPING],
+  [ReturnStatus.REJECTED]: [ReturnStatus.CLOSED],
+  [ReturnStatus.RETURN_SHIPPING]: [ReturnStatus.RECEIVED],
+  [ReturnStatus.RECEIVED]: [ReturnStatus.REFUNDED],
+  [ReturnStatus.REFUNDED]: [ReturnStatus.CLOSED],
+  [ReturnStatus.CLOSED]: [],
 }
 
 @Injectable()
@@ -34,7 +35,7 @@ export class ReturnService {
     const finalOrder = order || sortOrder
 
     const where: Prisma.ReturnRequestWhereInput = { shopId }
-    if (status) where.status = status as NonNullable<Prisma.ReturnRequestWhereInput['status']>
+    if (status !== undefined) where.status = status
     if (search) where.description = { contains: search, mode: 'insensitive' }
 
     const { items, total } = await offsetPaginate(this.prisma.returnRequest, {
@@ -71,7 +72,7 @@ export class ReturnService {
   async updateStatus(
     shopId: string,
     returnId: string,
-    newStatus: string,
+    newStatus: ReturnStatus,
     note?: string,
     performedBy?: string,
   ) {
@@ -94,10 +95,10 @@ export class ReturnService {
 
     return this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const data: Prisma.ReturnRequestUpdateInput = {
-        status: newStatus as NonNullable<Prisma.ReturnRequestUpdateInput['status']>,
+        status: newStatus,
       }
 
-      if (newStatus === 'REFUNDED' || newStatus === 'CLOSED') {
+      if (newStatus === ReturnStatus.REFUNDED || newStatus === ReturnStatus.CLOSED) {
         data.resolvedAt = new Date()
       }
 

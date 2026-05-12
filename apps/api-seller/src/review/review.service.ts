@@ -3,6 +3,7 @@ import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import type { ReviewQueryDto } from './dto/review-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { ReviewStatus } from '@ecom/database'
 
 @Injectable()
 export class ReviewService {
@@ -36,7 +37,7 @@ export class ReviewService {
     }
     if (productId) where.productId = productId
     if (rating) where.rating = rating
-    if (status) where.status = status as NonNullable<Prisma.ReviewWhereInput['status']>
+    if (status !== undefined) where.status = status
     if (search) {
       where.OR = [
         { title: { contains: search, mode: 'insensitive' } },
@@ -115,14 +116,14 @@ export class ReviewService {
     const productIds = await this.getShopProductIds(shopId)
 
     const [totalReviews, ratingDist, avgRating] = await Promise.all([
-      this.prisma.review.count({ where: { productId: { in: productIds }, status: 'APPROVED' } }),
+      this.prisma.review.count({ where: { productId: { in: productIds }, status: ReviewStatus.APPROVED } }),
       this.prisma.review.groupBy({
         by: ['rating'],
-        where: { productId: { in: productIds }, status: 'APPROVED' },
+        where: { productId: { in: productIds }, status: ReviewStatus.APPROVED },
         _count: true,
       }),
       this.prisma.review.aggregate({
-        where: { productId: { in: productIds }, status: 'APPROVED' },
+        where: { productId: { in: productIds }, status: ReviewStatus.APPROVED },
         _avg: { rating: true },
       }),
     ])

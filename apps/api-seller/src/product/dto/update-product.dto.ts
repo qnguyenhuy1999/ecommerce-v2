@@ -1,4 +1,6 @@
-import { IsString, IsOptional, IsNumber, IsBoolean, IsUUID, MaxLength, Min } from 'class-validator'
+import { IsString, IsOptional, IsNumber, IsBoolean, IsUUID, MaxLength, Min, IsEnum } from 'class-validator'
+import { ApiPropertyOptional } from '@nestjs/swagger'
+import { ProductStatus } from '@ecom/contracts'
 
 export class UpdateProductDto {
   @IsOptional()
@@ -38,7 +40,8 @@ export class UpdateProductDto {
   @IsBoolean()
   hasVariants?: boolean
 
+  @ApiPropertyOptional({ enum: ProductStatus })
   @IsOptional()
-  @IsString()
-  status?: string
+  @IsEnum(ProductStatus)
+  status?: ProductStatus
 }

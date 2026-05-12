@@ -12,6 +12,7 @@ import {
   HttpStatus,
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
+import { IsEnum, IsArray, IsString } from 'class-validator'
 import type { SessionData } from '@ecom/auth'
 import { AuthGuard } from '../auth/guards/auth.guard'
 import { CurrentUser } from '../auth/decorators/current-user.decorator'
@@ -27,6 +28,16 @@ import type { ProductService } from './product.service'
 import type { CreateProductDto } from './dto/create-product.dto'
 import type { UpdateProductDto } from './dto/update-product.dto'
 import type { ProductQueryDto } from './dto/product-query.dto'
+import { ProductStatus } from '@ecom/contracts'
+
+class BulkUpdateStatusDto {
+  @IsArray()
+  @IsString({ each: true })
+  productIds!: string[]
+
+  @IsEnum(ProductStatus)
+  status!: ProductStatus
+}
 
 @ApiTags('Seller/Products')
 @ApiAuth()
@@ -89,7 +100,7 @@ export class ProductController {
   @ApiOkResponseData(Object)
   async bulkUpdateStatus(
     @CurrentUser() user: SessionData,
-    @Body() body: { productIds: string[]; status: string },
+    @Body() body: BulkUpdateStatusDto,
   ) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.productService.bulkUpdateStatus(shopId, body.productIds, body.status)

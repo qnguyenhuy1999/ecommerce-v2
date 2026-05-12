@@ -33,7 +33,16 @@ export class NotificationsService {
     targetAll?: boolean
     sentBy?: string
   }) {
-    return this.prisma.adminNotification.create({ data })
+    // Build create payload explicitly to avoid passing `undefined` values
+    // to Prisma under exactOptionalPropertyTypes.
+    const createData: Parameters<typeof this.prisma.adminNotification.create>[0]['data'] = {
+      title: data.title,
+      message: data.message,
+      ...(data.channel !== undefined ? { channel: data.channel } : {}),
+      ...(data.targetAll !== undefined ? { targetAll: data.targetAll } : {}),
+      ...(data.sentBy !== undefined ? { sentBy: data.sentBy } : {}),
+    }
+    return this.prisma.adminNotification.create({ data: createData })
   }
 
   async send(id: string, adminId: string) {
@@ -55,6 +64,12 @@ export class NotificationsService {
     body: string
     channel?: NotificationChannel
   }) {
-    return this.prisma.notificationTemplate.create({ data })
+    const createData: Parameters<typeof this.prisma.notificationTemplate.create>[0]['data'] = {
+      name: data.name,
+      subject: data.subject,
+      body: data.body,
+      ...(data.channel !== undefined ? { channel: data.channel } : {}),
+    }
+    return this.prisma.notificationTemplate.create({ data: createData })
   }
 }

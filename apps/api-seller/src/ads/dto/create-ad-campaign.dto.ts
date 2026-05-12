@@ -1,13 +1,25 @@
-import { IsString, IsOptional, IsDateString, IsNumber, IsEnum } from 'class-validator'
+import { IsString, IsOptional, IsDateString, IsNumber, IsEnum, IsArray, ValidateNested, IsInt, Min } from 'class-validator'
 import { Type } from 'class-transformer'
+import { AdType } from '@ecom/database'
+
+export class AdKeywordDto {
+  @IsString()
+  keyword!: string
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Type(() => Number)
+  bidAmount?: number
+}
 
 export class CreateAdCampaignDto {
   @IsString()
   name!: string
 
   @IsOptional()
-  @IsEnum(['SPONSORED_PRODUCT', 'SEARCH_AD', 'RECOMMENDATION_AD', 'BANNER'])
-  type?: string
+  @IsEnum(AdType)
+  type?: AdType
 
   @IsNumber()
   @Type(() => Number)
@@ -46,5 +58,8 @@ export class CreateAdGroupDto {
   name!: string
 
   @IsOptional()
-  keywords?: { keyword: string; bidAmount?: number }[]
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => AdKeywordDto)
+  keywords?: AdKeywordDto[]
 }

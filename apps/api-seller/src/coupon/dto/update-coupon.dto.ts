@@ -10,7 +10,8 @@ import {
   MaxLength,
 } from 'class-validator'
 import { Type } from 'class-transformer'
-import { CouponStatus, CouponType } from '@ecom/contracts'
+import { CouponStatus, CouponType } from '@ecom/database'
+import { CouponScope } from './create-coupon.dto'
 
 export class UpdateCouponDto {
   @IsOptional()
@@ -27,8 +28,8 @@ export class UpdateCouponDto {
   type?: CouponType
 
   @IsOptional()
-  @IsEnum(['ALL_PRODUCTS', 'SPECIFIC_PRODUCTS', 'SPECIFIC_CATEGORIES'])
-  scope?: 'ALL_PRODUCTS' | 'SPECIFIC_PRODUCTS' | 'SPECIFIC_CATEGORIES'
+  @IsEnum(CouponScope)
+  scope?: CouponScope
 
   @IsOptional()
   @IsEnum(CouponStatus)

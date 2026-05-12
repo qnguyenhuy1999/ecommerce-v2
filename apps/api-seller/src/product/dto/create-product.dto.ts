@@ -8,8 +8,11 @@ import {
   MaxLength,
   Min,
   ValidateNested,
+  IsEnum,
 } from 'class-validator'
 import { Type } from 'class-transformer'
+import { ApiPropertyOptional } from '@nestjs/swagger'
+import { ProductStatus } from '@ecom/contracts'
 
 export class VariantOptionValueDto {
   @IsString()
@@ -112,7 +115,8 @@ export class CreateProductDto {
   @Type(() => ProductImageDto)
   images?: ProductImageDto[]
 
+  @ApiPropertyOptional({ enum: ProductStatus, default: ProductStatus.DRAFT })
   @IsOptional()
-  @IsString()
-  status?: string
+  @IsEnum(ProductStatus)
+  status?: ProductStatus
 }

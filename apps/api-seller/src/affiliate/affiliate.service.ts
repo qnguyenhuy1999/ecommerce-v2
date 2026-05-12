@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
+import { AffiliateStatus } from '@ecom/database'
 import type { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
@@ -25,13 +26,13 @@ export class AffiliateService {
     return buildOffsetResponse(items, page, pageSize, total)
   }
 
-  async updatePartnerStatus(partnerId: string, status: string) {
+  async updatePartnerStatus(partnerId: string, status: AffiliateStatus) {
     const partner = await this.prisma.affiliatePartner.findUnique({ where: { id: partnerId } })
     if (!partner) throw new NotFoundException('Partner not found')
 
     return this.prisma.affiliatePartner.update({
       where: { id: partnerId },
-      data: { status: status as 'PENDING' | 'APPROVED' | 'REJECTED' | 'SUSPENDED' },
+      data: { status },
     })
   }
 

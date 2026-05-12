@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Put, Param, Body, Query, UseGuards } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
+import { IsEnum } from 'class-validator'
 import type { SessionData } from '@ecom/auth'
 import { AuthGuard } from '../auth/guards/auth.guard'
 import { CurrentUser } from '../auth/decorators/current-user.decorator'
@@ -18,6 +19,12 @@ import type {
   CreateAdDto,
 } from './dto/create-ad-campaign.dto'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { AdCampaignStatus } from '@ecom/database'
+
+class UpdateAdCampaignStatusDto {
+  @IsEnum(AdCampaignStatus)
+  status!: AdCampaignStatus
+}
 
 @ApiTags('Seller/Ads')
 @ApiAuth()
@@ -56,7 +63,7 @@ export class AdsController {
   async updateStatus(
     @CurrentUser() user: SessionData,
     @Param('id') id: string,
-    @Body() body: { status: string },
+    @Body() body: UpdateAdCampaignStatusDto,
   ) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.adsService.updateCampaignStatus(shopId, id, body.status)

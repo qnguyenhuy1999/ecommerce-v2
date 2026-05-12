@@ -46,7 +46,22 @@ export class CategoriesService {
   }) {
     const existing = await this.prisma.category.findUnique({ where: { slug: data.slug } })
     if (existing) throw new ConflictException('Slug already exists')
-    return this.prisma.category.create({ data })
+
+    // Build create payload explicitly to avoid passing `undefined` values
+    // to Prisma under exactOptionalPropertyTypes.
+    const createData: Parameters<typeof this.prisma.category.create>[0]['data'] = {
+      name: data.name,
+      slug: data.slug,
+      ...(data.parentId !== undefined ? { parentId: data.parentId } : {}),
+      ...(data.sortOrder !== undefined ? { sortOrder: data.sortOrder } : {}),
+      ...(data.isActive !== undefined ? { isActive: data.isActive } : {}),
+      ...(data.description !== undefined ? { description: data.description } : {}),
+      ...(data.icon !== undefined ? { icon: data.icon } : {}),
+      ...(data.banner !== undefined ? { banner: data.banner } : {}),
+      ...(data.metaTitle !== undefined ? { metaTitle: data.metaTitle } : {}),
+      ...(data.metaDesc !== undefined ? { metaDesc: data.metaDesc } : {}),
+    }
+    return this.prisma.category.create({ data: createData })
   }
 
   async update(

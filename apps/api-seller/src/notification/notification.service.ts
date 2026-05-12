@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
+import { NotificationType } from '@ecom/database'
 import type { NotificationQueryDto } from './dto/notification-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
@@ -12,7 +13,7 @@ export class NotificationService {
 
     const where: Prisma.NotificationWhereInput = { shopId }
     if (unreadOnly) where.isRead = false
-    if (type) where.type = type as NonNullable<Prisma.NotificationWhereInput['type']>
+    if (type !== undefined) where.type = type as NotificationType
 
     const { items, total } = await offsetPaginate(this.prisma.notification, {
       page,
@@ -48,7 +49,7 @@ export class NotificationService {
 
   async create(
     shopId: string,
-    type: string,
+    type: NotificationType,
     title: string,
     message: string,
     metadata?: Record<string, unknown>,
@@ -56,7 +57,7 @@ export class NotificationService {
     return this.prisma.notification.create({
       data: {
         shopId,
-        type: type as Prisma.NotificationCreateInput['type'],
+        type,
         title,
         message,
         ...(metadata !== undefined ? { metadata: metadata as Prisma.InputJsonValue } : {}),

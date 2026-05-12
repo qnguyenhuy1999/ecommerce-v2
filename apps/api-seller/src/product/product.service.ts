@@ -6,6 +6,7 @@ import type { UpdateProductDto } from './dto/update-product.dto'
 import type { ProductQueryDto } from './dto/product-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import type { ProductRepository } from './repositories/product.repository'
+import { ProductStatus } from '@ecom/contracts'
 
 @Injectable()
 export class ProductService {
@@ -31,7 +32,7 @@ export class ProductService {
       shopId,
       deletedAt: null,
     }
-    if (status) where.status = status as NonNullable<Prisma.ProductWhereInput['status']>
+    if (status) where.status = status
     if (categoryId) where.categoryId = categoryId
     if (search) {
       where.OR = [
@@ -80,7 +81,7 @@ export class ProductService {
           baseStock: dto.baseStock ?? 0,
           hasVariants: dto.hasVariants ?? false,
           ...(dto.weight !== undefined ? { weight: dto.weight } : {}),
-          status: (dto.status as 'DRAFT' | 'PUBLISHED') ?? 'DRAFT',
+          status: dto.status ?? ProductStatus.DRAFT,
         },
       })
 
@@ -180,7 +181,7 @@ export class ProductService {
     if (dto.baseStock !== undefined) data.baseStock = dto.baseStock
     if (dto.weight !== undefined) data.weight = dto.weight
     if (dto.hasVariants !== undefined) data.hasVariants = dto.hasVariants
-    if (dto.status !== undefined) data.status = dto.status as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED'
+    if (dto.status !== undefined) data.status = dto.status
 
     await this.productRepository.update(productId, data)
 
@@ -201,10 +202,10 @@ export class ProductService {
     await this.productRepository.update(productId, { deletedAt: new Date() })
   }
 
-  async bulkUpdateStatus(shopId: string, productIds: string[], status: string) {
+  async bulkUpdateStatus(shopId: string, productIds: string[], status: ProductStatus) {
     const result = await this.productRepository.updateMany(
       { id: { in: productIds }, shopId, deletedAt: null },
-      { status: status as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' },
+      { status },
     )
 
     if (result.count === 0) {

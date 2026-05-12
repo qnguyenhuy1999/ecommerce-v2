@@ -140,14 +140,14 @@ export class FlashSaleService {
   async approveSlot(slotId: string) {
     return this.prisma.flashSaleSlot.update({
       where: { id: slotId },
-      data: { status: 'APPROVED' },
+      data: { status: 'APPROVED' as const },
     })
   }
 
   async rejectSlot(slotId: string) {
     return this.prisma.flashSaleSlot.update({
       where: { id: slotId },
-      data: { status: 'REJECTED' },
+      data: { status: 'REJECTED' as const },
     })
   }
 }

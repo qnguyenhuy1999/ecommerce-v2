@@ -63,14 +63,25 @@ export class PromotionsService {
       throw new BadRequestException('Percentage discount cannot exceed 100')
     }
 
-    return this.prisma.platformVoucher.create({
-      data: {
-        ...data,
-        discountValue: data.discountValue,
-        maxDiscountAmount: nullable(data.maxDiscountAmount),
-        minOrderAmount: nullable(data.minOrderAmount),
-      },
-    })
+    // Build create payload explicitly to avoid passing `undefined` values
+    // to Prisma under exactOptionalPropertyTypes. Use `nullable()` for
+    // optional Decimal fields that the DB accepts as null.
+    const createData: Parameters<typeof this.prisma.platformVoucher.create>[0]['data'] = {
+      code: data.code,
+      name: data.name,
+      type: data.type,
+      discountValue: data.discountValue,
+      startsAt: data.startsAt,
+      expiresAt: data.expiresAt,
+      maxDiscountAmount: nullable(data.maxDiscountAmount),
+      minOrderAmount: nullable(data.minOrderAmount),
+      ...(data.description !== undefined ? { description: data.description } : {}),
+      ...(data.usageLimit !== undefined ? { usageLimit: data.usageLimit } : {}),
+      ...(data.usageLimitPerUser !== undefined ? { usageLimitPerUser: data.usageLimitPerUser } : {}),
+      ...(data.createdBy !== undefined ? { createdBy: data.createdBy } : {}),
+    }
+
+    return this.prisma.platformVoucher.create({ data: createData })
   }
 
   async update(id: string, data: Prisma.PlatformVoucherUpdateInput) {

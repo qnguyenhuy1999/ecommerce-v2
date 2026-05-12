@@ -10,6 +10,14 @@ import {
   MaxLength,
 } from 'class-validator'
 import { Type } from 'class-transformer'
+import { CouponType } from '@ecom/database'
+
+/** Coupon scope — mirrors the Prisma CouponScope enum. */
+export enum CouponScope {
+  ALL_PRODUCTS = 'ALL_PRODUCTS',
+  SPECIFIC_PRODUCTS = 'SPECIFIC_PRODUCTS',
+  SPECIFIC_CATEGORIES = 'SPECIFIC_CATEGORIES',
+}
 
 export class CreateCouponDto {
   @IsString()
@@ -24,12 +32,12 @@ export class CreateCouponDto {
   @IsString()
   description?: string
 
-  @IsEnum(['PERCENTAGE', 'FIXED_AMOUNT'])
-  type!: 'PERCENTAGE' | 'FIXED_AMOUNT'
+  @IsEnum(CouponType)
+  type!: CouponType
 
   @IsOptional()
-  @IsEnum(['ALL_PRODUCTS', 'SPECIFIC_PRODUCTS', 'SPECIFIC_CATEGORIES'])
-  scope?: 'ALL_PRODUCTS' | 'SPECIFIC_PRODUCTS' | 'SPECIFIC_CATEGORIES'
+  @IsEnum(CouponScope)
+  scope?: CouponScope
 
   @Type(() => Number)
   @IsNumber()
@@ -80,3 +88,6 @@ export class CreateCouponDto {
   @IsString({ each: true })
   categoryIds?: string[]
 }
+
+// Re-export CouponType for convenience in the module
+export { CouponType }

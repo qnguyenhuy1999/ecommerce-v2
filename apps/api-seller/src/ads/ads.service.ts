@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
+import { AdType, AdCampaignStatus } from '@ecom/database'
 import type {
   CreateAdCampaignDto,
   CreateAdGroupDto,
@@ -53,9 +54,7 @@ export class AdsService {
       data: {
         shopId,
         name: dto.name,
-        type:
-          (dto.type as 'SPONSORED_PRODUCT' | 'SEARCH_AD' | 'RECOMMENDATION_AD' | 'BANNER') ??
-          'SPONSORED_PRODUCT',
+        type: dto.type ?? AdType.SPONSORED_PRODUCT,
         dailyBudget: dto.dailyBudget,
         ...(dto.totalBudget !== undefined ? { totalBudget: dto.totalBudget } : {}),
         bidAmount: dto.bidAmount,
@@ -65,13 +64,13 @@ export class AdsService {
     })
   }
 
-  async updateCampaignStatus(shopId: string, id: string, status: string) {
+  async updateCampaignStatus(shopId: string, id: string, status: AdCampaignStatus) {
     const campaign = await this.prisma.adCampaign.findFirst({ where: { id, shopId } })
     if (!campaign) throw new NotFoundException('Campaign not found')
 
     return this.prisma.adCampaign.update({
       where: { id },
-      data: { status: status as 'DRAFT' | 'ACTIVE' | 'PAUSED' | 'ENDED' | 'DEPLETED' },
+      data: { status },
     })
   }
 

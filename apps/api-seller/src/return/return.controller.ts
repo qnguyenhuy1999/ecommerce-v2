@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Put, Param, Query, Body, UseGuards } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
+import { IsEnum, IsOptional, IsString } from 'class-validator'
 import type { SessionData } from '@ecom/auth'
 import { AuthGuard } from '../auth/guards/auth.guard'
 import { CurrentUser } from '../auth/decorators/current-user.decorator'
@@ -13,6 +14,16 @@ import {
 import type { ShopService } from '../shop/shop.service'
 import type { ReturnService } from './return.service'
 import type { ReturnQueryDto } from './dto/return-query.dto'
+import { ReturnStatus } from '@ecom/database'
+
+class UpdateReturnStatusDto {
+  @IsEnum(ReturnStatus)
+  status!: ReturnStatus
+
+  @IsOptional()
+  @IsString()
+  note?: string
+}
 
 @ApiTags('Seller/Returns')
 @ApiAuth()
@@ -51,7 +62,7 @@ export class ReturnController {
   async updateStatus(
     @CurrentUser() user: SessionData,
     @Param('id') id: string,
-    @Body() body: { status: string; note?: string },
+    @Body() body: UpdateReturnStatusDto,
   ) {
     const shopId = await this.shopService.getShopId(user.userId)
     return this.returnService.updateStatus(shopId, id, body.status, body.note, user.userId)

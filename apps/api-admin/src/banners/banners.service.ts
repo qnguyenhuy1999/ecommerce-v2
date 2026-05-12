@@ -43,7 +43,20 @@ export class BannersService {
     endsAt?: Date
     createdBy?: string
   }) {
-    return this.prisma.banner.create({ data })
+    // Build create payload explicitly to avoid passing `undefined` values
+    // to Prisma under exactOptionalPropertyTypes.
+    const createData: Parameters<typeof this.prisma.banner.create>[0]['data'] = {
+      title: data.title,
+      position: data.position,
+      imageUrl: data.imageUrl,
+      ...(data.mobileImageUrl !== undefined ? { mobileImageUrl: data.mobileImageUrl } : {}),
+      ...(data.linkUrl !== undefined ? { linkUrl: data.linkUrl } : {}),
+      ...(data.sortOrder !== undefined ? { sortOrder: data.sortOrder } : {}),
+      ...(data.startsAt !== undefined ? { startsAt: data.startsAt } : {}),
+      ...(data.endsAt !== undefined ? { endsAt: data.endsAt } : {}),
+      ...(data.createdBy !== undefined ? { createdBy: data.createdBy } : {}),
+    }
+    return this.prisma.banner.create({ data: createData })
   }
 
   async update(id: string, data: Prisma.BannerUpdateInput) {

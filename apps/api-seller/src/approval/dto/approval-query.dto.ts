@@ -1,5 +1,6 @@
 import { IsOptional, IsString, IsEnum } from 'class-validator'
 import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { ApprovalStatus } from '@ecom/database'
 
 export class ApprovalQueryDto extends OffsetPaginationDto {
   @IsOptional()
@@ -7,6 +8,6 @@ export class ApprovalQueryDto extends OffsetPaginationDto {
   search?: string
 
   @IsOptional()
-  @IsEnum(['PENDING_REVIEW', 'APPROVED', 'REJECTED', 'REVISION_REQUESTED'])
-  status?: string
+  @IsEnum(ApprovalStatus)
+  status?: ApprovalStatus
 }

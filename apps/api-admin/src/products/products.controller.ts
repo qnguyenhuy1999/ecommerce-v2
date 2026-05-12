@@ -13,7 +13,7 @@ import type {
   BulkModerationDto,
   ResolveReportDto,
 } from './dto/product-action.dto'
-import { type ProductStatus, type ProductReportStatus } from '@ecom/database'
+import { type ProductReportStatus } from '@ecom/database'
 import { AUDIT_ACTIONS } from '@ecom/shared/constants'
 import { withDefined } from '@ecom/shared/utils'
 import {
@@ -40,7 +40,7 @@ export class ProductsController {
     const result = await this.productsService.findAll({
       ...withDefined({ page: query.page, limit: query.limit }),
       ...(query.search !== undefined ? { search: query.search } : {}),
-      ...(query.status !== undefined ? { status: query.status as ProductStatus } : {}),
+      ...(query.status !== undefined ? { status: query.status } : {}),
       ...(query.shopId !== undefined ? { shopId: query.shopId } : {}),
       ...(query.categoryId !== undefined ? { categoryId: query.categoryId } : {}),
     })

@@ -1,5 +1,6 @@
-import { IsOptional, IsString, IsUUID } from 'class-validator'
+import { IsOptional, IsString, IsUUID, IsEnum } from 'class-validator'
 import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { ProductStatus } from '@ecom/contracts'
 
 export class ProductQueryDto extends OffsetPaginationDto {
   @IsOptional()
@@ -7,8 +8,8 @@ export class ProductQueryDto extends OffsetPaginationDto {
   search?: string
 
   @IsOptional()
-  @IsString()
-  status?: string
+  @IsEnum(ProductStatus)
+  status?: ProductStatus
 
   @IsOptional()
   @IsUUID()

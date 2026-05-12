@@ -1,5 +1,6 @@
 import { IsString, IsOptional, IsNumber, IsEnum } from 'class-validator'
 import { Type } from 'class-transformer'
+import { AffiliateStatus } from '@ecom/database'
 
 export class CreateAffiliateLinkDto {
   @IsOptional()
@@ -15,8 +16,8 @@ export class CreateAffiliateLinkDto {
 }
 
 export class UpdateAffiliateStatusDto {
-  @IsEnum(['APPROVED', 'REJECTED', 'SUSPENDED'])
-  status!: string
+  @IsEnum(AffiliateStatus)
+  status!: AffiliateStatus
 }
 
 export class RequestPayoutDto {

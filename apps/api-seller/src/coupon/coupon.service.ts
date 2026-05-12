@@ -2,10 +2,11 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import type { CreateCouponDto } from './dto/create-coupon.dto'
+import { CouponScope } from './dto/create-coupon.dto'
 import type { UpdateCouponDto } from './dto/update-coupon.dto'
 import type { CouponQueryDto } from './dto/coupon-query.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { CouponStatus, CouponType } from '@ecom/contracts'
+import { CouponStatus, CouponType } from '@ecom/database'
 
 @Injectable()
 export class CouponService {
@@ -28,7 +29,7 @@ export class CouponService {
 
     const where: Prisma.CouponWhereInput = { shopId }
     if (status) where.status = status
-    if (type) where.type = type as NonNullable<Prisma.CouponWhereInput['type']>
+    if (type) where.type = type
     if (search) {
       where.OR = [
         { code: { contains: search, mode: 'insensitive' } },
@@ -99,7 +100,7 @@ export class CouponService {
         },
       })
 
-      if (dto.scope === 'SPECIFIC_PRODUCTS' && dto.productIds?.length) {
+      if (dto.scope === CouponScope.SPECIFIC_PRODUCTS && dto.productIds?.length) {
         await tx.couponProduct.createMany({
           data: dto.productIds.map((productId) => ({
             couponId: coupon.id,
@@ -108,7 +109,7 @@ export class CouponService {
         })
       }
 
-      if (dto.scope === 'SPECIFIC_CATEGORIES' && dto.categoryIds?.length) {
+      if (dto.scope === CouponScope.SPECIFIC_CATEGORIES && dto.categoryIds?.length) {
         await tx.couponCategory.createMany({
           data: dto.categoryIds.map((categoryId) => ({
             couponId: coupon.id,
@@ -142,8 +143,7 @@ export class CouponService {
       const data: Prisma.CouponUpdateInput = {}
       if (dto.name !== undefined) data.name = dto.name
       if (dto.description !== undefined) data.description = dto.description
-      if (dto.type !== undefined)
-        data.type = dto.type as NonNullable<Prisma.CouponUpdateInput['type']>
+      if (dto.type !== undefined) data.type = dto.type
       if (dto.scope !== undefined) data.scope = dto.scope
       if (dto.status !== undefined) data.status = dto.status
       if (dto.discountValue !== undefined) data.discountValue = dto.discountValue

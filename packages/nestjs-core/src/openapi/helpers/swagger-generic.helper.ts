@@ -54,8 +54,8 @@ export function buildApiArrayResponseSchema(dtoClass: Function) {
 /**
  * Build an allOf schema wrapping a DTO inside PaginatedResponseDto<T>.
  *
- * Produces the standard pagination envelope:
- * { success, data: { items: T[] }, meta: { pagination: PaginationMetaDto }, error: null }
+ * Produces the standard pagination envelope matching the ResponseInterceptor output:
+ * { success, data: { items: T[] }, meta: PaginationMeta, timestamp }
  *
  * NOTE: Ensure @ApiExtraModels(PaginatedResponseDto, PaginationMetaDto, YourDto)
  * is applied on the controller or method so all $ref targets resolve.
@@ -80,12 +80,7 @@ export function buildPaginatedResponseSchema(dtoClass: Function) {
               },
             },
           },
-          meta: {
-            type: 'object',
-            properties: {
-              pagination: { $ref: getSchemaPath(PaginationMetaDto) },
-            },
-          },
+          meta: { $ref: getSchemaPath(PaginationMetaDto) },
         },
       },
     ],

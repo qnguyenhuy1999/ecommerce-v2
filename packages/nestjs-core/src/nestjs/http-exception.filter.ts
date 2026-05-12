@@ -1,7 +1,7 @@
 import type { ExceptionFilter, ArgumentsHost } from '@nestjs/common'
 import { Catch, HttpException, HttpStatus, Logger } from '@nestjs/common'
 import type { ApiErrorResponse } from '@ecom/contracts'
-import type { Response } from 'express'
+import type { Request, Response } from 'express'
 
 /** Duck-typed shape of our AppError from @ecom/shared/errors. */
 interface AppErrorLike extends Error {
@@ -79,7 +79,6 @@ function mapPrismaError(err: PrismaKnownError): {
         status: HttpStatus.INTERNAL_SERVER_ERROR,
         code: `PRISMA_${err.code}`,
         message: 'A database error occurred.',
-        details: err.meta,
       }
   }
 }
@@ -91,18 +90,23 @@ export class AllExceptionsFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost): void {
     const ctx = host.switchToHttp()
     const response = ctx.getResponse<Response>()
+    const request = ctx.getRequest<Request>()
     const timestamp = new Date().toISOString()
+    const path = request?.url ?? ''
 
     const { status, code, message, details } = this.mapException(exception)
 
     const body: ApiErrorResponse = {
       success: false,
+      message,
       error: {
         code,
         message,
         ...(details !== undefined ? { details } : {}),
       },
+      statusCode: status,
       timestamp,
+      path,
     }
 
     response.status(status).json(body)

@@ -25,7 +25,11 @@
     "openapi:validate": "npx @apidevtools/swagger-cli validate apps/api-admin/openapi/admin.json && npx @apidevtools/swagger-cli validate apps/api-seller/openapi/seller.json && npx @apidevtools/swagger-cli validate apps/api-storefront/openapi/storefront.json",
     "openapi:sync": "pnpm swagger:gen:all && pnpm openapi:gen",
     "contracts:check": "pnpm openapi:sync && pnpm openapi:validate && pnpm type-check --filter=@ecom/contracts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "typecheck": "turbo type-check",
+    "openapi:generate": "pnpm swagger:gen:all && pnpm openapi:gen",
+    "contracts:generate": "node packages/contracts/scripts/generate-types.mjs",
+    "ci": "pnpm lint && pnpm typecheck && pnpm contracts:check && pnpm test && pnpm build"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",

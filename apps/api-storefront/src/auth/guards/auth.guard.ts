@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>()
-    const sessionId = request.cookies?.[SESSION_COOKIE_NAME]
+    const sessionId = getCookieValue(request, SESSION_COOKIE_NAME)
 
     if (!sessionId) {
       throw new UnauthorizedException('Authentication required')
@@ -28,4 +28,10 @@ export class AuthGuard implements CanActivate {
     ;(request as Request & { user: unknown }).user = session
     return true
   }
+}
+
+function getCookieValue(request: Request, key: string): string | undefined {
+  const cookies = request.cookies as Record<string, unknown> | undefined
+  const value = cookies?.[key]
+  return typeof value === 'string' ? value : undefined
 }

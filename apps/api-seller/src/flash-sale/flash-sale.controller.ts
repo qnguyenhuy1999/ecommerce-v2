@@ -10,8 +10,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { FlashSaleService } from './flash-sale.service'
+import type { ShopService } from '../shop/shop.service'
+import type { FlashSaleService } from './flash-sale.service'
 import type { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 

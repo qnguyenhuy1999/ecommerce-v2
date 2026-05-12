@@ -9,8 +9,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { MetricsService } from './metrics.service'
+import type { ShopService } from '../shop/shop.service'
+import type { MetricsService } from './metrics.service'
 
 @ApiTags('Seller/Metrics')
 @ApiAuth()

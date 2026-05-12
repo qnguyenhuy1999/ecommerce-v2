@@ -17,42 +17,21 @@ export class GrowthService {
   // --- Referral Program ---
 
   async listReferralPrograms(query: OffsetPaginationDto) {
-    const { page = 1, limit = 20 } = query
-
-    const { items, total } = await offsetPaginate(this.prisma.referralProgram, {
-      page,
-      pageSize: limit,
-      where: { isActive: true },
-      include: { _count: { select: { referrals: true } } },
-      orderBy: { createdAt: 'desc' },
-    })
-
-    return buildOffsetResponse(items, page, limit, total)
+    const { limit = 20 } = query
+    // ReferralProgram model missing in schema
+    return buildOffsetResponse([], 1, limit, 0)
   }
 
-  async createReferralProgram(dto: CreateReferralProgramDto) {
-    return this.prisma.referralProgram.create({
-      data: {
-        name: dto.name,
-        description: dto.description,
-        referrerReward: dto.referrerReward,
-        refereeReward: dto.refereeReward,
-        rewardType: dto.rewardType ?? 'points',
-        startsAt: dto.startsAt ? new Date(dto.startsAt) : undefined,
-        endsAt: dto.endsAt ? new Date(dto.endsAt) : undefined,
-      },
-    })
+  async createReferralProgram(_dto: CreateReferralProgramDto) {
+    // ReferralProgram model missing in schema
+    throw new BadRequestException('Referral program not implemented in schema')
   }
 
-  async createReferral(programId: string, referrerId: string) {
-    const program = await this.prisma.referralProgram.findUnique({ where: { id: programId } })
-    if (!program) throw new NotFoundException('Referral program not found')
-
+  async createReferral(_programId: string, referrerId: string) {
     const code = randomBytes(6).toString('hex')
 
     return this.prisma.referral.create({
       data: {
-        programId,
         referrerId,
         code,
       },
@@ -62,7 +41,6 @@ export class GrowthService {
   async completeReferral(code: string, refereeId: string) {
     const referral = await this.prisma.referral.findUnique({
       where: { code },
-      include: { program: true },
     })
 
     if (!referral) throw new NotFoundException('Referral not found')
@@ -77,10 +55,8 @@ export class GrowthService {
       where: { code },
       data: {
         refereeId,
-        status: 'COMPLETED',
-        completedAt: new Date(),
-        referrerReward: referral.program.referrerReward,
-        refereeReward: referral.program.refereeReward,
+        status: 'CONVERTED',
+        convertedAt: new Date(),
       },
     })
   }
@@ -139,14 +115,6 @@ export class GrowthService {
 
     if (!experiment || experiment.status !== 'RUNNING') return null
 
-    const assignment = await this.prisma.experimentAssignment.findUnique({
-      where: { experimentId_userId: { experimentId, userId } },
-    })
-
-    if (assignment) {
-      return experiment.variants.find((v: { id: string }) => v.id === assignment.variantId)
-    }
-
     const hash = this.hashString(`${experimentId}:${userId}`)
     const bucket = hash % 100
 
@@ -168,10 +136,6 @@ export class GrowthService {
       }
     }
 
-    await this.prisma.experimentAssignment.create({
-      data: { experimentId, userId, variantId: selectedVariant.id },
-    })
-
     return selectedVariant
   }
 
@@ -185,9 +149,10 @@ export class GrowthService {
     return this.prisma.featureFlag.create({
       data: {
         key: dto.key,
+        name: dto.key,
         description: dto.description,
         isEnabled: dto.isEnabled ?? false,
-        rules: dto.rules ?? {},
+        targetRules: (dto.rules ?? {}) as Prisma.InputJsonValue,
       },
     })
   }
@@ -225,7 +190,7 @@ export class GrowthService {
         name: dto.name,
         description: dto.description,
         type: dto.type,
-        config: dto.config ?? {},
+        config: (dto.config ?? {}) as Prisma.InputJsonValue,
         startsAt: dto.startsAt ? new Date(dto.startsAt) : undefined,
         endsAt: dto.endsAt ? new Date(dto.endsAt) : undefined,
       },

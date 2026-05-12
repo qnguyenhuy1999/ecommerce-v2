@@ -8,7 +8,7 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { EventStreamingService } from './event-streaming.service'
+import type { EventStreamingService } from './event-streaming.service'
 import type { EmitEventDto } from './dto/event-streaming.dto'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 

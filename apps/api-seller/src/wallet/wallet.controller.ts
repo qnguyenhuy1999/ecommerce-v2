@@ -10,8 +10,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { WalletService } from './wallet.service'
+import type { ShopService } from '../shop/shop.service'
+import type { WalletService } from './wallet.service'
 import type { RequestWithdrawalDto } from './dto/wallet.dto'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 

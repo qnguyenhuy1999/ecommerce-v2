@@ -9,8 +9,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { OrderService } from './order.service'
+import type { ShopService } from '../shop/shop.service'
+import type { OrderService } from './order.service'
 import type { OrderQueryDto } from './dto/order-query.dto'
 import type { UpdateOrderStatusDto } from './dto/update-order-status.dto'
 

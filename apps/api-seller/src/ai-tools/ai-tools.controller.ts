@@ -10,8 +10,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { AiToolsService } from './ai-tools.service'
+import type { ShopService } from '../shop/shop.service'
+import type { AiToolsService } from './ai-tools.service'
 import type { CreateAiTaskDto } from './dto/ai-tools.dto'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 

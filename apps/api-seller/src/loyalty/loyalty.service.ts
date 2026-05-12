@@ -18,7 +18,7 @@ export class LoyaltyService {
         name: dto.name,
         minPoints: dto.minPoints,
         multiplier: dto.pointMultiplier ?? 1,
-        benefits: dto.benefits ?? {},
+        benefits: (dto.benefits ?? {}) as Prisma.InputJsonValue,
       },
     })
   }

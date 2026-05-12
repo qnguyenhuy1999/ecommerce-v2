@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
-import { Prisma, OrderStatus, ReturnStatus } from '@ecom/database'
+import { type Prisma, OrderStatus, ReturnStatus } from '@ecom/database'
 
 @Injectable()
 export class MetricsService {
@@ -22,7 +22,6 @@ export class MetricsService {
             shopId,
             status: OrderStatus.SHIPPED,
             createdAt: { gte: thirtyDaysAgo },
-            shippedAt: { not: null },
           },
         }),
         this.prisma.returnRequest.count({
@@ -90,22 +89,22 @@ export class MetricsService {
       create: {
         shopId,
         date: today,
-        cancellationRate: new Prisma.Decimal(metrics.cancellationRate),
-        lateShipmentRate: new Prisma.Decimal(metrics.lateShipmentRate),
-        responseRate: new Prisma.Decimal(metrics.responseRate),
-        refundRate: new Prisma.Decimal(metrics.refundRate),
-        sellerScore: new Prisma.Decimal(metrics.sellerScore),
+        cancellationRate: metrics.cancellationRate,
+        lateShipmentRate: metrics.lateShipmentRate,
+        responseRate: metrics.responseRate,
+        refundRate: metrics.refundRate,
+        sellerScore: metrics.sellerScore,
         totalOrders: metrics.totalOrders,
-        totalReturns: metrics.totalReturns,
+        totalRefunds: metrics.totalReturns,
       },
       update: {
-        cancellationRate: new Prisma.Decimal(metrics.cancellationRate),
-        lateShipmentRate: new Prisma.Decimal(metrics.lateShipmentRate),
-        responseRate: new Prisma.Decimal(metrics.responseRate),
-        refundRate: new Prisma.Decimal(metrics.refundRate),
-        sellerScore: new Prisma.Decimal(metrics.sellerScore),
+        cancellationRate: metrics.cancellationRate,
+        lateShipmentRate: metrics.lateShipmentRate,
+        responseRate: metrics.responseRate,
+        refundRate: metrics.refundRate,
+        sellerScore: metrics.sellerScore,
         totalOrders: metrics.totalOrders,
-        totalReturns: metrics.totalReturns,
+        totalRefunds: metrics.totalReturns,
       },
     })
   }

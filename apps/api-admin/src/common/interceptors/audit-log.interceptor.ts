@@ -4,6 +4,7 @@ import type { Reflector } from '@nestjs/core'
 import type { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 import type { Request } from 'express'
+import type { AuditActionType } from '@ecom/database'
 import type { AuditLogService } from '../../audit-logs/audit-log.service'
 import { AUDIT_LOG_KEY, type AuditLogMetadata } from '../decorators/audit-log.decorator'
 import type { AdminSessionData } from '../../auth/decorators/current-admin.decorator'
@@ -42,7 +43,7 @@ export class AuditLogInterceptor implements NestInterceptor {
 
         this.auditLogService.log({
           adminId: admin.adminId,
-          action: metadata.action as unknown as import('@ecom/database').AuditActionType,
+          action: metadata.action as unknown as AuditActionType,
           entityType: metadata.entityType,
           entityId,
           metadata: extractedMetadata,

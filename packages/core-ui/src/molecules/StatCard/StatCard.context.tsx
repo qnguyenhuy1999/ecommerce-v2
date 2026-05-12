@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import { accentMap } from './StatCard.fixtures'
+import type { accentMap } from './StatCard.fixtures'
 
 type StatCardContextValue = {
   accent: keyof typeof accentMap

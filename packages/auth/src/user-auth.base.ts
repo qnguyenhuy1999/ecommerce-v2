@@ -1,7 +1,7 @@
 import { type PrismaService } from '@ecom/database'
-import { EmailServiceBase } from '@ecom/email'
-import { RedisService } from '@ecom/redis'
-import { SessionService } from './session.service'
+import type { EmailServiceBase } from '@ecom/email'
+import type { RedisService } from '@ecom/redis'
+import type { SessionService } from './session.service'
 
 export abstract class BaseUserAuthService {
   constructor(

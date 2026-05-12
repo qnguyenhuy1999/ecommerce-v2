@@ -1,4 +1,5 @@
 export enum NotificationStatus {
+  DRAFT = 'DRAFT',
   UNREAD = 'UNREAD',
   READ = 'READ',
   ARCHIVED = 'ARCHIVED',

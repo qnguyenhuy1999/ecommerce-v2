@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { buildSwaggerDocument } from '@ecom/nestjs-core/openapi'

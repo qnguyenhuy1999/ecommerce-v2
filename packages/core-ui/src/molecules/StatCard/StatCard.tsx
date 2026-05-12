@@ -5,13 +5,13 @@ import { StatCardContext, useStatCard } from './StatCard.context'
 import { accentMap } from './StatCard.fixtures'
 import type { StatCardHeader, StatCardProps, StatChartProps } from './StatCard.types'
 
-function Header({ label, icon: Icon }: StatCardHeader) {
+function Header({ label, title, icon: Icon }: StatCardHeader) {
   const { colors } = useStatCard()
 
   return (
     <div className="flex items-start justify-between gap-2">
       <span className="text-muted-foreground text-[11px] font-semibold uppercase tracking-wider">
-        {label}
+        {label || title}
       </span>
       {Icon && (
         <span className={cn('flex h-7 w-7 items-center justify-center rounded-md', colors.soft)}>
@@ -99,6 +99,7 @@ function Root({
 
 export function StatCardBase({
   label,
+  title,
   value,
   icon,
   trend,
@@ -108,7 +109,7 @@ export function StatCardBase({
 }: StatCardProps) {
   return (
     <Root accent={accent} className={className}>
-      <Header label={label} icon={icon} />
+      <Header label={label} title={title} icon={icon} />
       <Chart value={value} spark={spark} />
       {typeof trend === 'number' && <Trend trend={trend} />}
     </Root>

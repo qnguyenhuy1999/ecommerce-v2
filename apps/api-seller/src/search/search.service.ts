@@ -138,11 +138,10 @@ export class SearchService {
     return buildOffsetResponse(items, page, pageSize, total)
   }
 
-  async listSavedFilters(shopId: string, userId: string, entity?: string) {
+  async listSavedFilters(shopId: string, _userId: string, entity?: string) {
     return this.prisma.savedFilter.findMany({
       where: {
         shopId,
-        userId,
         ...(entity ? { entity } : {}),
       },
       orderBy: { createdAt: 'desc' },
@@ -151,19 +150,19 @@ export class SearchService {
 
   async saveFilter(
     shopId: string,
-    userId: string,
+    _userId: string,
     name: string,
     entity: string,
     filters: Record<string, unknown>,
   ) {
     return this.prisma.savedFilter.create({
-      data: { shopId, userId, name, entity, filters: filters as Prisma.InputJsonValue },
+      data: { shopId, name, entity, filters: filters as Prisma.InputJsonValue },
     })
   }
 
-  async deleteFilter(shopId: string, userId: string, filterId: string) {
+  async deleteFilter(shopId: string, _userId: string, filterId: string) {
     const filter = await this.prisma.savedFilter.findFirst({
-      where: { id: filterId, shopId, userId },
+      where: { id: filterId, shopId },
     })
 
     if (!filter) {

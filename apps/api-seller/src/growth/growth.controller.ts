@@ -10,7 +10,7 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { GrowthService } from './growth.service'
+import type { GrowthService } from './growth.service'
 import type {
   CreateReferralProgramDto,
   CreateExperimentDto,

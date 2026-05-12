@@ -10,8 +10,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { SubscriptionService } from './subscription.service'
+import type { ShopService } from '../shop/shop.service'
+import type { SubscriptionService } from './subscription.service'
 import type { SubscribeDto } from './dto/subscription.dto'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
 

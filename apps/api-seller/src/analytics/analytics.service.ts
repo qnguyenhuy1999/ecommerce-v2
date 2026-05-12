@@ -63,11 +63,11 @@ export class AnalyticsService {
     return topProducts.map(
       (p: {
         variantId: string
-        _sum: { quantity: number | null; totalPrice: number | null }
+        _sum: { quantity: number | null; totalPrice: { toNumber(): number } | null }
         _count: number
       }) => ({
         variantId: p.variantId,
-        unitsSold: p._sum.quantity ?? 0,
+        unitsSold: Number(p._sum.quantity ?? 0),
         revenue: Number(p._sum.totalPrice ?? 0),
         orders: p._count,
       }),

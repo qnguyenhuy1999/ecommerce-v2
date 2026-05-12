@@ -1,4 +1,5 @@
-import { DynamicModule, Module, Logger } from '@nestjs/common'
+import type { DynamicModule } from '@nestjs/common'
+import { Module, Logger } from '@nestjs/common'
 import Redis from 'ioredis'
 import { REDIS_CLIENT, REDIS_MODULE_OPTIONS } from './redis.constants'
 import { RedisService } from './redis.service'

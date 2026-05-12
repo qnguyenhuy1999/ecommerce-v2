@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
 import { ProductStatus, UserEventType } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 
@@ -24,7 +25,7 @@ export class RecommendationService {
         event: eventType,
         entityType: 'PRODUCT',
         entityId: data.productId ?? '',
-        metadata: data.metadata ?? {},
+        metadata: (data.metadata ?? {}) as Prisma.InputJsonValue,
       },
     })
   }
@@ -53,7 +54,7 @@ export class RecommendationService {
     return this.prisma.product.findMany({
       where: { status: ProductStatus.PUBLISHED, deletedAt: null },
       take: limit,
-      orderBy: { soldCount: 'desc' },
+      orderBy: { createdAt: 'desc' },
     })
   }
 

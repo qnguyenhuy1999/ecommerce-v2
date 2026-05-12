@@ -22,6 +22,7 @@ interface DataTableProps<T> {
   onSelectionChange?: (rows: T[]) => void
   toolbar?: React.ReactNode
   bulkActions?: React.ReactNode
+  emptyMessage?: string
 }
 
 export function DataTable<T extends { id: string }>({
@@ -34,6 +35,7 @@ export function DataTable<T extends { id: string }>({
   onSelectionChange,
   toolbar,
   bulkActions,
+  emptyMessage = 'No results found',
 }: DataTableProps<T>) {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
 
@@ -120,7 +122,7 @@ export function DataTable<T extends { id: string }>({
                     colSpan={columns.length}
                     className="text-muted-foreground px-4 py-8 text-center"
                   >
-                    No results found
+                    {emptyMessage}
                   </td>
                 </tr>
               )}

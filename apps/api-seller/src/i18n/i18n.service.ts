@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
 import type { CreateTranslationDto, CreateCurrencyDto, CreateRegionDto } from './dto/i18n.dto'
 
 @Injectable()
@@ -8,7 +9,7 @@ export class I18nService {
   async listRegions() {
     return this.prisma.region.findMany({
       where: { isActive: true },
-      include: { _count: { select: { regionPricing: true } } },
+      include: { _count: { select: { regionalPricings: true } } },
       orderBy: { name: 'asc' },
     })
   }
@@ -25,9 +26,14 @@ export class I18nService {
         code: dto.code,
         name: dto.name,
         defaultLocale: dto.defaultLocale,
-        defaultCurrency: dto.defaultCurrency,
+        defaultCurrencyId: dto.defaultCurrency,
         timezone: dto.timezone,
-        taxRate: dto.taxRate ?? 0,
+        taxRates: {
+          create: {
+            name: 'Default',
+            rate: dto.taxRate ?? 0,
+          },
+        },
       },
     })
   }
@@ -63,7 +69,7 @@ export class I18nService {
   async setTranslation(dto: CreateTranslationDto) {
     return this.prisma.translation.upsert({
       where: {
-        entityType_entityId_field_locale: {
+        entityType_entityId_locale_field: {
           entityType: dto.entityType,
           entityId: dto.entityId,
           field: dto.field,
@@ -92,19 +98,27 @@ export class I18nService {
     productId: string,
     regionCode: string,
     price: number,
-    compareAtPrice?: number,
+    _currencyCode?: string,
   ) {
-    return this.prisma.regionPricing.upsert({
-      where: { productId_regionCode: { productId, regionCode } },
-      update: { price, compareAtPrice },
-      create: { productId, regionCode, price, compareAtPrice },
+    const region = await this.prisma.region.findUnique({ where: { code: regionCode } })
+    if (!region) throw new NotFoundException('Region not found')
+
+    return this.prisma.regionalPricing.upsert({
+      where: { productId_regionId: { productId, regionId: region.id } },
+      update: { price, currencyCode: region.defaultCurrencyId ?? 'USD' },
+      create: {
+        productId,
+        regionId: region.id,
+        price,
+        currencyCode: region.defaultCurrencyId ?? 'USD',
+      },
     })
   }
 
   async getRegionalPricing(productId: string) {
-    return this.prisma.regionPricing.findMany({
+    return this.prisma.regionalPricing.findMany({
       where: { productId },
-      include: { region: { select: { code: true, name: true, defaultCurrency: true } } },
+      include: { region: { select: { code: true, name: true, defaultCurrencyId: true } } },
     })
   }
 

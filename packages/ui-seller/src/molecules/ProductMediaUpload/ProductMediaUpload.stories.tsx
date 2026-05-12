@@ -39,10 +39,7 @@ export const WithUploadProgress: Story = {
   },
 }
 
-export const simulateUpload = (
-  item: MediaItem,
-  setItems: React.Dispatch<React.SetStateAction<MediaItem[]>>
-) => {
+export const simulateUpload = (item: MediaItem, setItems: React.Dispatch<React.SetStateAction<MediaItem[]>>) => {
   let progress = 0
   const interval = setInterval(() => {
     progress += 20
@@ -54,7 +51,7 @@ export const simulateUpload = (
   }, 300)
 }
 
-const Interactive: Story = {
+export const Interactive: Story = {
   render: () => {
     const [items, setItems] = React.useState<MediaItem[]>(mockItems)
 

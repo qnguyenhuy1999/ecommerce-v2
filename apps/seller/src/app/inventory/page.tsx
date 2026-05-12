@@ -8,6 +8,7 @@ import { DataTable } from '@ecom/core-ui'
 import { api } from '../../lib/api'
 
 interface InventoryItem {
+  id: string
   variantId: string
   productId: string
   productName: string
@@ -44,7 +45,7 @@ export default function InventoryPage() {
             lowStock: lowStockOnly || undefined,
           },
         })
-        setItems(res.data.data)
+        setItems(res.data.data.map((item) => ({ ...item, id: item.variantId })))
         setTotalPages(res.data.meta.totalPages)
       } catch {
         /* empty */

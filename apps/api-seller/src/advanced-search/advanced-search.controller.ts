@@ -9,8 +9,8 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { AdvancedSearchService } from './advanced-search.service'
+import type { ShopService } from '../shop/shop.service'
+import type { AdvancedSearchService } from './advanced-search.service'
 import type { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
 
 @ApiTags('Seller/Search')

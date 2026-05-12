@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, type ReturnStatus, Prisma } from '@ecom/database'
+import type { PrismaService, Prisma } from '@ecom/database'
+import { type ReturnStatus } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 
 @Injectable()

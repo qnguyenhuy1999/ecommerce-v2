@@ -4,19 +4,16 @@ import { type Prisma } from '@ecom/database'
 import type { EmitEventDto } from './dto/event-streaming.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import type { OffsetPaginationDTO } from '@ecom/shared/pagination/core'
-import { randomUUID } from 'node:crypto'
-
 @Injectable()
 export class EventStreamingService {
   constructor(private readonly prisma: PrismaService) {}
   async emitEvent(dto: EmitEventDto) {
     return this.prisma.platformEvent.create({
       data: {
-        eventType: dto.eventType,
+        type: dto.eventType,
         source: dto.source,
-        payload: dto.payload ?? {},
-        metadata: dto.metadata ?? {},
-        idempotencyKey: randomUUID(),
+        payload: (dto.payload ?? {}) as Prisma.InputJsonValue,
+        metadata: (dto.metadata ?? {}) as Prisma.InputJsonValue,
       },
     })
   }
@@ -25,7 +22,7 @@ export class EventStreamingService {
     const { page = 1, limit = 20 } = query
 
     const where: Prisma.PlatformEventWhereInput = {
-      ...(query.eventType && { eventType: query.eventType }),
+      ...(query.eventType && { type: query.eventType }),
       ...(query.source && { source: query.source }),
     }
 
@@ -51,14 +48,13 @@ export class EventStreamingService {
 
     return this.prisma.platformEvent.create({
       data: {
-        eventType: event.eventType,
+        type: event.type,
         source: event.source,
         payload: event.payload ?? {},
         metadata: {
           ...((event.metadata as Record<string, unknown>) ?? {}),
           replayedFrom: event.id,
-        },
-        idempotencyKey: randomUUID(),
+        } as Prisma.InputJsonValue,
       },
     })
   }
@@ -80,7 +76,7 @@ export class EventStreamingService {
   async markEventProcessed(id: string) {
     return this.prisma.platformEvent.update({
       where: { id },
-      data: { status: 'PROCESSED', processedAt: new Date() },
+      data: { status: 'DELIVERED', processedAt: new Date() },
     })
   }
 
@@ -92,8 +88,10 @@ export class EventStreamingService {
       where: { id },
       data: {
         status: 'FAILED',
-        retryCount: { increment: 1 },
-        metadata: { ...((event.metadata as Record<string, unknown>) ?? {}), lastError: error },
+        metadata: {
+          ...((event.metadata as Record<string, unknown>) ?? {}),
+          lastError: error,
+        } as Prisma.InputJsonValue,
       },
     })
   }

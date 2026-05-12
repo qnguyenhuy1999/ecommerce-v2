@@ -1,4 +1,5 @@
-import { type NextRequest, NextResponse } from 'next/server'
+import type { NextResponse } from 'next/server'
+import { type NextRequest } from 'next/server'
 import { createWithAuth } from '@ecom/auth/middleware'
 
 const withAuth = createWithAuth({

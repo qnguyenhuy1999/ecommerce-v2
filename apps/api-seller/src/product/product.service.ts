@@ -11,7 +11,7 @@ import type {
 import type { UpdateProductDto } from './dto/update-product.dto'
 import type { ProductQueryDto } from './dto/product-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import type { ProductRepository } from './repositories/product.repository'
+import { ProductRepository } from './repositories/product.repository'
 import { ProductStatus } from '@ecom/contracts'
 
 @Injectable()

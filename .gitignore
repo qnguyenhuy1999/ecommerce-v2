@@ -44,7 +44,6 @@ coverage/
 # Prisma
 packages/database/prisma/*.db
 packages/database/prisma/*.db-journal
-packages/database/src/generated/*
 
 # Turborepo
 .turbo/
@@ -72,6 +71,3 @@ apps/*/.omc/
 apps/*/.claude/
 state
 *.tsbuildinfo
-
-# understand-anything
-.understand-anything/

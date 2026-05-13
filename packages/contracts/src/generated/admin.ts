@@ -3333,7 +3333,7 @@ export interface operations {
         }
         content: {
           'application/json': components['schemas']['ApiResponseDto'] & {
-            data?: Record<string, never>
+            data?: components['schemas']['CategoryResponseDto'][]
           }
         }
       }
@@ -3679,7 +3679,7 @@ export interface operations {
         }
         content: {
           'application/json': components['schemas']['ApiResponseDto'] & {
-            data?: Record<string, never>
+            data?: components['schemas']['CategoryResponseDto'][]
           }
         }
       }
@@ -5788,7 +5788,7 @@ export interface operations {
         }
         content: {
           'application/json': components['schemas']['ApiResponseDto'] & {
-            data?: Record<string, never>
+            data?: components['schemas']['NotificationTemplateResponseDto'][]
           }
         }
       }

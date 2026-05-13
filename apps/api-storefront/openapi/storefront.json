@@ -89,7 +89,9 @@
           }
         },
         "summary": "Register a new user",
-        "tags": ["Storefront/Auth"]
+        "tags": [
+          "Storefront/Auth"
+        ]
       }
     },
     "/auth/login": {
@@ -180,7 +182,9 @@
           }
         },
         "summary": "Login and receive session cookie",
-        "tags": ["Storefront/Auth"]
+        "tags": [
+          "Storefront/Auth"
+        ]
       }
     },
     "/auth/logout": {
@@ -261,7 +265,9 @@
           }
         },
         "summary": "Logout and clear session cookie",
-        "tags": ["Storefront/Auth"]
+        "tags": [
+          "Storefront/Auth"
+        ]
       }
     },
     "/auth/me": {
@@ -342,7 +348,9 @@
           }
         },
         "summary": "Get current user session info",
-        "tags": ["Storefront/Auth"]
+        "tags": [
+          "Storefront/Auth"
+        ]
       }
     }
   },
@@ -396,7 +404,10 @@
                 "additionalProperties": true
               }
             },
-            "required": ["code", "message"]
+            "required": [
+              "code",
+              "message"
+            ]
           },
           "statusCode": {
             "type": "number",
@@ -411,7 +422,13 @@
             "example": "/admin/products/123"
           }
         },
-        "required": ["success", "message", "statusCode", "timestamp", "path"]
+        "required": [
+          "success",
+          "message",
+          "statusCode",
+          "timestamp",
+          "path"
+        ]
       },
       "ApiResponseDto": {
         "type": "object",
@@ -437,7 +454,11 @@
             "example": "2024-01-01T00:00:00.000Z"
           }
         },
-        "required": ["success", "data", "timestamp"]
+        "required": [
+          "success",
+          "data",
+          "timestamp"
+        ]
       },
       "RegisterDto": {
         "type": "object",
@@ -455,7 +476,10 @@
             "minLength": 8
           }
         },
-        "required": ["email", "password"]
+        "required": [
+          "email",
+          "password"
+        ]
       },
       "LoginDto": {
         "type": "object",
@@ -472,7 +496,10 @@
             "format": "password"
           }
         },
-        "required": ["email", "password"]
+        "required": [
+          "email",
+          "password"
+        ]
       }
     }
   },

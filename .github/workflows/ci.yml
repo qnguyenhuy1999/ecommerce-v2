@@ -68,7 +68,11 @@ jobs:
       - name: Generated contract drift check
         run: |
           pnpm openapi:sync
-          git diff --exit-code
+          git diff --exit-code -- \
+            apps/api-admin/openapi \
+            apps/api-seller/openapi \
+            apps/api-storefront/openapi \
+            packages/contracts/src/generated
 
       - name: Test
         run: pnpm test

@@ -6,6 +6,7 @@ import * as fs from 'node:fs'
 import * as path from 'node:path'
 
 async function generate() {
+  process.env.GENERATE_SWAGGER = 'true'
   const app = await NestFactory.create(AppModule, { logger: false })
 
   const document = buildSwaggerDocument(app, {

@@ -77,7 +77,7 @@
     "client-only": "^0.0.1",
     "react": "^19.2.6",
     "server-only": "^0.0.1",
-    "vitest": "^3.0.7"
+    "vitest": "^4.1.6"
   },
   "peerDependencies": {
     "@nestjs/swagger": ">=7.0.0"

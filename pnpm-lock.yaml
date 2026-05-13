@@ -549,6 +549,9 @@ importers:
       '@ecom/redis':
         specifier: workspace:*
         version: link:../redis
+      '@prisma/client':
+        specifier: ^7.8.0
+        version: 7.8.0(prisma@7.8.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@6.0.3))(typescript@6.0.3)
       '@types/bcryptjs':
         specifier: ^3.0.0
         version: 3.0.0

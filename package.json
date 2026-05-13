@@ -7,6 +7,7 @@
     "packages/*"
   ],
   "scripts": {
+    "prepare": "husky",
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint",
@@ -25,8 +26,7 @@
     "openapi:gen": "node packages/contracts/scripts/generate-types.mjs",
     "openapi:validate": "npx @apidevtools/swagger-cli validate apps/api-admin/openapi/admin.json && npx @apidevtools/swagger-cli validate apps/api-seller/openapi/seller.json && npx @apidevtools/swagger-cli validate apps/api-storefront/openapi/storefront.json",
     "openapi:sync": "pnpm swagger:gen:all && pnpm openapi:gen",
-    "contracts:check": "pnpm openapi:sync && pnpm openapi:validate && pnpm type-check --filter=@ecom/contracts",
-    "prepare": "husky"
+    "contracts:check": "pnpm openapi:sync && pnpm openapi:validate && pnpm type-check --filter=@ecom/contracts"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",

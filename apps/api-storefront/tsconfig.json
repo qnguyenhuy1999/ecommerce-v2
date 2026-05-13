@@ -29,6 +29,6 @@
       "@ecom/shared/errors": ["../../packages/shared/src/errors"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../../packages/database/src/generated/**/*.ts"],
   "exclude": ["node_modules", "dist", "test"]
 }

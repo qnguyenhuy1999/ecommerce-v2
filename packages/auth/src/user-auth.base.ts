@@ -1,14 +1,23 @@
-import { type PrismaService } from '@ecom/database'
 import type { EmailServiceBase } from '@ecom/email'
 import type { RedisService } from '@ecom/redis'
 import type { SessionService } from './session.service'
 
-export abstract class BaseUserAuthService {
+/** Minimal Prisma interface required by BaseUserAuthService */
+export interface AuthPrismaClient {
+  session: {
+    delete(args: { where: { id: string } }): Promise<unknown>
+  }
+  user: {
+    update(args: { where: { id: string }; data: { emailVerified: boolean } }): Promise<unknown>
+  }
+}
+
+export abstract class BaseUserAuthService<TPrisma extends AuthPrismaClient = AuthPrismaClient> {
   constructor(
     protected readonly sessionService: SessionService,
     protected readonly emailService: EmailServiceBase,
     protected readonly redisService: RedisService,
-    protected readonly prisma: PrismaService,
+    protected readonly prisma: TPrisma,
   ) {}
 
   async destroySession(sessionId: string): Promise<void> {

@@ -9,8 +9,8 @@ import {
 import { randomUUID } from 'node:crypto'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { PrismaService } from '@ecom/database'
-import { SessionService } from '@ecom/auth'
+import type { PrismaService } from '@ecom/database'
+import type { SessionService } from '@ecom/auth'
 import {
   type SessionData,
   BaseUserAuthService,
@@ -19,8 +19,8 @@ import {
   hashPassword,
   comparePassword,
 } from '@ecom/auth'
-import { EmailService } from '@ecom/email'
-import { RedisService } from '@ecom/redis'
+import type { EmailService } from '@ecom/email'
+import type { RedisService } from '@ecom/redis'
 import { SESSION_SERVICE } from './session.provider'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -28,7 +28,7 @@ const __dirname = dirname(__filename)
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
 
 @Injectable()
-export class AuthService extends BaseUserAuthService {
+export class AuthService extends BaseUserAuthService<PrismaService> {
   private readonly logger = new Logger(AuthService.name)
 
   constructor(

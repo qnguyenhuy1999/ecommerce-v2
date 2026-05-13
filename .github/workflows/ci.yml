@@ -53,6 +53,9 @@ jobs:
           key: turbo-${{ runner.os }}-${{ github.sha }}
           restore-keys: turbo-${{ runner.os }}-
 
+      - name: Generate Prisma client
+        run: pnpm --filter @ecom/database run build
+
       - name: Lint
         run: pnpm lint
 

@@ -19,7 +19,7 @@ function Timeline({ title, items, ...props }: TimelineProps) {
   return (
     <div data-slot="timeline" {...props}>
       {title && (
-        <p className="text-muted-foreground mb-4 text-xs font-semibold uppercase tracking-widest">
+        <p className="text-muted-foreground mb-4 text-xs font-semibold tracking-widest uppercase">
           {title}
         </p>
       )}
@@ -55,7 +55,7 @@ function TimelineItem({
       <div className={cn('pb-5', isLast && 'pb-0')}>
         <p
           className={cn(
-            'text-sm font-semibold leading-tight',
+            'text-sm leading-tight font-semibold',
             status === 'pending' && 'text-muted-foreground',
           )}
         >

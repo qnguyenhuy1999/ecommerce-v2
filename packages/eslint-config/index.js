@@ -12,6 +12,7 @@ const baseConfig = [
       '**/.next/**',
       '**/node_modules/**',
       '**/.turbo/**',
+      '**/generated/client/**',
       '**/storybook-static/**',
     ],
   },
@@ -68,11 +69,17 @@ const baseConfig = [
       'sonarjs/prefer-read-only-props': 'off', // too noisy for React prop interfaces
       'sonarjs/no-nested-conditional': 'off', // spread spread-based optional props trigger false positives
       'sonarjs/function-return-type': 'off', // useMemo return type inference is sufficient
+      'sonarjs/void-use': 'off', // void is idiomatic for fire-and-forget promises in React handlers
 
       // ─── Complexity guards ───
       'max-depth': ['warn', 4],
       'max-lines-per-function': ['warn', { max: 150, skipBlankLines: true, skipComments: true }],
     },
+  },
+  // ─── Disable type-checked rules for non-TS files (config files, etc.) ───
+  {
+    files: ['**/*.{js,mjs,cjs}'],
+    ...tseslint.configs.disableTypeChecked,
   },
   prettier,
   // ─── Architectural boundary rules ───

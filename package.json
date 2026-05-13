@@ -40,6 +40,9 @@
     "dependency-cruiser": "^16.10.0",
     "eslint": "^9.26.0",
     "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-sonarjs": "^3.0.2",
+    "eslint-plugin-unicorn": "^59.0.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "madge": "^8.0.0",
@@ -53,7 +56,7 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "prettier --write",
-      "eslint --fix --no-error-on-unmatched-pattern"
+      "eslint --fix --no-error-on-unmatched-pattern --cache --config eslint.lint-staged.mjs"
     ],
     "*.{json,yaml,yml,md,mdx}": [
       "prettier --write"
@@ -64,5 +67,12 @@
     "node": ">=24.0.0",
     "npm": ">=11.0.0"
   },
-  "packageManager": "pnpm@11.0.4"
+  "packageManager": "pnpm@11.0.4",
+  "pnpm": {
+    "overrides": {
+      "next": "16.2.6",
+      "react": "19.2.6",
+      "react-dom": "19.2.6"
+    }
+  }
 }

@@ -99,7 +99,7 @@ export function SellerDetailPage({ id }: { id: string }) {
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               rows={2}
-              className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring flex w-full rounded-md border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1"
+              className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring flex w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-1 focus-visible:outline-none"
             />
             <div className="flex flex-wrap gap-2">
               {seller.status === 'PENDING' && (

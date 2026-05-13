@@ -118,7 +118,7 @@ export function ProductDetailPage({ id }: { id: string }) {
       {product.description && (
         <div className="bg-card rounded-xl border p-6 shadow-sm">
           <h2 className="mb-2 font-semibold">Description</h2>
-          <p className="text-muted-foreground whitespace-pre-wrap text-sm">{product.description}</p>
+          <p className="text-muted-foreground text-sm whitespace-pre-wrap">{product.description}</p>
         </div>
       )}
 

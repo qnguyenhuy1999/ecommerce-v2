@@ -14,7 +14,6 @@
     "skipLibCheck": true,
     "types": ["node", "react", "react-dom"],
     "strictNullChecks": true,
-    "baseUrl": ".",
     "paths": {
       "@ecom/core-ui": ["packages/core-ui/src/index.ts"],
       "@ecom/core-ui/*": ["packages/core-ui/src/*"],

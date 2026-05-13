@@ -12,7 +12,7 @@ export default defineConfig({
     'src/generated/index.ts',
   ],
   format: ['cjs', 'esm'],
-  dts: true,
+  dts: { compilerOptions: { ignoreDeprecations: '6.0' } },
   clean: true,
   minify: true,
   sourcemap: true,

@@ -54,14 +54,14 @@ export const ConsoleLayout = ({ children }: { children: React.ReactNode }) => {
               <div className="flex items-center gap-5">
                 <div className="relative">
                   <Bell className="h-4 w-4" />
-                  <div className="bg-primary absolute -right-2 -top-2 flex size-4 items-center justify-center rounded-full text-white">
+                  <div className="bg-primary absolute -top-2 -right-2 flex size-4 items-center justify-center rounded-full text-white">
                     <span className="text-xs">3</span>
                   </div>
                 </div>
 
                 <div className="relative">
                   <MessageCircle className="h-4 w-4" />
-                  <div className="bg-primary absolute -right-2 -top-2 flex size-4 items-center justify-center rounded-full text-white">
+                  <div className="bg-primary absolute -top-2 -right-2 flex size-4 items-center justify-center rounded-full text-white">
                     <span className="text-xs">3</span>
                   </div>
                 </div>
@@ -73,7 +73,7 @@ export const ConsoleLayout = ({ children }: { children: React.ReactNode }) => {
                       <AvatarFallback>ER</AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="min-w-60 max-w-80">
+                  <DropdownMenuContent className="max-w-80 min-w-60">
                     <DropdownMenuItem className="flex items-center gap-2">
                       <Avatar className="size-7">
                         <AvatarImage src="https://github.com/evilrabbit.png" alt="@evilrabbit" />

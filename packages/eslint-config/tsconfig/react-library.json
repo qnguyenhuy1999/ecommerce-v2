@@ -8,12 +8,8 @@
     "jsx": "react-jsx",
     "outDir": "./dist",
     "rootDir": "./src",
-    "baseUrl": ".",
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "noUnusedParameters": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

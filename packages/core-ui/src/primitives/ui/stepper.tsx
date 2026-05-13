@@ -20,7 +20,6 @@ function Stepper({ steps, current = 1, className, ...props }: StepperProps) {
       {steps.map((step, index) => {
         const stepNumber = index + 1
         const status: StepStatus =
-          // eslint-disable-next-line sonarjs/no-nested-conditional
           stepNumber < current ? 'completed' : stepNumber === current ? 'active' : 'pending'
 
         return (

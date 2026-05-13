@@ -33,7 +33,11 @@ const columns = [
   }),
   col.accessor('sentAt', {
     header: 'Sent',
-    cell: (info) => (info.getValue() ? new Date(info.getValue()!).toLocaleString() : '—'),
+    cell: (info) => {
+      const value = info.getValue()
+
+      return value ? new Date(value).toLocaleDateString() : '—'
+    },
   }),
   col.display({
     id: 'actions',

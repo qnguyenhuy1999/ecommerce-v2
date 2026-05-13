@@ -25,11 +25,19 @@ const columns = [
   col.accessor('sortOrder', { header: 'Order' }),
   col.accessor('startsAt', {
     header: 'Starts',
-    cell: (info) => (info.getValue() ? new Date(info.getValue()!).toLocaleDateString() : '—'),
+    cell: (info) => {
+      const value = info.getValue()
+
+      return value ? new Date(value).toLocaleDateString() : '—'
+    },
   }),
   col.accessor('endsAt', {
     header: 'Ends',
-    cell: (info) => (info.getValue() ? new Date(info.getValue()!).toLocaleDateString() : '—'),
+    cell: (info) => {
+      const value = info.getValue()
+
+      return value ? new Date(value).toLocaleDateString() : '—'
+    },
   }),
 ]
 

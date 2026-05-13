@@ -55,8 +55,10 @@ export function DataTable<T extends { id: string }>({
       if (onSelectionChange) {
         const selectedRows = Object.keys(next)
           .filter((key) => next[key])
-          .map((key) => data.find((row) => row.id === key)!)
-          .filter(Boolean)
+          .flatMap((key) => {
+            const row = data.find((r) => r.id === key)
+            return row ? [row] : []
+          })
         onSelectionChange(selectedRows)
       }
     },
@@ -234,7 +236,7 @@ export function TableToolbar({
         placeholder={placeholder}
         value={search}
         onChange={(e) => onSearchChange(e.target.value)}
-        className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full max-w-sm rounded-md border px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1"
+        className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full max-w-sm rounded-md border px-3 py-1 text-sm shadow-sm focus-visible:ring-1 focus-visible:outline-none"
       />
       {children}
     </div>

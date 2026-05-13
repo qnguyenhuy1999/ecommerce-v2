@@ -16,6 +16,7 @@ next-env.d.ts
 
 # Prisma migrations (auto-generated SQL)
 packages/database/prisma/migrations
+packages/database/src/generated/
 
 # Environment & logs
 .env

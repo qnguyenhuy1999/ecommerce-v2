@@ -79,7 +79,7 @@ export const Compound: Story = {
 
 export const Grid: Story = {
   render: () => (
-    <div className="w-175 grid grid-cols-3 gap-4">
+    <div className="grid w-175 grid-cols-3 gap-4">
       <StatCard label="Revenue" value="$12,340" trend={12.5} spark={spark} icon={DollarSign} />
       <StatCard label="Users" value="8,421" trend={4.2} spark={spark} icon={Users} accent="info" />
       <StatCard label="Churn" value="3.2%" trend={-2.1} spark={spark} icon={Activity} accent="destructive" />

@@ -18,11 +18,6 @@ interface SellerOrder {
   _count: { items: number }
 }
 
-interface OrdersResponse {
-  data: SellerOrder[]
-  meta: { page: number; limit: number; total: number; totalPages: number }
-}
-
 type OrdersListResponse =
   SellerPaths['/orders']['get']['responses']['200']['content']['application/json']
 
@@ -110,7 +105,7 @@ export default function OrdersPage() {
 
       <div className="mb-4 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search orders..."
@@ -119,7 +114,7 @@ export default function OrdersPage() {
               setSearch(e.target.value)
               setPage(1)
             }}
-            className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-4 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-lg border border-gray-300 py-2 pr-4 pl-10 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <select

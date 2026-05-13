@@ -173,7 +173,7 @@ export default function SearchPage() {
       <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4">
         <div className="mb-3 flex gap-3">
           <div className="relative flex-1">
-            <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <SearchIcon className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
               placeholder="Search products by name, description..."
@@ -182,7 +182,7 @@ export default function SearchPage() {
               onKeyDown={(e) => {
                 if (e.key === 'Enter') void handleSearch()
               }}
-              className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-4 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gray-300 py-2 pr-4 pl-10 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <button

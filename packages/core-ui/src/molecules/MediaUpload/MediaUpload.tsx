@@ -59,7 +59,7 @@ function Item({ item, index }: MediaUploadItemProps) {
       )}
 
       {isCover && (
-        <span className="absolute left-1.5 top-1.5 rounded-sm bg-orange-500 px-1.5 py-0.5 text-[10px] font-semibold leading-none text-white">
+        <span className="absolute top-1.5 left-1.5 rounded-sm bg-orange-500 px-1.5 py-0.5 text-[10px] leading-none font-semibold text-white">
           Cover
         </span>
       )}
@@ -68,7 +68,7 @@ function Item({ item, index }: MediaUploadItemProps) {
         <button
           type="button"
           onClick={() => onRemove(item.id)}
-          className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/50 text-white opacity-0 transition-opacity hover:bg-black/70 group-hover:opacity-100"
+          className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70"
         >
           <X className="h-3 w-3" />
         </button>

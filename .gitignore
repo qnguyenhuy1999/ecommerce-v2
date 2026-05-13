@@ -35,12 +35,16 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# ESLint cache
+.eslintcache
+
 # Test
 coverage/
 
 # Prisma
 packages/database/prisma/*.db
 packages/database/prisma/*.db-journal
+packages/database/src/generated/
 
 # Turborepo
 .turbo/

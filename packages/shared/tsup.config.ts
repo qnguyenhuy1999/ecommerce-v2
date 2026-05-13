@@ -11,7 +11,7 @@ export default defineConfig({
     'pagination/nestjs/index': 'src/pagination/nestjs/index.ts',
   },
   format: ['cjs', 'esm'],
-  dts: true,
+  dts: { compilerOptions: { ignoreDeprecations: '6.0' } },
   splitting: false,
   sourcemap: true,
   clean: true,

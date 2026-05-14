@@ -71,3 +71,6 @@ apps/*/.omc/
 apps/*/.claude/
 state
 *.tsbuildinfo
+
+# AI folder
+.kiro

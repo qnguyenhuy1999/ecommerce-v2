@@ -1,0 +1,36 @@
+# Version control
+.git
+.gitignore
+
+# Node
+node_modules
+**/node_modules
+
+# Build caches
+.turbo
+**/.turbo
+.next
+**/.next
+**/dist
+
+# Dev tooling
+.husky
+.vscode
+.eslintcache
+**/.eslintcache
+
+# Secrets / local env
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+**/.DS_Store
+
+# Docs / misc
+docs
+graphify-out
+README.md
+CLAUDE.md
+AGENTS.md

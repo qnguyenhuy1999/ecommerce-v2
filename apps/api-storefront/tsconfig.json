@@ -1,8 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "Bundler",
+    "ignoreDeprecations": "6.0",
     "outDir": "./dist",
     "rootDir": "../../",
     "experimentalDecorators": true,

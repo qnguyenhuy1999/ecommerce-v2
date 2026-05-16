@@ -5,6 +5,7 @@ export default defineConfig({
     index: 'src/index.ts',
     'constants/index': 'src/constants/index.ts',
     'utils/index': 'src/utils/index.ts',
+    'errors/index': 'src/errors/index.ts',
     'pagination/core/index': 'src/pagination/core/index.ts',
     'pagination/prisma/index': 'src/pagination/prisma/index.ts',
     'pagination/react/index': 'src/pagination/react/index.ts',

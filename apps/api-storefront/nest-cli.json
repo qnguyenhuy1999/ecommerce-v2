@@ -4,10 +4,8 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "builder": "swc",
-    "tsConfigPath": "tsconfig.json",
-    "assets": [
-      "**/*.hbs"
-    ],
+    "tsConfigPath": "tsconfig.build.json",
+    "assets": ["**/*.hbs"],
     "plugins": [
       {
         "name": "@nestjs/swagger",

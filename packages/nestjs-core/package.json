@@ -4,15 +4,17 @@
   "private": true,
   "license": "MIT",
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.cjs",
   "types": "./src/index.ts",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "types": "./src/index.ts"
     },
     "./openapi": {
-      "import": "./src/openapi/index.ts",
+      "import": "./dist/openapi.js",
+      "require": "./dist/openapi.cjs",
       "types": "./src/openapi/index.ts"
     }
   },
@@ -48,6 +50,8 @@
     "rxjs": "^7.8.2"
   },
   "peerDependenciesMeta": {
-    "@nestjs/swagger": { "optional": true }
+    "@nestjs/swagger": {
+      "optional": true
+    }
   }
 }

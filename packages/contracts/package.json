@@ -2,8 +2,8 @@
   "name": "@ecom/contracts",
   "version": "0.1.0",
   "type": "module",
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./src/index.ts",
   "sideEffects": false,
   "files": [
@@ -11,17 +11,46 @@
     "dist"
   ],
   "exports": {
-    ".": "./src/index.ts",
-    "./enums": "./src/enums/index.ts",
-    "./http": "./src/http/index.ts",
-    "./product": "./src/product/index.ts",
-    "./order": "./src/order/index.ts",
-    "./auth": "./src/auth/index.ts",
-    "./common": "./src/common/index.ts",
-    "./generated": "./src/generated/index.ts",
-    "./generated/admin": "./src/generated/admin.ts",
-    "./generated/seller": "./src/generated/seller.ts",
-    "./generated/storefront": "./src/generated/storefront.ts"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./src/index.ts"
+    },
+    "./enums": {
+      "import": "./dist/enums/index.js",
+      "require": "./dist/enums/index.cjs",
+      "types": "./src/enums/index.ts"
+    },
+    "./http": {
+      "import": "./dist/http/index.js",
+      "require": "./dist/http/index.cjs",
+      "types": "./src/http/index.ts"
+    },
+    "./product": {
+      "import": "./dist/product/index.js",
+      "require": "./dist/product/index.cjs",
+      "types": "./src/product/index.ts"
+    },
+    "./order": {
+      "import": "./dist/order/index.js",
+      "require": "./dist/order/index.cjs",
+      "types": "./src/order/index.ts"
+    },
+    "./auth": {
+      "import": "./dist/auth/index.js",
+      "require": "./dist/auth/index.cjs",
+      "types": "./src/auth/index.ts"
+    },
+    "./common": {
+      "import": "./dist/common/index.js",
+      "require": "./dist/common/index.cjs",
+      "types": "./src/common/index.ts"
+    },
+    "./generated": {
+      "import": "./dist/generated/index.js",
+      "require": "./dist/generated/index.cjs",
+      "types": "./src/generated/index.ts"
+    }
   },
   "scripts": {
     "build": "tsup",

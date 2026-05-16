@@ -4,15 +4,17 @@
   "private": true,
   "license": "MIT",
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.cjs",
   "types": "./src/index.ts",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "types": "./src/index.ts"
     },
     "./env": {
-      "import": "./src/env/index.ts",
+      "import": "./dist/env/index.js",
+      "require": "./dist/env/index.cjs",
       "types": "./src/env/index.ts"
     },
     "./api-client": {

@@ -2,7 +2,7 @@
   "name": "@ecom/api-storefront",
   "version": "0.0.1",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "build": "nest build",
     "dev": "nest start --watch",

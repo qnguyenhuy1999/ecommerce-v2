@@ -4,7 +4,7 @@ import {
   ConflictException,
   BadRequestException,
 } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
+import type { PrismaService, Prisma } from '@ecom/database'
 import { type PlatformVoucherStatus, type PlatformVoucherType } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { withDefined, nullable } from '@ecom/shared/utils'
@@ -63,9 +63,6 @@ export class PromotionsService {
       throw new BadRequestException('Percentage discount cannot exceed 100')
     }
 
-    // Build create payload explicitly to avoid passing `undefined` values
-    // to Prisma under exactOptionalPropertyTypes. Use `nullable()` for
-    // optional Decimal fields that the DB accepts as null.
     const createData: Parameters<typeof this.prisma.platformVoucher.create>[0]['data'] = {
       code: data.code,
       name: data.name,

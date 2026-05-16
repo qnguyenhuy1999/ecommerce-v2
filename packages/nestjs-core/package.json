@@ -33,7 +33,7 @@
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
-    "@ecom/eslint-config": "workspace:*",
+    "@ecom/config": "workspace:*",
     "@nestjs/common": "^11.1.19",
     "@nestjs/swagger": "^11.0.6",
     "@types/express": "^5.0.6",

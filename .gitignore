@@ -4,6 +4,7 @@ dist/
 .turbo/
 .cache/
 storybook-static/
+.pnpm-store/
 
 # Environment
 .env

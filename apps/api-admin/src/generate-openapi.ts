@@ -28,7 +28,8 @@ async function generate() {
   try {
     await app.close()
   } catch {
-    // SwaggerModule.setup binds routes that may not fully close in headless mode
+    // Best-effort shutdown: generation already completed and close errors
+    // should not mask the emitted OpenAPI artifact.
   }
 }
 

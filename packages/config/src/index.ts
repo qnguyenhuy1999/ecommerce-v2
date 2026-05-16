@@ -1,49 +1,20 @@
-// ---------------------------------------------------------------------------
-// @ecom/config — Centralised, validated configuration helpers
-//
-// Rules:
-//  - All process.env reads for shared infrastructure happen here.
-//  - Helpers throw at startup if required values are missing or malformed.
-//  - API apps import these helpers instead of parsing env vars inline.
-// ---------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------
-// Ports
-// ---------------------------------------------------------------------------
-
 export const API_PORTS = {
   admin: 4002,
   seller: 4003,
   storefront: 4000,
 } as const
 
-/**
- * Returns the port for the admin API.
- * Reads ADMIN_API_PORT first, falls back to the canonical default (4002).
- */
 export function getAdminPort(): number {
   return _parsePort(process.env.ADMIN_API_PORT, API_PORTS.admin)
 }
 
-/**
- * Returns the port for the seller API.
- * Reads SELLER_API_PORT first, falls back to the canonical default (4003).
- */
 export function getSellerPort(): number {
   return _parsePort(process.env.SELLER_API_PORT, API_PORTS.seller)
 }
 
-/**
- * Returns the port for the storefront API.
- * Reads STOREFRONT_API_PORT first, falls back to the canonical default (4000).
- */
 export function getStorefrontPort(): number {
   return _parsePort(process.env.STOREFRONT_API_PORT, API_PORTS.storefront)
 }
-
-// ---------------------------------------------------------------------------
-// Redis
-// ---------------------------------------------------------------------------
 
 export interface RedisConfig {
   host: string
@@ -51,10 +22,6 @@ export interface RedisConfig {
   password: string | undefined
 }
 
-/**
- * Returns validated Redis connection settings.
- * Throws if REDIS_PORT is present but not a valid integer.
- */
 export function getRedisConfig(): RedisConfig {
   return {
     host: process.env.REDIS_HOST ?? 'localhost',
@@ -62,10 +29,6 @@ export function getRedisConfig(): RedisConfig {
     password: process.env.REDIS_PASSWORD || undefined,
   }
 }
-
-// ---------------------------------------------------------------------------
-// SMTP / Email
-// ---------------------------------------------------------------------------
 
 export interface SmtpConfig {
   host: string
@@ -78,10 +41,6 @@ export interface SmtpConfig {
   from: string
 }
 
-/**
- * Returns validated SMTP settings.
- * Throws if SMTP_PORT is present but not a valid integer.
- */
 export function getSmtpConfig(): SmtpConfig {
   return {
     host: process.env.SMTP_HOST ?? 'localhost',
@@ -95,19 +54,11 @@ export function getSmtpConfig(): SmtpConfig {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Throttling
-// ---------------------------------------------------------------------------
-
 export interface ThrottleConfig {
   ttl: number
   limit: number
 }
 
-/**
- * Returns throttle settings for admin APIs (higher limit — internal tooling).
- * Reads THROTTLE_TTL_MS / THROTTLE_LIMIT_ADMIN from env; falls back to defaults.
- */
 export function getAdminThrottleConfig(): ThrottleConfig {
   return {
     ttl: _parsePositiveInt(process.env.THROTTLE_TTL_MS, 60_000),
@@ -115,10 +66,6 @@ export function getAdminThrottleConfig(): ThrottleConfig {
   }
 }
 
-/**
- * Returns throttle settings for seller / storefront APIs (stricter limit).
- * Reads THROTTLE_TTL_MS / THROTTLE_LIMIT from env; falls back to defaults.
- */
 export function getDefaultThrottleConfig(): ThrottleConfig {
   return {
     ttl: _parsePositiveInt(process.env.THROTTLE_TTL_MS, 60_000),
@@ -126,25 +73,12 @@ export function getDefaultThrottleConfig(): ThrottleConfig {
   }
 }
 
-// ---------------------------------------------------------------------------
-// CORS
-// ---------------------------------------------------------------------------
-
 export const DEFAULT_CORS_ORIGINS = [
   'http://localhost:3000', // storefront
   'http://localhost:3001', // seller
   'http://localhost:3002', // admin
 ] as const
 
-/**
- * Returns the list of allowed CORS origins.
- *
- * When CORS_ORIGINS is set, each entry is trimmed and validated as an
- * absolute URL. Invalid entries cause a startup error rather than silently
- * allowing malformed origins.
- *
- * Falls back to DEFAULT_CORS_ORIGINS when the env var is absent.
- */
 export function getCorsOrigins(): string[] {
   const raw = process.env.CORS_ORIGINS
   if (!raw) {
@@ -170,15 +104,7 @@ export function getCorsOrigins(): string[] {
   return origins
 }
 
-// ---------------------------------------------------------------------------
-// Misc
-// ---------------------------------------------------------------------------
-
 export const DEFAULT_LOW_STOCK_THRESHOLD = 10
-
-// ---------------------------------------------------------------------------
-// Private helpers
-// ---------------------------------------------------------------------------
 
 function _parsePort(raw: string | undefined, fallback: number): number {
   if (raw === undefined || raw === '') return fallback

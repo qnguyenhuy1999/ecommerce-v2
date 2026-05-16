@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
+import type { PrismaService, Prisma } from '@ecom/database'
 import { type BannerPosition, type BannerStatus } from '@ecom/database'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { withDefined } from '@ecom/shared/utils'
@@ -43,8 +43,6 @@ export class BannersService {
     endsAt?: Date
     createdBy?: string
   }) {
-    // Build create payload explicitly to avoid passing `undefined` values
-    // to Prisma under exactOptionalPropertyTypes.
     const createData: Parameters<typeof this.prisma.banner.create>[0]['data'] = {
       title: data.title,
       position: data.position,

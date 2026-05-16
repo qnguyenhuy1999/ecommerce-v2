@@ -16,7 +16,7 @@
     "react-dom": "^19.2.6"
   },
   "devDependencies": {
-    "@ecom/eslint-config": "workspace:*",
+    "@ecom/config": "workspace:*",
     "@types/node": "^25.7.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",

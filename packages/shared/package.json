@@ -71,6 +71,7 @@
     "@nestjs/swagger": ">=7.0.0"
   },
   "devDependencies": {
+    "@ecom/config": "workspace:*",
     "@nestjs/swagger": "^11.0.6",
     "@tanstack/react-query": "^5.100.10",
     "@types/node": "^25.7.0",

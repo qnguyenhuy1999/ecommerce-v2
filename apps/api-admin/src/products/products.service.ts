@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
+import type { PrismaService, Prisma } from '@ecom/database'
 import {
   type ProductStatus,
   type ProductReportStatus,
@@ -139,7 +139,6 @@ export class ProductsService {
     return result
   }
 
-  // Reports
   async findReports(query: { page?: number; limit?: number; status?: ProductReportStatus }) {
     const where: Record<string, unknown> = {}
     if (query.status) where.status = query.status

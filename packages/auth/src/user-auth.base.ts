@@ -2,7 +2,6 @@ import type { EmailServiceBase } from '@ecom/email'
 import type { RedisService } from '@ecom/redis'
 import type { SessionService } from './session.service'
 
-/** Minimal Prisma interface required by BaseUserAuthService */
 export interface AuthPrismaClient {
   session: {
     delete(args: { where: { id: string } }): Promise<unknown>

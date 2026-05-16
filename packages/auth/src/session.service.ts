@@ -12,7 +12,7 @@ export interface SessionServiceOptions {
   prefix?: string
 }
 
-const DEFAULT_TTL = 7 * 24 * 60 * 60 // 7 days
+const DEFAULT_TTL = 7 * 24 * 60 * 60
 const DEFAULT_PREFIX = 'session:'
 
 export class SessionService {

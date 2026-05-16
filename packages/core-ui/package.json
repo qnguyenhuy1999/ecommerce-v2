@@ -35,7 +35,7 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@ecom/eslint-config": "workspace:*",
+    "@ecom/config": "workspace:*",
     "@storybook/react-vite": "^10.3.6",
     "@tailwindcss/vite": "^4.3.0",
     "@types/react": "^19.0.0",

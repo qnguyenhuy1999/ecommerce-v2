@@ -1,3 +1,3 @@
-import config from '@ecom/eslint-config';
+import config from '@ecom/config/eslint';
 
 export default config;

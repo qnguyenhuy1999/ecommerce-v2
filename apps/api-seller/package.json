@@ -40,7 +40,6 @@
     "socket.io": "^4.8.3"
   },
   "devDependencies": {
-    "@ecom/eslint-config": "workspace:*",
     "@nestjs/cli": "^11.0.21",
     "@swc/cli": "^0.8.1",
     "@swc/core": "^1.15.33",

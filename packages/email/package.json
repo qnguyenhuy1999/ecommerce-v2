@@ -24,7 +24,7 @@
     "nodemailer": "^6.10.0"
   },
   "devDependencies": {
-    "@ecom/eslint-config": "workspace:*",
+    "@ecom/config": "workspace:*",
     "@types/node": "^25.7.0",
     "@types/nodemailer": "^6.4.17",
     "tsup": "^8.4.0",

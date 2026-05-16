@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 
 @Injectable()
 export class CategoriesService {
@@ -47,8 +47,6 @@ export class CategoriesService {
     const existing = await this.prisma.category.findUnique({ where: { slug: data.slug } })
     if (existing) throw new ConflictException('Slug already exists')
 
-    // Build create payload explicitly to avoid passing `undefined` values
-    // to Prisma under exactOptionalPropertyTypes.
     const createData: Parameters<typeof this.prisma.category.create>[0]['data'] = {
       name: data.name,
       slug: data.slug,

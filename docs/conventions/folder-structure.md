@@ -70,10 +70,8 @@ packages/
 │       ├── tokens/               # Design tokens (spacing, radius, shadow, z-index, typography)
 │       ├── providers/            # Theme provider
 │       └── styles/               # Global CSS
-└── eslint-config/                # ESLint flat configs + TypeScript presets
-    ├── index.js                  # Base config (all packages)
-    ├── react-library.js          # React library config
-    └── tsconfig/                 # TS presets (base, library, react-library, nextjs, nestjs)
+└── config/                       # Runtime config, ESLint flat configs, Prettier/commitlint, TS presets
+    └── src/tooling/              # Shared tooling config sources
 ```
 
 ## Dependency Boundaries (enforced)

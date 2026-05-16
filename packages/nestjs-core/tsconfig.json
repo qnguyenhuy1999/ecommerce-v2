@@ -1,5 +1,5 @@
 {
-  "extends": "../eslint-config/tsconfig/base.json",
+  "extends": "@ecom/config/tsconfig/nestjs.json",
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "bundler",

@@ -27,7 +27,6 @@
     "zod": "^3.25.0"
   },
   "devDependencies": {
-    "@ecom/eslint-config": "workspace:*",
     "@types/node": "^25.7.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",

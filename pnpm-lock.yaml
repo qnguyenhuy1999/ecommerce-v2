@@ -14,9 +14,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.8.0
         version: 19.8.1
-      '@ecom/eslint-config':
+      '@ecom/config':
         specifier: workspace:*
-        version: link:packages/eslint-config
+        version: link:packages/config
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@9.39.4(jiti@2.7.0))
@@ -103,7 +103,7 @@ importers:
         version: 1.14.0(react@19.2.6)
       next:
         specifier: ^16.2.6
-        version: 16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react:
         specifier: ^19.2.6
         version: 19.2.6
@@ -126,9 +126,6 @@ importers:
         specifier: ^3.25.0
         version: 3.25.76
     devDependencies:
-      '@ecom/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       '@types/node':
         specifier: ^25.7.0
         version: 25.7.0
@@ -205,9 +202,6 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
     devDependencies:
-      '@ecom/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       '@nestjs/cli':
         specifier: ^11.0.0
         version: 11.0.21(@swc/cli@0.8.1(@swc/core@1.15.33)(chokidar@4.0.3))(@swc/core@1.15.33)(@types/node@25.7.0)(esbuild@0.27.7)(prettier@3.8.3)
@@ -320,9 +314,6 @@ importers:
         specifier: ^4.8.3
         version: 4.8.3
     devDependencies:
-      '@ecom/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       '@nestjs/cli':
         specifier: ^11.0.21
         version: 11.0.21(@swc/cli@0.8.1(@swc/core@1.15.33)(chokidar@5.0.0))(@swc/core@1.15.33)(@types/node@25.7.0)(esbuild@0.27.7)(prettier@3.8.3)
@@ -417,9 +408,6 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
     devDependencies:
-      '@ecom/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       '@nestjs/cli':
         specifier: ^11.0.21
         version: 11.0.21(@swc/cli@0.8.1(@swc/core@1.15.33)(chokidar@5.0.0))(@swc/core@1.15.33)(@types/node@25.7.0)(esbuild@0.27.7)(prettier@3.8.3)
@@ -470,7 +458,7 @@ importers:
         version: 1.14.0(react@19.2.6)
       next:
         specifier: ^16.2.6
-        version: 16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react:
         specifier: ^19.2.6
         version: 19.2.6
@@ -478,9 +466,6 @@ importers:
         specifier: ^19.2.6
         version: 19.2.6(react@19.2.6)
     devDependencies:
-      '@ecom/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       '@types/node':
         specifier: ^25.7.0
         version: 25.7.0
@@ -501,7 +486,7 @@ importers:
         version: link:../../packages/auth
       next:
         specifier: ^16.2.6
-        version: 16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react:
         specifier: ^19.2.6
         version: 19.2.6
@@ -509,9 +494,9 @@ importers:
         specifier: ^19.2.6
         version: 19.2.6(react@19.2.6)
     devDependencies:
-      '@ecom/eslint-config':
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../../packages/eslint-config
+        version: link:../../packages/config
       '@types/node':
         specifier: ^25.7.0
         version: 25.7.0
@@ -538,7 +523,7 @@ importers:
         version: 5.10.1
       next:
         specifier: ^16.2.6
-        version: 16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react:
         specifier: ^19.2.6
         version: 19.2.6
@@ -546,12 +531,12 @@ importers:
         specifier: ^19.2.6
         version: 19.2.6(react@19.2.6)
     devDependencies:
+      '@ecom/config':
+        specifier: workspace:*
+        version: link:../config
       '@ecom/email':
         specifier: workspace:*
         version: link:../email
-      '@ecom/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
       '@ecom/redis':
         specifier: workspace:*
         version: link:../redis
@@ -579,16 +564,40 @@ importers:
 
   packages/config:
     dependencies:
+      '@commitlint/config-conventional':
+        specifier: ^19.8.0
+        version: 19.8.1
+      '@eslint/js':
+        specifier: ^10.0.1
+        version: 10.0.1(eslint@9.39.4(jiti@2.7.0))
+      eslint-config-prettier:
+        specifier: ^10.1.5
+        version: 10.1.8(eslint@9.39.4(jiti@2.7.0))
+      eslint-plugin-sonarjs:
+        specifier: ^3.0.2
+        version: 3.0.7(eslint@9.39.4(jiti@2.7.0))
+      eslint-plugin-unicorn:
+        specifier: ^59.0.1
+        version: 59.0.1(eslint@9.39.4(jiti@2.7.0))
+      eslint-plugin-unused-imports:
+        specifier: ^4.1.4
+        version: 4.4.1(@typescript-eslint/eslint-plugin@8.59.3(@typescript-eslint/parser@8.59.3(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(jiti@2.7.0))
+      prettier-plugin-tailwindcss:
+        specifier: ^0.8.0
+        version: 0.8.0(prettier@3.8.3)
+      typescript-eslint:
+        specifier: ^8.59.3
+        version: 8.59.3(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3)
       zod:
         specifier: ^3.24.2
         version: 3.25.76
     devDependencies:
-      '@ecom/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
       '@types/node':
         specifier: ^25.7.0
         version: 25.7.0
+      prettier:
+        specifier: ^3.5.3
+        version: 3.8.3
       tsup:
         specifier: ^8.4.0
         version: 8.5.1(@swc/core@1.15.33)(jiti@2.7.0)(postcss@8.5.14)(tsx@4.21.0)(typescript@6.0.3)(yaml@2.8.4)
@@ -614,9 +623,9 @@ importers:
         specifier: ^3.24.2
         version: 3.25.76
     devDependencies:
-      '@ecom/eslint-config':
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../eslint-config
+        version: link:../config
       openapi-typescript:
         specifier: ^7.13.0
         version: 7.13.0(typescript@6.0.3)
@@ -672,9 +681,9 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
     devDependencies:
-      '@ecom/eslint-config':
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../eslint-config
+        version: link:../config
       '@storybook/react-vite':
         specifier: ^10.3.6
         version: 10.3.6(esbuild@0.27.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(rollup@4.60.2)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3)(vite@8.0.12(@types/node@25.7.0)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.46.2)(tsx@4.21.0)(yaml@2.8.4))(webpack@5.106.0(@swc/core@1.15.33)(esbuild@0.27.7))
@@ -730,9 +739,9 @@ importers:
         specifier: ^7.8.0
         version: 7.8.0(prisma@7.8.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@6.0.3))(typescript@6.0.3)
     devDependencies:
-      '@ecom/eslint-config':
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../eslint-config
+        version: link:../config
       '@nestjs/common':
         specifier: ^11.1.19
         version: 11.1.19(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -767,9 +776,9 @@ importers:
         specifier: ^6.10.0
         version: 6.10.1
     devDependencies:
-      '@ecom/eslint-config':
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../eslint-config
+        version: link:../config
       '@types/node':
         specifier: ^25.7.0
         version: 25.7.0
@@ -782,31 +791,6 @@ importers:
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
-
-  packages/eslint-config:
-    dependencies:
-      eslint:
-        specifier: ^9.0.0
-        version: 9.39.4(jiti@2.7.0)
-      eslint-plugin-sonarjs:
-        specifier: ^3.0.2
-        version: 3.0.7(eslint@9.39.4(jiti@2.7.0))
-      eslint-plugin-unicorn:
-        specifier: ^59.0.1
-        version: 59.0.1(eslint@9.39.4(jiti@2.7.0))
-      eslint-plugin-unused-imports:
-        specifier: ^4.1.4
-        version: 4.4.1(@typescript-eslint/eslint-plugin@8.59.3(@typescript-eslint/parser@8.59.3(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(jiti@2.7.0))
-    devDependencies:
-      '@eslint/js':
-        specifier: ^10.0.1
-        version: 10.0.1(eslint@9.39.4(jiti@2.7.0))
-      eslint-config-prettier:
-        specifier: ^10.1.5
-        version: 10.1.8(eslint@9.39.4(jiti@2.7.0))
-      typescript-eslint:
-        specifier: ^8.59.3
-        version: 8.59.3(eslint@9.39.4(jiti@2.7.0))(typescript@6.0.3)
 
   packages/nestjs-core:
     dependencies:
@@ -829,9 +813,9 @@ importers:
         specifier: ^7.8.2
         version: 7.8.2
     devDependencies:
-      '@ecom/eslint-config':
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../eslint-config
+        version: link:../config
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
@@ -857,9 +841,9 @@ importers:
         specifier: ^5.6.0
         version: 5.10.1
     devDependencies:
-      '@ecom/eslint-config':
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../eslint-config
+        version: link:../config
       '@types/node':
         specifier: ^25.7.0
         version: 25.7.0
@@ -872,6 +856,9 @@ importers:
 
   packages/shared:
     devDependencies:
+      '@ecom/config':
+        specifier: workspace:*
+        version: link:../config
       '@nestjs/swagger':
         specifier: ^11.0.6
         version: 11.4.2(@nestjs/common@11.1.19(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)
@@ -918,9 +905,9 @@ importers:
         specifier: ^18.0.0 || ^19.0.0
         version: 19.2.6(react@19.2.6)
     devDependencies:
-      '@ecom/eslint-config':
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../eslint-config
+        version: link:../config
       '@storybook/react-vite':
         specifier: ^10.3.6
         version: 10.3.6(esbuild@0.27.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(rollup@4.60.2)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3)(vite@8.0.12(@types/node@25.7.0)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.46.2)(tsx@4.21.0)(yaml@2.8.4))(webpack@5.106.0(@swc/core@1.15.33)(esbuild@0.27.7))
@@ -982,9 +969,9 @@ importers:
         specifier: ^3.8.1
         version: 3.8.1(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react-is@18.3.1)(react@19.2.6)(redux@5.0.1)
     devDependencies:
-      '@ecom/eslint-config':
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../eslint-config
+        version: link:../config
       '@storybook/react-vite':
         specifier: ^10.3.6
         version: 10.3.6(esbuild@0.27.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(rollup@4.60.2)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3)(vite@8.0.12(@types/node@25.7.0)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.46.2)(tsx@4.21.0)(yaml@2.8.4))(webpack@5.106.0(@swc/core@1.15.33)(esbuild@0.27.7))
@@ -1040,9 +1027,9 @@ importers:
         specifier: ^18.0.0 || ^19.0.0
         version: 19.2.6(react@19.2.6)
     devDependencies:
-      '@ecom/eslint-config':
+      '@ecom/config':
         specifier: workspace:*
-        version: link:../eslint-config
+        version: link:../config
       '@storybook/react-vite':
         specifier: ^10.3.6
         version: 10.3.6(esbuild@0.27.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(rollup@4.60.2)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3)(vite@8.0.12(@types/node@25.7.0)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.46.2)(tsx@4.21.0)(yaml@2.8.4))(webpack@5.106.0(@swc/core@1.15.33)(esbuild@0.27.7))
@@ -13978,7 +13965,7 @@ snapshots:
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
 
-  next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+  next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
     dependencies:
       '@next/env': 16.2.6
       '@swc/helpers': 0.5.15
@@ -13987,7 +13974,7 @@ snapshots:
       postcss: 8.4.31
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
-      styled-jsx: 5.1.6(react@19.2.6)
+      styled-jsx: 5.1.6(@babel/core@7.29.0)(react@19.2.6)
     optionalDependencies:
       '@next/swc-darwin-arm64': 16.2.6
       '@next/swc-darwin-x64': 16.2.6
@@ -15285,10 +15272,12 @@ snapshots:
     dependencies:
       '@tokenizer/token': 0.3.0
 
-  styled-jsx@5.1.6(react@19.2.6):
+  styled-jsx@5.1.6(@babel/core@7.29.0)(react@19.2.6):
     dependencies:
       client-only: 0.0.1
       react: 19.2.6
+    optionalDependencies:
+      '@babel/core': 7.29.0
 
   stylus-lookup@6.1.2:
     dependencies:

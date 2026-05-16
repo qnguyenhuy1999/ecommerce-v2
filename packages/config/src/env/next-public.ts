@@ -1,9 +1,5 @@
 import { z } from 'zod'
 
-/**
- * Schema for NEXT_PUBLIC_* environment variables consumed by Next.js frontends.
- * These are embedded at build time and exposed to the browser.
- */
 export const nextPublicEnvSchema = z.object({
   NEXT_PUBLIC_ADMIN_API_URL: z.string().url().optional(),
   NEXT_PUBLIC_SELLER_API_URL: z.string().url().optional(),
@@ -13,10 +9,6 @@ export const nextPublicEnvSchema = z.object({
 
 export type NextPublicEnv = z.infer<typeof nextPublicEnvSchema>
 
-/**
- * Parse and validate Next.js public environment variables.
- * Call this in next.config.ts or a shared env module.
- */
 export function parseNextPublicEnv(
   env: Record<string, string | undefined> = process.env,
 ): NextPublicEnv {

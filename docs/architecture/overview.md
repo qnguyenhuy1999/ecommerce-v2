@@ -23,7 +23,7 @@ apps/* ──► @ecom/config (env validation, port helpers)
 
 `@ecom/shared` and `@ecom/contracts` are **leaf packages** — they must never import other internal workspace packages. This is enforced by:
 
-1. ESLint `no-restricted-imports` rules in `@ecom/eslint-config`
+1. ESLint `no-restricted-imports` rules in `@ecom/config/eslint`
 2. `dependency-cruiser` rules in `.dependency-cruiser.js`
 
 ## App Responsibilities

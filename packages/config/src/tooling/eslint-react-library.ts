@@ -1,6 +1,7 @@
-import baseConfig from './index.js'
+import type { Linter } from 'eslint'
+import baseConfig from './eslint.js'
 
-const reactLibraryConfig = [
+const reactLibraryConfig: Linter.Config[] = [
   ...baseConfig,
   {
     files: ['**/*.{jsx,tsx}'],

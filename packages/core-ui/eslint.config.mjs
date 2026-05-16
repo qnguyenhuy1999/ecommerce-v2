@@ -1,4 +1,4 @@
-import base from '@ecom/eslint-config/react-library'
+import base from '@ecom/config/eslint/react-library'
 
 export default [
   ...base,

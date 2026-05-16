@@ -105,21 +105,20 @@ pnpm db:seed        # Seed sample data
 
 ### Shared Packages
 
-| Package               | Description                                                                                                              |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `@ecom/shared`        | Universal primitives — constants, utils, pagination (core/prisma/react/nestjs layers)                                    |
-| `@ecom/contracts`     | Stable boundary — ALL domain enums, API schemas, transport contracts (`ApiResponse`)                                     |
-| `@ecom/nestjs-core`   | NestJS infrastructure — `AllExceptionsFilter`, `ResponseInterceptor`                                                     |
-| `@ecom/database`      | Prisma client + repository helpers                                                                                       |
-| `@ecom/auth`          | Authentication domain (may import database)                                                                              |
-| `@ecom/redis`         | Redis client wrapper                                                                                                     |
-| `@ecom/email`         | Email service base                                                                                                       |
-| `@ecom/config`        | Centralised app configuration & env validation                                                                           |
-| `@ecom/core-ui`       | Base React component library — buttons, inputs, modals, sidebar, theme provider (Radix UI + shadcn)                      |
-| `@ecom/ui-storefront` | Storefront-specific components — product cards, storefront chrome                                                        |
-| `@ecom/ui-seller`     | Seller-specific components — stat cards, charts (Recharts)                                                               |
-| `@ecom/ui-admin`      | Admin-specific components — data grids, admin shell                                                                      |
-| `@ecom/eslint-config` | Shared ESLint 9 flat config presets + TypeScript config presets (`base`, `library`, `react-library`, `nextjs`, `nestjs`) |
+| Package               | Description                                                                                                      |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `@ecom/shared`        | Universal primitives — constants, utils, pagination (core/prisma/react/nestjs layers)                            |
+| `@ecom/contracts`     | Stable boundary — ALL domain enums, API schemas, transport contracts (`ApiResponse`)                             |
+| `@ecom/nestjs-core`   | NestJS infrastructure — `AllExceptionsFilter`, `ResponseInterceptor`                                             |
+| `@ecom/database`      | Prisma client + repository helpers                                                                               |
+| `@ecom/auth`          | Authentication domain (may import database)                                                                      |
+| `@ecom/redis`         | Redis client wrapper                                                                                             |
+| `@ecom/email`         | Email service base                                                                                               |
+| `@ecom/config`        | Centralised app configuration, env validation, ESLint presets, Prettier/commitlint config, and TS config presets |
+| `@ecom/core-ui`       | Base React component library — buttons, inputs, modals, sidebar, theme provider (Radix UI + shadcn)              |
+| `@ecom/ui-storefront` | Storefront-specific components — product cards, storefront chrome                                                |
+| `@ecom/ui-seller`     | Seller-specific components — stat cards, charts (Recharts)                                                       |
+| `@ecom/ui-admin`      | Admin-specific components — data grids, admin shell                                                              |
 
 ## UI Development with Storybook
 
@@ -178,32 +177,32 @@ Notes:
 
 ### TypeScript Configuration
 
-Shared presets are available via `@ecom/eslint-config`:
+Shared presets are available via `@ecom/config`:
 
 ```jsonc
 // For a Next.js app
-{ "extends": "@ecom/eslint-config/nextjs.json" }
+{ "extends": "@ecom/config/tsconfig/nextjs.json" }
 
 // For a NestJS service
-{ "extends": "@ecom/eslint-config/nestjs.json" }
+{ "extends": "@ecom/config/tsconfig/nestjs.json" }
 
 // For a shared library
-{ "extends": "@ecom/eslint-config/library.json" }
+{ "extends": "@ecom/config/tsconfig/library.json" }
 
 // For a React component library
-{ "extends": "@ecom/eslint-config/react-library.json" }
+{ "extends": "@ecom/config/tsconfig/react-library.json" }
 ```
 
 ### ESLint Configuration
 
-Shared flat configs are available via `@ecom/eslint-config`:
+Shared flat configs are available via `@ecom/config`:
 
 ```js
 // For a standard package
-import config from '@ecom/eslint-config'
+import config from '@ecom/config/eslint'
 
 // For a React component library
-import config from '@ecom/eslint-config/react-library'
+import config from '@ecom/config/eslint/react-library'
 ```
 
 ## Scripts Reference

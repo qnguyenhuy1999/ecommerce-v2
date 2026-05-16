@@ -1,12 +1,12 @@
 import type { NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
-import { Reflector } from '@nestjs/core'
+import type { Reflector } from '@nestjs/core'
 import type { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 import type { Request } from 'express'
-import { AuditLogService } from '../../audit-logs/audit-log.service'
+import type { AuditLogService } from '../../audit-logs/audit-log.service'
 import { AUDIT_LOG_KEY, type AuditLogMetadata } from '../decorators/audit-log.decorator'
-import { AdminSessionData } from '../../auth/decorators/current-admin.decorator'
+import type { AdminSessionData } from '../../auth/decorators/current-admin.decorator'
 
 interface RequestWithAdmin extends Request {
   admin?: AdminSessionData
@@ -60,13 +60,11 @@ export class AuditLogInterceptor implements NestInterceptor {
     context: ExecutionContext,
     result: unknown,
   ): string | undefined {
-    // Extract from route params (e.g., @Param('id'))
     if (metadata.entityIdParam) {
       const request = context.switchToHttp().getRequest<RequestWithAdmin>()
       return request.params[metadata.entityIdParam] as string | undefined
     }
 
-    // Extract from result using path (e.g., 'data.id' or 'id')
     if (metadata.entityIdPath) {
       const path = metadata.entityIdPath.split('.')
       let value: unknown = result

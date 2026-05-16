@@ -22,7 +22,6 @@ export function getSessionCookieOptions(domain?: string): CookieOptions {
   const secureBase = secureFromEnv ? secureFromEnv === 'true' : isProduction
   const secure = sameSite === 'none' ? true : secureBase
 
-  // Avoid using obvious placeholder domains in non-production environments
   let cookieDomain: string | undefined
   if (domain && domain !== '.yourdomain.com') {
     cookieDomain = domain
@@ -39,6 +38,6 @@ export function getSessionCookieOptions(domain?: string): CookieOptions {
     sameSite,
     ...(cookieDomain !== undefined ? { domain: cookieDomain } : {}),
     path: '/',
-    maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
+    maxAge: 7 * 24 * 60 * 60,
   }
 }

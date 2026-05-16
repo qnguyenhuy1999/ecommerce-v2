@@ -24,6 +24,6 @@
     "types": ["node"]
   },
   "exclude": ["node_modules", "dist"],
-  "extends": "../eslint-config/tsconfig/base.json",
+  "extends": "@ecom/config/tsconfig/base.json",
   "include": ["src/**/*.ts"]
 }

@@ -1,5 +1,5 @@
 {
-  "extends": "@ecom/eslint-config/base.json",
+  "extends": "@ecom/config/tsconfig/base.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",

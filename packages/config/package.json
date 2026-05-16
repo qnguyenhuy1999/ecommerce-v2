@@ -21,7 +21,33 @@
       "types": "./src/api-client.ts",
       "import": "./dist/api-client.js",
       "require": "./dist/api-client.cjs"
-    }
+    },
+    "./eslint": {
+      "types": "./src/tooling/eslint.ts",
+      "import": "./src/tooling/eslint.mjs",
+      "require": "./dist/tooling/eslint.cjs"
+    },
+    "./eslint/react-library": {
+      "types": "./src/tooling/eslint-react-library.ts",
+      "import": "./src/tooling/eslint-react-library.mjs",
+      "require": "./dist/tooling/eslint-react-library.cjs"
+    },
+    "./prettier": {
+      "types": "./src/tooling/prettier.ts",
+      "import": "./src/tooling/prettier.mjs",
+      "require": "./dist/tooling/prettier.cjs"
+    },
+    "./commitlint": {
+      "types": "./src/tooling/commitlint.ts",
+      "import": "./src/tooling/commitlint.mjs",
+      "require": "./dist/tooling/commitlint.cjs"
+    },
+    "./tsconfig/base.json": "./src/tooling/tsconfig/base.json",
+    "./tsconfig/eslint.json": "./src/tooling/tsconfig/eslint.json",
+    "./tsconfig/library.json": "./src/tooling/tsconfig/library.json",
+    "./tsconfig/react-library.json": "./src/tooling/tsconfig/react-library.json",
+    "./tsconfig/nextjs.json": "./src/tooling/tsconfig/nextjs.json",
+    "./tsconfig/nestjs.json": "./src/tooling/tsconfig/nestjs.json"
   },
   "scripts": {
     "dev": "",
@@ -30,11 +56,19 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@commitlint/config-conventional": "^19.8.0",
+    "@eslint/js": "^10.0.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-sonarjs": "^3.0.2",
+    "eslint-plugin-unicorn": "^59.0.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "typescript-eslint": "^8.59.3",
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@ecom/eslint-config": "workspace:*",
     "@types/node": "^25.7.0",
+    "prettier": "^3.5.3",
     "tsup": "^8.4.0",
     "typescript": "^6.0.3"
   }

@@ -63,14 +63,7 @@ graphify-out/.needs_update
 graphify-out/.graphify_old.json
 
 # OMC (oh-my-claudecode) - session state, local hooks
-.omc/
 .claude/
-packages/*/.omc/
 packages/*/.claude/
-apps/*/.omc/
 apps/*/.claude/
-state
 *.tsbuildinfo
-
-# AI folder
-.kiro

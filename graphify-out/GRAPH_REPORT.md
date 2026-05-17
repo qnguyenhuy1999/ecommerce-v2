@@ -1,37 +1,38 @@
-# Graph Report - /Users/mac/Desktop/ecommerce-v2 (2026-05-17)
+# Graph Report - . (2026-05-17)
 
 ## Corpus Check
 
-- Large corpus: 839 files · ~858,446 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder, or use --no-semantic to run AST-only.
+- 787 files · ~850,653 words
+- Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
 
-- 13853 nodes · 15864 edges · 464 communities (389 shown, 75 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 93 edges (avg confidence: 0.83)
-- Token cost: 12,000 input · 3,200 output
+- 2142 nodes · 1532 edges · 743 communities detected
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
+- Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
 
-- [[_COMMUNITY_Prisma Schema Enums|Prisma Schema Enums]]
-- [[_COMMUNITY_Prisma Filter Types|Prisma Filter Types]]
-- [[_COMMUNITY_Shop Domain Models|Shop Domain Models]]
-- [[_COMMUNITY_Product Domain Models|Product Domain Models]]
-- [[_COMMUNITY_Seller Order Models|Seller Order Models]]
-- [[_COMMUNITY_User Domain Models|User Domain Models]]
-- [[_COMMUNITY_Prisma Browser Types|Prisma Browser Types]]
-- [[_COMMUNITY_Coupon Domain Models|Coupon Domain Models]]
-- [[_COMMUNITY_Client Entity Types|Client Entity Types]]
-- [[_COMMUNITY_Browser Client Types|Browser Client Types]]
-- [[_COMMUNITY_Category Domain Models|Category Domain Models]]
-- [[_COMMUNITY_Product Variant Models|Product Variant Models]]
-- [[_COMMUNITY_Warehouse Domain Models|Warehouse Domain Models]]
-- [[_COMMUNITY_Loyalty Account Models|Loyalty Account Models]]
-- [[_COMMUNITY_Ad Domain Models|Ad Domain Models]]
-- [[_COMMUNITY_Affiliate Link Models|Affiliate Link Models]]
-- [[_COMMUNITY_Inventory Transfer Models|Inventory Transfer Models]]
-- [[_COMMUNITY_Return Request Models|Return Request Models]]
-- [[_COMMUNITY_Review Domain Models|Review Domain Models]]
-- [[_COMMUNITY_Ad Group Models|Ad Group Models]]
+- [[_COMMUNITY_Community 0|Community 0]]
+- [[_COMMUNITY_Community 1|Community 1]]
+- [[_COMMUNITY_Community 2|Community 2]]
+- [[_COMMUNITY_Community 3|Community 3]]
+- [[_COMMUNITY_Community 4|Community 4]]
+- [[_COMMUNITY_Community 5|Community 5]]
+- [[_COMMUNITY_Community 6|Community 6]]
+- [[_COMMUNITY_Community 7|Community 7]]
+- [[_COMMUNITY_Community 8|Community 8]]
+- [[_COMMUNITY_Community 9|Community 9]]
+- [[_COMMUNITY_Community 10|Community 10]]
+- [[_COMMUNITY_Community 11|Community 11]]
+- [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 14|Community 14]]
+- [[_COMMUNITY_Community 15|Community 15]]
+- [[_COMMUNITY_Community 16|Community 16]]
+- [[_COMMUNITY_Community 17|Community 17]]
+- [[_COMMUNITY_Community 18|Community 18]]
+- [[_COMMUNITY_Community 19|Community 19]]
 - [[_COMMUNITY_Community 20|Community 20]]
 - [[_COMMUNITY_Community 21|Community 21]]
 - [[_COMMUNITY_Community 22|Community 22]]
@@ -217,12 +218,15 @@
 - [[_COMMUNITY_Community 202|Community 202]]
 - [[_COMMUNITY_Community 203|Community 203]]
 - [[_COMMUNITY_Community 204|Community 204]]
+- [[_COMMUNITY_Community 205|Community 205]]
+- [[_COMMUNITY_Community 206|Community 206]]
 - [[_COMMUNITY_Community 207|Community 207]]
 - [[_COMMUNITY_Community 208|Community 208]]
 - [[_COMMUNITY_Community 209|Community 209]]
 - [[_COMMUNITY_Community 210|Community 210]]
 - [[_COMMUNITY_Community 211|Community 211]]
 - [[_COMMUNITY_Community 212|Community 212]]
+- [[_COMMUNITY_Community 213|Community 213]]
 - [[_COMMUNITY_Community 214|Community 214]]
 - [[_COMMUNITY_Community 215|Community 215]]
 - [[_COMMUNITY_Community 216|Community 216]]
@@ -230,6 +234,7 @@
 - [[_COMMUNITY_Community 218|Community 218]]
 - [[_COMMUNITY_Community 219|Community 219]]
 - [[_COMMUNITY_Community 220|Community 220]]
+- [[_COMMUNITY_Community 221|Community 221]]
 - [[_COMMUNITY_Community 222|Community 222]]
 - [[_COMMUNITY_Community 223|Community 223]]
 - [[_COMMUNITY_Community 224|Community 224]]
@@ -304,8 +309,10 @@
 - [[_COMMUNITY_Community 293|Community 293]]
 - [[_COMMUNITY_Community 294|Community 294]]
 - [[_COMMUNITY_Community 295|Community 295]]
+- [[_COMMUNITY_Community 296|Community 296]]
 - [[_COMMUNITY_Community 297|Community 297]]
 - [[_COMMUNITY_Community 298|Community 298]]
+- [[_COMMUNITY_Community 299|Community 299]]
 - [[_COMMUNITY_Community 300|Community 300]]
 - [[_COMMUNITY_Community 301|Community 301]]
 - [[_COMMUNITY_Community 302|Community 302]]
@@ -313,6 +320,7 @@
 - [[_COMMUNITY_Community 304|Community 304]]
 - [[_COMMUNITY_Community 305|Community 305]]
 - [[_COMMUNITY_Community 306|Community 306]]
+- [[_COMMUNITY_Community 307|Community 307]]
 - [[_COMMUNITY_Community 308|Community 308]]
 - [[_COMMUNITY_Community 309|Community 309]]
 - [[_COMMUNITY_Community 310|Community 310]]
@@ -320,16 +328,132 @@
 - [[_COMMUNITY_Community 312|Community 312]]
 - [[_COMMUNITY_Community 313|Community 313]]
 - [[_COMMUNITY_Community 314|Community 314]]
+- [[_COMMUNITY_Community 315|Community 315]]
+- [[_COMMUNITY_Community 316|Community 316]]
+- [[_COMMUNITY_Community 317|Community 317]]
 - [[_COMMUNITY_Community 318|Community 318]]
 - [[_COMMUNITY_Community 319|Community 319]]
 - [[_COMMUNITY_Community 320|Community 320]]
 - [[_COMMUNITY_Community 321|Community 321]]
 - [[_COMMUNITY_Community 322|Community 322]]
+- [[_COMMUNITY_Community 323|Community 323]]
+- [[_COMMUNITY_Community 324|Community 324]]
+- [[_COMMUNITY_Community 325|Community 325]]
+- [[_COMMUNITY_Community 326|Community 326]]
+- [[_COMMUNITY_Community 327|Community 327]]
 - [[_COMMUNITY_Community 328|Community 328]]
 - [[_COMMUNITY_Community 329|Community 329]]
 - [[_COMMUNITY_Community 330|Community 330]]
 - [[_COMMUNITY_Community 331|Community 331]]
 - [[_COMMUNITY_Community 332|Community 332]]
+- [[_COMMUNITY_Community 333|Community 333]]
+- [[_COMMUNITY_Community 334|Community 334]]
+- [[_COMMUNITY_Community 335|Community 335]]
+- [[_COMMUNITY_Community 336|Community 336]]
+- [[_COMMUNITY_Community 337|Community 337]]
+- [[_COMMUNITY_Community 338|Community 338]]
+- [[_COMMUNITY_Community 339|Community 339]]
+- [[_COMMUNITY_Community 340|Community 340]]
+- [[_COMMUNITY_Community 341|Community 341]]
+- [[_COMMUNITY_Community 342|Community 342]]
+- [[_COMMUNITY_Community 343|Community 343]]
+- [[_COMMUNITY_Community 344|Community 344]]
+- [[_COMMUNITY_Community 345|Community 345]]
+- [[_COMMUNITY_Community 346|Community 346]]
+- [[_COMMUNITY_Community 347|Community 347]]
+- [[_COMMUNITY_Community 348|Community 348]]
+- [[_COMMUNITY_Community 349|Community 349]]
+- [[_COMMUNITY_Community 350|Community 350]]
+- [[_COMMUNITY_Community 351|Community 351]]
+- [[_COMMUNITY_Community 352|Community 352]]
+- [[_COMMUNITY_Community 353|Community 353]]
+- [[_COMMUNITY_Community 354|Community 354]]
+- [[_COMMUNITY_Community 355|Community 355]]
+- [[_COMMUNITY_Community 356|Community 356]]
+- [[_COMMUNITY_Community 357|Community 357]]
+- [[_COMMUNITY_Community 358|Community 358]]
+- [[_COMMUNITY_Community 359|Community 359]]
+- [[_COMMUNITY_Community 360|Community 360]]
+- [[_COMMUNITY_Community 361|Community 361]]
+- [[_COMMUNITY_Community 362|Community 362]]
+- [[_COMMUNITY_Community 363|Community 363]]
+- [[_COMMUNITY_Community 364|Community 364]]
+- [[_COMMUNITY_Community 365|Community 365]]
+- [[_COMMUNITY_Community 366|Community 366]]
+- [[_COMMUNITY_Community 367|Community 367]]
+- [[_COMMUNITY_Community 368|Community 368]]
+- [[_COMMUNITY_Community 369|Community 369]]
+- [[_COMMUNITY_Community 370|Community 370]]
+- [[_COMMUNITY_Community 371|Community 371]]
+- [[_COMMUNITY_Community 372|Community 372]]
+- [[_COMMUNITY_Community 373|Community 373]]
+- [[_COMMUNITY_Community 374|Community 374]]
+- [[_COMMUNITY_Community 375|Community 375]]
+- [[_COMMUNITY_Community 376|Community 376]]
+- [[_COMMUNITY_Community 377|Community 377]]
+- [[_COMMUNITY_Community 378|Community 378]]
+- [[_COMMUNITY_Community 379|Community 379]]
+- [[_COMMUNITY_Community 380|Community 380]]
+- [[_COMMUNITY_Community 381|Community 381]]
+- [[_COMMUNITY_Community 382|Community 382]]
+- [[_COMMUNITY_Community 383|Community 383]]
+- [[_COMMUNITY_Community 384|Community 384]]
+- [[_COMMUNITY_Community 385|Community 385]]
+- [[_COMMUNITY_Community 386|Community 386]]
+- [[_COMMUNITY_Community 387|Community 387]]
+- [[_COMMUNITY_Community 388|Community 388]]
+- [[_COMMUNITY_Community 389|Community 389]]
+- [[_COMMUNITY_Community 390|Community 390]]
+- [[_COMMUNITY_Community 391|Community 391]]
+- [[_COMMUNITY_Community 392|Community 392]]
+- [[_COMMUNITY_Community 393|Community 393]]
+- [[_COMMUNITY_Community 394|Community 394]]
+- [[_COMMUNITY_Community 395|Community 395]]
+- [[_COMMUNITY_Community 396|Community 396]]
+- [[_COMMUNITY_Community 397|Community 397]]
+- [[_COMMUNITY_Community 398|Community 398]]
+- [[_COMMUNITY_Community 399|Community 399]]
+- [[_COMMUNITY_Community 400|Community 400]]
+- [[_COMMUNITY_Community 401|Community 401]]
+- [[_COMMUNITY_Community 402|Community 402]]
+- [[_COMMUNITY_Community 403|Community 403]]
+- [[_COMMUNITY_Community 404|Community 404]]
+- [[_COMMUNITY_Community 405|Community 405]]
+- [[_COMMUNITY_Community 406|Community 406]]
+- [[_COMMUNITY_Community 407|Community 407]]
+- [[_COMMUNITY_Community 408|Community 408]]
+- [[_COMMUNITY_Community 409|Community 409]]
+- [[_COMMUNITY_Community 410|Community 410]]
+- [[_COMMUNITY_Community 411|Community 411]]
+- [[_COMMUNITY_Community 412|Community 412]]
+- [[_COMMUNITY_Community 413|Community 413]]
+- [[_COMMUNITY_Community 414|Community 414]]
+- [[_COMMUNITY_Community 415|Community 415]]
+- [[_COMMUNITY_Community 416|Community 416]]
+- [[_COMMUNITY_Community 417|Community 417]]
+- [[_COMMUNITY_Community 418|Community 418]]
+- [[_COMMUNITY_Community 419|Community 419]]
+- [[_COMMUNITY_Community 420|Community 420]]
+- [[_COMMUNITY_Community 421|Community 421]]
+- [[_COMMUNITY_Community 422|Community 422]]
+- [[_COMMUNITY_Community 423|Community 423]]
+- [[_COMMUNITY_Community 424|Community 424]]
+- [[_COMMUNITY_Community 425|Community 425]]
+- [[_COMMUNITY_Community 426|Community 426]]
+- [[_COMMUNITY_Community 427|Community 427]]
+- [[_COMMUNITY_Community 428|Community 428]]
+- [[_COMMUNITY_Community 429|Community 429]]
+- [[_COMMUNITY_Community 430|Community 430]]
+- [[_COMMUNITY_Community 431|Community 431]]
+- [[_COMMUNITY_Community 432|Community 432]]
+- [[_COMMUNITY_Community 433|Community 433]]
+- [[_COMMUNITY_Community 434|Community 434]]
+- [[_COMMUNITY_Community 435|Community 435]]
+- [[_COMMUNITY_Community 436|Community 436]]
+- [[_COMMUNITY_Community 437|Community 437]]
+- [[_COMMUNITY_Community 438|Community 438]]
+- [[_COMMUNITY_Community 439|Community 439]]
+- [[_COMMUNITY_Community 440|Community 440]]
 - [[_COMMUNITY_Community 441|Community 441]]
 - [[_COMMUNITY_Community 442|Community 442]]
 - [[_COMMUNITY_Community 443|Community 443]]
@@ -353,1396 +477,5099 @@
 - [[_COMMUNITY_Community 461|Community 461]]
 - [[_COMMUNITY_Community 462|Community 462]]
 - [[_COMMUNITY_Community 463|Community 463]]
+- [[_COMMUNITY_Community 464|Community 464]]
+- [[_COMMUNITY_Community 465|Community 465]]
+- [[_COMMUNITY_Community 466|Community 466]]
+- [[_COMMUNITY_Community 467|Community 467]]
+- [[_COMMUNITY_Community 468|Community 468]]
+- [[_COMMUNITY_Community 469|Community 469]]
+- [[_COMMUNITY_Community 470|Community 470]]
+- [[_COMMUNITY_Community 471|Community 471]]
+- [[_COMMUNITY_Community 472|Community 472]]
+- [[_COMMUNITY_Community 473|Community 473]]
+- [[_COMMUNITY_Community 474|Community 474]]
+- [[_COMMUNITY_Community 475|Community 475]]
+- [[_COMMUNITY_Community 476|Community 476]]
+- [[_COMMUNITY_Community 477|Community 477]]
+- [[_COMMUNITY_Community 478|Community 478]]
+- [[_COMMUNITY_Community 479|Community 479]]
+- [[_COMMUNITY_Community 480|Community 480]]
+- [[_COMMUNITY_Community 481|Community 481]]
+- [[_COMMUNITY_Community 482|Community 482]]
+- [[_COMMUNITY_Community 483|Community 483]]
+- [[_COMMUNITY_Community 484|Community 484]]
+- [[_COMMUNITY_Community 485|Community 485]]
+- [[_COMMUNITY_Community 486|Community 486]]
+- [[_COMMUNITY_Community 487|Community 487]]
+- [[_COMMUNITY_Community 488|Community 488]]
+- [[_COMMUNITY_Community 489|Community 489]]
+- [[_COMMUNITY_Community 490|Community 490]]
+- [[_COMMUNITY_Community 491|Community 491]]
+- [[_COMMUNITY_Community 492|Community 492]]
+- [[_COMMUNITY_Community 493|Community 493]]
+- [[_COMMUNITY_Community 494|Community 494]]
+- [[_COMMUNITY_Community 495|Community 495]]
+- [[_COMMUNITY_Community 496|Community 496]]
+- [[_COMMUNITY_Community 497|Community 497]]
+- [[_COMMUNITY_Community 498|Community 498]]
+- [[_COMMUNITY_Community 499|Community 499]]
+- [[_COMMUNITY_Community 500|Community 500]]
+- [[_COMMUNITY_Community 501|Community 501]]
+- [[_COMMUNITY_Community 502|Community 502]]
+- [[_COMMUNITY_Community 503|Community 503]]
+- [[_COMMUNITY_Community 504|Community 504]]
+- [[_COMMUNITY_Community 505|Community 505]]
+- [[_COMMUNITY_Community 506|Community 506]]
+- [[_COMMUNITY_Community 507|Community 507]]
+- [[_COMMUNITY_Community 508|Community 508]]
+- [[_COMMUNITY_Community 509|Community 509]]
+- [[_COMMUNITY_Community 510|Community 510]]
+- [[_COMMUNITY_Community 511|Community 511]]
+- [[_COMMUNITY_Community 512|Community 512]]
+- [[_COMMUNITY_Community 513|Community 513]]
+- [[_COMMUNITY_Community 514|Community 514]]
+- [[_COMMUNITY_Community 515|Community 515]]
+- [[_COMMUNITY_Community 516|Community 516]]
+- [[_COMMUNITY_Community 517|Community 517]]
+- [[_COMMUNITY_Community 518|Community 518]]
+- [[_COMMUNITY_Community 519|Community 519]]
+- [[_COMMUNITY_Community 520|Community 520]]
+- [[_COMMUNITY_Community 521|Community 521]]
+- [[_COMMUNITY_Community 522|Community 522]]
+- [[_COMMUNITY_Community 523|Community 523]]
+- [[_COMMUNITY_Community 524|Community 524]]
+- [[_COMMUNITY_Community 525|Community 525]]
+- [[_COMMUNITY_Community 526|Community 526]]
+- [[_COMMUNITY_Community 527|Community 527]]
+- [[_COMMUNITY_Community 528|Community 528]]
+- [[_COMMUNITY_Community 529|Community 529]]
+- [[_COMMUNITY_Community 530|Community 530]]
+- [[_COMMUNITY_Community 531|Community 531]]
+- [[_COMMUNITY_Community 532|Community 532]]
+- [[_COMMUNITY_Community 533|Community 533]]
+- [[_COMMUNITY_Community 534|Community 534]]
+- [[_COMMUNITY_Community 535|Community 535]]
+- [[_COMMUNITY_Community 536|Community 536]]
+- [[_COMMUNITY_Community 537|Community 537]]
+- [[_COMMUNITY_Community 538|Community 538]]
+- [[_COMMUNITY_Community 539|Community 539]]
+- [[_COMMUNITY_Community 540|Community 540]]
+- [[_COMMUNITY_Community 541|Community 541]]
+- [[_COMMUNITY_Community 542|Community 542]]
+- [[_COMMUNITY_Community 543|Community 543]]
+- [[_COMMUNITY_Community 544|Community 544]]
+- [[_COMMUNITY_Community 545|Community 545]]
+- [[_COMMUNITY_Community 546|Community 546]]
+- [[_COMMUNITY_Community 547|Community 547]]
+- [[_COMMUNITY_Community 548|Community 548]]
+- [[_COMMUNITY_Community 549|Community 549]]
+- [[_COMMUNITY_Community 550|Community 550]]
+- [[_COMMUNITY_Community 551|Community 551]]
+- [[_COMMUNITY_Community 552|Community 552]]
+- [[_COMMUNITY_Community 553|Community 553]]
+- [[_COMMUNITY_Community 554|Community 554]]
+- [[_COMMUNITY_Community 555|Community 555]]
+- [[_COMMUNITY_Community 556|Community 556]]
+- [[_COMMUNITY_Community 557|Community 557]]
+- [[_COMMUNITY_Community 558|Community 558]]
+- [[_COMMUNITY_Community 559|Community 559]]
+- [[_COMMUNITY_Community 560|Community 560]]
+- [[_COMMUNITY_Community 561|Community 561]]
+- [[_COMMUNITY_Community 562|Community 562]]
+- [[_COMMUNITY_Community 563|Community 563]]
+- [[_COMMUNITY_Community 564|Community 564]]
+- [[_COMMUNITY_Community 565|Community 565]]
+- [[_COMMUNITY_Community 566|Community 566]]
+- [[_COMMUNITY_Community 567|Community 567]]
+- [[_COMMUNITY_Community 568|Community 568]]
+- [[_COMMUNITY_Community 569|Community 569]]
+- [[_COMMUNITY_Community 570|Community 570]]
+- [[_COMMUNITY_Community 571|Community 571]]
+- [[_COMMUNITY_Community 572|Community 572]]
+- [[_COMMUNITY_Community 573|Community 573]]
+- [[_COMMUNITY_Community 574|Community 574]]
+- [[_COMMUNITY_Community 575|Community 575]]
+- [[_COMMUNITY_Community 576|Community 576]]
+- [[_COMMUNITY_Community 577|Community 577]]
+- [[_COMMUNITY_Community 578|Community 578]]
+- [[_COMMUNITY_Community 579|Community 579]]
+- [[_COMMUNITY_Community 580|Community 580]]
+- [[_COMMUNITY_Community 581|Community 581]]
+- [[_COMMUNITY_Community 582|Community 582]]
+- [[_COMMUNITY_Community 583|Community 583]]
+- [[_COMMUNITY_Community 584|Community 584]]
+- [[_COMMUNITY_Community 585|Community 585]]
+- [[_COMMUNITY_Community 586|Community 586]]
+- [[_COMMUNITY_Community 587|Community 587]]
+- [[_COMMUNITY_Community 588|Community 588]]
+- [[_COMMUNITY_Community 589|Community 589]]
+- [[_COMMUNITY_Community 590|Community 590]]
+- [[_COMMUNITY_Community 591|Community 591]]
+- [[_COMMUNITY_Community 592|Community 592]]
+- [[_COMMUNITY_Community 593|Community 593]]
+- [[_COMMUNITY_Community 594|Community 594]]
+- [[_COMMUNITY_Community 595|Community 595]]
+- [[_COMMUNITY_Community 596|Community 596]]
+- [[_COMMUNITY_Community 597|Community 597]]
+- [[_COMMUNITY_Community 598|Community 598]]
+- [[_COMMUNITY_Community 599|Community 599]]
+- [[_COMMUNITY_Community 600|Community 600]]
+- [[_COMMUNITY_Community 601|Community 601]]
+- [[_COMMUNITY_Community 602|Community 602]]
+- [[_COMMUNITY_Community 603|Community 603]]
+- [[_COMMUNITY_Community 604|Community 604]]
+- [[_COMMUNITY_Community 605|Community 605]]
+- [[_COMMUNITY_Community 606|Community 606]]
+- [[_COMMUNITY_Community 607|Community 607]]
+- [[_COMMUNITY_Community 608|Community 608]]
+- [[_COMMUNITY_Community 609|Community 609]]
+- [[_COMMUNITY_Community 610|Community 610]]
+- [[_COMMUNITY_Community 611|Community 611]]
+- [[_COMMUNITY_Community 612|Community 612]]
+- [[_COMMUNITY_Community 613|Community 613]]
+- [[_COMMUNITY_Community 614|Community 614]]
+- [[_COMMUNITY_Community 615|Community 615]]
+- [[_COMMUNITY_Community 616|Community 616]]
+- [[_COMMUNITY_Community 617|Community 617]]
+- [[_COMMUNITY_Community 618|Community 618]]
+- [[_COMMUNITY_Community 619|Community 619]]
+- [[_COMMUNITY_Community 620|Community 620]]
+- [[_COMMUNITY_Community 621|Community 621]]
+- [[_COMMUNITY_Community 622|Community 622]]
+- [[_COMMUNITY_Community 623|Community 623]]
+- [[_COMMUNITY_Community 624|Community 624]]
+- [[_COMMUNITY_Community 625|Community 625]]
+- [[_COMMUNITY_Community 626|Community 626]]
+- [[_COMMUNITY_Community 627|Community 627]]
+- [[_COMMUNITY_Community 628|Community 628]]
+- [[_COMMUNITY_Community 629|Community 629]]
+- [[_COMMUNITY_Community 630|Community 630]]
+- [[_COMMUNITY_Community 631|Community 631]]
+- [[_COMMUNITY_Community 632|Community 632]]
+- [[_COMMUNITY_Community 633|Community 633]]
+- [[_COMMUNITY_Community 634|Community 634]]
+- [[_COMMUNITY_Community 635|Community 635]]
+- [[_COMMUNITY_Community 636|Community 636]]
+- [[_COMMUNITY_Community 637|Community 637]]
+- [[_COMMUNITY_Community 638|Community 638]]
+- [[_COMMUNITY_Community 639|Community 639]]
+- [[_COMMUNITY_Community 640|Community 640]]
+- [[_COMMUNITY_Community 641|Community 641]]
+- [[_COMMUNITY_Community 642|Community 642]]
+- [[_COMMUNITY_Community 643|Community 643]]
+- [[_COMMUNITY_Community 644|Community 644]]
+- [[_COMMUNITY_Community 645|Community 645]]
+- [[_COMMUNITY_Community 646|Community 646]]
+- [[_COMMUNITY_Community 647|Community 647]]
+- [[_COMMUNITY_Community 648|Community 648]]
+- [[_COMMUNITY_Community 649|Community 649]]
+- [[_COMMUNITY_Community 650|Community 650]]
+- [[_COMMUNITY_Community 651|Community 651]]
+- [[_COMMUNITY_Community 652|Community 652]]
+- [[_COMMUNITY_Community 653|Community 653]]
+- [[_COMMUNITY_Community 654|Community 654]]
+- [[_COMMUNITY_Community 655|Community 655]]
+- [[_COMMUNITY_Community 656|Community 656]]
+- [[_COMMUNITY_Community 657|Community 657]]
+- [[_COMMUNITY_Community 658|Community 658]]
+- [[_COMMUNITY_Community 659|Community 659]]
+- [[_COMMUNITY_Community 660|Community 660]]
+- [[_COMMUNITY_Community 661|Community 661]]
+- [[_COMMUNITY_Community 662|Community 662]]
+- [[_COMMUNITY_Community 663|Community 663]]
+- [[_COMMUNITY_Community 664|Community 664]]
+- [[_COMMUNITY_Community 665|Community 665]]
+- [[_COMMUNITY_Community 666|Community 666]]
+- [[_COMMUNITY_Community 667|Community 667]]
+- [[_COMMUNITY_Community 668|Community 668]]
+- [[_COMMUNITY_Community 669|Community 669]]
+- [[_COMMUNITY_Community 670|Community 670]]
+- [[_COMMUNITY_Community 671|Community 671]]
+- [[_COMMUNITY_Community 672|Community 672]]
+- [[_COMMUNITY_Community 673|Community 673]]
+- [[_COMMUNITY_Community 674|Community 674]]
+- [[_COMMUNITY_Community 675|Community 675]]
+- [[_COMMUNITY_Community 676|Community 676]]
+- [[_COMMUNITY_Community 677|Community 677]]
+- [[_COMMUNITY_Community 678|Community 678]]
+- [[_COMMUNITY_Community 679|Community 679]]
+- [[_COMMUNITY_Community 680|Community 680]]
+- [[_COMMUNITY_Community 681|Community 681]]
+- [[_COMMUNITY_Community 682|Community 682]]
+- [[_COMMUNITY_Community 683|Community 683]]
+- [[_COMMUNITY_Community 684|Community 684]]
+- [[_COMMUNITY_Community 685|Community 685]]
+- [[_COMMUNITY_Community 686|Community 686]]
+- [[_COMMUNITY_Community 687|Community 687]]
+- [[_COMMUNITY_Community 688|Community 688]]
+- [[_COMMUNITY_Community 689|Community 689]]
+- [[_COMMUNITY_Community 690|Community 690]]
+- [[_COMMUNITY_Community 691|Community 691]]
+- [[_COMMUNITY_Community 692|Community 692]]
+- [[_COMMUNITY_Community 693|Community 693]]
+- [[_COMMUNITY_Community 694|Community 694]]
+- [[_COMMUNITY_Community 695|Community 695]]
+- [[_COMMUNITY_Community 696|Community 696]]
+- [[_COMMUNITY_Community 697|Community 697]]
+- [[_COMMUNITY_Community 698|Community 698]]
+- [[_COMMUNITY_Community 699|Community 699]]
+- [[_COMMUNITY_Community 700|Community 700]]
+- [[_COMMUNITY_Community 701|Community 701]]
+- [[_COMMUNITY_Community 702|Community 702]]
+- [[_COMMUNITY_Community 703|Community 703]]
+- [[_COMMUNITY_Community 704|Community 704]]
+- [[_COMMUNITY_Community 705|Community 705]]
+- [[_COMMUNITY_Community 706|Community 706]]
+- [[_COMMUNITY_Community 707|Community 707]]
+- [[_COMMUNITY_Community 708|Community 708]]
+- [[_COMMUNITY_Community 709|Community 709]]
+- [[_COMMUNITY_Community 710|Community 710]]
+- [[_COMMUNITY_Community 711|Community 711]]
+- [[_COMMUNITY_Community 712|Community 712]]
+- [[_COMMUNITY_Community 713|Community 713]]
+- [[_COMMUNITY_Community 714|Community 714]]
+- [[_COMMUNITY_Community 715|Community 715]]
+- [[_COMMUNITY_Community 716|Community 716]]
+- [[_COMMUNITY_Community 717|Community 717]]
+- [[_COMMUNITY_Community 718|Community 718]]
+- [[_COMMUNITY_Community 719|Community 719]]
+- [[_COMMUNITY_Community 720|Community 720]]
+- [[_COMMUNITY_Community 721|Community 721]]
+- [[_COMMUNITY_Community 722|Community 722]]
+- [[_COMMUNITY_Community 723|Community 723]]
+- [[_COMMUNITY_Community 724|Community 724]]
+- [[_COMMUNITY_Community 725|Community 725]]
+- [[_COMMUNITY_Community 726|Community 726]]
+- [[_COMMUNITY_Community 727|Community 727]]
+- [[_COMMUNITY_Community 728|Community 728]]
+- [[_COMMUNITY_Community 729|Community 729]]
+- [[_COMMUNITY_Community 730|Community 730]]
+- [[_COMMUNITY_Community 731|Community 731]]
+- [[_COMMUNITY_Community 732|Community 732]]
+- [[_COMMUNITY_Community 733|Community 733]]
+- [[_COMMUNITY_Community 734|Community 734]]
+- [[_COMMUNITY_Community 735|Community 735]]
+- [[_COMMUNITY_Community 736|Community 736]]
+- [[_COMMUNITY_Community 737|Community 737]]
+- [[_COMMUNITY_Community 738|Community 738]]
+- [[_COMMUNITY_Community 739|Community 739]]
+- [[_COMMUNITY_Community 740|Community 740]]
+- [[_COMMUNITY_Community 741|Community 741]]
+- [[_COMMUNITY_Community 742|Community 742]]
 
 ## God Nodes (most connected - your core abstractions)
 
-1. `buildOffsetResponse()` - 81 edges
-2. `apiFetch` - 77 edges
-3. `class-validator (DTO Validation)` - 61 edges
-4. `offsetPaginate()` - 47 edges
-5. `cn()` - 40 edges
-6. `AuthModule` - 38 edges
-7. `AuthGuard` - 34 edges
-8. `ShopService` - 31 edges
-9. `CurrentUser` - 29 edges
-10. `ShopModule` - 26 edges
+1. `ProductService` - 19 edges
+2. `ProductRepository` - 16 edges
+3. `GrowthService` - 16 edges
+4. `GrowthController` - 14 edges
+5. `ProductsService` - 14 edges
+6. `ProductsController` - 14 edges
+7. `AuthService` - 13 edges
+8. `I18nService` - 13 edges
+9. `AuthController` - 12 edges
+10. `LoyaltyService` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
 
-- `Leaf Package Rule` --semantically_similar_to--> `Dependency Boundaries (enforced)` [INFERRED] [semantically similar]
-  README.md → docs/conventions/folder-structure.md
-- `ApiResponse Contract` --semantically_similar_to--> `API Response Contract Shape` [INFERRED] [semantically similar]
-  README.md → docs/architecture/overview.md
-- `Phase 7 CI Hardening: lint, typecheck, openapi, contracts, drift detection` --references--> `Package: @ecom/contracts` [INFERRED]
-  docs/reports/phase-7-hardening-report.md → README.md
-- `bootstrap()` --calls--> `getAdminPort()` [INFERRED]
-  apps/api-admin/src/main.ts → packages/config/src/index.ts
-- `bootstrap()` --calls--> `getSellerPort()` [INFERRED]
-  apps/api-admin/src/main.ts → packages/config/src/index.ts
+- `fetchData()` --calls--> `getStats()` [EXTRACTED]
+  apps/seller/src/app/reviews/page.tsx → apps/seller/src/app/coupons/page.tsx
+- `fetchData()` --calls--> `getItems()` [EXTRACTED]
+  apps/seller/src/app/reviews/page.tsx → apps/seller/src/app/orders/page.tsx
+- `fetchData()` --calls--> `getTotalPages()` [EXTRACTED]
+  apps/seller/src/app/reviews/page.tsx → apps/seller/src/app/orders/page.tsx
+- `fetchProducts()` --calls--> `getItems()` [EXTRACTED]
+  apps/seller/src/app/products/page.tsx → apps/seller/src/app/orders/page.tsx
+- `fetchProducts()` --calls--> `getTotalPages()` [EXTRACTED]
+  apps/seller/src/app/products/page.tsx → apps/seller/src/app/orders/page.tsx
 
-## Hyperedges (group relationships)
+## Communities
 
-- **Admin Panel Feature Pages** — admin_dashboard_page, admin_products_page, admin_product_detail_page, admin_categories_page, admin_banners_page, admin_vouchers_page, admin_orders_page, admin_order_detail_page, admin_users_page, admin_user_detail_page, admin_refunds_page, admin_refund_detail_page, admin_reviews_page, admin_sellers_page, admin_seller_detail_page, admin_audit_logs_page, admin_notifications_page [INFERRED 0.95]
-- **Frontend State & Styling Toolchain** — state_management, tanstack_query, zustand, react_hook_form, tailwind_css_v4, cva, tailwind_merge, radix_ui [EXTRACTED 1.00]
-- **Testing Toolchain** — vitest, playwright, testing_standards, ui_component_fixtures, pkg_shared [EXTRACTED 1.00]
-- **UI Component Architecture** — atomic_design, design_tokens, pkg_core_ui, pkg_ui_storefront, pkg_ui_seller, pkg_ui_admin, storybook, shadcn_strategy, domain_ui_package_rule, tailwind_css_v4 [EXTRACTED 1.00]
-- **All API Services Depend on Postgres + Redis + Mailpit** — docker_compose_api_storefront_svc, docker_compose_api_seller_svc, docker_compose_api_admin_svc, docker_compose_infra_postgres, docker_compose_infra_redis, docker_compose_infra_mailpit [EXTRACTED 1.00]
-- **Leaf Package Governance: shared and contracts never import internal packages** — readme_pkg_shared, readme_pkg_contracts, readme_leaf_rule, folder_structure_dependency_boundaries [EXTRACTED 1.00]
-- **Config Centralization Migration: spec, plan, eslint-config retirement, packages/config as source** — config_centralization_spec, config_centralization_plan, config_eslint_config_pkg, readme_pkg_config, config_centralization_goal [EXTRACTED 1.00]
+### Community 0 - "Community 0"
 
-## Communities (464 total, 75 thin omitted)
+Cohesion: 0.12
+Nodes (6): fetchData(), fetchOrders(), fetchProducts(), getItems(), getStats(), getTotalPages()
 
-### Community 0 - "Prisma Schema Enums"
+### Community 1 - "Community 1"
 
-Cohesion: 0.01
-Nodes (334): AdCampaignScalarFieldEnum, AdClickScalarFieldEnum, AdGroupScalarFieldEnum, AdImpressionScalarFieldEnum, AdKeywordScalarFieldEnum, AdminAuditLogScalarFieldEnum, AdminNotificationScalarFieldEnum, AdminRoleAssignmentScalarFieldEnum (+326 more)
+Cohesion: 0.16
+Nodes (1): ProductService
 
-### Community 1 - "Prisma Filter Types"
+### Community 2 - "Community 2"
 
-Cohesion: 0.01
-Nodes (277): BoolFilter, BoolWithAggregatesFilter, DateTimeFilter, DateTimeNullableFilter, DateTimeNullableWithAggregatesFilter, DateTimeWithAggregatesFilter, DecimalFilter, DecimalNullableFilter (+269 more)
+Cohesion: 0.15
+Nodes (1): ProductRepository
 
-### Community 2 - "Shop Domain Models"
+### Community 3 - "Community 3"
 
-Cohesion: 0.01
-Nodes (140): AggregateShop, EnumShopStatusFieldUpdateOperationsInput, GetShopAggregateType, GetShopGroupByPayload, Prisma\_\_ShopClient, Shop$couponsArgs, Shop$notificationsArgs, Shop$productsArgs (+132 more)
+Cohesion: 0.12
+Nodes (1): GrowthService
 
-### Community 3 - "Product Domain Models"
+### Community 4 - "Community 4"
 
-Cohesion: 0.01
-Nodes (137): AggregateProduct, EnumProductStatusFieldUpdateOperationsInput, GetProductAggregateType, GetProductGroupByPayload, NullableDecimalFieldUpdateOperationsInput, Prisma\_\_ProductClient, Product$categoryArgs, Product$imagesArgs (+129 more)
+Cohesion: 0.2
+Nodes (4): AuthController, getClientIp(), getCookieValue(), getSessionIdFromRequest()
 
-### Community 4 - "Seller Order Models"
+### Community 5 - "Community 5"
 
-Cohesion: 0.02
-Nodes (132): AggregateSellerOrder, GetSellerOrderAggregateType, GetSellerOrderGroupByPayload, Prisma\_\_SellerOrderClient, SellerOrder$auditLogsArgs, SellerOrder$itemsArgs, SellerOrder$shipmentArgs, SellerOrderAggregateArgs (+124 more)
+Cohesion: 0.13
+Nodes (1): GrowthController
 
-### Community 5 - "User Domain Models"
+### Community 6 - "Community 6"
 
-Cohesion: 0.02
-Nodes (131): AggregateUser, BoolFieldUpdateOperationsInput, DateTimeFieldUpdateOperationsInput, EnumUserStatusFieldUpdateOperationsInput, GetUserAggregateType, GetUserGroupByPayload, NullableStringFieldUpdateOperationsInput, Prisma\_\_UserClient (+123 more)
+Cohesion: 0.17
+Nodes (1): ProductsService
 
-### Community 6 - "Prisma Browser Types"
+### Community 7 - "Community 7"
 
-Cohesion: 0.02
-Nodes (130): AdCampaignScalarFieldEnum, AdClickScalarFieldEnum, AdGroupScalarFieldEnum, AdImpressionScalarFieldEnum, AdKeywordScalarFieldEnum, AdminAuditLogScalarFieldEnum, AdminNotificationScalarFieldEnum, AdminRoleAssignmentScalarFieldEnum (+122 more)
+Cohesion: 0.13
+Nodes (1): ProductsController
 
-### Community 7 - "Coupon Domain Models"
+### Community 8 - "Community 8"
 
-Cohesion: 0.02
-Nodes (123): AggregateCoupon, Coupon$couponCategoriesArgs, Coupon$couponProductsArgs, Coupon$couponUsagesArgs, CouponAggregateArgs, CouponAvgAggregateInputType, CouponAvgAggregateOutputType, CouponAvgOrderByAggregateInput (+115 more)
+Cohesion: 0.14
+Nodes (2): AuthService, parseAdminSessionData()
 
-### Community 8 - "Client Entity Types"
+### Community 9 - "Community 9"
 
-Cohesion: 0.02
-Nodes (121): Ad, AdCampaign, AdClick, AdGroup, AdImpression, AdKeyword, Admin, AdminAuditLog (+113 more)
+Cohesion: 0.14
+Nodes (1): I18nService
 
-### Community 9 - "Browser Client Types"
+### Community 10 - "Community 10"
 
-Cohesion: 0.02
-Nodes (121): Ad, AdCampaign, AdClick, AdGroup, AdImpression, AdKeyword, Admin, AdminAuditLog (+113 more)
+Cohesion: 0.18
+Nodes (1): LoyaltyService
 
-### Community 10 - "Category Domain Models"
+### Community 11 - "Community 11"
 
-Cohesion: 0.02
-Nodes (121): AggregateCategory, Category$categoryAttributesArgs, Category$childrenArgs, Category$parentArgs, Category$productsArgs, CategoryAggregateArgs, CategoryAvgAggregateInputType, CategoryAvgAggregateOutputType (+113 more)
+Cohesion: 0.29
+Nodes (11): getAdminPort(), getAdminThrottleConfig(), getCorsOrigins(), getDefaultThrottleConfig(), getRedisConfig(), getSellerPort(), getSmtpConfig(), getStorefrontPort() (+3 more)
 
-### Community 11 - "Product Variant Models"
+### Community 12 - "Community 12"
 
-Cohesion: 0.02
-Nodes (119): AggregateProductVariant, DecimalFieldUpdateOperationsInput, GetProductVariantAggregateType, GetProductVariantGroupByPayload, Prisma\_\_ProductVariantClient, ProductVariant$inventoryTransactionsArgs, ProductVariant$optionValuesArgs, ProductVariant$sellerOrderItemsArgs (+111 more)
+Cohesion: 0.17
+Nodes (1): RedisService
 
-### Community 12 - "Warehouse Domain Models"
+### Community 13 - "Community 13"
 
-Cohesion: 0.02
-Nodes (113): AggregateWarehouse, GetWarehouseAggregateType, GetWarehouseGroupByPayload, Prisma\_\_WarehouseClient, Warehouse$stocksArgs, Warehouse$transfersFromArgs, Warehouse$transfersToArgs, WarehouseAggregateArgs (+105 more)
+Cohesion: 0.17
+Nodes (2): BulkUpdateStatusDto, ProductController
 
-### Community 13 - "Loyalty Account Models"
+### Community 14 - "Community 14"
 
-Cohesion: 0.02
-Nodes (108): AggregateLoyaltyAccount, GetLoyaltyAccountAggregateType, GetLoyaltyAccountGroupByPayload, LoyaltyAccount$missionProgressArgs, LoyaltyAccount$tierArgs, LoyaltyAccount$transactionsArgs, LoyaltyAccountAggregateArgs, LoyaltyAccountAvgAggregateInputType (+100 more)
+Cohesion: 0.17
+Nodes (1): AffiliateService
 
-### Community 14 - "Ad Domain Models"
+### Community 15 - "Community 15"
 
-Cohesion: 0.02
-Nodes (107): Ad$clickLogsArgs, Ad$impressionLogsArgs, AdAggregateArgs, AdAvgAggregateInputType, AdAvgAggregateOutputType, AdAvgOrderByAggregateInput, AdCountAggregateInputType, AdCountAggregateOutputType (+99 more)
+Cohesion: 0.17
+Nodes (1): WarehouseController
 
-### Community 15 - "Affiliate Link Models"
+### Community 16 - "Community 16"
 
-Cohesion: 0.02
-Nodes (107): AffiliateLink$trackClicksArgs, AffiliateLink$trackConversionsArgs, AffiliateLinkAggregateArgs, AffiliateLinkAvgAggregateInputType, AffiliateLinkAvgAggregateOutputType, AffiliateLinkAvgOrderByAggregateInput, AffiliateLinkCountAggregateInputType, AffiliateLinkCountAggregateOutputType (+99 more)
+Cohesion: 0.17
+Nodes (1): WarehouseService
 
-### Community 16 - "Inventory Transfer Models"
+### Community 17 - "Community 17"
 
-Cohesion: 0.02
-Nodes (106): AggregateInventoryTransfer, EnumInventoryTransferStatusFieldUpdateOperationsInput, GetInventoryTransferAggregateType, GetInventoryTransferGroupByPayload, InventoryTransfer$itemsArgs, InventoryTransferAggregateArgs, InventoryTransferCountAggregateInputType, InventoryTransferCountAggregateOutputType (+98 more)
+Cohesion: 0.29
+Nodes (7): useApproveProduct(), useBulkApproveProducts(), useBulkRejectProducts(), useHideProduct(), useInvalidateProducts(), useRejectProduct(), useUnhideProduct()
 
-### Community 17 - "Return Request Models"
+### Community 18 - "Community 18"
 
-Cohesion: 0.02
-Nodes (103): AggregateReturnRequest, EnumReturnReasonFieldUpdateOperationsInput, EnumReturnStatusFieldUpdateOperationsInput, GetReturnRequestAggregateType, GetReturnRequestGroupByPayload, NullableEnumRefundMethodFieldUpdateOperationsInput, Prisma\_\_ReturnRequestClient, ReturnRequest$evidenceArgs (+95 more)
+Cohesion: 0.18
+Nodes (1): FlashSaleService
 
-### Community 18 - "Review Domain Models"
+### Community 19 - "Community 19"
 
-Cohesion: 0.02
-Nodes (101): AggregateReview, EnumReviewStatusFieldUpdateOperationsInput, GetReviewAggregateType, GetReviewGroupByPayload, Prisma\_\_ReviewClient, Review$imagesArgs, Review$repliesArgs, Review$reportsArgs (+93 more)
-
-### Community 19 - "Ad Group Models"
-
-Cohesion: 0.02
-Nodes (101): AdGroup$adsArgs, AdGroup$keywordsArgs, AdGroupAggregateArgs, AdGroupCountAggregateInputType, AdGroupCountAggregateOutputType, AdGroupCountArgs, AdGroupCountOrderByAggregateInput, AdGroupCountOutputType (+93 more)
+Cohesion: 0.18
+Nodes (2): AdsController, UpdateAdCampaignStatusDto
 
 ### Community 20 - "Community 20"
 
-Cohesion: 0.02
-Nodes (97): AggregateProductVariantOption, GetProductVariantOptionAggregateType, GetProductVariantOptionGroupByPayload, Prisma\_\_ProductVariantOptionClient, ProductVariantOption$variantOptionsArgs, ProductVariantOptionAggregateArgs, ProductVariantOptionAvgAggregateInputType, ProductVariantOptionAvgAggregateOutputType (+89 more)
+Cohesion: 0.18
+Nodes (1): SubscriptionService
 
 ### Community 21 - "Community 21"
 
-Cohesion: 0.02
-Nodes (97): AggregateProductVariantOptionGroup, GetProductVariantOptionGroupAggregateType, GetProductVariantOptionGroupGroupByPayload, Prisma\_\_ProductVariantOptionGroupClient, ProductVariantOptionGroup$optionsArgs, ProductVariantOptionGroupAggregateArgs, ProductVariantOptionGroupAvgAggregateInputType, ProductVariantOptionGroupAvgAggregateOutputType (+89 more)
+Cohesion: 0.18
+Nodes (1): LivestreamService
 
 ### Community 22 - "Community 22"
 
-Cohesion: 0.02
-Nodes (97): AggregateLoyaltyMissionProgress, GetLoyaltyMissionProgressAggregateType, GetLoyaltyMissionProgressGroupByPayload, LoyaltyMissionProgressAccountIdMissionIdCompoundUniqueInput, LoyaltyMissionProgressAggregateArgs, LoyaltyMissionProgressAvgAggregateInputType, LoyaltyMissionProgressAvgAggregateOutputType, LoyaltyMissionProgressAvgOrderByAggregateInput (+89 more)
+Cohesion: 0.18
+Nodes (1): I18nController
 
 ### Community 23 - "Community 23"
 
-Cohesion: 0.02
-Nodes (96): Admin$adminAuditLogsArgs, Admin$adminRolesArgs, Admin$adminSessionsArgs, AdminAggregateArgs, AdminCountAggregateInputType, AdminCountAggregateOutputType, AdminCountArgs, AdminCountOrderByAggregateInput (+88 more)
+Cohesion: 0.2
+Nodes (0):
 
 ### Community 24 - "Community 24"
 
-Cohesion: 0.02
-Nodes (96): AggregateSellerOrderItem, GetSellerOrderItemAggregateType, GetSellerOrderItemGroupByPayload, Prisma\_\_SellerOrderItemClient, SellerOrderItemAggregateArgs, SellerOrderItemAvgAggregateInputType, SellerOrderItemAvgAggregateOutputType, SellerOrderItemAvgOrderByAggregateInput (+88 more)
+Cohesion: 0.36
+Nodes (5): AllExceptionsFilter, isAppError(), isPrismaKnownError(), isPrismaValidationError(), mapPrismaError()
 
 ### Community 25 - "Community 25"
 
-Cohesion: 0.02
-Nodes (91): AggregateProductVariantOptionValue, GetProductVariantOptionValueAggregateType, GetProductVariantOptionValueGroupByPayload, Prisma\_\_ProductVariantOptionValueClient, ProductVariantOptionValueAggregateArgs, ProductVariantOptionValueCountAggregateInputType, ProductVariantOptionValueCountAggregateOutputType, ProductVariantOptionValueCountArgs (+83 more)
+Cohesion: 0.2
+Nodes (0):
 
 ### Community 26 - "Community 26"
 
-Cohesion: 0.02
-Nodes (91): AggregateSeller, EnumSellerStatusFieldUpdateOperationsInput, GetSellerAggregateType, GetSellerGroupByPayload, Prisma\_\_SellerClient, Seller$verificationsArgs, SellerAggregateArgs, SellerCountAggregateInputType (+83 more)
+Cohesion: 0.2
+Nodes (1): AdsService
 
 ### Community 27 - "Community 27"
 
-Cohesion: 0.02
-Nodes (91): AdminRoleAssignmentAdminIdAdminRoleIdCompoundUniqueInput, AdminRoleAssignmentAggregateArgs, AdminRoleAssignmentCountAggregateInputType, AdminRoleAssignmentCountAggregateOutputType, AdminRoleAssignmentCountArgs, AdminRoleAssignmentCountOrderByAggregateInput, AdminRoleAssignmentCreateArgs, AdminRoleAssignmentCreateInput (+83 more)
+Cohesion: 0.2
+Nodes (1): ChatGateway
 
 ### Community 28 - "Community 28"
 
-Cohesion: 0.02
-Nodes (91): AggregateSellerShippingMethod, GetSellerShippingMethodAggregateType, GetSellerShippingMethodGroupByPayload, Prisma\_\_SellerShippingMethodClient, SellerShippingMethodAggregateArgs, SellerShippingMethodCountAggregateInputType, SellerShippingMethodCountAggregateOutputType, SellerShippingMethodCountArgs (+83 more)
+Cohesion: 0.2
+Nodes (1): EventStreamingService
 
 ### Community 29 - "Community 29"
 
-Cohesion: 0.02
-Nodes (91): AggregateSellerSubscription, EnumSubscriptionStatusFieldUpdateOperationsInput, GetSellerSubscriptionAggregateType, GetSellerSubscriptionGroupByPayload, Prisma\_\_SellerSubscriptionClient, SellerSubscription$invoicesArgs, SellerSubscriptionAggregateArgs, SellerSubscriptionCountAggregateInputType (+83 more)
+Cohesion: 0.2
+Nodes (1): SubscriptionController
 
 ### Community 30 - "Community 30"
 
-Cohesion: 0.02
-Nodes (91): AggregateUserRole, GetUserRoleAggregateType, GetUserRoleGroupByPayload, Prisma\_\_UserRoleClient, UserRoleAggregateArgs, UserRoleCountAggregateInputType, UserRoleCountAggregateOutputType, UserRoleCountArgs (+83 more)
+Cohesion: 0.2
+Nodes (1): LivestreamController
 
 ### Community 31 - "Community 31"
 
-Cohesion: 0.02
-Nodes (90): AggregateWallet, GetWalletAggregateType, GetWalletGroupByPayload, Prisma\_\_WalletClient, Wallet$transactionsArgs, Wallet$withdrawalsArgs, WalletAggregateArgs, WalletAvgAggregateInputType (+82 more)
+Cohesion: 0.2
+Nodes (1): InventoryRepository
 
 ### Community 32 - "Community 32"
 
-Cohesion: 0.02
-Nodes (90): AggregateLivestreamSession, EnumLivestreamStatusFieldUpdateOperationsInput, GetLivestreamSessionAggregateType, GetLivestreamSessionGroupByPayload, LivestreamSession$chatMessagesArgs, LivestreamSession$productsArgs, LivestreamSessionAggregateArgs, LivestreamSessionAvgAggregateInputType (+82 more)
+Cohesion: 0.22
+Nodes (1): AutomationService
 
 ### Community 33 - "Community 33"
 
-Cohesion: 0.02
-Nodes (90): AffiliatePartner$linksArgs, AffiliatePartner$payoutsArgs, AffiliatePartnerAggregateArgs, AffiliatePartnerAvgAggregateInputType, AffiliatePartnerAvgAggregateOutputType, AffiliatePartnerAvgOrderByAggregateInput, AffiliatePartnerCountAggregateInputType, AffiliatePartnerCountAggregateOutputType (+82 more)
+Cohesion: 0.27
+Nodes (1): CategoriesService
 
 ### Community 34 - "Community 34"
 
-Cohesion: 0.02
-Nodes (89): AggregateSubscriptionPlan, GetSubscriptionPlanAggregateType, GetSubscriptionPlanGroupByPayload, Prisma\_\_SubscriptionPlanClient, SubscriptionPlan$entitlementsArgs, SubscriptionPlan$subscriptionsArgs, SubscriptionPlanAggregateArgs, SubscriptionPlanAvgAggregateInputType (+81 more)
+Cohesion: 0.2
+Nodes (1): CategoriesController
 
 ### Community 35 - "Community 35"
 
-Cohesion: 0.02
-Nodes (88): AggregateShipment, EnumShipmentStatusFieldUpdateOperationsInput, GetShipmentAggregateType, GetShipmentGroupByPayload, Prisma\_\_ShipmentClient, ShipmentAggregateArgs, ShipmentCountAggregateInputType, ShipmentCountAggregateOutputType (+80 more)
+Cohesion: 0.22
+Nodes (0):
 
 ### Community 36 - "Community 36"
 
-Cohesion: 0.02
-Nodes (84): AdminRole$adminsArgs, AdminRole$permissionsArgs, AdminRoleAggregateArgs, AdminRoleCountAggregateInputType, AdminRoleCountAggregateOutputType, AdminRoleCountArgs, AdminRoleCountOrderByAggregateInput, AdminRoleCountOutputType (+76 more)
+Cohesion: 0.25
+Nodes (2): SidebarMenuButton(), useSidebar()
 
 ### Community 37 - "Community 37"
 
-Cohesion: 0.02
-Nodes (84): AggregateAiTask, AiTask$templateArgs, AiTaskAggregateArgs, AiTaskAvgAggregateInputType, AiTaskAvgAggregateOutputType, AiTaskAvgOrderByAggregateInput, AiTaskCountAggregateInputType, AiTaskCountAggregateOutputType (+76 more)
+Cohesion: 0.22
+Nodes (0):
 
 ### Community 38 - "Community 38"
 
-Cohesion: 0.02
-Nodes (83): AggregateWalletTransaction, EnumWalletTransactionStatusFieldUpdateOperationsInput, EnumWalletTransactionTypeFieldUpdateOperationsInput, GetWalletTransactionAggregateType, GetWalletTransactionGroupByPayload, Prisma\_\_WalletTransactionClient, WalletTransactionAggregateArgs, WalletTransactionAvgAggregateInputType (+75 more)
+Cohesion: 0.36
+Nodes (2): isSessionData(), SessionService
 
 ### Community 39 - "Community 39"
 
-Cohesion: 0.02
-Nodes (83): AggregateFlashSaleSlot, EnumFlashSaleSlotStatusFieldUpdateOperationsInput, FlashSaleSlotAggregateArgs, FlashSaleSlotAvgAggregateInputType, FlashSaleSlotAvgAggregateOutputType, FlashSaleSlotAvgOrderByAggregateInput, FlashSaleSlotCampaignIdProductIdVariantIdCompoundUniqueInput, FlashSaleSlotCountAggregateInputType (+75 more)
+Cohesion: 0.25
+Nodes (1): RecommendationService
 
 ### Community 40 - "Community 40"
 
-Cohesion: 0.02
-Nodes (83): AggregateShippingProvider, GetShippingProviderAggregateType, GetShippingProviderGroupByPayload, Prisma\_\_ShippingProviderClient, ShippingProvider$sellerShippingMethodsArgs, ShippingProvider$shipmentsArgs, ShippingProviderAggregateArgs, ShippingProviderCountAggregateInputType (+75 more)
+Cohesion: 0.22
+Nodes (1): ChatService
 
 ### Community 41 - "Community 41"
 
-Cohesion: 0.02
-Nodes (83): AggregateRegion, GetRegionAggregateType, GetRegionGroupByPayload, Prisma\_\_RegionClient, Region$regionalPricingsArgs, Region$taxRatesArgs, RegionAggregateArgs, RegionCountAggregateInputType (+75 more)
+Cohesion: 0.22
+Nodes (1): ChatController
 
 ### Community 42 - "Community 42"
 
-Cohesion: 0.02
-Nodes (82): AggregateAttributeValue, AttributeValueAggregateArgs, AttributeValueAvgAggregateInputType, AttributeValueAvgAggregateOutputType, AttributeValueAvgOrderByAggregateInput, AttributeValueCountAggregateInputType, AttributeValueCountAggregateOutputType, AttributeValueCountArgs (+74 more)
+Cohesion: 0.22
+Nodes (2): ReturnController, UpdateReturnStatusDto
 
 ### Community 43 - "Community 43"
 
-Cohesion: 0.02
-Nodes (82): AggregateInventoryTransaction, EnumInventoryTransactionTypeFieldUpdateOperationsInput, GetInventoryTransactionAggregateType, GetInventoryTransactionGroupByPayload, InventoryTransactionAggregateArgs, InventoryTransactionAvgAggregateInputType, InventoryTransactionAvgAggregateOutputType, InventoryTransactionAvgOrderByAggregateInput (+74 more)
+Cohesion: 0.22
+Nodes (1): CouponController
 
 ### Community 44 - "Community 44"
 
-Cohesion: 0.02
-Nodes (82): AdKeywordAdGroupIdKeywordCompoundUniqueInput, AdKeywordAggregateArgs, AdKeywordAvgAggregateInputType, AdKeywordAvgAggregateOutputType, AdKeywordAvgOrderByAggregateInput, AdKeywordCountAggregateInputType, AdKeywordCountAggregateOutputType, AdKeywordCountArgs (+74 more)
+Cohesion: 0.22
+Nodes (1): CouponService
 
 ### Community 45 - "Community 45"
 
-Cohesion: 0.02
-Nodes (82): AggregateLoyaltyTransaction, EnumLoyaltyTransactionTypeFieldUpdateOperationsInput, GetLoyaltyTransactionAggregateType, GetLoyaltyTransactionGroupByPayload, LoyaltyTransactionAggregateArgs, LoyaltyTransactionAvgAggregateInputType, LoyaltyTransactionAvgAggregateOutputType, LoyaltyTransactionAvgOrderByAggregateInput (+74 more)
+Cohesion: 0.25
+Nodes (1): AiToolsService
 
 ### Community 46 - "Community 46"
 
-Cohesion: 0.02
-Nodes (82): AggregateWarehouseStock, GetWarehouseStockAggregateType, GetWarehouseStockGroupByPayload, Prisma\_\_WarehouseStockClient, WarehouseStockAggregateArgs, WarehouseStockAvgAggregateInputType, WarehouseStockAvgAggregateOutputType, WarehouseStockAvgOrderByAggregateInput (+74 more)
+Cohesion: 0.33
+Nodes (1): ReviewService
 
 ### Community 47 - "Community 47"
 
-Cohesion: 0.02
-Nodes (82): AggregateWalletWithdrawal, EnumWithdrawalStatusFieldUpdateOperationsInput, GetWalletWithdrawalAggregateType, GetWalletWithdrawalGroupByPayload, Prisma\_\_WalletWithdrawalClient, WalletWithdrawalAggregateArgs, WalletWithdrawalAvgAggregateInputType, WalletWithdrawalAvgAggregateOutputType (+74 more)
+Cohesion: 0.22
+Nodes (1): WalletService
 
 ### Community 48 - "Community 48"
 
-Cohesion: 0.02
-Nodes (82): AggregateLivestreamProduct, GetLivestreamProductAggregateType, GetLivestreamProductGroupByPayload, LivestreamProductAggregateArgs, LivestreamProductAvgAggregateInputType, LivestreamProductAvgAggregateOutputType, LivestreamProductAvgOrderByAggregateInput, LivestreamProductCountAggregateInputType (+74 more)
+Cohesion: 0.31
+Nodes (1): UsersService
 
 ### Community 49 - "Community 49"
 
-Cohesion: 0.02
-Nodes (82): AggregateSubscriptionInvoice, EnumInvoiceStatusFieldUpdateOperationsInput, GetSubscriptionInvoiceAggregateType, GetSubscriptionInvoiceGroupByPayload, Prisma\_\_SubscriptionInvoiceClient, SubscriptionInvoiceAggregateArgs, SubscriptionInvoiceAvgAggregateInputType, SubscriptionInvoiceAvgAggregateOutputType (+74 more)
+Cohesion: 0.22
+Nodes (1): UsersController
 
 ### Community 50 - "Community 50"
 
-Cohesion: 0.02
-Nodes (82): AggregateRegionalPricing, GetRegionalPricingAggregateType, GetRegionalPricingGroupByPayload, Prisma\_\_RegionalPricingClient, RegionalPricingAggregateArgs, RegionalPricingAvgAggregateInputType, RegionalPricingAvgAggregateOutputType, RegionalPricingAvgOrderByAggregateInput (+74 more)
+Cohesion: 0.22
+Nodes (1): NotificationsController
 
 ### Community 51 - "Community 51"
 
-Cohesion: 0.02
-Nodes (82): AggregateCommissionPayout, CommissionPayoutAggregateArgs, CommissionPayoutAvgAggregateInputType, CommissionPayoutAvgAggregateOutputType, CommissionPayoutAvgOrderByAggregateInput, CommissionPayoutCountAggregateInputType, CommissionPayoutCountAggregateOutputType, CommissionPayoutCountArgs (+74 more)
+Cohesion: 0.28
+Nodes (1): NotificationsService
 
 ### Community 52 - "Community 52"
 
-Cohesion: 0.02
-Nodes (81): AggregateSettlementItem, GetSettlementItemAggregateType, GetSettlementItemGroupByPayload, Prisma\_\_SettlementItemClient, SettlementItemAggregateArgs, SettlementItemAvgAggregateInputType, SettlementItemAvgAggregateOutputType, SettlementItemAvgOrderByAggregateInput (+73 more)
+Cohesion: 0.22
+Nodes (1): SellersController
 
 ### Community 53 - "Community 53"
 
-Cohesion: 0.02
-Nodes (81): AggregateProductImage, GetProductImageAggregateType, GetProductImageGroupByPayload, Prisma\_\_ProductImageClient, ProductImageAggregateArgs, ProductImageAvgAggregateInputType, ProductImageAvgAggregateOutputType, ProductImageAvgOrderByAggregateInput (+73 more)
+Cohesion: 0.31
+Nodes (1): SellersService
 
 ### Community 54 - "Community 54"
 
-Cohesion: 0.02
-Nodes (81): AggregateReviewImage, GetReviewImageAggregateType, GetReviewImageGroupByPayload, Prisma\_\_ReviewImageClient, ReviewImageAggregateArgs, ReviewImageAvgAggregateInputType, ReviewImageAvgAggregateOutputType, ReviewImageAvgOrderByAggregateInput (+73 more)
+Cohesion: 0.22
+Nodes (1): ReviewsController
 
 ### Community 55 - "Community 55"
 
-Cohesion: 0.02
-Nodes (81): AdClickAggregateArgs, AdClickAvgAggregateInputType, AdClickAvgAggregateOutputType, AdClickAvgOrderByAggregateInput, AdClickCountAggregateInputType, AdClickCountAggregateOutputType, AdClickCountArgs, AdClickCountOrderByAggregateInput (+73 more)
+Cohesion: 0.31
+Nodes (1): ReviewsService
 
 ### Community 56 - "Community 56"
 
-Cohesion: 0.02
-Nodes (81): AdImpressionAggregateArgs, AdImpressionAvgAggregateInputType, AdImpressionAvgAggregateOutputType, AdImpressionAvgOrderByAggregateInput, AdImpressionCountAggregateInputType, AdImpressionCountAggregateOutputType, AdImpressionCountArgs, AdImpressionCountOrderByAggregateInput (+73 more)
+Cohesion: 0.25
+Nodes (0):
 
 ### Community 57 - "Community 57"
 
-Cohesion: 0.02
-Nodes (81): AffiliateConversionAggregateArgs, AffiliateConversionAvgAggregateInputType, AffiliateConversionAvgAggregateOutputType, AffiliateConversionAvgOrderByAggregateInput, AffiliateConversionCountAggregateInputType, AffiliateConversionCountAggregateOutputType, AffiliateConversionCountArgs, AffiliateConversionCountOrderByAggregateInput (+73 more)
+Cohesion: 0.36
+Nodes (4): useActivateUser(), useBanUser(), useInvalidateUsers(), useSuspendUser()
 
 ### Community 58 - "Community 58"
 
-Cohesion: 0.02
-Nodes (81): AggregateLoyaltyRedemption, GetLoyaltyRedemptionAggregateType, GetLoyaltyRedemptionGroupByPayload, LoyaltyRedemptionAggregateArgs, LoyaltyRedemptionAvgAggregateInputType, LoyaltyRedemptionAvgAggregateOutputType, LoyaltyRedemptionAvgOrderByAggregateInput, LoyaltyRedemptionCountAggregateInputType (+73 more)
+Cohesion: 0.25
+Nodes (1): BulkService
 
 ### Community 59 - "Community 59"
 
-Cohesion: 0.02
-Nodes (81): AggregateTaxRate, GetTaxRateAggregateType, GetTaxRateGroupByPayload, Prisma\_\_TaxRateClient, TaxRateAggregateArgs, TaxRateAvgAggregateInputType, TaxRateAvgAggregateOutputType, TaxRateAvgOrderByAggregateInput (+73 more)
+Cohesion: 0.25
+Nodes (1): NotificationService
 
 ### Community 60 - "Community 60"
 
-Cohesion: 0.02
-Nodes (81): AggregateExperimentVariant, ExperimentVariantAggregateArgs, ExperimentVariantAvgAggregateInputType, ExperimentVariantAvgAggregateOutputType, ExperimentVariantAvgOrderByAggregateInput, ExperimentVariantCountAggregateInputType, ExperimentVariantCountAggregateOutputType, ExperimentVariantCountArgs (+73 more)
+Cohesion: 0.25
+Nodes (1): EventStreamingController
 
 ### Community 61 - "Community 61"
 
-Cohesion: 0.02
-Nodes (81): AggregateReturnItem, GetReturnItemAggregateType, GetReturnItemGroupByPayload, Prisma\_\_ReturnItemClient, ReturnItemAggregateArgs, ReturnItemAvgAggregateInputType, ReturnItemAvgAggregateOutputType, ReturnItemAvgOrderByAggregateInput (+73 more)
+Cohesion: 0.25
+Nodes (1): ReturnService
 
 ### Community 62 - "Community 62"
 
-Cohesion: 0.02
-Nodes (81): AggregateCouponUsage, CouponUsageAggregateArgs, CouponUsageAvgAggregateInputType, CouponUsageAvgAggregateOutputType, CouponUsageAvgOrderByAggregateInput, CouponUsageCountAggregateInputType, CouponUsageCountAggregateOutputType, CouponUsageCountArgs (+73 more)
+Cohesion: 0.25
+Nodes (1): ShippingService
 
 ### Community 63 - "Community 63"
 
-Cohesion: 0.02
-Nodes (81): AggregateInventoryTransferItem, GetInventoryTransferItemAggregateType, GetInventoryTransferItemGroupByPayload, InventoryTransferItemAggregateArgs, InventoryTransferItemAvgAggregateInputType, InventoryTransferItemAvgAggregateOutputType, InventoryTransferItemAvgOrderByAggregateInput, InventoryTransferItemCountAggregateInputType (+73 more)
+Cohesion: 0.25
+Nodes (1): ShippingController
 
 ### Community 64 - "Community 64"
 
-Cohesion: 0.02
-Nodes (80): AggregateSellerProfile, GetSellerProfileAggregateType, GetSellerProfileGroupByPayload, Prisma\_\_SellerProfileClient, SellerProfile$shopArgs, SellerProfileAggregateArgs, SellerProfileCountAggregateInputType, SellerProfileCountAggregateOutputType (+72 more)
+Cohesion: 0.25
+Nodes (1): SearchController
 
 ### Community 65 - "Community 65"
 
-Cohesion: 0.02
-Nodes (80): AggregateAutomationRule, AutomationRule$executionsArgs, AutomationRuleAggregateArgs, AutomationRuleAvgAggregateInputType, AutomationRuleAvgAggregateOutputType, AutomationRuleAvgOrderByAggregateInput, AutomationRuleCountAggregateInputType, AutomationRuleCountAggregateOutputType (+72 more)
+Cohesion: 0.25
+Nodes (1): SearchService
 
 ### Community 66 - "Community 66"
 
-Cohesion: 0.02
-Nodes (80): AdCampaign$adGroupsArgs, AdCampaignAggregateArgs, AdCampaignAvgAggregateInputType, AdCampaignAvgAggregateOutputType, AdCampaignAvgOrderByAggregateInput, AdCampaignCountAggregateInputType, AdCampaignCountAggregateOutputType, AdCampaignCountArgs (+72 more)
+Cohesion: 0.25
+Nodes (1): AiToolsController
 
 ### Community 67 - "Community 67"
 
-Cohesion: 0.03
-Nodes (79): AggregateAiPromptTemplate, AiPromptTemplate$tasksArgs, AiPromptTemplateAggregateArgs, AiPromptTemplateAvgAggregateInputType, AiPromptTemplateAvgAggregateOutputType, AiPromptTemplateAvgOrderByAggregateInput, AiPromptTemplateCountAggregateInputType, AiPromptTemplateCountAggregateOutputType (+71 more)
+Cohesion: 0.25
+Nodes (1): ReviewController
 
 ### Community 68 - "Community 68"
 
-Cohesion: 0.03
-Nodes (79): AggregateExperiment, EnumExperimentStatusFieldUpdateOperationsInput, Experiment$variantsArgs, ExperimentAggregateArgs, ExperimentAvgAggregateInputType, ExperimentAvgAggregateOutputType, ExperimentAvgOrderByAggregateInput, ExperimentCountAggregateInputType (+71 more)
+Cohesion: 0.25
+Nodes (1): InventoryService
 
 ### Community 69 - "Community 69"
 
-Cohesion: 0.03
-Nodes (79): AggregateProductApproval, EnumApprovalStatusFieldUpdateOperationsInput, GetProductApprovalAggregateType, GetProductApprovalGroupByPayload, Prisma\_\_ProductApprovalClient, ProductApproval$historyArgs, ProductApprovalAggregateArgs, ProductApprovalAvgAggregateInputType (+71 more)
+Cohesion: 0.25
+Nodes (1): InventoryController
 
 ### Community 70 - "Community 70"
 
-Cohesion: 0.03
-Nodes (79): AggregateOrder, EnumOrderStatusFieldUpdateOperationsInput, GetOrderAggregateType, GetOrderGroupByPayload, Order$sellerOrdersArgs, OrderAggregateArgs, OrderAvgAggregateInputType, OrderAvgAggregateOutputType (+71 more)
+Cohesion: 0.25
+Nodes (1): AffiliateController
 
 ### Community 71 - "Community 71"
 
-Cohesion: 0.03
-Nodes (79): AggregateConversation, Conversation$messagesArgs, ConversationAggregateArgs, ConversationAvgAggregateInputType, ConversationAvgAggregateOutputType, ConversationAvgOrderByAggregateInput, ConversationCountAggregateInputType, ConversationCountAggregateOutputType (+71 more)
+Cohesion: 0.25
+Nodes (1): AutomationController
 
 ### Community 72 - "Community 72"
 
-Cohesion: 0.03
-Nodes (79): AggregateFlashSaleCampaign, EnumFlashSaleStatusFieldUpdateOperationsInput, FlashSaleCampaign$slotsArgs, FlashSaleCampaignAggregateArgs, FlashSaleCampaignAvgAggregateInputType, FlashSaleCampaignAvgAggregateOutputType, FlashSaleCampaignAvgOrderByAggregateInput, FlashSaleCampaignCountAggregateInputType (+71 more)
+Cohesion: 0.25
+Nodes (1): AnalyticsController
 
 ### Community 73 - "Community 73"
 
-Cohesion: 0.03
-Nodes (78): AggregateAttributeGroup, AttributeGroup$valuesArgs, AttributeGroupAggregateArgs, AttributeGroupAvgAggregateInputType, AttributeGroupAvgAggregateOutputType, AttributeGroupAvgOrderByAggregateInput, AttributeGroupCountAggregateInputType, AttributeGroupCountAggregateOutputType (+70 more)
+Cohesion: 0.25
+Nodes (1): AnalyticsService
 
 ### Community 74 - "Community 74"
 
-Cohesion: 0.03
-Nodes (78): AggregateLoyaltyMission, GetLoyaltyMissionAggregateType, GetLoyaltyMissionGroupByPayload, LoyaltyMission$progressArgs, LoyaltyMissionAggregateArgs, LoyaltyMissionAvgAggregateInputType, LoyaltyMissionAvgAggregateOutputType, LoyaltyMissionAvgOrderByAggregateInput (+70 more)
+Cohesion: 0.25
+Nodes (1): ApprovalService
 
 ### Community 75 - "Community 75"
 
-Cohesion: 0.03
-Nodes (78): AggregateSettlementBatch, GetSettlementBatchAggregateType, GetSettlementBatchGroupByPayload, Prisma\_\_SettlementBatchClient, SettlementBatch$itemsArgs, SettlementBatchAggregateArgs, SettlementBatchAvgAggregateInputType, SettlementBatchAvgAggregateOutputType (+70 more)
+Cohesion: 0.25
+Nodes (1): ApprovalController
 
 ### Community 76 - "Community 76"
 
-Cohesion: 0.03
-Nodes (78): AggregateLoyaltyReward, GetLoyaltyRewardAggregateType, GetLoyaltyRewardGroupByPayload, LoyaltyReward$redemptionsArgs, LoyaltyRewardAggregateArgs, LoyaltyRewardAvgAggregateInputType, LoyaltyRewardAvgAggregateOutputType, LoyaltyRewardAvgOrderByAggregateInput (+70 more)
+Cohesion: 0.32
+Nodes (1): BannersService
 
 ### Community 77 - "Community 77"
 
-Cohesion: 0.03
-Nodes (78): AggregateLoyaltyTier, GetLoyaltyTierAggregateType, GetLoyaltyTierGroupByPayload, LoyaltyTier$accountsArgs, LoyaltyTierAggregateArgs, LoyaltyTierAvgAggregateInputType, LoyaltyTierAvgAggregateOutputType, LoyaltyTierAvgOrderByAggregateInput (+70 more)
+Cohesion: 0.25
+Nodes (1): BannersController
 
 ### Community 78 - "Community 78"
 
-Cohesion: 0.03
-Nodes (77): AggregateRolePermission, EnumAdminPermissionFieldUpdateOperationsInput, GetRolePermissionAggregateType, GetRolePermissionGroupByPayload, Prisma\_\_RolePermissionClient, RolePermissionAdminRoleIdPermissionCompoundUniqueInput, RolePermissionAggregateArgs, RolePermissionCountAggregateInputType (+69 more)
+Cohesion: 0.25
+Nodes (1): PromotionsController
 
 ### Community 79 - "Community 79"
 
-Cohesion: 0.03
-Nodes (77): AdminAuditLog$adminArgs, AdminAuditLogAggregateArgs, AdminAuditLogCountAggregateInputType, AdminAuditLogCountAggregateOutputType, AdminAuditLogCountArgs, AdminAuditLogCountOrderByAggregateInput, AdminAuditLogCreateArgs, AdminAuditLogCreateInput (+69 more)
+Cohesion: 0.29
+Nodes (1): PromotionsService
 
 ### Community 80 - "Community 80"
 
-Cohesion: 0.06
-Nodes (41): AuditLogService, data, parseAdminSessionData(), AuditLog(), AuditLogMetadata, AdminRequest, AdminSessionData, CurrentAdmin (+33 more)
+Cohesion: 0.25
+Nodes (1): RefundsController
 
 ### Community 81 - "Community 81"
 
-Cohesion: 0.03
-Nodes (76): AggregateChatMessage, ChatMessageAggregateArgs, ChatMessageCountAggregateInputType, ChatMessageCountAggregateOutputType, ChatMessageCountArgs, ChatMessageCountOrderByAggregateInput, ChatMessageCreateArgs, ChatMessageCreateInput (+68 more)
+Cohesion: 0.32
+Nodes (1): RefundsService
 
 ### Community 82 - "Community 82"
 
-Cohesion: 0.03
-Nodes (76): AggregatePlanEntitlement, GetPlanEntitlementAggregateType, GetPlanEntitlementGroupByPayload, PlanEntitlementAggregateArgs, PlanEntitlementCountAggregateInputType, PlanEntitlementCountAggregateOutputType, PlanEntitlementCountArgs, PlanEntitlementCountOrderByAggregateInput (+68 more)
+Cohesion: 0.25
+Nodes (1): OrdersController
 
 ### Community 83 - "Community 83"
 
-Cohesion: 0.03
-Nodes (76): AggregateCouponProduct, CouponProductAggregateArgs, CouponProductCountAggregateInputType, CouponProductCountAggregateOutputType, CouponProductCountArgs, CouponProductCountOrderByAggregateInput, CouponProductCouponIdProductIdCompoundUniqueInput, CouponProductCreateArgs (+68 more)
+Cohesion: 0.32
+Nodes (1): OrdersService
 
 ### Community 84 - "Community 84"
 
-Cohesion: 0.03
-Nodes (76): AggregatePasswordResetToken, GetPasswordResetTokenAggregateType, GetPasswordResetTokenGroupByPayload, NullableDateTimeFieldUpdateOperationsInput, PasswordResetTokenAggregateArgs, PasswordResetTokenCountAggregateInputType, PasswordResetTokenCountAggregateOutputType, PasswordResetTokenCountArgs (+68 more)
+Cohesion: 0.29
+Nodes (0):
 
 ### Community 85 - "Community 85"
 
-Cohesion: 0.03
-Nodes (76): AggregateCategoryAttribute, CategoryAttributeAggregateArgs, CategoryAttributeCategoryIdGroupIdCompoundUniqueInput, CategoryAttributeCountAggregateInputType, CategoryAttributeCountAggregateOutputType, CategoryAttributeCountArgs, CategoryAttributeCountOrderByAggregateInput, CategoryAttributeCreateArgs (+68 more)
+Cohesion: 0.29
+Nodes (0):
 
 ### Community 86 - "Community 86"
 
-Cohesion: 0.03
-Nodes (76): AggregateNotification, EnumNotificationTypeFieldUpdateOperationsInput, GetNotificationAggregateType, GetNotificationGroupByPayload, NotificationAggregateArgs, NotificationCountAggregateInputType, NotificationCountAggregateOutputType, NotificationCountArgs (+68 more)
+Cohesion: 0.29
+Nodes (0):
 
 ### Community 87 - "Community 87"
 
-Cohesion: 0.03
-Nodes (76): AggregateSellerVerification, EnumSellerVerificationStatusFieldUpdateOperationsInput, GetSellerVerificationAggregateType, GetSellerVerificationGroupByPayload, Prisma\_\_SellerVerificationClient, SellerVerificationAggregateArgs, SellerVerificationCountAggregateInputType, SellerVerificationCountAggregateOutputType (+68 more)
+Cohesion: 0.38
+Nodes (3): AuthGuard, getCookieValue(), getSessionIdFromRequest()
 
 ### Community 88 - "Community 88"
 
-Cohesion: 0.03
-Nodes (76): AggregateCouponCategory, CouponCategoryAggregateArgs, CouponCategoryCountAggregateInputType, CouponCategoryCountAggregateOutputType, CouponCategoryCountArgs, CouponCategoryCountOrderByAggregateInput, CouponCategoryCouponIdCategoryIdCompoundUniqueInput, CouponCategoryCreateArgs (+68 more)
+Cohesion: 0.43
+Nodes (4): useCreateBanner(), useDeleteBanner(), useInvalidateBanners(), useUpdateBanner()
 
 ### Community 89 - "Community 89"
 
-Cohesion: 0.03
-Nodes (75): AggregateEmailVerifyToken, EmailVerifyTokenAggregateArgs, EmailVerifyTokenCountAggregateInputType, EmailVerifyTokenCountAggregateOutputType, EmailVerifyTokenCountArgs, EmailVerifyTokenCountOrderByAggregateInput, EmailVerifyTokenCreateArgs, EmailVerifyTokenCreateInput (+67 more)
+Cohesion: 0.38
+Nodes (3): useCreateVoucher(), useInvalidateVouchers(), useUpdateVoucher()
 
 ### Community 90 - "Community 90"
 
-Cohesion: 0.03
-Nodes (75): AggregateReturnTimeline, GetReturnTimelineAggregateType, GetReturnTimelineGroupByPayload, Prisma\_\_ReturnTimelineClient, ReturnTimelineAggregateArgs, ReturnTimelineCountAggregateInputType, ReturnTimelineCountAggregateOutputType, ReturnTimelineCountArgs (+67 more)
+Cohesion: 0.29
+Nodes (0):
 
 ### Community 91 - "Community 91"
 
-Cohesion: 0.03
-Nodes (75): AggregateOrderAuditLog, GetOrderAuditLogAggregateType, GetOrderAuditLogGroupByPayload, OrderAuditLogAggregateArgs, OrderAuditLogCountAggregateInputType, OrderAuditLogCountAggregateOutputType, OrderAuditLogCountArgs, OrderAuditLogCountOrderByAggregateInput (+67 more)
+Cohesion: 0.38
+Nodes (3): useApproveRefund(), useInvalidateRefunds(), useRejectRefund()
 
 ### Community 92 - "Community 92"
 
-Cohesion: 0.03
-Nodes (75): AffiliateClickAggregateArgs, AffiliateClickCountAggregateInputType, AffiliateClickCountAggregateOutputType, AffiliateClickCountArgs, AffiliateClickCountOrderByAggregateInput, AffiliateClickCreateArgs, AffiliateClickCreateInput, AffiliateClickCreateManyAndReturnArgs (+67 more)
+Cohesion: 0.38
+Nodes (3): useForceCancelOrder(), useForceCompleteOrder(), useInvalidateOrders()
 
 ### Community 93 - "Community 93"
 
-Cohesion: 0.03
-Nodes (75): AggregateReviewReply, GetReviewReplyAggregateType, GetReviewReplyGroupByPayload, Prisma\_\_ReviewReplyClient, ReviewReplyAggregateArgs, ReviewReplyCountAggregateInputType, ReviewReplyCountAggregateOutputType, ReviewReplyCountArgs (+67 more)
+Cohesion: 0.43
+Nodes (4): useCreateCategory(), useDeleteCategory(), useInvalidateCategories(), useUpdateCategory()
 
 ### Community 94 - "Community 94"
 
-Cohesion: 0.03
-Nodes (75): AggregateReviewReport, GetReviewReportAggregateType, GetReviewReportGroupByPayload, Prisma\_\_ReviewReportClient, ReviewReportAggregateArgs, ReviewReportCountAggregateInputType, ReviewReportCountAggregateOutputType, ReviewReportCountArgs (+67 more)
+Cohesion: 0.29
+Nodes (0):
 
 ### Community 95 - "Community 95"
 
-Cohesion: 0.03
-Nodes (75): AggregateLivestreamChat, GetLivestreamChatAggregateType, GetLivestreamChatGroupByPayload, LivestreamChatAggregateArgs, LivestreamChatCountAggregateInputType, LivestreamChatCountAggregateOutputType, LivestreamChatCountArgs, LivestreamChatCountOrderByAggregateInput (+67 more)
+Cohesion: 0.38
+Nodes (3): useCreateNotification(), useInvalidateNotifications(), useSendNotification()
 
 ### Community 96 - "Community 96"
 
-Cohesion: 0.03
-Nodes (75): AggregateSession, GetSessionAggregateType, GetSessionGroupByPayload, Prisma\_\_SessionClient, SessionAggregateArgs, SessionCountAggregateInputType, SessionCountAggregateOutputType, SessionCountArgs (+67 more)
+Cohesion: 0.29
+Nodes (0):
 
 ### Community 97 - "Community 97"
 
-Cohesion: 0.03
-Nodes (75): AggregateAutomationExecution, AutomationExecutionAggregateArgs, AutomationExecutionCountAggregateInputType, AutomationExecutionCountAggregateOutputType, AutomationExecutionCountArgs, AutomationExecutionCountOrderByAggregateInput, AutomationExecutionCreateArgs, AutomationExecutionCreateInput (+67 more)
+Cohesion: 0.29
+Nodes (0):
 
 ### Community 98 - "Community 98"
 
-Cohesion: 0.03
-Nodes (75): AdminSessionAggregateArgs, AdminSessionCountAggregateInputType, AdminSessionCountAggregateOutputType, AdminSessionCountArgs, AdminSessionCountOrderByAggregateInput, AdminSessionCreateArgs, AdminSessionCreateInput, AdminSessionCreateManyAdminInput (+67 more)
+Cohesion: 0.43
+Nodes (4): useApproveReview(), useHideReview(), useInvalidateReviews(), useRejectReview()
 
 ### Community 99 - "Community 99"
 
-Cohesion: 0.03
-Nodes (75): AggregateProductApprovalHistory, GetProductApprovalHistoryAggregateType, GetProductApprovalHistoryGroupByPayload, Prisma\_\_ProductApprovalHistoryClient, ProductApprovalHistoryAggregateArgs, ProductApprovalHistoryCountAggregateInputType, ProductApprovalHistoryCountAggregateOutputType, ProductApprovalHistoryCountArgs (+67 more)
+Cohesion: 0.29
+Nodes (1): FlashSaleController
 
 ### Community 100 - "Community 100"
 
-Cohesion: 0.03
-Nodes (75): AggregateReturnEvidence, GetReturnEvidenceAggregateType, GetReturnEvidenceGroupByPayload, Prisma\_\_ReturnEvidenceClient, ReturnEvidenceAggregateArgs, ReturnEvidenceCountAggregateInputType, ReturnEvidenceCountAggregateOutputType, ReturnEvidenceCountArgs (+67 more)
+Cohesion: 0.29
+Nodes (1): OrderRepository
 
 ### Community 101 - "Community 101"
 
-Cohesion: 0.03
-Nodes (72): AggregateRole, GetRoleAggregateType, GetRoleGroupByPayload, Prisma\_\_RoleClient, Role$userRolesArgs, RoleAggregateArgs, RoleCountAggregateInputType, RoleCountAggregateOutputType (+64 more)
+Cohesion: 0.29
+Nodes (1): BulkController
 
 ### Community 102 - "Community 102"
 
-Cohesion: 0.04
-Nodes (20): CurrentUser, UserRequest, CreateWarehouseDto, ReviewQueryDto, UpdateShopDto, StockQueryDto, TransferQueryDto, WarehouseQueryDto (+12 more)
+Cohesion: 0.29
+Nodes (1): AdvancedSearchService
 
 ### Community 103 - "Community 103"
 
-Cohesion: 0.03
-Nodes (63): AggregateSellerMetricSnapshot, FloatFieldUpdateOperationsInput, GetSellerMetricSnapshotAggregateType, GetSellerMetricSnapshotGroupByPayload, NullableFloatFieldUpdateOperationsInput, Prisma\_\_SellerMetricSnapshotClient, SellerMetricSnapshotAggregateArgs, SellerMetricSnapshotAvgAggregateInputType (+55 more)
+Cohesion: 0.29
+Nodes (1): AdvancedSearchController
 
 ### Community 104 - "Community 104"
 
-Cohesion: 0.03
-Nodes (62): AggregateBanner, BannerAggregateArgs, BannerAvgAggregateInputType, BannerAvgAggregateOutputType, BannerAvgOrderByAggregateInput, BannerCountAggregateInputType, BannerCountAggregateOutputType, BannerCountArgs (+54 more)
+Cohesion: 0.29
+Nodes (1): NotificationController
 
 ### Community 105 - "Community 105"
 
-Cohesion: 0.03
-Nodes (62): AggregateBulkJob, BulkJobAggregateArgs, BulkJobAvgAggregateInputType, BulkJobAvgAggregateOutputType, BulkJobAvgOrderByAggregateInput, BulkJobCountAggregateInputType, BulkJobCountAggregateOutputType, BulkJobCountArgs (+54 more)
+Cohesion: 0.29
+Nodes (1): WalletController
 
 ### Community 106 - "Community 106"
 
-Cohesion: 0.03
-Nodes (62): AggregatePlatformVoucher, EnumPlatformVoucherStatusFieldUpdateOperationsInput, EnumPlatformVoucherTypeFieldUpdateOperationsInput, GetPlatformVoucherAggregateType, GetPlatformVoucherGroupByPayload, PlatformVoucherAggregateArgs, PlatformVoucherAvgAggregateInputType, PlatformVoucherAvgAggregateOutputType (+54 more)
+Cohesion: 0.33
+Nodes (1): esbuildOptions()
 
 ### Community 107 - "Community 107"
 
-Cohesion: 0.03
-Nodes (61): AggregateReferral, EnumReferralStatusFieldUpdateOperationsInput, GetReferralAggregateType, GetReferralGroupByPayload, Prisma\_\_ReferralClient, ReferralAggregateArgs, ReferralAvgAggregateInputType, ReferralAvgAggregateOutputType (+53 more)
+Cohesion: 0.33
+Nodes (0):
 
 ### Community 108 - "Community 108"
 
-Cohesion: 0.03
-Nodes (61): AggregateProductRelation, GetProductRelationAggregateType, GetProductRelationGroupByPayload, Prisma\_\_ProductRelationClient, ProductRelationAggregateArgs, ProductRelationAvgAggregateInputType, ProductRelationAvgAggregateOutputType, ProductRelationAvgOrderByAggregateInput (+53 more)
+Cohesion: 0.4
+Nodes (2): getRoles(), getString()
 
 ### Community 109 - "Community 109"
 
-Cohesion: 0.03
-Nodes (61): AggregateAiUsageLog, AiUsageLogAggregateArgs, AiUsageLogAvgAggregateInputType, AiUsageLogAvgAggregateOutputType, AiUsageLogAvgOrderByAggregateInput, AiUsageLogCountAggregateInputType, AiUsageLogCountAggregateOutputType, AiUsageLogCountArgs (+53 more)
+Cohesion: 0.53
+Nodes (4): ApiCreatedResponseData(), ApiOkResponseData(), isModelArray(), isSwaggerClass()
 
 ### Community 110 - "Community 110"
 
-Cohesion: 0.03
-Nodes (61): AggregateProductScore, GetProductScoreAggregateType, GetProductScoreGroupByPayload, Prisma\_\_ProductScoreClient, ProductScoreAggregateArgs, ProductScoreAvgAggregateInputType, ProductScoreAvgAggregateOutputType, ProductScoreAvgOrderByAggregateInput (+53 more)
+Cohesion: 0.33
+Nodes (0):
 
 ### Community 111 - "Community 111"
 
-Cohesion: 0.03
-Nodes (60): AggregateGrowthCampaign, GetGrowthCampaignAggregateType, GetGrowthCampaignGroupByPayload, GrowthCampaignAggregateArgs, GrowthCampaignAvgAggregateInputType, GrowthCampaignAvgAggregateOutputType, GrowthCampaignAvgOrderByAggregateInput, GrowthCampaignCountAggregateInputType (+52 more)
+Cohesion: 0.33
+Nodes (0):
 
 ### Community 112 - "Community 112"
 
-Cohesion: 0.03
-Nodes (60): AggregateFeatureFlag, FeatureFlagAggregateArgs, FeatureFlagAvgAggregateInputType, FeatureFlagAvgAggregateOutputType, FeatureFlagAvgOrderByAggregateInput, FeatureFlagCountAggregateInputType, FeatureFlagCountAggregateOutputType, FeatureFlagCountArgs (+52 more)
+Cohesion: 0.33
+Nodes (0):
 
 ### Community 113 - "Community 113"
 
-Cohesion: 0.03
-Nodes (60): AggregateFlashSalePurchase, FlashSalePurchaseAggregateArgs, FlashSalePurchaseAvgAggregateInputType, FlashSalePurchaseAvgAggregateOutputType, FlashSalePurchaseAvgOrderByAggregateInput, FlashSalePurchaseCountAggregateInputType, FlashSalePurchaseCountAggregateOutputType, FlashSalePurchaseCountArgs (+52 more)
+Cohesion: 0.33
+Nodes (0):
 
 ### Community 114 - "Community 114"
 
-Cohesion: 0.03
-Nodes (60): AggregateSearchAnalytics, GetSearchAnalyticsAggregateType, GetSearchAnalyticsGroupByPayload, Prisma\_\_SearchAnalyticsClient, SearchAnalyticsAggregateArgs, SearchAnalyticsAvgAggregateInputType, SearchAnalyticsAvgAggregateOutputType, SearchAnalyticsAvgOrderByAggregateInput (+52 more)
+Cohesion: 0.33
+Nodes (0):
 
 ### Community 115 - "Community 115"
 
-Cohesion: 0.03
-Nodes (60): AggregateCurrency, CurrencyAggregateArgs, CurrencyAvgAggregateInputType, CurrencyAvgAggregateOutputType, CurrencyAvgOrderByAggregateInput, CurrencyCountAggregateInputType, CurrencyCountAggregateOutputType, CurrencyCountArgs (+52 more)
+Cohesion: 0.33
+Nodes (0):
 
 ### Community 116 - "Community 116"
 
-Cohesion: 0.03
-Nodes (60): AggregateEventSubscription, EventSubscriptionAggregateArgs, EventSubscriptionAvgAggregateInputType, EventSubscriptionAvgAggregateOutputType, EventSubscriptionAvgOrderByAggregateInput, EventSubscriptionCountAggregateInputType, EventSubscriptionCountAggregateOutputType, EventSubscriptionCountArgs (+52 more)
+Cohesion: 0.33
+Nodes (1): OrderController
 
 ### Community 117 - "Community 117"
 
-Cohesion: 0.03
-Nodes (60): AggregateUserSegment, GetUserSegmentAggregateType, GetUserSegmentGroupByPayload, Prisma\_\_UserSegmentClient, UserSegmentAggregateArgs, UserSegmentAvgAggregateInputType, UserSegmentAvgAggregateOutputType, UserSegmentAvgOrderByAggregateInput (+52 more)
+Cohesion: 0.33
+Nodes (1): OrderService
 
 ### Community 118 - "Community 118"
 
-Cohesion: 0.03
-Nodes (60): AggregateSearchBoostRule, GetSearchBoostRuleAggregateType, GetSearchBoostRuleGroupByPayload, Prisma\_\_SearchBoostRuleClient, SearchBoostRuleAggregateArgs, SearchBoostRuleAvgAggregateInputType, SearchBoostRuleAvgAggregateOutputType, SearchBoostRuleAvgOrderByAggregateInput (+52 more)
+Cohesion: 0.33
+Nodes (1): MetricsController
 
 ### Community 119 - "Community 119"
 
-Cohesion: 0.03
-Nodes (57): AggregateSearchSynonym, GetSearchSynonymAggregateType, GetSearchSynonymGroupByPayload, Prisma\_\_SearchSynonymClient, SearchSynonymAggregateArgs, SearchSynonymCountAggregateInputType, SearchSynonymCountAggregateOutputType, SearchSynonymCountArgs (+49 more)
+Cohesion: 0.4
+Nodes (1): MetricsService
 
 ### Community 120 - "Community 120"
 
-Cohesion: 0.08
-Nodes (12): ApprovalService, LogParams, TEMPLATES_DIR, ApprovalQueryDto, ReturnQueryDto, VariantWithRelations, OrderService, VALID_TRANSITIONS (+4 more)
+Cohesion: 0.33
+Nodes (1): ShopService
 
 ### Community 121 - "Community 121"
 
-Cohesion: 0.04
-Nodes (56): AggregateProductReport, EnumProductReportReasonFieldUpdateOperationsInput, EnumProductReportStatusFieldUpdateOperationsInput, GetProductReportAggregateType, GetProductReportGroupByPayload, Prisma\_\_ProductReportClient, ProductReportAggregateArgs, ProductReportCountAggregateInputType (+48 more)
+Cohesion: 0.33
+Nodes (5): CreateProductDto, ProductImageDto, ProductVariantDto, VariantOptionGroupDto, VariantOptionValueDto
 
 ### Community 122 - "Community 122"
 
-Cohesion: 0.12
-Nodes (28): AdsModule, AdvancedSearchModule, AffiliateModule, AiToolsModule, ApprovalModule, AuthModule, AutomationModule, BulkModule (+20 more)
+Cohesion: 0.47
+Nodes (3): AdminAuthGuard, getSessionIdFromRequest(), toAdminSessionData()
 
 ### Community 123 - "Community 123"
 
-Cohesion: 0.04
-Nodes (55): AggregateNotificationTemplate, EnumNotificationChannelFieldUpdateOperationsInput, GetNotificationTemplateAggregateType, GetNotificationTemplateGroupByPayload, NotificationTemplateAggregateArgs, NotificationTemplateCountAggregateInputType, NotificationTemplateCountAggregateOutputType, NotificationTemplateCountArgs (+47 more)
+Cohesion: 0.33
+Nodes (5): CategoryQueryDto, CategoryResponseDto, CreateCategoryDto, ReorderDto, UpdateCategoryDto
 
 ### Community 124 - "Community 124"
 
-Cohesion: 0.04
-Nodes (55): AggregatePlatformEvent, EnumPlatformEventStatusFieldUpdateOperationsInput, GetPlatformEventAggregateType, GetPlatformEventGroupByPayload, PlatformEventAggregateArgs, PlatformEventCountAggregateInputType, PlatformEventCountAggregateOutputType, PlatformEventCountArgs (+47 more)
+Cohesion: 0.33
+Nodes (5): CreateNotificationDto, CreateTemplateDto, NotificationQueryDto, NotificationResponseDto, NotificationTemplateResponseDto
 
 ### Community 125 - "Community 125"
 
-Cohesion: 0.04
-Nodes (55): AdminNotificationAggregateArgs, AdminNotificationCountAggregateInputType, AdminNotificationCountAggregateOutputType, AdminNotificationCountArgs, AdminNotificationCountOrderByAggregateInput, AdminNotificationCreateArgs, AdminNotificationCreateInput, AdminNotificationCreateManyAndReturnArgs (+47 more)
+Cohesion: 0.4
+Nodes (1): cn()
 
 ### Community 126 - "Community 126"
 
-Cohesion: 0.04
-Nodes (55): AggregateTranslation, GetTranslationAggregateType, GetTranslationGroupByPayload, Prisma\_\_TranslationClient, TranslationAggregateArgs, TranslationCountAggregateInputType, TranslationCountAggregateOutputType, TranslationCountArgs (+47 more)
+Cohesion: 0.4
+Nodes (1): PrismaService
 
 ### Community 127 - "Community 127"
 
-Cohesion: 0.04
-Nodes (54): AggregateUserEvent, GetUserEventAggregateType, GetUserEventGroupByPayload, Prisma\_\_UserEventClient, UserEventAggregateArgs, UserEventCountAggregateInputType, UserEventCountAggregateOutputType, UserEventCountArgs (+46 more)
+Cohesion: 0.4
+Nodes (0):
 
 ### Community 128 - "Community 128"
 
-Cohesion: 0.04
-Nodes (54): AdCampaignStatus, AdminNotificationStatus, AdminPermission, AdminRoleType, AdminStatus, AdType, AffiliateStatus, AiTaskStatus (+46 more)
+Cohesion: 0.4
+Nodes (1): ApiError
 
 ### Community 129 - "Community 129"
 
-Cohesion: 0.04
-Nodes (54): AggregateSavedFilter, GetSavedFilterAggregateType, GetSavedFilterGroupByPayload, Prisma\_\_SavedFilterClient, SavedFilterAggregateArgs, SavedFilterCountAggregateInputType, SavedFilterCountAggregateOutputType, SavedFilterCountArgs (+46 more)
+Cohesion: 0.5
+Nodes (2): buildPaginatedResponse(), buildPaginationMeta()
 
 ### Community 130 - "Community 130"
 
-Cohesion: 0.04
-Nodes (54): AggregateAuditLog, AuditLogAggregateArgs, AuditLogCountAggregateInputType, AuditLogCountAggregateOutputType, AuditLogCountArgs, AuditLogCountOrderByAggregateInput, AuditLogCreateArgs, AuditLogCreateInput (+46 more)
+Cohesion: 0.5
+Nodes (2): buildQueryString(), buildUrlWithQuery()
 
 ### Community 131 - "Community 131"
 
-Cohesion: 0.06
-Nodes (31): useIsMobile(), SidebarMenuRendererProps, SidebarShellProps, SidebarGroup, SidebarMenuItem, Sheet(), SheetContent(), SheetDescription() (+23 more)
+Cohesion: 0.4
+Nodes (1): handleSubmit()
 
 ### Community 132 - "Community 132"
 
-Cohesion: 0.07
-Nodes (40): approveProduct(), bulkApproveProducts(), bulkRejectProducts(), getProduct(), getProducts(), getProductStatusCounts(), hideProduct(), ProductApproveBody (+32 more)
+Cohesion: 0.4
+Nodes (0):
 
 ### Community 133 - "Community 133"
 
-Cohesion: 0.06
-Nodes (14): Button(), ButtonProps, buttonVariants, InputGroup(), InputGroupAddon(), inputGroupAddonVariants, InputGroupButton(), inputGroupButtonVariants (+6 more)
+Cohesion: 0.4
+Nodes (1): RolesGuard
 
 ### Community 134 - "Community 134"
 
-Cohesion: 0.07
-Nodes (23): class-validator (DTO Validation), PaginationMetaDto, PaginationQueryDto, CreateProductDto, ProductImageDto, ProductVariantDto, VariantOptionGroupDto, VariantOptionValueDto (+15 more)
+Cohesion: 0.4
+Nodes (0):
 
 ### Community 135 - "Community 135"
 
-Cohesion: 0.06
-Nodes (15): AuthController, getClientIp(), getCookieValue(), getSessionIdFromRequest(), AuthService, SessionProvider, createWithAuth(), parseRoles() (+7 more)
+Cohesion: 0.4
+Nodes (4): AdKeywordDto, CreateAdCampaignDto, CreateAdDto, CreateAdGroupDto
 
 ### Community 136 - "Community 136"
 
-Cohesion: 0.06
-Nodes (6): offsetPaginate(), InventoryRepository, OrderRepository, withDefined(), withOptional(), WarehouseService
+Cohesion: 0.4
+Nodes (3): OrderActionDto, OrderQueryDto, OrderResponseDto
 
 ### Community 137 - "Community 137"
 
-Cohesion: 0.07
-Nodes (7): AiToolsController, AiToolsService, CreateAiTaskDto, ProcessWithdrawalDto, RequestWithdrawalDto, WalletController, WalletService
+Cohesion: 0.4
+Nodes (1): ShopController
 
 ### Community 138 - "Community 138"
 
-Cohesion: 0.06
-Nodes (6): class-variance-authority (CVA), Frontend Standards, Radix UI Primitives, Badge(), BadgeProps, badgeVariants
+Cohesion: 0.4
+Nodes (1): LoyaltyController
 
 ### Community 139 - "Community 139"
 
-Cohesion: 0.09
-Nodes (24): approveSeller(), getSellerById(), getSellers(), getSellerStatusCounts(), rejectSeller(), Seller, SellerActionBody, SellerActionResponse (+16 more)
+Cohesion: 0.4
+Nodes (4): CreateCampaignDto, CreateExperimentDto, CreateFeatureFlagDto, CreateReferralProgramDto
 
 ### Community 140 - "Community 140"
 
-Cohesion: 0.08
-Nodes (36): Config Centralization Goal: packages/config as single source, Config Centralization Implementation Plan, Config Centralization Design Spec, Package: @ecom/eslint-config (to be retired), Risk: Module Format Mismatch (ESM vs CJS), Risk: Root-Relative Path Assumptions, packages/config/src/tooling/commitlint.ts, packages/config/src/tooling/dependency-cruiser.cjs (+28 more)
+Cohesion: 0.4
+Nodes (1): AuditLogService
 
 ### Community 141 - "Community 141"
 
-Cohesion: 0.1
-Nodes (27): activateUser(), banUser(), getUser(), getUsers(), getUserStatusCounts(), suspendUser(), UserActionBody, UserActionResponse (+19 more)
+Cohesion: 0.4
+Nodes (4): BannerQueryDto, BannerResponseDto, CreateBannerDto, UpdateBannerDto
 
 ### Community 142 - "Community 142"
 
-Cohesion: 0.12
-Nodes (15): AuditLogsController, AuditLogsModule, BannersModule, CategoriesModule, DashboardModule, DashboardService, NotificationsModule, OrdersModule (+7 more)
+Cohesion: 0.4
+Nodes (1): DashboardController
 
 ### Community 143 - "Community 143"
 
-Cohesion: 0.1
-Nodes (25): forceCancelOrder(), forceCompleteOrder(), getOrder(), getOrders(), getOrderStatusCounts(), OrderActionBody, OrderActionResponse, OrderDetail (+17 more)
+Cohesion: 0.4
+Nodes (1): DashboardService
 
 ### Community 144 - "Community 144"
 
-Cohesion: 0.09
-Nodes (24): AdminProfile, getAdminProfile(), loginAdmin(), LoginBody, LoginResponse, logoutAdmin(), LogoutResponse, ProfileResponse (+16 more)
+Cohesion: 0.4
+Nodes (1): AuditLogInterceptor
 
 ### Community 145 - "Community 145"
 
-Cohesion: 0.11
-Nodes (22): buildSwaggerDocument(), SwaggerConfig, AppModule, { password, ...rest }, generate(), API_PORTS, DEFAULT_CORS_ORIGINS, getAdminPort() (+14 more)
+Cohesion: 0.4
+Nodes (4): CreateVoucherDto, UpdateVoucherDto, VoucherQueryDto, VoucherResponseDto
 
 ### Community 146 - "Community 146"
 
-Cohesion: 0.09
-Nodes (24): AddButton(), MediaUploadContext, MediaUploadContextValue, useMediaUpload(), Item(), Items(), MediaUpload, MediaUploadComponent (+16 more)
+Cohesion: 0.4
+Nodes (3): ReviewActionDto, ReviewQueryDto, ReviewResponseDto
 
 ### Community 147 - "Community 147"
 
-Cohesion: 0.08
-Nodes (6): CreateCurrencyDto, CreateRegionDto, CreateTranslationDto, I18nController, I18nModule, I18nService
+Cohesion: 0.67
+Nodes (2): getSessionId(), parseCookies()
 
 ### Community 148 - "Community 148"
 
-Cohesion: 0.08
-Nodes (5): ChatController, ChatGateway, ChatService, ConversationQueryDto, MessageQueryDto
+Cohesion: 0.5
+Nodes (0):
 
 ### Community 149 - "Community 149"
 
-Cohesion: 0.09
-Nodes (14): AuditLog, getAuditLogs(), AuditLogsPage(), useAuditLogs(), CursorPaginationDto, OffsetPaginationDto, CursorPaginateOptions, ItemOfModelDelegate (+6 more)
+Cohesion: 0.5
+Nodes (0):
 
 ### Community 150 - "Community 150"
 
-Cohesion: 0.1
-Nodes (7): CategoriesController, CategoriesService, CategoryQueryDto, CategoryResponseDto, CreateCategoryDto, ReorderDto, UpdateCategoryDto
+Cohesion: 0.67
+Nodes (2): withDefined(), withOptional()
 
 ### Community 151 - "Community 151"
-
-Cohesion: 0.1
-Nodes (7): AdsController, UpdateAdCampaignStatusDto, AdsService, AdKeywordDto, CreateAdCampaignDto, CreateAdDto, CreateAdGroupDto
-
-### Community 152 - "Community 152"
-
-Cohesion: 0.15
-Nodes (17): approveRefund(), getRefund(), getRefunds(), getRefundStatusCounts(), RefundListItem, rejectRefund(), RefundDetailPage(), col (+9 more)
-
-### Community 153 - "Community 153"
-
-Cohesion: 0.1
-Nodes (5): AddLivestreamProductDto, CreateLivestreamDto, PinProductDto, LivestreamController, LivestreamService
-
-### Community 154 - "Community 154"
-
-Cohesion: 0.1
-Nodes (12): cn(), ProductMediaUpload(), ProductMediaUploadProps, Default, Interactive, meta, mockItems, Story (+4 more)
-
-### Community 155 - "Community 155"
-
-Cohesion: 0.12
-Nodes (5): CouponController, CouponService, CouponQueryDto, CreateCouponDto, UpdateCouponDto
-
-### Community 156 - "Community 156"
-
-Cohesion: 0.12
-Nodes (6): CreateLoyaltyTierDto, CreateMissionDto, RedeemPointsDto, LoyaltyController, LoyaltyModule, LoyaltyService
-
-### Community 157 - "Community 157"
-
-Cohesion: 0.1
-Nodes (4): CreatePlanDto, SubscribeDto, SubscriptionController, SubscriptionService
-
-### Community 158 - "Community 158"
-
-Cohesion: 0.11
-Nodes (5): AffiliateController, AffiliateService, CreateAffiliateLinkDto, RequestPayoutDto, UpdateAffiliateStatusDto
-
-### Community 159 - "Community 159"
-
-Cohesion: 0.19
-Nodes (15): CategoryDetail, CategoryNode, createCategory(), deleteCategory(), getCategories(), getCategory(), reorderCategories(), updateCategory() (+7 more)
-
-### Community 160 - "Community 160"
-
-Cohesion: 0.13
-Nodes (5): AutomationController, AutomationService, CreateAutomationRuleDto, UpdateAutomationRuleDto, AutomationQueryDto
-
-### Community 161 - "Community 161"
-
-Cohesion: 0.13
-Nodes (5): CreateCampaignDto, CreateExperimentDto, CreateFeatureFlagDto, CreateReferralProgramDto, GrowthService
-
-### Community 162 - "Community 162"
-
-Cohesion: 0.16
-Nodes (15): createNotification(), createTemplate(), getNotifications(), getTemplates(), NotificationListItem, NotificationTemplate, sendNotification(), col (+7 more)
-
-### Community 163 - "Community 163"
-
-Cohesion: 0.11
-Nodes (4): ApplyFlashSaleSlotDto, CreateFlashSaleCampaignDto, FlashSaleController, FlashSaleService
-
-### Community 164 - "Community 164"
-
-Cohesion: 0.1
-Nodes (15): Default, Fallback, Group, meta, Story, Default, Group, meta (+7 more)
-
-### Community 165 - "Community 165"
-
-Cohesion: 0.14
-Nodes (10): DashboardLayout(), PageHeader(), PageHeaderProps, InventoryItem, InventoryResponse, CurrentMetrics, MetricSnapshot, CreateWarehouseResponse (+2 more)
-
-### Community 166 - "Community 166"
-
-Cohesion: 0.13
-Nodes (9): metadata, RootLayout(), NAV_ITEMS, Sidebar(), REQUIRED_ROLES, useProtectedRoute(), UseProtectedRouteOptions, QueryProvider() (+1 more)
-
-### Community 167 - "Community 167"
-
-Cohesion: 0.14
-Nodes (8): ForgotPasswordResponse, api, LoginResponse, CreateCouponResponse, CreateProductPayload, CreateProductResponse, RegisterResponse, Shop
-
-### Community 168 - "Community 168"
-
-Cohesion: 0.12
-Nodes (5): SellerActionDto, SellerQueryDto, SellerResponseDto, SellersController, SellersService
-
-### Community 169 - "Community 169"
-
-Cohesion: 0.18
-Nodes (16): approveReview(), getReviews(), getReviewStatusCounts(), hideReview(), rejectReview(), ReviewListItem, col, columns (+8 more)
-
-### Community 170 - "Community 170"
-
-Cohesion: 0.17
-Nodes (15): createVoucher(), getVoucher(), getVouchers(), getVoucherStatusCounts(), updateVoucher(), VoucherListItem, col, columns (+7 more)
-
-### Community 171 - "Community 171"
-
-Cohesion: 0.17
-Nodes (15): BannerListItem, createBanner(), deleteBanner(), getBanner(), getBanners(), updateBanner(), BannersPage(), col (+7 more)
-
-### Community 173 - "Community 173"
-
-Cohesion: 0.11
-Nodes (6): InventoryQueryDto, BulkStockItemDto, BulkUpdateStockDto, UpdateStockDto, InventoryController, InventoryService
-
-### Community 174 - "Community 174"
-
-Cohesion: 0.12
-Nodes (4): BulkController, BulkService, BulkJobQueryDto, BulkJobProcessor
-
-### Community 175 - "Community 175"
-
-Cohesion: 0.11
-Nodes (4): CreateEventSubscriptionDto, EmitEventDto, EventStreamingController, EventStreamingService
-
-### Community 176 - "Community 176"
-
-Cohesion: 0.13
-Nodes (5): OrderSearchDto, ProductSearchDto, SaveFilterDto, SearchController, SearchService
-
-### Community 177 - "Community 177"
-
-Cohesion: 0.13
-Nodes (4): CreateShipmentDto, ShippingController, ShippingModule, ShippingService
-
-### Community 178 - "Community 178"
-
-Cohesion: 0.16
-Nodes (12): Chart(), StatCardContext, StatCardContextValue, useStatCard(), accentMap, Header(), StatCard, StatCardComponent (+4 more)
-
-### Community 179 - "Community 179"
-
-Cohesion: 0.13
-Nodes (6): CreateVoucherDto, UpdateVoucherDto, VoucherQueryDto, VoucherResponseDto, PromotionsController, PromotionsService
-
-### Community 180 - "Community 180"
-
-Cohesion: 0.13
-Nodes (3): RedisModule, RedisService, RedisModuleOptions
-
-### Community 181 - "Community 181"
-
-Cohesion: 0.14
-Nodes (6): AppError, BusinessRuleError, ExternalServiceError, NotFoundError, PermissionError, ValidationError
-
-### Community 182 - "Community 182"
-
-Cohesion: 0.13
-Nodes (9): Approval, ApprovalsResponse, BulkJob, BulkJobsResponse, STATUS_COLORS, StatusBadge(), StatusBadgeProps, Product (+1 more)
-
-### Community 183 - "Community 183"
-
-Cohesion: 0.14
-Nodes (3): AnalyticsController, AnalyticsModule, AnalyticsService
-
-### Community 184 - "Community 184"
-
-Cohesion: 0.16
-Nodes (4): AdvancedSearchController, AdvancedSearchService, SearchProductsDto, SearchSuggestionsDto
-
-### Community 185 - "Community 185"
-
-Cohesion: 0.15
-Nodes (3): NotificationQueryDto, NotificationController, NotificationService
-
-### Community 186 - "Community 186"
-
-Cohesion: 0.15
-Nodes (4): Field(), fieldVariants, Label(), Separator()
-
-### Community 187 - "Community 187"
-
-Cohesion: 0.17
-Nodes (5): isSessionData(), SessionData, SessionService, SessionServiceOptions, AuthPrismaClient
-
-### Community 189 - "Community 189"
-
-Cohesion: 0.14
-Nodes (6): AllVariants, Default, meta, Story, TypographyH1(), TypographyProps
-
-### Community 190 - "Community 190"
-
-Cohesion: 0.14
-Nodes (15): API Standards, Backend Standards, Conventional Commits, Enum Naming Convention, Error Class Hierarchy (AppError, ValidationError, etc.), Getting Started, JWT Authentication (access + refresh tokens), Naming Conventions (+7 more)
-
-### Community 191 - "Community 191"
-
-Cohesion: 0.2
-Nodes (10): buildPaginatedResponse(), buildPaginationMeta(), getSkip(), DefaultSortOrder, PAGINATION_DEFAULTS, CursorParams, CursorResponse, OffsetParams (+2 more)
-
-### Community 192 - "Community 192"
-
-Cohesion: 0.18
-Nodes (5): ApiCreatedResponseData(), ApiOkResponseData(), isModelArray(), isSwaggerClass(), SwaggerModel
-
-### Community 193 - "Community 193"
-
-Cohesion: 0.24
-Nodes (5): EmailServiceBase, EmailModule, EmailService, EmailModuleOptions, SendMailOptions
-
-### Community 196 - "Community 196"
-
-Cohesion: 0.2
-Nodes (14): AuditLogsPage, Admin Auth Provider, CategoriesPage, DashboardPage, OrderDetailPage, OrdersPage, ProductsPage, RefundDetailPage (+6 more)
-
-### Community 198 - "Community 198"
-
-Cohesion: 0.27
-Nodes (9): mappingLabel, ProductStatusPillVariantProps, productStatusPillVariants, ProductStatusPill(), ProductStatusPillProps, Default, FullVariants, meta (+1 more)
-
-### Community 200 - "Community 200"
-
-Cohesion: 0.27
-Nodes (7): AllExceptionsFilter, AppErrorLike, isAppError(), isPrismaKnownError(), isPrismaValidationError(), mapPrismaError(), PrismaKnownError
-
-### Community 202 - "Community 202"
-
-Cohesion: 0.24
-Nodes (6): DashboardAnalytics, DashboardMetrics, getDashboardAnalytics(), getDashboardMetrics(), DashboardPage(), useDashboardMetrics()
-
-### Community 203 - "Community 203"
-
-Cohesion: 0.2
-Nodes (4): PrismaClient, globalForPrisma, DatabaseModule, PrismaService
-
-### Community 204 - "Community 204"
-
-Cohesion: 0.18
-Nodes (9): Compound, Default, Grid, meta, NegativeTrend, NoSpark, NoTrend, spark (+1 more)
-
-### Community 207 - "Community 207"
-
-Cohesion: 0.24
-Nodes (6): AuthContextValue, AuthUser, CreateAuthClientOptions, getRoles(), getString(), ProtectedRouteOptions
-
-### Community 209 - "Community 209"
-
-Cohesion: 0.2
-Nodes (6): Default, meta, Story, Default, meta, Story
-
-### Community 210 - "Community 210"
-
-Cohesion: 0.27
-Nodes (10): Atomic Design System (atoms/molecules/organisms), Design Tokens (CSS variables), Domain UI Package Rules (no business logic, no data fetching), Core UI README, UI Admin README, UI Seller README, UI Storefront README, shadcn/ui Wrapping Strategy (+2 more)
-
-### Community 212 - "Community 212"
-
-Cohesion: 0.22
-Nodes (7): AllCompleted, meta, Step1, Step3, Step5, steps, Story
-
-### Community 214 - "Community 214"
-
-Cohesion: 0.22
-Nodes (4): Coupon, CouponsListResponse, CouponStats, CouponStatsResponse
-
-### Community 215 - "Community 215"
-
-Cohesion: 0.36
-Nodes (4): withAuth, config, middleware(), withAuth
-
-### Community 216 - "Community 216"
-
-Cohesion: 0.25
-Nodes (3): Roles(), RolesGuard, UserRequest
-
-### Community 217 - "Community 217"
-
-Cohesion: 0.33
-Nodes (9): Docker Service: admin frontend, Docker Service: api-admin, Docker Service: api-seller, Docker Service: api-storefront, Infra: mailpit SMTP trap, Infra: postgres service, Infra: redis service, Docker Service: seller frontend (+1 more)
-
-### Community 218 - "Community 218"
-
-Cohesion: 0.32
-Nodes (5): ConsoleLayout(), sidebarGroups, meta, Primary, Story
-
-### Community 219 - "Community 219"
-
-Cohesion: 0.25
-Nodes (6): AllCompleted, Default, meta, NoTitle, orderItems, Story
-
-### Community 222 - "Community 222"
-
-Cohesion: 0.25
-Nodes (4): ApiError, ApiOptions, ApiParams, ApiParamsInput
-
-### Community 223 - "Community 223"
-
-Cohesion: 0.25
-Nodes (7): AutomationStatus, SellerStatus, SellerVerificationStatus, ShopStatus, SubscriptionStatus, WalletTransactionStatus, WithdrawalStatus
-
-### Community 224 - "Community 224"
-
-Cohesion: 0.25
-Nodes (7): OrderStatus, PaymentStatus, RefundMethod, RefundStatus, ReturnReason, ReturnStatus, ShipmentStatus
-
-### Community 225 - "Community 225"
-
-Cohesion: 0.25
-Nodes (7): CouponScope, CouponStatus, CouponType, FlashSaleSlotStatus, FlashSaleStatus, PlatformVoucherStatus, PlatformVoucherType
-
-### Community 226 - "Community 226"
-
-Cohesion: 0.25
-Nodes (7): ApiErrorBody, ApiErrorResponse, ApiPaginatedSuccessResponse, ApiResponse, ApiSuccess, ApiSuccessResponse, PaginationMeta
-
-### Community 228 - "Community 228"
-
-Cohesion: 0.25
-Nodes (7): DeepPartial, Mutable, Nullable, PartialBy, PickRequired, RequiredBy, ValueOf
-
-### Community 233 - "Community 233"
-
-Cohesion: 0.29
-Nodes (4): config, LogOptions, PrismaClient, PrismaClientConstructor
-
-### Community 234 - "Community 234"
-
-Cohesion: 0.29
-Nodes (5): Default, frameworks, meta, MultipleSelection, Story
-
-### Community 235 - "Community 235"
-
-Cohesion: 0.29
-Nodes (5): Default, Disabled, meta, Story, WithPlaceholder
-
-### Community 236 - "Community 236"
-
-Cohesion: 0.29
-Nodes (4): StepItem, StepperItemProps, StepperProps, StepStatus
-
-### Community 239 - "Community 239"
-
-Cohesion: 0.29
-Nodes (6): \_\_dirname, outputDir, repoRoot, schema, schemaText, specs
-
-### Community 240 - "Community 240"
-
-Cohesion: 0.29
-Nodes (6): AdminNotificationStatus, AuditActions, NotificationChannel, NotificationStatus, NotificationType, PlatformEventStatus
-
-### Community 241 - "Community 241"
-
-Cohesion: 0.29
-Nodes (6): ADMIN_ROUTES, AUTH_ROUTES, CART_ROUTES, ORDER_ROUTES, PRODUCT_ROUTES, USER_ROUTES
-
-### Community 242 - "Community 242"
-
-Cohesion: 0.33
-Nodes (4): buildQueryString(), buildUrlWithQuery(), QueryParams, QueryParamValue
-
-### Community 243 - "Community 243"
-
-Cohesion: 0.29
-Nodes (5): SellerMethod, ShippingMethodsResponse, ShippingProvider, ShippingProvidersResponse, ToggleShippingMethodResponse
-
-### Community 251 - "Community 251"
-
-Cohesion: 0.33
-Nodes (3): FullVariants, meta, Story
-
-### Community 252 - "Community 252"
-
-Cohesion: 0.33
-Nodes (3): Default, meta, Story
-
-### Community 253 - "Community 253"
-
-Cohesion: 0.33
-Nodes (4): Default, meta, Story, WithCustomContent
-
-### Community 254 - "Community 254"
-
-Cohesion: 0.33
-Nodes (4): Default, Group, meta, Story
-
-### Community 255 - "Community 255"
-
-Cohesion: 0.33
-Nodes (4): Default, Disabled, meta, Story
-
-### Community 256 - "Community 256"
-
-Cohesion: 0.33
-Nodes (4): Default, meta, Outline, Story
-
-### Community 257 - "Community 257"
-
-Cohesion: 0.33
-Nodes (4): Default, Disabled, meta, Story
-
-### Community 258 - "Community 258"
-
-Cohesion: 0.33
-Nodes (4): Default, Disabled, meta, Story
-
-### Community 259 - "Community 259"
-
-Cohesion: 0.33
-Nodes (4): Default, meta, Story, Textarea
-
-### Community 260 - "Community 260"
-
-Cohesion: 0.33
-Nodes (3): TimelineItemProps, TimelineProps, TimelineStatus
-
-### Community 262 - "Community 262"
-
-Cohesion: 0.33
-Nodes (5): components, $defs, operations, paths, webhooks
-
-### Community 263 - "Community 263"
-
-Cohesion: 0.33
-Nodes (5): components, $defs, operations, paths, webhooks
-
-### Community 264 - "Community 264"
-
-Cohesion: 0.33
-Nodes (5): components, $defs, operations, paths, webhooks
-
-### Community 265 - "Community 265"
-
-Cohesion: 0.33
-Nodes (5): ApprovalStatus, ProductReportReason, ProductReportStatus, ProductStatus, ReviewStatus
-
-### Community 266 - "Community 266"
-
-Cohesion: 0.33
-Nodes (5): AdminRoleType, AdminStatus, UserEventType, UserRole, UserStatus
-
-### Community 267 - "Community 267"
-
-Cohesion: 0.33
-Nodes (5): Playwright (E2E Tests), Testing Standards, items, prismaArg, Vitest (Unit + Integration Tests)
-
-### Community 268 - "Community 268"
-
-Cohesion: 0.33
-Nodes (4): ChatMessage, Conversation, ConversationsResponse, MessagesResponse
-
-### Community 272 - "Community 272"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 273 - "Community 273"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 274 - "Community 274"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 275 - "Community 275"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 276 - "Community 276"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 277 - "Community 277"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 278 - "Community 278"
-
-Cohesion: 0.4
-Nodes (4): AllVariants, Default, meta, Story
-
-### Community 279 - "Community 279"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 280 - "Community 280"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 281 - "Community 281"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 282 - "Community 282"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 283 - "Community 283"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 284 - "Community 284"
-
-Cohesion: 0.4
-Nodes (3): Default, meta, Story
-
-### Community 285 - "Community 285"
-
-Cohesion: 0.4
-Nodes (4): BannerPosition, BannerStatus, BulkJobStatus, BulkJobType
-
-### Community 286 - "Community 286"
-
-Cohesion: 0.4
-Nodes (4): INVENTORY_DEFAULTS, ORDER_LIMITS, PRODUCT_LIMITS, USER_LIMITS
-
-### Community 288 - "Community 288"
-
-Cohesion: 0.4
-Nodes (3): Review, ReviewAnalytics, ReviewsResponse
-
-### Community 289 - "Community 289"
-
-Cohesion: 0.4
-Nodes (3): ProductResult, SavedFilter, SearchResponse
-
-### Community 290 - "Community 290"
-
-Cohesion: 0.4
-Nodes (3): WarehouseItem, WarehousesListResponse, WarehousesResponse
-
-### Community 291 - "Community 291"
-
-Cohesion: 0.4
-Nodes (3): ReturnRequest, ReturnsResponse, ReturnStats
-
-### Community 292 - "Community 292"
-
-Cohesion: 0.4
-Nodes (3): DashboardSummary, ProductPerformance, RevenueData
-
-### Community 294 - "Community 294"
-
-Cohesion: 0.5
-Nodes (3): DEFAULT_FEATURE_FLAGS, FEATURE_FLAGS, FeatureFlag
-
-### Community 295 - "Community 295"
-
-Cohesion: 0.5
-Nodes (3): API_CONFIG, CORS_CONFIG, RATE_LIMIT_CONFIG
-
-### Community 297 - "Community 297"
-
-Cohesion: 0.5
-Nodes (3): AdminTags, SellerTags, StorefrontTags
-
-### Community 298 - "Community 298"
 
 Cohesion: 0.5
 Nodes (3): ApiResponseDto, ErrorResponseDto, PaginatedResponseDto
 
-### Community 301 - "Community 301"
+### Community 152 - "Community 152"
 
 Cohesion: 0.5
-Nodes (3): connection, QueueName, queues
+Nodes (0):
+
+### Community 153 - "Community 153"
+
+Cohesion: 0.5
+Nodes (0):
+
+### Community 154 - "Community 154"
+
+Cohesion: 0.5
+Nodes (1): ResponseInterceptor
+
+### Community 155 - "Community 155"
+
+Cohesion: 0.5
+Nodes (1): EmailServiceBase
+
+### Community 156 - "Community 156"
+
+Cohesion: 0.5
+Nodes (1): middleware()
+
+### Community 157 - "Community 157"
+
+Cohesion: 0.5
+Nodes (1): RootLayout()
+
+### Community 158 - "Community 158"
+
+Cohesion: 0.5
+Nodes (0):
+
+### Community 159 - "Community 159"
+
+Cohesion: 0.5
+Nodes (0):
+
+### Community 160 - "Community 160"
+
+Cohesion: 0.5
+Nodes (1): useProtectedRoute()
+
+### Community 161 - "Community 161"
+
+Cohesion: 0.5
+Nodes (1): Home()
+
+### Community 162 - "Community 162"
+
+Cohesion: 0.5
+Nodes (1): generate()
+
+### Community 163 - "Community 163"
+
+Cohesion: 0.5
+Nodes (1): bootstrap()
+
+### Community 164 - "Community 164"
+
+Cohesion: 0.5
+Nodes (1): AppModule
+
+### Community 165 - "Community 165"
+
+Cohesion: 0.5
+Nodes (1): AuthModule
+
+### Community 166 - "Community 166"
+
+Cohesion: 0.5
+Nodes (0):
+
+### Community 167 - "Community 167"
+
+Cohesion: 0.5
+Nodes (1): RecommendationController
+
+### Community 168 - "Community 168"
+
+Cohesion: 0.5
+Nodes (3): CreateLoyaltyTierDto, CreateMissionDto, RedeemPointsDto
+
+### Community 169 - "Community 169"
+
+Cohesion: 0.5
+Nodes (2): ProductQueryDto, ProductResponseDto
+
+### Community 170 - "Community 170"
+
+Cohesion: 0.5
+Nodes (3): OrderSearchDto, ProductSearchDto, SaveFilterDto
+
+### Community 171 - "Community 171"
+
+Cohesion: 0.5
+Nodes (3): AddLivestreamProductDto, CreateLivestreamDto, PinProductDto
+
+### Community 172 - "Community 172"
+
+Cohesion: 0.5
+Nodes (3): BulkStockItemDto, BulkUpdateStockDto, UpdateStockDto
+
+### Community 173 - "Community 173"
+
+Cohesion: 0.5
+Nodes (1): MetricsSnapshotProcessor
+
+### Community 174 - "Community 174"
+
+Cohesion: 0.5
+Nodes (1): BulkJobProcessor
+
+### Community 175 - "Community 175"
+
+Cohesion: 0.5
+Nodes (3): CreateAffiliateLinkDto, RequestPayoutDto, UpdateAffiliateStatusDto
+
+### Community 176 - "Community 176"
+
+Cohesion: 0.5
+Nodes (3): StockQueryDto, TransferQueryDto, WarehouseQueryDto
+
+### Community 177 - "Community 177"
+
+Cohesion: 0.5
+Nodes (3): CreateCurrencyDto, CreateRegionDto, CreateTranslationDto
+
+### Community 178 - "Community 178"
+
+Cohesion: 0.5
+Nodes (1): AuditLogsController
+
+### Community 179 - "Community 179"
+
+Cohesion: 0.5
+Nodes (3): BulkModerationDto, ProductModerationDto, ResolveReportDto
+
+### Community 180 - "Community 180"
+
+Cohesion: 0.5
+Nodes (1): PermissionGuard
+
+### Community 181 - "Community 181"
+
+Cohesion: 0.5
+Nodes (3): AnalyticsQueryDto, DashboardAnalyticsDto, DashboardMetricsDto
+
+### Community 182 - "Community 182"
+
+Cohesion: 0.5
+Nodes (3): UserActionDto, UserQueryDto, UserResponseDto
+
+### Community 183 - "Community 183"
+
+Cohesion: 0.5
+Nodes (3): RefundActionDto, RefundQueryDto, RefundResponseDto
+
+### Community 184 - "Community 184"
+
+Cohesion: 1.0
+Nodes (2): copyDir(), onSuccess()
+
+### Community 185 - "Community 185"
+
+Cohesion: 0.67
+Nodes (0):
+
+### Community 186 - "Community 186"
+
+Cohesion: 0.67
+Nodes (0):
+
+### Community 187 - "Community 187"
+
+Cohesion: 0.67
+Nodes (0):
+
+### Community 188 - "Community 188"
+
+Cohesion: 0.67
+Nodes (0):
+
+### Community 189 - "Community 189"
+
+Cohesion: 0.67
+Nodes (0):
+
+### Community 190 - "Community 190"
+
+Cohesion: 0.67
+Nodes (1): RedisModule
+
+### Community 191 - "Community 191"
+
+Cohesion: 1.0
+Nodes (2): createWithAuth(), parseRoles()
+
+### Community 192 - "Community 192"
+
+Cohesion: 0.67
+Nodes (1): RegisterDto
+
+### Community 193 - "Community 193"
+
+Cohesion: 0.67
+Nodes (2): PaginationMetaDto, PaginationQueryDto
+
+### Community 194 - "Community 194"
+
+Cohesion: 0.67
+Nodes (0):
+
+### Community 195 - "Community 195"
+
+Cohesion: 0.67
+Nodes (0):
+
+### Community 196 - "Community 196"
+
+Cohesion: 0.67
+Nodes (1): PermissionError
+
+### Community 197 - "Community 197"
+
+Cohesion: 0.67
+Nodes (1): ExternalServiceError
+
+### Community 198 - "Community 198"
+
+Cohesion: 0.67
+Nodes (1): BusinessRuleError
+
+### Community 199 - "Community 199"
+
+Cohesion: 0.67
+Nodes (1): ValidationError
+
+### Community 200 - "Community 200"
+
+Cohesion: 0.67
+Nodes (1): AppError
+
+### Community 201 - "Community 201"
+
+Cohesion: 0.67
+Nodes (1): NotFoundError
+
+### Community 202 - "Community 202"
+
+Cohesion: 0.67
+Nodes (1): EmailModule
+
+### Community 203 - "Community 203"
+
+Cohesion: 0.67
+Nodes (1): EmailService
+
+### Community 204 - "Community 204"
+
+Cohesion: 0.67
+Nodes (0):
+
+### Community 205 - "Community 205"
+
+Cohesion: 0.67
+Nodes (1): Roles()
+
+### Community 206 - "Community 206"
+
+Cohesion: 0.67
+Nodes (0):
+
+### Community 207 - "Community 207"
+
+Cohesion: 0.67
+Nodes (0):
+
+### Community 208 - "Community 208"
+
+Cohesion: 0.67
+Nodes (0):
+
+### Community 209 - "Community 209"
+
+Cohesion: 0.67
+Nodes (2): GetRecommendationsDto, TrackEventDto
+
+### Community 210 - "Community 210"
+
+Cohesion: 0.67
+Nodes (2): ConversationQueryDto, MessageQueryDto
+
+### Community 211 - "Community 211"
+
+Cohesion: 0.67
+Nodes (2): SearchProductsDto, SearchSuggestionsDto
+
+### Community 212 - "Community 212"
+
+Cohesion: 0.67
+Nodes (2): CreateEventSubscriptionDto, EmitEventDto
+
+### Community 213 - "Community 213"
+
+Cohesion: 0.67
+Nodes (2): CreatePlanDto, SubscribeDto
+
+### Community 214 - "Community 214"
+
+Cohesion: 0.67
+Nodes (2): ProcessWithdrawalDto, RequestWithdrawalDto
+
+### Community 215 - "Community 215"
+
+Cohesion: 0.67
+Nodes (2): CreateAutomationRuleDto, UpdateAutomationRuleDto
+
+### Community 216 - "Community 216"
+
+Cohesion: 0.67
+Nodes (2): AuditLogQueryDto, AuditLogResponseDto
+
+### Community 217 - "Community 217"
+
+Cohesion: 0.67
+Nodes (2): SellerQueryDto, SellerResponseDto
+
+### Community 218 - "Community 218"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 219 - "Community 219"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 220 - "Community 220"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 221 - "Community 221"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 222 - "Community 222"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 223 - "Community 223"
+
+Cohesion: 1.0
+Nodes (1): DatabaseModule
+
+### Community 224 - "Community 224"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 225 - "Community 225"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 226 - "Community 226"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 227 - "Community 227"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 228 - "Community 228"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 229 - "Community 229"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 230 - "Community 230"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 231 - "Community 231"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 232 - "Community 232"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 233 - "Community 233"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 234 - "Community 234"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 235 - "Community 235"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 236 - "Community 236"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 237 - "Community 237"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 238 - "Community 238"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 239 - "Community 239"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 240 - "Community 240"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 241 - "Community 241"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 242 - "Community 242"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 243 - "Community 243"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 244 - "Community 244"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 245 - "Community 245"
+
+Cohesion: 1.0
+Nodes (1): LoginDto
+
+### Community 246 - "Community 246"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 247 - "Community 247"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 248 - "Community 248"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 249 - "Community 249"
+
+Cohesion: 1.0
+Nodes (1): OffsetPaginationDto
+
+### Community 250 - "Community 250"
+
+Cohesion: 1.0
+Nodes (1): CursorPaginationDto
+
+### Community 251 - "Community 251"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 252 - "Community 252"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 253 - "Community 253"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 254 - "Community 254"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 255 - "Community 255"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 256 - "Community 256"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 257 - "Community 257"
+
+Cohesion: 1.0
+Nodes (1): EcomLoggerModule
+
+### Community 258 - "Community 258"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 259 - "Community 259"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 260 - "Community 260"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 261 - "Community 261"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 262 - "Community 262"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 263 - "Community 263"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 264 - "Community 264"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 265 - "Community 265"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 266 - "Community 266"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 267 - "Community 267"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 268 - "Community 268"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 269 - "Community 269"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 270 - "Community 270"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 271 - "Community 271"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 272 - "Community 272"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 273 - "Community 273"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 274 - "Community 274"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 275 - "Community 275"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 276 - "Community 276"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 277 - "Community 277"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 278 - "Community 278"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 279 - "Community 279"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 280 - "Community 280"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 281 - "Community 281"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 282 - "Community 282"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 283 - "Community 283"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 284 - "Community 284"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 285 - "Community 285"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 286 - "Community 286"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 287 - "Community 287"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 288 - "Community 288"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 289 - "Community 289"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 290 - "Community 290"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 291 - "Community 291"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 292 - "Community 292"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 293 - "Community 293"
+
+Cohesion: 1.0
+Nodes (1): FlashSaleModule
+
+### Community 294 - "Community 294"
+
+Cohesion: 1.0
+Nodes (1): ApplyFlashSaleSlotDto
+
+### Community 295 - "Community 295"
+
+Cohesion: 1.0
+Nodes (1): CreateFlashSaleCampaignDto
+
+### Community 296 - "Community 296"
+
+Cohesion: 1.0
+Nodes (1): RecommendationModule
+
+### Community 297 - "Community 297"
+
+Cohesion: 1.0
+Nodes (1): AdsModule
+
+### Community 298 - "Community 298"
+
+Cohesion: 1.0
+Nodes (1): OrderModule
+
+### Community 299 - "Community 299"
+
+Cohesion: 1.0
+Nodes (1): UpdateOrderStatusDto
+
+### Community 300 - "Community 300"
+
+Cohesion: 1.0
+Nodes (1): MetricsModule
+
+### Community 301 - "Community 301"
+
+Cohesion: 1.0
+Nodes (1): BulkModule
+
+### Community 302 - "Community 302"
+
+Cohesion: 1.0
+Nodes (1): BulkJobQueryDto
+
+### Community 303 - "Community 303"
+
+Cohesion: 1.0
+Nodes (1): ChatModule
+
+### Community 304 - "Community 304"
+
+Cohesion: 1.0
+Nodes (1): AdvancedSearchModule
+
+### Community 305 - "Community 305"
+
+Cohesion: 1.0
+Nodes (1): NotificationModule
+
+### Community 306 - "Community 306"
+
+Cohesion: 1.0
+Nodes (1): NotificationQueryDto
+
+### Community 307 - "Community 307"
+
+Cohesion: 1.0
+Nodes (1): EventStreamingModule
+
+### Community 308 - "Community 308"
+
+Cohesion: 1.0
+Nodes (1): ShopModule
+
+### Community 309 - "Community 309"
+
+Cohesion: 1.0
+Nodes (1): UpdateShopDto
+
+### Community 310 - "Community 310"
+
+Cohesion: 1.0
+Nodes (1): ReturnModule
+
+### Community 311 - "Community 311"
+
+Cohesion: 1.0
+Nodes (1): ReturnQueryDto
+
+### Community 312 - "Community 312"
+
+Cohesion: 1.0
+Nodes (1): LoyaltyModule
+
+### Community 313 - "Community 313"
+
+Cohesion: 1.0
+Nodes (1): ShippingModule
 
 ### Community 314 - "Community 314"
 
-Cohesion: 0.67
-Nodes (3): Sonner Toaster, next-themes, Sonner Library
+Cohesion: 1.0
+Nodes (1): CreateShipmentDto
+
+### Community 315 - "Community 315"
+
+Cohesion: 1.0
+Nodes (1): CouponModule
+
+### Community 316 - "Community 316"
+
+Cohesion: 1.0
+Nodes (1): CreateCouponDto
+
+### Community 317 - "Community 317"
+
+Cohesion: 1.0
+Nodes (1): UpdateCouponDto
+
+### Community 318 - "Community 318"
+
+Cohesion: 1.0
+Nodes (1): CouponQueryDto
+
+### Community 319 - "Community 319"
+
+Cohesion: 1.0
+Nodes (1): ProductModule
+
+### Community 320 - "Community 320"
+
+Cohesion: 1.0
+Nodes (1): UpdateProductDto
+
+### Community 321 - "Community 321"
+
+Cohesion: 1.0
+Nodes (1): GrowthModule
+
+### Community 322 - "Community 322"
+
+Cohesion: 1.0
+Nodes (1): SubscriptionModule
+
+### Community 323 - "Community 323"
+
+Cohesion: 1.0
+Nodes (1): SearchModule
+
+### Community 324 - "Community 324"
+
+Cohesion: 1.0
+Nodes (1): LivestreamModule
+
+### Community 325 - "Community 325"
+
+Cohesion: 1.0
+Nodes (1): AiToolsModule
+
+### Community 326 - "Community 326"
+
+Cohesion: 1.0
+Nodes (1): CreateAiTaskDto
+
+### Community 327 - "Community 327"
+
+Cohesion: 1.0
+Nodes (1): ReviewModule
+
+### Community 328 - "Community 328"
+
+Cohesion: 1.0
+Nodes (1): InventoryModule
+
+### Community 329 - "Community 329"
+
+Cohesion: 1.0
+Nodes (1): InventoryQueryDto
+
+### Community 330 - "Community 330"
+
+Cohesion: 1.0
+Nodes (1): QueueModule
+
+### Community 331 - "Community 331"
+
+Cohesion: 1.0
+Nodes (1): WalletModule
+
+### Community 332 - "Community 332"
+
+Cohesion: 1.0
+Nodes (1): AffiliateModule
+
+### Community 333 - "Community 333"
+
+Cohesion: 1.0
+Nodes (1): AutomationModule
+
+### Community 334 - "Community 334"
+
+Cohesion: 1.0
+Nodes (1): AutomationQueryDto
+
+### Community 335 - "Community 335"
+
+Cohesion: 1.0
+Nodes (1): WarehouseModule
+
+### Community 336 - "Community 336"
+
+Cohesion: 1.0
+Nodes (1): CreateWarehouseDto
+
+### Community 337 - "Community 337"
+
+Cohesion: 1.0
+Nodes (1): I18nModule
+
+### Community 338 - "Community 338"
+
+Cohesion: 1.0
+Nodes (1): AnalyticsModule
+
+### Community 339 - "Community 339"
+
+Cohesion: 1.0
+Nodes (1): ApprovalModule
+
+### Community 340 - "Community 340"
+
+Cohesion: 1.0
+Nodes (1): ApprovalQueryDto
+
+### Community 341 - "Community 341"
+
+Cohesion: 1.0
+Nodes (1): AuditLogsModule
+
+### Community 342 - "Community 342"
+
+Cohesion: 1.0
+Nodes (1): ProductsModule
+
+### Community 343 - "Community 343"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 344 - "Community 344"
+
+Cohesion: 1.0
+Nodes (1): BannersModule
+
+### Community 345 - "Community 345"
+
+Cohesion: 1.0
+Nodes (1): DashboardModule
+
+### Community 346 - "Community 346"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 347 - "Community 347"
+
+Cohesion: 1.0
+Nodes (1): PromotionsModule
+
+### Community 348 - "Community 348"
+
+Cohesion: 1.0
+Nodes (1): UsersModule
+
+### Community 349 - "Community 349"
+
+Cohesion: 1.0
+Nodes (1): RefundsModule
+
+### Community 350 - "Community 350"
+
+Cohesion: 1.0
+Nodes (1): OrdersModule
+
+### Community 351 - "Community 351"
+
+Cohesion: 1.0
+Nodes (1): CategoriesModule
+
+### Community 352 - "Community 352"
+
+Cohesion: 1.0
+Nodes (1): NotificationsModule
+
+### Community 353 - "Community 353"
+
+Cohesion: 1.0
+Nodes (1): SellersModule
+
+### Community 354 - "Community 354"
+
+Cohesion: 1.0
+Nodes (1): SellerActionDto
+
+### Community 355 - "Community 355"
+
+Cohesion: 1.0
+Nodes (1): ReviewsModule
+
+### Community 356 - "Community 356"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 357 - "Community 357"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 358 - "Community 358"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 359 - "Community 359"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 360 - "Community 360"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 361 - "Community 361"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 362 - "Community 362"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 363 - "Community 363"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 364 - "Community 364"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 365 - "Community 365"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 366 - "Community 366"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 367 - "Community 367"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 368 - "Community 368"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 369 - "Community 369"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 370 - "Community 370"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 371 - "Community 371"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 372 - "Community 372"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 373 - "Community 373"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 374 - "Community 374"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 375 - "Community 375"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 376 - "Community 376"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 377 - "Community 377"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 378 - "Community 378"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 379 - "Community 379"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 380 - "Community 380"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 381 - "Community 381"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 382 - "Community 382"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 383 - "Community 383"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 384 - "Community 384"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 385 - "Community 385"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 386 - "Community 386"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 387 - "Community 387"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 388 - "Community 388"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 389 - "Community 389"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 390 - "Community 390"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 391 - "Community 391"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 392 - "Community 392"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 393 - "Community 393"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 394 - "Community 394"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 395 - "Community 395"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 396 - "Community 396"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 397 - "Community 397"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 398 - "Community 398"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 399 - "Community 399"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 400 - "Community 400"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 401 - "Community 401"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 402 - "Community 402"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 403 - "Community 403"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 404 - "Community 404"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 405 - "Community 405"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 406 - "Community 406"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 407 - "Community 407"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 408 - "Community 408"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 409 - "Community 409"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 410 - "Community 410"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 411 - "Community 411"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 412 - "Community 412"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 413 - "Community 413"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 414 - "Community 414"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 415 - "Community 415"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 416 - "Community 416"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 417 - "Community 417"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 418 - "Community 418"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 419 - "Community 419"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 420 - "Community 420"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 421 - "Community 421"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 422 - "Community 422"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 423 - "Community 423"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 424 - "Community 424"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 425 - "Community 425"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 426 - "Community 426"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 427 - "Community 427"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 428 - "Community 428"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 429 - "Community 429"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 430 - "Community 430"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 431 - "Community 431"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 432 - "Community 432"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 433 - "Community 433"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 434 - "Community 434"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 435 - "Community 435"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 436 - "Community 436"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 437 - "Community 437"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 438 - "Community 438"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 439 - "Community 439"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 440 - "Community 440"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 441 - "Community 441"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 442 - "Community 442"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 443 - "Community 443"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 444 - "Community 444"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 445 - "Community 445"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 446 - "Community 446"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 447 - "Community 447"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 448 - "Community 448"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 449 - "Community 449"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 450 - "Community 450"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 451 - "Community 451"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 452 - "Community 452"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 453 - "Community 453"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 454 - "Community 454"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 455 - "Community 455"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 456 - "Community 456"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 457 - "Community 457"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 458 - "Community 458"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 459 - "Community 459"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 460 - "Community 460"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 461 - "Community 461"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 462 - "Community 462"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 463 - "Community 463"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 464 - "Community 464"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 465 - "Community 465"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 466 - "Community 466"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 467 - "Community 467"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 468 - "Community 468"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 469 - "Community 469"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 470 - "Community 470"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 471 - "Community 471"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 472 - "Community 472"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 473 - "Community 473"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 474 - "Community 474"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 475 - "Community 475"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 476 - "Community 476"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 477 - "Community 477"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 478 - "Community 478"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 479 - "Community 479"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 480 - "Community 480"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 481 - "Community 481"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 482 - "Community 482"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 483 - "Community 483"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 484 - "Community 484"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 485 - "Community 485"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 486 - "Community 486"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 487 - "Community 487"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 488 - "Community 488"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 489 - "Community 489"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 490 - "Community 490"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 491 - "Community 491"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 492 - "Community 492"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 493 - "Community 493"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 494 - "Community 494"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 495 - "Community 495"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 496 - "Community 496"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 497 - "Community 497"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 498 - "Community 498"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 499 - "Community 499"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 500 - "Community 500"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 501 - "Community 501"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 502 - "Community 502"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 503 - "Community 503"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 504 - "Community 504"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 505 - "Community 505"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 506 - "Community 506"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 507 - "Community 507"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 508 - "Community 508"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 509 - "Community 509"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 510 - "Community 510"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 511 - "Community 511"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 512 - "Community 512"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 513 - "Community 513"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 514 - "Community 514"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 515 - "Community 515"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 516 - "Community 516"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 517 - "Community 517"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 518 - "Community 518"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 519 - "Community 519"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 520 - "Community 520"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 521 - "Community 521"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 522 - "Community 522"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 523 - "Community 523"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 524 - "Community 524"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 525 - "Community 525"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 526 - "Community 526"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 527 - "Community 527"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 528 - "Community 528"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 529 - "Community 529"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 530 - "Community 530"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 531 - "Community 531"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 532 - "Community 532"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 533 - "Community 533"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 534 - "Community 534"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 535 - "Community 535"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 536 - "Community 536"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 537 - "Community 537"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 538 - "Community 538"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 539 - "Community 539"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 540 - "Community 540"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 541 - "Community 541"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 542 - "Community 542"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 543 - "Community 543"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 544 - "Community 544"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 545 - "Community 545"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 546 - "Community 546"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 547 - "Community 547"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 548 - "Community 548"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 549 - "Community 549"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 550 - "Community 550"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 551 - "Community 551"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 552 - "Community 552"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 553 - "Community 553"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 554 - "Community 554"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 555 - "Community 555"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 556 - "Community 556"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 557 - "Community 557"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 558 - "Community 558"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 559 - "Community 559"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 560 - "Community 560"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 561 - "Community 561"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 562 - "Community 562"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 563 - "Community 563"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 564 - "Community 564"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 565 - "Community 565"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 566 - "Community 566"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 567 - "Community 567"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 568 - "Community 568"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 569 - "Community 569"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 570 - "Community 570"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 571 - "Community 571"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 572 - "Community 572"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 573 - "Community 573"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 574 - "Community 574"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 575 - "Community 575"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 576 - "Community 576"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 577 - "Community 577"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 578 - "Community 578"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 579 - "Community 579"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 580 - "Community 580"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 581 - "Community 581"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 582 - "Community 582"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 583 - "Community 583"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 584 - "Community 584"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 585 - "Community 585"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 586 - "Community 586"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 587 - "Community 587"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 588 - "Community 588"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 589 - "Community 589"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 590 - "Community 590"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 591 - "Community 591"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 592 - "Community 592"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 593 - "Community 593"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 594 - "Community 594"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 595 - "Community 595"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 596 - "Community 596"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 597 - "Community 597"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 598 - "Community 598"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 599 - "Community 599"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 600 - "Community 600"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 601 - "Community 601"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 602 - "Community 602"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 603 - "Community 603"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 604 - "Community 604"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 605 - "Community 605"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 606 - "Community 606"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 607 - "Community 607"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 608 - "Community 608"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 609 - "Community 609"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 610 - "Community 610"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 611 - "Community 611"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 612 - "Community 612"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 613 - "Community 613"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 614 - "Community 614"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 615 - "Community 615"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 616 - "Community 616"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 617 - "Community 617"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 618 - "Community 618"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 619 - "Community 619"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 620 - "Community 620"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 621 - "Community 621"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 622 - "Community 622"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 623 - "Community 623"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 624 - "Community 624"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 625 - "Community 625"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 626 - "Community 626"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 627 - "Community 627"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 628 - "Community 628"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 629 - "Community 629"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 630 - "Community 630"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 631 - "Community 631"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 632 - "Community 632"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 633 - "Community 633"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 634 - "Community 634"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 635 - "Community 635"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 636 - "Community 636"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 637 - "Community 637"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 638 - "Community 638"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 639 - "Community 639"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 640 - "Community 640"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 641 - "Community 641"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 642 - "Community 642"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 643 - "Community 643"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 644 - "Community 644"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 645 - "Community 645"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 646 - "Community 646"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 647 - "Community 647"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 648 - "Community 648"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 649 - "Community 649"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 650 - "Community 650"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 651 - "Community 651"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 652 - "Community 652"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 653 - "Community 653"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 654 - "Community 654"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 655 - "Community 655"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 656 - "Community 656"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 657 - "Community 657"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 658 - "Community 658"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 659 - "Community 659"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 660 - "Community 660"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 661 - "Community 661"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 662 - "Community 662"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 663 - "Community 663"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 664 - "Community 664"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 665 - "Community 665"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 666 - "Community 666"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 667 - "Community 667"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 668 - "Community 668"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 669 - "Community 669"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 670 - "Community 670"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 671 - "Community 671"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 672 - "Community 672"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 673 - "Community 673"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 674 - "Community 674"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 675 - "Community 675"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 676 - "Community 676"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 677 - "Community 677"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 678 - "Community 678"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 679 - "Community 679"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 680 - "Community 680"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 681 - "Community 681"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 682 - "Community 682"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 683 - "Community 683"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 684 - "Community 684"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 685 - "Community 685"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 686 - "Community 686"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 687 - "Community 687"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 688 - "Community 688"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 689 - "Community 689"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 690 - "Community 690"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 691 - "Community 691"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 692 - "Community 692"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 693 - "Community 693"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 694 - "Community 694"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 695 - "Community 695"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 696 - "Community 696"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 697 - "Community 697"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 698 - "Community 698"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 699 - "Community 699"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 700 - "Community 700"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 701 - "Community 701"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 702 - "Community 702"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 703 - "Community 703"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 704 - "Community 704"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 705 - "Community 705"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 706 - "Community 706"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 707 - "Community 707"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 708 - "Community 708"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 709 - "Community 709"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 710 - "Community 710"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 711 - "Community 711"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 712 - "Community 712"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 713 - "Community 713"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 714 - "Community 714"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 715 - "Community 715"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 716 - "Community 716"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 717 - "Community 717"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 718 - "Community 718"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 719 - "Community 719"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 720 - "Community 720"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 721 - "Community 721"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 722 - "Community 722"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 723 - "Community 723"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 724 - "Community 724"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 725 - "Community 725"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 726 - "Community 726"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 727 - "Community 727"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 728 - "Community 728"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 729 - "Community 729"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 730 - "Community 730"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 731 - "Community 731"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 732 - "Community 732"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 733 - "Community 733"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 734 - "Community 734"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 735 - "Community 735"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 736 - "Community 736"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 737 - "Community 737"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 738 - "Community 738"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 739 - "Community 739"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 740 - "Community 740"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 741 - "Community 741"
+
+Cohesion: 1.0
+Nodes (0):
+
+### Community 742 - "Community 742"
+
+Cohesion: 1.0
+Nodes (0):
 
 ## Knowledge Gaps
 
-- **11439 isolated node(s):** `ProductMediaUploadProps`, `meta`, `Story`, `mockItems`, `Default` (+11434 more)
+- **161 isolated node(s):** `DatabaseModule`, `LoginDto`, `PaginationMetaDto`, `PaginationQueryDto`, `OffsetPaginationDto` (+156 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **75 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **Thin community `Community 218`** (2 nodes): `ProductMediaUpload.tsx`, `ProductMediaUpload()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 219`** (2 nodes): `ProductMediaUpload.stories.tsx`, `simulateUpload()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 220`** (2 nodes): `ConsoleLayout()`, `ConsoleLayout.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 221`** (2 nodes): `seed.ts`, `main()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 222`** (2 nodes): `createPrismaClient()`, `client.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 223`** (2 nodes): `DatabaseModule`, `database.module.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 224`** (2 nodes): `useMediaUpload()`, `MediaUpload.context.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 225`** (2 nodes): `StatCard.context.tsx`, `useStatCard()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 226`** (2 nodes): `cn()`, `card.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 227`** (2 nodes): `cn()`, `field.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 228`** (2 nodes): `Label()`, `label.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 229`** (2 nodes): `cn()`, `empty.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 230`** (2 nodes): `tooltip.tsx`, `TooltipContent()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 231`** (2 nodes): `switch.tsx`, `Switch()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 232`** (2 nodes): `cn()`, `avatar.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 233`** (2 nodes): `cn()`, `kbd.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 234`** (2 nodes): `Badge()`, `badge.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 235`** (2 nodes): `separator.tsx`, `Separator()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 236`** (2 nodes): `Button()`, `button.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 237`** (2 nodes): `Checkbox()`, `checkbox.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 238`** (2 nodes): `spinner.tsx`, `Spinner()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 239`** (2 nodes): `textarea.tsx`, `cn()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 240`** (2 nodes): `Input()`, `input.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 241`** (2 nodes): `skeleton.tsx`, `Skeleton()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 242`** (2 nodes): `use-mobile.ts`, `useIsMobile()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 243`** (2 nodes): `getSessionCookieOptions()`, `cookie.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 244`** (2 nodes): `protected-route.ts`, `useProtectedRoute()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 245`** (2 nodes): `LoginDto`, `login.dto.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 246`** (2 nodes): `cursorPaginate()`, `cursor-paginate.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 247`** (2 nodes): `buildOffsetResponse()`, `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 248`** (2 nodes): `offsetPaginate()`, `offset-paginate.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 249`** (2 nodes): `OffsetPaginationDto`, `offset-pagination.dto.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 250`** (2 nodes): `CursorPaginationDto`, `cursor-pagination.dto.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 251`** (2 nodes): `use-pagination.ts`, `usePagination()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 252`** (2 nodes): `slugify.ts`, `slugify()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 253`** (2 nodes): `tsup.config.ts`, `outExtension()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 254`** (2 nodes): `swagger.builder.ts`, `buildSwaggerDocument()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 255`** (2 nodes): `ApiErrorResponses()`, `api-error-responses.decorator.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 256`** (2 nodes): `ApiAuth()`, `api-auth.decorator.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 257`** (2 nodes): `EcomLoggerModule`, `logger.module.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 258`** (2 nodes): `page.tsx`, `DashboardPage()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 259`** (2 nodes): `page.tsx`, `NewWarehousePage()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 260`** (2 nodes): `page.tsx`, `NewProductPage()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 261`** (2 nodes): `page.tsx`, `NewCouponPage()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 262`** (2 nodes): `page.tsx`, `fetchInventory()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 263`** (2 nodes): `status-badge.tsx`, `StatusBadge()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 264`** (2 nodes): `sidebar.tsx`, `isActive()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 265`** (2 nodes): `dashboard-layout.tsx`, `DashboardLayout()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 266`** (2 nodes): `page-header.tsx`, `PageHeader()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 267`** (2 nodes): `layout.tsx`, `DashboardLayout()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 268`** (2 nodes): `page.tsx`, `AuditLogs()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 269`** (2 nodes): `page.tsx`, `Products()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 270`** (2 nodes): `page.tsx`, `ProductDetail()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 271`** (2 nodes): `page.tsx`, `Banners()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 272`** (2 nodes): `page.tsx`, `Vouchers()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 273`** (2 nodes): `page.tsx`, `Refunds()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 274`** (2 nodes): `page.tsx`, `RefundDetail()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 275`** (2 nodes): `page.tsx`, `Orders()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 276`** (2 nodes): `page.tsx`, `OrderDetail()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 277`** (2 nodes): `page.tsx`, `Buyers()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 278`** (2 nodes): `page.tsx`, `BuyerDetail()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 279`** (2 nodes): `page.tsx`, `Categories()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 280`** (2 nodes): `page.tsx`, `Notifications()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 281`** (2 nodes): `page.tsx`, `Sellers()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 282`** (2 nodes): `page.tsx`, `SellerDetail()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 283`** (2 nodes): `page.tsx`, `Reviews()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 284`** (2 nodes): `page.tsx`, `LoginPage()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 285`** (2 nodes): `use-audit-logs.ts`, `useAuditLogs()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 286`** (2 nodes): `audit-logs.api.ts`, `getAuditLogs()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 287`** (2 nodes): `login-form.tsx`, `LoginForm()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 288`** (2 nodes): `banners-page.tsx`, `handleCreate()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 289`** (2 nodes): `vouchers-page.tsx`, `handleCreate()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 290`** (2 nodes): `categories-page.tsx`, `handleCreate()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 291`** (2 nodes): `notifications-page.tsx`, `handleCreate()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 292`** (2 nodes): `query-client.tsx`, `QueryProvider()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 293`** (2 nodes): `flash-sale.module.ts`, `FlashSaleModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 294`** (2 nodes): `ApplyFlashSaleSlotDto`, `apply-flash-sale-slot.dto.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 295`** (2 nodes): `create-flash-sale.dto.ts`, `CreateFlashSaleCampaignDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 296`** (2 nodes): `recommendation.module.ts`, `RecommendationModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 297`** (2 nodes): `AdsModule`, `ads.module.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 298`** (2 nodes): `order.module.ts`, `OrderModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 299`** (2 nodes): `update-order-status.dto.ts`, `UpdateOrderStatusDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 300`** (2 nodes): `metrics.module.ts`, `MetricsModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 301`** (2 nodes): `bulk.module.ts`, `BulkModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 302`** (2 nodes): `bulk-query.dto.ts`, `BulkJobQueryDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 303`** (2 nodes): `chat.module.ts`, `ChatModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 304`** (2 nodes): `AdvancedSearchModule`, `advanced-search.module.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 305`** (2 nodes): `notification.module.ts`, `NotificationModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 306`** (2 nodes): `notification-query.dto.ts`, `NotificationQueryDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 307`** (2 nodes): `event-streaming.module.ts`, `EventStreamingModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 308`** (2 nodes): `shop.module.ts`, `ShopModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 309`** (2 nodes): `update-shop.dto.ts`, `UpdateShopDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 310`** (2 nodes): `return.module.ts`, `ReturnModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 311`** (2 nodes): `return-query.dto.ts`, `ReturnQueryDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 312`** (2 nodes): `loyalty.module.ts`, `LoyaltyModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 313`** (2 nodes): `shipping.module.ts`, `ShippingModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 314`** (2 nodes): `create-shipment.dto.ts`, `CreateShipmentDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 315`** (2 nodes): `coupon.module.ts`, `CouponModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 316`** (2 nodes): `create-coupon.dto.ts`, `CreateCouponDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 317`** (2 nodes): `update-coupon.dto.ts`, `UpdateCouponDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 318`** (2 nodes): `coupon-query.dto.ts`, `CouponQueryDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 319`** (2 nodes): `product.module.ts`, `ProductModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 320`** (2 nodes): `update-product.dto.ts`, `UpdateProductDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 321`** (2 nodes): `growth.module.ts`, `GrowthModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 322`** (2 nodes): `subscription.module.ts`, `SubscriptionModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 323`** (2 nodes): `search.module.ts`, `SearchModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 324`** (2 nodes): `livestream.module.ts`, `LivestreamModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 325`** (2 nodes): `AiToolsModule`, `ai-tools.module.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 326`** (2 nodes): `CreateAiTaskDto`, `ai-tools.dto.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 327`** (2 nodes): `review.module.ts`, `ReviewModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 328`** (2 nodes): `inventory.module.ts`, `InventoryModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 329`** (2 nodes): `inventory-query.dto.ts`, `InventoryQueryDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 330`** (2 nodes): `queue.module.ts`, `QueueModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 331`** (2 nodes): `wallet.module.ts`, `WalletModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 332`** (2 nodes): `AffiliateModule`, `affiliate.module.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 333`** (2 nodes): `automation.module.ts`, `AutomationModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 334`** (2 nodes): `automation-query.dto.ts`, `AutomationQueryDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 335`** (2 nodes): `warehouse.module.ts`, `WarehouseModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 336`** (2 nodes): `create-warehouse.dto.ts`, `CreateWarehouseDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 337`** (2 nodes): `i18n.module.ts`, `I18nModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 338`** (2 nodes): `AnalyticsModule`, `analytics.module.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 339`** (2 nodes): `ApprovalModule`, `approval.module.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 340`** (2 nodes): `ApprovalQueryDto`, `approval-query.dto.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 341`** (2 nodes): `audit-logs.module.ts`, `AuditLogsModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 342`** (2 nodes): `products.module.ts`, `ProductsModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 343`** (2 nodes): `permissions.decorator.ts`, `Permissions()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 344`** (2 nodes): `banners.module.ts`, `BannersModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 345`** (2 nodes): `dashboard.module.ts`, `DashboardModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 346`** (2 nodes): `audit-log.decorator.ts`, `AuditLog()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 347`** (2 nodes): `promotions.module.ts`, `PromotionsModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 348`** (2 nodes): `users.module.ts`, `UsersModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 349`** (2 nodes): `refunds.module.ts`, `RefundsModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 350`** (2 nodes): `orders.module.ts`, `OrdersModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 351`** (2 nodes): `categories.module.ts`, `CategoriesModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 352`** (2 nodes): `notifications.module.ts`, `NotificationsModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 353`** (2 nodes): `sellers.module.ts`, `SellersModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 354`** (2 nodes): `seller-action.dto.ts`, `SellerActionDto`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 355`** (2 nodes): `reviews.module.ts`, `ReviewsModule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 356`** (1 nodes): `vite.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 357`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 358`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 359`** (1 nodes): `ProductStatusPill.fixtures.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 360`** (1 nodes): `ProductStatusPill.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 361`** (1 nodes): `ProductStatusPill.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 362`** (1 nodes): `ConsoleLayout.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 363`** (1 nodes): `ConsoleLayout.fixtures.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 364`** (1 nodes): `prisma.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 365`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 366`** (1 nodes): `browser.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 367`** (1 nodes): `client.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 368`** (1 nodes): `models.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 369`** (1 nodes): `commonInputTypes.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 370`** (1 nodes): `enums.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 371`** (1 nodes): `prismaNamespace.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 372`** (1 nodes): `prismaNamespaceBrowser.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 373`** (1 nodes): `Wallet.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 374`** (1 nodes): `Shipment.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 375`** (1 nodes): `FeatureFlag.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 376`** (1 nodes): `AttributeValue.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 377`** (1 nodes): `SellerProfile.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 378`** (1 nodes): `InventoryTransaction.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 379`** (1 nodes): `Category.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 380`** (1 nodes): `NotificationTemplate.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 381`** (1 nodes): `ProductVariantOption.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 382`** (1 nodes): `FlashSalePurchase.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 383`** (1 nodes): `Referral.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 384`** (1 nodes): `PlatformEvent.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 385`** (1 nodes): `AdKeyword.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 386`** (1 nodes): `Banner.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 387`** (1 nodes): `LoyaltyTransaction.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 388`** (1 nodes): `AutomationRule.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 389`** (1 nodes): `Ad.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 390`** (1 nodes): `Shop.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 391`** (1 nodes): `ProductVariantOptionValue.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 392`** (1 nodes): `AdminNotification.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 393`** (1 nodes): `ReturnTimeline.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 394`** (1 nodes): `SearchAnalytics.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 395`** (1 nodes): `Currency.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 396`** (1 nodes): `GrowthCampaign.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 397`** (1 nodes): `OrderAuditLog.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 398`** (1 nodes): `ProductRelation.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 399`** (1 nodes): `SettlementItem.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 400`** (1 nodes): `EventSubscription.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 401`** (1 nodes): `WarehouseStock.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 402`** (1 nodes): `ChatMessage.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 403`** (1 nodes): `Product.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 404`** (1 nodes): `InventoryTransfer.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 405`** (1 nodes): `ProductImage.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 406`** (1 nodes): `ProductVariant.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 407`** (1 nodes): `AiUsageLog.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 408`** (1 nodes): `ProductVariantOptionGroup.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 409`** (1 nodes): `AffiliateClick.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 410`** (1 nodes): `WalletWithdrawal.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 411`** (1 nodes): `ProductScore.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 412`** (1 nodes): `ReviewReply.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 413`** (1 nodes): `LivestreamSession.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 414`** (1 nodes): `WalletTransaction.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 415`** (1 nodes): `SubscriptionPlan.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 416`** (1 nodes): `Translation.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 417`** (1 nodes): `UserEvent.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 418`** (1 nodes): `Admin.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 419`** (1 nodes): `ReviewImage.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 420`** (1 nodes): `Seller.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 421`** (1 nodes): `AiPromptTemplate.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 422`** (1 nodes): `BulkJob.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 423`** (1 nodes): `AdClick.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 424`** (1 nodes): `PlanEntitlement.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 425`** (1 nodes): `AdCampaign.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 426`** (1 nodes): `ReviewReport.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 427`** (1 nodes): `AffiliateLink.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 428`** (1 nodes): `ReturnRequest.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 429`** (1 nodes): `Experiment.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 430`** (1 nodes): `SavedFilter.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 431`** (1 nodes): `UserSegment.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 432`** (1 nodes): `AttributeGroup.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 433`** (1 nodes): `SellerOrder.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 434`** (1 nodes): `AuditLog.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 435`** (1 nodes): `Review.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 436`** (1 nodes): `AdImpression.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 437`** (1 nodes): `AffiliateConversion.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 438`** (1 nodes): `LivestreamProduct.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 439`** (1 nodes): `LoyaltyMission.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 440`** (1 nodes): `FlashSaleSlot.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 441`** (1 nodes): `ShippingProvider.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 442`** (1 nodes): `SettlementBatch.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 443`** (1 nodes): `Role.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 444`** (1 nodes): `LoyaltyRedemption.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 445`** (1 nodes): `LivestreamChat.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 446`** (1 nodes): `ProductApproval.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 447`** (1 nodes): `Session.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 448`** (1 nodes): `AdminRoleAssignment.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 449`** (1 nodes): `SubscriptionInvoice.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 450`** (1 nodes): `AutomationExecution.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 451`** (1 nodes): `CouponProduct.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 452`** (1 nodes): `Order.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 453`** (1 nodes): `AdminRole.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 454`** (1 nodes): `Coupon.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 455`** (1 nodes): `TaxRate.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 456`** (1 nodes): `ProductReport.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 457`** (1 nodes): `SearchSynonym.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 458`** (1 nodes): `CategoryAttribute.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 459`** (1 nodes): `AiTask.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 460`** (1 nodes): `AffiliatePartner.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 461`** (1 nodes): `AdminSession.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 462`** (1 nodes): `Notification.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 463`** (1 nodes): `PlatformVoucher.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 464`** (1 nodes): `Region.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 465`** (1 nodes): `SellerShippingMethod.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 466`** (1 nodes): `SearchBoostRule.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 467`** (1 nodes): `Conversation.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 468`** (1 nodes): `RolePermission.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 469`** (1 nodes): `LoyaltyAccount.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 470`** (1 nodes): `ExperimentVariant.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 471`** (1 nodes): `SellerSubscription.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 472`** (1 nodes): `LoyaltyReward.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 473`** (1 nodes): `SellerOrderItem.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 474`** (1 nodes): `RegionalPricing.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 475`** (1 nodes): `ProductApprovalHistory.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 476`** (1 nodes): `UserRole.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 477`** (1 nodes): `SellerVerification.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 478`** (1 nodes): `AdGroup.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 479`** (1 nodes): `CouponCategory.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 480`** (1 nodes): `ReturnItem.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 481`** (1 nodes): `Warehouse.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 482`** (1 nodes): `AdminAuditLog.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 483`** (1 nodes): `User.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 484`** (1 nodes): `ReturnEvidence.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 485`** (1 nodes): `LoyaltyTier.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 486`** (1 nodes): `SellerMetricSnapshot.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 487`** (1 nodes): `CommissionPayout.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 488`** (1 nodes): `CouponUsage.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 489`** (1 nodes): `FlashSaleCampaign.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 490`** (1 nodes): `LoyaltyMissionProgress.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 491`** (1 nodes): `InventoryTransferItem.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 492`** (1 nodes): `vite.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 493`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 494`** (1 nodes): `Tabs.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 495`** (1 nodes): `Tabs.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 496`** (1 nodes): `Tabs.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 497`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 498`** (1 nodes): `MediaUpload.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 499`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 500`** (1 nodes): `MediaUpload.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 501`** (1 nodes): `MediaUpload.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 502`** (1 nodes): `Pagination.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 503`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 504`** (1 nodes): `Pagination.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 505`** (1 nodes): `Pagination.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 506`** (1 nodes): `Tooltip.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 507`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 508`** (1 nodes): `Tooltip.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 509`** (1 nodes): `Tooltip.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 510`** (1 nodes): `Card.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 511`** (1 nodes): `Card.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 512`** (1 nodes): `Card.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 513`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 514`** (1 nodes): `Empty.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 515`** (1 nodes): `Empty.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 516`** (1 nodes): `Empty.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 517`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 518`** (1 nodes): `DropdownMenu.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 519`** (1 nodes): `DropdownMenu.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 520`** (1 nodes): `DropdownMenu.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 521`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 522`** (1 nodes): `Stepper.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 523`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 524`** (1 nodes): `Stepper.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 525`** (1 nodes): `Stepper.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 526`** (1 nodes): `Field.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 527`** (1 nodes): `Field.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 528`** (1 nodes): `Field.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 529`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 530`** (1 nodes): `Combobox.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 531`** (1 nodes): `Combobox.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 532`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 533`** (1 nodes): `Combobox.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 534`** (1 nodes): `StatCard.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 535`** (1 nodes): `StatCard.fixtures.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 536`** (1 nodes): `StatCard.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 537`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 538`** (1 nodes): `StatCard.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 539`** (1 nodes): `Select.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 540`** (1 nodes): `Select.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 541`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 542`** (1 nodes): `Select.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 543`** (1 nodes): `Timeline.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 544`** (1 nodes): `Timeline.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 545`** (1 nodes): `Timeline.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 546`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 547`** (1 nodes): `RadioGroup.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 548`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 549`** (1 nodes): `RadioGroup.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 550`** (1 nodes): `RadioGroup.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 551`** (1 nodes): `Kbd.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 552`** (1 nodes): `Kbd.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 553`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 554`** (1 nodes): `Kbd.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 555`** (1 nodes): `Progress.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 556`** (1 nodes): `Progress.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 557`** (1 nodes): `Progress.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 558`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 559`** (1 nodes): `Input.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 560`** (1 nodes): `Input.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 561`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 562`** (1 nodes): `Input.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 563`** (1 nodes): `Skeleton.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 564`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 565`** (1 nodes): `Skeleton.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 566`** (1 nodes): `Skeleton.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 567`** (1 nodes): `Separator.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 568`** (1 nodes): `Separator.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 569`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 570`** (1 nodes): `Separator.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 571`** (1 nodes): `Checkbox.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 572`** (1 nodes): `Checkbox.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 573`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 574`** (1 nodes): `Checkbox.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 575`** (1 nodes): `Label.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 576`** (1 nodes): `Label.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 577`** (1 nodes): `Label.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 578`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 579`** (1 nodes): `Spinner.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 580`** (1 nodes): `Spinner.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 581`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 582`** (1 nodes): `Spinner.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 583`** (1 nodes): `Toggle.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 584`** (1 nodes): `Toggle.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 585`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 586`** (1 nodes): `Toggle.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 587`** (1 nodes): `Textarea.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 588`** (1 nodes): `Textarea.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 589`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 590`** (1 nodes): `Textarea.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 591`** (1 nodes): `Button.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 592`** (1 nodes): `Button.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 593`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 594`** (1 nodes): `Button.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 595`** (1 nodes): `Avatar.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 596`** (1 nodes): `Avatar.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 597`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 598`** (1 nodes): `Avatar.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 599`** (1 nodes): `Typography.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 600`** (1 nodes): `Typography.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 601`** (1 nodes): `Typography.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 602`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 603`** (1 nodes): `Switch.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 604`** (1 nodes): `Switch.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 605`** (1 nodes): `Switch.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 606`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 607`** (1 nodes): `InputGroup.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 608`** (1 nodes): `InputGroup.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 609`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 610`** (1 nodes): `InputGroup.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 611`** (1 nodes): `Badge.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 612`** (1 nodes): `Badge.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 613`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 614`** (1 nodes): `Badge.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 615`** (1 nodes): `progress.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 616`** (1 nodes): `sonner.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 617`** (1 nodes): `timeline.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 618`** (1 nodes): `toggle.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 619`** (1 nodes): `stepper.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 620`** (1 nodes): `data-table.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 621`** (1 nodes): `Sidebar.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 622`** (1 nodes): `Sidebar.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 623`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 624`** (1 nodes): `Sidebar.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 625`** (1 nodes): `Drawer.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 626`** (1 nodes): `Drawer.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 627`** (1 nodes): `Drawer.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 628`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 629`** (1 nodes): `Sonner.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 630`** (1 nodes): `Sonner.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 631`** (1 nodes): `Sonner.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 632`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 633`** (1 nodes): `Table.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 634`** (1 nodes): `Table.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 635`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 636`** (1 nodes): `Table.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 637`** (1 nodes): `Sheet.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 638`** (1 nodes): `Sheet.stories.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 639`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 640`** (1 nodes): `Sheet.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 641`** (1 nodes): `tsup.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 642`** (1 nodes): `eslint-react-library.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 643`** (1 nodes): `prettier.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 644`** (1 nodes): `eslint.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 645`** (1 nodes): `commitlint.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 646`** (1 nodes): `tsup.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 647`** (1 nodes): `redis.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 648`** (1 nodes): `redis.constants.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 649`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 650`** (1 nodes): `tsup.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 651`** (1 nodes): `constants.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 652`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 653`** (1 nodes): `tsup.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 654`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 655`** (1 nodes): `admin.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 656`** (1 nodes): `seller.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 657`** (1 nodes): `storefront.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 658`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 659`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 660`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 661`** (1 nodes): `inventory.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 662`** (1 nodes): `product.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 663`** (1 nodes): `admin.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 664`** (1 nodes): `seller.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 665`** (1 nodes): `order.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 666`** (1 nodes): `promotion.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 667`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 668`** (1 nodes): `system.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 669`** (1 nodes): `user.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 670`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 671`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 672`** (1 nodes): `response.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 673`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 674`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 675`** (1 nodes): `dto.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 676`** (1 nodes): `types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 677`** (1 nodes): `constants.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 678`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 679`** (1 nodes): `cursor-stability.test.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 680`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 681`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 682`** (1 nodes): `feature-flags.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 683`** (1 nodes): `routes.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 684`** (1 nodes): `events.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 685`** (1 nodes): `limits.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 686`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 687`** (1 nodes): `config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 688`** (1 nodes): `audit.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 689`** (1 nodes): `queues.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 690`** (1 nodes): `types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 691`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 692`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 693`** (1 nodes): `vite.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 694`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 695`** (1 nodes): `vite.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 696`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 697`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 698`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 699`** (1 nodes): `swagger-tags.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 700`** (1 nodes): `error-codes.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 701`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 702`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 703`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 704`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 705`** (1 nodes): `email.constants.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 706`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 707`** (1 nodes): `email.types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 708`** (1 nodes): `next-env.d.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 709`** (1 nodes): `with-auth.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 710`** (1 nodes): `auth-provider.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 711`** (1 nodes): `api.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 712`** (1 nodes): `next-env.d.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 713`** (1 nodes): `with-auth.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 714`** (1 nodes): `auth-provider.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 715`** (1 nodes): `session.provider.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 716`** (1 nodes): `current-user.decorator.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 717`** (1 nodes): `next-env.d.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 718`** (1 nodes): `next.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 719`** (1 nodes): `auth-provider.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 720`** (1 nodes): `audit-logs-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 721`** (1 nodes): `products-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 722`** (1 nodes): `product-detail-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 723`** (1 nodes): `login.schema.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 724`** (1 nodes): `dashboard-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 725`** (1 nodes): `users-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 726`** (1 nodes): `user-detail-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 727`** (1 nodes): `refunds-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 728`** (1 nodes): `refund-detail-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 729`** (1 nodes): `orders-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 730`** (1 nodes): `order-detail-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 731`** (1 nodes): `seller-detail-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 732`** (1 nodes): `reviews-page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 733`** (1 nodes): `sidebar-config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 734`** (1 nodes): `admin-sidebar.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 735`** (1 nodes): `api-types.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 736`** (1 nodes): `api.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 737`** (1 nodes): `session.provider.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 738`** (1 nodes): `current-user.decorator.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 739`** (1 nodes): `queue.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 740`** (1 nodes): `redis.config.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 741`** (1 nodes): `session.provider.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 742`** (1 nodes): `current-admin.decorator.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Frontend Standards` connect `Community 138` to `Community 144`, `Community 210`, `Community 154`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Why does `State Management Layers (TanStack Query, Zustand, React Hook Form)` connect `Community 144` to `Community 138`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Are the 46 inferred relationships involving `offsetPaginate()` (e.g. with `getSkip()` and `.listCampaigns()`) actually correct?**
-  _`offsetPaginate()` has 46 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `ProductMediaUploadProps`, `meta`, `Story` to the rest of the system?**
-  _11439 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Prisma Schema Enums` be split into smaller, more focused modules?**
-  _Cohesion score 0.01 - nodes in this community are weakly interconnected._
-- **Should `Prisma Filter Types` be split into smaller, more focused modules?**
-  _Cohesion score 0.01 - nodes in this community are weakly interconnected._
-- **Should `Shop Domain Models` be split into smaller, more focused modules?**
-  _Cohesion score 0.01 - nodes in this community are weakly interconnected._
+- **What connects `DatabaseModule`, `LoginDto`, `PaginationMetaDto` to the rest of the system?**
+  _161 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Community 0` be split into smaller, more focused modules?**
+  _Cohesion score 0.12 - nodes in this community are weakly interconnected._
+- **Should `Community 3` be split into smaller, more focused modules?**
+  _Cohesion score 0.12 - nodes in this community are weakly interconnected._
+- **Should `Community 5` be split into smaller, more focused modules?**
+  _Cohesion score 0.13 - nodes in this community are weakly interconnected._
+- **Should `Community 7` be split into smaller, more focused modules?**
+  _Cohesion score 0.13 - nodes in this community are weakly interconnected._
+- **Should `Community 8` be split into smaller, more focused modules?**
+  _Cohesion score 0.14 - nodes in this community are weakly interconnected._
+- **Should `Community 9` be split into smaller, more focused modules?**
+  _Cohesion score 0.14 - nodes in this community are weakly interconnected._

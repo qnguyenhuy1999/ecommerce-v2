@@ -1,48 +1,63 @@
+import {
+  BarChart2,
+  DollarSign,
+  LayoutDashboard,
+  Megaphone,
+  MessageSquare,
+  Package,
+  RefreshCcw,
+  Settings,
+  ShoppingCart,
+  Store,
+  Tag,
+  Ticket,
+  Warehouse,
+} from 'lucide-react'
+
 import { type SidebarGroup } from '@ecom/core-ui'
 
 export const sidebarGroups: SidebarGroup[] = [
   {
     id: 'main',
-    items: [{ id: 'dashboard', label: 'Dashboard' }],
+    items: [{ id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' }],
   },
   {
-    id: 'management',
-    label: 'Management',
+    id: 'manage',
+    label: 'Manage',
     items: [
-      { id: 'products', label: 'Products' },
-      { id: 'inventory', label: 'Inventory' },
-      { id: 'orders', label: 'Orders' },
-      { id: 'returns', label: 'Returns' },
+      { id: 'products', label: 'Products', icon: Package, href: '/products' },
+      { id: 'inventory', label: 'Inventory', icon: Warehouse, href: '/inventory' },
+      { id: 'orders', label: 'Orders', icon: ShoppingCart, href: '/orders' },
+      { id: 'returns', label: 'Returns', icon: RefreshCcw, href: '/returns' },
     ],
   },
   {
     id: 'marketing',
     label: 'Marketing',
-    items: [{ id: 'promotions', label: 'Promotions' }],
-  },
-  {
-    id: 'analytics',
-    label: 'Analytics',
     items: [
-      { id: 'analytics', label: 'Analytics' },
-      { id: 'finance', label: 'Finance' },
+      { id: 'promotions', label: 'Promotions', icon: Megaphone, href: '/promotions' },
+      { id: 'vouchers', label: 'Vouchers', icon: Ticket, href: '/vouchers' },
+      { id: 'storefront', label: 'Storefront', icon: Store, href: '/storefront' },
     ],
   },
   {
-    id: 'communication',
-    label: 'Communication',
-    items: [{ id: 'messages', label: 'Messages' }],
+    id: 'insights',
+    label: 'Insights',
+    items: [
+      { id: 'analytics', label: 'Analytics', icon: BarChart2, href: '/analytics' },
+      { id: 'finance', label: 'Finance', icon: DollarSign, href: '/finance' },
+    ],
   },
   {
-    id: 'store',
-    label: 'Store',
-    items: [
-      { id: 'shop-profile', label: 'Shop profile' },
-      { id: 'storefront', label: 'Storefront' },
-    ],
+    id: 'engage',
+    label: 'Engage',
+    items: [{ id: 'messages', label: 'Messages', icon: MessageSquare, href: '/messages' }],
   },
   {
     id: 'system',
-    items: [{ id: 'settings', label: 'Settings' }],
+    items: [
+      { id: 'shop-profile', label: 'Shop profile', icon: Tag, href: '/shop-profile' },
+      { id: 'settings', label: 'Settings', icon: Settings, href: '/settings' },
+    ],
   },
 ]

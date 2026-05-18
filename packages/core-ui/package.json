@@ -16,6 +16,10 @@
       "import": "./src/tokens/index.ts",
       "types": "./src/tokens/index.ts"
     },
+    "./layouts/ConsoleLayout": {
+      "import": "./src/layouts/ConsoleLayout/index.ts",
+      "types": "./src/layouts/ConsoleLayout/index.ts"
+    },
     "./providers/ThemeProvider": {
       "import": "./src/providers/ThemeProvider.tsx",
       "types": "./src/providers/ThemeProvider.tsx"

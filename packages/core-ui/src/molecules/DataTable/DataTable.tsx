@@ -5,25 +5,16 @@ import {
   useReactTable,
   getCoreRowModel,
   flexRender,
-  type ColumnDef,
   type RowSelectionState,
 } from '@tanstack/react-table'
 import type { PaginationMeta } from '@ecom/shared/pagination/core'
-import { cn } from '../lib/utils'
-
-interface DataTableProps<T> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columns: ColumnDef<T, any>[]
-  data: T[]
-  meta?: PaginationMeta
-  loading?: boolean
-  onPageChange?: (page: number) => void
-  enableRowSelection?: boolean
-  onSelectionChange?: (rows: T[]) => void
-  toolbar?: React.ReactNode
-  bulkActions?: React.ReactNode
-  emptyMessage?: string
-}
+import { cn } from '../../lib/utils'
+import type {
+  DataTableProps,
+  StatusBadgeProps,
+  StatusTabsProps,
+  TableToolbarProps,
+} from './DataTable.types'
 
 export function DataTable<T extends { id: string }>({
   columns,
@@ -66,7 +57,7 @@ export function DataTable<T extends { id: string }>({
     getRowId: (row) => row.id,
   })
 
-  const selectedCount = Object.keys(rowSelection).filter((k) => rowSelection[k]).length
+  const selectedCount = Object.keys(rowSelection).filter((key) => rowSelection[key]).length
 
   return (
     <div className="space-y-4">
@@ -100,10 +91,10 @@ export function DataTable<T extends { id: string }>({
             </thead>
             <tbody>
               {loading
-                ? Array.from({ length: 10 }).map((_, i) => (
-                    <tr key={i} className="border-b">
-                      {columns.map((_, j) => (
-                        <td key={j} className="px-4 py-3">
+                ? Array.from({ length: 10 }).map((_, rowIndex) => (
+                    <tr key={rowIndex} className="border-b">
+                      {columns.map((_, cellIndex) => (
+                        <td key={cellIndex} className="px-4 py-3">
                           <div className="bg-muted h-4 w-20 animate-pulse rounded" />
                         </td>
                       ))}
@@ -150,7 +141,7 @@ function Pagination({
   return (
     <div className="flex items-center justify-between text-sm">
       <span className="text-muted-foreground">
-        Showing {(meta.page - 1) * meta.limit + 1}–{Math.min(meta.page * meta.limit, meta.total)} of{' '}
+        Showing {(meta.page - 1) * meta.limit + 1}-{Math.min(meta.page * meta.limit, meta.total)} of{' '}
         {meta.total}
       </span>
       <div className="flex gap-1">
@@ -173,7 +164,7 @@ function Pagination({
   )
 }
 
-export function StatusBadge({ status }: { status: string }) {
+export function StatusBadge({ status }: StatusBadgeProps) {
   const styles: Record<string, string> = {
     ACTIVE: 'bg-green-100 text-green-700',
     PUBLISHED: 'bg-green-100 text-green-700',
@@ -223,12 +214,7 @@ export function TableToolbar({
   onSearchChange,
   placeholder = 'Search...',
   children,
-}: {
-  search: string
-  onSearchChange: (value: string) => void
-  placeholder?: string
-  children?: React.ReactNode
-}) {
+}: TableToolbarProps) {
   return (
     <div className="flex flex-wrap items-center gap-2">
       <input
@@ -243,17 +229,7 @@ export function TableToolbar({
   )
 }
 
-export function StatusTabs({
-  tabs,
-  value,
-  onChange,
-  counts,
-}: {
-  tabs: string[]
-  value: string
-  onChange: (tab: string) => void
-  counts?: Record<string, number>
-}) {
+export function StatusTabs({ tabs, value, onChange, counts }: StatusTabsProps) {
   return (
     <div className="flex flex-wrap gap-1 border-b">
       {tabs.map((tab) => (

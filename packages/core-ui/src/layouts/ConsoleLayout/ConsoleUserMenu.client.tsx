@@ -1,0 +1,53 @@
+'use client'
+
+import { Avatar, AvatarFallback, AvatarImage } from '../../atoms/Avatar'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../../molecules/DropdownMenu'
+import { LogOutIcon, SettingsIcon, UserIcon } from 'lucide-react'
+import type { ConsoleLayoutUserMenu } from './ConsoleLayout.types'
+import { getInitials } from './ConsoleLayout.utils'
+
+interface ConsoleUserMenuProps {
+  menu: ConsoleLayoutUserMenu
+}
+
+export function ConsoleUserMenu({ menu }: ConsoleUserMenuProps) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className="hover:bg-secondary flex items-center gap-2 rounded-md px-2 py-1">
+        <Avatar className="size-7">
+          <AvatarImage src={menu.avatarUrl} alt={menu.avatarAlt ?? menu.name} />
+          <AvatarFallback>{menu.avatarFallback ?? getInitials(menu.name)}</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="max-w-80 min-w-60">
+        <DropdownMenuItem className="flex items-center gap-2">
+          <Avatar className="size-7">
+            <AvatarImage src={menu.avatarUrl} alt={menu.avatarAlt ?? menu.name} />
+            <AvatarFallback>{menu.avatarFallback ?? getInitials(menu.name)}</AvatarFallback>
+          </Avatar>
+          <div className="ml-2 min-w-0">
+            <p className="truncate text-sm font-medium">{menu.name}</p>
+            <p className="text-muted-foreground truncate text-xs">{menu.email}</p>
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <UserIcon /> Profile
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <SettingsIcon /> Settings
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <LogOutIcon /> Logout
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}

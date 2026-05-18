@@ -43,6 +43,14 @@ Filter one pkg: `pnpm --filter @ecom/<name> <script>`.
 
 Docs in `docs/` (architecture, conventions, engineering standards). Read before inventing.
 
+- `docs/conventions/folder-structure.md` — folder layout for apps and packages
+- `docs/conventions/naming-conventions.md` — file, function, and enum naming rules
+- `docs/conventions/ui-packages.md` — UI packages reference: atomic layers, server/client component rules, file naming, adding components (`@ecom/core-ui`, `@ecom/ui-seller`, `@ecom/ui-admin`, `@ecom/ui-storefront`)
+- `docs/engineering/frontend-standards.md` — state management, data fetching, styling, a11y
+- `docs/engineering/backend-standards.md` — NestJS patterns, service/controller rules
+- `docs/engineering/api-standards.md` — API shape, Swagger, openapi sync
+- `docs/engineering/testing-standards.md` — unit and e2e testing rules
+
 ## graphify
 
 Knowledge graph at `graphify-out/`.

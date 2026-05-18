@@ -1,8 +1,5 @@
-import {
-  ConsoleLayout as CoreConsoleLayout,
-  Root as CoreRoot,
-} from '@ecom/core-ui/layouts/ConsoleLayout'
-import type { ConsoleLayoutProps } from '@ecom/core-ui/layouts/ConsoleLayout'
+import { ConsoleLayout as CoreConsoleLayout, Root as CoreRoot } from '@ecom/core-ui'
+import type { ConsoleLayoutProps } from '@ecom/core-ui'
 import {
   defaultSidebarAccount,
   defaultSidebarGroups,
@@ -20,6 +17,7 @@ function ConsoleLayoutBase({
   notificationCount = 3,
   storefrontLabel = 'Storefront',
   userMenu = defaultUserMenu,
+  contentClassName,
 }: ConsoleLayoutProps) {
   return (
     <CoreConsoleLayout
@@ -31,6 +29,7 @@ function ConsoleLayoutBase({
       notificationCount={notificationCount}
       storefrontLabel={storefrontLabel}
       userMenu={userMenu}
+      contentClassName={contentClassName}
     >
       {children}
     </CoreConsoleLayout>

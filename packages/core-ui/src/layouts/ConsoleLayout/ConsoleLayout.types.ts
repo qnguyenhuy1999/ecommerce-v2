@@ -31,4 +31,5 @@ export interface ConsoleLayoutProps {
   notificationCount?: number
   storefrontLabel?: string
   userMenu?: ConsoleLayoutUserMenu
+  contentClassName?: string
 }

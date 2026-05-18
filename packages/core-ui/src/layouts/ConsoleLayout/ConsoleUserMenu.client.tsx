@@ -19,8 +19,8 @@ interface ConsoleUserMenuProps {
 export function ConsoleUserMenu({ menu }: ConsoleUserMenuProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="hover:bg-secondary flex items-center gap-2 rounded-md px-2 py-1">
-        <Avatar className="size-7">
+      <DropdownMenuTrigger className="hover:bg-muted hidden items-center gap-2 rounded-xl px-1.5 py-1.5 transition-colors sm:flex">
+        <Avatar className="size-8 rounded-xl">
           <AvatarImage src={menu.avatarUrl} alt={menu.avatarAlt ?? menu.name} />
           <AvatarFallback>{menu.avatarFallback ?? getInitials(menu.name)}</AvatarFallback>
         </Avatar>

@@ -25,17 +25,19 @@ export function ConsoleTopbar({
   userMenu,
 }: ConsoleTopbarProps) {
   return (
-    <header className="flex h-14 shrink-0 items-center gap-3 border-b px-4">
-      <div className="flex items-center gap-2">
+    <header className="bg-background border-border flex min-h-16 shrink-0 items-center gap-3 border-b px-4 md:px-6">
+      <div className="flex items-center gap-2 md:gap-3">
         <ConsoleSidebarTrigger />
         {workspaceSwitcher ? <ConsoleWorkspaceSwitcher switcher={workspaceSwitcher} /> : null}
       </div>
 
       <ConsoleSearch placeholder={searchPlaceholder} />
 
-      <div className="ml-auto flex items-center gap-3">
+      <div className="ml-auto flex items-center gap-2 md:gap-3">
         {balanceLabel ? (
-          <span className="text-sm font-medium text-green-600">{balanceLabel}</span>
+          <span className="bg-success/10 text-success hidden rounded-full px-3 py-1 text-sm font-semibold md:inline-flex">
+            {balanceLabel}
+          </span>
         ) : null}
         <ConsoleHelpButton />
         {notificationCount !== undefined ? (

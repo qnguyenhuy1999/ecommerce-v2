@@ -4,7 +4,6 @@ export type Accent = 'primary' | 'success' | 'info' | 'warning' | 'destructive'
 
 export interface StatCardProps {
   label?: string
-  title?: string
   value: string | number
   icon?: LucideIcon
   trend?: number
@@ -15,6 +14,6 @@ export interface StatCardProps {
   description?: string
 }
 
-export type StatCardHeader = { label?: string; title?: string; icon?: LucideIcon }
+export type StatCardHeader = { label?: string; icon?: LucideIcon }
 
 export type StatChartProps = Pick<StatCardProps, 'value' | 'spark'>

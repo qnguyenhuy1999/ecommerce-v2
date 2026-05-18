@@ -25,7 +25,7 @@ export const sidebarGroups: SidebarGroup[] = [
     id: 'manage',
     label: 'Manage',
     items: [
-      { id: 'products', label: 'Products', icon: Package, href: '/products' },
+      { id: 'products', label: 'Products', icon: Package, href: '/products', isActive: true },
       { id: 'inventory', label: 'Inventory', icon: Warehouse, href: '/inventory' },
       { id: 'orders', label: 'Orders', icon: ShoppingCart, href: '/orders' },
       { id: 'returns', label: 'Returns', icon: RefreshCcw, href: '/returns' },

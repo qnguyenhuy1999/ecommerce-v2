@@ -8,15 +8,19 @@ interface ConsoleSidebarHeaderProps {
 
 export function ConsoleSidebarHeader({ account }: ConsoleSidebarHeaderProps) {
   return (
-    <div className="flex items-center gap-3 px-1 py-2">
-      <Avatar className="size-7 shrink-0">
+    <div className="flex items-center gap-3 px-1 py-3">
+      <Avatar className="size-7 shrink-0 rounded-xl">
         <AvatarImage src={account.avatarUrl} alt={account.avatarAlt ?? account.name} />
-        <AvatarFallback>{account.avatarFallback ?? getInitials(account.name)}</AvatarFallback>
+        <AvatarFallback className="bg-primary text-primary-foreground">
+          {account.avatarFallback ?? getInitials(account.name)}
+        </AvatarFallback>
       </Avatar>
       <div className="min-w-0 group-data-[collapsible=icon]:hidden">
-        <p className="truncate text-sm leading-tight font-semibold">{account.name}</p>
+        <p className="text-sidebar-foreground truncate text-base leading-tight font-semibold">
+          {account.name}
+        </p>
         {account.subtitle && (
-          <p className="text-muted-foreground truncate text-xs">{account.subtitle}</p>
+          <p className="text-muted-foreground truncate text-sm">{account.subtitle}</p>
         )}
       </div>
     </div>

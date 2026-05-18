@@ -1,0 +1,355 @@
+export type ProductTableStatus =
+  | 'LIVE'
+  | 'DRAFT'
+  | 'OUT_OF_STOCK'
+  | 'PENDING'
+  | 'BLOCKED'
+  | 'SCHEDULED'
+
+export interface ProductTableRow {
+  id: string
+  image: string
+  name: string
+  sku: string
+  category: string
+  status: ProductTableStatus
+  price: number
+  stock: number
+  sold: string
+  rating: number
+}
+
+export const productStatusTabs = [
+  'ALL',
+  'LIVE',
+  'DRAFT',
+  'OUT_OF_STOCK',
+  'PENDING',
+  'BLOCKED',
+  'SCHEDULED',
+] as const
+
+export const productStatusCounts: Record<string, number> = {
+  ALL: 24,
+  LIVE: 14,
+  DRAFT: 2,
+  OUT_OF_STOCK: 2,
+  PENDING: 2,
+  BLOCKED: 2,
+  SCHEDULED: 2,
+}
+
+export const productTableRows: ProductTableRow[] = [
+  {
+    id: 'LUM-1000',
+    image:
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=96&q=80',
+    name: 'Wireless ANC Headphones - Studio Edition',
+    sku: 'SKU LUM-1000',
+    category: 'Electronics',
+    status: 'LIVE',
+    price: 9,
+    stock: 5,
+    sold: '50',
+    rating: 4.0,
+  },
+  {
+    id: 'LUM-1001',
+    image:
+      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=96&q=80',
+    name: 'Linen Lounge Set, Oversized Fit',
+    sku: 'SKU LUM-1001',
+    category: 'Fashion',
+    status: 'LIVE',
+    price: 22,
+    stock: 12,
+    sold: '141',
+    rating: 4.1,
+  },
+  {
+    id: 'LUM-1002',
+    image:
+      'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=96&q=80',
+    name: 'Mechanical Keyboard, Hot-Swap 75%',
+    sku: 'SKU LUM-1002',
+    category: 'Home & Living',
+    status: 'LIVE',
+    price: 35,
+    stock: 19,
+    sold: '232',
+    rating: 4.2,
+  },
+  {
+    id: 'LUM-1003',
+    image:
+      'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=96&q=80',
+    name: 'Ceramic Pour-Over Coffee Set',
+    sku: 'SKU LUM-1003',
+    category: 'Beauty',
+    status: 'LIVE',
+    price: 48,
+    stock: 26,
+    sold: '323',
+    rating: 4.3,
+  },
+  {
+    id: 'LUM-1004',
+    image:
+      'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=96&q=80',
+    name: 'Minimalist Leather Card Holder',
+    sku: 'SKU LUM-1004',
+    category: 'Grocery',
+    status: 'DRAFT',
+    price: 61,
+    stock: 33,
+    sold: '414',
+    rating: 4.4,
+  },
+  {
+    id: 'LUM-1005',
+    image:
+      'https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=96&q=80',
+    name: 'Smart Desk Lamp with USB-C',
+    sku: 'SKU LUM-1005',
+    category: 'Sports',
+    status: 'OUT_OF_STOCK',
+    price: 74,
+    stock: 40,
+    sold: '505',
+    rating: 4.5,
+  },
+  {
+    id: 'LUM-1006',
+    image:
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=96&q=80',
+    name: 'Performance Running Shoes v3',
+    sku: 'SKU LUM-1006',
+    category: 'Toys & Kids',
+    status: 'LIVE',
+    price: 87,
+    stock: 47,
+    sold: '596',
+    rating: 4.6,
+  },
+  {
+    id: 'LUM-1007',
+    image:
+      'https://images.unsplash.com/photo-1616627547584-bf28cee262db?auto=format&fit=crop&w=96&q=80',
+    name: 'Aroma Diffuser, Walnut Wood',
+    sku: 'SKU LUM-1007',
+    category: 'Mobile',
+    status: 'PENDING',
+    price: 100,
+    stock: 54,
+    sold: '687',
+    rating: 4.7,
+  },
+  {
+    id: 'LUM-1008',
+    image:
+      'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=96&q=80',
+    name: 'Ribbed Cotton Tee, 2-Pack',
+    sku: 'SKU LUM-1008',
+    category: 'Audio',
+    status: 'LIVE',
+    price: 113,
+    stock: 61,
+    sold: '778',
+    rating: 4.8,
+  },
+  {
+    id: 'LUM-1009',
+    image:
+      'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=96&q=80',
+    name: 'Portable Monitor 15.6-inch',
+    sku: 'SKU LUM-1009',
+    category: 'Auto',
+    status: 'BLOCKED',
+    price: 126,
+    stock: 68,
+    sold: '869',
+    rating: 4.9,
+  },
+  {
+    id: 'LUM-1010',
+    image:
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=96&q=80',
+    name: 'Pet Travel Water Bottle',
+    sku: 'SKU LUM-1010',
+    category: 'Books',
+    status: 'LIVE',
+    price: 139,
+    stock: 75,
+    sold: '960',
+    rating: 4.0,
+  },
+  {
+    id: 'LUM-1011',
+    image:
+      'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=96&q=80',
+    name: 'Stackable Storage Crates',
+    sku: 'SKU LUM-1011',
+    category: 'Pet',
+    status: 'SCHEDULED',
+    price: 152,
+    stock: 82,
+    sold: '1.1k',
+    rating: 4.1,
+  },
+  {
+    id: 'LUM-1012',
+    image:
+      'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=96&q=80',
+    name: 'Noise-Reducing Curtain Panels',
+    sku: 'SKU LUM-1012',
+    category: 'Electronics',
+    status: 'LIVE',
+    price: 165,
+    stock: 89,
+    sold: '1.2k',
+    rating: 4.2,
+  },
+  {
+    id: 'LUM-1013',
+    image:
+      'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=96&q=80',
+    name: 'Everyday Crossbody Bag',
+    sku: 'SKU LUM-1013',
+    category: 'Fashion',
+    status: 'DRAFT',
+    price: 178,
+    stock: 96,
+    sold: '1.3k',
+    rating: 4.3,
+  },
+  {
+    id: 'LUM-1014',
+    image:
+      'https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?auto=format&fit=crop&w=96&q=80',
+    name: 'Foldable Laptop Stand Pro',
+    sku: 'SKU LUM-1014',
+    category: 'Home & Living',
+    status: 'LIVE',
+    price: 191,
+    stock: 103,
+    sold: '1.4k',
+    rating: 4.4,
+  },
+  {
+    id: 'LUM-1015',
+    image:
+      'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=96&q=80',
+    name: 'Matcha Bowl Set, Stoneware',
+    sku: 'SKU LUM-1015',
+    category: 'Beauty',
+    status: 'OUT_OF_STOCK',
+    price: 204,
+    stock: 110,
+    sold: '1.4k',
+    rating: 4.5,
+  },
+  {
+    id: 'LUM-1016',
+    image:
+      'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=96&q=80',
+    name: 'Organic Pantry Starter Box',
+    sku: 'SKU LUM-1016',
+    category: 'Grocery',
+    status: 'LIVE',
+    price: 217,
+    stock: 117,
+    sold: '1.5k',
+    rating: 4.6,
+  },
+  {
+    id: 'LUM-1017',
+    image:
+      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=96&q=80',
+    name: 'Smartwatch Pro 2 - Titanium',
+    sku: 'SKU LUM-1017',
+    category: 'Sports',
+    status: 'OUT_OF_STOCK',
+    price: 230,
+    stock: 124,
+    sold: '1.6k',
+    rating: 4.7,
+  },
+  {
+    id: 'LUM-1018',
+    image:
+      'https://images.unsplash.com/photo-1517914309068-fc5f233d7c85?auto=format&fit=crop&w=96&q=80',
+    name: 'Espresso Machine, Compact 15-Bar',
+    sku: 'SKU LUM-1018',
+    category: 'Toys & Kids',
+    status: 'LIVE',
+    price: 243,
+    stock: 131,
+    sold: '1.7k',
+    rating: 4.8,
+  },
+  {
+    id: 'LUM-1019',
+    image:
+      'https://images.unsplash.com/photo-1516912481808-3406841bd33c?auto=format&fit=crop&w=96&q=80',
+    name: 'Knit Cardigan, Open-Front',
+    sku: 'SKU LUM-1019',
+    category: 'Mobile',
+    status: 'PENDING',
+    price: 16,
+    stock: 138,
+    sold: '1.8k',
+    rating: 4.9,
+  },
+  {
+    id: 'LUM-1020',
+    image:
+      'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=96&q=80',
+    name: 'Yoga Mat, 6mm Eco-Friendly',
+    sku: 'SKU LUM-1020',
+    category: 'Audio',
+    status: 'LIVE',
+    price: 29,
+    stock: 145,
+    sold: '1.9k',
+    rating: 4.0,
+  },
+  {
+    id: 'LUM-1021',
+    image:
+      'https://images.unsplash.com/photo-1519648023493-d82b5f8d7e6e?auto=format&fit=crop&w=96&q=80',
+    name: 'Wireless Charger Trio Pad',
+    sku: 'SKU LUM-1021',
+    category: 'Auto',
+    status: 'BLOCKED',
+    price: 42,
+    stock: 152,
+    sold: '2k',
+    rating: 4.1,
+  },
+  {
+    id: 'LUM-1022',
+    image:
+      'https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=96&q=80',
+    name: 'Glass Food Storage 10-Piece',
+    sku: 'SKU LUM-1022',
+    category: 'Books',
+    status: 'LIVE',
+    price: 55,
+    stock: 159,
+    sold: '2.1k',
+    rating: 4.2,
+  },
+  {
+    id: 'LUM-1023',
+    image:
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=96&q=80',
+    name: 'Linen Curtain Panels, Sheer',
+    sku: 'SKU LUM-1023',
+    category: 'Pet',
+    status: 'SCHEDULED',
+    price: 68,
+    stock: 166,
+    sold: '2.1k',
+    rating: 4.3,
+  },
+]

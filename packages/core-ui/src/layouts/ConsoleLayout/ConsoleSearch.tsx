@@ -7,11 +7,11 @@ interface ConsoleSearchProps {
 
 export function ConsoleSearch({ placeholder = 'Search...' }: ConsoleSearchProps) {
   return (
-    <div className="mx-auto w-full max-w-sm">
-      <InputGroup>
-        <InputGroupInput placeholder={placeholder} />
+    <div className="hidden w-full max-w-xl md:block">
+      <InputGroup className="bg-muted border-border h-10 rounded-2xl shadow-none">
+        <InputGroupInput className="text-sm" placeholder={placeholder} />
         <InputGroupAddon align="inline-start">
-          <SearchIcon className="text-muted-foreground h-4 w-4" />
+          <SearchIcon className="text-muted-foreground size-4" />
         </InputGroupAddon>
       </InputGroup>
     </div>

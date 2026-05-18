@@ -16,9 +16,9 @@ interface ConsoleWorkspaceSwitcherProps {
 export function ConsoleWorkspaceSwitcher({ switcher }: ConsoleWorkspaceSwitcherProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="hover:bg-secondary flex items-center gap-1 rounded-md px-2 py-1 text-sm font-semibold">
+      <DropdownMenuTrigger className="text-foreground hover:bg-muted flex items-center gap-2 rounded-xl px-2.5 py-2 text-sm font-semibold transition-colors">
         {switcher.label}
-        <ChevronDown className="text-muted-foreground h-3.5 w-3.5" />
+        <ChevronDown className="text-muted-foreground size-3.5" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="min-w-48">
         {switcher.items.map((item) => (

@@ -1,4 +1,5 @@
 import { SidebarInset, SidebarMenuRenderer, SidebarShell } from '../../organisms/Sidebar'
+import { cn } from '../../lib/utils'
 import type { ConsoleLayoutProps } from './ConsoleLayout.types'
 import {
   defaultSidebarAccount,
@@ -26,6 +27,7 @@ export function ConsoleLayout({
   notificationCount,
   storefrontLabel,
   userMenu = defaultUserMenu,
+  contentClassName,
 }: ConsoleLayoutProps) {
   return (
     <ConsoleLayoutProviders>
@@ -35,7 +37,7 @@ export function ConsoleLayout({
         <SidebarMenuRenderer groups={sidebarGroups} />
       </SidebarShell>
 
-      <SidebarInset className="bg-background">
+      <SidebarInset className="bg-muted/40">
         <div className="flex min-h-svh flex-col">
           <ConsoleTopbar
             workspaceSwitcher={workspaceSwitcher}
@@ -45,7 +47,7 @@ export function ConsoleLayout({
             storefrontLabel={storefrontLabel}
             userMenu={userMenu}
           />
-          <div className="min-w-0 p-4 md:p-6">{children}</div>
+          <div className={cn('min-w-0 flex-1 p-4 md:p-6', contentClassName)}>{children}</div>
         </div>
       </SidebarInset>
     </ConsoleLayoutProviders>

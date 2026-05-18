@@ -19,12 +19,12 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@nestjs/common": "^11.1.19",
+    "@nestjs/common": "^11.1.21",
     "ioredis": "^5.6.0"
   },
   "devDependencies": {
     "@ecom/config": "workspace:*",
-    "@types/node": "^25.7.0",
+    "@types/node": "^25.9.0",
     "tsup": "^8.4.0",
     "typescript": "^6.0.3"
   }

@@ -89,9 +89,7 @@
           }
         },
         "summary": "Login to admin panel",
-        "tags": [
-          "Admin/Auth"
-        ]
+        "tags": ["Admin/Auth"]
       }
     },
     "/admin/auth/logout": {
@@ -180,9 +178,7 @@
           }
         ],
         "summary": "Logout from admin panel",
-        "tags": [
-          "Admin/Auth"
-        ]
+        "tags": ["Admin/Auth"]
       }
     },
     "/admin/auth/me": {
@@ -271,9 +267,7 @@
           }
         ],
         "summary": "Get current admin profile",
-        "tags": [
-          "Admin/Auth"
-        ]
+        "tags": ["Admin/Auth"]
       }
     },
     "/admin/auth/refresh": {
@@ -362,9 +356,7 @@
           }
         ],
         "summary": "Refresh session",
-        "tags": [
-          "Admin/Auth"
-        ]
+        "tags": ["Admin/Auth"]
       }
     },
     "/admin/audit-logs": {
@@ -542,9 +534,7 @@
           }
         ],
         "summary": "List all audit logs",
-        "tags": [
-          "Admin/Audit-logs"
-        ]
+        "tags": ["Admin/Audit-logs"]
       }
     },
     "/admin/sellers": {
@@ -581,13 +571,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "PENDING",
-                "ACTIVE",
-                "SUSPENDED",
-                "BANNED",
-                "REJECTED"
-              ]
+              "enum": ["PENDING", "ACTIVE", "SUSPENDED", "BANNED", "REJECTED"]
             }
           }
         ],
@@ -684,9 +668,7 @@
           }
         ],
         "summary": "List all sellers",
-        "tags": [
-          "Admin/Sellers"
-        ]
+        "tags": ["Admin/Sellers"]
       }
     },
     "/admin/sellers/status-counts": {
@@ -775,9 +757,7 @@
           }
         ],
         "summary": "Get seller status counts",
-        "tags": [
-          "Admin/Sellers"
-        ]
+        "tags": ["Admin/Sellers"]
       }
     },
     "/admin/sellers/{id}": {
@@ -875,9 +855,7 @@
           }
         ],
         "summary": "Get seller by ID",
-        "tags": [
-          "Admin/Sellers"
-        ]
+        "tags": ["Admin/Sellers"]
       }
     },
     "/admin/sellers/{id}/approve": {
@@ -975,9 +953,7 @@
           }
         ],
         "summary": "Approve seller",
-        "tags": [
-          "Admin/Sellers"
-        ]
+        "tags": ["Admin/Sellers"]
       }
     },
     "/admin/sellers/{id}/reject": {
@@ -1085,9 +1061,7 @@
           }
         ],
         "summary": "Reject seller application",
-        "tags": [
-          "Admin/Sellers"
-        ]
+        "tags": ["Admin/Sellers"]
       }
     },
     "/admin/sellers/{id}/suspend": {
@@ -1195,9 +1169,7 @@
           }
         ],
         "summary": "Suspend seller",
-        "tags": [
-          "Admin/Sellers"
-        ]
+        "tags": ["Admin/Sellers"]
       }
     },
     "/admin/dashboard/metrics": {
@@ -1286,9 +1258,7 @@
           }
         ],
         "summary": "Get dashboard metrics",
-        "tags": [
-          "Admin/Dashboard"
-        ]
+        "tags": ["Admin/Dashboard"]
       }
     },
     "/admin/dashboard/analytics": {
@@ -1387,9 +1357,7 @@
           }
         ],
         "summary": "Get dashboard analytics",
-        "tags": [
-          "Admin/Dashboard"
-        ]
+        "tags": ["Admin/Dashboard"]
       }
     },
     "/admin/products": {
@@ -1426,12 +1394,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "DRAFT",
-                "PUBLISHED",
-                "ARCHIVED",
-                "REJECTED"
-              ]
+              "enum": ["DRAFT", "PUBLISHED", "ARCHIVED", "REJECTED"]
             }
           },
           {
@@ -1544,9 +1507,7 @@
           }
         ],
         "summary": "List all products",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/products/status-counts": {
@@ -1635,9 +1596,7 @@
           }
         ],
         "summary": "Get product status counts",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/products/reports": {
@@ -1674,12 +1633,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "DRAFT",
-                "PUBLISHED",
-                "ARCHIVED",
-                "REJECTED"
-              ]
+              "enum": ["DRAFT", "PUBLISHED", "ARCHIVED", "REJECTED"]
             }
           },
           {
@@ -1792,9 +1746,7 @@
           }
         ],
         "summary": "List product reports",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/products/{id}": {
@@ -1892,9 +1844,7 @@
           }
         ],
         "summary": "Get product by ID",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/products/bulk/approve": {
@@ -1993,9 +1943,7 @@
           }
         ],
         "summary": "Bulk approve products",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/products/bulk/reject": {
@@ -2094,9 +2042,7 @@
           }
         ],
         "summary": "Bulk reject products",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/products/{id}/approve": {
@@ -2204,9 +2150,7 @@
           }
         ],
         "summary": "Approve product",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/products/{id}/reject": {
@@ -2314,9 +2258,7 @@
           }
         ],
         "summary": "Reject product",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/products/{id}/hide": {
@@ -2414,9 +2356,7 @@
           }
         ],
         "summary": "Hide product",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/products/{id}/unhide": {
@@ -2514,9 +2454,7 @@
           }
         ],
         "summary": "Unhide product",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/products/reports/{id}/resolve": {
@@ -2624,9 +2562,7 @@
           }
         ],
         "summary": "Resolve product report",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/products/reports/{id}/dismiss": {
@@ -2734,9 +2670,7 @@
           }
         ],
         "summary": "Dismiss product report",
-        "tags": [
-          "Admin/Products"
-        ]
+        "tags": ["Admin/Products"]
       }
     },
     "/admin/categories": {
@@ -2837,9 +2771,7 @@
           }
         ],
         "summary": "List all categories",
-        "tags": [
-          "Admin/Categories"
-        ]
+        "tags": ["Admin/Categories"]
       },
       "post": {
         "operationId": "CategoriesController_create",
@@ -2936,9 +2868,7 @@
           }
         ],
         "summary": "Create category",
-        "tags": [
-          "Admin/Categories"
-        ]
+        "tags": ["Admin/Categories"]
       }
     },
     "/admin/categories/{id}": {
@@ -3036,9 +2966,7 @@
           }
         ],
         "summary": "Get category by ID",
-        "tags": [
-          "Admin/Categories"
-        ]
+        "tags": ["Admin/Categories"]
       },
       "put": {
         "operationId": "CategoriesController_update",
@@ -3144,9 +3072,7 @@
           }
         ],
         "summary": "Update category",
-        "tags": [
-          "Admin/Categories"
-        ]
+        "tags": ["Admin/Categories"]
       },
       "delete": {
         "operationId": "CategoriesController_delete",
@@ -3242,9 +3168,7 @@
           }
         ],
         "summary": "Delete category",
-        "tags": [
-          "Admin/Categories"
-        ]
+        "tags": ["Admin/Categories"]
       }
     },
     "/admin/categories/{id}/breadcrumb": {
@@ -3345,9 +3269,7 @@
           }
         ],
         "summary": "Get category breadcrumb",
-        "tags": [
-          "Admin/Categories"
-        ]
+        "tags": ["Admin/Categories"]
       }
     },
     "/admin/categories/reorder": {
@@ -3446,9 +3368,7 @@
           }
         ],
         "summary": "Reorder categories",
-        "tags": [
-          "Admin/Categories"
-        ]
+        "tags": ["Admin/Categories"]
       }
     },
     "/admin/orders": {
@@ -3485,14 +3405,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "PENDING",
-                "CONFIRMED",
-                "PACKING",
-                "SHIPPED",
-                "DELIVERED",
-                "CANCELLED"
-              ]
+              "enum": ["PENDING", "CONFIRMED", "PACKING", "SHIPPED", "DELIVERED", "CANCELLED"]
             }
           },
           {
@@ -3597,9 +3510,7 @@
           }
         ],
         "summary": "List all orders",
-        "tags": [
-          "Admin/Orders"
-        ]
+        "tags": ["Admin/Orders"]
       }
     },
     "/admin/orders/status-counts": {
@@ -3688,9 +3599,7 @@
           }
         ],
         "summary": "Get order status counts",
-        "tags": [
-          "Admin/Orders"
-        ]
+        "tags": ["Admin/Orders"]
       }
     },
     "/admin/orders/{id}": {
@@ -3788,9 +3697,7 @@
           }
         ],
         "summary": "Get order by ID",
-        "tags": [
-          "Admin/Orders"
-        ]
+        "tags": ["Admin/Orders"]
       }
     },
     "/admin/orders/{id}/force-cancel": {
@@ -3898,9 +3805,7 @@
           }
         ],
         "summary": "Force cancel order",
-        "tags": [
-          "Admin/Orders"
-        ]
+        "tags": ["Admin/Orders"]
       }
     },
     "/admin/orders/{id}/force-complete": {
@@ -3998,9 +3903,7 @@
           }
         ],
         "summary": "Force complete order",
-        "tags": [
-          "Admin/Orders"
-        ]
+        "tags": ["Admin/Orders"]
       }
     },
     "/admin/refunds": {
@@ -4135,9 +4038,7 @@
           }
         ],
         "summary": "List all refund requests",
-        "tags": [
-          "Admin/Refunds"
-        ]
+        "tags": ["Admin/Refunds"]
       }
     },
     "/admin/refunds/status-counts": {
@@ -4226,9 +4127,7 @@
           }
         ],
         "summary": "Get refund status counts",
-        "tags": [
-          "Admin/Refunds"
-        ]
+        "tags": ["Admin/Refunds"]
       }
     },
     "/admin/refunds/{id}": {
@@ -4326,9 +4225,7 @@
           }
         ],
         "summary": "Get refund request by ID",
-        "tags": [
-          "Admin/Refunds"
-        ]
+        "tags": ["Admin/Refunds"]
       }
     },
     "/admin/refunds/{id}/approve": {
@@ -4436,9 +4333,7 @@
           }
         ],
         "summary": "Approve refund request",
-        "tags": [
-          "Admin/Refunds"
-        ]
+        "tags": ["Admin/Refunds"]
       }
     },
     "/admin/refunds/{id}/reject": {
@@ -4546,9 +4441,7 @@
           }
         ],
         "summary": "Reject refund request",
-        "tags": [
-          "Admin/Refunds"
-        ]
+        "tags": ["Admin/Refunds"]
       }
     },
     "/admin/users": {
@@ -4585,12 +4478,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "ACTIVE",
-                "INACTIVE",
-                "SUSPENDED",
-                "BANNED"
-              ]
+              "enum": ["ACTIVE", "INACTIVE", "SUSPENDED", "BANNED"]
             }
           }
         ],
@@ -4687,9 +4575,7 @@
           }
         ],
         "summary": "List all users",
-        "tags": [
-          "Admin/Users"
-        ]
+        "tags": ["Admin/Users"]
       }
     },
     "/admin/users/status-counts": {
@@ -4778,9 +4664,7 @@
           }
         ],
         "summary": "Get user status counts",
-        "tags": [
-          "Admin/Users"
-        ]
+        "tags": ["Admin/Users"]
       }
     },
     "/admin/users/{id}": {
@@ -4878,9 +4762,7 @@
           }
         ],
         "summary": "Get user by ID",
-        "tags": [
-          "Admin/Users"
-        ]
+        "tags": ["Admin/Users"]
       }
     },
     "/admin/users/{id}/suspend": {
@@ -4988,9 +4870,7 @@
           }
         ],
         "summary": "Suspend user",
-        "tags": [
-          "Admin/Users"
-        ]
+        "tags": ["Admin/Users"]
       }
     },
     "/admin/users/{id}/ban": {
@@ -5098,9 +4978,7 @@
           }
         ],
         "summary": "Ban user",
-        "tags": [
-          "Admin/Users"
-        ]
+        "tags": ["Admin/Users"]
       }
     },
     "/admin/users/{id}/activate": {
@@ -5198,9 +5076,7 @@
           }
         ],
         "summary": "Activate user",
-        "tags": [
-          "Admin/Users"
-        ]
+        "tags": ["Admin/Users"]
       }
     },
     "/admin/promotions/vouchers": {
@@ -5229,13 +5105,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "DRAFT",
-                "ACTIVE",
-                "PAUSED",
-                "EXPIRED",
-                "DEPLETED"
-              ]
+              "enum": ["DRAFT", "ACTIVE", "PAUSED", "EXPIRED", "DEPLETED"]
             }
           },
           {
@@ -5340,9 +5210,7 @@
           }
         ],
         "summary": "List all platform vouchers",
-        "tags": [
-          "Admin/Promotions"
-        ]
+        "tags": ["Admin/Promotions"]
       },
       "post": {
         "operationId": "PromotionsController_create",
@@ -5439,9 +5307,7 @@
           }
         ],
         "summary": "Create new platform voucher",
-        "tags": [
-          "Admin/Promotions"
-        ]
+        "tags": ["Admin/Promotions"]
       }
     },
     "/admin/promotions/vouchers/status-counts": {
@@ -5530,9 +5396,7 @@
           }
         ],
         "summary": "Get voucher status counts",
-        "tags": [
-          "Admin/Promotions"
-        ]
+        "tags": ["Admin/Promotions"]
       }
     },
     "/admin/promotions/vouchers/{id}": {
@@ -5630,9 +5494,7 @@
           }
         ],
         "summary": "Get voucher by ID",
-        "tags": [
-          "Admin/Promotions"
-        ]
+        "tags": ["Admin/Promotions"]
       },
       "put": {
         "operationId": "PromotionsController_update",
@@ -5738,9 +5600,7 @@
           }
         ],
         "summary": "Update platform voucher",
-        "tags": [
-          "Admin/Promotions"
-        ]
+        "tags": ["Admin/Promotions"]
       }
     },
     "/admin/banners": {
@@ -5769,13 +5629,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "HERO",
-                "HOMEPAGE_TOP",
-                "HOMEPAGE_MIDDLE",
-                "CAMPAIGN",
-                "ANNOUNCEMENT"
-              ]
+              "enum": ["HERO", "HOMEPAGE_TOP", "HOMEPAGE_MIDDLE", "CAMPAIGN", "ANNOUNCEMENT"]
             }
           },
           {
@@ -5784,13 +5638,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "DRAFT",
-                "SCHEDULED",
-                "ACTIVE",
-                "EXPIRED",
-                "ARCHIVED"
-              ]
+              "enum": ["DRAFT", "SCHEDULED", "ACTIVE", "EXPIRED", "ARCHIVED"]
             }
           }
         ],
@@ -5887,9 +5735,7 @@
           }
         ],
         "summary": "List all banners",
-        "tags": [
-          "Admin/Banners"
-        ]
+        "tags": ["Admin/Banners"]
       },
       "post": {
         "operationId": "BannersController_create",
@@ -5986,9 +5832,7 @@
           }
         ],
         "summary": "Create new banner",
-        "tags": [
-          "Admin/Banners"
-        ]
+        "tags": ["Admin/Banners"]
       }
     },
     "/admin/banners/{id}": {
@@ -6086,9 +5930,7 @@
           }
         ],
         "summary": "Get banner by ID",
-        "tags": [
-          "Admin/Banners"
-        ]
+        "tags": ["Admin/Banners"]
       },
       "put": {
         "operationId": "BannersController_update",
@@ -6194,9 +6036,7 @@
           }
         ],
         "summary": "Update banner",
-        "tags": [
-          "Admin/Banners"
-        ]
+        "tags": ["Admin/Banners"]
       },
       "delete": {
         "operationId": "BannersController_delete",
@@ -6292,9 +6132,7 @@
           }
         ],
         "summary": "Delete banner",
-        "tags": [
-          "Admin/Banners"
-        ]
+        "tags": ["Admin/Banners"]
       }
     },
     "/admin/notifications": {
@@ -6323,11 +6161,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "DRAFT",
-                "SENT",
-                "FAILED"
-              ]
+              "enum": ["DRAFT", "SENT", "FAILED"]
             }
           }
         ],
@@ -6424,9 +6258,7 @@
           }
         ],
         "summary": "List all admin notifications",
-        "tags": [
-          "Admin/Notifications"
-        ]
+        "tags": ["Admin/Notifications"]
       },
       "post": {
         "operationId": "NotificationsController_create",
@@ -6523,9 +6355,7 @@
           }
         ],
         "summary": "Create new admin notification",
-        "tags": [
-          "Admin/Notifications"
-        ]
+        "tags": ["Admin/Notifications"]
       }
     },
     "/admin/notifications/templates": {
@@ -6617,9 +6447,7 @@
           }
         ],
         "summary": "List all notification templates",
-        "tags": [
-          "Admin/Notifications"
-        ]
+        "tags": ["Admin/Notifications"]
       },
       "post": {
         "operationId": "NotificationsController_createTemplate",
@@ -6716,9 +6544,7 @@
           }
         ],
         "summary": "Create notification template",
-        "tags": [
-          "Admin/Notifications"
-        ]
+        "tags": ["Admin/Notifications"]
       }
     },
     "/admin/notifications/{id}": {
@@ -6816,9 +6642,7 @@
           }
         ],
         "summary": "Get notification by ID",
-        "tags": [
-          "Admin/Notifications"
-        ]
+        "tags": ["Admin/Notifications"]
       }
     },
     "/admin/notifications/{id}/send": {
@@ -6916,9 +6740,7 @@
           }
         ],
         "summary": "Send notification",
-        "tags": [
-          "Admin/Notifications"
-        ]
+        "tags": ["Admin/Notifications"]
       }
     },
     "/admin/reviews": {
@@ -6947,12 +6769,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "PENDING",
-                "APPROVED",
-                "REJECTED",
-                "HIDDEN"
-              ]
+              "enum": ["PENDING", "APPROVED", "REJECTED", "HIDDEN"]
             }
           }
         ],
@@ -7049,9 +6866,7 @@
           }
         ],
         "summary": "List all reviews",
-        "tags": [
-          "Admin/Reviews"
-        ]
+        "tags": ["Admin/Reviews"]
       }
     },
     "/admin/reviews/status-counts": {
@@ -7140,9 +6955,7 @@
           }
         ],
         "summary": "Get review status counts",
-        "tags": [
-          "Admin/Reviews"
-        ]
+        "tags": ["Admin/Reviews"]
       }
     },
     "/admin/reviews/{id}": {
@@ -7240,9 +7053,7 @@
           }
         ],
         "summary": "Get review by ID",
-        "tags": [
-          "Admin/Reviews"
-        ]
+        "tags": ["Admin/Reviews"]
       }
     },
     "/admin/reviews/{id}/approve": {
@@ -7340,9 +7151,7 @@
           }
         ],
         "summary": "Approve review",
-        "tags": [
-          "Admin/Reviews"
-        ]
+        "tags": ["Admin/Reviews"]
       }
     },
     "/admin/reviews/{id}/hide": {
@@ -7440,9 +7249,7 @@
           }
         ],
         "summary": "Hide review",
-        "tags": [
-          "Admin/Reviews"
-        ]
+        "tags": ["Admin/Reviews"]
       }
     },
     "/admin/reviews/{id}/reject": {
@@ -7540,9 +7347,7 @@
           }
         ],
         "summary": "Reject review",
-        "tags": [
-          "Admin/Reviews"
-        ]
+        "tags": ["Admin/Reviews"]
       }
     }
   },
@@ -7596,10 +7401,7 @@
                 "additionalProperties": true
               }
             },
-            "required": [
-              "code",
-              "message"
-            ]
+            "required": ["code", "message"]
           },
           "statusCode": {
             "type": "number",
@@ -7614,13 +7416,7 @@
             "example": "/admin/products/123"
           }
         },
-        "required": [
-          "success",
-          "message",
-          "statusCode",
-          "timestamp",
-          "path"
-        ]
+        "required": ["success", "message", "statusCode", "timestamp", "path"]
       },
       "ApiResponseDto": {
         "type": "object",
@@ -7646,11 +7442,7 @@
             "example": "2024-01-01T00:00:00.000Z"
           }
         },
-        "required": [
-          "success",
-          "data",
-          "timestamp"
-        ]
+        "required": ["success", "data", "timestamp"]
       },
       "Object": {
         "type": "object",
@@ -7663,18 +7455,16 @@
             "type": "string",
             "description": "User email address",
             "format": "email",
-            "example": "admin@example.com"
+            "example": "admin@marketplace.com"
           },
           "password": {
             "type": "string",
             "description": "User password",
-            "format": "password"
+            "format": "password",
+            "example": "admin123"
           }
         },
-        "required": [
-          "email",
-          "password"
-        ]
+        "required": ["email", "password"]
       },
       "AuditLogResponseDto": {
         "type": "object",
@@ -7791,14 +7581,7 @@
             "example": false
           }
         },
-        "required": [
-          "total",
-          "page",
-          "limit",
-          "totalPages",
-          "hasNextPage",
-          "hasPreviousPage"
-        ]
+        "required": ["total", "page", "limit", "totalPages", "hasNextPage", "hasPreviousPage"]
       },
       "PaginatedResponseDto": {
         "type": "object",
@@ -7817,9 +7600,7 @@
                 }
               }
             },
-            "required": [
-              "items"
-            ]
+            "required": ["items"]
           },
           "message": {
             "type": "string",
@@ -7833,11 +7614,7 @@
             "example": "2024-01-01T00:00:00.000Z"
           }
         },
-        "required": [
-          "success",
-          "meta",
-          "timestamp"
-        ]
+        "required": ["success", "meta", "timestamp"]
       },
       "SellerResponseDto": {
         "type": "object",
@@ -7856,13 +7633,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "PENDING",
-              "ACTIVE",
-              "SUSPENDED",
-              "BANNED",
-              "REJECTED"
-            ]
+            "enum": ["PENDING", "ACTIVE", "SUSPENDED", "BANNED", "REJECTED"]
           },
           "phoneNumber": {
             "type": "string"
@@ -7879,15 +7650,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "userId",
-          "shopName",
-          "shopDescription",
-          "status",
-          "createdAt",
-          "updatedAt"
-        ]
+        "required": ["id", "userId", "shopName", "shopDescription", "status", "createdAt", "updatedAt"]
       },
       "SellerActionDto": {
         "type": "object",
@@ -7962,10 +7725,7 @@
             }
           }
         },
-        "required": [
-          "ordersByStatus",
-          "topCategories"
-        ]
+        "required": ["ordersByStatus", "topCategories"]
       },
       "ProductResponseDto": {
         "type": "object",
@@ -7993,12 +7753,7 @@
           "status": {
             "type": "string",
             "description": "Product status",
-            "enum": [
-              "DRAFT",
-              "PUBLISHED",
-              "ARCHIVED",
-              "REJECTED"
-            ]
+            "enum": ["DRAFT", "PUBLISHED", "ARCHIVED", "REJECTED"]
           },
           "createdAt": {
             "format": "date-time",
@@ -8011,16 +7766,7 @@
             "description": "Last update timestamp"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "slug",
-          "description",
-          "price",
-          "status",
-          "createdAt",
-          "updatedAt"
-        ]
+        "required": ["id", "name", "slug", "description", "price", "status", "createdAt", "updatedAt"]
       },
       "BulkModerationDto": {
         "type": "object",
@@ -8038,9 +7784,7 @@
             "description": "Optional moderation note"
           }
         },
-        "required": [
-          "ids"
-        ]
+        "required": ["ids"]
       },
       "ProductModerationDto": {
         "type": "object",
@@ -8090,15 +7834,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "slug",
-          "sortOrder",
-          "isActive",
-          "createdAt",
-          "updatedAt"
-        ]
+        "required": ["id", "name", "slug", "sortOrder", "isActive", "createdAt", "updatedAt"]
       },
       "CreateCategoryDto": {
         "type": "object",
@@ -8212,14 +7948,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "PENDING",
-              "CONFIRMED",
-              "PACKING",
-              "SHIPPED",
-              "DELIVERED",
-              "CANCELLED"
-            ]
+            "enum": ["PENDING", "CONFIRMED", "PACKING", "SHIPPED", "DELIVERED", "CANCELLED"]
           },
           "buyerId": {
             "type": "string"
@@ -8233,15 +7962,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "orderNumber",
-          "totalAmount",
-          "status",
-          "buyerId",
-          "createdAt",
-          "updatedAt"
-        ]
+        "required": ["id", "orderNumber", "totalAmount", "status", "buyerId", "createdAt", "updatedAt"]
       },
       "OrderActionDto": {
         "type": "object",
@@ -8297,17 +8018,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "orderId",
-          "sellerId",
-          "userId",
-          "status",
-          "reason",
-          "amount",
-          "createdAt",
-          "updatedAt"
-        ]
+        "required": ["id", "orderId", "sellerId", "userId", "status", "reason", "amount", "createdAt", "updatedAt"]
       },
       "RefundActionDto": {
         "type": "object",
@@ -8340,12 +8051,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "ACTIVE",
-              "INACTIVE",
-              "SUSPENDED",
-              "BANNED"
-            ]
+            "enum": ["ACTIVE", "INACTIVE", "SUSPENDED", "BANNED"]
           },
           "createdAt": {
             "format": "date-time",
@@ -8356,16 +8062,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "email",
-          "firstName",
-          "lastName",
-          "emailVerified",
-          "status",
-          "createdAt",
-          "updatedAt"
-        ]
+        "required": ["id", "email", "firstName", "lastName", "emailVerified", "status", "createdAt", "updatedAt"]
       },
       "UserActionDto": {
         "type": "object",
@@ -8392,21 +8089,11 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "PERCENTAGE",
-              "FIXED_AMOUNT",
-              "FREE_SHIPPING"
-            ]
+            "enum": ["PERCENTAGE", "FIXED_AMOUNT", "FREE_SHIPPING"]
           },
           "status": {
             "type": "string",
-            "enum": [
-              "DRAFT",
-              "ACTIVE",
-              "PAUSED",
-              "EXPIRED",
-              "DEPLETED"
-            ]
+            "enum": ["DRAFT", "ACTIVE", "PAUSED", "EXPIRED", "DEPLETED"]
           },
           "discountValue": {
             "type": "number"
@@ -8471,11 +8158,7 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "PERCENTAGE",
-              "FIXED_AMOUNT",
-              "FREE_SHIPPING"
-            ]
+            "enum": ["PERCENTAGE", "FIXED_AMOUNT", "FREE_SHIPPING"]
           },
           "discountValue": {
             "type": "number"
@@ -8499,14 +8182,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "code",
-          "name",
-          "type",
-          "discountValue",
-          "startsAt",
-          "expiresAt"
-        ]
+        "required": ["code", "name", "type", "discountValue", "startsAt", "expiresAt"]
       },
       "UpdateVoucherDto": {
         "type": "object",
@@ -8519,13 +8195,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "DRAFT",
-              "ACTIVE",
-              "PAUSED",
-              "EXPIRED",
-              "DEPLETED"
-            ]
+            "enum": ["DRAFT", "ACTIVE", "PAUSED", "EXPIRED", "DEPLETED"]
           },
           "discountValue": {
             "type": "number"
@@ -8561,23 +8231,11 @@
           },
           "position": {
             "type": "string",
-            "enum": [
-              "HERO",
-              "HOMEPAGE_TOP",
-              "HOMEPAGE_MIDDLE",
-              "CAMPAIGN",
-              "ANNOUNCEMENT"
-            ]
+            "enum": ["HERO", "HOMEPAGE_TOP", "HOMEPAGE_MIDDLE", "CAMPAIGN", "ANNOUNCEMENT"]
           },
           "status": {
             "type": "string",
-            "enum": [
-              "DRAFT",
-              "SCHEDULED",
-              "ACTIVE",
-              "EXPIRED",
-              "ARCHIVED"
-            ]
+            "enum": ["DRAFT", "SCHEDULED", "ACTIVE", "EXPIRED", "ARCHIVED"]
           },
           "imageUrl": {
             "type": "string"
@@ -8608,16 +8266,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "position",
-          "status",
-          "imageUrl",
-          "sortOrder",
-          "createdAt",
-          "updatedAt"
-        ]
+        "required": ["id", "title", "position", "status", "imageUrl", "sortOrder", "createdAt", "updatedAt"]
       },
       "CreateBannerDto": {
         "type": "object",
@@ -8627,13 +8276,7 @@
           },
           "position": {
             "type": "string",
-            "enum": [
-              "HERO",
-              "HOMEPAGE_TOP",
-              "HOMEPAGE_MIDDLE",
-              "CAMPAIGN",
-              "ANNOUNCEMENT"
-            ]
+            "enum": ["HERO", "HOMEPAGE_TOP", "HOMEPAGE_MIDDLE", "CAMPAIGN", "ANNOUNCEMENT"]
           },
           "imageUrl": {
             "type": "string"
@@ -8654,11 +8297,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "title",
-          "position",
-          "imageUrl"
-        ]
+        "required": ["title", "position", "imageUrl"]
       },
       "UpdateBannerDto": {
         "type": "object",
@@ -8668,23 +8307,11 @@
           },
           "position": {
             "type": "string",
-            "enum": [
-              "HERO",
-              "HOMEPAGE_TOP",
-              "HOMEPAGE_MIDDLE",
-              "CAMPAIGN",
-              "ANNOUNCEMENT"
-            ]
+            "enum": ["HERO", "HOMEPAGE_TOP", "HOMEPAGE_MIDDLE", "CAMPAIGN", "ANNOUNCEMENT"]
           },
           "status": {
             "type": "string",
-            "enum": [
-              "DRAFT",
-              "SCHEDULED",
-              "ACTIVE",
-              "EXPIRED",
-              "ARCHIVED"
-            ]
+            "enum": ["DRAFT", "SCHEDULED", "ACTIVE", "EXPIRED", "ARCHIVED"]
           },
           "imageUrl": {
             "type": "string"
@@ -8720,19 +8347,11 @@
           },
           "channel": {
             "type": "string",
-            "enum": [
-              "IN_APP",
-              "EMAIL",
-              "PUSH"
-            ]
+            "enum": ["IN_APP", "EMAIL", "PUSH"]
           },
           "status": {
             "type": "string",
-            "enum": [
-              "DRAFT",
-              "SENT",
-              "FAILED"
-            ]
+            "enum": ["DRAFT", "SENT", "FAILED"]
           },
           "targetAll": {
             "type": "boolean"
@@ -8750,16 +8369,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "title",
-          "message",
-          "channel",
-          "status",
-          "targetAll",
-          "createdAt",
-          "updatedAt"
-        ]
+        "required": ["id", "title", "message", "channel", "status", "targetAll", "createdAt", "updatedAt"]
       },
       "NotificationTemplateResponseDto": {
         "type": "object",
@@ -8778,11 +8388,7 @@
           },
           "channel": {
             "type": "string",
-            "enum": [
-              "IN_APP",
-              "EMAIL",
-              "PUSH"
-            ]
+            "enum": ["IN_APP", "EMAIL", "PUSH"]
           },
           "createdAt": {
             "format": "date-time",
@@ -8793,15 +8399,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "subject",
-          "body",
-          "channel",
-          "createdAt",
-          "updatedAt"
-        ]
+        "required": ["id", "name", "subject", "body", "channel", "createdAt", "updatedAt"]
       },
       "CreateNotificationDto": {
         "type": "object",
@@ -8814,21 +8412,14 @@
           },
           "channel": {
             "type": "string",
-            "enum": [
-              "IN_APP",
-              "EMAIL",
-              "PUSH"
-            ],
+            "enum": ["IN_APP", "EMAIL", "PUSH"],
             "default": "IN_APP"
           },
           "targetAll": {
             "type": "boolean"
           }
         },
-        "required": [
-          "title",
-          "message"
-        ]
+        "required": ["title", "message"]
       },
       "CreateTemplateDto": {
         "type": "object",
@@ -8844,19 +8435,11 @@
           },
           "channel": {
             "type": "string",
-            "enum": [
-              "IN_APP",
-              "EMAIL",
-              "PUSH"
-            ],
+            "enum": ["IN_APP", "EMAIL", "PUSH"],
             "default": "IN_APP"
           }
         },
-        "required": [
-          "name",
-          "subject",
-          "body"
-        ]
+        "required": ["name", "subject", "body"]
       },
       "ReviewResponseDto": {
         "type": "object",
@@ -8878,12 +8461,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "PENDING",
-              "APPROVED",
-              "REJECTED",
-              "HIDDEN"
-            ]
+            "enum": ["PENDING", "APPROVED", "REJECTED", "HIDDEN"]
           },
           "createdAt": {
             "format": "date-time",
@@ -8894,15 +8472,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "productId",
-          "userId",
-          "rating",
-          "status",
-          "createdAt",
-          "updatedAt"
-        ]
+        "required": ["id", "productId", "userId", "rating", "status", "createdAt", "updatedAt"]
       }
     }
   },

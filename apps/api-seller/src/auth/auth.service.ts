@@ -8,11 +8,10 @@ import {
 } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
 import { join } from 'node:path'
-import type { PrismaService } from '@ecom/database'
-import { type Prisma } from '@ecom/database'
+import { PrismaService, type Prisma } from '@ecom/database'
 import {
   type SessionData,
-  type SessionService,
+  SessionService,
   BaseUserAuthService,
   SESSION_EXPIRY_DAYS,
   VERIFY_TOKEN_TTL,
@@ -20,8 +19,8 @@ import {
   hashPassword,
   comparePassword,
 } from '@ecom/auth'
-import type { EmailService } from '@ecom/email'
-import type { RedisService } from '@ecom/redis'
+import { EmailService } from '@ecom/email'
+import { RedisService } from '@ecom/redis'
 import { UserStatus } from '@ecom/contracts/enums'
 import { SESSION_SERVICE } from './session.provider'
 

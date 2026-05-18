@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "inputs": ["prisma/schema.prisma", "package.json", "prisma.config.ts"],
-      "outputs": ["src/generated/**"]
+      "outputs": ["src/generated/**", "dist/**"]
     }
   }
 }

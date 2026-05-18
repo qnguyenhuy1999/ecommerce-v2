@@ -63,37 +63,53 @@
     "mtime": 1778386619.2414887,
     "hash": "9a4cc6f9f3155ffdc1fa7c2c097f6429"
   },
+  "/Users/mac/Desktop/ecommerce-v2/packages/database/env.test.ts": {
+    "mtime": 1778991836.6109447,
+    "hash": "824210b1b515701721902c8e25309836"
+  },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/prisma.config.ts": {
-    "mtime": 1778727673.1797159,
-    "hash": "2b82d659af18ca37d7c8c894f8ac03db"
+    "mtime": 1778991866.7600548,
+    "hash": "56c31c2662c7782ed168a0f71e35d128"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/tsup.config.ts": {
-    "mtime": 1778940539.8861938,
-    "hash": "7f156b7cacbac43b12a36ecd119d6f88"
+    "mtime": 1778992606.157953,
+    "hash": "71e0ca574af05d3ef7d59df7dc99c758"
+  },
+  "/Users/mac/Desktop/ecommerce-v2/packages/database/prisma.service.test.ts": {
+    "mtime": 1778992215.967832,
+    "hash": "068cdf703dc1cb9ed2d719009bfd22ea"
+  },
+  "/Users/mac/Desktop/ecommerce-v2/packages/database/env.ts": {
+    "mtime": 1778992268.056465,
+    "hash": "1ea90e87968282a2cbb56d0c71fced86"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/eslint.config.mjs": {
     "mtime": 1778946531.3817754,
     "hash": "d9e0f484e87bdc9bacf12df0235e22ee"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/prisma/seed.ts": {
-    "mtime": 1778595851.1292956,
-    "hash": "de1f04c4667091d97ee6455e8a7bc84b"
+    "mtime": 1778991866.8347085,
+    "hash": "b23726bd8e151026d8246a999d3df0c7"
+  },
+  "/Users/mac/Desktop/ecommerce-v2/packages/database/prisma/migrations/20260517033842_init_database/migration.sql": {
+    "mtime": 1778989122.8480506,
+    "hash": "0824245dc58a862bbfddd0f580e26a9b"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/prisma.service.ts": {
-    "mtime": 1778727673.228233,
-    "hash": "2c7c3ae83da2b2ddff06710d68e3e01d"
+    "mtime": 1778998583.5406966,
+    "hash": "ffc410d6facd8600139a2c0f75d36ffd"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/client.ts": {
-    "mtime": 1778727673.1802254,
-    "hash": "629ae9cdbf9cbb59abcc3bb5141483e3"
+    "mtime": 1778998583.4731925,
+    "hash": "1f800d7ec0dc8022789b9fa4d8ef1c09"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/database.module.ts": {
     "mtime": 1778422183.0053337,
     "hash": "0f8c324e30add1ef51e6561f47959b7d"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/index.ts": {
-    "mtime": 1778727673.22798,
-    "hash": "bcfb7d9966132f0fc109c1bcc478794e"
+    "mtime": 1778998583.407482,
+    "hash": "b9546c130b0edff7aa2f27dbcb8bfd0f"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/wasm-edge-light-loader.mjs": {
     "mtime": 1778603236.0236185,
@@ -104,519 +120,519 @@
     "hash": "ea39905060f974f534a1e2aaf619b629"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/browser.ts": {
-    "mtime": 1778940342.6999483,
+    "mtime": 1779000219.7562587,
     "hash": "1f898fa5efc73c4b525371a034c0db05"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/client.ts": {
-    "mtime": 1778940342.699707,
+    "mtime": 1779000219.7562377,
     "hash": "a178658f6d8fc388ce21234abab933af"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models.ts": {
-    "mtime": 1778940342.6999576,
+    "mtime": 1779000219.7563157,
     "hash": "d82f5684400fdeffed348461a6b175dc"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/commonInputTypes.ts": {
-    "mtime": 1778940342.6999898,
+    "mtime": 1779000219.7562964,
     "hash": "e2dfa3af2336a864b9bd61d026847099"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/enums.ts": {
-    "mtime": 1778940342.6997912,
+    "mtime": 1779000219.7562344,
     "hash": "da89da195861d284d446673c27f50f20"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/internal/class.ts": {
-    "mtime": 1778940342.8142323,
-    "hash": "dd2d9b38ae45a36e418f47d0a79563b6"
+    "mtime": 1779000219.7897785,
+    "hash": "161ec020296f749b9dd7e02ecaa4cbce"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/internal/prismaNamespace.ts": {
-    "mtime": 1778940342.8098686,
+    "mtime": 1779000219.780424,
     "hash": "2fa7aff583fca7c2f271b8a32289fc83"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/internal/prismaNamespaceBrowser.ts": {
-    "mtime": 1778940342.8097668,
+    "mtime": 1779000219.7805893,
     "hash": "642178bf1b5c5e29558fe6e75e37554d"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Wallet.ts": {
-    "mtime": 1778940342.808346,
+    "mtime": 1779000219.786151,
     "hash": "1a2e479e9e7c5f2434ce31be6e4c4e6f"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/EmailVerifyToken.ts": {
-    "mtime": 1778940342.8009088,
+    "mtime": 1779000219.7806706,
     "hash": "4da0d330d394e95a9fa3ed6ed73fdb91"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Shipment.ts": {
-    "mtime": 1778940342.8022473,
+    "mtime": 1779000219.781451,
     "hash": "16ebc000f2dfde59548967f4739a6a17"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/FeatureFlag.ts": {
-    "mtime": 1778940342.8091676,
+    "mtime": 1779000219.7864614,
     "hash": "ae2a85917917707a4f44835239d4a6ff"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AttributeValue.ts": {
-    "mtime": 1778940342.8096602,
+    "mtime": 1779000219.7895937,
     "hash": "81a7fc7e9a10d12e8cb3d32a34ad6a64"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SellerProfile.ts": {
-    "mtime": 1778940342.8009553,
+    "mtime": 1779000219.7808864,
     "hash": "4d0b024c2f6adc3ba7619db69a48c007"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/InventoryTransaction.ts": {
-    "mtime": 1778940342.8020551,
+    "mtime": 1779000219.7814467,
     "hash": "aa9a1d809e5a6c6ae16df9feccbab243"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Category.ts": {
-    "mtime": 1778940342.8010423,
+    "mtime": 1779000219.7811468,
     "hash": "613bbbec4f2b4cdf2063615d3c5ade64"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/NotificationTemplate.ts": {
-    "mtime": 1778940342.809665,
+    "mtime": 1779000219.7896686,
     "hash": "412696c5972b54a9ee236da38b5f2aaf"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ProductVariantOption.ts": {
-    "mtime": 1778940342.8011923,
+    "mtime": 1779000219.7813783,
     "hash": "b2cedc00a07478b12be3f168839bd5b9"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/FlashSalePurchase.ts": {
-    "mtime": 1778940342.8074427,
+    "mtime": 1779000219.784976,
     "hash": "0e81df7f47883dc97ff26311ef527372"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Referral.ts": {
-    "mtime": 1778940342.8091393,
+    "mtime": 1779000219.7865455,
     "hash": "d3758e9f5c137342570f9e99e7ab681d"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/PlatformEvent.ts": {
-    "mtime": 1778940342.8088377,
+    "mtime": 1779000219.7864575,
     "hash": "ae361273dbd75ce70f2adc1103639b09"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AdKeyword.ts": {
-    "mtime": 1778940342.8078403,
+    "mtime": 1779000219.7847455,
     "hash": "2accb0442bf2019463983a3923bde2e1"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Banner.ts": {
-    "mtime": 1778940342.8095546,
+    "mtime": 1779000219.7895684,
     "hash": "f25b3ebe10b5fd0b744de4997e90a5e7"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/LoyaltyTransaction.ts": {
-    "mtime": 1778940342.8083293,
+    "mtime": 1779000219.786174,
     "hash": "63d97cebea950c9cc1ecc0b5bc3ec03f"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AutomationRule.ts": {
-    "mtime": 1778940342.8087645,
+    "mtime": 1779000219.786333,
     "hash": "b490096678497aa502399ec61d206d28"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Ad.ts": {
-    "mtime": 1778940342.8078468,
+    "mtime": 1779000219.7843668,
     "hash": "02ee93ff692bc7730399eb1dda0864dc"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Shop.ts": {
-    "mtime": 1778940342.8009806,
+    "mtime": 1779000219.78118,
     "hash": "1707a8320124c8079583c13fbcc23263"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ProductVariantOptionValue.ts": {
-    "mtime": 1778940342.801852,
+    "mtime": 1779000219.7814121,
     "hash": "ae8b39318e7aac2e769b1119ae859fb3"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AdminNotification.ts": {
-    "mtime": 1778940342.8096662,
+    "mtime": 1779000219.7896526,
     "hash": "561982b9b099401425ec73cdf2427781"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ReturnTimeline.ts": {
-    "mtime": 1778940342.8073037,
+    "mtime": 1779000219.7822232,
     "hash": "4adfa4ab1f7e2111e84dbd4c0f0a145c"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SearchAnalytics.ts": {
-    "mtime": 1778940342.8087497,
+    "mtime": 1779000219.7863097,
     "hash": "d5939764d728fe62135420178f9675d6"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Currency.ts": {
-    "mtime": 1778940342.808916,
+    "mtime": 1779000219.7864034,
     "hash": "89db24df3e9a05e4c7cebca390dca659"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/GrowthCampaign.ts": {
-    "mtime": 1778940342.8094478,
+    "mtime": 1779000219.7893572,
     "hash": "60eb4d4e1ccab66530820cccb12479c7"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/OrderAuditLog.ts": {
-    "mtime": 1778940342.8020535,
+    "mtime": 1779000219.7814035,
     "hash": "1e5d432409108e78107459982aa2d6c2"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ProductRelation.ts": {
-    "mtime": 1778940342.8082008,
+    "mtime": 1779000219.78573,
     "hash": "4b1e0db30a64c96296a23031e9016840"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SettlementItem.ts": {
-    "mtime": 1778940342.8084075,
+    "mtime": 1779000219.786128,
     "hash": "79c21fdfd6d4762f8c4d389f8e290e53"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/EventSubscription.ts": {
-    "mtime": 1778940342.8089728,
+    "mtime": 1779000219.7864254,
     "hash": "dff72e1be059296a3ddb9c3f34fea24f"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/WarehouseStock.ts": {
-    "mtime": 1778940342.807158,
+    "mtime": 1779000219.782985,
     "hash": "bb1f7e65e905b16375d4a99fc5b1389e"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ChatMessage.ts": {
-    "mtime": 1778940342.8069365,
+    "mtime": 1779000219.7818754,
     "hash": "03f2d6539de03f5a0d9369c2652918df"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Product.ts": {
-    "mtime": 1778940342.8010073,
+    "mtime": 1779000219.781163,
     "hash": "60935a78562064ed221ef3bb5537ed73"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/InventoryTransfer.ts": {
-    "mtime": 1778940342.8074183,
+    "mtime": 1779000219.7829912,
     "hash": "a74ada7047fabd06c3e47bf507e0c594"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ProductImage.ts": {
-    "mtime": 1778940342.8012366,
+    "mtime": 1779000219.7811942,
     "hash": "6b7b23c8efa4515c982d2145c1fdfc2e"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ProductVariant.ts": {
-    "mtime": 1778940342.801144,
+    "mtime": 1779000219.7811546,
     "hash": "13599339759ee9fc47bc7c8b43979f9d"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AiUsageLog.ts": {
-    "mtime": 1778940342.8080363,
+    "mtime": 1779000219.7851262,
     "hash": "1b1133347a0f0d48fb4db588791175e4"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ProductVariantOptionGroup.ts": {
-    "mtime": 1778940342.8010955,
+    "mtime": 1779000219.7813563,
     "hash": "32d8f440352e4c7577789634cbba0a87"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AffiliateClick.ts": {
-    "mtime": 1778940342.8075836,
+    "mtime": 1779000219.785031,
     "hash": "3ab6ec51af2d2164344c58074b5dbf90"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/WalletWithdrawal.ts": {
-    "mtime": 1778940342.8085313,
+    "mtime": 1779000219.7861412,
     "hash": "22c7fc1da211c1575275df05b20e9cba"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ProductScore.ts": {
-    "mtime": 1778940342.8082008,
+    "mtime": 1779000219.785713,
     "hash": "702b445bf84b56663538c458db3f4224"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ReviewReply.ts": {
-    "mtime": 1778940342.802912,
+    "mtime": 1779000219.7815483,
     "hash": "871887cf5545c28e7a8fb672c1c4384e"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/LivestreamSession.ts": {
-    "mtime": 1778940342.8079093,
+    "mtime": 1779000219.785066,
     "hash": "9762a1c62055d50d03c066ca49a4272b"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/WalletTransaction.ts": {
-    "mtime": 1778940342.8083677,
+    "mtime": 1779000219.7860842,
     "hash": "135cc6117acd14236a6d21f35676426e"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SubscriptionPlan.ts": {
-    "mtime": 1778940342.807913,
+    "mtime": 1779000219.7849991,
     "hash": "4ba059d7efbb1ede385c7f5ab9c47e02"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Translation.ts": {
-    "mtime": 1778940342.8088431,
+    "mtime": 1779000219.786389,
     "hash": "67287117180c1df56ccc2e317b42cf84"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/UserEvent.ts": {
-    "mtime": 1778940342.8081317,
+    "mtime": 1779000219.785699,
     "hash": "11f2a133fe39ee294aa5bc84d18967e1"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Admin.ts": {
-    "mtime": 1778940342.8092573,
+    "mtime": 1779000219.7865822,
     "hash": "bca5b90fff28085aefcf8e2edd8ab495"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ReviewImage.ts": {
-    "mtime": 1778940342.806871,
+    "mtime": 1779000219.7815888,
     "hash": "9a20d160a393a9976868be5a0f1b1b16"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Seller.ts": {
-    "mtime": 1778940342.8095624,
+    "mtime": 1779000219.7894123,
     "hash": "be8f704ea8c67f6440f82316f35ca898"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AiPromptTemplate.ts": {
-    "mtime": 1778940342.8080096,
+    "mtime": 1779000219.785707,
     "hash": "95abe33e36879bbe54357d4ef243d7e9"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/BulkJob.ts": {
-    "mtime": 1778940342.807324,
+    "mtime": 1779000219.783112,
     "hash": "959dc3ff93ccc56910c5076ea7663fb0"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AdClick.ts": {
-    "mtime": 1778940342.807504,
+    "mtime": 1779000219.78475,
     "hash": "812322f57ea3ac39b7e6484632ee6834"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/PlanEntitlement.ts": {
-    "mtime": 1778940342.8078704,
+    "mtime": 1779000219.7850187,
     "hash": "9f549248e1689d7e51b38802d6b44702"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AdCampaign.ts": {
-    "mtime": 1778940342.8074014,
+    "mtime": 1779000219.7843618,
     "hash": "2808ca0d6e61bccf61f59fd3c9c4f842"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ReviewReport.ts": {
-    "mtime": 1778940342.8069587,
+    "mtime": 1779000219.7815306,
     "hash": "bb0c0f1823fb442c8ec9459a3e4e0995"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AffiliateLink.ts": {
-    "mtime": 1778940342.807548,
+    "mtime": 1779000219.7849224,
     "hash": "c1f98bad7283ff14cff166d16d4ae40c"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ReturnRequest.ts": {
-    "mtime": 1778940342.8069801,
+    "mtime": 1779000219.7818696,
     "hash": "db5f951b2049ce0868ec8b2055689d76"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Experiment.ts": {
-    "mtime": 1778940342.8092647,
+    "mtime": 1779000219.786536,
     "hash": "2bfde77959141c1ad52969fe7a8b73d1"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SavedFilter.ts": {
-    "mtime": 1778940342.8074644,
+    "mtime": 1779000219.7831097,
     "hash": "e0eb4823b7bb5d550f29c39a6a397b87"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/UserSegment.ts": {
-    "mtime": 1778940342.8093457,
+    "mtime": 1779000219.789527,
     "hash": "392ba1719db2dd104f3f652a2f3301f4"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AttributeGroup.ts": {
-    "mtime": 1778940342.8095543,
+    "mtime": 1779000219.789616,
     "hash": "4f56ed2e128103414c45edbb4d1df12f"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SellerOrder.ts": {
-    "mtime": 1778940342.8021924,
+    "mtime": 1779000219.781391,
     "hash": "852c28c8282f729c12a8d5ad44c69c9f"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AuditLog.ts": {
-    "mtime": 1778940342.8022082,
+    "mtime": 1779000219.781584,
     "hash": "4b2c666e12e68f8d8877d42517c8bf1a"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Review.ts": {
-    "mtime": 1778940342.802731,
+    "mtime": 1779000219.7814982,
     "hash": "554352107124277915c5c0313534a4e0"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AdImpression.ts": {
-    "mtime": 1778940342.8074875,
+    "mtime": 1779000219.7848694,
     "hash": "374ecb815e0d98567a7181a861430a8f"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AffiliateConversion.ts": {
-    "mtime": 1778940342.8075907,
+    "mtime": 1779000219.7849162,
     "hash": "400186c6c24638b52ea69eb6ff0b07f5"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/LivestreamProduct.ts": {
-    "mtime": 1778940342.8079727,
+    "mtime": 1779000219.7850938,
     "hash": "90eac8bf848b66fb301774eeed858599"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/LoyaltyMission.ts": {
-    "mtime": 1778940342.8082926,
+    "mtime": 1779000219.786049,
     "hash": "21a0179265a3788586090825b33fd5e3"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/FlashSaleSlot.ts": {
-    "mtime": 1778940342.8073695,
+    "mtime": 1779000219.7842212,
     "hash": "a404cf283ed5ca8835143d6feb70be80"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ShippingProvider.ts": {
-    "mtime": 1778940342.8022478,
+    "mtime": 1779000219.781431,
     "hash": "410d9ed169c2a930bc6eab46e9089fbe"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SettlementBatch.ts": {
-    "mtime": 1778940342.8084831,
+    "mtime": 1779000219.7862892,
     "hash": "7d152c5ef18ea8c62fa6869cf7759fc4"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Role.ts": {
-    "mtime": 1778940342.8007736,
+    "mtime": 1779000219.7809114,
     "hash": "06993afd814ee0999ce768b84160bb45"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/LoyaltyRedemption.ts": {
-    "mtime": 1778940342.8082888,
+    "mtime": 1779000219.786043,
     "hash": "a9f9721a0c7709b4e78bba0607e0f206"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/LivestreamChat.ts": {
-    "mtime": 1778940342.8079755,
+    "mtime": 1779000219.7851174,
     "hash": "a88496b5018eab3eb7dc7becbfbeaba5"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ProductApproval.ts": {
-    "mtime": 1778940342.8070822,
+    "mtime": 1779000219.7819161,
     "hash": "49ca317a8077e7460471aa5937a70b3c"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Session.ts": {
-    "mtime": 1778940342.8008056,
+    "mtime": 1779000219.7809196,
     "hash": "7553f06c3a52ee442dd3e8e182ef43a7"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AdminRoleAssignment.ts": {
-    "mtime": 1778940342.8094404,
+    "mtime": 1779000219.7893484,
     "hash": "f5f32af52596cc2c47557a719fd99fbb"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SubscriptionInvoice.ts": {
-    "mtime": 1778940342.8080657,
+    "mtime": 1779000219.7850091,
     "hash": "7c56a7f689500238604c464bfdaedab6"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AutomationExecution.ts": {
-    "mtime": 1778940342.8087585,
+    "mtime": 1779000219.7863266,
     "hash": "a18eaf40da930700725d9d55f66ba3f1"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/CouponProduct.ts": {
-    "mtime": 1778940342.80271,
+    "mtime": 1779000219.7814825,
     "hash": "797f985f7c8467c23a6af469c788113f"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Order.ts": {
-    "mtime": 1778940342.8022132,
+    "mtime": 1779000219.7813852,
     "hash": "25cde11c5e59bc2b8830d2ec4c53f1f6"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AdminRole.ts": {
-    "mtime": 1778940342.8092682,
+    "mtime": 1779000219.7866216,
     "hash": "d01ebaeb8b1853d84590b9340acf82e0"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Coupon.ts": {
-    "mtime": 1778940342.802363,
+    "mtime": 1779000219.781548,
     "hash": "d210229246ebc5df374fb7b2924b8925"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/TaxRate.ts": {
-    "mtime": 1778940342.809176,
+    "mtime": 1779000219.7864618,
     "hash": "7009cb43149656b1ee487195c54435b4"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ProductReport.ts": {
-    "mtime": 1778940342.8095226,
+    "mtime": 1779000219.7895496,
     "hash": "b9028a4b731545ebf5d7de0a5ff13c98"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SearchSynonym.ts": {
-    "mtime": 1778940342.80852,
+    "mtime": 1779000219.786266,
     "hash": "33fcaea0131da4a0be460f417898d4b0"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/PasswordResetToken.ts": {
-    "mtime": 1778940342.8008697,
+    "mtime": 1779000219.7806208,
     "hash": "d3b92727fed21b4f8e0afe8bb4921d4a"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/CategoryAttribute.ts": {
-    "mtime": 1778940342.8098166,
+    "mtime": 1779000219.7896342,
     "hash": "5f4d502bfceeabdc34d6f94f29fb88c1"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AiTask.ts": {
-    "mtime": 1778940342.8084152,
+    "mtime": 1779000219.7850842,
     "hash": "bb9d92f8295e38f2b0ab38984b15028c"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AffiliatePartner.ts": {
-    "mtime": 1778940342.8075385,
+    "mtime": 1779000219.7848592,
     "hash": "98c0462e2427fbfe8a214b6c04a2111c"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AdminSession.ts": {
-    "mtime": 1778940342.8097847,
+    "mtime": 1779000219.7893775,
     "hash": "178b5458083703be2e157cdeb4475afb"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Notification.ts": {
-    "mtime": 1778940342.802195,
+    "mtime": 1779000219.7814713,
     "hash": "226cc85f4fefee6b031baa09bd774c11"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/PlatformVoucher.ts": {
-    "mtime": 1778940342.8097775,
+    "mtime": 1779000219.7898743,
     "hash": "fda57cec587380232a6f2bec8f190481"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Region.ts": {
-    "mtime": 1778940342.8088338,
+    "mtime": 1779000219.7863483,
     "hash": "8c9fb423fec1c767a66736d37fa03e0b"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SellerShippingMethod.ts": {
-    "mtime": 1778940342.802129,
+    "mtime": 1779000219.7814426,
     "hash": "1d55a54e68d8d58203712af4df5637b4"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SearchBoostRule.ts": {
-    "mtime": 1778940342.8093033,
+    "mtime": 1779000219.7862532,
     "hash": "fc60fdb4bd76e64317bee6337e704ec1"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Conversation.ts": {
-    "mtime": 1778940342.8032477,
+    "mtime": 1779000219.7815957,
     "hash": "e3d13792bb92b30755d81dfca782423d"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/RolePermission.ts": {
-    "mtime": 1778940342.8093436,
+    "mtime": 1779000219.7895,
     "hash": "290f89147cb13a7d40b8b3b11891603d"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/LoyaltyAccount.ts": {
-    "mtime": 1778940342.8085763,
+    "mtime": 1779000219.7860339,
     "hash": "c32c615c5fbfce1c23a66fec6b525424"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ExperimentVariant.ts": {
-    "mtime": 1778940342.809171,
+    "mtime": 1779000219.786544,
     "hash": "0ad25f0d565825f19e04eadd9ac3b035"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SellerSubscription.ts": {
-    "mtime": 1778940342.807876,
+    "mtime": 1779000219.7850559,
     "hash": "96122fd3320a194a246e0e6013963cce"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/LoyaltyReward.ts": {
-    "mtime": 1778940342.8082864,
+    "mtime": 1779000219.7860663,
     "hash": "8088127432d8b2f49538c081abd499ae"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SellerOrderItem.ts": {
-    "mtime": 1778940342.8021238,
+    "mtime": 1779000219.7814202,
     "hash": "0f82caf6504ed7f7d28d32e40e0b980c"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/RegionalPricing.ts": {
-    "mtime": 1778940342.8091683,
+    "mtime": 1779000219.786398,
     "hash": "c1af380f41c560183a3ba5788fd2ecd0"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ProductApprovalHistory.ts": {
-    "mtime": 1778940342.8071592,
+    "mtime": 1779000219.7819204,
     "hash": "ecb583f23d7f40b601641d80d585eabb"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/UserRole.ts": {
-    "mtime": 1778940342.8006885,
+    "mtime": 1779000219.780661,
     "hash": "d83f3b56ea830b9084eadc2a6afd3335"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SellerVerification.ts": {
-    "mtime": 1778940342.8094392,
+    "mtime": 1779000219.7894485,
     "hash": "b2c1867c9e03cca7ff56782f8f845a96"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AdGroup.ts": {
-    "mtime": 1778940342.8083658,
+    "mtime": 1779000219.7844226,
     "hash": "f31e20c1ddea847e1743296d6c67834e"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/CouponCategory.ts": {
-    "mtime": 1778940342.802602,
+    "mtime": 1779000219.7815604,
     "hash": "1a779bb274b6c4d3222692b23b559f7a"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ReturnItem.ts": {
-    "mtime": 1778940342.8070607,
+    "mtime": 1779000219.781877,
     "hash": "7f3caf2277928f6ffc93bf0278d799b0"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/Warehouse.ts": {
-    "mtime": 1778940342.8072228,
+    "mtime": 1779000219.782193,
     "hash": "cee7c415ed5da9a6adb401a54a02bf4c"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/AdminAuditLog.ts": {
-    "mtime": 1778940342.8094513,
+    "mtime": 1779000219.7894747,
     "hash": "fe543f5f6d5da502213ec8f77931d7f2"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/User.ts": {
-    "mtime": 1778940342.7991438,
+    "mtime": 1779000219.780606,
     "hash": "77ec8338b9b5e61ffbff3c245873cb9a"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/ReturnEvidence.ts": {
-    "mtime": 1778940342.8070705,
+    "mtime": 1779000219.7821963,
     "hash": "da36518dd53e5c9e80797f7a702d3acf"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/LoyaltyTier.ts": {
-    "mtime": 1778940342.8082132,
+    "mtime": 1779000219.7859082,
     "hash": "d601876554f1f5348f227b1e7844757e"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/SellerMetricSnapshot.ts": {
-    "mtime": 1778940342.807275,
+    "mtime": 1779000219.7828948,
     "hash": "7a2ded8f783de2a4aa005ec611eeae1c"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/CommissionPayout.ts": {
-    "mtime": 1778940342.807634,
+    "mtime": 1779000219.7849839,
     "hash": "148a4dda3a0b4b15ac38f3f0e1897e7b"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/CouponUsage.ts": {
-    "mtime": 1778940342.8027315,
+    "mtime": 1779000219.7814872,
     "hash": "0f74973764c63043476c7cebaf18cd60"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/FlashSaleCampaign.ts": {
-    "mtime": 1778940342.8073509,
+    "mtime": 1779000219.784353,
     "hash": "be53f6fbca9089390c0632b1b8025f4c"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/LoyaltyMissionProgress.ts": {
-    "mtime": 1778940342.808451,
+    "mtime": 1779000219.7860293,
     "hash": "2a448afe5db9e5a15e9fd923f102709a"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/database/src/generated/client/models/InventoryTransferItem.ts": {
-    "mtime": 1778940342.8072436,
+    "mtime": 1779000219.782987,
     "hash": "9683efc24814e7c970a2de7678cefdb5"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/core-ui/tsup.config.ts": {
@@ -1528,8 +1544,8 @@
     "hash": "189f1b2ab3e56d2eb74eedd29d022480"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/contracts/src/auth/dto/login.dto.ts": {
-    "mtime": 1778595851.1137016,
-    "hash": "e1ac63e59a9350a4219b13e6c9ae1ac2"
+    "mtime": 1778992121.0308542,
+    "hash": "ed542f23cdb174db0ff0251cd056fb0f"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/contracts/src/auth/dto/register.dto.ts": {
     "mtime": 1778727673.1675684,
@@ -2072,8 +2088,8 @@
     "hash": "de33f964b5fece0aff42a22d26ecff09"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-storefront/src/main.ts": {
-    "mtime": 1778727673.1555047,
-    "hash": "9159130ff0944268b5bc92b484f23839"
+    "mtime": 1778989473.324194,
+    "hash": "f06584c0694643022e21c6a9d1183c29"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-storefront/src/app.module.ts": {
     "mtime": 1778600013.6767523,
@@ -2084,8 +2100,8 @@
     "hash": "a62306387a0d97f0ef4a765fd199177e"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-storefront/src/auth/auth.service.ts": {
-    "mtime": 1778940569.6204708,
-    "hash": "6f7203db1a03e76083b2869d0a556f6e"
+    "mtime": 1778988818.0819438,
+    "hash": "ae928c8203f72f2490a325b5b716dfba"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-storefront/src/auth/session.provider.ts": {
     "mtime": 1778603086.1971574,
@@ -2424,8 +2440,8 @@
     "hash": "a84e15a42e07d07a4ee34a03b3b1fc06"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-seller/src/main.ts": {
-    "mtime": 1778727673.1447043,
-    "hash": "4966c516e89e121f0c0544daece04fc9"
+    "mtime": 1778990182.9687376,
+    "hash": "5a233aa60e566c350902401e8cb06766"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-seller/src/app.module.ts": {
     "mtime": 1778600013.6757762,
@@ -2560,8 +2576,8 @@
     "hash": "1a9a56a37d5ca53b498c4c75f1b25ae1"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-seller/src/auth/auth.service.ts": {
-    "mtime": 1778940569.6204867,
-    "hash": "87fcb2b99937ada4769f86f719adcd57"
+    "mtime": 1778988818.0172236,
+    "hash": "38e1669f8e662e644b6695424d1957a4"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-seller/src/auth/session.provider.ts": {
     "mtime": 1778603086.1970644,
@@ -3020,8 +3036,8 @@
     "hash": "aea8e8f66b9c34b5c68896dfbdad6ed9"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/main.ts": {
-    "mtime": 1778727673.12378,
-    "hash": "59348a3a143faed9fb0a79556c8be859"
+    "mtime": 1778990111.1814792,
+    "hash": "60c9be2026f012d73a71252b18eacd1d"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/app.module.ts": {
     "mtime": 1778600013.6746652,
@@ -3044,8 +3060,8 @@
     "hash": "4115a14421dcd0fecf80c933e2bb2377"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/products/products.service.ts": {
-    "mtime": 1778946730.2620628,
-    "hash": "544b10e98c04afd97c322011c2ce052f"
+    "mtime": 1778988817.4827461,
+    "hash": "4019bfa7631ca82b6f0d3aa534f07076"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/products/products.module.ts": {
     "mtime": 1778600013.6839688,
@@ -3100,8 +3116,8 @@
     "hash": "fe4a217a665b17af1e68371f154d2284"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/banners/banners.service.ts": {
-    "mtime": 1778946730.2620282,
-    "hash": "b33ed0ea121c3dfa98503f0cb4bdb0e8"
+    "mtime": 1778988817.8004112,
+    "hash": "9c6420b29957abfb78f473ef08710866"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/banners/banners.controller.ts": {
     "mtime": 1778727673.1206026,
@@ -3128,8 +3144,8 @@
     "hash": "080b86900d063ff921982e09a6911be5"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/common/interceptors/audit-log.interceptor.ts": {
-    "mtime": 1778946730.2620008,
-    "hash": "91b3322923044847745492a426eb5f79"
+    "mtime": 1778988817.9439871,
+    "hash": "012317c0189a0ba978b45d7cb678fbc3"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/common/decorators/audit-log.decorator.ts": {
     "mtime": 1778727673.1221325,
@@ -3144,8 +3160,8 @@
     "hash": "7f58469c6bc0f2f6a997fa22d938cfbe"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/promotions/promotions.service.ts": {
-    "mtime": 1778946730.26206,
-    "hash": "60ab8747147049c82765bba5e8cb8c18"
+    "mtime": 1778988817.692507,
+    "hash": "0d3906aed067aaf563199227a42398a5"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/promotions/dto/voucher.dto.ts": {
     "mtime": 1778600013.7037814,
@@ -3204,8 +3220,8 @@
     "hash": "2eda085b180c365c2bead7afd2cdfe50"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/categories/categories.service.ts": {
-    "mtime": 1778946730.262013,
-    "hash": "103b2dcba23cb03fdacb5ef4c30577ee"
+    "mtime": 1778988817.5468915,
+    "hash": "a64f8bbb89d7dd68a7e2834f6f7ab361"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/categories/categories.controller.ts": {
     "mtime": 1778727673.1212342,
@@ -3224,8 +3240,8 @@
     "hash": "600daa9bfbfa38e9c6f4e4e8b095fbd4"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/notifications/notifications.service.ts": {
-    "mtime": 1778946730.2619998,
-    "hash": "f33bae38b1f0d5f4d5453dbc8e9a7cd6"
+    "mtime": 1778988817.6186538,
+    "hash": "f95b620cfe7840e2637df03868e43131"
   },
   "/Users/mac/Desktop/ecommerce-v2/apps/api-admin/src/notifications/dto/notification.dto.ts": {
     "mtime": 1778600013.7055447,
@@ -3284,8 +3300,8 @@
     "hash": "43dad8d76e9e98251504df43167fdd03"
   },
   "/Users/mac/Desktop/ecommerce-v2/CLAUDE.md": {
-    "mtime": 1778727673.110923,
-    "hash": "0f50bc29f325b8710f868d71577f9c9f"
+    "mtime": 1778986518.5948224,
+    "hash": "410bd6b4ced52903faaae0c978ceb781"
   },
   "/Users/mac/Desktop/ecommerce-v2/pnpm-workspace.yaml": {
     "mtime": 1778400364.1473265,
@@ -3307,14 +3323,6 @@
     "mtime": 1778946531.3572485,
     "hash": "e4a34165a560a3f1c0d70e449521c133"
   },
-  "/Users/mac/Desktop/ecommerce-v2/docs/superpowers/plans/2026-05-16-config-centralization.md": {
-    "mtime": 1778942176.1535838,
-    "hash": "87986bdc4d15957064647fbaadae4f6d"
-  },
-  "/Users/mac/Desktop/ecommerce-v2/docs/superpowers/specs/2026-05-16-config-centralization-design.md": {
-    "mtime": 1778941980.259508,
-    "hash": "c95c0f62cc3c38f8431680ec1bd403c7"
-  },
   "/Users/mac/Desktop/ecommerce-v2/docs/engineering/api-standards.md": {
     "mtime": 1778595851.1076736,
     "hash": "c0910fda4978792ccd3ecc762660b4cf"
@@ -3334,10 +3342,6 @@
   "/Users/mac/Desktop/ecommerce-v2/docs/onboarding/getting-started.md": {
     "mtime": 1778595851.1082728,
     "hash": "e1f8c9e703894ed71487ac1aa1f8c6f7"
-  },
-  "/Users/mac/Desktop/ecommerce-v2/docs/reports/phase-7-hardening-report.md": {
-    "mtime": 1778727673.1635866,
-    "hash": "05f6f6d6536b7767229c8ec53c065994"
   },
   "/Users/mac/Desktop/ecommerce-v2/packages/ui-seller/README.md": {
     "mtime": 1778595851.2119987,

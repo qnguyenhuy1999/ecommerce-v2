@@ -8,8 +8,8 @@ import {
 } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
 import { join } from 'node:path'
-import type { PrismaService } from '@ecom/database'
-import type { SessionService } from '@ecom/auth'
+import { PrismaService } from '@ecom/database'
+import { SessionService } from '@ecom/auth'
 import {
   type SessionData,
   BaseUserAuthService,
@@ -18,8 +18,8 @@ import {
   hashPassword,
   comparePassword,
 } from '@ecom/auth'
-import type { EmailService } from '@ecom/email'
-import type { RedisService } from '@ecom/redis'
+import { EmailService } from '@ecom/email'
+import { RedisService } from '@ecom/redis'
 import { SESSION_SERVICE } from './session.provider'
 
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')

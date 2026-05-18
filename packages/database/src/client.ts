@@ -1,9 +1,12 @@
 import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from './generated/client/client'
+import { PrismaClient } from '@prisma/client'
+import { loadDatabaseEnv } from '../env'
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
+
+loadDatabaseEnv()
 
 function createPrismaClient() {
   const adapter = new PrismaPg({

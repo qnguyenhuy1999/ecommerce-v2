@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 import { NestFactory } from '@nestjs/core'
-import { ValidationPipe } from '@nestjs/common'
+import { Logger, ValidationPipe } from '@nestjs/common'
 import cookieParser from 'cookie-parser'
 import { AppModule } from './app.module'
 import { AllExceptionsFilter, ResponseInterceptor } from '@ecom/nestjs-core'
@@ -9,6 +8,7 @@ import { getCorsOrigins, getAdminPort } from '@ecom/config'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+  const logger = new Logger('Bootstrap')
 
   app.setGlobalPrefix('admin')
   app.use(cookieParser())
@@ -28,7 +28,7 @@ async function bootstrap() {
       fs.mkdirSync(path.dirname(outputPath), { recursive: true })
     }
     fs.writeFileSync(outputPath, JSON.stringify(document, null, 2))
-    console.log(`OpenAPI schema generated at ${outputPath}`)
+    logger.log(`OpenAPI schema generated at ${outputPath}`)
     await app.close()
     process.exit(0)
   }
@@ -51,7 +51,7 @@ async function bootstrap() {
 
   const port = getAdminPort()
   await app.listen(port)
-  console.log(`Admin API running on http://localhost:${port}`)
+  logger.log(`Admin API running on http://localhost:${port}`)
 }
 
 void bootstrap()

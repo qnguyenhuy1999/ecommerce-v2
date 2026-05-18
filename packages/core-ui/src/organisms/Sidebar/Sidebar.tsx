@@ -35,11 +35,12 @@ export function SidebarMenuRenderer({ groups }: SidebarMenuRendererProps) {
                 <UIItem key={item.id}>
                   <SidebarMenuButton
                     asChild
+                    tooltip={item.label}
                     {...(item.isActive !== undefined ? { isActive: item.isActive } : {})}
                   >
                     <a href={item.href || '#'}>
-                      {item.icon && <item.icon className="mr-2 h-4 w-4" />}
-                      {item.label}
+                      {item.icon && <item.icon />}
+                      <span>{item.label}</span>
 
                       {item.badge != null && (
                         <span className="bg-primary text-primary-foreground ml-auto inline-flex min-w-5 items-center justify-center rounded-full px-2 py-0.5 text-xs font-semibold tabular-nums">

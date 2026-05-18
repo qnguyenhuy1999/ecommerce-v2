@@ -33,8 +33,11 @@ export * from './molecules/StatCard/StatCard.types'
 export * from './molecules/StatCard/StatCard.fixtures'
 
 export * from './organisms/Drawer'
+export * from './organisms/DataTable'
 export * from './organisms/Sheet'
 export * from './organisms/Sonner'
-export * from './organisms/Table'
+export * from './molecules/DropdownMenu'
 export * from './organisms/Sidebar'
-export * from './components/data-table'
+
+export * from './layouts/ConsoleLayout'
+export * from './layouts/ConsolePageLayout'

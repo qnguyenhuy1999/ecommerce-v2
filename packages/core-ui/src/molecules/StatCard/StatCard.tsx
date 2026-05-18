@@ -1,73 +1,72 @@
+import { useId } from 'react'
 import { cn } from '../../lib/utils'
-import { TrendingDown, TrendingUp } from 'lucide-react'
+import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
 import { Area, AreaChart, ResponsiveContainer } from 'recharts'
 import { StatCardContext, useStatCard } from './StatCard.context'
 import { accentMap } from './StatCard.fixtures'
 import type { StatCardHeader, StatCardProps, StatChartProps } from './StatCard.types'
 
-function Header({ label, title, icon: Icon }: StatCardHeader) {
+function Header({ label, icon: Icon }: StatCardHeader) {
   const { colors } = useStatCard()
 
   return (
     <div className="flex items-start justify-between gap-2">
-      <span className="text-muted-foreground text-[11px] font-semibold tracking-wider uppercase">
-        {label || title}
+      <span className="text-muted-foreground/90 text-sm font-medium tracking-[0.02em] uppercase">
+        {label}
       </span>
       {Icon && (
-        <span className={cn('flex h-7 w-7 items-center justify-center rounded-md', colors.soft)}>
-          <Icon className="h-3.5 w-3.5" />
+        <span className={cn('flex h-8 w-8 items-center justify-center rounded-xl', colors.soft)}>
+          <Icon className="h-4 w-4" />
         </span>
       )}
     </div>
   )
 }
 
-function Chart({ value, spark }: StatChartProps) {
+function Chart({ spark }: StatChartProps) {
   const { accent, colors } = useStatCard()
+  const gradientId = useId()
 
   return (
-    <div className="flex items-end justify-between gap-2">
-      <div className="font-display text-2xl leading-none font-bold tabular-nums">{value}</div>
+    <div className="-mr-1 h-11 w-28 shrink-0">
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={spark}>
+          <defs key={accent}>
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={colors.fill} stopOpacity={0.9} />
+              <stop offset="100%" stopColor={colors.fill} stopOpacity={0.15} />
+            </linearGradient>
+          </defs>
 
-      {spark && (
-        <div className="-mr-1 h-8 w-20">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={spark}>
-              <defs>
-                <linearGradient id={`sg-${accent}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={colors.stroke} stopOpacity={0.4} />
-                  <stop offset="100%" stopColor={colors.stroke} stopOpacity={0} />
-                </linearGradient>
-              </defs>
-
-              <Area
-                type="monotone"
-                dataKey="y"
-                stroke={colors.stroke}
-                strokeWidth={1.5}
-                fill={`url(#sg-${accent})`}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
-      )}
+          <Area
+            type="linear"
+            dataKey="y"
+            stroke={colors.stroke}
+            strokeWidth={2}
+            fill={`url(#${gradientId})`}
+            dot={false}
+            activeDot={false}
+            isAnimationActive={false}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
     </div>
   )
 }
 
-function Trend({ trend }: { trend: number }) {
+function Trend({ trend, description }: { trend: number; description?: string }) {
   const isNegative = trend < 0
-  const Icon = isNegative ? TrendingDown : TrendingUp
+  const Icon = isNegative ? ArrowDownRight : ArrowUpRight
   const color = isNegative ? 'text-destructive' : 'text-success'
 
   return (
-    <div className="flex items-center gap-1 text-xs">
-      <Icon className={cn('h-3.5 w-3.5', color)} />
+    <div className="flex items-center gap-1.5 text-xs">
+      <Icon className={cn('h-3.5 w-3.5', color)} strokeWidth={2.2} />
       <span className={cn('font-semibold tabular-nums', color)}>
         {trend > 0 ? '+' : ''}
         {trend}%
       </span>
-      <span className="text-muted-foreground">vs last week</span>
+      <span className="text-muted-foreground">{description || 'vs prev'}</span>
     </div>
   )
 }
@@ -87,7 +86,7 @@ function Root({
     <StatCardContext.Provider value={{ accent, colors }}>
       <div
         className={cn(
-          'bg-surface border-border flex flex-col gap-2 rounded-lg border p-3.5',
+          'bg-card border-border/90 flex items-start justify-between gap-2 rounded-2xl border p-4 shadow-xs',
           className,
         )}
       >
@@ -99,23 +98,33 @@ function Root({
 
 export function StatCardBase({
   label,
-  title,
   value,
   icon,
   trend,
   spark,
   accent = 'primary',
   className,
+  description,
 }: StatCardProps) {
   return (
     <Root accent={accent} {...(className !== undefined ? { className } : {})}>
-      <Header
-        {...(label !== undefined ? { label } : {})}
-        {...(title !== undefined ? { title } : {})}
-        {...(icon !== undefined ? { icon } : {})}
-      />
-      <Chart value={value} {...(spark !== undefined ? { spark } : {})} />
-      {typeof trend === 'number' && <Trend trend={trend} />}
+      <div className="flex h-full min-w-0 flex-col justify-between gap-3">
+        <Header
+          {...(label !== undefined ? { label } : {})}
+          {...(icon !== undefined ? { icon } : {})}
+        />
+
+        <div className="text-foreground text-xl leading-none font-semibold tracking-[-0.03em] tabular-nums">
+          {value}
+        </div>
+
+        {typeof trend === 'number' && (
+          <Trend trend={trend} {...(description !== undefined ? { description } : {})} />
+        )}
+        {typeof trend !== 'number' && description ? <div className="xs">{description}</div> : null}
+      </div>
+
+      <Chart {...(spark !== undefined ? { spark } : {})} />
     </Root>
   )
 }

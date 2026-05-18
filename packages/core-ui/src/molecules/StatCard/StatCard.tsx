@@ -23,41 +23,33 @@ function Header({ label, icon: Icon }: StatCardHeader) {
   )
 }
 
-function Chart({ value, spark }: StatChartProps) {
+function Chart({ spark }: StatChartProps) {
   const { accent, colors } = useStatCard()
   const gradientId = useId()
 
   return (
-    <div className="flex items-center justify-between gap-4">
-      <div className="text-foreground text-xl leading-none font-semibold tracking-[-0.03em] tabular-nums">
-        {value}
-      </div>
+    <div className="-mr-1 h-11 w-28 shrink-0">
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={spark}>
+          <defs key={accent}>
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={colors.fill} stopOpacity={0.9} />
+              <stop offset="100%" stopColor={colors.fill} stopOpacity={0.15} />
+            </linearGradient>
+          </defs>
 
-      {spark && (
-        <div className="-mr-1 h-11 w-28 shrink-0">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={spark}>
-              <defs key={accent}>
-                <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={colors.fill} stopOpacity={0.9} />
-                  <stop offset="100%" stopColor={colors.fill} stopOpacity={0.15} />
-                </linearGradient>
-              </defs>
-
-              <Area
-                type="linear"
-                dataKey="y"
-                stroke={colors.stroke}
-                strokeWidth={2}
-                fill={`url(#${gradientId})`}
-                dot={false}
-                activeDot={false}
-                isAnimationActive={false}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
-      )}
+          <Area
+            type="linear"
+            dataKey="y"
+            stroke={colors.stroke}
+            strokeWidth={2}
+            fill={`url(#${gradientId})`}
+            dot={false}
+            activeDot={false}
+            isAnimationActive={false}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
     </div>
   )
 }
@@ -94,7 +86,7 @@ function Root({
     <StatCardContext.Provider value={{ accent, colors }}>
       <div
         className={cn(
-          'bg-card border-border/90 flex min-h-32 flex-col gap-4 rounded-2xl border px-4 py-4 shadow-xs',
+          'bg-card border-border/90 flex items-start justify-between gap-2 rounded-2xl border p-4 shadow-xs',
           className,
         )}
       >
@@ -116,15 +108,23 @@ export function StatCardBase({
 }: StatCardProps) {
   return (
     <Root accent={accent} {...(className !== undefined ? { className } : {})}>
-      <Header
-        {...(label !== undefined ? { label } : {})}
-        {...(icon !== undefined ? { icon } : {})}
-      />
-      <Chart value={value} {...(spark !== undefined ? { spark } : {})} />
-      {typeof trend === 'number' && (
-        <Trend trend={trend} {...(description !== undefined ? { description } : {})} />
-      )}
-      {typeof trend !== 'number' && description ? <div className="xs">{description}</div> : null}
+      <div className="flex h-full min-w-0 flex-col justify-between gap-3">
+        <Header
+          {...(label !== undefined ? { label } : {})}
+          {...(icon !== undefined ? { icon } : {})}
+        />
+
+        <div className="text-foreground text-xl leading-none font-semibold tracking-[-0.03em] tabular-nums">
+          {value}
+        </div>
+
+        {typeof trend === 'number' && (
+          <Trend trend={trend} {...(description !== undefined ? { description } : {})} />
+        )}
+        {typeof trend !== 'number' && description ? <div className="xs">{description}</div> : null}
+      </div>
+
+      <Chart {...(spark !== undefined ? { spark } : {})} />
     </Root>
   )
 }

@@ -16,4 +16,4 @@ export interface StatCardProps {
 
 export type StatCardHeader = { label?: string; icon?: LucideIcon }
 
-export type StatChartProps = Pick<StatCardProps, 'value' | 'spark'>
+export type StatChartProps = NonNullable<Pick<StatCardProps, 'spark'>>

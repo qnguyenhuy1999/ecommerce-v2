@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
-import { type BannerPosition, type BannerStatus } from '@ecom/database'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import type { PrismaService } from '@ecom/database'
+import { type BannerPosition, type BannerStatus, type Prisma } from '@ecom/database'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
 import { withDefined } from '@ecom/shared/utils'
+import { Injectable, NotFoundException } from '@nestjs/common'
 
 @Injectable()
 export class BannersService {
@@ -47,12 +47,14 @@ export class BannersService {
       title: data.title,
       position: data.position,
       imageUrl: data.imageUrl,
-      ...(data.mobileImageUrl !== undefined ? { mobileImageUrl: data.mobileImageUrl } : {}),
-      ...(data.linkUrl !== undefined ? { linkUrl: data.linkUrl } : {}),
-      ...(data.sortOrder !== undefined ? { sortOrder: data.sortOrder } : {}),
-      ...(data.startsAt !== undefined ? { startsAt: data.startsAt } : {}),
-      ...(data.endsAt !== undefined ? { endsAt: data.endsAt } : {}),
-      ...(data.createdBy !== undefined ? { createdBy: data.createdBy } : {}),
+      ...withDefined({
+        mobileImageUrl: data.mobileImageUrl,
+        linkUrl: data.linkUrl,
+        sortOrder: data.sortOrder,
+        startsAt: data.startsAt,
+        endsAt: data.endsAt,
+        createdBy: data.createdBy,
+      }),
     }
     return this.prisma.banner.create({ data: createData })
   }

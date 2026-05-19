@@ -1,4 +1,5 @@
 import { MediaUpload, type MediaItem, type MediaUploadProps } from '@ecom/core-ui'
+import { withDefined } from '@ecom/shared'
 import { cn } from '../../lib/utils'
 
 type ProductMediaUploadProps = Omit<MediaUploadProps, 'coverIndex'> & {
@@ -24,9 +25,11 @@ export function ProductMediaUpload({
       <MediaUpload
         items={items}
         maxItems={maxItems}
-        onAdd={onAdd}
-        onRemove={onRemove}
-        accept={accept}
+        {...withDefined({
+          onAdd,
+          onRemove,
+          accept,
+        })}
       />
     </div>
   )

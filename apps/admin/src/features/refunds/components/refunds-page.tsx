@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { createColumnHelper } from '@tanstack/react-table'
-import type { ColumnDef } from '@tanstack/react-table'
 import { RefundStatus } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { DataTable, StatusBadge, StatusTabs } from '@ecom/core-ui'
@@ -12,7 +11,7 @@ import type { RefundListItem } from '../api/refunds.api'
 
 const col = createColumnHelper<RefundListItem>()
 
-const columns: ColumnDef<RefundListItem, unknown>[] = [
+const columns = [
   col.accessor('id', {
     header: 'Request ID',
     cell: (info) => (

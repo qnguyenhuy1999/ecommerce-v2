@@ -1,11 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Search } from 'lucide-react'
+import {
+  Orders,
+  buildOrderStatusCounts,
+  type OrderRow,
+  type OrdersStatusTab,
+} from '@ecom/ui-seller'
+import type { PaginationMeta } from '@ecom/shared/pagination/core'
 import { DashboardLayout } from '../../components/dashboard-layout'
-import { PageHeader } from '../../components/page-header'
-import { DataTable } from '@ecom/core-ui'
-import { StatusBadge } from '../../components/status-badge'
 import { api } from '../../lib/api'
 import type { SellerPaths } from '@ecom/contracts/generated'
 
@@ -15,11 +18,25 @@ interface SellerOrder {
   totalAmount: number
   createdAt: string
   order: { id: string; shippingName: string; shippingPhone: string }
+  items: Array<{
+    id: string
+    productName: string
+    variantLabel: string | null
+  }>
   _count: { items: number }
 }
 
 type OrdersListResponse =
   SellerPaths['/orders']['get']['responses']['200']['content']['application/json']
+
+const STATUS_TO_QUERY: Record<Exclude<OrdersStatusTab, 'ALL'>, string> = {
+  TO_PAY: 'PENDING',
+  TO_SHIP: 'CONFIRMED',
+  PACKING: 'PACKING',
+  SHIPPING: 'SHIPPED',
+  COMPLETED: 'DELIVERED',
+  CANCELLED: 'CANCELLED',
+}
 
 const getItems = <T,>(data: unknown): T[] => {
   if (!data || typeof data !== 'object') return []
@@ -41,123 +58,161 @@ const getTotalPages = (meta: unknown): number | undefined => {
   return typeof totalPages === 'number' ? totalPages : undefined
 }
 
+const getTotal = (meta: unknown): number => {
+  if (!meta || typeof meta !== 'object') return 0
+  const pagination = (meta as { pagination?: unknown }).pagination
+  if (pagination && typeof pagination === 'object') {
+    const total = (pagination as { total?: unknown }).total
+    if (typeof total === 'number') return total
+  }
+  const total = (meta as { total?: unknown }).total
+  return typeof total === 'number' ? total : 0
+}
+
+const getLimit = (meta: unknown, fallback: number): number => {
+  if (!meta || typeof meta !== 'object') return fallback
+  const pagination = (meta as { pagination?: unknown }).pagination
+  if (pagination && typeof pagination === 'object') {
+    const limit = (pagination as { limit?: unknown }).limit
+    if (typeof limit === 'number') return limit
+  }
+  const limit = (meta as { limit?: unknown }).limit
+  return typeof limit === 'number' ? limit : fallback
+}
+
+const getHasNextPage = (meta: unknown): boolean => {
+  if (!meta || typeof meta !== 'object') return false
+  const pagination = (meta as { pagination?: unknown }).pagination
+  if (pagination && typeof pagination === 'object') {
+    const value = (pagination as { hasNextPage?: unknown }).hasNextPage
+    if (typeof value === 'boolean') return value
+  }
+  const value = (meta as { hasNextPage?: unknown }).hasNextPage
+  return typeof value === 'boolean' ? value : false
+}
+
+const getHasPreviousPage = (meta: unknown): boolean => {
+  if (!meta || typeof meta !== 'object') return false
+  const pagination = (meta as { pagination?: unknown }).pagination
+  if (pagination && typeof pagination === 'object') {
+    const value = (pagination as { hasPreviousPage?: unknown }).hasPreviousPage
+    if (typeof value === 'boolean') return value
+  }
+  const value = (meta as { hasPreviousPage?: unknown }).hasPreviousPage
+  return typeof value === 'boolean' ? value : false
+}
+
+function mapOrderStatus(status: string): Exclude<OrdersStatusTab, 'ALL'> {
+  switch (status) {
+    case 'PENDING':
+      return 'TO_PAY'
+    case 'CONFIRMED':
+      return 'TO_SHIP'
+    case 'PACKING':
+      return 'PACKING'
+    case 'SHIPPED':
+      return 'SHIPPING'
+    case 'DELIVERED':
+      return 'COMPLETED'
+    case 'CANCELLED':
+      return 'CANCELLED'
+    default:
+      return 'TO_PAY'
+  }
+}
+
+function formatDateLabel(value: string) {
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(new Date(value))
+}
+
+function mapOrders(orders: SellerOrder[]): OrderRow[] {
+  return orders.map((order) => ({
+    id: order.id,
+    orderNumber: order.order.id,
+    buyerName: order.order.shippingName,
+    items: order.items.map((item) => ({
+      id: item.id,
+      productName: item.productName,
+      ...(item.variantLabel ? { variantLabel: item.variantLabel } : {}),
+    })),
+    itemCount: order._count.items,
+    total: Number(order.totalAmount),
+    status: mapOrderStatus(order.status),
+    createdAtLabel: formatDateLabel(order.createdAt),
+    href: `/orders/${order.id}`,
+  }))
+}
+
 export default function OrdersPage() {
-  const [orders, setOrders] = useState<SellerOrder[]>([])
+  const [orders, setOrders] = useState<OrderRow[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState('')
+  const [status, setStatus] = useState<OrdersStatusTab>('ALL')
   const [page, setPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
+  const [meta, setMeta] = useState<PaginationMeta | undefined>()
 
   useEffect(() => {
     const fetchOrders = async () => {
       setLoading(true)
       try {
+        const statusFilter = status === 'ALL' ? undefined : STATUS_TO_QUERY[status]
+        const limit = 20
         const res = await api<OrdersListResponse>('/orders', {
           params: {
             page,
-            limit: 20,
+            limit,
             ...(search ? { search } : {}),
             ...(statusFilter ? { status: statusFilter } : {}),
           },
         })
-        setOrders(getItems<SellerOrder>(res.data))
-        setTotalPages(getTotalPages(res.meta) ?? 1)
+        const items = getItems<SellerOrder>(res.data)
+        setOrders(mapOrders(items))
+
+        const totalPages = getTotalPages(res.meta) ?? 1
+        setMeta({
+          total: getTotal(res.meta),
+          page,
+          limit: getLimit(res.meta, limit),
+          totalPages,
+          hasNextPage: getHasNextPage(res.meta),
+          hasPreviousPage: getHasPreviousPage(res.meta),
+        })
       } catch {
-        /* empty */
+        setOrders([])
+        setMeta(undefined)
       } finally {
         setLoading(false)
       }
     }
     void fetchOrders()
-  }, [page, search, statusFilter])
+  }, [page, search, status])
 
-  const columns = [
-    {
-      key: 'id',
-      header: 'Order ID',
-      render: (row: SellerOrder) => (
-        <span className="font-mono text-xs">{row.id.slice(0, 8)}...</span>
-      ),
-    },
-    { key: 'customer', header: 'Customer', render: (row: SellerOrder) => row.order.shippingName },
-    { key: 'items', header: 'Items', render: (row: SellerOrder) => String(row._count.items) },
-    {
-      key: 'totalAmount',
-      header: 'Total',
-      render: (row: SellerOrder) => `$${row.totalAmount.toFixed(2)}`,
-    },
-    {
-      key: 'status',
-      header: 'Status',
-      render: (row: SellerOrder) => <StatusBadge status={row.status} />,
-    },
-    {
-      key: 'createdAt',
-      header: 'Date',
-      render: (row: SellerOrder) => new Date(row.createdAt).toLocaleDateString(),
-    },
-  ]
+  const statusCounts = buildOrderStatusCounts(orders)
 
   return (
     <DashboardLayout>
-      <PageHeader title="Orders" description="Manage your seller orders" />
-
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row">
-        <div className="relative flex-1">
-          <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Search orders..."
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value)
-              setPage(1)
-            }}
-            className="w-full rounded-lg border border-gray-300 py-2 pr-4 pl-10 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <select
-          value={statusFilter}
-          onChange={(e) => {
-            setStatusFilter(e.target.value)
-            setPage(1)
-          }}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value="">All Status</option>
-          <option value="PENDING">Pending</option>
-          <option value="CONFIRMED">Confirmed</option>
-          <option value="PACKING">Packing</option>
-          <option value="SHIPPED">Shipped</option>
-          <option value="DELIVERED">Delivered</option>
-          <option value="CANCELLED">Cancelled</option>
-        </select>
-      </div>
-
-      <DataTable columns={columns} data={orders} loading={loading} emptyMessage="No orders yet" />
-
-      {totalPages > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-2">
-          <button
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <span className="text-sm text-gray-600">
-            Page {page} of {totalPages}
-          </span>
-          <button
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-            className="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
-      )}
+      <Orders
+        loading={loading}
+        orders={orders}
+        status={status}
+        onStatusChange={(nextStatus) => {
+          setStatus(nextStatus)
+          setPage(1)
+        }}
+        search={search}
+        onSearchChange={(value) => {
+          setSearch(value)
+          setPage(1)
+        }}
+        statusCounts={statusCounts}
+        emptyMessage={loading ? 'Loading orders...' : 'No orders yet'}
+        {...(meta ? { meta } : {})}
+        onPageChange={setPage}
+      />
     </DashboardLayout>
   )
 }

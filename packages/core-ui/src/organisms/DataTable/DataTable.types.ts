@@ -1,8 +1,10 @@
-import type { ColumnDef } from '@tanstack/react-table'
 import type { PaginationMeta } from '@ecom/shared/pagination/core'
+import type { RowData, TableOptions } from '@tanstack/react-table'
 
-export interface DataTableProps<T> {
-  columns: ColumnDef<T, unknown>[]
+export type DataTableColumn<T extends RowData> = TableOptions<T>['columns'][number]
+
+export interface DataTableProps<T extends RowData> {
+  columns: DataTableColumn<T>[]
   data: T[]
   meta?: PaginationMeta
   loading?: boolean

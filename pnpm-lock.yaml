@@ -453,6 +453,9 @@ importers:
       '@ecom/core-ui':
         specifier: workspace:*
         version: link:../../packages/core-ui
+      '@ecom/ui-seller':
+        specifier: workspace:*
+        version: link:../../packages/ui-seller
       lucide-react:
         specifier: ^1.14.0
         version: 1.14.0(react@19.2.6)
@@ -953,6 +956,9 @@ importers:
       '@ecom/core-ui':
         specifier: workspace:*
         version: link:../core-ui
+      '@ecom/shared':
+        specifier: workspace:*
+        version: link:../shared
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1

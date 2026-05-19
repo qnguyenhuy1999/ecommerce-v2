@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@ecom/core-ui": "workspace:*",
+    "@ecom/shared": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "lucide-react": "^1.14.0",
     "recharts": "^3.8.1"

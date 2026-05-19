@@ -3,6 +3,7 @@ import {
   Root as CoreRoot,
   type ConsoleLayoutProps,
 } from '@ecom/core-ui'
+import { withDefined } from '@ecom/shared'
 import {
   defaultSidebarAccount,
   defaultSidebarGroups,
@@ -32,7 +33,9 @@ function ConsoleLayoutBase({
       notificationCount={notificationCount}
       storefrontLabel={storefrontLabel}
       userMenu={userMenu}
-      contentClassName={contentClassName}
+      {...withDefined({
+        contentClassName,
+      })}
     >
       {children}
     </CoreConsoleLayout>

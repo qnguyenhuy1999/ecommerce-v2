@@ -19,13 +19,6 @@ export function withDefined<T extends Record<string, unknown>>(value: T): Partia
 }
 
 /**
- * @deprecated Use `withDefined` instead. Kept for backwards compatibility.
- */
-export function withOptional<T extends Record<string, unknown>>(value: T): Partial<T> {
-  return withDefined(value)
-}
-
-/**
  * Convert `undefined` to `null`. Useful when a Prisma field expects `null`
  * to clear a value but the source may be `undefined`.
  *

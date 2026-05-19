@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
-import type { ColumnDef } from '@tanstack/react-table'
 import { ReviewStatus } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { DataTable, StatusBadge, StatusTabs } from '@ecom/core-ui'
@@ -17,7 +16,7 @@ import type { ReviewListItem } from '../api/reviews.api'
 
 const col = createColumnHelper<ReviewListItem>()
 
-const columns: ColumnDef<ReviewListItem, unknown>[] = [
+const columns = [
   col.accessor('rating', {
     header: 'Rating',
     cell: (info) => (

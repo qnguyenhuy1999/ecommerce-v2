@@ -1,12 +1,13 @@
+import { withDefined } from '@ecom/shared/utils'
 import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger'
 import { Controller, Get, Post, Put, Delete, Param, Query, Body, UseGuards } from '@nestjs/common'
-import { BannersService } from './banners.service'
+import type { BannersService } from './banners.service'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { Permissions } from '../auth/decorators/permissions.decorator'
 import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import { BannerQueryDto, CreateBannerDto, UpdateBannerDto } from './dto/banner.dto'
+import type { BannerQueryDto, CreateBannerDto, UpdateBannerDto } from './dto/banner.dto'
 import { BannerResponseDto } from './dto/banner.dto'
 import { AUDIT_ACTIONS } from '@ecom/shared/constants'
 import {
@@ -54,9 +55,11 @@ export class BannersController {
       position: dto.position,
       imageUrl: dto.imageUrl,
       createdBy: admin.adminId,
-      ...(dto.mobileImageUrl !== undefined ? { mobileImageUrl: dto.mobileImageUrl } : {}),
-      ...(dto.linkUrl !== undefined ? { linkUrl: dto.linkUrl } : {}),
-      ...(dto.sortOrder !== undefined ? { sortOrder: dto.sortOrder } : {}),
+      ...withDefined({
+        mobileImageUrl: dto.mobileImageUrl,
+        linkUrl: dto.linkUrl,
+        sortOrder: dto.sortOrder,
+      }),
       ...(dto.startsAt !== undefined ? { startsAt: new Date(dto.startsAt) } : {}),
       ...(dto.endsAt !== undefined ? { endsAt: new Date(dto.endsAt) } : {}),
     })

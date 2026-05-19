@@ -1,3 +1,4 @@
+import { withDefined } from '@ecom/shared/utils'
 import {
   Sidebar,
   SidebarContent,
@@ -36,7 +37,7 @@ export function SidebarMenuRenderer({ groups }: SidebarMenuRendererProps) {
                   <SidebarMenuButton
                     asChild
                     tooltip={item.label}
-                    {...(item.isActive !== undefined ? { isActive: item.isActive } : {})}
+                    {...withDefined({ isActive: item.isActive })}
                   >
                     <a href={item.href || '#'}>
                       {item.icon && <item.icon />}

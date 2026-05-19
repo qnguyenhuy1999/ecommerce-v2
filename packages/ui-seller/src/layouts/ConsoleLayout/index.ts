@@ -4,4 +4,4 @@ export type {
   ConsoleLayoutProps,
   ConsoleLayoutSwitcher,
   ConsoleLayoutUserMenu,
-} from '@ecom/core-ui/layouts/ConsoleLayout'
+} from '@ecom/core-ui'

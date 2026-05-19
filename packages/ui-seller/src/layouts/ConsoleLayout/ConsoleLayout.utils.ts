@@ -2,7 +2,7 @@ import type {
   ConsoleLayoutAccount,
   ConsoleLayoutSwitcher,
   ConsoleLayoutUserMenu,
-} from '@ecom/core-ui/layouts/ConsoleLayout'
+} from '@ecom/core-ui'
 import { sidebarGroups as defaultSidebarGroups } from './ConsoleLayout.fixtures'
 
 export { defaultSidebarGroups }

@@ -1,3 +1,4 @@
+import { withDefined } from '@ecom/shared/utils'
 import { SidebarInset, SidebarMenuRenderer, SidebarShell } from '../../organisms/Sidebar'
 import { cn } from '../../lib/utils'
 import type { ConsoleLayoutProps } from './ConsoleLayout.types'
@@ -40,12 +41,14 @@ export function ConsoleLayout({
       <SidebarInset className="bg-muted/40">
         <div className="flex min-h-svh flex-col">
           <ConsoleTopbar
-            workspaceSwitcher={workspaceSwitcher}
-            searchPlaceholder={searchPlaceholder}
-            balanceLabel={balanceLabel}
-            notificationCount={notificationCount}
-            storefrontLabel={storefrontLabel}
-            userMenu={userMenu}
+            {...withDefined({
+              workspaceSwitcher,
+              searchPlaceholder,
+              balanceLabel,
+              notificationCount,
+              storefrontLabel,
+              userMenu,
+            })}
           />
           <div className={cn('min-w-0 flex-1 p-4 md:p-6', contentClassName)}>{children}</div>
         </div>

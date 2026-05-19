@@ -2,8 +2,8 @@
   "extends": "@ecom/config/tsconfig/library.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "."
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "env.ts"],
   "exclude": ["node_modules", "dist", "prisma"]
 }

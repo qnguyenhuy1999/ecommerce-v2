@@ -23,8 +23,7 @@ export function slugify(value: string) {
   let current = ''
 
   for (const char of normalized) {
-    const isAlphaNumeric =
-      (char >= 'a' && char <= 'z') || (char >= '0' && char <= '9')
+    const isAlphaNumeric = (char >= 'a' && char <= 'z') || (char >= '0' && char <= '9')
 
     if (isAlphaNumeric) {
       current += char
@@ -59,18 +58,15 @@ export function buildVariantCombinations(groups: ProductDetailOptionGroup[]) {
     return []
   }
 
-  return populatedGroups.reduce<string[][]>(
-    (combinations, group) => {
-      if (combinations.length === 0) {
-        return group.values.map((value) => [value])
-      }
+  return populatedGroups.reduce<string[][]>((combinations, group) => {
+    if (combinations.length === 0) {
+      return group.values.map((value) => [value])
+    }
 
-      return combinations.flatMap((combination) =>
-        group.values.map((value) => [...combination, value]),
-      )
-    },
-    [],
-  )
+    return combinations.flatMap((combination) =>
+      group.values.map((value) => [...combination, value]),
+    )
+  }, [])
 }
 
 export function buildVariantRows(

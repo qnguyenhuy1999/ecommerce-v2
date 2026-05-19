@@ -3,7 +3,7 @@ import type { LucideIcon } from 'lucide-react'
 export type Accent = 'primary' | 'success' | 'info' | 'warning' | 'destructive'
 
 export interface StatCardProps {
-  label?: string
+  label: string
   value: string | number
   icon?: LucideIcon
   trend?: number
@@ -14,6 +14,9 @@ export interface StatCardProps {
   description?: string
 }
 
-export type StatCardHeader = { label?: string; icon?: LucideIcon }
+export type StatCardHeader = { label: string; icon?: LucideIcon; accent?: Accent }
 
-export type StatChartProps = NonNullable<Pick<StatCardProps, 'spark'>>
+export interface StatChartProps {
+  spark: NonNullable<StatCardProps['spark']>
+  accent?: Accent
+}

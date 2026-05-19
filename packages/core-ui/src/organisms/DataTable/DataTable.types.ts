@@ -2,7 +2,7 @@ import type { ColumnDef } from '@tanstack/react-table'
 import type { PaginationMeta } from '@ecom/shared/pagination/core'
 
 export interface DataTableProps<T> {
-  columns: ColumnDef<T, unknown>[]
+  columns: ColumnDef<T, any>[]
   data: T[]
   meta?: PaginationMeta
   loading?: boolean

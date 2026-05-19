@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { withDefined } from '@ecom/shared/utils'
 import { DropdownMenu as DropdownMenuPrimitive } from 'radix-ui'
 
 import { cn } from '../../lib/utils'
@@ -86,7 +87,7 @@ function DropdownMenuCheckboxItem({
         "focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
-      {...(checked !== undefined ? { checked } : {})}
+      {...withDefined({ checked })}
       {...props}
     >
       <span

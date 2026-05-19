@@ -11,10 +11,10 @@ export default function DashboardPage() {
       <PageHeader title="Dashboard" description="Overview of your seller performance" />
 
       <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard title="Pending Orders" value={0} icon={ShoppingCart} />
-        <StatCard title="Active Products" value={0} icon={Package} />
-        <StatCard title="Low Stock Items" value={0} icon={Warehouse} />
-        <StatCard title="Unread Notifications" value={0} icon={Bell} />
+        <StatCard label="Pending Orders" value={0} icon={ShoppingCart} />
+        <StatCard label="Active Products" value={0} icon={Package} />
+        <StatCard label="Low Stock Items" value={0} icon={Warehouse} />
+        <StatCard label="Unread Notifications" value={0} icon={Bell} />
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">

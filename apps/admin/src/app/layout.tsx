@@ -1,6 +1,7 @@
 import './globals.css'
 import { QueryProvider } from '@/lib/query-client'
 import { AuthProvider } from '@/providers/auth-provider'
+import { TooltipProvider } from '@ecom/core-ui'
 
 export const metadata = {
   title: 'Admin Panel — Marketplace',
@@ -12,7 +13,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="bg-background min-h-screen font-sans antialiased">
         <QueryProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+          </AuthProvider>
         </QueryProvider>
       </body>
     </html>

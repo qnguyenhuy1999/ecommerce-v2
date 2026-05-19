@@ -147,9 +147,9 @@ export default function ReviewsPage() {
       <PageHeader title="Reviews" description="Manage product reviews and ratings" />
 
       <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <StatCard title="Total Reviews" value={analytics?.totalReviews ?? 0} icon={MessageSquare} />
+        <StatCard label="Total Reviews" value={analytics?.totalReviews ?? 0} icon={MessageSquare} />
         <StatCard
-          title="Average Rating"
+          label="Average Rating"
           value={(analytics?.averageRating ?? 0).toFixed(1)}
           icon={Star}
         />

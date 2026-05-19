@@ -1,13 +1,13 @@
-import { useId } from 'react'
-import { cn } from '../../lib/utils'
+import { withDefined } from '@ecom/shared/utils'
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
-import { Area, AreaChart, ResponsiveContainer } from 'recharts'
-import { StatCardContext, useStatCard } from './StatCard.context'
+import type { ReactNode } from 'react'
+import { cn } from '../../lib/utils'
+import { StatCardChart } from './StatCard.client'
 import { accentMap } from './StatCard.fixtures'
-import type { StatCardHeader, StatCardProps, StatChartProps } from './StatCard.types'
+import type { Accent, StatCardHeader, StatCardProps } from './StatCard.types'
 
-function Header({ label, icon: Icon }: StatCardHeader) {
-  const { colors } = useStatCard()
+function Header({ label, icon: Icon, accent = 'primary' }: StatCardHeader) {
+  const colors = accentMap[accent]
 
   return (
     <div className="flex items-start justify-between gap-2">
@@ -19,37 +19,6 @@ function Header({ label, icon: Icon }: StatCardHeader) {
           <Icon className="h-4 w-4" />
         </span>
       )}
-    </div>
-  )
-}
-
-function Chart({ spark }: StatChartProps) {
-  const { accent, colors } = useStatCard()
-  const gradientId = useId()
-
-  return (
-    <div className="-mr-1 h-11 w-28 shrink-0">
-      <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={spark}>
-          <defs key={accent}>
-            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={colors.fill} stopOpacity={0.9} />
-              <stop offset="100%" stopColor={colors.fill} stopOpacity={0.15} />
-            </linearGradient>
-          </defs>
-
-          <Area
-            type="linear"
-            dataKey="y"
-            stroke={colors.stroke}
-            strokeWidth={2}
-            fill={`url(#${gradientId})`}
-            dot={false}
-            activeDot={false}
-            isAnimationActive={false}
-          />
-        </AreaChart>
-      </ResponsiveContainer>
     </div>
   )
 }
@@ -76,23 +45,20 @@ function Root({
   className,
   children,
 }: {
-  accent?: keyof typeof accentMap
+  accent?: Accent
   className?: string
-  children: React.ReactNode
+  children: ReactNode
 }) {
-  const colors = accentMap[accent]
-
   return (
-    <StatCardContext.Provider value={{ accent, colors }}>
-      <div
-        className={cn(
-          'bg-card border-border/90 flex items-start justify-between gap-2 rounded-2xl border p-4 shadow-xs',
-          className,
-        )}
-      >
-        {children}
-      </div>
-    </StatCardContext.Provider>
+    <div
+      data-accent={accent}
+      className={cn(
+        'bg-card border-border/90 flex items-start justify-between gap-2 rounded-2xl border p-4 shadow-xs',
+        className,
+      )}
+    >
+      {children}
+    </div>
   )
 }
 
@@ -107,38 +73,36 @@ export function StatCardBase({
   description,
 }: StatCardProps) {
   return (
-    <Root accent={accent} {...(className !== undefined ? { className } : {})}>
+    <Root accent={accent} {...withDefined({ className })}>
       <div className="flex h-full min-w-0 flex-col justify-between gap-3">
-        <Header
-          {...(label !== undefined ? { label } : {})}
-          {...(icon !== undefined ? { icon } : {})}
-        />
+        <Header label={label} {...withDefined({ icon, accent })} />
 
         <div className="text-foreground text-xl leading-none font-semibold tracking-[-0.03em] tabular-nums">
           {value}
         </div>
 
-        {typeof trend === 'number' && (
-          <Trend trend={trend} {...(description !== undefined ? { description } : {})} />
-        )}
-        {typeof trend !== 'number' && description ? <div className="xs">{description}</div> : null}
+        {typeof trend === 'number' ? (
+          <Trend trend={trend} {...withDefined({ description })} />
+        ) : description ? (
+          <div className="xs">{description}</div>
+        ) : null}
       </div>
 
-      <Chart {...(spark !== undefined ? { spark } : {})} />
+      <StatCardChart spark={spark ?? []} accent={accent} />
     </Root>
   )
 }
 
-type StatCardComponent = React.FC<StatCardProps> & {
+type StatCardComponent = typeof StatCardBase & {
   Root: typeof Root
   Header: typeof Header
-  Chart: typeof Chart
+  Chart: typeof StatCardChart
   Trend: typeof Trend
 }
 
 export const StatCard = Object.assign(StatCardBase, {
   Root,
   Header,
-  Chart,
+  Chart: StatCardChart,
   Trend,
-}) as StatCardComponent
+}) satisfies StatCardComponent

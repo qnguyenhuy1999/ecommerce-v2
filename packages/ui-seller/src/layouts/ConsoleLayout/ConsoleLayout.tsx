@@ -1,5 +1,8 @@
-import { ConsoleLayout as CoreConsoleLayout, Root as CoreRoot } from '@ecom/core-ui'
-import type { ConsoleLayoutProps } from '@ecom/core-ui'
+import {
+  ConsoleLayout as CoreConsoleLayout,
+  Root as CoreRoot,
+  type ConsoleLayoutProps,
+} from '@ecom/core-ui'
 import {
   defaultSidebarAccount,
   defaultSidebarGroups,

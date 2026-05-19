@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { withDefined } from '@ecom/shared/utils'
 import {
   flexRender,
   getCoreRowModel,
@@ -275,7 +276,7 @@ export function DataTable<T extends { id: string }>({
         </div>
 
         {meta && meta.totalPages > 1 && (
-          <Pagination meta={meta} {...(onPageChange !== undefined ? { onPageChange } : {})} />
+          <Pagination meta={meta} {...withDefined({ onPageChange })} />
         )}
       </div>
     </div>

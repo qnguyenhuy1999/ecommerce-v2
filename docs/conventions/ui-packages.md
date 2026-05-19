@@ -14,11 +14,11 @@ Applies to:
 
 ## 1. Package responsibilities
 
-| Package | Responsibility |
-|---|---|
-| `@ecom/core-ui` | Shared primitives, design tokens, and generic reusable components |
-| `@ecom/ui-seller` | Seller console components, layouts, and domain-specific UI |
-| `@ecom/ui-admin` | Admin panel components, layouts, and domain-specific UI |
+| Package               | Responsibility                                                      |
+| --------------------- | ------------------------------------------------------------------- |
+| `@ecom/core-ui`       | Shared primitives, design tokens, and generic reusable components   |
+| `@ecom/ui-seller`     | Seller console components, layouts, and domain-specific UI          |
+| `@ecom/ui-admin`      | Admin panel components, layouts, and domain-specific UI             |
 | `@ecom/ui-storefront` | Buyer-facing storefront components, layouts, and domain-specific UI |
 
 ### Dependency direction
@@ -31,6 +31,7 @@ They must not depend on each other.
 @ecom/core-ui
     ↑         ↑         ↑
 ui-seller  ui-admin  ui-storefront
+```
 ````
 
 Always import shared primitives from `@ecom/core-ui`.
@@ -97,10 +98,10 @@ layouts:    SellerDashboardLayout, AdminConsoleLayout
 
 Decision guide:
 
-* If it is a primitive, use `atoms`.
-* If it combines primitives, use `molecules`.
-* If it owns a full section of a page, use `organisms`.
-* If it wraps the page, use `layouts`.
+- If it is a primitive, use `atoms`.
+- If it combines primitives, use `molecules`.
+- If it owns a full section of a page, use `organisms`.
+- If it wraps the page, use `layouts`.
 
 ---
 
@@ -116,9 +117,7 @@ Use compound components when a component has multiple related parts and needs a 
     <Card.Title>Product details</Card.Title>
   </Card.Header>
 
-  <Card.Content>
-    Product information goes here.
-  </Card.Content>
+  <Card.Content>Product information goes here.</Card.Content>
 
   <Card.Footer>
     <Button>Save</Button>
@@ -130,10 +129,10 @@ Use compound components when a component has multiple related parts and needs a 
 
 Use compound components for:
 
-* Components with named sections
-* Components with shared internal state or context
-* Components that would otherwise have too many props
-* Reusable UI patterns that need flexible composition
+- Components with named sections
+- Components with shared internal state or context
+- Components that would otherwise have too many props
+- Reusable UI patterns that need flexible composition
 
 Good examples:
 
@@ -149,10 +148,10 @@ PageHeader
 
 Avoid compound components when:
 
-* The component is simple
-* Props are clearer
-* There is only one valid structure
-* Children do not share context or state
+- The component is simple
+- Props are clearer
+- There is only one valid structure
+- Children do not share context or state
 
 ---
 
@@ -162,10 +161,10 @@ Avoid compound components when:
 
 A `DataTable` is needed in many places:
 
-* Seller product list
-* Admin product moderation
-* Customer list
-* Order history
+- Seller product list
+- Admin product moderation
+- Customer list
+- Order history
 
 A prop-heavy API becomes hard to maintain.
 
@@ -196,9 +195,7 @@ A prop-heavy API becomes hard to maintain.
 
   <DataTable.Content columns={columns} />
 
-  <DataTable.Empty>
-    No products found.
-  </DataTable.Empty>
+  <DataTable.Empty>No products found.</DataTable.Empty>
 
   <DataTable.Pagination />
 </DataTable>
@@ -214,12 +211,12 @@ Use React context only when child components need shared data from the parent.
 
 Good use cases:
 
-* Shared IDs
-* Accessibility attributes
-* Selected state
-* Open/closed state
-* Validation state
-* Parent-level config
+- Shared IDs
+- Accessibility attributes
+- Selected state
+- Open/closed state
+- Validation state
+- Parent-level config
 
 Example:
 
@@ -254,8 +251,8 @@ throw new Error('FormField compound components must be used inside <FormField>.'
 
 Rule:
 
-* If it is generic, put it in `@ecom/core-ui`.
-* If it contains domain logic, put it in the matching app UI package.
+- If it is generic, put it in `@ecom/core-ui`.
+- If it contains domain logic, put it in the matching app UI package.
 
 ---
 
@@ -303,20 +300,20 @@ Default to server components.
 
 Add `'use client'` only when the component directly needs:
 
-* `useState`
-* `useReducer`
-* `useEffect`
-* `useLayoutEffect`
-* Browser APIs
-* Client-side context
-* Client-side event handlers
+- `useState`
+- `useReducer`
+- `useEffect`
+- `useLayoutEffect`
+- Browser APIs
+- Client-side context
+- Client-side event handlers
 
 Do not add `'use client'` to:
 
-* Components that only render markup
-* Components that only pass props down
-* Layout shells
-* Server-safe components
+- Components that only render markup
+- Components that only pass props down
+- Layout shells
+- Server-safe components
 
 ---
 
@@ -465,18 +462,13 @@ pnpm lint
 
 TypeScript rules:
 
-* Use strict TypeScript.
-* Do not use `any`.
-* Use `unknown` with type guards when the shape is unknown.
+- Use strict TypeScript.
+- Do not use `any`.
+- Use `unknown` with type guards when the shape is unknown.
 
 ```ts
 function isProduct(value: unknown): value is Product {
-  return (
-    typeof value === 'object' &&
-    value !== null &&
-    'id' in value &&
-    'name' in value
-  )
+  return typeof value === 'object' && value !== null && 'id' in value && 'name' in value
 }
 ```
 

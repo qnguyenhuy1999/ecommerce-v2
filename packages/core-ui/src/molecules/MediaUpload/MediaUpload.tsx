@@ -1,4 +1,7 @@
+'use client'
+
 import * as React from 'react'
+import { withDefined } from '@ecom/shared/utils'
 import { Upload, X } from 'lucide-react'
 import { cn } from '../../lib/utils'
 import { Progress } from '../../atoms/Progress'
@@ -29,8 +32,7 @@ function Root({
         coverIndex,
         accept,
         canAdd,
-        ...(onAdd !== undefined ? { onAdd } : {}),
-        ...(onRemove !== undefined ? { onRemove } : {}),
+        ...withDefined({ onAdd, onRemove }),
       }}
     >
       <div className={cn('flex flex-wrap gap-2', className)}>{children}</div>

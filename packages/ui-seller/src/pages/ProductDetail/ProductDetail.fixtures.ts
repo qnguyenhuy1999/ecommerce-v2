@@ -14,11 +14,7 @@ export const productDetailStatuses = ['DRAFT', 'PENDING', 'LIVE', 'OUT_OF_STOCK'
 
 export const productDetailDefaultProps: Required<ProductDetailProps> = {
   title: 'New product',
-  breadcrumb: [
-    { label: 'Seller', href: '#' },
-    { label: 'Products', href: '#' },
-    { label: 'New' },
-  ],
+  breadcrumb: [{ label: 'Seller', href: '#' }, { label: 'Products', href: '#' }, { label: 'New' }],
   previewHref: '#',
   saveDraftHref: '#',
   publishHref: '#',

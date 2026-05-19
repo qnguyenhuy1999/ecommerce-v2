@@ -79,9 +79,12 @@ export const NoSpark: Story = {
 export const Compound: Story = {
   render: () => (
     <StatCard.Root accent="success" className="w-92">
-      <StatCard.Header label="Orders (7D)" icon={ShoppingCart} />
-      <StatCard.Chart value="412" spark={spark} />
-      <StatCard.Trend trend={8.1} description="vs prev" />
+      <div className="flex h-full min-w-0 flex-col justify-between gap-3">
+        <StatCard.Header label="Orders (7D)" icon={ShoppingCart} accent="success" />
+        <div className="text-foreground text-xl leading-none font-semibold tracking-[-0.03em] tabular-nums">412</div>
+        <StatCard.Trend trend={8.1} description="vs prev" />
+      </div>
+      <StatCard.Chart spark={spark} accent="success" />
     </StatCard.Root>
   ),
 }

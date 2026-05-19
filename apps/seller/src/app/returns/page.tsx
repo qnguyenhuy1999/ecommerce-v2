@@ -165,10 +165,10 @@ export default function ReturnsPage() {
       <PageHeader title="Returns & Refunds" description="Manage return requests and refunds" />
 
       <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-4">
-        <StatCard title="Total Returns" value={stats.total} icon={RotateCcw} />
-        <StatCard title="Pending" value={stats.pending} icon={Clock} />
-        <StatCard title="Approved" value={stats.approved} icon={CheckCircle} />
-        <StatCard title="Refunded" value={stats.refunded} icon={CheckCircle} />
+        <StatCard label="Total Returns" value={stats.total} icon={RotateCcw} />
+        <StatCard label="Pending" value={stats.pending} icon={Clock} />
+        <StatCard label="Approved" value={stats.approved} icon={CheckCircle} />
+        <StatCard label="Refunded" value={stats.refunded} icon={CheckCircle} />
       </div>
 
       <div className="mb-4 flex flex-col gap-3 sm:flex-row">

@@ -163,9 +163,9 @@ export default function CouponsPage() {
       />
 
       <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <StatCard title="Total Coupons" value={stats.total} icon={Tag} />
-        <StatCard title="Active Coupons" value={stats.active} icon={Percent} />
-        <StatCard title="Total Usages" value={stats.totalUsages} icon={DollarSign} />
+        <StatCard label="Total Coupons" value={stats.total} icon={Tag} />
+        <StatCard label="Active Coupons" value={stats.active} icon={Percent} />
+        <StatCard label="Total Usages" value={stats.totalUsages} icon={DollarSign} />
       </div>
 
       <div className="mb-4 flex flex-col gap-3 sm:flex-row">

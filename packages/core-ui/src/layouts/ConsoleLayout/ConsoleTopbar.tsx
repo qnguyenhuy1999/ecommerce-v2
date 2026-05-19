@@ -1,3 +1,4 @@
+import { withDefined } from '@ecom/shared/utils'
 import type { ConsoleLayoutSwitcher, ConsoleLayoutUserMenu } from './ConsoleLayout.types'
 import { ConsoleSidebarTrigger } from './ConsoleSidebarTrigger.client'
 import { ConsoleWorkspaceSwitcher } from './ConsoleWorkspaceSwitcher.client'
@@ -31,7 +32,7 @@ export function ConsoleTopbar({
         {workspaceSwitcher ? <ConsoleWorkspaceSwitcher switcher={workspaceSwitcher} /> : null}
       </div>
 
-      <ConsoleSearch placeholder={searchPlaceholder} />
+      <ConsoleSearch {...withDefined({ placeholder: searchPlaceholder })} />
 
       <div className="ml-auto flex items-center gap-2 md:gap-3">
         {balanceLabel ? (

@@ -1,4 +1,9 @@
 import type { ProductRow, ProductsProps, ProductsStatusTab } from './Products.types'
+import {
+  buildProductStatusCounts,
+  filterProductsBySearchAndStatus,
+  productsColumns,
+} from './Products.utils'
 
 export const productStatusTabs = [
   'ALL',
@@ -332,8 +337,13 @@ export const productsDefaultProps = {
   exportHref: '#export-products',
   newProductHref: '#new-product',
   products: productsPageRows,
+  columns: productsColumns,
   statusTabs: [...productStatusTabs],
+  status: 'ALL',
   defaultStatus: 'ALL',
+  onStatusChange: () => {},
+  statusCounts: buildProductStatusCounts(productsPageRows),
   searchPlaceholder: 'Search products or SKU...',
   emptyMessage: 'No products match the current filters',
+  filterProducts: filterProductsBySearchAndStatus,
 } satisfies Required<ProductsProps>

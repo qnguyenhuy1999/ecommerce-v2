@@ -64,7 +64,7 @@
     "@ecom/redis": "workspace:*",
     "@prisma/client": "^7.8.0",
     "@types/bcryptjs": "^3.0.0",
-    "@types/node": "^25.7.0",
+    "@types/node": "^25.9.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "tsup": "^8.4.0",

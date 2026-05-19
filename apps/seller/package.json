@@ -14,13 +14,13 @@
     "@ecom/config": "workspace:*",
     "@ecom/core-ui": "workspace:*",
     "@ecom/ui-seller": "workspace:*",
-    "lucide-react": "^1.14.0",
+    "lucide-react": "^1.16.0",
     "next": "^16.2.6",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },
   "devDependencies": {
-    "@types/node": "^25.7.0",
+    "@types/node": "^25.9.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "typescript": "^6.0.3"

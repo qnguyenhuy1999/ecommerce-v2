@@ -1,9 +1,10 @@
 'use client'
 
-import { Button, DataTable, StatusTabs, TableToolbar } from '@ecom/core-ui'
-import type { DataTableProps } from '@ecom/core-ui'
+import { Button } from '@ecom/core-ui'
 import { ChevronDown, Download } from 'lucide-react'
-import { useState } from 'react'
+import { startTransition, useDeferredValue, useMemo } from 'react'
+import { useControllableState } from '../../hooks'
+import { SellerListPage } from '../../organisms/SellerListPage'
 import { ordersDefaultProps } from './Orders.fixtures'
 import type { OrderRow, OrdersProps, OrdersStatusTab } from './Orders.types'
 import {
@@ -53,54 +54,55 @@ export function OrdersClient({
   meta,
   onPageChange,
 }: OrdersClientProps) {
-  const [internalSearch, setInternalSearch] = useState(search ?? '')
-  const [internalStatus, setInternalStatus] = useState<OrdersStatusTab>(defaultStatus)
+  const [currentSearch, setCurrentSearch] = useControllableState({
+    value: search,
+    defaultValue: search ?? '',
+    onChange: onSearchChange,
+  })
+  const [currentStatus, setCurrentStatus] = useControllableState<OrdersStatusTab>({
+    value: status,
+    defaultValue: defaultStatus,
+    onChange: onStatusChange,
+  })
+  const deferredSearch = useDeferredValue(currentSearch)
 
-  const currentSearch = search ?? internalSearch
-  const currentStatus = status ?? internalStatus
-  const counts = statusCounts ?? buildOrderStatusCounts(orders)
-  const filteredOrders = filterOrders({ orders, search: currentSearch, status: currentStatus })
-  const tableProps: DataTableProps<OrderRow> = {
-    columns,
-    data: filteredOrders,
-    loading,
-    enableRowSelection: true,
-  }
-
-  if (meta !== undefined) {
-    tableProps.meta = meta
-  }
-
-  if (onPageChange !== undefined) {
-    tableProps.onPageChange = onPageChange
-  }
+  const counts = useMemo(
+    () => statusCounts ?? buildOrderStatusCounts(orders),
+    [orders, statusCounts],
+  )
+  const filteredOrders = useMemo(
+    () => filterOrders({ orders, search: deferredSearch, status: currentStatus }),
+    [currentStatus, deferredSearch, filterOrders, orders],
+  )
 
   return (
-    <DataTable
-      {...tableProps}
+    <SellerListPage.Table
+      columns={columns}
+      data={filteredOrders}
+      loading={loading}
+      enableRowSelection
+      meta={meta}
+      onPageChange={onPageChange}
       toolbar={
-        <TableToolbar
-          search={currentSearch}
-          onSearchChange={(value) => {
-            if (search === undefined) {
-              setInternalSearch(value)
-            }
-
-            onSearchChange?.(value)
-          }}
-          placeholder={searchPlaceholder}
-        >
+        <SellerListPage.Filters>
+          <SellerListPage.Search
+            value={currentSearch}
+            onChange={(value) => {
+              startTransition(() => {
+                setCurrentSearch(value)
+              })
+            }}
+            placeholder={searchPlaceholder}
+          />
           <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
-            <StatusTabs
+            <SellerListPage.StatusTabs
               tabs={statusTabs}
               value={currentStatus}
               onChange={(tab) => {
                 if (isOrdersStatusTab(tab)) {
-                  if (status === undefined) {
-                    setInternalStatus(tab)
-                  }
-
-                  onStatusChange?.(tab)
+                  startTransition(() => {
+                    setCurrentStatus(tab)
+                  })
                 }
               }}
               counts={counts}
@@ -128,7 +130,7 @@ export function OrdersClient({
               </Button>
             </div>
           </div>
-        </TableToolbar>
+        </SellerListPage.Filters>
       }
       emptyMessage={
         currentSearch || currentStatus !== 'ALL'

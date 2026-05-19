@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { withDefined } from '@ecom/shared/utils'
 import {
   flexRender,
@@ -171,32 +171,60 @@ export function DataTable<T extends { id: string }>({
   className,
 }: DataTableProps<T>) {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+  const rowLookup = useMemo(() => {
+    return data.reduce<Record<string, T>>((accumulator, row) => {
+      accumulator[row.id] = row
+      return accumulator
+    }, {})
+  }, [data])
 
   useEffect(() => {
-    setRowSelection({})
-    onSelectionChange?.([])
-  }, [data, onSelectionChange])
+    setRowSelection((current) => {
+      const next = Object.fromEntries(
+        Object.entries(current).filter(([key, selected]) => selected && rowLookup[key]),
+      )
+
+      const currentKeys = Object.keys(current)
+      const nextKeys = Object.keys(next)
+      if (
+        currentKeys.length === nextKeys.length &&
+        currentKeys.every((key) => current[key] === next[key])
+      ) {
+        return current
+      }
+
+      return next
+    })
+  }, [rowLookup])
+
+  useEffect(() => {
+    if (!onSelectionChange) {
+      return
+    }
+
+    const selectedRows = Object.keys(rowSelection)
+      .filter((key) => rowSelection[key])
+      .flatMap((key) => {
+        const row = rowLookup[key]
+        return row ? [row] : []
+      })
+
+    onSelectionChange(selectedRows)
+  }, [onSelectionChange, rowLookup, rowSelection])
+
+  const handleRowSelectionChange = useCallback(
+    (updater: RowSelectionState | ((old: RowSelectionState) => RowSelectionState)) => {
+      setRowSelection((current) => (typeof updater === 'function' ? updater(current) : updater))
+    },
+    [],
+  )
 
   const table = useReactTable({
     data,
     columns,
     state: { rowSelection },
     enableRowSelection,
-    onRowSelectionChange: (updater) => {
-      const next = typeof updater === 'function' ? updater(rowSelection) : updater
-      setRowSelection(next)
-
-      if (onSelectionChange) {
-        const selectedRows = Object.keys(next)
-          .filter((key) => next[key])
-          .flatMap((key) => {
-            const row = data.find((item) => item.id === key)
-            return row ? [row] : []
-          })
-
-        onSelectionChange(selectedRows)
-      }
-    },
+    onRowSelectionChange: handleRowSelectionChange,
     getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => row.id,
   })

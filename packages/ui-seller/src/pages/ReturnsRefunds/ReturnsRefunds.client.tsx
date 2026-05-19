@@ -2,7 +2,6 @@
 
 import {
   Button,
-  DataTable,
   Select,
   SelectContent,
   SelectItem,
@@ -13,10 +12,10 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  StatusTabs,
-  TableToolbar,
 } from '@ecom/core-ui'
-import { useState } from 'react'
+import { startTransition, useDeferredValue, useMemo, useState } from 'react'
+import { useControllableState } from '../../hooks'
+import { SellerListPage } from '../../organisms/SellerListPage'
 import { returnsDefaultProps } from './ReturnsRefunds.fixtures'
 import type {
   RefundMethod,
@@ -66,15 +65,27 @@ export function ReturnsRefundsClient({
   onPartial = returnsDefaultProps.onPartial,
   onReject = returnsDefaultProps.onReject,
 }: ReturnsRefundsClientProps) {
-  const [search, setSearch] = useState('')
-  const [internalStatus, setInternalStatus] = useState<ReturnsRefundsStatusTab>(defaultStatus)
+  const [search, setSearch] = useControllableState({
+    defaultValue: '',
+  })
+  const [currentStatus, setCurrentStatus] = useControllableState<ReturnsRefundsStatusTab>({
+    value: status,
+    defaultValue: defaultStatus,
+    onChange: onStatusChange,
+  })
   const [selectedCase, setSelectedCase] = useState<ReturnRow | null>(null)
   const [refundMethod, setRefundMethod] = useState<RefundMethod>('ORIGINAL_PAYMENT')
   const [sheetOpen, setSheetOpen] = useState(false)
+  const deferredSearch = useDeferredValue(search)
 
-  const currentStatus = status ?? internalStatus
-  const counts = statusCounts ?? buildReturnStatusCounts(returns)
-  const filteredReturns = filterReturns({ returns, search, status: currentStatus })
+  const counts = useMemo(
+    () => statusCounts ?? buildReturnStatusCounts(returns),
+    [returns, statusCounts],
+  )
+  const filteredReturns = useMemo(
+    () => filterReturns({ returns, search: deferredSearch, status: currentStatus }),
+    [currentStatus, deferredSearch, filterReturns, returns],
+  )
 
   function handleSelectCase(row: ReturnRow) {
     setSelectedCase(row)
@@ -86,25 +97,33 @@ export function ReturnsRefundsClient({
 
   return (
     <>
-      <DataTable
+      <SellerListPage.Table
         columns={columns}
         data={filteredReturns}
         toolbar={
-          <TableToolbar search={search} onSearchChange={setSearch} placeholder={searchPlaceholder}>
-            <StatusTabs
+          <SellerListPage.Filters>
+            <SellerListPage.Search
+              value={search}
+              onChange={(value) => {
+                startTransition(() => {
+                  setSearch(value)
+                })
+              }}
+              placeholder={searchPlaceholder}
+            />
+            <SellerListPage.StatusTabs
               tabs={statusTabs}
               value={currentStatus}
               onChange={(tab) => {
                 if (isReturnsRefundsStatusTab(tab)) {
-                  if (status === undefined) {
-                    setInternalStatus(tab)
-                  }
-                  onStatusChange?.(tab)
+                  startTransition(() => {
+                    setCurrentStatus(tab)
+                  })
                 }
               }}
               counts={counts}
             />
-          </TableToolbar>
+          </SellerListPage.Filters>
         }
         emptyMessage={emptyMessage}
       />

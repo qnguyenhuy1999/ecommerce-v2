@@ -1,4 +1,4 @@
-import { ConsolePageLayout } from '@ecom/core-ui'
+import { SellerListPage } from '../../organisms/SellerListPage'
 import { ReturnsRefundsClient } from './ReturnsRefunds.client'
 import { returnsDefaultProps } from './ReturnsRefunds.fixtures'
 import type { ReturnsRefundsProps } from './ReturnsRefunds.types'
@@ -21,7 +21,7 @@ export function ReturnsRefunds({
   onReject,
 }: ReturnsRefundsProps) {
   return (
-    <ConsolePageLayout title={title} description={description}>
+    <SellerListPage title={title} description={description}>
       <ReturnsRefundsClient
         returns={returns}
         statusTabs={statusTabs}
@@ -36,6 +36,6 @@ export function ReturnsRefunds({
         onPartial={onPartial}
         onReject={onReject}
       />
-    </ConsolePageLayout>
+    </SellerListPage>
   )
 }

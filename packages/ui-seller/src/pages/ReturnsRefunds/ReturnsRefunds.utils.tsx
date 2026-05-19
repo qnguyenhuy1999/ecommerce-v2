@@ -1,5 +1,4 @@
-import type { DataTableProps } from '@ecom/core-ui'
-import type { ReactNode } from 'react'
+import type { DataTableColumn } from '@ecom/core-ui'
 import { returnStatusTabs } from './ReturnsRefunds.fixtures'
 import type {
   ReturnRow,
@@ -7,26 +6,6 @@ import type {
   ReturnsRefundsStatus,
   ReturnsRefundsStatusTab,
 } from './ReturnsRefunds.types'
-
-interface RowCellContext {
-  row: {
-    original: ReturnRow
-  }
-}
-
-interface DisplayColumn {
-  id: string
-  header: string
-  cell: (context: RowCellContext) => ReactNode
-}
-
-interface AccessorColumn {
-  accessorKey: keyof ReturnRow
-  header: string
-  cell?: (context: RowCellContext) => ReactNode
-}
-
-type ReturnsColumn = DisplayColumn | AccessorColumn
 
 const moneyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -120,8 +99,8 @@ function ReturnStatusBadge({ status }: { status: ReturnsRefundsStatus }) {
  */
 export function createReturnsColumns(
   onSelect: (row: ReturnRow) => void,
-): DataTableProps<ReturnRow>['columns'] {
-  const caseColumn: DisplayColumn = {
+): DataTableColumn<ReturnRow>[] {
+  const caseColumn: DataTableColumn<ReturnRow> = {
     id: 'caseId',
     header: 'Case',
     cell: ({ row }) => (
@@ -135,7 +114,7 @@ export function createReturnsColumns(
     ),
   }
 
-  const orderColumn: AccessorColumn = {
+  const orderColumn: DataTableColumn<ReturnRow> = {
     accessorKey: 'orderNumber',
     header: 'Order',
     cell: ({ row }) => (
@@ -143,13 +122,13 @@ export function createReturnsColumns(
     ),
   }
 
-  const buyerColumn: AccessorColumn = {
+  const buyerColumn: DataTableColumn<ReturnRow> = {
     accessorKey: 'buyerName',
     header: 'Buyer',
     cell: ({ row }) => <span className="text-primary font-medium">{row.original.buyerName}</span>,
   }
 
-  const reasonColumn: AccessorColumn = {
+  const reasonColumn: DataTableColumn<ReturnRow> = {
     accessorKey: 'reason',
     header: 'Reason',
     cell: ({ row }) => (
@@ -163,7 +142,7 @@ export function createReturnsColumns(
     ),
   }
 
-  const amountColumn: AccessorColumn = {
+  const amountColumn: DataTableColumn<ReturnRow> = {
     accessorKey: 'amount',
     header: 'Amount',
     cell: ({ row }) => (
@@ -173,19 +152,19 @@ export function createReturnsColumns(
     ),
   }
 
-  const statusColumn: AccessorColumn = {
+  const statusColumn: DataTableColumn<ReturnRow> = {
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => <ReturnStatusBadge status={row.original.status} />,
   }
 
-  const openedColumn: AccessorColumn = {
+  const openedColumn: DataTableColumn<ReturnRow> = {
     accessorKey: 'openedAtLabel',
     header: 'Opened',
     cell: ({ row }) => <span className="text-muted-foreground">{row.original.openedAtLabel}</span>,
   }
 
-  const columnsDefinition: ReturnsColumn[] = [
+  return [
     caseColumn,
     orderColumn,
     buyerColumn,
@@ -194,6 +173,4 @@ export function createReturnsColumns(
     statusColumn,
     openedColumn,
   ]
-
-  return columnsDefinition
 }

@@ -1,5 +1,6 @@
-import { Button, ConsolePageLayout } from '@ecom/core-ui'
+import { Button } from '@ecom/core-ui'
 import { Download, Plus, Upload } from 'lucide-react'
+import { SellerListPage } from '../../organisms/SellerListPage'
 import { productsDefaultProps } from './Products.fixtures'
 import type { ProductsProps } from './Products.types'
 import { ProductsClient } from './Products.client'
@@ -18,16 +19,18 @@ export function Products({
   defaultStatus = productsDefaultProps.defaultStatus,
   onStatusChange,
   statusCounts,
+  search,
+  onSearchChange,
   searchPlaceholder = productsDefaultProps.searchPlaceholder,
   emptyMessage = productsDefaultProps.emptyMessage,
   filterProducts = filterProductsBySearchAndStatus,
 }: ProductsProps) {
   return (
-    <ConsolePageLayout
+    <SellerListPage
       title={title}
       description={description}
       actions={
-        <>
+        <SellerListPage.Actions>
           <Button asChild size="sm" variant="outline">
             <a href={importHref}>
               <Upload />
@@ -46,7 +49,7 @@ export function Products({
               New product
             </a>
           </Button>
-        </>
+        </SellerListPage.Actions>
       }
     >
       <ProductsClient
@@ -57,10 +60,12 @@ export function Products({
         defaultStatus={defaultStatus}
         onStatusChange={onStatusChange}
         statusCounts={statusCounts}
+        search={search}
+        onSearchChange={onSearchChange}
         searchPlaceholder={searchPlaceholder}
         emptyMessage={emptyMessage}
         filterProducts={filterProducts}
       />
-    </ConsolePageLayout>
+    </SellerListPage>
   )
 }

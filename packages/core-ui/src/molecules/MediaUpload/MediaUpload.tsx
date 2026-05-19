@@ -5,7 +5,12 @@ import { withDefined } from '@ecom/shared/utils'
 import { Upload, X } from 'lucide-react'
 import { cn } from '../../lib/utils'
 import { Progress } from '../../atoms/Progress'
-import { MediaUploadContext, useMediaUpload } from './MediaUpload.context'
+import {
+  MediaUploadActionsContext,
+  MediaUploadItemsContext,
+  useMediaUploadActions,
+  useMediaUploadItems,
+} from './MediaUpload.context'
 import type {
   MediaUploadItemProps,
   MediaUploadProps,
@@ -23,25 +28,35 @@ function Root({
   children,
 }: MediaUploadRootProps) {
   const canAdd = items.length < maxItems
+  const itemsContextValue = React.useMemo(
+    () => ({
+      items,
+      coverIndex,
+      ...withDefined({ onRemove }),
+    }),
+    [coverIndex, items, onRemove],
+  )
+  const actionsContextValue = React.useMemo(
+    () => ({
+      maxItems,
+      accept,
+      canAdd,
+      ...withDefined({ onAdd }),
+    }),
+    [accept, canAdd, maxItems, onAdd],
+  )
 
   return (
-    <MediaUploadContext.Provider
-      value={{
-        items,
-        maxItems,
-        coverIndex,
-        accept,
-        canAdd,
-        ...withDefined({ onAdd, onRemove }),
-      }}
-    >
-      <div className={cn('flex flex-wrap gap-2', className)}>{children}</div>
-    </MediaUploadContext.Provider>
+    <MediaUploadActionsContext.Provider value={actionsContextValue}>
+      <MediaUploadItemsContext.Provider value={itemsContextValue}>
+        <div className={cn('flex flex-wrap gap-2', className)}>{children}</div>
+      </MediaUploadItemsContext.Provider>
+    </MediaUploadActionsContext.Provider>
   )
 }
 
 function Item({ item, index }: MediaUploadItemProps) {
-  const { coverIndex, onRemove } = useMediaUpload()
+  const { coverIndex, onRemove } = useMediaUploadItems()
   const isUploading = typeof item.progress === 'number' && item.progress < 100
   const isCover = index === coverIndex && !isUploading
 
@@ -80,7 +95,7 @@ function Item({ item, index }: MediaUploadItemProps) {
 }
 
 function Items() {
-  const { items } = useMediaUpload()
+  const { items } = useMediaUploadItems()
 
   return (
     <>
@@ -92,7 +107,7 @@ function Items() {
 }
 
 function AddButton() {
-  const { canAdd, accept, onAdd } = useMediaUpload()
+  const { canAdd, accept, onAdd } = useMediaUploadActions()
   const inputRef = React.useRef<HTMLInputElement>(null)
 
   if (!canAdd) return null

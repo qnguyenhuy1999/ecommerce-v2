@@ -343,6 +343,8 @@ export const productsDefaultProps = {
   defaultStatus: 'ALL',
   onStatusChange: () => {},
   statusCounts: buildProductStatusCounts(productsPageRows),
+  search: '',
+  onSearchChange: () => {},
   searchPlaceholder: 'Search products or SKU...',
   emptyMessage: 'No products match the current filters',
   filterProducts: filterProductsBySearchAndStatus,

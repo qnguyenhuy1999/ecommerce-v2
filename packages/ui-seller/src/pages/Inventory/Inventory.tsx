@@ -1,4 +1,5 @@
-import { Button, ConsolePageLayout } from '@ecom/core-ui'
+import { Button } from '@ecom/core-ui'
+import { SellerListPage } from '../../organisms/SellerListPage'
 import { inventoryDefaultProps } from './Inventory.fixtures'
 import type { InventoryProps } from './Inventory.types'
 import { InventoryClient } from './Inventory.client'
@@ -15,18 +16,20 @@ export function Inventory({
   filterInventory = filterFn,
 }: InventoryProps) {
   return (
-    <ConsolePageLayout
+    <SellerListPage
       title={title}
       description={description}
       actions={
-        <Button
-          asChild
-          size="sm"
-          variant="outline"
-          className="bg-background border-input h-9 text-sm font-medium"
-        >
-          <a href={exportHref}>Export</a>
-        </Button>
+        <SellerListPage.Actions>
+          <Button
+            asChild
+            size="sm"
+            variant="outline"
+            className="bg-background border-input h-9 text-sm font-medium"
+          >
+            <a href={exportHref}>Export</a>
+          </Button>
+        </SellerListPage.Actions>
       }
     >
       <InventoryClient
@@ -36,6 +39,6 @@ export function Inventory({
         emptyMessage={emptyMessage}
         filterInventory={filterInventory}
       />
-    </ConsolePageLayout>
+    </SellerListPage>
   )
 }

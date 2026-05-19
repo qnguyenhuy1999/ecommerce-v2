@@ -1,41 +1,7 @@
-import type { ReactNode } from 'react'
 import { Checkbox, StatusBadge } from '@ecom/core-ui'
-import type { DataTableProps } from '@ecom/core-ui'
+import type { DataTableColumn } from '@ecom/core-ui'
 import { productStatusTabs } from './Products.fixtures'
 import type { ProductRow, ProductsFilterParams, ProductsStatusTab } from './Products.types'
-
-interface SelectAllTableContext {
-  getIsAllRowsSelected: () => boolean
-  getToggleAllRowsSelectedHandler: () => (value: unknown) => void
-}
-
-interface SelectRowContext {
-  getIsSelected: () => boolean
-  getToggleSelectedHandler: () => (value: unknown) => void
-  original: ProductRow
-}
-
-interface HeaderContext {
-  table: SelectAllTableContext
-}
-
-interface ProductCellContext {
-  row: SelectRowContext
-}
-
-interface DisplayColumn {
-  id: string
-  header: string | ((context: HeaderContext) => ReactNode)
-  cell: (context: ProductCellContext) => ReactNode
-}
-
-interface AccessorColumn {
-  accessorKey: keyof ProductRow
-  header: string
-  cell?: (context: ProductCellContext) => ReactNode
-}
-
-type ProductsColumn = DisplayColumn | AccessorColumn
 
 const priceFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -87,7 +53,7 @@ export function filterProductsBySearchAndStatus({
   })
 }
 
-const selectColumn: DisplayColumn = {
+const selectColumn: DataTableColumn<ProductRow> = {
   id: 'select',
   header: ({ table }) => (
     <Checkbox
@@ -105,7 +71,7 @@ const selectColumn: DisplayColumn = {
   ),
 }
 
-const productColumn: DisplayColumn = {
+const productColumn: DataTableColumn<ProductRow> = {
   id: 'product',
   header: 'Product',
   cell: ({ row }) => {
@@ -125,13 +91,13 @@ const productColumn: DisplayColumn = {
   },
 }
 
-const statusColumn: AccessorColumn = {
+const statusColumn: DataTableColumn<ProductRow> = {
   accessorKey: 'status',
   header: 'Status',
   cell: ({ row }) => <StatusBadge status={row.original.status} />,
 }
 
-const priceColumn: AccessorColumn = {
+const priceColumn: DataTableColumn<ProductRow> = {
   accessorKey: 'price',
   header: 'Price',
   cell: ({ row }) => (
@@ -139,23 +105,23 @@ const priceColumn: AccessorColumn = {
   ),
 }
 
-const stockColumn: AccessorColumn = {
+const stockColumn: DataTableColumn<ProductRow> = {
   accessorKey: 'stock',
   header: 'Stock',
 }
 
-const soldColumn: AccessorColumn = {
+const soldColumn: DataTableColumn<ProductRow> = {
   accessorKey: 'sold',
   header: 'Sold',
 }
 
-const ratingColumn: AccessorColumn = {
+const ratingColumn: DataTableColumn<ProductRow> = {
   accessorKey: 'rating',
   header: 'Rating',
   cell: ({ row }) => row.original.rating.toFixed(1),
 }
 
-const productsColumnsDefinition: ProductsColumn[] = [
+export const productsColumns: DataTableColumn<ProductRow>[] = [
   selectColumn,
   productColumn,
   statusColumn,
@@ -164,6 +130,3 @@ const productsColumnsDefinition: ProductsColumn[] = [
   soldColumn,
   ratingColumn,
 ]
-
-export const productsColumns =
-  productsColumnsDefinition as unknown as DataTableProps<ProductRow>['columns']

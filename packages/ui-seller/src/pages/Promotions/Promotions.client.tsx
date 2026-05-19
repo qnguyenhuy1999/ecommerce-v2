@@ -1,7 +1,7 @@
 'use client'
 
 import { Badge, Button, Checkbox, Progress } from '@ecom/core-ui'
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { SectionCard } from '../../atoms/SectionCard'
 import { cn } from '../../lib/utils'
 import { promotionsDefaultProps } from './Promotions.fixtures'
@@ -31,21 +31,20 @@ export function PromotionsClient({
   onDuplicate = promotionsDefaultProps.onDuplicate,
   onActiveChange = promotionsDefaultProps.onActiveChange,
 }: PromotionsClientProps) {
-  const [rows, setRows] = useState(promotions)
+  const [activeOverrides, setActiveOverrides] = useState<Record<string, boolean>>({})
 
-  useEffect(() => {
-    setRows(promotions)
-  }, [promotions])
+  const rows = useMemo(() => {
+    return promotions.map((promotion) => {
+      const activeOverride = activeOverrides[promotion.id]
+      return activeOverride === undefined ? promotion : { ...promotion, active: activeOverride }
+    })
+  }, [activeOverrides, promotions])
 
-  const statusCounts = buildPromotionStatusCounts(rows)
-  const promotionsByStatus = groupPromotionsByStatus(rows)
+  const statusCounts = useMemo(() => buildPromotionStatusCounts(rows), [rows])
+  const promotionsByStatus = useMemo(() => groupPromotionsByStatus(rows), [rows])
 
   function handleActiveChange(promotionId: string, active: boolean) {
-    setRows((currentRows) =>
-      currentRows.map((promotion) =>
-        promotion.id === promotionId ? { ...promotion, active } : promotion,
-      ),
-    )
+    setActiveOverrides((current) => ({ ...current, [promotionId]: active }))
     onActiveChange?.(promotionId, active)
   }
 

@@ -1,41 +1,7 @@
-import type { ReactNode } from 'react'
 import { Checkbox } from '@ecom/core-ui'
-import type { DataTableProps } from '@ecom/core-ui'
+import type { DataTableColumn } from '@ecom/core-ui'
 import { orderStatusTabs } from './Orders.fixtures'
 import type { OrderRow, OrdersFilterParams, OrdersStatusTab } from './Orders.types'
-
-interface SelectAllTableContext {
-  getIsAllRowsSelected: () => boolean
-  getToggleAllRowsSelectedHandler: () => (value: unknown) => void
-}
-
-interface SelectRowContext {
-  getIsSelected: () => boolean
-  getToggleSelectedHandler: () => (value: unknown) => void
-  original: OrderRow
-}
-
-interface HeaderContext {
-  table: SelectAllTableContext
-}
-
-interface RowCellContext {
-  row: SelectRowContext
-}
-
-interface DisplayColumn {
-  id: string
-  header: string | ((context: HeaderContext) => ReactNode)
-  cell: (context: RowCellContext) => ReactNode
-}
-
-interface AccessorColumn {
-  accessorKey: keyof OrderRow
-  header: string
-  cell?: (context: RowCellContext) => ReactNode
-}
-
-type OrdersColumn = DisplayColumn | AccessorColumn
 
 const moneyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -133,7 +99,7 @@ function OrderStatusBadge({ status }: { status: Exclude<OrdersStatusTab, 'ALL'> 
   )
 }
 
-const selectColumn: DisplayColumn = {
+const selectColumn: DataTableColumn<OrderRow> = {
   id: 'select',
   header: ({ table }) => (
     <Checkbox
@@ -151,7 +117,7 @@ const selectColumn: DisplayColumn = {
   ),
 }
 
-const orderColumn: DisplayColumn = {
+const orderColumn: DataTableColumn<OrderRow> = {
   id: 'orderNumber',
   header: 'Order',
   cell: ({ row }) => {
@@ -167,12 +133,12 @@ const orderColumn: DisplayColumn = {
   },
 }
 
-const buyerColumn: AccessorColumn = {
+const buyerColumn: DataTableColumn<OrderRow> = {
   accessorKey: 'buyerName',
   header: 'Buyer',
 }
 
-const itemsColumn: DisplayColumn = {
+const itemsColumn: DataTableColumn<OrderRow> = {
   id: 'items',
   header: 'Items',
   cell: ({ row }) => {
@@ -222,7 +188,7 @@ const itemsColumn: DisplayColumn = {
   },
 }
 
-const totalColumn: AccessorColumn = {
+const totalColumn: DataTableColumn<OrderRow> = {
   accessorKey: 'total',
   header: 'Total',
   cell: ({ row }) => (
@@ -232,7 +198,7 @@ const totalColumn: AccessorColumn = {
   ),
 }
 
-const statusColumn: AccessorColumn = {
+const statusColumn: DataTableColumn<OrderRow> = {
   accessorKey: 'status',
   header: 'Status',
   cell: ({ row }) => (
@@ -240,13 +206,13 @@ const statusColumn: AccessorColumn = {
   ),
 }
 
-const dateColumn: AccessorColumn = {
+const dateColumn: DataTableColumn<OrderRow> = {
   accessorKey: 'createdAtLabel',
   header: 'Date',
   cell: ({ row }) => <span className="text-muted-foreground">{row.original.createdAtLabel}</span>,
 }
 
-const ordersColumnsDefinition: OrdersColumn[] = [
+export const ordersColumns: DataTableColumn<OrderRow>[] = [
   selectColumn,
   orderColumn,
   buyerColumn,
@@ -255,6 +221,3 @@ const ordersColumnsDefinition: OrdersColumn[] = [
   statusColumn,
   dateColumn,
 ]
-
-export const ordersColumns =
-  ordersColumnsDefinition as unknown as DataTableProps<OrderRow>['columns']

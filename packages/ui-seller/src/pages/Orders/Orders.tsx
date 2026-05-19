@@ -1,4 +1,4 @@
-import { ConsolePageLayout } from '@ecom/core-ui'
+import { SellerListPage } from '../../organisms/SellerListPage'
 import { ordersDefaultProps } from './Orders.fixtures'
 import type { OrdersProps } from './Orders.types'
 import { OrdersClient } from './Orders.client'
@@ -31,7 +31,7 @@ export function Orders({
   }
 
   return (
-    <ConsolePageLayout title={title} description={description}>
+    <SellerListPage title={title} description={description}>
       <OrdersClient
         loading={loading}
         orders={orders}
@@ -50,6 +50,6 @@ export function Orders({
         dateRangeLabel={dateRangeLabel}
         {...optionalProps}
       />
-    </ConsolePageLayout>
+    </SellerListPage>
   )
 }

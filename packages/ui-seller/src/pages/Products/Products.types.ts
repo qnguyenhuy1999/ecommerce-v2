@@ -30,6 +30,8 @@ export interface ProductsProps {
   defaultStatus?: ProductsStatusTab
   onStatusChange?: (status: ProductsStatusTab) => void
   statusCounts?: Record<ProductsStatusTab, number>
+  search?: string
+  onSearchChange?: (value: string) => void
   searchPlaceholder?: string
   emptyMessage?: string
   filterProducts?: (params: ProductsFilterParams) => ProductRow[]

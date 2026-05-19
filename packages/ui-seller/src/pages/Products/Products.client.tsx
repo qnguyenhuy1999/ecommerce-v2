@@ -1,7 +1,8 @@
 'use client'
 
-import { DataTable, StatusTabs, TableToolbar } from '@ecom/core-ui'
-import { useState } from 'react'
+import { startTransition, useDeferredValue, useMemo } from 'react'
+import { useControllableState } from '../../hooks'
+import { SellerListPage } from '../../organisms/SellerListPage'
 import { productsDefaultProps } from './Products.fixtures'
 import type { ProductRow, ProductsProps, ProductsStatusTab } from './Products.types'
 import {
@@ -19,6 +20,8 @@ interface ProductsClientProps {
   defaultStatus?: ProductsProps['defaultStatus']
   onStatusChange?: ProductsProps['onStatusChange']
   statusCounts?: ProductsProps['statusCounts']
+  search?: ProductsProps['search']
+  onSearchChange?: ProductsProps['onSearchChange']
   searchPlaceholder?: ProductsProps['searchPlaceholder']
   emptyMessage?: ProductsProps['emptyMessage']
   filterProducts?: ProductsProps['filterProducts']
@@ -32,40 +35,62 @@ export function ProductsClient({
   defaultStatus = productsDefaultProps.defaultStatus,
   onStatusChange,
   statusCounts,
+  search,
+  onSearchChange,
   searchPlaceholder = productsDefaultProps.searchPlaceholder,
   emptyMessage = productsDefaultProps.emptyMessage,
   filterProducts = filterProductsBySearchAndStatus,
 }: ProductsClientProps) {
-  const [search, setSearch] = useState('')
-  const [internalStatus, setInternalStatus] = useState<ProductsStatusTab>(defaultStatus)
+  const [currentSearch, setCurrentSearch] = useControllableState({
+    value: search,
+    defaultValue: search ?? '',
+    onChange: onSearchChange,
+  })
+  const [currentStatus, setCurrentStatus] = useControllableState<ProductsStatusTab>({
+    value: status,
+    defaultValue: defaultStatus,
+    onChange: onStatusChange,
+  })
+  const deferredSearch = useDeferredValue(currentSearch)
 
-  const currentStatus = status ?? internalStatus
-
-  const counts = statusCounts ?? buildProductStatusCounts(products)
-  const filteredProducts = filterProducts({ products, search, status: currentStatus })
+  const counts = useMemo(
+    () => statusCounts ?? buildProductStatusCounts(products),
+    [products, statusCounts],
+  )
+  const filteredProducts = useMemo(
+    () => filterProducts({ products, search: deferredSearch, status: currentStatus }),
+    [currentStatus, deferredSearch, filterProducts, products],
+  )
 
   return (
-    <DataTable
+    <SellerListPage.Table
       columns={columns}
       data={filteredProducts}
       enableRowSelection
       toolbar={
-        <TableToolbar search={search} onSearchChange={setSearch} placeholder={searchPlaceholder}>
-          <StatusTabs
+        <SellerListPage.Filters>
+          <SellerListPage.Search
+            value={currentSearch}
+            onChange={(value) => {
+              startTransition(() => {
+                setCurrentSearch(value)
+              })
+            }}
+            placeholder={searchPlaceholder}
+          />
+          <SellerListPage.StatusTabs
             tabs={statusTabs}
             value={currentStatus}
             onChange={(tab) => {
               if (isProductsStatusTab(tab)) {
-                if (status === undefined) {
-                  setInternalStatus(tab)
-                }
-
-                onStatusChange?.(tab)
+                startTransition(() => {
+                  setCurrentStatus(tab)
+                })
               }
             }}
             counts={counts}
           />
-        </TableToolbar>
+        </SellerListPage.Filters>
       }
       emptyMessage={emptyMessage}
     />

@@ -1,128 +1,152 @@
 # UI Seller
 
-Domain UI package for the **Seller Center** of the ecommerce platform.
+Seller-domain UI package for the Seller Center.
 
-Consumes `@ecom/core-ui` primitives and adds seller-specific components.
+`@ecom/ui-seller` builds seller workflows on top of `@ecom/core-ui`. It owns seller-specific composition, page patterns, and local interaction models while staying free of data fetching and backend business logic.
 
----
+## Primary goal for agents
 
-# Goal
+When implementing a new seller feature, default to building it in `ui-seller` unless it is clearly generic enough for `core-ui`. This package is the owner of seller terminology, seller page composition, seller-specific filters/actions, and dense local workflow state.
 
-Provide seller-specific UI components for:
+## Current focus
 
-- Product listing and management
-- Order management
-- Inventory tracking
-- Store analytics
-- Store settings
+- Seller page composition
+- Seller-specific compounds and section components
+- Local UI state hooks
+- Product, order, inventory, promotions, and returns/refunds views
 
----
+## Current structure
 
-# Structure
-
-```
+```text
 src/
-├── atoms/        Seller-specific atomic components
-├── molecules/    Seller-specific molecule components
-├── organisms/    Seller-specific organism components
-├── layouts/      Seller shell layouts (sidebar, topbar, nav)
-├── pages/        Full page compositions
-├── hooks/        UI-only hooks
-├── lib/
-│   └── utils.ts
-├── styles/
-│   └── globals.css
-└── index.ts
+  atoms/
+  molecules/
+  organisms/
+  hooks/
+  layouts/
+  pages/
+  styles/
+  lib/
+  index.ts
 ```
 
----
+## Important patterns
 
-# Component Convention
+- `core-ui` stays generic; seller-specific page composition lives here.
+- `SellerListPage` is the shared compound for seller list screens such as Products, Orders, Inventory, and Returns/Refunds.
+- Small shared UI-state helpers live in `src/hooks`, for example controllable controlled/uncontrolled state.
+- Dense local workflows may use React Context plus `useReducer` when prop drilling becomes excessive.
+  `ProductDetail` is the current example of that pattern.
 
-Each component follows the same structure as `core-ui`:
+## Feature implementation rules
 
-```
-ComponentName/
-  ComponentName.tsx           # Pure UI, no business logic
-  ComponentName.types.ts      # Props interface
-  ComponentName.stories.tsx   # Storybook story
-  index.ts                    # export * from './ComponentName'
-```
+For new seller features:
 
----
+- Prefer composing existing `core-ui` primitives and `ui-seller` compounds instead of adding one-off page markup.
+- If two or more seller pages repeat the same page structure, create or extend a seller-owned compound.
+- Keep list-page filtering, status tabs, and seller action bars in `ui-seller`, not `core-ui`.
+- Keep API calls, server mutations, and business rules outside this package.
 
-# Atomic Design Layers
+## Decision guide
 
-## Atoms
+Use `core-ui` when:
 
-Seller-specific smallest building blocks that extend `core-ui` atoms.
+- The feature is generic across multiple product surfaces.
+- The wording and behavior are domain-neutral.
 
-Rules:
+Use `ui-seller` when:
 
-- No business logic
-- Compose or extend `@ecom/core-ui` atoms
-- Seller-specific variants only
+- The feature uses seller-specific statuses, copy, actions, or workflows.
+- The feature is a seller page section, list pattern, or editor flow.
+- The feature is reusable inside seller pages but not obviously outside seller.
 
-## Molecules
+Use local context plus reducer when:
 
-Combinations of atoms forming seller-specific functional components.
+- One workflow has many sibling sections sharing the same editable state.
+- Prop drilling would otherwise create large prop surfaces.
+- The state is local to a single page or editor flow.
 
-Examples: ProductRow, OrderStatusBadge, InventoryCell
+Avoid context when:
 
-## Organisms
+- The state is just local search/toggle/tab control for one list page.
+- A small reusable hook is enough.
 
-Complex seller UI sections.
+## Boundaries
 
-Examples: ProductTable, OrderManagementPanel, StoreAnalyticsChart
+Use `ui-seller` for:
 
-## Layouts
+- Seller terminology and actions
+- Seller page layouts and compounds
+- Seller-only table/filter composition
+- Seller editor sections and local workflow state
 
-Seller shell layout components.
+Do not use `ui-seller` for:
 
-Examples: SellerSidebar, SellerTopbar, SellerLayout
+- Data fetching
+- API calls
+- Shared primitives already covered by `core-ui`
+- Direct imports from `@ecom/core-ui/src/...`
 
-## Pages
+## Preferred patterns by page type
 
-Full page compositions assembled from layouts and organisms.
+### List pages
 
----
+Examples: products, orders, inventory, returns/refunds
 
-# Design Principles
+- Use `SellerListPage` for page shell + filter/table composition.
+- Keep table column definitions typed, without `unknown` casts.
+- Prefer controllable state hooks for search, tabs, and toggles.
+- Use `useDeferredValue` for client-side search filtering when the displayed list updates on every keystroke.
+- Use `startTransition` for non-urgent local filter changes when it improves responsiveness.
 
-- Consume `@ecom/core-ui` as the base layer — do not reimplement primitives
-- No data fetching inside components
-- No business logic in UI components
-- Use `.client.tsx` suffix only for interactive components
-- Export everything via `index.ts`
+### Dense editors
 
----
+Examples: product detail or future multi-section seller forms
 
-# Styling
+- Use section files instead of one very large page file.
+- Use local provider + reducer when many sections share editable state.
+- Keep provider scope local to the workflow tree.
+- Expose narrow hooks per concern instead of one giant bag of state.
 
-- Tailwind CSS v4
-- Inherits design tokens from `@ecom/core-ui`
-- Seller-specific overrides in `src/styles/globals.css`
+## Export conventions
 
----
+- Keep package exports stable through `src/index.ts`
+- Prefer thin page entrypoints such as `Products.tsx` and `ProductDetail.tsx`
+- Split large files by behavior once they combine composition, state ownership, and many subcomponents
 
-# Storybook
+## File organization guidance
+
+- `pages/<Feature>/` is the default home for page-specific composition and state.
+- Move reusable seller compounds to `organisms/` when shared by multiple pages.
+- Move seller-only hooks to `hooks/` when reused across multiple features.
+- Keep feature-specific types and helpers next to the page unless shared more broadly.
+
+## Checklist for new seller features
+
+Before implementing:
+
+- Decide whether the owner is `core-ui` or `ui-seller`.
+- Check whether an existing seller compound should be extended first.
+- Decide whether local hook state is enough or whether a reducer/context boundary is warranted.
+- Confirm the feature can be expressed without data fetching in this package.
+
+Before finishing:
+
+- Export new reusable pieces through the nearest `index.ts`.
+- Add or update Storybook coverage when the component is reusable or visually important.
+- Run:
+  - `pnpm --filter @ecom/ui-seller type-check`
+  - `pnpm --filter @ecom/ui-seller lint`
+
+## Storybook
 
 ```bash
-pnpm storybook   # port 6008
+pnpm --filter @ecom/ui-seller storybook
 ```
 
----
+## Verification
 
-# Development Rules
-
-## Do
-
-- Extend `core-ui` components via composition
-- Keep components reusable within the seller domain
-- Support dark mode via Tailwind dark variant
-
-## Don't
-
-- Add business logic or data fetching
-- Import directly from `src/primitives` of core-ui — use the public API
-- Duplicate components that exist in `core-ui`
+```bash
+pnpm --filter @ecom/ui-seller type-check
+pnpm --filter @ecom/ui-seller lint
+```

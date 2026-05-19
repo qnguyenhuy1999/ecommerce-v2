@@ -1,40 +1,6 @@
-import type { ReactNode } from 'react'
 import { Checkbox } from '@ecom/core-ui'
-import type { DataTableProps } from '@ecom/core-ui'
+import type { DataTableColumn } from '@ecom/core-ui'
 import type { InventoryRow, InventoryFilterParams } from './Inventory.types'
-
-interface SelectAllTableContext {
-  getIsAllRowsSelected: () => boolean
-  getToggleAllRowsSelectedHandler: () => (value: unknown) => void
-}
-
-interface SelectRowContext {
-  getIsSelected: () => boolean
-  getToggleSelectedHandler: () => (value: unknown) => void
-  original: InventoryRow
-}
-
-interface HeaderContext {
-  table: SelectAllTableContext
-}
-
-interface InventoryCellContext {
-  row: SelectRowContext
-}
-
-interface DisplayColumn {
-  id: string
-  header: string | ((context: HeaderContext) => ReactNode)
-  cell: (context: InventoryCellContext) => ReactNode
-}
-
-interface AccessorColumn {
-  accessorKey: keyof InventoryRow
-  header: string
-  cell?: (context: InventoryCellContext) => ReactNode
-}
-
-type InventoryColumn = DisplayColumn | AccessorColumn
 
 export function filterInventory({
   inventory,
@@ -55,7 +21,7 @@ export function filterInventory({
   })
 }
 
-const selectColumn: DisplayColumn = {
+const selectColumn: DataTableColumn<InventoryRow> = {
   id: 'select',
   header: ({ table }) => (
     <Checkbox
@@ -73,7 +39,7 @@ const selectColumn: DisplayColumn = {
   ),
 }
 
-const productColumn: DisplayColumn = {
+const productColumn: DataTableColumn<InventoryRow> = {
   id: 'product',
   header: 'Product',
   cell: ({ row }) => {
@@ -90,7 +56,7 @@ const productColumn: DisplayColumn = {
   },
 }
 
-const skuColumn: AccessorColumn = {
+const skuColumn: DataTableColumn<InventoryRow> = {
   accessorKey: 'sku',
   header: 'SKU',
   cell: ({ row }) => (
@@ -104,37 +70,37 @@ const InputBadge = ({ value }: { value: number }) => (
   </div>
 )
 
-const onHandColumn: AccessorColumn = {
+const onHandColumn: DataTableColumn<InventoryRow> = {
   accessorKey: 'onHand',
   header: 'On Hand',
   cell: ({ row }) => <InputBadge value={row.original.onHand} />,
 }
 
-const incomingColumn: AccessorColumn = {
+const incomingColumn: DataTableColumn<InventoryRow> = {
   accessorKey: 'incoming',
   header: 'Incoming',
   cell: ({ row }) => <span className="text-muted-foreground">{row.original.incoming}</span>,
 }
 
-const reservedColumn: AccessorColumn = {
+const reservedColumn: DataTableColumn<InventoryRow> = {
   accessorKey: 'reserved',
   header: 'Reserved',
   cell: ({ row }) => <span className="text-muted-foreground">{row.original.reserved}</span>,
 }
 
-const availableColumn: AccessorColumn = {
+const availableColumn: DataTableColumn<InventoryRow> = {
   accessorKey: 'available',
   header: 'Available',
   cell: ({ row }) => <span className="text-foreground font-medium">{row.original.available}</span>,
 }
 
-const thresholdColumn: AccessorColumn = {
+const thresholdColumn: DataTableColumn<InventoryRow> = {
   accessorKey: 'threshold',
   header: 'Threshold',
   cell: ({ row }) => <InputBadge value={row.original.threshold} />,
 }
 
-const statusColumn: AccessorColumn = {
+const statusColumn: DataTableColumn<InventoryRow> = {
   accessorKey: 'status',
   header: 'Status',
   cell: ({ row }) => {
@@ -151,7 +117,7 @@ const statusColumn: AccessorColumn = {
   },
 }
 
-const inventoryColumnsDefinition: InventoryColumn[] = [
+export const inventoryColumns: DataTableColumn<InventoryRow>[] = [
   selectColumn,
   productColumn,
   skuColumn,
@@ -162,6 +128,3 @@ const inventoryColumnsDefinition: InventoryColumn[] = [
   thresholdColumn,
   statusColumn,
 ]
-
-export const inventoryColumns =
-  inventoryColumnsDefinition as unknown as DataTableProps<InventoryRow>['columns']

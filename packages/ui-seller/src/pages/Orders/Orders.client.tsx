@@ -1,6 +1,7 @@
 'use client'
 
 import { Button, DataTable, StatusTabs, TableToolbar } from '@ecom/core-ui'
+import type { DataTableProps } from '@ecom/core-ui'
 import { ChevronDown, Download } from 'lucide-react'
 import { useState } from 'react'
 import { ordersDefaultProps } from './Orders.fixtures'
@@ -59,15 +60,24 @@ export function OrdersClient({
   const currentStatus = status ?? internalStatus
   const counts = statusCounts ?? buildOrderStatusCounts(orders)
   const filteredOrders = filterOrders({ orders, search: currentSearch, status: currentStatus })
+  const tableProps: DataTableProps<OrderRow> = {
+    columns,
+    data: filteredOrders,
+    loading,
+    enableRowSelection: true,
+  }
+
+  if (meta !== undefined) {
+    tableProps.meta = meta
+  }
+
+  if (onPageChange !== undefined) {
+    tableProps.onPageChange = onPageChange
+  }
 
   return (
     <DataTable
-      columns={columns}
-      data={filteredOrders}
-      loading={loading}
-      enableRowSelection
-      {...(meta !== undefined ? { meta } : {})}
-      {...(onPageChange !== undefined ? { onPageChange } : {})}
+      {...tableProps}
       toolbar={
         <TableToolbar
           search={currentSearch}

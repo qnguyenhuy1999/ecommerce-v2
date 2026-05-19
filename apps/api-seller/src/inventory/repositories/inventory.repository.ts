@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class InventoryRepository {
@@ -49,11 +49,11 @@ export class InventoryRepository {
 
   async findTransactions(
     where: Prisma.InventoryTransactionWhereInput,
-    options: { page: number; pageSize: number },
+    options: { page: number; limit: number },
   ) {
     return offsetPaginate(this.prisma.inventoryTransaction, {
       page: options.page,
-      pageSize: options.pageSize,
+      limit: options.limit,
       where,
       orderBy: { createdAt: 'desc' },
     })

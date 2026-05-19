@@ -1,5 +1,6 @@
-/* eslint-disable max-lines-per-function */
 'use client'
+
+/* eslint-disable max-lines-per-function */
 
 import { useState, useEffect } from 'react'
 import { Search as SearchIcon, Filter, Bookmark, X } from 'lucide-react'

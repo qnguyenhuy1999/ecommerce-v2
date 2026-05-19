@@ -1,10 +1,12 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { RequestWithdrawalDto } from './dto/wallet.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
+import type { RequestWithdrawalDto } from './dto/wallet.dto'
 
 @Injectable()
 export class WalletService {
@@ -42,25 +44,31 @@ export class WalletService {
         create: { ownerId: shopId, ownerType: 'SHOP', pendingBalance: amount },
       })
 
-      return tx.walletTransaction.create({
-        data: {
-          walletId: wallet.id,
-          type: type as
-            | 'SALE_CREDIT'
-            | 'WITHDRAWAL'
-            | 'REFUND_DEBIT'
-            | 'PLATFORM_FEE'
-            | 'ADJUSTMENT'
-            | 'COMMISSION_PAYOUT'
-            | 'DEPOSIT',
-          amount,
-          balanceAfter: Number(wallet.balance) + Number(wallet.pendingBalance),
-          ...(referenceId !== undefined ? { referenceId } : {}),
-          ...(description !== undefined ? { description } : {}),
-          idempotencyKey,
-          status: 'COMPLETED',
-        },
-      })
+      const transactionData: Prisma.WalletTransactionUncheckedCreateInput = {
+        walletId: wallet.id,
+        type: type as
+          | 'SALE_CREDIT'
+          | 'WITHDRAWAL'
+          | 'REFUND_DEBIT'
+          | 'PLATFORM_FEE'
+          | 'ADJUSTMENT'
+          | 'COMMISSION_PAYOUT'
+          | 'DEPOSIT',
+        amount,
+        balanceAfter: Number(wallet.balance) + Number(wallet.pendingBalance),
+        idempotencyKey,
+        status: 'COMPLETED',
+      }
+
+      if (referenceId !== undefined) {
+        transactionData.referenceId = referenceId
+      }
+
+      if (description !== undefined) {
+        transactionData.description = description
+      }
+
+      return tx.walletTransaction.create({ data: transactionData })
     })
   }
 
@@ -117,10 +125,10 @@ export class WalletService {
         data: {
           walletId: wallet.id,
           amount: dto.amount,
-          ...(dto.bankName !== undefined ? { bankName: dto.bankName } : {}),
-          ...(dto.bankAccountNumber !== undefined ? { accountNumber: dto.bankAccountNumber } : {}),
-          ...(dto.bankAccountName !== undefined ? { accountHolder: dto.bankAccountName } : {}),
-          ...(dto.note !== undefined ? { note: dto.note } : {}),
+          ...withDefined({ bankName: dto.bankName }),
+          ...withDefined({ accountNumber: dto.bankAccountNumber }),
+          ...withDefined({ accountHolder: dto.bankAccountName }),
+          ...withDefined({ note: dto.note }),
         },
       })
 
@@ -142,7 +150,7 @@ export class WalletService {
   }
 
   async listTransactions(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, limit = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const wallet = await this.prisma.wallet.findUnique({
       where: { ownerId_ownerType: { ownerId: shopId, ownerType: 'SHOP' } },
@@ -162,7 +170,7 @@ export class WalletService {
   }
 
   async listWithdrawals(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, limit = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const wallet = await this.prisma.wallet.findUnique({
       where: { ownerId_ownerType: { ownerId: shopId, ownerType: 'SHOP' } },

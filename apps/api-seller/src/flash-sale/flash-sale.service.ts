@@ -1,12 +1,13 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { FlashSaleStatus, FlashSaleSlotStatus, ProductStatus } from '@ecom/contracts/enums'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
-import { CreateFlashSaleCampaignDto } from './dto/create-flash-sale.dto'
-import { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
+import type { CreateFlashSaleCampaignDto } from './dto/create-flash-sale.dto'
+import type { ApplyFlashSaleSlotDto } from './dto/apply-flash-sale-slot.dto'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { withDefined } from '@ecom/shared/utils'
 
 @Injectable()
 export class FlashSaleService {
@@ -52,17 +53,23 @@ export class FlashSaleService {
       throw new BadRequestException('End time must be after start time')
     }
 
-    return this.prisma.flashSaleCampaign.create({
-      data: {
-        name: dto.name,
-        ...(dto.description !== undefined ? { description: dto.description } : {}),
-        startsAt,
-        endsAt,
-        maxSlotsPerSeller: dto.maxSlotsPerSeller ?? 5,
-        isVisible: dto.isVisible ?? false,
-        ...(createdBy !== undefined ? { createdBy } : {}),
-      },
-    })
+    const data: Prisma.FlashSaleCampaignCreateInput = {
+      name: dto.name,
+      startsAt,
+      endsAt,
+      maxSlotsPerSeller: dto.maxSlotsPerSeller ?? 5,
+      isVisible: dto.isVisible ?? false,
+    }
+
+    if (dto.description !== undefined) {
+      data.description = dto.description
+    }
+
+    if (createdBy !== undefined) {
+      data.createdBy = createdBy
+    }
+
+    return this.prisma.flashSaleCampaign.create({ data })
   }
 
   async updateCampaignStatus(id: string, status: string) {
@@ -107,7 +114,7 @@ export class FlashSaleService {
         campaignId: dto.campaignId,
         shopId,
         productId: dto.productId,
-        ...(dto.variantId !== undefined ? { variantId: dto.variantId } : {}),
+        ...withDefined({ variantId: dto.variantId }),
         originalPrice: product.basePrice ?? 0,
         salePrice: dto.salePrice,
         totalStock: dto.totalStock,

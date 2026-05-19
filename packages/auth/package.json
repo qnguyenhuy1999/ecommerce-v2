@@ -37,6 +37,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@ecom/shared": "workspace:*",
     "@ecom/database": "workspace:*",
     "bcryptjs": "^3.0.3",
     "ioredis": "^5.6.0"

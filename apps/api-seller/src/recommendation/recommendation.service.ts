@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { ProductStatus, UserEventType } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
@@ -20,7 +20,7 @@ export class RecommendationService {
   ) {
     return this.prisma.userEvent.create({
       data: {
-        ...(userId !== undefined ? { userId } : {}),
+        userId: userId ?? null,
         sessionId,
         event: eventType,
         entityType: 'PRODUCT',

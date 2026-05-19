@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
-import { type Prisma } from '@ecom/database'
 import { ReviewStatus } from '@ecom/contracts/enums'
-import { ReviewQueryDto } from './dto/review-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import type { ReviewQueryDto } from './dto/review-query.dto'
 
 @Injectable()
 export class ReviewService {
@@ -11,7 +12,7 @@ export class ReviewService {
   async list(shopId: string, query: ReviewQueryDto) {
     const {
       page = 1,
-      pageSize = 20,
+      limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT,
       sortBy = 'createdAt',
       sortOrder = 'desc',
       search,
@@ -19,12 +20,10 @@ export class ReviewService {
       rating,
       status,
       replyFilter,
-      sort,
-      order,
     } = query
 
-    const finalSort = sort || sortBy
-    const finalOrder = order || sortOrder
+    const finalSort = sortBy
+    const finalOrder = sortOrder
 
     const shopProducts = this.prisma.product.findMany({
       where: { shopId, deletedAt: null },
@@ -49,7 +48,7 @@ export class ReviewService {
 
     const { items, total } = await offsetPaginate(this.prisma.review, {
       page,
-      pageSize,
+      limit,
       where,
       include: {
         images: { orderBy: { sortOrder: 'asc' } },
@@ -59,7 +58,7 @@ export class ReviewService {
       orderBy: { [finalSort]: finalOrder },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getById(shopId: string, reviewId: string) {
@@ -102,14 +101,17 @@ export class ReviewService {
       throw new NotFoundException('Review not found')
     }
 
-    return this.prisma.reviewReport.create({
-      data: {
-        reviewId,
-        shopId,
-        reason,
-        ...(details !== undefined ? { details } : {}),
-      },
-    })
+    const reportData: Prisma.ReviewReportUncheckedCreateInput = {
+      reviewId,
+      shopId,
+      reason,
+    }
+
+    if (details !== undefined) {
+      reportData.details = details
+    }
+
+    return this.prisma.reviewReport.create({ data: reportData })
   }
 
   async getAnalytics(shopId: string) {

@@ -1,14 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import type { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
 
 @Injectable()
 export class ChatService {
   constructor(private readonly prisma: PrismaService) {}
   async listConversations(shopId: string, query: ConversationQueryDto) {
-    const { page = 1, pageSize = 20, search } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT, search } = query
 
     const where: Prisma.ConversationWhereInput = {
       shopId,
@@ -17,12 +18,12 @@ export class ChatService {
 
     const { items, total } = await offsetPaginate(this.prisma.conversation, {
       page,
-      pageSize,
+      limit,
       where,
       orderBy: { lastMessageAt: { sort: 'desc', nulls: 'last' } },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getConversation(shopId: string, conversationId: string) {
@@ -38,7 +39,7 @@ export class ChatService {
   }
 
   async getMessages(shopId: string, conversationId: string, query: MessageQueryDto) {
-    const { page = 1, pageSize = 50 } = query
+    const { page = 1, limit = 50 } = query
 
     const conversation = await this.prisma.conversation.findFirst({
       where: { id: conversationId, shopId },
@@ -50,12 +51,12 @@ export class ChatService {
 
     const { items, total } = await offsetPaginate(this.prisma.chatMessage, {
       page,
-      pageSize,
+      limit,
       where: { conversationId },
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items.slice().reverse(), page, pageSize, total)
+    return buildOffsetResponse(items.slice().reverse(), page, limit, total)
   }
 
   async sendMessage(

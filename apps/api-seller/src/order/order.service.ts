@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { Prisma } from '@ecom/database'
+import type { Prisma } from '@ecom/database'
 import { OrderStatus, InventoryTransactionType } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
-import { OrderQueryDto } from './dto/order-query.dto'
+import type { OrderQueryDto } from './dto/order-query.dto'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OrderRepository } from './repositories/order.repository'
+import type { OrderRepository } from './repositories/order.repository'
 
 const VALID_TRANSITIONS: Record<OrderStatus, readonly OrderStatus[]> = {
   [OrderStatus.PENDING]: [OrderStatus.CONFIRMED, OrderStatus.CANCELLED],
@@ -89,15 +89,21 @@ export class OrderService {
         data: { status: newStatus },
       })
 
-      await tx.orderAuditLog.create({
-        data: {
-          sellerOrderId,
-          fromStatus: currentStatus,
-          toStatus: newStatus,
-          ...(note !== undefined ? { note } : {}),
-          ...(performedBy !== undefined ? { performedBy } : {}),
-        },
-      })
+      const auditData: Prisma.OrderAuditLogUncheckedCreateInput = {
+        sellerOrderId,
+        fromStatus: currentStatus,
+        toStatus: newStatus,
+      }
+
+      if (note !== undefined) {
+        auditData.note = note
+      }
+
+      if (performedBy !== undefined) {
+        auditData.performedBy = performedBy
+      }
+
+      await tx.orderAuditLog.create({ data: auditData })
 
       if (newStatus === OrderStatus.CONFIRMED) {
         const items = await tx.sellerOrderItem.findMany({ where: { sellerOrderId } })

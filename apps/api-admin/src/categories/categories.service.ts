@@ -1,5 +1,6 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
+import { withDefined } from '@ecom/shared/utils'
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 
 @Injectable()
 export class CategoriesService {
@@ -50,14 +51,16 @@ export class CategoriesService {
     const createData: Parameters<typeof this.prisma.category.create>[0]['data'] = {
       name: data.name,
       slug: data.slug,
-      ...(data.parentId !== undefined ? { parentId: data.parentId } : {}),
-      ...(data.sortOrder !== undefined ? { sortOrder: data.sortOrder } : {}),
-      ...(data.isActive !== undefined ? { isActive: data.isActive } : {}),
-      ...(data.description !== undefined ? { description: data.description } : {}),
-      ...(data.icon !== undefined ? { icon: data.icon } : {}),
-      ...(data.banner !== undefined ? { banner: data.banner } : {}),
-      ...(data.metaTitle !== undefined ? { metaTitle: data.metaTitle } : {}),
-      ...(data.metaDesc !== undefined ? { metaDesc: data.metaDesc } : {}),
+      ...withDefined({
+        parentId: data.parentId,
+        sortOrder: data.sortOrder,
+        isActive: data.isActive,
+        description: data.description,
+        icon: data.icon,
+        banner: data.banner,
+        metaTitle: data.metaTitle,
+        metaDesc: data.metaDesc,
+      }),
     }
     return this.prisma.category.create({ data: createData })
   }

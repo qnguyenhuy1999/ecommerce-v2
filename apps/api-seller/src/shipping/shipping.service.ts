@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 
 @Injectable()
 export class ShippingService {
@@ -57,12 +57,21 @@ export class ShippingService {
       )
     }
 
+    const data: {
+      sellerOrderId: string
+      providerId: string
+      trackingNumber?: string | null
+    } = {
+      sellerOrderId,
+      providerId,
+    }
+
+    if (trackingNumber !== undefined) {
+      data.trackingNumber = trackingNumber
+    }
+
     return this.prisma.shipment.create({
-      data: {
-        sellerOrderId,
-        providerId,
-        ...(trackingNumber !== undefined ? { trackingNumber } : {}),
-      },
+      data,
       include: { provider: true },
     })
   }

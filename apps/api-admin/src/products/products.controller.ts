@@ -1,23 +1,27 @@
-import { ApiTags, ApiOperation, ApiExtraModels } from '@nestjs/swagger'
-import { Controller, Get, Post, Param, Query, Body, UseGuards } from '@nestjs/common'
-import { ProductsService } from './products.service'
-import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
-import { PermissionGuard } from '../auth/guards/permission.guard'
-import { Permissions } from '../auth/decorators/permissions.decorator'
-import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator'
-import { AuditLog } from '../common/decorators/audit-log.decorator'
-import { ProductQueryDto } from './dto/product-query.dto'
-import { ProductResponseDto } from './dto/product-query.dto'
-import { ProductModerationDto, BulkModerationDto, ResolveReportDto } from './dto/product-action.dto'
 import { type ProductReportStatus } from '@ecom/contracts/enums'
-import { AUDIT_ACTIONS } from '@ecom/shared/constants'
-import { withDefined } from '@ecom/shared/utils'
 import {
+  ApiAuth,
+  ApiErrorResponses,
   ApiOkResponseData,
   ApiPaginatedResponse,
-  ApiErrorResponses,
-  ApiAuth,
 } from '@ecom/nestjs-core/openapi'
+import { AUDIT_ACTIONS } from '@ecom/shared/constants'
+import { withDefined } from '@ecom/shared/utils'
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common'
+import { ApiExtraModels, ApiOperation, ApiTags } from '@nestjs/swagger'
+import { CurrentAdmin, type AdminSessionData } from '../auth/decorators/current-admin.decorator'
+import { Permissions } from '../auth/decorators/permissions.decorator'
+import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
+import { PermissionGuard } from '../auth/guards/permission.guard'
+import { AuditLog } from '../common/decorators/audit-log.decorator'
+import type {
+  BulkModerationDto,
+  ProductModerationDto,
+  ResolveReportDto,
+} from './dto/product-action.dto'
+import type { ProductQueryDto } from './dto/product-query.dto'
+import { ProductResponseDto } from './dto/product-query.dto'
+import type { ProductsService } from './products.service'
 
 @ApiTags('Admin/Products')
 @Controller('products')
@@ -34,11 +38,14 @@ export class ProductsController {
   @Permissions('PRODUCT_VIEW')
   async findAll(@Query() query: ProductQueryDto) {
     const result = await this.productsService.findAll({
-      ...withDefined({ page: query.page, limit: query.limit }),
-      ...(query.search !== undefined ? { search: query.search } : {}),
-      ...(query.status !== undefined ? { status: query.status } : {}),
-      ...(query.shopId !== undefined ? { shopId: query.shopId } : {}),
-      ...(query.categoryId !== undefined ? { categoryId: query.categoryId } : {}),
+      ...withDefined({
+        page: query.page,
+        limit: query.limit,
+        search: query.search,
+        status: query.status,
+        shopId: query.shopId,
+        categoryId: query.categoryId,
+      }),
     })
     return result
   }

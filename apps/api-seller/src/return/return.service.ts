@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
-import { type Prisma } from '@ecom/database'
 import { ReturnStatus } from '@ecom/contracts/enums'
-import { ReturnQueryDto } from './dto/return-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import type { ReturnQueryDto } from './dto/return-query.dto'
 
 const VALID_TRANSITIONS: Partial<Record<ReturnStatus, ReturnStatus[]>> = {
   [ReturnStatus.REQUESTED]: [ReturnStatus.REVIEWING, ReturnStatus.REJECTED],
@@ -22,17 +23,15 @@ export class ReturnService {
   async list(shopId: string, query: ReturnQueryDto) {
     const {
       page = 1,
-      pageSize = 20,
+      limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT,
       sortBy = 'createdAt',
       sortOrder = 'desc',
       search,
       status,
-      sort,
-      order,
     } = query
 
-    const finalSort = sort || sortBy
-    const finalOrder = order || sortOrder
+    const finalSort = sortBy
+    const finalOrder = sortOrder
 
     const where: Prisma.ReturnRequestWhereInput = { shopId }
     if (status !== undefined) where.status = status
@@ -40,7 +39,7 @@ export class ReturnService {
 
     const { items, total } = await offsetPaginate(this.prisma.returnRequest, {
       page,
-      pageSize,
+      limit,
       where,
       include: {
         items: true,
@@ -49,7 +48,7 @@ export class ReturnService {
       orderBy: { [finalSort]: finalOrder },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getById(shopId: string, returnId: string) {
@@ -107,15 +106,21 @@ export class ReturnService {
         data,
       })
 
-      await tx.returnTimeline.create({
-        data: {
-          returnRequestId: returnId,
-          fromStatus: currentStatus,
-          toStatus: newStatus,
-          ...(note !== undefined ? { note } : {}),
-          ...(performedBy !== undefined ? { performedBy } : {}),
-        },
-      })
+      const timelineData: Prisma.ReturnTimelineUncheckedCreateInput = {
+        returnRequestId: returnId,
+        fromStatus: currentStatus,
+        toStatus: newStatus,
+      }
+
+      if (note !== undefined) {
+        timelineData.note = note
+      }
+
+      if (performedBy !== undefined) {
+        timelineData.performedBy = performedBy
+      }
+
+      await tx.returnTimeline.create({ data: timelineData })
 
       return updated
     })
@@ -136,14 +141,17 @@ export class ReturnService {
       throw new NotFoundException('Return request not found')
     }
 
-    return this.prisma.returnEvidence.create({
-      data: {
-        returnRequestId: returnId,
-        uploadedBy,
-        url,
-        ...(description !== undefined ? { description } : {}),
-      },
-    })
+    const evidenceData: Prisma.ReturnEvidenceUncheckedCreateInput = {
+      returnRequestId: returnId,
+      uploadedBy,
+      url,
+    }
+
+    if (description !== undefined) {
+      evidenceData.description = description
+    }
+
+    return this.prisma.returnEvidence.create({ data: evidenceData })
   }
 
   async getStats(shopId: string) {

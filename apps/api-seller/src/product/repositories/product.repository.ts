@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ProductRepository {
@@ -11,13 +11,13 @@ export class ProductRepository {
     where: Prisma.ProductWhereInput,
     options: {
       page: number
-      pageSize: number
+      limit: number
       orderBy: Prisma.ProductOrderByWithRelationInput
     },
   ) {
     return offsetPaginate(this.prisma.product, {
       page: options.page,
-      pageSize: options.pageSize,
+      limit: options.limit,
       where,
       include: {
         images: { orderBy: { sortOrder: 'asc' }, take: 1 },

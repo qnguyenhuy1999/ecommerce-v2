@@ -1,6 +1,9 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
+import { ProductStatus } from '@ecom/contracts'
 import type { Prisma } from '@ecom/database'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { slugify } from '@ecom/shared/utils'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import type {
   CreateProductDto,
   ProductImageDto,
@@ -8,11 +11,9 @@ import type {
   VariantOptionGroupDto,
   VariantOptionValueDto,
 } from './dto/create-product.dto'
-import type { UpdateProductDto } from './dto/update-product.dto'
 import type { ProductQueryDto } from './dto/product-query.dto'
-import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { ProductRepository } from './repositories/product.repository'
-import { ProductStatus } from '@ecom/contracts'
+import type { UpdateProductDto } from './dto/update-product.dto'
+import type { ProductRepository } from './repositories/product.repository'
 
 @Injectable()
 export class ProductService {
@@ -21,18 +22,16 @@ export class ProductService {
   async list(shopId: string, query: ProductQueryDto) {
     const {
       page = 1,
-      pageSize = 20,
+      limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT,
       sortBy = 'createdAt',
       sortOrder = 'desc',
       search,
       status,
       categoryId,
-      sort,
-      order,
     } = query
 
-    const finalSort = sort || sortBy
-    const finalOrder = order || sortOrder
+    const finalSort = sortBy
+    const finalOrder = sortOrder
 
     const where: Prisma.ProductWhereInput = {
       shopId,
@@ -49,11 +48,11 @@ export class ProductService {
 
     const { items, total } = await this.productRepository.findMany(where, {
       page,
-      pageSize,
+      limit,
       orderBy: { [finalSort]: finalOrder },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getById(shopId: string, productId: string) {

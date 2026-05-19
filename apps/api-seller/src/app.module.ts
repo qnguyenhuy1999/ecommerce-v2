@@ -45,11 +45,20 @@ import { GrowthModule } from './growth/growth.module'
     RedisModule.forRoot(
       (() => {
         const redis = getRedisConfig()
-        return {
+        const options: {
+          host: string
+          port: number
+          password?: string
+        } = {
           host: redis.host,
           port: redis.port,
-          ...(redis.password !== undefined ? { password: redis.password } : {}),
         }
+
+        if (redis.password !== undefined) {
+          options.password = redis.password
+        }
+
+        return options
       })(),
     ),
     EmailModule.forRoot(getSmtpConfig()),

@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { CreateTranslationDto, CreateCurrencyDto, CreateRegionDto } from './dto/i18n.dto'
+import type { CreateTranslationDto, CreateCurrencyDto, CreateRegionDto } from './dto/i18n.dto'
+import { withDefined } from '@ecom/shared/utils'
 
 @Injectable()
 export class I18nService {
@@ -27,7 +28,7 @@ export class I18nService {
         name: dto.name,
         defaultLocale: dto.defaultLocale,
         defaultCurrencyId: dto.defaultCurrency,
-        ...(dto.timezone !== undefined ? { timezone: dto.timezone } : {}),
+        ...withDefined({ timezone: dto.timezone }),
         taxRates: {
           create: {
             name: 'Default',

@@ -1,11 +1,12 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { AffiliateStatus, PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { AffiliateStatus } from '@ecom/database'
-import { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { randomBytes } from 'node:crypto'
+import type { CreateAffiliateLinkDto, RequestPayoutDto } from './dto/affiliate.dto'
 
 @Injectable()
 export class AffiliateService {
@@ -15,15 +16,15 @@ export class AffiliateService {
   }
 
   async listPartners(query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const { items, total } = await offsetPaginate(this.prisma.affiliatePartner, {
       page,
-      pageSize,
+      limit,
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async updatePartnerStatus(partnerId: string, status: AffiliateStatus) {
@@ -42,8 +43,8 @@ export class AffiliateService {
     return this.prisma.affiliateLink.create({
       data: {
         partnerId,
-        ...(dto.productId !== undefined ? { productId: dto.productId } : {}),
-        ...(dto.shopId !== undefined ? { shopId: dto.shopId } : {}),
+        ...withDefined({ productId: dto.productId }),
+        ...withDefined({ shopId: dto.shopId }),
         code,
         url: dto.url,
       },
@@ -51,18 +52,18 @@ export class AffiliateService {
   }
 
   async listLinks(partnerId: string, query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const where: Prisma.AffiliateLinkWhereInput = { partnerId }
 
     const { items, total } = await offsetPaginate(this.prisma.affiliateLink, {
       page,
-      pageSize,
+      limit,
       where,
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async trackClick(
@@ -143,8 +144,8 @@ export class AffiliateService {
         data: {
           partnerId,
           amount: dto.amount,
-          ...(dto.paymentMethod !== undefined ? { paymentMethod: dto.paymentMethod } : {}),
-          ...(dto.note !== undefined ? { note: dto.note } : {}),
+          ...withDefined({ paymentMethod: dto.paymentMethod }),
+          ...withDefined({ note: dto.note }),
         },
       })
 

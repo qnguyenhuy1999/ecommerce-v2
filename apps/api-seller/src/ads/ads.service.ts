@@ -1,31 +1,41 @@
+import type { AdCampaignStatus, PrismaService } from '@ecom/database'
+import { AdType, type Prisma } from '@ecom/database'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
-import { type Prisma } from '@ecom/database'
-import { AdType, AdCampaignStatus } from '@ecom/database'
-import { CreateAdCampaignDto, CreateAdGroupDto, CreateAdDto } from './dto/create-ad-campaign.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type {
+  CreateAdCampaignDto,
+  CreateAdDto,
+  CreateAdGroupDto,
+} from './dto/create-ad-campaign.dto'
 
 @Injectable()
 export class AdsService {
   constructor(private readonly prisma: PrismaService) {}
   async listCampaigns(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20, sortBy = 'createdAt', sortOrder = 'desc', sort, order } = query
+    const {
+      page = 1,
+      limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+    } = query
 
-    const finalSort = sort || sortBy
-    const finalOrder = order || sortOrder
+    const finalSort = sortBy
+    const finalOrder = sortOrder
 
     const where: Prisma.AdCampaignWhereInput = { shopId }
 
     const { items, total } = await offsetPaginate(this.prisma.adCampaign, {
       page,
-      pageSize,
+      limit,
       where,
       include: { _count: { select: { adGroups: true } } },
       orderBy: { [finalSort]: finalOrder },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getCampaignById(shopId: string, id: string) {
@@ -52,7 +62,7 @@ export class AdsService {
         name: dto.name,
         type: dto.type ?? AdType.SPONSORED_PRODUCT,
         dailyBudget: dto.dailyBudget,
-        ...(dto.totalBudget !== undefined ? { totalBudget: dto.totalBudget } : {}),
+        ...withDefined({ totalBudget: dto.totalBudget }),
         bidAmount: dto.bidAmount,
         startsAt: new Date(dto.startsAt),
         ...(dto.endsAt !== undefined ? { endsAt: new Date(dto.endsAt) } : {}),
@@ -89,7 +99,7 @@ export class AdsService {
           data: dto.keywords.map((kw) => ({
             adGroupId: group.id,
             keyword: kw.keyword.toLowerCase(),
-            ...(kw.bidAmount !== undefined ? { bidAmount: kw.bidAmount } : {}),
+            ...withDefined({ bidAmount: kw.bidAmount }),
           })),
         })
       }

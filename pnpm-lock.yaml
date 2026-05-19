@@ -518,6 +518,9 @@ importers:
       '@ecom/database':
         specifier: workspace:*
         version: link:../database
+      '@ecom/shared':
+        specifier: workspace:*
+        version: link:../shared
       bcryptjs:
         specifier: ^3.0.3
         version: 3.0.3

@@ -1,19 +1,21 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { WarehouseQueryDto, StockQueryDto, TransferQueryDto } from './dto/warehouse-query.dto'
-import { CreateWarehouseDto } from './dto/create-warehouse.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import type { CreateWarehouseDto } from './dto/create-warehouse.dto'
+import type { StockQueryDto, TransferQueryDto, WarehouseQueryDto } from './dto/warehouse-query.dto'
 
 @Injectable()
 export class WarehouseService {
   constructor(private readonly prisma: PrismaService) {}
   async listWarehouses(shopId: string, query: WarehouseQueryDto) {
-    const { page = 1, pageSize = 20, search, isActive } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT, search, isActive } = query
 
     const where: Prisma.WarehouseWhereInput = {
       shopId,
-      ...(isActive !== undefined ? { isActive } : {}),
+      ...withDefined({ isActive: isActive }),
       ...(search
         ? {
             OR: [
@@ -26,13 +28,13 @@ export class WarehouseService {
 
     const { items, total } = await offsetPaginate(this.prisma.warehouse, {
       page,
-      pageSize,
+      limit,
       where,
       include: { _count: { select: { stocks: true } } },
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async createWarehouse(shopId: string, dto: CreateWarehouseDto) {
@@ -48,7 +50,7 @@ export class WarehouseService {
         shopId,
         name: dto.name,
         code: dto.code.toUpperCase(),
-        ...(dto.address !== undefined ? { address: dto.address } : {}),
+        ...withDefined({ address: dto.address }),
         isDefault: dto.isDefault ?? false,
       },
     })
@@ -68,7 +70,7 @@ export class WarehouseService {
   }
 
   async getWarehouseStock(shopId: string, warehouseId: string, query: StockQueryDto) {
-    const { page = 1, pageSize = 20, lowStock } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT, lowStock } = query
 
     const warehouse = await this.prisma.warehouse.findFirst({
       where: { id: warehouseId, shopId },
@@ -85,12 +87,12 @@ export class WarehouseService {
 
     const { items, total } = await offsetPaginate(this.prisma.warehouseStock, {
       page,
-      pageSize,
+      limit,
       where: stockWhere,
       orderBy: { updatedAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async updateStock(
@@ -111,7 +113,7 @@ export class WarehouseService {
     return this.prisma.warehouseStock.upsert({
       where: { warehouseId_variantId: { warehouseId, variantId } },
       create: { warehouseId, variantId, stock, safetyStock: safetyStock ?? 0 },
-      update: { stock, ...(safetyStock !== undefined ? { safetyStock } : {}) },
+      update: safetyStock !== undefined ? { stock, safetyStock } : { stock },
     })
   }
 
@@ -135,32 +137,37 @@ export class WarehouseService {
       throw new NotFoundException('Warehouse not found')
     }
 
-    return this.prisma.inventoryTransfer.create({
-      data: {
-        shopId,
-        fromWarehouseId,
-        toWarehouseId,
-        ...(note !== undefined ? { note } : {}),
-        items: {
-          create: items.map((item) => ({
-            variantId: item.variantId,
-            quantity: item.quantity,
-          })),
-        },
+    const data: Prisma.InventoryTransferUncheckedCreateInput = {
+      shopId,
+      fromWarehouseId,
+      toWarehouseId,
+      items: {
+        create: items.map((item) => ({
+          variantId: item.variantId,
+          quantity: item.quantity,
+        })),
       },
+    }
+
+    if (note !== undefined) {
+      data.note = note
+    }
+
+    return this.prisma.inventoryTransfer.create({
+      data,
       include: { items: true },
     })
   }
 
   async listTransfers(shopId: string, query: TransferQueryDto) {
-    const { page = 1, pageSize = 20, status } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT, status } = query
 
     const where: Prisma.InventoryTransferWhereInput = { shopId }
     if (status) where.status = status as NonNullable<Prisma.InventoryTransferWhereInput['status']>
 
     const { items, total } = await offsetPaginate(this.prisma.inventoryTransfer, {
       page,
-      pageSize,
+      limit,
       where,
       include: {
         fromWarehouse: { select: { id: true, name: true, code: true } },
@@ -170,7 +177,7 @@ export class WarehouseService {
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async completeTransfer(shopId: string, transferId: string) {

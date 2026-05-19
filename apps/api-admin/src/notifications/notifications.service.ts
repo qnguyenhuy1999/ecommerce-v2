@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
-import { type AdminNotificationStatus, type NotificationChannel } from '@ecom/database'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import type { PrismaService } from '@ecom/database'
+import { type AdminNotificationStatus, type NotificationChannel, type Prisma } from '@ecom/database'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
 import { withDefined } from '@ecom/shared/utils'
+import { Injectable, NotFoundException } from '@nestjs/common'
 
 @Injectable()
 export class NotificationsService {
@@ -36,9 +36,7 @@ export class NotificationsService {
     const createData: Parameters<typeof this.prisma.adminNotification.create>[0]['data'] = {
       title: data.title,
       message: data.message,
-      ...(data.channel !== undefined ? { channel: data.channel } : {}),
-      ...(data.targetAll !== undefined ? { targetAll: data.targetAll } : {}),
-      ...(data.sentBy !== undefined ? { sentBy: data.sentBy } : {}),
+      ...withDefined({ channel: data.channel, targetAll: data.targetAll, sentBy: data.sentBy }),
     }
     return this.prisma.adminNotification.create({ data: createData })
   }
@@ -65,7 +63,7 @@ export class NotificationsService {
       name: data.name,
       subject: data.subject,
       body: data.body,
-      ...(data.channel !== undefined ? { channel: data.channel } : {}),
+      ...withDefined({ channel: data.channel }),
     }
     return this.prisma.notificationTemplate.create({ data: createData })
   }

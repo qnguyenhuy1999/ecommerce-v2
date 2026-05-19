@@ -1,9 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { CreateAiTaskDto } from './dto/ai-tools.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import type { CreateAiTaskDto } from './dto/ai-tools.dto'
 
 @Injectable()
 export class AiToolsService {
@@ -22,7 +24,7 @@ export class AiToolsService {
           | 'SEO'
           | 'TRANSLATION'
           | 'SALES_INSIGHT',
-        ...(dto.productId !== undefined ? { productId: dto.productId } : {}),
+        ...withDefined({ productId: dto.productId }),
         inputData: (dto.input ?? {}) as Prisma.InputJsonValue,
         status: 'QUEUED',
       },
@@ -38,18 +40,18 @@ export class AiToolsService {
   }
 
   async listTasks(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, pageSize = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const where: Prisma.AiTaskWhereInput = { shopId }
 
     const { items, total } = await offsetPaginate(this.prisma.aiTask, {
       page,
-      pageSize,
+      limit,
       where,
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async processTask(taskId: string) {

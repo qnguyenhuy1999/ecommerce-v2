@@ -1,6 +1,6 @@
 import type { ExceptionFilter, ArgumentsHost } from '@nestjs/common'
 import { Catch, HttpException, HttpStatus, Logger } from '@nestjs/common'
-import type { ApiErrorResponse } from '@ecom/contracts'
+import type { ApiErrorBody, ApiErrorResponse } from '@ecom/contracts'
 import type { Request, Response } from 'express'
 
 /** Duck-typed shape of our AppError from @ecom/shared/errors. */
@@ -89,15 +89,16 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const path = request?.url ?? ''
 
     const { status, code, message, details } = this.mapException(exception)
+    const error: ApiErrorBody = { code, message }
+
+    if (details !== undefined) {
+      error.details = details
+    }
 
     const body: ApiErrorResponse = {
       success: false,
       message,
-      error: {
-        code,
-        message,
-        ...(details !== undefined ? { details } : {}),
-      },
+      error,
       statusCode: status,
       timestamp,
       path,

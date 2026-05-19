@@ -1,15 +1,17 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { CreateLivestreamDto, AddLivestreamProductDto } from './dto/livestream.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import type { AddLivestreamProductDto, CreateLivestreamDto } from './dto/livestream.dto'
 
 @Injectable()
 export class LivestreamService {
   constructor(private readonly prisma: PrismaService) {}
   async listSessions(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, limit = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const where: Prisma.LivestreamSessionWhereInput = { shopId }
 
@@ -42,8 +44,8 @@ export class LivestreamService {
       data: {
         shopId,
         title: dto.title,
-        ...(dto.description !== undefined ? { description: dto.description } : {}),
-        ...(dto.thumbnailUrl !== undefined ? { thumbnailUrl: dto.thumbnailUrl } : {}),
+        ...withDefined({ description: dto.description }),
+        ...withDefined({ thumbnailUrl: dto.thumbnailUrl }),
         scheduledAt: new Date(dto.scheduledAt),
       },
     })
@@ -91,7 +93,7 @@ export class LivestreamService {
       data: {
         sessionId,
         productId: dto.productId,
-        ...(dto.specialPrice !== undefined ? { specialPrice: dto.specialPrice } : {}),
+        ...withDefined({ specialPrice: dto.specialPrice }),
       },
     })
   }

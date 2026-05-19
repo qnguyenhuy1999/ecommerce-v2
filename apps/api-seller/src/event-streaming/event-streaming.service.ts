@@ -1,10 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
-import { type Prisma } from '@ecom/database'
 import { PlatformEventStatus } from '@ecom/contracts/enums'
-import { EmitEventDto } from './dto/event-streaming.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDTO } from '@ecom/shared/pagination/core'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import type { OffsetPaginationDTO } from '@ecom/shared/pagination/core'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import type { EmitEventDto } from './dto/event-streaming.dto'
 @Injectable()
 export class EventStreamingService {
   constructor(private readonly prisma: PrismaService) {}
@@ -20,7 +21,7 @@ export class EventStreamingService {
   }
 
   async listEvents(query: OffsetPaginationDTO & { eventType?: string; source?: string }) {
-    const { page = 1, limit = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const where: Prisma.PlatformEventWhereInput = {
       ...(query.eventType && { type: query.eventType }),
@@ -29,7 +30,7 @@ export class EventStreamingService {
 
     const { items, total } = await offsetPaginate(this.prisma.platformEvent, {
       page,
-      pageSize: limit,
+      limit: limit,
       where,
       orderBy: { createdAt: 'desc' },
     })

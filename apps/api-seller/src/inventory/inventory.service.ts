@@ -1,8 +1,9 @@
-import { Injectable, BadRequestException } from '@nestjs/common'
-import { Prisma } from '@ecom/database'
-import { InventoryQueryDto } from './dto/inventory-query.dto'
+import type { Prisma } from '@ecom/database'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { InventoryRepository } from './repositories/inventory.repository'
+import { BadRequestException, Injectable } from '@nestjs/common'
+import type { InventoryQueryDto } from './dto/inventory-query.dto'
+import type { InventoryRepository } from './repositories/inventory.repository'
 
 const LOW_STOCK_THRESHOLD = 10
 
@@ -18,7 +19,7 @@ export class InventoryService {
   constructor(private readonly inventoryRepository: InventoryRepository) {}
 
   async list(shopId: string, query: InventoryQueryDto) {
-    const { page = 1, limit = 20, search, lowStock } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT, search, lowStock } = query
 
     const where: Prisma.ProductVariantWhereInput = {
       product: { shopId, deletedAt: null },
@@ -92,14 +93,17 @@ export class InventoryService {
         data: { stock: newStock },
       })
 
-      await tx.inventoryTransaction.create({
-        data: {
-          variantId,
-          type: type,
-          quantity,
-          ...(note !== undefined ? { note } : {}),
-        },
-      })
+      const transactionData: Prisma.InventoryTransactionUncheckedCreateInput = {
+        variantId,
+        type,
+        quantity,
+      }
+
+      if (note !== undefined) {
+        transactionData.note = note
+      }
+
+      await tx.inventoryTransaction.create({ data: transactionData })
 
       return { variantId, stock: newStock, reservedStock: variant.reservedStock }
     })
@@ -139,7 +143,12 @@ export class InventoryService {
     })
   }
 
-  async getHistory(shopId: string, variantId: string, page = 1, pageSize = 20) {
+  async getHistory(
+    shopId: string,
+    variantId: string,
+    page: number = 1,
+    limit: number = PAGINATION_DEFAULTS.DEFAULT_LIMIT,
+  ) {
     const variant = await this.inventoryRepository.findVariant({
       id: variantId,
       product: { shopId },
@@ -151,10 +160,10 @@ export class InventoryService {
 
     const { items: transactions, total } = await this.inventoryRepository.findTransactions(
       { variantId },
-      { page, pageSize },
+      { page, limit },
     )
 
-    return buildOffsetResponse(transactions, page, pageSize, total)
+    return buildOffsetResponse(transactions, page, limit, total)
   }
 
   async getLowStockAlerts(shopId: string) {

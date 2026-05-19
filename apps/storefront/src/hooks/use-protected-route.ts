@@ -1,5 +1,7 @@
 'use client'
 
+import { withDefined } from '@ecom/shared/utils'
+
 import { useProtectedRoute as useProtectedRouteBase } from '@ecom/auth/protected-route'
 import type { AuthUser } from '@ecom/auth/client'
 import { useAuth } from '../providers/auth-provider'
@@ -19,7 +21,7 @@ export function useProtectedRoute(options: UseProtectedRouteOptions = {}) {
   const { requiredRoles, redirectTo = '/login' } = options
 
   return useProtectedRouteBase(useAuth, {
-    ...(requiredRoles !== undefined ? { requiredRoles } : {}),
+    ...withDefined({ requiredRoles: requiredRoles }),
     redirectTo,
     onForbiddenRedirect: getForbiddenRedirect,
   })

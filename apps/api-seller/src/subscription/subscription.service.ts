@@ -1,10 +1,12 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
-import { type Prisma } from '@ecom/database'
 import { SubscriptionStatus } from '@ecom/contracts/enums'
-import { CreatePlanDto, SubscribeDto } from './dto/subscription.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import type { CreatePlanDto, SubscribeDto } from './dto/subscription.dto'
 
 @Injectable()
 export class SubscriptionService {
@@ -31,13 +33,13 @@ export class SubscriptionService {
       data: {
         name: dto.name,
         slug: dto.slug,
-        ...(dto.description !== undefined ? { description: dto.description } : {}),
+        ...withDefined({ description: dto.description }),
         monthlyPrice: dto.monthlyPrice,
-        ...(dto.yearlyPrice !== undefined ? { yearlyPrice: dto.yearlyPrice } : {}),
-        ...(dto.productLimit !== undefined ? { productLimit: dto.productLimit } : {}),
-        ...(dto.orderLimit !== undefined ? { orderLimit: dto.orderLimit } : {}),
-        ...(dto.storageLimit !== undefined ? { storageLimit: dto.storageLimit } : {}),
-        ...(dto.staffLimit !== undefined ? { staffLimit: dto.staffLimit } : {}),
+        ...withDefined({ yearlyPrice: dto.yearlyPrice }),
+        ...withDefined({ productLimit: dto.productLimit }),
+        ...withDefined({ orderLimit: dto.orderLimit }),
+        ...withDefined({ storageLimit: dto.storageLimit }),
+        ...withDefined({ staffLimit: dto.staffLimit }),
       },
     })
   }
@@ -139,7 +141,7 @@ export class SubscriptionService {
   }
 
   async listInvoices(shopId: string, query: OffsetPaginationDto) {
-    const { page = 1, limit = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const subscription = await this.prisma.sellerSubscription.findUnique({ where: { shopId } })
     if (!subscription) return buildOffsetResponse([], 1, limit, 0)

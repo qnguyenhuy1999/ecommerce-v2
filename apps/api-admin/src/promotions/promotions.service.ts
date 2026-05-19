@@ -1,13 +1,13 @@
+import type { PrismaService } from '@ecom/database'
+import { type PlatformVoucherStatus, type PlatformVoucherType, type Prisma } from '@ecom/database'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { nullable, withDefined } from '@ecom/shared/utils'
 import {
+  BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
-  ConflictException,
-  BadRequestException,
 } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
-import { type PlatformVoucherStatus, type PlatformVoucherType } from '@ecom/database'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { withDefined, nullable } from '@ecom/shared/utils'
 
 @Injectable()
 export class PromotionsService {
@@ -72,12 +72,12 @@ export class PromotionsService {
       expiresAt: data.expiresAt,
       maxDiscountAmount: nullable(data.maxDiscountAmount),
       minOrderAmount: nullable(data.minOrderAmount),
-      ...(data.description !== undefined ? { description: data.description } : {}),
-      ...(data.usageLimit !== undefined ? { usageLimit: data.usageLimit } : {}),
-      ...(data.usageLimitPerUser !== undefined
-        ? { usageLimitPerUser: data.usageLimitPerUser }
-        : {}),
-      ...(data.createdBy !== undefined ? { createdBy: data.createdBy } : {}),
+      ...withDefined({
+        description: data.description,
+        usageLimit: data.usageLimit,
+        usageLimitPerUser: data.usageLimitPerUser,
+        createdBy: data.createdBy,
+      }),
     }
 
     return this.prisma.platformVoucher.create({ data: createData })

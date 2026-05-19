@@ -1,15 +1,15 @@
-import { Injectable } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { NotificationType, PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { NotificationType } from '@ecom/database'
-import { NotificationQueryDto } from './dto/notification-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { Injectable } from '@nestjs/common'
+import type { NotificationQueryDto } from './dto/notification-query.dto'
 
 @Injectable()
 export class NotificationService {
   constructor(private readonly prisma: PrismaService) {}
   async list(shopId: string, query: NotificationQueryDto) {
-    const { page = 1, pageSize = 20, unreadOnly, type } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT, unreadOnly, type } = query
 
     const where: Prisma.NotificationWhereInput = { shopId }
     if (unreadOnly) where.isRead = false
@@ -17,12 +17,12 @@ export class NotificationService {
 
     const { items, total } = await offsetPaginate(this.prisma.notification, {
       page,
-      pageSize,
+      limit,
       where,
       orderBy: { createdAt: 'desc' },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getUnreadCount(shopId: string) {
@@ -54,14 +54,19 @@ export class NotificationService {
     message: string,
     metadata?: Record<string, unknown>,
   ) {
+    const data: Prisma.NotificationUncheckedCreateInput = {
+      shopId,
+      type,
+      title,
+      message,
+    }
+
+    if (metadata !== undefined) {
+      data.metadata = metadata as Prisma.InputJsonValue
+    }
+
     return this.prisma.notification.create({
-      data: {
-        shopId,
-        type,
-        title,
-        message,
-        ...(metadata !== undefined ? { metadata: metadata as Prisma.InputJsonValue } : {}),
-      },
+      data,
     })
   }
 }

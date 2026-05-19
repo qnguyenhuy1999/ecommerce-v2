@@ -1,10 +1,12 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
-import { type Prisma, CouponType, CouponStatus, CouponScope } from '@ecom/database'
-import { CreateCouponDto } from './dto/create-coupon.dto'
-import { UpdateCouponDto } from './dto/update-coupon.dto'
-import { CouponQueryDto } from './dto/coupon-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma, CouponScope, CouponStatus, CouponType } from '@ecom/database'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import type { CouponQueryDto } from './dto/coupon-query.dto'
+import type { CreateCouponDto } from './dto/create-coupon.dto'
+import type { UpdateCouponDto } from './dto/update-coupon.dto'
 
 @Injectable()
 export class CouponService {
@@ -12,18 +14,16 @@ export class CouponService {
   async list(shopId: string, query: CouponQueryDto) {
     const {
       page = 1,
-      pageSize = 20,
+      limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT,
       sortBy = 'createdAt',
       sortOrder = 'desc',
       search,
       status,
       type,
-      sort,
-      order,
     } = query
 
-    const finalSort = sort || sortBy
-    const finalOrder = order || sortOrder
+    const finalSort = sortBy
+    const finalOrder = sortOrder
 
     const where: Prisma.CouponWhereInput = { shopId }
     if (status) where.status = status
@@ -37,7 +37,7 @@ export class CouponService {
 
     const { items, total } = await offsetPaginate(this.prisma.coupon, {
       page,
-      pageSize,
+      limit,
       where,
       include: {
         _count: { select: { couponUsages: true } },
@@ -45,7 +45,7 @@ export class CouponService {
       orderBy: { [finalSort]: finalOrder },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getById(shopId: string, couponId: string) {
@@ -80,18 +80,14 @@ export class CouponService {
           shopId,
           code: dto.code.toUpperCase(),
           name: dto.name,
-          ...(dto.description !== undefined ? { description: dto.description } : {}),
+          ...withDefined({ description: dto.description }),
           type: dto.type,
           scope: dto.scope ?? 'ALL_PRODUCTS',
           discountValue: dto.discountValue,
-          ...(dto.maxDiscountAmount !== undefined
-            ? { maxDiscountAmount: dto.maxDiscountAmount }
-            : {}),
-          ...(dto.minOrderAmount !== undefined ? { minOrderAmount: dto.minOrderAmount } : {}),
-          ...(dto.usageLimit !== undefined ? { usageLimit: dto.usageLimit } : {}),
-          ...(dto.usageLimitPerUser !== undefined
-            ? { usageLimitPerUser: dto.usageLimitPerUser }
-            : {}),
+          ...withDefined({ maxDiscountAmount: dto.maxDiscountAmount }),
+          ...withDefined({ minOrderAmount: dto.minOrderAmount }),
+          ...withDefined({ usageLimit: dto.usageLimit }),
+          ...withDefined({ usageLimitPerUser: dto.usageLimitPerUser }),
           autoApply: dto.autoApply ?? false,
           startsAt: new Date(dto.startsAt),
           expiresAt: new Date(dto.expiresAt),

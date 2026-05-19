@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
-import { type Prisma } from '@ecom/database'
 import { ProductStatus } from '@ecom/contracts/enums'
-import { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import type { PrismaService } from '@ecom/database'
+import { type Prisma } from '@ecom/database'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { Injectable } from '@nestjs/common'
+import type { SearchProductsDto, SearchSuggestionsDto } from './dto/search.dto'
 
 @Injectable()
 export class AdvancedSearchService {
@@ -17,7 +18,7 @@ export class AdvancedSearchService {
       sortBy = 'relevance',
       sortOrder = 'desc',
       page = 1,
-      limit = 20,
+      limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT,
     } = dto
 
     const where: Prisma.ProductWhereInput = {
@@ -43,7 +44,7 @@ export class AdvancedSearchService {
 
     const { items, total } = await offsetPaginate(this.prisma.product, {
       page,
-      pageSize: limit,
+      limit: limit,
       where,
       orderBy,
       include: {
@@ -83,7 +84,7 @@ export class AdvancedSearchService {
     }
   }
 
-  getPopularSearches(_limit = 20) {
+  getPopularSearches(_limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT) {
     // SearchQuery model not in schema — return empty
     return []
   }

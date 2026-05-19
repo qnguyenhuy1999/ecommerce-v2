@@ -1,15 +1,17 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import {
-  CreateReferralProgramDto,
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import { randomBytes } from 'node:crypto'
+import type {
+  CreateCampaignDto,
   CreateExperimentDto,
   CreateFeatureFlagDto,
-  CreateCampaignDto,
+  CreateReferralProgramDto,
 } from './dto/growth.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
-import { randomBytes } from 'node:crypto'
 
 @Injectable()
 export class GrowthService {
@@ -17,7 +19,7 @@ export class GrowthService {
   // --- Referral Program ---
 
   listReferralPrograms(query: OffsetPaginationDto) {
-    const { limit = 20 } = query
+    const { limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
     // ReferralProgram model missing in schema
     return buildOffsetResponse([], 1, limit, 0)
   }
@@ -64,11 +66,11 @@ export class GrowthService {
   // --- Experiments / A/B Testing ---
 
   async listExperiments(query: OffsetPaginationDto) {
-    const { page = 1, limit = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const { items, total } = await offsetPaginate(this.prisma.experiment, {
       page,
-      pageSize: limit,
+      limit: limit,
       include: { variants: true },
       orderBy: { createdAt: 'desc' },
     })
@@ -81,7 +83,7 @@ export class GrowthService {
       const experiment = await tx.experiment.create({
         data: {
           name: dto.name,
-          ...(dto.description !== undefined ? { description: dto.description } : {}),
+          ...withDefined({ description: dto.description }),
           trafficPercent: dto.trafficPercentage ?? 100,
         },
       })
@@ -150,7 +152,7 @@ export class GrowthService {
       data: {
         key: dto.key,
         name: dto.key,
-        ...(dto.description !== undefined ? { description: dto.description } : {}),
+        ...withDefined({ description: dto.description }),
         isEnabled: dto.isEnabled ?? false,
         targetRules: (dto.rules ?? {}) as Prisma.InputJsonValue,
       },
@@ -173,11 +175,11 @@ export class GrowthService {
   // --- Growth Campaigns ---
 
   async listCampaigns(query: OffsetPaginationDto) {
-    const { page = 1, limit = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const { items, total } = await offsetPaginate(this.prisma.growthCampaign, {
       page,
-      pageSize: limit,
+      limit: limit,
       orderBy: { createdAt: 'desc' },
     })
 
@@ -185,15 +187,26 @@ export class GrowthService {
   }
 
   async createCampaign(dto: CreateCampaignDto) {
+    const data: Prisma.GrowthCampaignCreateInput = {
+      name: dto.name,
+      type: dto.type,
+      config: (dto.config ?? {}) as Prisma.InputJsonValue,
+    }
+
+    if (dto.description !== undefined) {
+      data.description = dto.description
+    }
+
+    if (dto.startsAt !== undefined) {
+      data.startsAt = new Date(dto.startsAt)
+    }
+
+    if (dto.endsAt !== undefined) {
+      data.endsAt = new Date(dto.endsAt)
+    }
+
     return this.prisma.growthCampaign.create({
-      data: {
-        name: dto.name,
-        ...(dto.description !== undefined ? { description: dto.description } : {}),
-        type: dto.type,
-        config: (dto.config ?? {}) as Prisma.InputJsonValue,
-        ...(dto.startsAt !== undefined ? { startsAt: new Date(dto.startsAt) } : {}),
-        ...(dto.endsAt !== undefined ? { endsAt: new Date(dto.endsAt) } : {}),
-      },
+      data,
     })
   }
 

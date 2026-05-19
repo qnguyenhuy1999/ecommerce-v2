@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { BulkJobQueryDto } from './dto/bulk-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import type { BulkJobQueryDto } from './dto/bulk-query.dto'
 
 @Injectable()
 export class BulkService {
@@ -10,17 +11,15 @@ export class BulkService {
   async listJobs(shopId: string, query: BulkJobQueryDto) {
     const {
       page = 1,
-      pageSize = 20,
+      limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT,
       sortBy = 'createdAt',
       sortOrder = 'desc',
       type,
       status,
-      sort,
-      order,
     } = query
 
-    const finalSort = sort || sortBy
-    const finalOrder = order || sortOrder
+    const finalSort = sortBy
+    const finalOrder = sortOrder
 
     const where: Prisma.BulkJobWhereInput = { shopId }
     if (type) where.type = type as NonNullable<Prisma.BulkJobWhereInput['type']>
@@ -28,12 +27,12 @@ export class BulkService {
 
     const { items, total } = await offsetPaginate(this.prisma.bulkJob, {
       page,
-      pageSize,
+      limit,
       where,
       orderBy: { [finalSort]: finalOrder },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async getJob(shopId: string, jobId: string) {

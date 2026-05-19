@@ -11,6 +11,9 @@ export default {
       resolve: {
         tsconfigPaths: true,
       },
+      define: {
+        'process.env': {},
+      },
     })
   },
 }

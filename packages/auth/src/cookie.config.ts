@@ -31,13 +31,18 @@ export function getSessionCookieOptions(domain?: string): CookieOptions {
     cookieDomain = undefined
   }
 
-  return {
+  const options: CookieOptions = {
     name: SESSION_COOKIE_NAME,
     httpOnly: true,
     secure,
     sameSite,
-    ...(cookieDomain !== undefined ? { domain: cookieDomain } : {}),
     path: '/',
     maxAge: 7 * 24 * 60 * 60,
   }
+
+  if (cookieDomain !== undefined) {
+    options.domain = cookieDomain
+  }
+
+  return options
 }

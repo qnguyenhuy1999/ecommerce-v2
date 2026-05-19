@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { ProductSearchDto, OrderSearchDto } from './dto/search-query.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import type { OrderSearchDto, ProductSearchDto } from './dto/search-query.dto'
 
 @Injectable()
 export class SearchService {
@@ -10,7 +11,7 @@ export class SearchService {
   async searchProducts(shopId: string, query: ProductSearchDto) {
     const {
       page = 1,
-      pageSize = 20,
+      limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT,
       sortBy = 'createdAt',
       sortOrder = 'desc',
       q,
@@ -21,12 +22,10 @@ export class SearchService {
       maxPrice,
       minStock,
       maxStock,
-      sort,
-      order,
     } = query
 
-    const finalSort = sort || sortBy
-    const finalOrder = order || sortOrder
+    const finalSort = sortBy
+    const finalOrder = sortOrder
 
     const where: Prisma.ProductWhereInput = {
       shopId,
@@ -57,7 +56,7 @@ export class SearchService {
 
     const { items, total } = await offsetPaginate(this.prisma.product, {
       page,
-      pageSize,
+      limit,
       where,
       include: {
         variants: { select: { id: true, sku: true, price: true, stock: true } },
@@ -67,25 +66,23 @@ export class SearchService {
       orderBy: { [finalSort]: finalOrder },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async searchOrders(shopId: string, query: OrderSearchDto) {
     const {
       page = 1,
-      pageSize = 20,
+      limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT,
       sortBy = 'createdAt',
       sortOrder = 'desc',
       q,
       status,
       startDate,
       endDate,
-      sort,
-      order,
     } = query
 
-    const finalSort = sort || sortBy
-    const finalOrder = order || sortOrder
+    const finalSort = sortBy
+    const finalOrder = sortOrder
 
     const where: Prisma.SellerOrderWhereInput = { shopId }
     if (status) where.status = status as NonNullable<Prisma.SellerOrderWhereInput['status']>
@@ -99,7 +96,7 @@ export class SearchService {
 
     const { items, total } = await offsetPaginate(this.prisma.sellerOrder, {
       page,
-      pageSize,
+      limit,
       where,
       include: {
         items: { select: { id: true, productName: true, quantity: true, totalPrice: true } },
@@ -107,7 +104,7 @@ export class SearchService {
       orderBy: { [finalSort]: finalOrder },
     })
 
-    return buildOffsetResponse(items, page, pageSize, total)
+    return buildOffsetResponse(items, page, limit, total)
   }
 
   async listSavedFilters(shopId: string, _userId: string, entity?: string) {

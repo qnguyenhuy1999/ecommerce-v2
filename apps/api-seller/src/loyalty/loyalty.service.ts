@@ -1,9 +1,11 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { CreateLoyaltyTierDto, CreateMissionDto, RedeemPointsDto } from './dto/loyalty.dto'
-import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
-import { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
+import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'
+import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
+import { withDefined } from '@ecom/shared/utils'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import type { CreateLoyaltyTierDto, CreateMissionDto, RedeemPointsDto } from './dto/loyalty.dto'
 
 @Injectable()
 export class LoyaltyService {
@@ -31,11 +33,12 @@ export class LoyaltyService {
 
     if (!account) {
       const defaultTier = await this.prisma.loyaltyTier.findFirst({ orderBy: { minPoints: 'asc' } })
+      const createData = defaultTier
+        ? { userId, tier: { connect: { id: defaultTier.id } } }
+        : { userId }
+
       account = await this.prisma.loyaltyAccount.create({
-        data: {
-          userId,
-          ...(defaultTier?.id !== undefined ? { tierId: defaultTier.id } : {}),
-        },
+        data: createData,
         include: { tier: true },
       })
     }
@@ -61,16 +64,22 @@ export class LoyaltyService {
         create: { userId, totalPoints: points, availablePoints: points, lifetimePoints: points },
       })
 
-      const transaction = await tx.loyaltyTransaction.create({
-        data: {
-          accountId: account.id,
-          type: type as 'EARN' | 'SPEND' | 'EXPIRE' | 'ADJUST' | 'REFUND',
-          points,
-          balance: account.availablePoints + points,
-          ...(referenceId !== undefined ? { referenceId } : {}),
-          ...(description !== undefined ? { description } : {}),
-        },
-      })
+      const transactionData: Prisma.LoyaltyTransactionUncheckedCreateInput = {
+        accountId: account.id,
+        type: type as 'EARN' | 'SPEND' | 'EXPIRE' | 'ADJUST' | 'REFUND',
+        points,
+        balance: account.availablePoints + points,
+      }
+
+      if (referenceId !== undefined) {
+        transactionData.referenceId = referenceId
+      }
+
+      if (description !== undefined) {
+        transactionData.description = description
+      }
+
+      const transaction = await tx.loyaltyTransaction.create({ data: transactionData })
 
       await this.checkTierUpgrade(tx, account.id)
 
@@ -98,7 +107,7 @@ export class LoyaltyService {
           type: 'SPEND',
           points: -dto.points,
           balance: account.availablePoints - dto.points,
-          ...(dto.orderId !== undefined ? { referenceId: dto.orderId } : {}),
+          ...withDefined({ referenceId: dto.orderId }),
           description: dto.description ?? 'Points redeemed',
         },
       })
@@ -144,7 +153,7 @@ export class LoyaltyService {
   }
 
   async listMissions(query: OffsetPaginationDto) {
-    const { page = 1, limit = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
     const now = new Date()
 
     const where: Prisma.LoyaltyMissionWhereInput = {
@@ -163,21 +172,32 @@ export class LoyaltyService {
   }
 
   async createMission(dto: CreateMissionDto) {
+    const data: Prisma.LoyaltyMissionCreateInput = {
+      name: dto.name,
+      eventType: dto.type,
+      rewardPoints: dto.rewardPoints,
+      targetCount: dto.targetCount ?? 1,
+    }
+
+    if (dto.description !== undefined) {
+      data.description = dto.description
+    }
+
+    if (dto.startsAt !== undefined) {
+      data.startsAt = new Date(dto.startsAt)
+    }
+
+    if (dto.endsAt !== undefined) {
+      data.endsAt = new Date(dto.endsAt)
+    }
+
     return this.prisma.loyaltyMission.create({
-      data: {
-        name: dto.name,
-        ...(dto.description !== undefined ? { description: dto.description } : {}),
-        eventType: dto.type,
-        rewardPoints: dto.rewardPoints,
-        targetCount: dto.targetCount ?? 1,
-        ...(dto.startsAt !== undefined ? { startsAt: new Date(dto.startsAt) } : {}),
-        ...(dto.endsAt !== undefined ? { endsAt: new Date(dto.endsAt) } : {}),
-      },
+      data,
     })
   }
 
   async getTransactionHistory(userId: string, query: OffsetPaginationDto) {
-    const { page = 1, limit = 20 } = query
+    const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
     const account = await this.prisma.loyaltyAccount.findUnique({ where: { userId } })
     if (!account) return buildOffsetResponse([], 1, limit, 0)

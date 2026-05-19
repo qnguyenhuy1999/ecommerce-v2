@@ -110,16 +110,16 @@ export function OrdersClient({
               <Button
                 variant="outline"
                 size="sm"
-                className="h-10 rounded-2xl border-slate-200 bg-white text-sm font-medium"
+                className="bg-background border-input h-10 rounded-2xl text-sm font-medium"
               >
                 {dateRangeLabel}
-                <ChevronDown className="size-4 text-slate-500" />
+                <ChevronDown className="text-muted-foreground size-4" />
               </Button>
               <Button
                 asChild
                 variant="outline"
                 size="sm"
-                className="h-10 rounded-2xl border-slate-200 bg-white text-sm font-medium"
+                className="bg-background border-input h-10 rounded-2xl text-sm font-medium"
               >
                 <a href={exportHref}>
                   <Download className="size-4" />

@@ -23,7 +23,7 @@ export function Inventory({
           asChild
           size="sm"
           variant="outline"
-          className="h-9 border-slate-200 bg-white text-sm font-medium"
+          className="bg-background border-input h-9 text-sm font-medium"
         >
           <a href={exportHref}>Export</a>
         </Button>

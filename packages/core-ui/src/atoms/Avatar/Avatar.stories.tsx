@@ -24,7 +24,7 @@ export const Fallback: Story = {
     <Avatar>
       <AvatarImage src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
       <AvatarFallback>ER</AvatarFallback>
-      <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+      <AvatarBadge className="bg-success" />
     </Avatar>
   ),
 }

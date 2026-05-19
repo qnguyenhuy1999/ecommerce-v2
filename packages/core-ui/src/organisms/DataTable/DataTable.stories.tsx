@@ -45,8 +45,8 @@ const columns = [
         <div className="flex items-center gap-3">
           <img src={product.image} alt={product.name} className="h-11 w-11 rounded-xl object-cover" />
           <div className="min-w-0">
-            <div className="truncate text-[15px] font-medium text-slate-950">{product.name}</div>
-            <div className="text-sm text-slate-500">
+            <div className="text-foreground truncate text-sm font-medium">{product.name}</div>
+            <div className="text-muted-foreground text-sm">
               {product.sku} - {product.category}
             </div>
           </div>
@@ -60,7 +60,7 @@ const columns = [
   }),
   col.accessor('price', {
     header: 'Price',
-    cell: (info) => <span className="font-medium text-orange-600">${info.getValue()}</span>,
+    cell: (info) => <span className="text-primary font-medium">${info.getValue()}</span>,
   }),
   col.accessor('stock', {
     header: 'Stock',
@@ -95,7 +95,7 @@ function DataTableShowcase() {
   })
 
   return (
-    <div className="bg-slate-100 p-4 md:p-8">
+    <div className="bg-muted p-4 md:p-8">
       <DataTable
         columns={columns}
         data={filteredRows}

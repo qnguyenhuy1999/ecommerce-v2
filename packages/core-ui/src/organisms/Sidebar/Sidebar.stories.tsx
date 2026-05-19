@@ -85,7 +85,9 @@ export const Default: Story = {
         <SidebarShell
           header={
             <div className="flex items-center gap-2 px-3 py-2 text-sm font-semibold">
-              <span className="bg-primary flex size-7 items-center justify-center rounded-md text-white">K</span>
+              <span className="bg-primary text-primary-foreground flex size-7 items-center justify-center rounded-md">
+                K
+              </span>
               Kavi.
             </div>
           }>
@@ -110,14 +112,14 @@ export const Default: Story = {
               <div className="flex items-center gap-5">
                 <div className="relative">
                   <Bell className="h-4 w-4" />
-                  <div className="bg-primary absolute -top-2 -right-2 flex size-4 items-center justify-center rounded-full text-white">
+                  <div className="bg-primary text-primary-foreground absolute -top-2 -right-2 flex size-4 items-center justify-center rounded-full">
                     <span className="text-xs">3</span>
                   </div>
                 </div>
 
                 <div className="relative">
                   <MessageCircle className="h-4 w-4" />
-                  <div className="bg-primary absolute -top-2 -right-2 flex size-4 items-center justify-center rounded-full text-white">
+                  <div className="bg-primary text-primary-foreground absolute -top-2 -right-2 flex size-4 items-center justify-center rounded-full">
                     <span className="text-xs">3</span>
                   </div>
                 </div>

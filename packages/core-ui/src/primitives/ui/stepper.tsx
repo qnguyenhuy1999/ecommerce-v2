@@ -29,7 +29,7 @@ function Stepper({ steps, current = 1, className, ...props }: StepperProps) {
               <span
                 className={cn(
                   'mx-3 h-px min-w-6 flex-1',
-                  status === 'completed' ? 'bg-orange-400' : 'bg-border',
+                  status === 'completed' ? 'bg-primary' : 'bg-border',
                 )}
               />
             )}
@@ -59,8 +59,8 @@ function StepperItem({ label, stepNumber, status }: StepperItemProps) {
       <span
         className={cn(
           'flex size-8 items-center justify-center rounded-full border text-sm font-semibold',
-          isActive && 'border-orange-400 text-orange-400',
-          isCompleted && 'border-orange-400 bg-orange-400 text-white',
+          isActive && 'border-primary text-primary',
+          isCompleted && 'border-primary bg-primary text-primary-foreground',
           !isActive && !isCompleted && 'border-muted-foreground/40 text-muted-foreground',
         )}
       >

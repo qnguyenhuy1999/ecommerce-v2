@@ -82,8 +82,8 @@ const productColumn: DisplayColumn = {
       <div className="flex items-center gap-3">
         <img src={item.image} alt={item.name} className="h-11 w-11 rounded-xl object-cover" />
         <div className="min-w-0">
-          <div className="truncate text-[14px] font-medium text-slate-950">{item.name}</div>
-          <div className="text-xs text-slate-500">{item.category}</div>
+          <div className="text-foreground truncate text-[14px] font-medium">{item.name}</div>
+          <div className="text-muted-foreground text-xs">{item.category}</div>
         </div>
       </div>
     )
@@ -94,12 +94,12 @@ const skuColumn: AccessorColumn = {
   accessorKey: 'sku',
   header: 'SKU',
   cell: ({ row }) => (
-    <span className="text-[13px] font-medium text-slate-600">{row.original.sku}</span>
+    <span className="text-muted-foreground text-[13px] font-medium">{row.original.sku}</span>
   ),
 }
 
 const InputBadge = ({ value }: { value: number }) => (
-  <div className="inline-flex w-16 items-center justify-center rounded-md border border-slate-200 bg-white px-3 py-1 text-sm font-medium text-slate-900 shadow-sm">
+  <div className="bg-background text-foreground border-input inline-flex w-16 items-center justify-center rounded-md border px-3 py-1 text-sm font-medium shadow-sm">
     {value}
   </div>
 )
@@ -113,19 +113,19 @@ const onHandColumn: AccessorColumn = {
 const incomingColumn: AccessorColumn = {
   accessorKey: 'incoming',
   header: 'Incoming',
-  cell: ({ row }) => <span className="text-slate-600">{row.original.incoming}</span>,
+  cell: ({ row }) => <span className="text-muted-foreground">{row.original.incoming}</span>,
 }
 
 const reservedColumn: AccessorColumn = {
   accessorKey: 'reserved',
   header: 'Reserved',
-  cell: ({ row }) => <span className="text-slate-600">{row.original.reserved}</span>,
+  cell: ({ row }) => <span className="text-muted-foreground">{row.original.reserved}</span>,
 }
 
 const availableColumn: AccessorColumn = {
   accessorKey: 'available',
   header: 'Available',
-  cell: ({ row }) => <span className="font-medium text-slate-900">{row.original.available}</span>,
+  cell: ({ row }) => <span className="text-foreground font-medium">{row.original.available}</span>,
 }
 
 const thresholdColumn: AccessorColumn = {
@@ -142,11 +142,9 @@ const statusColumn: AccessorColumn = {
 
     return (
       <div
-        className={`inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold ${isLow ? 'bg-orange-50 text-orange-700' : 'bg-emerald-50 text-emerald-700'}`}
+        className={`inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold ${isLow ? 'bg-warning/10 text-warning' : 'bg-success/10 text-success'}`}
       >
-        <span
-          className={`h-1.5 w-1.5 rounded-full ${isLow ? 'bg-orange-500' : 'bg-emerald-500'}`}
-        />
+        <span className={`h-1.5 w-1.5 rounded-full ${isLow ? 'bg-warning' : 'bg-success'}`} />
         {row.original.status}
       </div>
     )

@@ -45,7 +45,7 @@ function TimelineItem({
         <span
           className={cn(
             'mt-1 size-2.5 shrink-0 rounded-full',
-            status === 'completed' ? 'bg-orange-400' : 'bg-muted-foreground/30',
+            status === 'completed' ? 'bg-primary' : 'bg-muted-foreground/30',
           )}
         />
         {!isLast && <span className="bg-border mt-1 w-px grow" />}

@@ -115,8 +115,8 @@ const productColumn: DisplayColumn = {
       <div className="flex items-center gap-3">
         <img src={product.image} alt={product.name} className="h-11 w-11 rounded-xl object-cover" />
         <div className="min-w-0">
-          <div className="truncate text-[15px] font-medium text-slate-950">{product.name}</div>
-          <div className="text-sm text-slate-500">
+          <div className="text-foreground truncate text-sm font-medium">{product.name}</div>
+          <div className="text-muted-foreground text-sm">
             {product.sku} - {product.category}
           </div>
         </div>
@@ -135,7 +135,7 @@ const priceColumn: AccessorColumn = {
   accessorKey: 'price',
   header: 'Price',
   cell: ({ row }) => (
-    <span className="font-medium text-orange-600">{priceFormatter.format(row.original.price)}</span>
+    <span className="text-primary font-medium">{priceFormatter.format(row.original.price)}</span>
   ),
 }
 

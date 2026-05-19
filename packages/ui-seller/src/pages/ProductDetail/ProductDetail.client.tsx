@@ -120,7 +120,7 @@ function ProductSidebar({
               key={item.id}
               className={cn(
                 'flex items-start gap-2',
-                item.complete ? 'text-emerald-600' : 'text-muted-foreground',
+                item.complete ? 'text-success' : 'text-muted-foreground',
               )}
             >
               <span className="mt-0.5 text-xs">{item.complete ? '✓' : '·'}</span>
@@ -292,7 +292,7 @@ function VariantOptionGroupEditor({
             className="bg-background hover:border-foreground/20 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors"
           >
             {value}
-            <X className="size-3.5 text-slate-400" />
+            <X className="text-muted-foreground size-3.5" />
           </button>
         ))}
 

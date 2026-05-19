@@ -35,7 +35,7 @@ function LoadingState() {
 function EmptyState({ message }: { message: string }) {
   return (
     <SectionCard padded={false}>
-      <div className="px-5 py-10 text-center text-sm text-slate-500">{message}</div>
+      <div className="text-muted-foreground px-5 py-10 text-center text-sm">{message}</div>
     </SectionCard>
   )
 }
@@ -160,7 +160,7 @@ function OrderSummarySection({ order }: { order: OrderRecord }) {
         </div>
         <div className="bg-muted/40 rounded-2xl border p-4">
           <div className="text-muted-foreground text-xs uppercase">Order total</div>
-          <div className="mt-2 text-lg font-semibold text-orange-600">
+          <div className="text-primary mt-2 text-lg font-semibold">
             {formatOrderCurrency(order.totalAmount)}
           </div>
         </div>
@@ -211,12 +211,12 @@ function OrderItemsSection({ order }: { order: OrderRecord }) {
                       {item.productHref ? (
                         <a
                           href={item.productHref}
-                          className="hover:text-foreground inline-block truncate font-medium text-slate-900 underline-offset-4 hover:underline"
+                          className="text-foreground hover:text-foreground inline-block truncate font-medium underline-offset-4 hover:underline"
                         >
                           {item.productName}
                         </a>
                       ) : (
-                        <div className="truncate font-medium text-slate-900">
+                        <div className="text-foreground truncate font-medium">
                           {item.productName}
                         </div>
                       )}
@@ -264,9 +264,9 @@ function OrderActivityAndTotals({
                 key={log.id}
                 className="border-border flex gap-3 border-b pb-4 last:border-b-0 last:pb-0"
               >
-                <div className="mt-2 h-2.5 w-2.5 rounded-full bg-sky-500" />
+                <div className="bg-info mt-2 h-2.5 w-2.5 rounded-full" />
                 <div className="min-w-0">
-                  <div className="font-medium text-slate-900">{log.label}</div>
+                  <div className="text-foreground font-medium">{log.label}</div>
                   <div className="text-muted-foreground text-xs">{log.timestamp}</div>
                   {log.note ? (
                     <p className="text-muted-foreground mt-1 text-sm">{log.note}</p>
@@ -283,7 +283,7 @@ function OrderActivityAndTotals({
           {summaryRows.map((row) => (
             <div key={row.label} className="flex items-center justify-between gap-3">
               <span className="text-muted-foreground">{row.label}</span>
-              <span className={row.emphasized ? 'font-semibold text-slate-950' : 'font-medium'}>
+              <span className={row.emphasized ? 'text-foreground font-semibold' : 'font-medium'}>
                 {row.value}
               </span>
             </div>

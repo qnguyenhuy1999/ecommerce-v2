@@ -35,17 +35,17 @@ const moneyFormatter = new Intl.NumberFormat('en-US', {
 })
 
 const STATUS_STYLES: Record<ReturnsRefundsStatus, string> = {
-  OPEN: 'text-sky-600',
-  APPROVED: 'text-emerald-600',
-  REFUNDED: 'text-orange-600',
-  REJECTED: 'text-rose-600',
+  OPEN: 'text-info',
+  APPROVED: 'text-success',
+  REFUNDED: 'text-warning',
+  REJECTED: 'text-destructive',
 }
 
 const STATUS_DOT_STYLES: Record<ReturnsRefundsStatus, string> = {
-  OPEN: 'bg-sky-500',
-  APPROVED: 'bg-emerald-500',
-  REFUNDED: 'bg-orange-500',
-  REJECTED: 'bg-rose-500',
+  OPEN: 'bg-info',
+  APPROVED: 'bg-success',
+  REFUNDED: 'bg-warning',
+  REJECTED: 'bg-destructive',
 }
 
 const STATUS_LABELS: Record<ReturnsRefundsStatusTab, string> = {
@@ -127,7 +127,7 @@ export function createReturnsColumns(
     cell: ({ row }) => (
       <button
         type="button"
-        className="font-mono text-sm font-medium text-slate-700 hover:text-orange-600 hover:underline"
+        className="text-foreground hover:text-primary font-mono text-sm font-medium hover:underline"
         onClick={() => onSelect(row.original)}
       >
         {row.original.caseId}
@@ -139,14 +139,14 @@ export function createReturnsColumns(
     accessorKey: 'orderNumber',
     header: 'Order',
     cell: ({ row }) => (
-      <span className="font-semibold text-slate-950">{row.original.orderNumber}</span>
+      <span className="text-foreground font-semibold">{row.original.orderNumber}</span>
     ),
   }
 
   const buyerColumn: AccessorColumn = {
     accessorKey: 'buyerName',
     header: 'Buyer',
-    cell: ({ row }) => <span className="font-medium text-sky-600">{row.original.buyerName}</span>,
+    cell: ({ row }) => <span className="text-primary font-medium">{row.original.buyerName}</span>,
   }
 
   const reasonColumn: AccessorColumn = {
@@ -155,7 +155,7 @@ export function createReturnsColumns(
     cell: ({ row }) => (
       <button
         type="button"
-        className="text-left text-sm text-sky-500 hover:underline"
+        className="text-primary text-left text-sm hover:underline"
         onClick={() => onSelect(row.original)}
       >
         {row.original.reason}
@@ -167,7 +167,7 @@ export function createReturnsColumns(
     accessorKey: 'amount',
     header: 'Amount',
     cell: ({ row }) => (
-      <span className="font-semibold text-slate-950">
+      <span className="text-foreground font-semibold">
         {moneyFormatter.format(row.original.amount)}
       </span>
     ),
@@ -182,7 +182,7 @@ export function createReturnsColumns(
   const openedColumn: AccessorColumn = {
     accessorKey: 'openedAtLabel',
     header: 'Opened',
-    cell: ({ row }) => <span className="text-slate-600">{row.original.openedAtLabel}</span>,
+    cell: ({ row }) => <span className="text-muted-foreground">{row.original.openedAtLabel}</span>,
   }
 
   const columnsDefinition: ReturnsColumn[] = [
@@ -195,5 +195,5 @@ export function createReturnsColumns(
     openedColumn,
   ]
 
-  return columnsDefinition as unknown as DataTableProps<ReturnRow>['columns']
+  return columnsDefinition
 }

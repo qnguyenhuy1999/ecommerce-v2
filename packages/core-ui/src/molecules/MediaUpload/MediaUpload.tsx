@@ -54,14 +54,14 @@ function Item({ item, index }: MediaUploadItemProps) {
       />
 
       {isUploading && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 bg-black/50 px-3">
-          <span className="text-xs font-semibold text-white">{item.progress}%</span>
+        <div className="bg-foreground/50 absolute inset-0 flex flex-col items-center justify-center gap-1.5 px-3">
+          <span className="text-background text-xs font-semibold">{item.progress}%</span>
           <Progress value={item.progress} className="h-1 w-full" />
         </div>
       )}
 
       {isCover && (
-        <span className="absolute top-1.5 left-1.5 rounded-sm bg-orange-500 px-1.5 py-0.5 text-[10px] leading-none font-semibold text-white">
+        <span className="bg-primary text-primary-foreground absolute top-1.5 left-1.5 rounded-sm px-1.5 py-0.5 text-[10px] leading-none font-semibold">
           Cover
         </span>
       )}
@@ -70,7 +70,7 @@ function Item({ item, index }: MediaUploadItemProps) {
         <button
           type="button"
           onClick={() => onRemove(item.id)}
-          className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70"
+          className="bg-foreground/50 text-background hover:bg-foreground/70 absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full opacity-0 transition-opacity group-hover:opacity-100"
         >
           <X className="h-3 w-3" />
         </button>

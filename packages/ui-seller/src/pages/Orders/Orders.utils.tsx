@@ -44,12 +44,12 @@ const moneyFormatter = new Intl.NumberFormat('en-US', {
 })
 
 const STATUS_BADGE_STYLES: Record<Exclude<OrdersStatusTab, 'ALL'>, string> = {
-  TO_PAY: 'bg-amber-50 text-amber-700',
-  TO_SHIP: 'bg-sky-50 text-sky-700',
-  PACKING: 'bg-violet-50 text-violet-700',
-  SHIPPING: 'bg-indigo-50 text-indigo-700',
-  COMPLETED: 'bg-emerald-50 text-emerald-700',
-  CANCELLED: 'bg-slate-100 text-slate-600',
+  TO_PAY: 'bg-warning/10 text-warning',
+  TO_SHIP: 'bg-info/10 text-info',
+  PACKING: 'bg-primary-soft text-primary-deep',
+  SHIPPING: 'bg-accent text-accent-foreground',
+  COMPLETED: 'bg-success/10 text-success',
+  CANCELLED: 'bg-muted text-muted-foreground',
 }
 
 const STATUS_LABELS: Record<OrdersStatusTab, string> = {
@@ -64,11 +64,11 @@ const STATUS_LABELS: Record<OrdersStatusTab, string> = {
 
 function buildThumbnailClass(seed: string) {
   const palette = [
-    'from-slate-200 to-slate-300',
-    'from-stone-200 to-stone-300',
-    'from-sky-200 to-indigo-200',
-    'from-amber-200 to-orange-200',
-    'from-emerald-200 to-teal-200',
+    'from-muted to-secondary',
+    'from-accent to-secondary',
+    'from-primary-soft to-accent',
+    'from-info/15 to-secondary',
+    'from-success/15 to-secondary',
   ]
 
   const index =
@@ -158,11 +158,11 @@ const orderColumn: DisplayColumn = {
     const order = row.original
 
     return order.href ? (
-      <a href={order.href} className="font-semibold text-slate-950 hover:underline">
+      <a href={order.href} className="text-foreground font-semibold hover:underline">
         {order.orderNumber}
       </a>
     ) : (
-      <span className="font-semibold text-slate-950">{order.orderNumber}</span>
+      <span className="text-foreground font-semibold">{order.orderNumber}</span>
     )
   },
 }
@@ -180,7 +180,7 @@ const itemsColumn: DisplayColumn = {
     const additionalCount = Math.max(0, row.original.itemCount - 1)
 
     if (!firstItem) {
-      return <span className="text-slate-500">-</span>
+      return <span className="text-muted-foreground">-</span>
     }
 
     return (
@@ -193,7 +193,7 @@ const itemsColumn: DisplayColumn = {
           />
         ) : (
           <div
-            className={`flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br ${buildThumbnailClass(firstItem.productName)} text-xs font-semibold text-slate-700`}
+            className={`text-foreground flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br ${buildThumbnailClass(firstItem.productName)} text-xs font-semibold`}
           >
             {firstItem.productName
               .split(' ')
@@ -203,15 +203,15 @@ const itemsColumn: DisplayColumn = {
           </div>
         )}
         <div className="min-w-0">
-          <div className="truncate text-[15px] font-medium text-slate-950">
+          <div className="text-foreground truncate text-sm font-medium">
             {firstItem.productName}
           </div>
           <div className="mt-1 flex items-center gap-2">
             {firstItem.variantLabel ? (
-              <span className="text-sm text-slate-500">{firstItem.variantLabel}</span>
+              <span className="text-muted-foreground text-sm">{firstItem.variantLabel}</span>
             ) : null}
             {additionalCount > 0 ? (
-              <span className="inline-flex rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+              <span className="bg-muted text-muted-foreground inline-flex rounded-full px-2 py-0.5 text-xs">
                 +{additionalCount}
               </span>
             ) : null}
@@ -226,7 +226,7 @@ const totalColumn: AccessorColumn = {
   accessorKey: 'total',
   header: 'Total',
   cell: ({ row }) => (
-    <span className="font-semibold text-slate-950">
+    <span className="text-foreground font-semibold">
       {moneyFormatter.format(row.original.total)}
     </span>
   ),
@@ -243,7 +243,7 @@ const statusColumn: AccessorColumn = {
 const dateColumn: AccessorColumn = {
   accessorKey: 'createdAtLabel',
   header: 'Date',
-  cell: ({ row }) => <span className="text-slate-600">{row.original.createdAtLabel}</span>,
+  cell: ({ row }) => <span className="text-muted-foreground">{row.original.createdAtLabel}</span>,
 }
 
 const ordersColumnsDefinition: OrdersColumn[] = [

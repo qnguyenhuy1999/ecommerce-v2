@@ -39,16 +39,16 @@ export function InventoryClient({
               pressed={lowStockOnly}
               onPressedChange={setLowStockOnly}
               aria-label="Toggle low stock only"
-              className="h-9 border border-slate-200 px-3 text-sm font-medium data-[state=on]:bg-slate-100 data-[state=on]:text-slate-900"
+              className="border-input data-[state=on]:bg-muted data-[state=on]:text-foreground h-9 border px-3 text-sm font-medium"
             >
               Low stock only
             </Toggle>
             <Button
               variant="outline"
               size="sm"
-              className="h-9 gap-1 border-slate-200 text-sm font-medium"
+              className="border-input h-9 gap-1 text-sm font-medium"
             >
-              All warehouses <ChevronDown className="h-4 w-4 text-slate-500" />
+              All warehouses <ChevronDown className="text-muted-foreground h-4 w-4" />
             </Button>
           </div>
         </TableToolbar>

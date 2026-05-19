@@ -11,6 +11,8 @@
     "paths": {
       "@ecom/auth": ["../../packages/auth/src"],
       "@ecom/auth/*": ["../../packages/auth/src/*"],
+      "@ecom/config": ["../../packages/config/src"],
+      "@ecom/config/*": ["../../packages/config/src/*"],
       "@ecom/contracts": ["../../packages/contracts/src"],
       "@ecom/contracts/*": ["../../packages/contracts/src/*"],
       "@ecom/database": ["../../packages/database/src"],

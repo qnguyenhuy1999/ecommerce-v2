@@ -31,6 +31,8 @@ async function generate() {
     // Best-effort shutdown: generation already completed and close errors
     // should not mask the emitted OpenAPI artifact.
   }
+
+  process.exit(0)
 }
 
 generate().catch((err) => {

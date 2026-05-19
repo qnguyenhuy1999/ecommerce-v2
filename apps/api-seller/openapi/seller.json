@@ -822,19 +822,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -845,33 +832,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -1698,19 +1662,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -1721,33 +1672,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -2101,19 +2029,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -2124,33 +2039,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -3157,19 +3049,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -3180,33 +3059,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -3610,19 +3466,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -3633,33 +3476,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -4808,19 +4628,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -4831,33 +4638,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -5261,19 +5045,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -5284,33 +5055,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -5820,19 +5568,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -5843,33 +5578,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -6193,19 +5905,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -6216,33 +5915,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -6565,19 +6241,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -6588,33 +6251,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -7134,19 +6774,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -7157,33 +6784,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -7702,19 +7306,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -7725,33 +7316,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -8066,19 +7634,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -8089,33 +7644,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -8534,19 +8066,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -8557,33 +8076,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -9181,19 +8677,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -9204,33 +8687,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -9641,19 +9101,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -9664,33 +9111,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -10016,19 +9440,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -10039,33 +9450,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -10196,19 +9584,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -10219,33 +9594,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -11241,19 +10593,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -11264,33 +10603,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -11978,19 +11294,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -12001,33 +11304,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -12255,19 +11535,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -12278,33 +11545,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -13140,19 +12384,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -13163,33 +12394,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -13778,19 +12986,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -13801,33 +12996,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -14046,19 +13218,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -14069,33 +13228,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -14322,19 +13458,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -14345,33 +13468,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -14766,19 +13866,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -14789,33 +13876,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -16605,19 +15669,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -16628,33 +15679,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -16971,19 +15999,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -16994,33 +16009,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -17722,19 +16714,6 @@
             }
           },
           {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page (alias for limit, deprecated)",
-            "deprecated": true,
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
             "name": "sortBy",
             "required": false,
             "in": "query",
@@ -17745,33 +16724,10 @@
             }
           },
           {
-            "name": "sort",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by (alias for sortBy)",
-            "deprecated": true,
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
             "name": "sortOrder",
             "required": false,
             "in": "query",
             "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          },
-          {
-            "name": "order",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction (alias for sortOrder)",
-            "deprecated": true,
             "schema": {
               "default": "desc",
               "type": "string",
@@ -18079,12 +17035,13 @@
             "type": "string",
             "description": "User email address",
             "format": "email",
-            "example": "admin@example.com"
+            "example": "admin@marketplace.com"
           },
           "password": {
             "type": "string",
             "description": "User password",
-            "format": "password"
+            "format": "password",
+            "example": "admin123"
           }
         },
         "required": ["email", "password"]

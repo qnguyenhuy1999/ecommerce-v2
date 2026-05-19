@@ -1363,57 +1363,7 @@
     "/admin/products": {
       "get": {
         "operationId": "ProductsController_findAll",
-        "parameters": [
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "search",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "status",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": ["DRAFT", "PUBLISHED", "ARCHIVED", "REJECTED"]
-            }
-          },
-          {
-            "name": "shopId",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "categoryId",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "",
@@ -1602,57 +1552,7 @@
     "/admin/products/reports": {
       "get": {
         "operationId": "ProductsController_findReports",
-        "parameters": [
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "search",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "status",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": ["DRAFT", "PUBLISHED", "ARCHIVED", "REJECTED"]
-            }
-          },
-          {
-            "name": "shopId",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "categoryId",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "",
@@ -1851,16 +1751,6 @@
       "post": {
         "operationId": "ProductsController_bulkApprove",
         "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkModerationDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "",
@@ -1950,16 +1840,6 @@
       "post": {
         "operationId": "ProductsController_bulkReject",
         "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkModerationDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "",
@@ -2058,16 +1938,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductModerationDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "",
@@ -2166,16 +2036,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductModerationDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "",
@@ -2470,16 +2330,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResolveReportDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "",
@@ -2578,16 +2428,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResolveReportDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "",
@@ -5606,42 +5446,7 @@
     "/admin/banners": {
       "get": {
         "operationId": "BannersController_findAll",
-        "parameters": [
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "position",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": ["HERO", "HOMEPAGE_TOP", "HOMEPAGE_MIDDLE", "CAMPAIGN", "ANNOUNCEMENT"]
-            }
-          },
-          {
-            "name": "status",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": ["DRAFT", "SCHEDULED", "ACTIVE", "EXPIRED", "ARCHIVED"]
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "",
@@ -5740,16 +5545,6 @@
       "post": {
         "operationId": "BannersController_create",
         "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateBannerDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "",
@@ -5944,16 +5739,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateBannerDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "",
@@ -7768,42 +7553,6 @@
         },
         "required": ["id", "name", "slug", "description", "price", "status", "createdAt", "updatedAt"]
       },
-      "BulkModerationDto": {
-        "type": "object",
-        "properties": {
-          "ids": {
-            "description": "Product IDs to moderate",
-            "maxItems": 100,
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "note": {
-            "type": "string",
-            "description": "Optional moderation note"
-          }
-        },
-        "required": ["ids"]
-      },
-      "ProductModerationDto": {
-        "type": "object",
-        "properties": {
-          "note": {
-            "type": "string",
-            "description": "Optional moderation note"
-          }
-        }
-      },
-      "ResolveReportDto": {
-        "type": "object",
-        "properties": {
-          "adminNote": {
-            "type": "string",
-            "description": "Admin note for the resolution"
-          }
-        }
-      },
       "CategoryResponseDto": {
         "type": "object",
         "properties": {
@@ -8267,71 +8016,6 @@
           }
         },
         "required": ["id", "title", "position", "status", "imageUrl", "sortOrder", "createdAt", "updatedAt"]
-      },
-      "CreateBannerDto": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "position": {
-            "type": "string",
-            "enum": ["HERO", "HOMEPAGE_TOP", "HOMEPAGE_MIDDLE", "CAMPAIGN", "ANNOUNCEMENT"]
-          },
-          "imageUrl": {
-            "type": "string"
-          },
-          "mobileImageUrl": {
-            "type": "string"
-          },
-          "linkUrl": {
-            "type": "string"
-          },
-          "sortOrder": {
-            "type": "number"
-          },
-          "startsAt": {
-            "type": "string"
-          },
-          "endsAt": {
-            "type": "string"
-          }
-        },
-        "required": ["title", "position", "imageUrl"]
-      },
-      "UpdateBannerDto": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "position": {
-            "type": "string",
-            "enum": ["HERO", "HOMEPAGE_TOP", "HOMEPAGE_MIDDLE", "CAMPAIGN", "ANNOUNCEMENT"]
-          },
-          "status": {
-            "type": "string",
-            "enum": ["DRAFT", "SCHEDULED", "ACTIVE", "EXPIRED", "ARCHIVED"]
-          },
-          "imageUrl": {
-            "type": "string"
-          },
-          "mobileImageUrl": {
-            "type": "string"
-          },
-          "linkUrl": {
-            "type": "string"
-          },
-          "sortOrder": {
-            "type": "number"
-          },
-          "startsAt": {
-            "type": "string"
-          },
-          "endsAt": {
-            "type": "string"
-          }
-        }
       },
       "NotificationResponseDto": {
         "type": "object",

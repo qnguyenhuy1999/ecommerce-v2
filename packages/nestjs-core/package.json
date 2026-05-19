@@ -20,7 +20,7 @@
   },
   "scripts": {
     "dev": "",
-    "build": "node -e \"\"",
+    "build": "tsup",
     "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
     "type-check": "tsc --noEmit"
   },

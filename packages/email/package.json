@@ -13,7 +13,7 @@
     }
   },
   "scripts": {
-    "build": "node -e \"\"",
+    "build": "tsup",
     "dev": "tsup --watch",
     "lint": "pnpm exec eslint --no-error-on-unmatched-pattern src/",
     "type-check": "tsc --noEmit"

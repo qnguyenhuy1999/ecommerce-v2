@@ -29,6 +29,8 @@ async function generate() {
   } catch {
     // SwaggerModule.setup binds routes that may not fully close in headless mode
   }
+
+  process.exit(0)
 }
 
 generate().catch((err) => {

@@ -1,4 +1,5 @@
-import type { AdCampaignStatus, PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
+import { type AdCampaignStatus } from '@ecom/database'
 import { AdType, type Prisma } from '@ecom/database'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import type { OffsetPaginationDto } from '@ecom/shared/pagination/nestjs'

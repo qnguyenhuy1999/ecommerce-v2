@@ -1,6 +1,7 @@
 export * from './Dashboard'
 export * from './ProductDetail'
 export * from './Products'
+export * from './Promotions'
 export * from './Inventory'
 export * from './OrderDetail'
 export * from './Orders'

@@ -3,6 +3,7 @@
 
 import { useState, useCallback, useRef } from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 import { CouponStatus, CouponType } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { DataTable, StatusBadge, TableToolbar, StatusTabs } from '@ecom/core-ui'
@@ -11,7 +12,7 @@ import type { VoucherListItem } from '../api/promotions.api'
 
 const col = createColumnHelper<VoucherListItem>()
 
-const columns = [
+const columns: ColumnDef<VoucherListItem, unknown>[] = [
   col.accessor('code', {
     header: 'Code',
     cell: (info) => <span className="font-mono font-medium">{info.getValue()}</span>,

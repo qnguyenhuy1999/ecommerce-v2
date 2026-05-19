@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { DataTable, StatusBadge, StatusTabs } from '@ecom/core-ui'
 import { useBanners, useCreateBanner } from '../hooks/use-banners'
@@ -9,7 +10,7 @@ import type { BannerListItem } from '../api/banners.api'
 
 const col = createColumnHelper<BannerListItem>()
 
-const columns = [
+const columns: ColumnDef<BannerListItem, unknown>[] = [
   col.accessor('title', {
     header: 'Title',
     cell: (info) => <span className="font-medium">{info.getValue()}</span>,

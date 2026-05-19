@@ -1,47 +1,69 @@
 # Testing Standards
 
-## Test Types
+Testing in this repository is currently limited. This document separates the current state from the direction you should follow when expanding coverage.
 
-| Type              | Tool                | Location                     | Runs In         |
-| ----------------- | ------------------- | ---------------------------- | --------------- |
-| Unit tests        | Vitest              | `*.spec.ts` alongside source | `pnpm test`     |
-| Integration tests | Vitest + Supertest  | `*.integration.spec.ts`      | `pnpm test`     |
-| E2E tests         | Playwright / Vitest | `test/` directory in app     | `pnpm test:e2e` |
+## Current state
 
-## Unit Tests
+- The root script `pnpm test` exists and Turbo will run package `test` scripts where they are defined.
+- `@ecom/shared` currently has a real `test` script using Vitest.
+- `packages/shared/src/pagination/core/__tests__/cursor-stability.test.ts` is the clearest example of the existing test style.
+- `packages/database` contains test files, but the package does not currently expose a `test` script in `package.json`.
+- There is a root `pnpm test:e2e` script, but there are no active package-level `test:e2e` scripts or a committed end-to-end test harness in the current tree.
 
-- Test business logic in isolation (services, utilities, hooks)
-- Mock external dependencies (database, HTTP clients, Redis)
-- One assertion per test when possible
-- Use descriptive test names: `it('should throw BusinessRuleError when stock is insufficient')`
+## What this means in practice
 
-## Integration Tests
+When you touch code:
 
-- Test controller + service + database together
-- Use a test database (seeded per test suite)
-- Verify the full request/response cycle including validation and error handling
+- update existing tests if behavior changes
+- add tests in packages that already support them
+- do not claim end-to-end coverage that does not exist
+- call out testing gaps explicitly in the PR when you cannot cover a change
 
-## What to Test
+## Preferred tools
 
-- ✅ Business rules and edge cases
-- ✅ Error paths and validation failures
-- ✅ Data transformations and mappings
-- ✅ Authorization logic
-- ❌ Framework boilerplate (NestJS module wiring)
-- ❌ Simple CRUD with no business logic
-- ❌ Third-party library internals
+- Vitest for package and utility tests
+- package-local test files near the code or under a focused `__tests__` folder
 
-## Naming Convention
+## File naming
 
-```
-<module>.spec.ts          # Unit test
-<module>.integration.spec.ts  # Integration test
-```
+Current examples in the repo:
 
-## Running Tests
+- `*.test.ts`
+- `*.service.test.ts`
+
+Use the naming convention already present in the package you are editing.
+
+## What to prioritize
+
+- pagination logic
+- shared utilities
+- auth/session helpers
+- service-level business rules
+- data-shaping and mapping logic
+- bug fixes that are easy to regress
+
+## What not to over-test
+
+- passive module wiring with no real logic
+- boilerplate re-exports
+- third-party library behavior
+
+## Recommended direction for new coverage
+
+If you add meaningful logic to a package with no test script yet:
+
+1. add a package-local `test` script
+2. use Vitest unless there is a strong reason not to
+3. keep tests close to the module being exercised
+4. make the package runnable through the root Turbo `pnpm test` flow
+
+## Commands
+
+Current reliable commands:
 
 ```bash
-pnpm test                 # All unit tests (via Turbo)
-pnpm test:e2e             # All E2E tests (via Turbo)
-pnpm --filter @ecom/shared test  # Single package
+pnpm test
+pnpm --filter @ecom/shared test
 ```
+
+Treat `pnpm test:e2e` as reserved workflow infrastructure until actual e2e packages are added.

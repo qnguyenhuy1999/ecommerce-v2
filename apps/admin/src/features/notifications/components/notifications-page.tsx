@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 import { NotificationStatus } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { DataTable, StatusBadge, StatusTabs } from '@ecom/core-ui'
@@ -14,7 +15,7 @@ import type { NotificationListItem } from '../api/notifications.api'
 
 const col = createColumnHelper<NotificationListItem>()
 
-const columns = [
+const columns: ColumnDef<NotificationListItem, unknown>[] = [
   col.accessor('title', {
     header: 'Title',
     cell: (info) => <span className="font-medium">{info.getValue()}</span>,

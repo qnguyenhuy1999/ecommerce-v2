@@ -1,83 +1,257 @@
 # Folder Structure Conventions
 
-## NestJS Apps (`apps/api-*`)
+This document describes the patterns that exist in the repository today. Use the nearest existing pattern in the same app or package instead of forcing one universal layout everywhere.
 
-Each module follows this structure:
+## NestJS apps
 
-```
+### `apps/api-admin`
+
+`api-admin` is organized by domain module:
+
+```text
 src/
-├── <module>/
-│   ├── <module>.controller.ts    # HTTP layer — route handlers
-│   ├── <module>.service.ts       # Business logic
-│   ├── <module>.module.ts        # NestJS module definition
-│   ├── dto/                      # Request/response DTOs (class-validator)
-│   │   ├── create-<entity>.dto.ts
-│   │   └── update-<entity>.dto.ts
-│   ├── mappers/                  # Entity ↔ DTO transformations (optional)
-│   └── policies/                 # Authorization policies (optional)
-├── common/
-│   ├── decorators/               # Custom decorators
-│   ├── guards/                   # Auth guards
-│   └── pipes/                    # Custom pipes
-├── app.module.ts
-└── main.ts
+  auth/
+    decorators/
+    guards/
+    auth.controller.ts
+    auth.module.ts
+    auth.service.ts
+    session.provider.ts
+  common/
+    decorators/
+    interceptors/
+  <domain>/
+    dto/
+    <domain>.controller.ts
+    <domain>.module.ts
+    <domain>.service.ts
+  app.module.ts
+  generate-openapi.ts
+  main.ts
 ```
 
-## Next.js Apps (`apps/storefront`, `apps/seller`, `apps/admin`)
+Examples of domain folders: `users`, `sellers`, `products`, `reviews`, `refunds`, `dashboard`, `banners`, `notifications`, `categories`, `promotions`, `audit-logs`.
 
-```
+### `apps/api-seller`
+
+`api-seller` follows the same domain-first layout, but it also includes specialized subfolders where needed:
+
+```text
 src/
-├── app/                          # Next.js App Router pages
-│   ├── (dashboard)/              # Route groups
-│   └── layout.tsx
-├── features/                     # Domain-specific feature modules
-│   └── <feature>/
-│       ├── components/           # Feature-specific components
-│       ├── hooks/                # Feature-specific hooks
-│       ├── api/                  # API call functions (fetchX)
-│       └── types.ts              # Feature-specific types
-├── components/                   # Shared app-level components (layout, etc.)
-├── lib/                          # App-level utilities (api client, query-client)
-├── providers/                    # React context providers
-└── middleware.ts                 # Next.js middleware
+  auth/
+    decorators/
+    dto/
+    guards/
+  common/
+    config/
+  queue/
+    processors/
+  order/
+    dto/
+    repositories/
+  chat/
+    dto/
+    chat.gateway.ts
+  email/
+    templates/
+  <domain>/
+    dto/
+    <domain>.controller.ts
+    <domain>.module.ts
+    <domain>.service.ts
+  app.module.ts
+  generate-openapi.ts
+  main.ts
 ```
 
-## Packages
+Use feature-local `repositories/`, `templates/`, or `processors/` folders only when a module actually needs them.
 
-```
-packages/
-├── shared/                       # Leaf — universal primitives
-│   └── src/
-│       ├── constants/            # Exported constants (cache-keys, events, queues, etc.)
-│       ├── errors/               # Typed error classes (AppError, ValidationError, etc.)
-│       ├── pagination/           # Layered pagination (core, prisma, react, nestjs)
-│       └── utils/                # Pure utility functions
-├── contracts/                    # Leaf — domain types & enums
-│   └── src/
-│       ├── enums/                # All domain enums
-│       ├── http/                 # ApiResponse, ApiErrorResponse types
-│       ├── product/              # Product-related contracts
-│       ├── order/                # Order-related contracts
-│       ├── auth/                 # Auth-related contracts
-│       └── common/               # Shared DTO base classes
-├── nestjs-core/                  # NestJS infrastructure
-│   └── src/
-│       ├── nestjs/               # Filters, interceptors, logger module
-│       └── openapi/              # Swagger document builder
-├── core-ui/                      # Base React component library
-│   └── src/
-│       ├── components/           # Reusable UI components
-│       ├── tokens/               # Design tokens (spacing, radius, shadow, z-index, typography)
-│       ├── providers/            # Theme provider
-│       └── styles/               # Global CSS
-└── config/                       # Runtime config, ESLint flat configs, Prettier/commitlint, TS presets
-    └── src/tooling/              # Shared tooling config sources
+### `apps/api-storefront`
+
+`api-storefront` is currently much smaller and centered on auth:
+
+```text
+src/
+  auth/
+    decorators/
+    guards/
+    auth.controller.ts
+    auth.module.ts
+    auth.service.ts
+    session.provider.ts
+  email/
+    templates/
+  app.module.ts
+  generate-openapi.ts
+  main.ts
 ```
 
-## Dependency Boundaries (enforced)
+## Next.js apps
 
-- `shared` and `contracts` are **leaves** — no internal imports allowed
-- UI packages cannot import `@ecom/database`, `@ecom/nestjs-core`, or server pagination layers
-- Backend packages cannot import `@ecom/shared/pagination/react`
-- `@ecom/contracts` cannot import `@nestjs/swagger`
-- No circular dependencies (enforced by `madge` and `dependency-cruiser`)
+### `apps/admin`
+
+`admin` is the strongest example of the current frontend structure:
+
+```text
+src/
+  app/
+    (dashboard)/
+    login/
+    layout.tsx
+    page.tsx
+  components/
+    layout/
+  features/
+    <feature>/
+      api/
+      components/
+      hooks/
+      schemas/      optional
+  lib/
+    api.ts
+    api-types.ts
+    query-client.tsx
+  providers/
+  middleware.ts
+```
+
+Use `features/<feature>/` when the code has its own API calls, hooks, and UI composition.
+
+### `apps/seller`
+
+`seller` is flatter than `admin`:
+
+```text
+src/
+  app/
+    <route>/page.tsx
+    layout.tsx
+    page.tsx
+  components/
+  hooks/
+  lib/
+    api.ts
+  middleware/
+  providers/
+  middleware.ts
+```
+
+Most seller routes render app-local components directly today.
+
+### `apps/storefront`
+
+`storefront` is currently minimal:
+
+```text
+src/
+  app/
+    layout.tsx
+    page.tsx
+  hooks/
+  middleware/
+  providers/
+  middleware.ts
+```
+
+Do not invent a deeper feature structure in `storefront` unless the app actually grows into it.
+
+## Shared packages
+
+### `packages/core-ui`
+
+`core-ui` is the main UI reference for package layout:
+
+```text
+src/
+  atoms/
+  molecules/
+  organisms/
+  layouts/
+  primitives/
+    ui/
+  hooks/
+  lib/
+  providers/
+  styles/
+  tokens/
+  index.ts
+```
+
+### `packages/ui-seller`
+
+`ui-seller` is page-oriented instead of atomic:
+
+```text
+src/
+  layouts/
+  pages/
+    <PageName>/
+  styles/
+  index.ts
+```
+
+### `packages/ui-admin` and `packages/ui-storefront`
+
+These packages currently contain lightweight shells:
+
+```text
+src/
+  lib/
+  styles/
+  index.ts
+```
+
+Add app-specific reusable UI here only when it is shared enough to justify package ownership.
+
+### Utility and platform packages
+
+Common current layouts:
+
+```text
+packages/shared/src/
+  constants/
+  errors/
+  pagination/
+    core/
+    nestjs/
+    prisma/
+    react/
+  utils/
+
+packages/contracts/src/
+  auth/
+  common/
+  enums/
+  generated/
+  http/
+  order/
+  product/
+
+packages/config/src/
+  env/
+  tooling/
+
+packages/nestjs-core/src/
+  nestjs/
+  openapi/
+
+packages/database/src/
+  client.ts
+  prisma.service.ts
+  database.module.ts
+  generated/
+
+packages/auth/src/
+  next/
+  session.service.ts
+  cookie.config.ts
+  helpers.ts
+```
+
+## Practical rule
+
+Before creating a new folder:
+
+1. find the closest existing example in the same app or package
+2. follow that local pattern
+3. only introduce a new structural pattern when repeated use justifies it

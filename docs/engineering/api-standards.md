@@ -1,83 +1,121 @@
 # API Standards
 
-## Response Shape
+This document describes the API conventions implemented in the current NestJS apps.
 
-All API responses follow the `ApiResponse` contract from `@ecom/contracts`:
+## Runtime response shape
 
-```typescript
-// Success response
+Successful responses are normalized by `ResponseInterceptor` from `@ecom/nestjs-core`.
+
+Primary response types live in `@ecom/contracts/http`:
+
+```ts
 interface ApiSuccessResponse<T> {
   success: true
+  message?: string
   data: T
+  meta?: Record<string, unknown>
   timestamp: string
 }
 
-// Error response
-interface ApiErrorResponse {
-  success: false
-  error: {
-    code: string // Machine-readable error code (e.g., "VALIDATION_ERROR")
-    message: string // Human-readable message
-    details?: unknown // Additional context (validation errors array, etc.)
+interface ApiPaginatedSuccessResponse<T> {
+  success: true
+  message?: string
+  data: { items: T[] }
+  meta: {
+    total: number
+    page: number
+    limit: number
+    totalPages: number
+    hasNextPage: boolean
+    hasPreviousPage: boolean
   }
   timestamp: string
 }
+
+interface ApiErrorResponse {
+  success: false
+  message: string
+  error: {
+    code: string
+    message: string
+    details?: unknown
+  }
+  statusCode: number
+  timestamp: string
+  path: string
+}
 ```
 
-## Error Codes
+Return plain domain data from controllers and services. Let the interceptor wrap it.
 
-Use typed error classes from `@ecom/shared/errors`:
+## Validation and error handling
 
-| Error Class            | HTTP Status | Code                                |
-| ---------------------- | ----------- | ----------------------------------- |
-| `ValidationError`      | 400         | `VALIDATION_ERROR`                  |
-| `NotFoundError`        | 404         | `NOT_FOUND`                         |
-| `PermissionError`      | 403         | `PERMISSION_DENIED`                 |
-| `BusinessRuleError`    | 422         | Custom (e.g., `INSUFFICIENT_STOCK`) |
-| `ExternalServiceError` | 502         | `EXTERNAL_SERVICE_ERROR`            |
-| `AppError` (base)      | 500         | `APP_ERROR`                         |
+All API apps currently enable:
+
+- `ValidationPipe`
+  - `whitelist: true`
+  - `forbidNonWhitelisted: true`
+  - `transform: true`
+- `AllExceptionsFilter`
+
+Use `class-validator` DTOs for request validation. Use typed errors from `@ecom/shared/errors` for domain failures when possible.
 
 ## Pagination
 
-Paginated endpoints use the shared pagination utilities from `@ecom/shared/pagination`:
+The repo already contains shared pagination helpers in `@ecom/shared/pagination`:
 
-```typescript
-// Request query params
-interface PaginationQuery {
-  page?: number // 1-based, default 1
-  limit?: number // default 20, max 100
-  sortBy?: string
-  sortOrder?: 'asc' | 'desc'
-}
+- `core` for shared types and builders
+- `nestjs` for DTOs
+- `prisma` for query helpers
+- `react` for client-side helpers
 
-// Response wrapper
-interface PaginatedResponse<T> {
-  items: T[]
-  meta: {
-    page: number
-    limit: number
-    total: number
-    totalPages: number
-    hasNext: boolean
-    hasPrev: boolean
-  }
-}
+Query DTOs usually extend shared Nest pagination DTOs such as `OffsetPaginationDto`.
+
+## Authentication model
+
+Current browser-facing auth is session-cookie based, not pure bearer-token based.
+
+- the session cookie name is `sid`
+- cookie behavior comes from `@ecom/auth/getSessionCookieOptions`
+- frontend fetches use `credentials: 'include'`
+- guards resolve session data from the incoming request
+
+JWT-related environment variables exist, but the main request flow in the current apps is based on session cookies and guard/session providers.
+
+## OpenAPI
+
+Each API app generates its own Swagger document through `buildSwaggerDocument` from `@ecom/nestjs-core/openapi`.
+
+Current JSON output targets:
+
+- `apps/api-storefront/openapi/storefront.json`
+- `apps/api-seller/openapi/seller.json`
+- `apps/api-admin/openapi/admin.json`
+
+Regenerate them with:
+
+```bash
+pnpm openapi:sync
 ```
 
-## Validation
+That command runs Swagger generation and refreshes generated contract types.
 
-- Use `class-validator` decorators on DTOs
-- Global `ValidationPipe` with `whitelist: true` and `forbidNonWhitelisted: true`
-- Validation errors are automatically formatted by `AllExceptionsFilter`
+## Route conventions
 
-## Authentication
+- `api-admin` uses a global `/admin` prefix
+- `api-seller` routes are mounted without a global prefix
+- `api-storefront` routes are mounted without a global prefix
 
-- JWT-based with access + refresh tokens
-- Access token in `Authorization: Bearer <token>` header
-- Refresh token in HTTP-only cookie
-- Guards applied per-route or per-controller
+Swagger UI paths:
 
-## Versioning
+- storefront API: `/api/docs`
+- seller API: `/docs`
+- admin API: `/docs`
 
-- No URL versioning currently — breaking changes detected via OpenAPI diff in CI
-- Future: prefix versioning (`/v2/...`) when needed
+## Controller guidance
+
+- keep controllers thin
+- use DTOs for request shape
+- use guards and decorators for auth and permissions
+- return service results directly unless a response needs cookie or header handling
+- use `@ecom/nestjs-core/openapi` decorators for response documentation

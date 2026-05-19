@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 import { OrderStatus } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { DataTable, StatusBadge, TableToolbar, StatusTabs } from '@ecom/core-ui'
@@ -11,7 +12,7 @@ import type { OrderListItem } from '../api/orders.api'
 
 const col = createColumnHelper<OrderListItem>()
 
-const columns = [
+const columns: ColumnDef<OrderListItem, unknown>[] = [
   col.accessor('id', {
     header: 'Order ID',
     cell: (info) => (

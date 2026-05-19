@@ -1,506 +1,106 @@
-````md
-# UI Packages — Conventions
+# UI Packages Conventions
 
-This document is for both humans and AI agents. Keep components consistent, reusable, and easy to place in the right package.
+This repository has one mature shared UI package and three app-facing UI packages at different stages of adoption.
 
-Applies to:
+## Package roles
 
-- `@ecom/core-ui`
-- `@ecom/ui-seller`
-- `@ecom/ui-admin`
-- `@ecom/ui-storefront`
+| Package               | Current role                                                                                                             |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `@ecom/core-ui`       | Main design-system package with reusable primitives, composed components, layouts, tokens, styles, and Storybook stories |
+| `@ecom/ui-seller`     | Seller-specific layouts and page compositions                                                                            |
+| `@ecom/ui-admin`      | Admin UI package shell, currently minimal                                                                                |
+| `@ecom/ui-storefront` | Storefront UI package shell, currently minimal                                                                           |
 
----
+## Dependency direction
 
-## 1. Package responsibilities
+Use this direction:
 
-| Package               | Responsibility                                                      |
-| --------------------- | ------------------------------------------------------------------- |
-| `@ecom/core-ui`       | Shared primitives, design tokens, and generic reusable components   |
-| `@ecom/ui-seller`     | Seller console components, layouts, and domain-specific UI          |
-| `@ecom/ui-admin`      | Admin panel components, layouts, and domain-specific UI             |
-| `@ecom/ui-storefront` | Buyer-facing storefront components, layouts, and domain-specific UI |
-
-### Dependency direction
-
-App UI packages may depend on `@ecom/core-ui`.
-
-They must not depend on each other.
-
-```txt
+```text
 @ecom/core-ui
-    ↑         ↑         ↑
-ui-seller  ui-admin  ui-storefront
-```
-````
-
-Always import shared primitives from `@ecom/core-ui`.
-
-```tsx
-// Good
-import { Button, Card, Input } from '@ecom/core-ui'
-
-// Bad
-import { Button } from '@ecom/ui-admin'
+  ^
+  +-- @ecom/ui-seller
+  +-- @ecom/ui-admin
+  +-- @ecom/ui-storefront
 ```
 
----
+Do not make the app UI packages depend on each other.
 
-## 2. Context scenario
+## What belongs in `@ecom/core-ui`
 
-The same product concept appears in different apps, but each app owns different domain behavior.
+Put code in `@ecom/core-ui` when it is:
 
-| Area           | Package               | Example                 | Domain behavior                             |
-| -------------- | --------------------- | ----------------------- | ------------------------------------------- |
-| Seller console | `@ecom/ui-seller`     | `SellerProductTable`    | Edit product, update stock, publish product |
-| Admin panel    | `@ecom/ui-admin`      | `AdminProductTable`     | Approve, reject, suspend, view seller       |
-| Storefront     | `@ecom/ui-storefront` | `StorefrontProductCard` | View product, price, rating, add to cart    |
+- generic across more than one app
+- not tied to seller-only or admin-only business behavior
+- useful as a design-system primitive or composition
 
-Shared UI such as `Button`, `Badge`, `Card`, `Table`, and `Input` should come from `@ecom/core-ui`.
+Current structure:
 
----
-
-## 3. Folder structure
-
-Each UI package follows the same structure.
-
-```txt
+```text
 src/
-├── atoms/        # Smallest UI primitives
-├── molecules/    # Small compositions of atoms
-├── organisms/    # Full UI sections
-├── layouts/      # Page shells and layout templates
-├── pages/        # Page-level compositions, rarely used
-├── hooks/        # UI-specific React hooks
-├── lib/          # Utilities such as cn, formatters, mappers
-└── styles/       # Package-level CSS
+  atoms/
+  molecules/
+  organisms/
+  layouts/
+  primitives/ui/
+  hooks/
+  lib/
+  providers/
+  styles/
+  tokens/
 ```
 
----
+Examples already in the package:
 
-## 4. Layer rules
+- primitives such as `button`, `input`, `card`, `table`, `sheet`, `select`
+- composed components such as `DataTable`, `Sidebar`, `StatCard`, `Timeline`, `Tooltip`
+- layouts such as `ConsoleLayout` and `ConsolePageLayout`
 
-| Layer       | Use for                      | Rules                                               |
-| ----------- | ---------------------------- | --------------------------------------------------- |
-| `atoms`     | Smallest UI units            | Single responsibility, no business logic            |
-| `molecules` | Small compositions           | Compose atoms, may have limited local UI state      |
-| `organisms` | Self-contained page sections | Compose atoms/molecules, may know domain data shape |
-| `layouts`   | Full-page shells             | Accept `children`, no business logic                |
+## What belongs in `@ecom/ui-seller`
 
-Examples:
+Put code in `@ecom/ui-seller` when it is clearly seller-facing and reusable across seller pages, but not generic enough for `@ecom/core-ui`.
 
-```txt
-atoms:      Button, Input, Badge, Avatar
-molecules:  SearchInput, FormField, UserMenu
-organisms:  ProductTable, OrderSummary, SellerHeader
-layouts:    SellerDashboardLayout, AdminConsoleLayout
+Current structure:
+
+```text
+src/
+  layouts/
+  pages/
+    Dashboard/
+    ProductDetail/
+    Products/
+  styles/
 ```
 
-Decision guide:
+This package is page-composition oriented today. Follow that pattern unless there is a strong reason to refactor it.
 
-- If it is a primitive, use `atoms`.
-- If it combines primitives, use `molecules`.
-- If it owns a full section of a page, use `organisms`.
-- If it wraps the page, use `layouts`.
+## What belongs in `@ecom/ui-admin` and `@ecom/ui-storefront`
 
----
+These packages are currently thin:
 
-## 5. Compound components
-
-Use compound components when a component has multiple related parts and needs a flexible API.
-
-### Example
-
-```tsx
-<Card>
-  <Card.Header>
-    <Card.Title>Product details</Card.Title>
-  </Card.Header>
-
-  <Card.Content>Product information goes here.</Card.Content>
-
-  <Card.Footer>
-    <Button>Save</Button>
-  </Card.Footer>
-</Card>
+```text
+src/
+  lib/
+  styles/
+  index.ts
 ```
 
-### When to use
+Use them only when you are extracting reusable app-specific UI out of `apps/admin` or `apps/storefront`. Do not create package churn for one-off components.
 
-Use compound components for:
+## Naming and structure guidance
 
-- Components with named sections
-- Components with shared internal state or context
-- Components that would otherwise have too many props
-- Reusable UI patterns that need flexible composition
+- In apps, route and feature components commonly use kebab-case filenames.
+- In UI packages, component directories and files commonly use PascalCase.
+- Keep stories next to the component in shared UI packages when Storybook coverage exists.
+- Keep package `index.ts` exports intentional. Do not export internal helpers by default.
 
-Good examples:
+## Styling
 
-```txt
-Card
-Modal
-Tabs
-Dropdown
-FormField
-DataTable
-PageHeader
-```
+- Shared base styles live in each package under `src/styles/globals.css`.
+- `@ecom/core-ui` is the source of design tokens.
+- Prefer reusing existing primitives and layout helpers before adding new visual patterns.
 
-Avoid compound components when:
+## Placement rule of thumb
 
-- The component is simple
-- Props are clearer
-- There is only one valid structure
-- Children do not share context or state
-
----
-
-## 6. Compound component context scenario
-
-### Problem
-
-A `DataTable` is needed in many places:
-
-- Seller product list
-- Admin product moderation
-- Customer list
-- Order history
-
-A prop-heavy API becomes hard to maintain.
-
-```tsx
-<DataTable
-  title="Products"
-  columns={columns}
-  rows={rows}
-  filters={filters}
-  actions={actions}
-  emptyText="No products found"
-  pagination={pagination}
-  showToolbar
-  showSearch
-  showFilters
-  showPagination
-/>
-```
-
-### Prefer compound API
-
-```tsx
-<DataTable data={products}>
-  <DataTable.Toolbar>
-    <SearchInput placeholder="Search products" />
-    <ProductStatusFilter />
-  </DataTable.Toolbar>
-
-  <DataTable.Content columns={columns} />
-
-  <DataTable.Empty>No products found.</DataTable.Empty>
-
-  <DataTable.Pagination />
-</DataTable>
-```
-
-This keeps the structure consistent while allowing each app to control its own content.
-
----
-
-## 7. Compound components with context
-
-Use React context only when child components need shared data from the parent.
-
-Good use cases:
-
-- Shared IDs
-- Accessibility attributes
-- Selected state
-- Open/closed state
-- Validation state
-- Parent-level config
-
-Example:
-
-```tsx
-<FormField id="email" error="Email is required">
-  <FormField.Label>Email</FormField.Label>
-  <FormField.Input placeholder="Enter your email" />
-  <FormField.Error />
-</FormField>
-```
-
-The parent provides `id` and `error` through context, so children do not need repeated props.
-
-### Context rule
-
-If a child component must be used inside a parent, throw a clear error.
-
-```ts
-throw new Error('FormField compound components must be used inside <FormField>.')
-```
-
----
-
-## 8. Where compound components live
-
-| Type                        | Package               | Examples                                      |
-| --------------------------- | --------------------- | --------------------------------------------- |
-| Generic reusable pattern    | `@ecom/core-ui`       | `Card`, `Modal`, `Tabs`, `FormField`, `Table` |
-| Seller-specific pattern     | `@ecom/ui-seller`     | `SellerProductTable`, `SellerOnboardingSteps` |
-| Admin-specific pattern      | `@ecom/ui-admin`      | `AdminModerationTable`, `AdminUserPanel`      |
-| Storefront-specific pattern | `@ecom/ui-storefront` | `ProductGallery`, `CheckoutSummary`           |
-
-Rule:
-
-- If it is generic, put it in `@ecom/core-ui`.
-- If it contains domain logic, put it in the matching app UI package.
-
----
-
-## 9. File naming
-
-| File                        | Use for                                    |
-| --------------------------- | ------------------------------------------ |
-| `ComponentName.tsx`         | Default component, server-safe if possible |
-| `ComponentName.client.tsx`  | Client component requiring `'use client'`  |
-| `ComponentName.context.tsx` | React context for a component family       |
-| `ComponentName.types.ts`    | Shared types and interfaces                |
-| `ComponentName.utils.ts`    | Pure helpers and defaults                  |
-| `ComponentName.fixtures.ts` | Static data for stories/tests              |
-| `ComponentName.stories.tsx` | Storybook stories                          |
-| `index.ts`                  | Barrel exports                             |
-
-Each component lives in its own folder.
-
-```txt
-src/<layer>/<ComponentName>/
-├── ComponentName.tsx
-├── ComponentName.types.ts
-├── ComponentName.stories.tsx
-└── index.ts
-```
-
-For compound components with context:
-
-```txt
-src/<layer>/<ComponentName>/
-├── ComponentName.tsx
-├── ComponentName.context.tsx
-├── ComponentName.types.ts
-├── ComponentName.stories.tsx
-└── index.ts
-```
-
-Only add files that are needed.
-
----
-
-## 10. Server vs client components
-
-Default to server components.
-
-Add `'use client'` only when the component directly needs:
-
-- `useState`
-- `useReducer`
-- `useEffect`
-- `useLayoutEffect`
-- Browser APIs
-- Client-side context
-- Client-side event handlers
-
-Do not add `'use client'` to:
-
-- Components that only render markup
-- Components that only pass props down
-- Layout shells
-- Server-safe components
-
----
-
-## 11. Client island pattern
-
-A server component may render a client component as an isolated interactive island.
-
-```tsx
-// ServerSection.tsx
-import { ClientDropdown } from './ClientDropdown.client'
-
-export function ServerSection({ items }: { items: string[] }) {
-  return (
-    <section>
-      <h2>Section</h2>
-      <ClientDropdown items={items} />
-    </section>
-  )
-}
-```
-
-```tsx
-// ClientDropdown.client.tsx
-'use client'
-
-export function ClientDropdown({ items }: { items: string[] }) {
-  return (
-    <select>
-      {items.map((item) => (
-        <option key={item}>{item}</option>
-      ))}
-    </select>
-  )
-}
-```
-
-When a component family has both server and client parts, split them:
-
-```txt
-ComponentName.tsx          # Server shell
-ComponentName.client.tsx   # Client island
-ComponentName.context.tsx  # Client context, if needed
-ComponentName.types.ts     # Shared types
-```
-
----
-
-## 12. Adding a component
-
-1. Choose the package.
-2. Choose the layer.
-3. Decide whether it should be a compound component.
-4. Create `src/<layer>/<ComponentName>/`.
-5. Add implementation, types, stories, and exports.
-6. Export from the package `src/index.ts`.
-
-### Package decision
-
-Use `@ecom/core-ui` when the component is generic.
-
-Use an app UI package when the component contains domain-specific behavior.
-
-### Compound decision
-
-Use compound style for structured component families.
-
-```tsx
-<PageHeader>
-  <PageHeader.Breadcrumbs />
-  <PageHeader.Title>Products</PageHeader.Title>
-  <PageHeader.Actions>
-    <Button>Add product</Button>
-  </PageHeader.Actions>
-</PageHeader>
-```
-
-Use simple props for simple components.
-
-```tsx
-<Avatar src={user.avatarUrl} alt={user.name} />
-```
-
----
-
-## 13. Storybook
-
-Each package has its own Storybook instance.
-
-```bash
-pnpm --filter @ecom/<package-name> storybook
-```
-
-Stories live next to the component.
-
-```txt
-ComponentName.stories.tsx
-```
-
-Use autodocs.
-
-```tsx
-const meta = {
-  title: 'Molecules/FormField',
-  component: FormField,
-  tags: ['autodocs'],
-}
-
-export default meta
-```
-
-For compound components, show real usage.
-
-```tsx
-export const Default = {
-  render: () => (
-    <FormField id="email" error="Email is required">
-      <FormField.Label>Email</FormField.Label>
-      <FormField.Input placeholder="Enter your email" />
-      <FormField.Error />
-    </FormField>
-  ),
-}
-```
-
-Recommended story scenarios:
-
-```txt
-Default
-WithError
-Disabled
-Required
-LongContent
-```
-
----
-
-## 14. Type-check and lint
-
-```bash
-pnpm --filter @ecom/<package-name> type-check
-pnpm --filter @ecom/<package-name> lint
-
-pnpm type-check
-pnpm lint
-```
-
-TypeScript rules:
-
-- Use strict TypeScript.
-- Do not use `any`.
-- Use `unknown` with type guards when the shape is unknown.
-
-```ts
-function isProduct(value: unknown): value is Product {
-  return typeof value === 'object' && value !== null && 'id' in value && 'name' in value
-}
-```
-
----
-
-## 15. Quick rules for agents
-
-When generating or editing UI code:
-
-1. Reuse primitives from `@ecom/core-ui`.
-2. Do not create cross-dependencies between app UI packages.
-3. Put generic components in `@ecom/core-ui`.
-4. Put domain-specific components in the matching app package.
-5. Default to server components.
-6. Use `'use client'` only when required.
-7. Use compound components for flexible component families.
-8. Use context only when children need shared parent state/config.
-9. Add Storybook stories next to the component.
-10. Do not use `any`.
-
----
-
-## 16. Summary
-
-Keep UI packages separated by responsibility.
-
-Use `@ecom/core-ui` for shared primitives and generic patterns.
-
-Use app UI packages for domain-specific UI.
-
-Prefer server components.
-
-Use client components only for interactivity.
-
-Use compound components when a component has multiple related parts and needs flexible composition.
+1. If the component is generic and reusable across apps, start in `@ecom/core-ui`.
+2. If it is seller-specific and likely reused across seller pages, use `@ecom/ui-seller`.
+3. If it is only used once or tightly coupled to one route, keep it in the app for now.

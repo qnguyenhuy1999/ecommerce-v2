@@ -26,25 +26,25 @@ export function DashboardPage() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <MetricCard
-          title="Total Users"
+          label="Total Users"
           value={data?.totalUsers ?? 0}
           icon={Users}
           loading={isLoading}
         />
         <MetricCard
-          title="Total Sellers"
+          label="Total Sellers"
           value={data?.totalSellers ?? 0}
           icon={Store}
           loading={isLoading}
         />
         <MetricCard
-          title="Active Sellers"
+          label="Active Sellers"
           value={data?.activeSellers ?? 0}
           icon={UserCheck}
           loading={isLoading}
         />
         <MetricCard
-          title="Pending Approvals"
+          label="Pending Approvals"
           value={data?.pendingSellers ?? 0}
           icon={Clock}
           description="Sellers awaiting review"
@@ -54,26 +54,26 @@ export function DashboardPage() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <MetricCard
-          title="Total Orders"
+          label="Total Orders"
           value={data?.totalOrders ?? 0}
           icon={ShoppingCart}
           loading={isLoading}
         />
         <MetricCard
-          title="Total Products"
+          label="Total Products"
           value={data?.totalProducts ?? 0}
           icon={Package}
           loading={isLoading}
         />
         <MetricCard
-          title="Pending Refunds"
+          label="Pending Refunds"
           value={data?.pendingRefunds ?? 0}
           icon={RotateCcw}
           description="Refunds awaiting review"
           loading={isLoading}
         />
         <MetricCard
-          title="Total Reviews"
+          label="Total Reviews"
           value={data?.totalReviews ?? 0}
           icon={Star}
           loading={isLoading}

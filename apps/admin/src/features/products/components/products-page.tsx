@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 import { ProductStatus } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { DataTable, StatusBadge, TableToolbar, StatusTabs } from '@ecom/core-ui'
@@ -16,7 +17,7 @@ import type { ProductListItem } from '../api/products.api'
 
 const col = createColumnHelper<ProductListItem>()
 
-const columns = [
+const columns: ColumnDef<ProductListItem, unknown>[] = [
   col.display({
     id: 'select',
     header: ({ table }) => (

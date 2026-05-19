@@ -1,42 +1,86 @@
 # Backend Standards
 
-## Module Structure
+These standards reflect the current NestJS codebase in `apps/api-admin`, `apps/api-seller`, and `apps/api-storefront`.
 
-Every NestJS module follows the controller → service → repository pattern:
+## Bootstrap baseline
 
-- **Controller**: HTTP concerns only (parsing params, calling service, returning response)
-- **Service**: Business logic, orchestration, validation
-- **Repository**: Data access (thin Prisma wrappers when needed)
+Each API app currently does the following in `main.ts`:
 
-## Error Handling
+- creates the Nest app with `NestFactory.create`
+- enables `cookie-parser`
+- enables CORS with `credentials: true`
+- installs a global `ValidationPipe`
+- installs `AllExceptionsFilter`
+- installs `ResponseInterceptor`
+- builds Swagger output through `buildSwaggerDocument`
+- reads ports and CORS defaults from `@ecom/config`
 
-- Throw typed errors from `@ecom/shared/errors` — never raw `Error` or string literals
-- `AllExceptionsFilter` in `@ecom/nestjs-core` maps them to the `ApiErrorResponse` shape
-- Log 5xx errors automatically; 4xx errors are informational (not logged as errors)
+Start new backend behavior from that baseline instead of inventing app-specific bootstrapping.
 
-## Logging
+## Module design
 
-- Use `EcomLoggerModule` from `@ecom/nestjs-core` (Pino-based)
-- Import `Logger` from `@nestjs/common` in services: `private readonly logger = new Logger(MyService.name)`
-- Never use `console.log` — ESLint enforces `no-console`
-- Include correlation IDs via the `x-request-id` header (auto-propagated by Pino)
+The dominant pattern is domain-first modules:
 
-## Configuration
+- controller for HTTP shape and route metadata
+- service for orchestration and business rules
+- DTO files under `dto/`
+- optional `guards/`, `decorators/`, `repositories/`, `processors/`, or `templates/` subfolders when the feature needs them
 
-- All env vars are validated at startup via Zod schemas in `@ecom/config/env`
-- Use helper functions from `@ecom/config` (e.g., `getAdminPort()`, `getRedisConfig()`)
-- Never read `process.env` directly in service code
+Examples:
 
-## Database
+- admin: `users`, `products`, `refunds`, `audit-logs`
+- seller: `order`, `warehouse`, `chat`, `queue`, `analytics`
+- storefront: `auth`
 
-- Prisma is the ORM — schema lives in `packages/database/prisma/schema.prisma`
-- Use transactions for multi-step mutations
-- Add indexes for frequently queried columns
-- Use `@ecom/shared/pagination/prisma` for paginated queries
+## Controller expectations
 
-## Security
+- keep request parsing in controllers
+- use decorators and guards instead of hand-rolled auth checks
+- return raw result objects and let the response interceptor wrap them
+- only manage cookies directly in controllers when the route is explicitly auth/session related
 
-- Input validation via `class-validator` + global `ValidationPipe`
-- Rate limiting via `@nestjs/throttler` (configured per-app via `@ecom/config`)
-- CORS configured per-app with validated origins
-- Secrets never logged or returned in responses
+## Services
+
+- keep business logic in services
+- prefer injecting collaborators rather than hiding cross-module work in controllers
+- use shared constants from `@ecom/shared/constants` when a stable constant already exists
+- use typed shared errors instead of unstructured thrown strings
+
+## Auth and session handling
+
+The repo currently uses shared auth utilities from `@ecom/auth`:
+
+- session helpers and `SessionService`
+- cookie config and `SESSION_COOKIE_NAME`
+- Next.js client and middleware helpers
+
+Backend auth guards live inside each API app, but they rely on common auth primitives and session data conventions.
+
+## Config and environment
+
+Use `@ecom/config` helpers for runtime defaults:
+
+- `getAdminPort`
+- `getSellerPort`
+- `getStorefrontPort`
+- `getCorsOrigins`
+- `getRedisConfig`
+- `getSmtpConfig`
+
+Avoid scattering duplicated port, Redis, SMTP, or CORS parsing logic across apps.
+
+## OpenAPI and contracts
+
+If you change controller DTOs or response shapes:
+
+1. update the Nest controller/service code
+2. run `pnpm openapi:sync`
+3. review the generated JSON and contract types
+
+The OpenAPI artifacts are part of the repo workflow, not an optional afterthought.
+
+## Logging and operational concerns
+
+`@ecom/nestjs-core` exports `EcomLoggerModule`, but current apps mostly use Nest's `Logger` directly in bootstrap and service code. Preserve the current pattern in the local module unless you are intentionally standardizing a broader logging refactor.
+
+Do not add `console.log` for permanent diagnostics in backend code.

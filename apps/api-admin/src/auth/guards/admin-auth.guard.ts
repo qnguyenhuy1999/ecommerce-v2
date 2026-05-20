@@ -1,10 +1,10 @@
 import type { CanActivate, ExecutionContext } from '@nestjs/common'
 import { Injectable, Inject, UnauthorizedException } from '@nestjs/common'
 import type { Request } from 'express'
-import { SessionService } from '@ecom/auth'
+import type { SessionService } from '@ecom/auth'
 import { SESSION_COOKIE_NAME } from '@ecom/auth'
 import { SESSION_SERVICE } from '../session.provider'
-import { AdminSessionData } from '../decorators/current-admin.decorator'
+import type { AdminSessionData } from '../decorators/current-admin.decorator'
 
 @Injectable()
 export class AdminAuthGuard implements CanActivate {
@@ -39,9 +39,7 @@ function getSessionIdFromRequest(req: Request): string | undefined {
   return typeof sessionId === 'string' ? sessionId : undefined
 }
 
-function toAdminSessionData(session: {
-  [key: string]: unknown
-}): AdminSessionData {
+function toAdminSessionData(session: { [key: string]: unknown }): AdminSessionData {
   const adminId = session.adminId
   const permissions = session.permissions
   const roles = session.roles

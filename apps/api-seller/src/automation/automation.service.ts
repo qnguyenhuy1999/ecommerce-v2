@@ -1,4 +1,4 @@
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
@@ -226,7 +226,10 @@ export class AutomationService {
     }
   }
 
-  private resolveActionPayload(action: string | undefined, actionConfig: Record<string, unknown> | undefined) {
+  private resolveActionPayload(
+    action: string | undefined,
+    actionConfig: Record<string, unknown> | undefined,
+  ) {
     const actionRecord = actionConfig ?? {}
     const actionType =
       typeof actionRecord.type === 'string'
@@ -240,7 +243,9 @@ export class AutomationService {
     }
 
     const params =
-      actionRecord.config && typeof actionRecord.config === 'object' && !Array.isArray(actionRecord.config)
+      actionRecord.config &&
+      typeof actionRecord.config === 'object' &&
+      !Array.isArray(actionRecord.config)
         ? (actionRecord.config as Record<string, unknown>)
         : actionRecord
 

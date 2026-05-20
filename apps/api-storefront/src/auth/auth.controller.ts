@@ -13,13 +13,13 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger'
 import { Throttle } from '@nestjs/throttler'
 import type { Request, Response } from 'express'
 import { getSessionCookieOptions, SESSION_COOKIE_NAME } from '@ecom/auth'
-import { RegisterDto, LoginDto } from '@ecom/contracts'
+import type { RegisterDto, LoginDto } from '@ecom/contracts'
 import {
   ApiErrorResponses,
   ApiOkResponseData,
   ApiCreatedResponseData,
 } from '@ecom/nestjs-core/openapi'
-import { AuthService } from './auth.service'
+import type { AuthService } from './auth.service'
 
 @ApiTags('Storefront/Auth')
 @ApiErrorResponses()
@@ -48,7 +48,12 @@ export class AuthController {
     const userAgent = req.headers['user-agent']
     const ipAddress = getClientIp(req)
 
-    const { sessionId, userId } = await this.authService.login(dto.email, dto.password, userAgent, ipAddress)
+    const { sessionId, userId } = await this.authService.login(
+      dto.email,
+      dto.password,
+      userAgent,
+      ipAddress,
+    )
 
     const cookieOptions = getSessionCookieOptions(process.env.COOKIE_DOMAIN)
     res.cookie(cookieOptions.name, sessionId, {

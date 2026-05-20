@@ -2,13 +2,13 @@ import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
 import { join } from 'node:path'
 import * as bcrypt from 'bcrypt'
-import { PrismaService } from '@ecom/database'
-import type { SessionData } from '@ecom/auth'
-import { SessionService, RESET_TOKEN_TTL, hashPassword } from '@ecom/auth'
-import { EmailService } from '@ecom/email'
+import type { PrismaService } from '@ecom/database'
+import type { SessionData , SessionService} from '@ecom/auth'
+import { RESET_TOKEN_TTL, hashPassword } from '@ecom/auth'
+import type { EmailService } from '@ecom/email'
 import { AdminStatus } from '@ecom/contracts/enums'
 import { SESSION_SERVICE } from './session.provider'
-import { AdminSessionData } from './decorators/current-admin.decorator'
+import type { AdminSessionData } from './decorators/current-admin.decorator'
 
 const SESSION_EXPIRY_DAYS = 7
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
@@ -157,15 +157,17 @@ export class AuthService {
       },
     })
 
-    this.emailService.sendMail({
-      to: admin.email,
-      subject: 'Reset your admin password',
-      templatePath: join(TEMPLATES_DIR, 'reset-password.hbs'),
-      context: {
-        name: admin.email,
-        link: `${process.env.ADMIN_APP_URL ?? 'http://localhost:3002'}/reset-password?token=${token}`,
-      },
-    }).catch(() => {})
+    this.emailService
+      .sendMail({
+        to: admin.email,
+        subject: 'Reset your admin password',
+        templatePath: join(TEMPLATES_DIR, 'reset-password.hbs'),
+        context: {
+          name: admin.email,
+          link: `${process.env.ADMIN_APP_URL ?? 'http://localhost:3002'}/reset-password?token=${token}`,
+        },
+      })
+      .catch(() => {})
   }
 
   async resetPassword(token: string, password: string) {

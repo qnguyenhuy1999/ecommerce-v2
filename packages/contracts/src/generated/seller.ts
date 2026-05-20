@@ -2246,12 +2246,13 @@ export type components = {
       /**
        * Format: email
        * @description User email address
-       * @example admin@example.com
+       * @example admin@marketplace.com
        */
       email: string
       /**
        * Format: password
        * @description User password
+       * @example admin123
        */
       password: string
     }
@@ -3157,25 +3158,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
         /** @description Search by product name or SKU */
         search?: string
         /** @description Filter by product status */
@@ -3736,25 +3722,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
         /** @description Filter by order status */
         status?: 'PENDING' | 'CONFIRMED' | 'PACKING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED'
         /** @description Search by order number or customer name */
@@ -3973,25 +3944,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -4684,25 +4640,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -4977,25 +4918,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
         /** @description Search by coupon code or name */
         search?: string
         /** @description Filter by coupon status */
@@ -5762,25 +5688,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -6055,25 +5966,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -6418,25 +6314,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -6645,25 +6526,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path: {
@@ -6876,25 +6742,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -7243,25 +7094,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -7608,25 +7444,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -7837,25 +7658,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -8132,25 +7938,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path: {
@@ -8564,25 +8355,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -8859,25 +8635,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -9090,25 +8851,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -9183,25 +8929,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -9826,25 +9557,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -10395,25 +10111,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -10556,25 +10257,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -11068,25 +10754,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -11565,25 +11236,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -11724,25 +11380,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -11817,25 +11458,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -12178,25 +11804,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -13437,25 +13048,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -13666,25 +13262,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never
@@ -14169,25 +13750,10 @@ export interface operations {
         page?: number
         /** @description Items per page */
         limit?: number
-        /**
-         * @deprecated
-         * @description Items per page (alias for limit, deprecated)
-         */
-        pageSize?: number
         /** @description Field to sort by */
         sortBy?: string
-        /**
-         * @deprecated
-         * @description Field to sort by (alias for sortBy)
-         */
-        sort?: string
         /** @description Sort direction */
         sortOrder?: 'asc' | 'desc'
-        /**
-         * @deprecated
-         * @description Sort direction (alias for sortOrder)
-         */
-        order?: 'asc' | 'desc'
       }
       header?: never
       path?: never

@@ -13,7 +13,7 @@ import type {
 } from './dto/create-product.dto'
 import type { ProductQueryDto } from './dto/product-query.dto'
 import type { UpdateProductDto } from './dto/update-product.dto'
-import { ProductRepository } from './repositories/product.repository'
+import type { ProductRepository } from './repositories/product.repository'
 
 @Injectable()
 export class ProductService {
@@ -43,6 +43,7 @@ export class ProductService {
       where.OR = [
         { name: { contains: search, mode: 'insensitive' } },
         { baseSku: { contains: search, mode: 'insensitive' } },
+        { variants: { some: { sku: { contains: search, mode: 'insensitive' } } } },
       ]
     }
 

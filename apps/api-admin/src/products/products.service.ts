@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
 import {
   type ProductStatus,
   type ProductReportStatus,
@@ -28,6 +29,7 @@ export class ProductsService {
       where.OR = [
         { name: { contains: query.search, mode: 'insensitive' } },
         { baseSku: { contains: query.search, mode: 'insensitive' } },
+        { variants: { some: { sku: { contains: query.search, mode: 'insensitive' } } } },
       ]
     }
 

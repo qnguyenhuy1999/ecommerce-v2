@@ -32,7 +32,7 @@ const NAV_ITEMS = [
   { href: '/products', label: 'Products', icon: Package },
   { href: '/inventory', label: 'Inventory', icon: Warehouse },
   { href: '/shipping', label: 'Shipping', icon: Truck },
-  { href: '/coupons', label: 'Coupons', icon: Tag },
+  { href: '/vouchers', label: 'Vouchers', icon: Tag },
   { href: '/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/bulk', label: 'Bulk Operations', icon: Upload },
   { href: '/reviews', label: 'Reviews', icon: Star },

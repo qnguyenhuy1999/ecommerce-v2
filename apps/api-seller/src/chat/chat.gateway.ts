@@ -1,4 +1,4 @@
-import { OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets'
+import type { OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets'
 import {
   WebSocketGateway,
   WebSocketServer,
@@ -6,8 +6,8 @@ import {
   MessageBody,
   ConnectedSocket,
 } from '@nestjs/websockets'
-import { Server, Socket } from 'socket.io'
-import { ChatService } from './chat.service'
+import type { Server, Socket } from 'socket.io'
+import type { ChatService } from './chat.service'
 
 @WebSocketGateway({
   cors: { origin: '*' },
@@ -85,10 +85,13 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @SubscribeMessage('mark_read')
   async handleMarkRead(
-    @ConnectedSocket() _client: Socket,
-    @MessageBody() data: { shopId: string; conversationId: string },
+    @ConnectedSocket() client: Socket,
+    @MessageBody() data: { shopId: string; conversationId: string; userId?: string },
   ) {
-    await this.chatService.markAsRead(data.shopId, data.conversationId)
+    const userId = data.userId ?? this.connectedUsers.get(client.id)
+    if (!userId) return
+
+    await this.chatService.markAsRead(data.shopId, userId, data.conversationId)
     this.server.to(`conversation:${data.conversationId}`).emit('messages_read', {
       conversationId: data.conversationId,
     })

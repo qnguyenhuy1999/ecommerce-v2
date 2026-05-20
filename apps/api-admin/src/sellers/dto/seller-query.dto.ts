@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { IsEnum, IsOptional, IsString, IsInt, Min } from 'class-validator'
 import { Type } from 'class-transformer'
-import { SellerStatus } from '@ecom/contracts/enums'
+import { SellerStatus, ShopStatus, UserStatus } from '@ecom/contracts/enums'
 
 export class SellerQueryDto {
   @ApiPropertyOptional()
@@ -29,14 +29,30 @@ export class SellerQueryDto {
   status?: SellerStatus
 }
 
+export class SellerUserDto {
+  @ApiProperty() id!: string
+  @ApiProperty() email!: string
+  @ApiProperty({ enum: UserStatus }) status!: UserStatus
+  @ApiPropertyOptional() createdAt?: Date
+}
+
+export class SellerShopDto {
+  @ApiProperty() id!: string
+  @ApiProperty() name!: string
+  @ApiPropertyOptional() description?: string | null
+  @ApiProperty({ enum: ShopStatus }) status!: ShopStatus
+}
+
 export class SellerResponseDto {
   @ApiProperty() id!: string
   @ApiProperty() userId!: string
-  @ApiProperty() shopName!: string
-  @ApiProperty() shopDescription!: string
+  @ApiPropertyOptional() sellerProfileId?: string | null
+  @ApiPropertyOptional() shopId?: string | null
   @ApiProperty({ enum: SellerStatus }) status!: SellerStatus
-  @ApiPropertyOptional() phoneNumber?: string
+  @ApiPropertyOptional() phone?: string | null
   @ApiPropertyOptional() address?: string
   @ApiProperty() createdAt!: Date
   @ApiProperty() updatedAt!: Date
+  @ApiProperty({ type: SellerUserDto }) user!: SellerUserDto
+  @ApiPropertyOptional({ type: SellerShopDto }) shop?: SellerShopDto | null
 }

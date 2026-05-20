@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import { BadRequestException, Injectable } from '@nestjs/common'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { ProductStatus } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
@@ -19,15 +19,19 @@ export class RecommendationService {
     },
   ) {
     const normalizedEventType = this.normalizeEventType(eventType)
+    const trackedEntity = this.resolveTrackedEntity(data)
 
     return this.prisma.userEvent.create({
       data: {
         userId: userId ?? null,
         sessionId,
         event: normalizedEventType,
-        entityType: 'PRODUCT',
-        entityId: data.productId ?? '',
-        metadata: (data.metadata ?? {}) as Prisma.InputJsonValue,
+        entityType: trackedEntity.entityType,
+        entityId: trackedEntity.entityId,
+        metadata: {
+          ...(data.metadata ?? {}),
+          ...(data.searchQuery ? { searchQuery: data.searchQuery } : {}),
+        } as Prisma.InputJsonValue,
       },
     })
   }
@@ -158,5 +162,23 @@ export class RecommendationService {
           | 'SHARE'
           | 'REVIEW'
     }
+  }
+
+  private resolveTrackedEntity(data: {
+    productId?: string
+    categoryId?: string
+    searchQuery?: string
+  }) {
+    if (data.productId) {
+      return { entityType: 'PRODUCT' as const, entityId: data.productId }
+    }
+
+    if (data.categoryId) {
+      return { entityType: 'CATEGORY' as const, entityId: data.categoryId }
+    }
+
+    throw new BadRequestException(
+      'Tracking events requires a supported entity id. Provide productId or categoryId.',
+    )
   }
 }

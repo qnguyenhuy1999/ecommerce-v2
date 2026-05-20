@@ -1,4 +1,4 @@
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
@@ -83,6 +83,7 @@ export class ChatService {
           type,
           content,
           metadata: metadata as Prisma.InputJsonValue,
+          isReadBySeller: true,
         },
       })
 
@@ -99,7 +100,7 @@ export class ChatService {
     })
   }
 
-  async markAsRead(shopId: string, conversationId: string) {
+  async markAsRead(shopId: string, sellerUserId: string, conversationId: string) {
     const conversation = await this.prisma.conversation.findFirst({
       where: { id: conversationId, shopId },
     })
@@ -110,7 +111,7 @@ export class ChatService {
 
     await this.prisma.$transaction([
       this.prisma.chatMessage.updateMany({
-        where: { conversationId, isReadBySeller: false, senderId: { not: shopId } },
+        where: { conversationId, isReadBySeller: false, senderId: { not: sellerUserId } },
         data: { isReadBySeller: true },
       }),
       this.prisma.conversation.update({

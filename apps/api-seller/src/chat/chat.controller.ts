@@ -20,9 +20,9 @@ import {
   ApiErrorResponses,
   ApiAuth,
 } from '@ecom/nestjs-core/openapi'
-import { ShopService } from '../shop/shop.service'
-import { ChatService } from './chat.service'
-import { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
+import type { ShopService } from '../shop/shop.service'
+import type { ChatService } from './chat.service'
+import type { ConversationQueryDto, MessageQueryDto } from './dto/chat-query.dto'
 
 @ApiTags('Seller/Chat')
 @ApiAuth()
@@ -95,6 +95,6 @@ export class ChatController {
   @ApiOkResponseData(Object)
   async markAsRead(@CurrentUser() user: SessionData, @Param('id') id: string) {
     const shopId = await this.shopService.getShopId(user.userId)
-    await this.chatService.markAsRead(shopId, id)
+    await this.chatService.markAsRead(shopId, user.userId, id)
   }
 }

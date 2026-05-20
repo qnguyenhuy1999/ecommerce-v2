@@ -77,6 +77,40 @@ export type paths = {
     patch?: never
     trace?: never
   }
+  '/admin/auth/forgot-password': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Request admin password reset email */
+    post: operations['AuthController_forgotPassword']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/admin/auth/reset-password': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Reset admin password with token */
+    post: operations['AuthController_resetPassword']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/admin/audit-logs': {
     parameters: {
       query?: never
@@ -1083,15 +1117,18 @@ export type components = {
       /**
        * Format: email
        * @description User email address
-       * @example admin@example.com
+       * @example admin@marketplace.com
        */
       email: string
       /**
        * Format: password
        * @description User password
+       * @example admin123
        */
       password: string
     }
+    ForgotPasswordDto: Record<string, never>
+    ResetPasswordDto: Record<string, never>
     AuditLogResponseDto: {
       id?: string
       adminId?: string
@@ -1193,19 +1230,36 @@ export type components = {
       /** @example 2024-01-01T00:00:00.000Z */
       timestamp: string
     }
+    SellerUserDto: {
+      id: string
+      email: string
+      /** @enum {string} */
+      status: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED' | 'BANNED'
+      /** Format: date-time */
+      createdAt?: string
+    }
+    SellerShopDto: {
+      id: string
+      name: string
+      description?: Record<string, never>
+      /** @enum {string} */
+      status: 'PENDING' | 'ACTIVE' | 'SUSPENDED' | 'CLOSED'
+    }
     SellerResponseDto: {
       id: string
       userId: string
-      shopName: string
-      shopDescription: string
+      sellerProfileId?: Record<string, never>
+      shopId?: Record<string, never>
       /** @enum {string} */
       status: 'PENDING' | 'ACTIVE' | 'SUSPENDED' | 'BANNED' | 'REJECTED'
-      phoneNumber?: string
+      phone?: Record<string, never>
       address?: string
       /** Format: date-time */
       createdAt: string
       /** Format: date-time */
       updatedAt: string
+      user: components['schemas']['SellerUserDto']
+      shop?: components['schemas']['SellerShopDto']
     }
     SellerActionDto: {
       reason?: string
@@ -1252,20 +1306,6 @@ export type components = {
        * @description Last update timestamp
        */
       updatedAt: string
-    }
-    BulkModerationDto: {
-      /** @description Product IDs to moderate */
-      ids: string[]
-      /** @description Optional moderation note */
-      note?: string
-    }
-    ProductModerationDto: {
-      /** @description Optional moderation note */
-      note?: string
-    }
-    ResolveReportDto: {
-      /** @description Admin note for the resolution */
-      adminNote?: string
     }
     CategoryResponseDto: {
       id: string
@@ -1432,30 +1472,6 @@ export type components = {
       createdAt: string
       /** Format: date-time */
       updatedAt: string
-    }
-    CreateBannerDto: {
-      title: string
-      /** @enum {string} */
-      position: 'HERO' | 'HOMEPAGE_TOP' | 'HOMEPAGE_MIDDLE' | 'CAMPAIGN' | 'ANNOUNCEMENT'
-      imageUrl: string
-      mobileImageUrl?: string
-      linkUrl?: string
-      sortOrder?: number
-      startsAt?: string
-      endsAt?: string
-    }
-    UpdateBannerDto: {
-      title?: string
-      /** @enum {string} */
-      position?: 'HERO' | 'HOMEPAGE_TOP' | 'HOMEPAGE_MIDDLE' | 'CAMPAIGN' | 'ANNOUNCEMENT'
-      /** @enum {string} */
-      status?: 'DRAFT' | 'SCHEDULED' | 'ACTIVE' | 'EXPIRED' | 'ARCHIVED'
-      imageUrl?: string
-      mobileImageUrl?: string
-      linkUrl?: string
-      sortOrder?: number
-      startsAt?: string
-      endsAt?: string
     }
     NotificationResponseDto: {
       id: string
@@ -1737,6 +1753,146 @@ export interface operations {
       cookie?: never
     }
     requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ApiResponseDto'] & {
+            data?: components['schemas']['Object']
+          }
+        }
+      }
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+    }
+  }
+  AuthController_forgotPassword: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ForgotPasswordDto']
+      }
+    }
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ApiResponseDto'] & {
+            data?: components['schemas']['Object']
+          }
+        }
+      }
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+    }
+  }
+  AuthController_resetPassword: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ResetPasswordDto']
+      }
+    }
     responses: {
       200: {
         headers: {
@@ -2468,14 +2624,7 @@ export interface operations {
   }
   ProductsController_findAll: {
     parameters: {
-      query?: {
-        page?: number
-        limit?: number
-        search?: string
-        status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' | 'REJECTED'
-        shopId?: string
-        categoryId?: string
-      }
+      query?: never
       header?: never
       path?: never
       cookie?: never
@@ -2610,14 +2759,7 @@ export interface operations {
   }
   ProductsController_findReports: {
     parameters: {
-      query?: {
-        page?: number
-        limit?: number
-        search?: string
-        status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' | 'REJECTED'
-        shopId?: string
-        categoryId?: string
-      }
+      query?: never
       header?: never
       path?: never
       cookie?: never
@@ -2759,11 +2901,7 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['BulkModerationDto']
-      }
-    }
+    requestBody?: never
     responses: {
       200: {
         headers: {
@@ -2829,11 +2967,7 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['BulkModerationDto']
-      }
-    }
+    requestBody?: never
     responses: {
       200: {
         headers: {
@@ -2901,11 +3035,7 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ProductModerationDto']
-      }
-    }
+    requestBody?: never
     responses: {
       200: {
         headers: {
@@ -2973,11 +3103,7 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ProductModerationDto']
-      }
-    }
+    requestBody?: never
     responses: {
       200: {
         headers: {
@@ -3181,11 +3307,7 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ResolveReportDto']
-      }
-    }
+    requestBody?: never
     responses: {
       200: {
         headers: {
@@ -3253,11 +3375,7 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ResolveReportDto']
-      }
-    }
+    requestBody?: never
     responses: {
       200: {
         headers: {
@@ -5280,12 +5398,7 @@ export interface operations {
   }
   BannersController_findAll: {
     parameters: {
-      query?: {
-        page?: number
-        limit?: number
-        position?: 'HERO' | 'HOMEPAGE_TOP' | 'HOMEPAGE_MIDDLE' | 'CAMPAIGN' | 'ANNOUNCEMENT'
-        status?: 'DRAFT' | 'SCHEDULED' | 'ACTIVE' | 'EXPIRED' | 'ARCHIVED'
-      }
+      query?: never
       header?: never
       path?: never
       cookie?: never
@@ -5359,11 +5472,7 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CreateBannerDto']
-      }
-    }
+    requestBody?: never
     responses: {
       200: {
         headers: {
@@ -5499,11 +5608,7 @@ export interface operations {
       }
       cookie?: never
     }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UpdateBannerDto']
-      }
-    }
+    requestBody?: never
     responses: {
       200: {
         headers: {

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService, Prisma } from '@ecom/database'
+import type { PrismaService, Prisma } from '@ecom/database'
 import { type SellerStatus, SellerStatus as SS } from '@ecom/contracts/enums'
 import { offsetPaginate, buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { withDefined, nullable } from '@ecom/shared/utils'
@@ -29,6 +29,9 @@ export class SellersService {
         user: {
           select: { id: true, email: true, status: true },
         },
+        shop: {
+          select: { id: true, name: true, description: true, status: true },
+        },
       },
     })
 
@@ -41,6 +44,9 @@ export class SellersService {
       include: {
         user: {
           select: { id: true, email: true, status: true, createdAt: true },
+        },
+        shop: {
+          select: { id: true, name: true, description: true, status: true },
         },
         verifications: {
           orderBy: { createdAt: 'desc' },

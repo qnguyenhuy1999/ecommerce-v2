@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@ecom/database'
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { FlashSaleStatus, FlashSaleSlotStatus, ProductStatus } from '@ecom/contracts/enums'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
@@ -105,9 +105,47 @@ export class FlashSaleService {
 
     const product = await this.prisma.product.findFirst({
       where: { id: dto.productId, shopId, deletedAt: null, status: ProductStatus.PUBLISHED },
+      select: {
+        id: true,
+        hasVariants: true,
+        basePrice: true,
+        baseStock: true,
+        reservedStock: true,
+      },
     })
 
     if (!product) throw new NotFoundException('Product not found or not published')
+
+    let originalPrice = product.basePrice
+    let availableStock = product.baseStock - product.reservedStock
+
+    if (product.hasVariants) {
+      if (!dto.variantId) {
+        throw new BadRequestException('Variant is required for products with variants')
+      }
+
+      const variant = await this.prisma.productVariant.findFirst({
+        where: { id: dto.variantId, productId: product.id, isActive: true },
+        select: { price: true, stock: true, reservedStock: true },
+      })
+
+      if (!variant) {
+        throw new NotFoundException('Variant not found for the selected product')
+      }
+
+      originalPrice = variant.price
+      availableStock = variant.stock - variant.reservedStock
+    } else if (dto.variantId) {
+      throw new BadRequestException('Variant cannot be provided for a non-variant product')
+    }
+
+    if (originalPrice == null) {
+      throw new BadRequestException('Original price is missing for the selected item')
+    }
+
+    if (dto.totalStock > availableStock) {
+      throw new BadRequestException('Flash sale stock cannot exceed available stock')
+    }
 
     return this.prisma.flashSaleSlot.create({
       data: {
@@ -115,7 +153,7 @@ export class FlashSaleService {
         shopId,
         productId: dto.productId,
         ...withDefined({ variantId: dto.variantId }),
-        originalPrice: product.basePrice ?? 0,
+        originalPrice,
         salePrice: dto.salePrice,
         totalStock: dto.totalStock,
         purchaseLimit: dto.purchaseLimit ?? 1,

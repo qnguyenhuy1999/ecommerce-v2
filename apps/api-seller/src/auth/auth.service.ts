@@ -8,10 +8,12 @@ import {
 } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
 import { join } from 'node:path'
-import { PrismaService, type Prisma } from '@ecom/database'
+import type { PrismaService} from '@ecom/database';
+import { type Prisma } from '@ecom/database'
+import type {
+  SessionService} from '@ecom/auth';
 import {
   type SessionData,
-  SessionService,
   BaseUserAuthService,
   SESSION_EXPIRY_DAYS,
   VERIFY_TOKEN_TTL,
@@ -19,8 +21,8 @@ import {
   hashPassword,
   comparePassword,
 } from '@ecom/auth'
-import { EmailService } from '@ecom/email'
-import { RedisService } from '@ecom/redis'
+import type { EmailService } from '@ecom/email'
+import type { RedisService } from '@ecom/redis'
 import { UserStatus } from '@ecom/contracts/enums'
 import { SESSION_SERVICE } from './session.provider'
 
@@ -62,19 +64,26 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
           data: { userId: created.id },
         })
 
-        if (shopName) {
-          const slug = shopName
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-|-$/g, '')
-          await tx.shop.create({
-            data: {
-              sellerId: profile.id,
-              name: shopName,
-              slug: `${slug}-${created.id.slice(0, 8)}`,
-            },
-          })
-        }
+        const shop = shopName
+          ? await tx.shop.create({
+              data: {
+                sellerId: profile.id,
+                name: shopName,
+                slug: `${shopName
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, '-')
+                  .replace(/^-|-$/g, '')}-${created.id.slice(0, 8)}`,
+              },
+            })
+          : null
+
+        await tx.seller.create({
+          data: {
+            userId: created.id,
+            sellerProfileId: profile.id,
+            ...(shop ? { shopId: shop.id } : {}),
+          },
+        })
 
         return created
       })

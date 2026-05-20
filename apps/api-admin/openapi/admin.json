@@ -359,6 +359,188 @@
         "tags": ["Admin/Auth"]
       }
     },
+    "/admin/auth/forgot-password": {
+      "post": {
+        "operationId": "AuthController_forgotPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Request admin password reset email",
+        "tags": ["Admin/Auth"]
+      }
+    },
+    "/admin/auth/reset-password": {
+      "post": {
+        "operationId": "AuthController_resetPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Reset admin password with token",
+        "tags": ["Admin/Auth"]
+      }
+    },
     "/admin/audit-logs": {
       "get": {
         "operationId": "AuditLogsController_findAll",
@@ -7251,6 +7433,14 @@
         },
         "required": ["email", "password"]
       },
+      "ForgotPasswordDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "ResetPasswordDto": {
+        "type": "object",
+        "properties": {}
+      },
       "AuditLogResponseDto": {
         "type": "object",
         "properties": {
@@ -7401,6 +7591,45 @@
         },
         "required": ["success", "meta", "timestamp"]
       },
+      "SellerUserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["ACTIVE", "INACTIVE", "SUSPENDED", "BANNED"]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["id", "email", "status"]
+      },
+      "SellerShopDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "object"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["PENDING", "ACTIVE", "SUSPENDED", "CLOSED"]
+          }
+        },
+        "required": ["id", "name", "status"]
+      },
       "SellerResponseDto": {
         "type": "object",
         "properties": {
@@ -7410,18 +7639,18 @@
           "userId": {
             "type": "string"
           },
-          "shopName": {
-            "type": "string"
+          "sellerProfileId": {
+            "type": "object"
           },
-          "shopDescription": {
-            "type": "string"
+          "shopId": {
+            "type": "object"
           },
           "status": {
             "type": "string",
             "enum": ["PENDING", "ACTIVE", "SUSPENDED", "BANNED", "REJECTED"]
           },
-          "phoneNumber": {
-            "type": "string"
+          "phone": {
+            "type": "object"
           },
           "address": {
             "type": "string"
@@ -7433,9 +7662,15 @@
           "updatedAt": {
             "format": "date-time",
             "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/SellerUserDto"
+          },
+          "shop": {
+            "$ref": "#/components/schemas/SellerShopDto"
           }
         },
-        "required": ["id", "userId", "shopName", "shopDescription", "status", "createdAt", "updatedAt"]
+        "required": ["id", "userId", "status", "createdAt", "updatedAt", "user"]
       },
       "SellerActionDto": {
         "type": "object",

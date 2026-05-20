@@ -1,13 +1,12 @@
 import { build } from 'tsup'
-import { fileURLToPath } from 'node:url'
 
 await build({
   config: false,
   entry: {
-    index: fileURLToPath(new URL('../src/index.ts', import.meta.url)),
-    'database.module': fileURLToPath(new URL('../src/database.module.ts', import.meta.url)),
-    'prisma.service': fileURLToPath(new URL('../src/prisma.service.ts', import.meta.url)),
-    client: fileURLToPath(new URL('../src/client.ts', import.meta.url)),
+    index: 'src/index.ts',
+    'database.module': 'src/database.module.ts',
+    'prisma.service': 'src/prisma.service.ts',
+    client: 'src/client.ts',
   },
   format: ['esm', 'cjs'],
   splitting: false,

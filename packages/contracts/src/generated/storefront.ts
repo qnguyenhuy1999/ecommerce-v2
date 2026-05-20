@@ -133,12 +133,13 @@ export type components = {
       /**
        * Format: email
        * @description User email address
-       * @example admin@example.com
+       * @example admin@marketplace.com
        */
       email: string
       /**
        * Format: password
        * @description User password
+       * @example admin123
        */
       password: string
     }

@@ -1,6 +1,12 @@
 export type ApiParams = Record<string, string | number | boolean>
 export type ApiParamsInput = Record<string, string | number | boolean | null | undefined>
 
+export const API_PORTS = {
+  admin: 4002,
+  seller: 4003,
+  storefront: 4000,
+} as const
+
 export interface ApiOptions extends RequestInit {
   baseUrl?: string
   params?: ApiParamsInput

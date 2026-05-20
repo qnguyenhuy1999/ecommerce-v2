@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import { ProductStatus, UserEventType } from '@ecom/contracts'
+import { ProductStatus } from '@ecom/contracts'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 
 @Injectable()
@@ -18,11 +18,13 @@ export class RecommendationService {
       metadata?: Record<string, unknown>
     },
   ) {
+    const normalizedEventType = this.normalizeEventType(eventType)
+
     return this.prisma.userEvent.create({
       data: {
         userId: userId ?? null,
         sessionId,
-        event: eventType,
+        event: normalizedEventType,
         entityType: 'PRODUCT',
         entityId: data.productId ?? '',
         metadata: (data.metadata ?? {}) as Prisma.InputJsonValue,
@@ -96,7 +98,7 @@ export class RecommendationService {
 
   async getRecentlyViewed(userId: string, limit = PAGINATION_DEFAULTS.PAGE_SIZE) {
     const events = await this.prisma.userEvent.findMany({
-      where: { userId, event: UserEventType.PRODUCT_VIEW, entityType: 'PRODUCT' },
+      where: { userId, event: 'VIEW', entityType: 'PRODUCT' },
       orderBy: { createdAt: 'desc' },
       take: limit,
       distinct: ['entityId'],
@@ -123,19 +125,38 @@ export class RecommendationService {
       this.prisma.userEvent.count({
         where: {
           entityId: { in: productIds },
-          event: UserEventType.PRODUCT_VIEW,
+          event: 'VIEW',
           entityType: 'PRODUCT',
         },
       }),
       this.prisma.userEvent.count({
         where: {
           entityId: { in: productIds },
-          event: UserEventType.PRODUCT_CLICK,
+          event: 'CLICK',
           entityType: 'PRODUCT',
         },
       }),
     ])
 
     return { totalViews: views, totalClicks: clicks, productCount: productIds.length }
+  }
+
+  private normalizeEventType(eventType: string) {
+    switch (eventType) {
+      case 'PRODUCT_VIEW':
+        return 'VIEW' as const
+      case 'PRODUCT_CLICK':
+        return 'CLICK' as const
+      default:
+        return eventType as
+          | 'VIEW'
+          | 'CLICK'
+          | 'ADD_TO_CART'
+          | 'PURCHASE'
+          | 'SEARCH'
+          | 'WISHLIST'
+          | 'SHARE'
+          | 'REVIEW'
+    }
   }
 }

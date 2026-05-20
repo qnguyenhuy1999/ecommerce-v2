@@ -33,9 +33,14 @@ export class LoyaltyService {
 
     if (!account) {
       const defaultTier = await this.prisma.loyaltyTier.findFirst({ orderBy: { minPoints: 'asc' } })
-      const createData = defaultTier
-        ? { userId, tier: { connect: { id: defaultTier.id } } }
-        : { userId }
+      const createData: Prisma.LoyaltyAccountCreateInput = defaultTier
+        ? {
+            user: { connect: { id: userId } },
+            tier: { connect: { id: defaultTier.id } },
+          }
+        : {
+            user: { connect: { id: userId } },
+          }
 
       account = await this.prisma.loyaltyAccount.create({
         data: createData,

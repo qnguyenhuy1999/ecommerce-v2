@@ -8,5 +8,5 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["prisma/seed.ts", "src/generated/client/**/*"]
+  "include": ["prisma/seed.ts"]
 }

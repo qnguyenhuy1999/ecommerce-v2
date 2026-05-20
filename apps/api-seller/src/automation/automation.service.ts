@@ -9,6 +9,7 @@ import type { CreateAutomationRuleDto, UpdateAutomationRuleDto } from './dto/aut
 @Injectable()
 export class AutomationService {
   constructor(private readonly prisma: PrismaService) {}
+
   async listRules(shopId: string, query: AutomationQueryDto) {
     const { page = 1, limit = PAGINATION_DEFAULTS.DEFAULT_LIMIT } = query
 
@@ -29,6 +30,7 @@ export class AutomationService {
     const rule = await this.prisma.automationRule.findFirst({
       where: { id, shopId },
       include: {
+        actions: { orderBy: { sortOrder: 'asc' } },
         executions: { orderBy: { executedAt: 'desc' }, take: 20 },
         _count: { select: { executions: true } },
       },
@@ -39,40 +41,64 @@ export class AutomationService {
   }
 
   async createRule(shopId: string, dto: CreateAutomationRuleDto) {
-    // AutomationTrigger: ORDER_CREATED | ORDER_CANCELLED | LOW_STOCK | MESSAGE_RECEIVED | REVIEW_RECEIVED | SCHEDULE | PRICE_CHANGE | PRODUCT_PUBLISHED
-    // Legacy action payload remains stored in actionsLegacy Json for backward compatibility.
+    const action = this.resolveActionPayload(dto.action, dto.actionConfig)
+
     return this.prisma.automationRule.create({
       data: {
         shopId,
         name: dto.name,
-        trigger: dto.trigger as
-          | 'ORDER_CREATED'
-          | 'ORDER_CANCELLED'
-          | 'LOW_STOCK'
-          | 'MESSAGE_RECEIVED'
-          | 'REVIEW_RECEIVED'
-          | 'SCHEDULE'
-          | 'PRICE_CHANGE'
-          | 'PRODUCT_PUBLISHED',
+        trigger: this.normalizeTrigger(dto.trigger),
         conditions: (dto.conditions ?? {}) as Prisma.InputJsonValue,
-        actionsLegacy: (dto.actionConfig ?? { type: dto.action, config: {} }) as Prisma.InputJsonValue,
+        actions: {
+          create: [
+            {
+              action: action.action,
+              params: action.params as Prisma.InputJsonValue,
+              sortOrder: 0,
+            },
+          ],
+        },
         status: dto.isActive ? 'ACTIVE' : 'DRAFT',
+      },
+      include: {
+        actions: { orderBy: { sortOrder: 'asc' } },
       },
     })
   }
 
   async updateRule(shopId: string, id: string, dto: UpdateAutomationRuleDto) {
-    const rule = await this.prisma.automationRule.findFirst({ where: { id, shopId } })
+    const rule = await this.prisma.automationRule.findFirst({
+      where: { id, shopId },
+      include: { actions: { orderBy: { sortOrder: 'asc' } } },
+    })
     if (!rule) throw new NotFoundException('Rule not found')
+
+    const actionUpdate =
+      dto.actionConfig !== undefined
+        ? (() => {
+            const currentAction = rule.actions[0]?.action
+            const nextAction = this.resolveActionPayload(currentAction, dto.actionConfig)
+            return {
+              actions: {
+                deleteMany: {},
+                create: [
+                  {
+                    action: nextAction.action,
+                    params: nextAction.params as Prisma.InputJsonValue,
+                    sortOrder: 0,
+                  },
+                ],
+              },
+            }
+          })()
+        : {}
 
     return this.prisma.automationRule.update({
       where: { id },
       data: {
         ...(dto.name && { name: dto.name }),
         ...(dto.conditions && { conditions: dto.conditions as Prisma.InputJsonValue }),
-        ...(dto.actionConfig && {
-          actionsLegacy: dto.actionConfig as Prisma.InputJsonValue,
-        }),
+        ...actionUpdate,
         ...(dto.isActive !== undefined && { status: dto.isActive ? 'ACTIVE' : 'PAUSED' }),
         ...(dto.schedule !== undefined && {
           conditions: {
@@ -93,7 +119,10 @@ export class AutomationService {
   }
 
   async executeRule(ruleId: string, triggerData: Record<string, unknown>) {
-    const rule = await this.prisma.automationRule.findUnique({ where: { id: ruleId } })
+    const rule = await this.prisma.automationRule.findUnique({
+      where: { id: ruleId },
+      include: { actions: { orderBy: { sortOrder: 'asc' } } },
+    })
     if (!rule || rule.status !== 'ACTIVE') return null
 
     const startTime = Date.now()
@@ -102,7 +131,12 @@ export class AutomationService {
     let actionResults: Record<string, unknown> = {}
 
     try {
-      const actions = (rule.actionsLegacy ?? {}) as Record<string, unknown>
+      const primaryAction = rule.actions[0]
+      const legacyActions = (rule as unknown as { actionsLegacy?: unknown }).actionsLegacy
+      const actions = primaryAction
+        ? { type: primaryAction.action, config: primaryAction.params ?? {} }
+        : ((legacyActions ?? {}) as Record<string, unknown>)
+
       actionResults = this.performAction(
         (actions.type as string) ?? '',
         (actions.config as Record<string, unknown>) ?? {},
@@ -152,6 +186,67 @@ export class AutomationService {
         return { status: 'executed', action }
       default:
         throw new Error(`Unknown action: ${action}`)
+    }
+  }
+
+  private normalizeTrigger(trigger: string) {
+    switch (trigger) {
+      case 'NEW_CHAT':
+        return 'MESSAGE_RECEIVED' as const
+      case 'NEW_REVIEW':
+        return 'REVIEW_RECEIVED' as const
+      default:
+        return trigger as
+          | 'ORDER_CREATED'
+          | 'ORDER_CANCELLED'
+          | 'LOW_STOCK'
+          | 'MESSAGE_RECEIVED'
+          | 'REVIEW_RECEIVED'
+          | 'SCHEDULE'
+          | 'PRICE_CHANGE'
+          | 'PRODUCT_PUBLISHED'
+    }
+  }
+
+  private normalizeAction(action: string) {
+    switch (action) {
+      case 'AUTO_REPLY':
+        return 'SEND_MESSAGE' as const
+      case 'WEBHOOK':
+        return 'SEND_NOTIFICATION' as const
+      default:
+        return action as
+          | 'SEND_MESSAGE'
+          | 'UPDATE_PRICE'
+          | 'UPDATE_STOCK'
+          | 'CANCEL_ORDER'
+          | 'SEND_NOTIFICATION'
+          | 'APPLY_COUPON'
+          | 'TAG_ORDER'
+    }
+  }
+
+  private resolveActionPayload(action: string | undefined, actionConfig: Record<string, unknown> | undefined) {
+    const actionRecord = actionConfig ?? {}
+    const actionType =
+      typeof actionRecord.type === 'string'
+        ? actionRecord.type
+        : typeof actionRecord.action === 'string'
+          ? actionRecord.action
+          : action
+
+    if (!actionType) {
+      throw new NotFoundException('Automation action is required')
+    }
+
+    const params =
+      actionRecord.config && typeof actionRecord.config === 'object' && !Array.isArray(actionRecord.config)
+        ? (actionRecord.config as Record<string, unknown>)
+        : actionRecord
+
+    return {
+      action: this.normalizeAction(actionType),
+      params,
     }
   }
 }

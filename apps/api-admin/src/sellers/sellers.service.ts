@@ -12,7 +12,9 @@ export class SellersService {
     if (query.status) where.status = query.status
     if (query.search) {
       where.OR = [
-        { shopName: { contains: query.search, mode: 'insensitive' } },
+        {
+          shop: { name: { contains: query.search, mode: 'insensitive' } },
+        },
         {
           user: { email: { contains: query.search, mode: 'insensitive' } },
         },

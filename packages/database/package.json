@@ -14,17 +14,17 @@
   },
   "scripts": {
     "dev": "",
-    "db:generate": "prisma generate",
+    "db:generate": "prisma generate --generator runtime_client",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
-    "build": "prisma generate && tsup",
+    "build": "prisma generate --generator runtime_client && node ./scripts/build.mjs",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@ecom/auth": "workspace:*",
     "@prisma/adapter-pg": "^7.8.0",
-    "@prisma/client": "^7.8.0"
+    "@prisma/client": "^7.8.0",
+    "bcryptjs": "^3.0.3"
   },
   "devDependencies": {
     "@ecom/config": "workspace:*",

@@ -53,7 +53,7 @@ export class FlashSaleService {
       throw new BadRequestException('End time must be after start time')
     }
 
-    const data: Prisma.FlashSaleCampaignCreateInput = {
+    const data: Prisma.FlashSaleCampaignUncheckedCreateInput = {
       name: dto.name,
       startsAt,
       endsAt,

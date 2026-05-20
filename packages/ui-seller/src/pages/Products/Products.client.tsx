@@ -42,14 +42,14 @@ export function ProductsClient({
   filterProducts = filterProductsBySearchAndStatus,
 }: ProductsClientProps) {
   const [currentSearch, setCurrentSearch] = useControllableState({
-    value: search,
     defaultValue: search ?? '',
-    onChange: onSearchChange,
+    ...(search !== undefined ? { value: search } : {}),
+    ...(onSearchChange !== undefined ? { onChange: onSearchChange } : {}),
   })
   const [currentStatus, setCurrentStatus] = useControllableState<ProductsStatusTab>({
-    value: status,
     defaultValue: defaultStatus,
-    onChange: onStatusChange,
+    ...(status !== undefined ? { value: status } : {}),
+    ...(onStatusChange !== undefined ? { onChange: onStatusChange } : {}),
   })
   const deferredSearch = useDeferredValue(currentSearch)
 

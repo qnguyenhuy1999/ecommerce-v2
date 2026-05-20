@@ -69,9 +69,9 @@ export function ReturnsRefundsClient({
     defaultValue: '',
   })
   const [currentStatus, setCurrentStatus] = useControllableState<ReturnsRefundsStatusTab>({
-    value: status,
     defaultValue: defaultStatus,
-    onChange: onStatusChange,
+    ...(status !== undefined ? { value: status } : {}),
+    ...(onStatusChange !== undefined ? { onChange: onStatusChange } : {}),
   })
   const [selectedCase, setSelectedCase] = useState<ReturnRow | null>(null)
   const [refundMethod, setRefundMethod] = useState<RefundMethod>('ORIGINAL_PAYMENT')

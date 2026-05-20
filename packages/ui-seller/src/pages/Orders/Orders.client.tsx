@@ -55,14 +55,14 @@ export function OrdersClient({
   onPageChange,
 }: OrdersClientProps) {
   const [currentSearch, setCurrentSearch] = useControllableState({
-    value: search,
     defaultValue: search ?? '',
-    onChange: onSearchChange,
+    ...(search !== undefined ? { value: search } : {}),
+    ...(onSearchChange !== undefined ? { onChange: onSearchChange } : {}),
   })
   const [currentStatus, setCurrentStatus] = useControllableState<OrdersStatusTab>({
-    value: status,
     defaultValue: defaultStatus,
-    onChange: onStatusChange,
+    ...(status !== undefined ? { value: status } : {}),
+    ...(onStatusChange !== undefined ? { onChange: onStatusChange } : {}),
   })
   const deferredSearch = useDeferredValue(currentSearch)
 
@@ -81,8 +81,8 @@ export function OrdersClient({
       data={filteredOrders}
       loading={loading}
       enableRowSelection
-      meta={meta}
-      onPageChange={onPageChange}
+      {...(meta !== undefined ? { meta } : {})}
+      {...(onPageChange !== undefined ? { onPageChange } : {})}
       toolbar={
         <SellerListPage.Filters>
           <SellerListPage.Search

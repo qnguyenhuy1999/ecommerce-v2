@@ -1,4 +1,4 @@
-import { hashPassword } from '@ecom/auth'
+import * as bcrypt from 'bcryptjs'
 import { loadDatabaseEnv } from '../env'
 
 loadDatabaseEnv()
@@ -6,7 +6,7 @@ loadDatabaseEnv()
 const { prisma } = await import('../src/client')
 
 const ADMIN_PASSWORD = 'admin123'
-const ADMIN_PASSWORD_HASH = await hashPassword(ADMIN_PASSWORD)
+const ADMIN_PASSWORD_HASH = await bcrypt.hash(ADMIN_PASSWORD, 12)
 
 const adminRoles = [
   { name: 'SUPER_ADMIN', description: 'Full system access' },

@@ -1,10 +1,10 @@
-import { Analytics } from '@ecom/ui-seller'
+import { Finance } from '@ecom/ui-seller'
 import { DashboardLayout } from '../../components/dashboard-layout'
 
-export default function AnalyticsPage() {
+export default function FinancePage() {
   return (
     <DashboardLayout>
-      <Analytics />
+      <Finance />
     </DashboardLayout>
   )
 }

@@ -313,6 +313,9 @@ export function VoucherDetailClient({
   onCancel,
 }: VoucherDetailClientProps) {
   const [form, setForm] = useState(initialData)
+  const actionProps = {
+    ...(onCancel !== undefined ? { onCancel } : {}),
+  }
 
   const preview = useMemo(() => <VoucherPreview form={form} />, [form])
 
@@ -356,7 +359,7 @@ export function VoucherDetailClient({
             <VoucherFormActions
               cancelHref={cancelHref}
               submitLabel={submitLabel}
-              onCancel={onCancel}
+              {...actionProps}
             />
           </div>
         </SectionCard>

@@ -52,8 +52,6 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Role: 'Role',
-  UserRole: 'UserRole',
   Session: 'Session',
   PasswordResetToken: 'PasswordResetToken',
   EmailVerifyToken: 'EmailVerifyToken',
@@ -142,6 +140,7 @@ export const ModelName = {
   SearchBoostRule: 'SearchBoostRule',
   SearchAnalytics: 'SearchAnalytics',
   AutomationRule: 'AutomationRule',
+  AutomationRuleAction: 'AutomationRuleAction',
   AutomationExecution: 'AutomationExecution',
   Region: 'Region',
   Currency: 'Currency',
@@ -161,6 +160,7 @@ export const ModelName = {
   AdminRoleAssignment: 'AdminRoleAssignment',
   RolePermission: 'RolePermission',
   AdminSession: 'AdminSession',
+  AdminPasswordResetToken: 'AdminPasswordResetToken',
   Seller: 'Seller',
   SellerVerification: 'SellerVerification',
   AdminAuditLog: 'AdminAuditLog',
@@ -199,27 +199,12 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   emailVerified: 'emailVerified',
   status: 'status',
+  isStaff: 'isStaff',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-export const RoleScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-} as const
-
-export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
-
-
-export const UserRoleScalarFieldEnum = {
-  userId: 'userId',
-  roleId: 'roleId'
-} as const
-
-export type UserRoleScalarFieldEnum = (typeof UserRoleScalarFieldEnum)[keyof typeof UserRoleScalarFieldEnum]
 
 
 export const SessionScalarFieldEnum = {
@@ -304,6 +289,8 @@ export const CategoryScalarFieldEnum = {
   banner: 'banner',
   metaTitle: 'metaTitle',
   metaDesc: 'metaDesc',
+  depth: 'depth',
+  path: 'path',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -379,6 +366,7 @@ export type ProductVariantOptionValueScalarFieldEnum = (typeof ProductVariantOpt
 export const ProductImageScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
+  variantId: 'variantId',
   url: 'url',
   alt: 'alt',
   sortOrder: 'sortOrder',
@@ -488,6 +476,7 @@ export const ShipmentScalarFieldEnum = {
   providerId: 'providerId',
   trackingNumber: 'trackingNumber',
   status: 'status',
+  isPrimary: 'isPrimary',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -650,7 +639,8 @@ export const ChatMessageScalarFieldEnum = {
   type: 'type',
   content: 'content',
   metadata: 'metadata',
-  isRead: 'isRead',
+  isReadBySeller: 'isReadBySeller',
+  isReadByBuyer: 'isReadByBuyer',
   createdAt: 'createdAt'
 } as const
 
@@ -680,6 +670,7 @@ export const ReturnItemScalarFieldEnum = {
   id: 'id',
   returnRequestId: 'returnRequestId',
   sellerOrderItemId: 'sellerOrderItemId',
+  variantId: 'variantId',
   quantity: 'quantity'
 } as const
 
@@ -1213,6 +1204,7 @@ export const AiUsageLogScalarFieldEnum = {
   tasksUsed: 'tasksUsed',
   tokensUsed: 'tokensUsed',
   totalCostUsd: 'totalCostUsd',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
@@ -1491,7 +1483,7 @@ export const AutomationRuleScalarFieldEnum = {
   status: 'status',
   trigger: 'trigger',
   conditions: 'conditions',
-  actions: 'actions',
+  actionsLegacy: 'actionsLegacy',
   priority: 'priority',
   maxExecutions: 'maxExecutions',
   executionCount: 'executionCount',
@@ -1501,6 +1493,17 @@ export const AutomationRuleScalarFieldEnum = {
 } as const
 
 export type AutomationRuleScalarFieldEnum = (typeof AutomationRuleScalarFieldEnum)[keyof typeof AutomationRuleScalarFieldEnum]
+
+
+export const AutomationRuleActionScalarFieldEnum = {
+  id: 'id',
+  ruleId: 'ruleId',
+  action: 'action',
+  params: 'params',
+  sortOrder: 'sortOrder'
+} as const
+
+export type AutomationRuleActionScalarFieldEnum = (typeof AutomationRuleActionScalarFieldEnum)[keyof typeof AutomationRuleActionScalarFieldEnum]
 
 
 export const AutomationExecutionScalarFieldEnum = {
@@ -1562,6 +1565,7 @@ export type TranslationScalarFieldEnum = (typeof TranslationScalarFieldEnum)[key
 export const RegionalPricingScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
+  variantId: 'variantId',
   regionId: 'regionId',
   price: 'price',
   currencyCode: 'currencyCode',
@@ -1651,6 +1655,7 @@ export type FeatureFlagScalarFieldEnum = (typeof FeatureFlagScalarFieldEnum)[key
 
 export const ExperimentScalarFieldEnum = {
   id: 'id',
+  featureFlagId: 'featureFlagId',
   name: 'name',
   description: 'description',
   status: 'status',
@@ -1719,6 +1724,7 @@ export const AdminScalarFieldEnum = {
   lastName: 'lastName',
   avatar: 'avatar',
   status: 'status',
+  emailVerified: 'emailVerified',
   lastLoginAt: 'lastLoginAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -1768,11 +1774,23 @@ export const AdminSessionScalarFieldEnum = {
 export type AdminSessionScalarFieldEnum = (typeof AdminSessionScalarFieldEnum)[keyof typeof AdminSessionScalarFieldEnum]
 
 
+export const AdminPasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  adminId: 'adminId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type AdminPasswordResetTokenScalarFieldEnum = (typeof AdminPasswordResetTokenScalarFieldEnum)[keyof typeof AdminPasswordResetTokenScalarFieldEnum]
+
+
 export const SellerScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  shopName: 'shopName',
-  shopDescription: 'shopDescription',
+  sellerProfileId: 'sellerProfileId',
+  shopId: 'shopId',
   phone: 'phone',
   address: 'address',
   status: 'status',

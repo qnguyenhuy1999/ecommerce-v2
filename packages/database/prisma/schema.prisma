@@ -70,6 +70,7 @@ enum NotificationType {
 // ─── Auth & Users ───────────────────────────────────────────────
 
 model User {
+  /// Represents all end-users: buyers, sellers, and internal staff. Admin panel users are managed separately in the Admin model.
   id            String     @id @default(uuid()) @db.Uuid
   email         String     @unique
   passwordHash  String     @map("password_hash")
@@ -78,37 +79,30 @@ model User {
   phone         String?
   emailVerified Boolean    @default(false) @map("email_verified")
   status        UserStatus @default(ACTIVE)
+  /// True for internal platform users (e.g. support agents) who are not full admins but may have limited elevated access. Gate specific features in application code.
+  isStaff       Boolean    @default(false) @map("is_staff")
   createdAt     DateTime   @default(now()) @map("created_at")
   updatedAt     DateTime   @updatedAt @map("updated_at")
 
-  userRoles           UserRole[]
   sessions            Session[]
   sellerProfile       SellerProfile?
   passwordResetTokens PasswordResetToken[]
   emailVerifyTokens   EmailVerifyToken[]
+  conversations       Conversation[]
+  chatMessages        ChatMessage[]
+  flashSalePurchases  FlashSalePurchase[]
+  couponUsages        CouponUsage[]
+  reviews             Review[]
+  returnRequests      ReturnRequest[]
+  adImpressions       AdImpression[]
+  adClicks            AdClick[]
+  affiliateConversions AffiliateConversion[]
+  loyaltyAccount      LoyaltyAccount?
+  loyaltyRedemptions  LoyaltyRedemption[]
   sellers             Seller[]
+  auditLogs           AuditLog[]
 
   @@map("users")
-}
-
-model Role {
-  id   String @id @default(uuid()) @db.Uuid
-  name String @unique
-
-  userRoles UserRole[]
-
-  @@map("roles")
-}
-
-model UserRole {
-  userId String @map("user_id") @db.Uuid
-  roleId String @map("role_id") @db.Uuid
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
-
-  @@id([userId, roleId])
-  @@map("user_roles")
 }
 
 model Session {
@@ -136,6 +130,7 @@ model PasswordResetToken {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([token])
+  @@index([userId, usedAt])
   @@map("password_reset_tokens")
 }
 
@@ -150,19 +145,23 @@ model EmailVerifyToken {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([token])
+  @@index([userId, usedAt])
   @@map("email_verify_tokens")
 }
 
 // ─── Seller & Shop ──────────────────────────────────────────────
 
 model SellerProfile {
+  /// Presence of this record is the canonical signal that a User is a seller. Always create this alongside a Shop record.
   id        String   @id @default(uuid()) @db.Uuid
   userId    String   @unique @map("user_id") @db.Uuid
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  shop Shop?
+  /// SellerProfile is the operational entity that owns the Shop; Seller is the admin approval/verification entity.
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  shop               Shop?
+  adminSellerRecords Seller[]
 
   @@map("seller_profiles")
 }
@@ -196,6 +195,21 @@ model Shop {
   sellerShippingMethods SellerShippingMethod[]
   coupons               Coupon[]
   warehouses            Warehouse[]
+  productApprovals      ProductApproval[]
+  reviewReplies         ReviewReply[]
+  reviewReports         ReviewReport[]
+  returnRequests        ReturnRequest[]
+  sellerMetricSnapshots SellerMetricSnapshot[]
+  bulkJobs              BulkJob[]
+  savedFilters          SavedFilter[]
+  adCampaigns           AdCampaign[]
+  affiliateLinks        AffiliateLink[]
+  subscription          SellerSubscription?
+  livestreamSessions    LivestreamSession[]
+  aiTasks               AiTask[]
+  aiUsageLogs           AiUsageLog[]
+  settlementItems       SettlementItem[]
+  adminSellerRecord     Seller?
 
   @@index([sellerId])
   @@index([status])
@@ -216,6 +230,9 @@ model Category {
   banner      String?
   metaTitle   String? @map("meta_title")
   metaDesc    String? @map("meta_desc")
+  depth       Int     @default(0)
+  /// path stores the materialized ancestor chain as a slash-delimited string of UUIDs for efficient subtree queries.
+  path        String  @default("") @db.Text
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -224,8 +241,10 @@ model Category {
   children           Category[]          @relation("CategoryTree")
   products           Product[]
   categoryAttributes CategoryAttribute[]
+  couponCategories   CouponCategory[]
 
   @@index([parentId])
+  @@index([path])
   @@map("categories")
 }
 
@@ -242,7 +261,9 @@ model Product {
 
   basePrice     Decimal? @map("base_price") @db.Decimal(12, 2)
   baseSku       String?  @map("base_sku")
+  /// @deprecated Only authoritative when hasVariants = false. When hasVariants = true, use ProductVariant.stock instead.
   baseStock     Int      @default(0) @map("base_stock")
+  /// @deprecated Only authoritative when hasVariants = false. When hasVariants = true, use ProductVariant.stock instead.
   reservedStock Int      @default(0) @map("reserved_stock")
 
   hasVariants Boolean  @default(false) @map("has_variants")
@@ -257,10 +278,21 @@ model Product {
   variants            ProductVariant[]
   images              ProductImage[]
   variantOptionGroups ProductVariantOptionGroup[]
+  couponProducts      CouponProduct[]
+  reviews             Review[]
+  conversations       Conversation[]
+  productApprovals    ProductApproval[]
+  flashSaleSlots      FlashSaleSlot[]
+  ads                 Ad[]
+  affiliateLinks      AffiliateLink[]
+  livestreamProducts  LivestreamProduct[]
+  aiTasks             AiTask[]
+  regionalPricings    RegionalPricing[]
 
   @@unique([shopId, slug])
   @@index([shopId, status])
   @@index([categoryId])
+  @@index([categoryId, status])
   @@index([deletedAt])
   @@map("products")
 }
@@ -307,6 +339,12 @@ model ProductVariant {
   optionValues          ProductVariantOptionValue[]
   sellerOrderItems      SellerOrderItem[]
   inventoryTransactions InventoryTransaction[]
+  productImages         ProductImage[]
+  warehouseStocks       WarehouseStock[]
+  inventoryTransferItems InventoryTransferItem[]
+  flashSaleSlots        FlashSaleSlot[]
+  returnItems           ReturnItem[]
+  regionalPricings      RegionalPricing[]
 
   @@index([productId])
   @@map("product_variants")
@@ -326,6 +364,7 @@ model ProductVariantOptionValue {
 model ProductImage {
   id        String  @id @default(uuid()) @db.Uuid
   productId String  @map("product_id") @db.Uuid
+  variantId String? @map("variant_id") @db.Uuid
   url       String
   alt       String?
   sortOrder Int     @default(0) @map("sort_order")
@@ -333,9 +372,11 @@ model ProductImage {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
 
   @@index([productId])
+  @@index([variantId])
   @@map("product_images")
 }
 
@@ -345,6 +386,7 @@ model Order {
   id          String      @id @default(uuid()) @db.Uuid
   buyerId     String      @map("buyer_id") @db.Uuid
   totalAmount Decimal     @map("total_amount") @db.Decimal(12, 2)
+  /// Independently managed aggregate order status. It is not currently derived automatically from child SellerOrder records.
   status      OrderStatus @default(PENDING)
 
   shippingName    String? @map("shipping_name")
@@ -354,7 +396,10 @@ model Order {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  sellerOrders SellerOrder[]
+  sellerOrders        SellerOrder[]
+  reviews             Review[]
+  couponUsages        CouponUsage[]
+  flashSalePurchases  FlashSalePurchase[]
 
   @@index([buyerId])
   @@index([status])
@@ -366,6 +411,7 @@ model SellerOrder {
   orderId  String      @map("order_id") @db.Uuid
   shopId   String      @map("shop_id") @db.Uuid
   subtotal Decimal     @db.Decimal(12, 2)
+  /// Seller-fulfillment status managed per shop order. Parent Order.status remains independently managed.
   status   OrderStatus @default(PENDING)
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -374,8 +420,10 @@ model SellerOrder {
   order     Order             @relation(fields: [orderId], references: [id], onDelete: Cascade)
   shop      Shop              @relation(fields: [shopId], references: [id], onDelete: Cascade)
   items     SellerOrderItem[]
-  shipment  Shipment?
+  shipments Shipment[]
   auditLogs OrderAuditLog[]
+  returnRequests ReturnRequest[]
+  settlementItems SettlementItem[]
 
   @@index([shopId, status])
   @@index([orderId])
@@ -394,8 +442,10 @@ model SellerOrderItem {
 
   sellerOrder SellerOrder    @relation(fields: [sellerOrderId], references: [id], onDelete: Cascade)
   variant     ProductVariant @relation(fields: [variantId], references: [id], onDelete: Restrict)
+  returnItems ReturnItem[]
 
   @@index([sellerOrderId])
+  @@index([variantId])
   @@map("seller_order_items")
 }
 
@@ -409,7 +459,8 @@ model OrderAuditLog {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  sellerOrder SellerOrder @relation(fields: [sellerOrderId], references: [id], onDelete: Cascade)
+  sellerOrder      SellerOrder @relation(fields: [sellerOrderId], references: [id], onDelete: Cascade)
+  performedByAdmin Admin?      @relation("OrderAuditLogPerformedBy", fields: [performedBy], references: [id], onDelete: SetNull)
 
   @@index([sellerOrderId])
   @@map("order_audit_logs")
@@ -470,10 +521,11 @@ model SellerShippingMethod {
 
 model Shipment {
   id             String         @id @default(uuid()) @db.Uuid
-  sellerOrderId  String         @unique @map("seller_order_id") @db.Uuid
+  sellerOrderId  String         @map("seller_order_id") @db.Uuid
   providerId     String         @map("provider_id") @db.Uuid
   trackingNumber String?        @map("tracking_number")
   status         ShipmentStatus @default(PENDING)
+  isPrimary      Boolean        @default(true) @map("is_primary")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -481,6 +533,7 @@ model Shipment {
   sellerOrder SellerOrder      @relation(fields: [sellerOrderId], references: [id], onDelete: Cascade)
   provider    ShippingProvider @relation(fields: [providerId], references: [id], onDelete: Restrict)
 
+  @@index([sellerOrderId])
   @@index([trackingNumber])
   @@map("shipments")
 }
@@ -507,6 +560,7 @@ model Notification {
 
 // ─── Audit ──────────────────────────────────────────────────────
 
+/// General-purpose audit log for application-level events. Use OrderAuditLog for order status changes and AdminAuditLog for admin actions.
 model AuditLog {
   id        String  @id @default(uuid()) @db.Uuid
   userId    String? @map("user_id") @db.Uuid
@@ -518,6 +572,8 @@ model AuditLog {
   ipAddress String? @map("ip_address")
 
   createdAt DateTime @default(now()) @map("created_at")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([userId])
   @@index([entity, entityId])
@@ -615,6 +671,49 @@ enum InventoryTransferStatus {
   CANCELLED
 }
 
+enum UserEventType {
+  VIEW
+  CLICK
+  ADD_TO_CART
+  PURCHASE
+  SEARCH
+  WISHLIST
+  SHARE
+  REVIEW
+}
+
+enum UserEventEntityType {
+  PRODUCT
+  SHOP
+  CATEGORY
+  SEARCH_RESULT
+  AD
+}
+
+enum ProductScoreType {
+  POPULARITY
+  RELEVANCE
+  QUALITY
+  TRENDING
+  CONVERSION_RATE
+}
+
+enum ProductRelationType {
+  FREQUENTLY_BOUGHT_TOGETHER
+  SIMILAR
+  UPSELL
+  CROSS_SELL
+  ACCESSORY
+}
+
+enum LoyaltyRewardType {
+  COUPON
+  POINTS_MULTIPLIER
+  FREE_SHIPPING
+  CASHBACK
+  PHYSICAL_GIFT
+}
+
 // ─── Coupons & Promotions ──────────────────────────────────────
 
 model Coupon {
@@ -633,6 +732,7 @@ model Coupon {
 
   usageLimit        Int? @map("usage_limit")
   usageLimitPerUser Int? @map("usage_limit_per_user")
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   usedCount         Int  @default(0) @map("used_count")
 
   autoApply Boolean @default(false) @map("auto_apply")
@@ -649,6 +749,7 @@ model Coupon {
 
   @@unique([shopId, code])
   @@index([shopId, status])
+  @@index([status, expiresAt])
   @@index([startsAt, expiresAt])
   @@map("coupons")
 }
@@ -657,7 +758,8 @@ model CouponProduct {
   couponId  String @map("coupon_id") @db.Uuid
   productId String @map("product_id") @db.Uuid
 
-  coupon Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  coupon  Coupon  @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@id([couponId, productId])
   @@map("coupon_products")
@@ -667,7 +769,8 @@ model CouponCategory {
   couponId   String @map("coupon_id") @db.Uuid
   categoryId String @map("category_id") @db.Uuid
 
-  coupon Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  coupon   Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@id([couponId, categoryId])
   @@map("coupon_categories")
@@ -682,6 +785,8 @@ model CouponUsage {
   createdAt DateTime @default(now()) @map("created_at")
 
   coupon Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  buyer  User   @relation(fields: [buyerId], references: [id], onDelete: Restrict)
+  order  Order? @relation(fields: [orderId], references: [id], onDelete: SetNull)
 
   @@index([couponId])
   @@index([buyerId])
@@ -703,11 +808,15 @@ model Review {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  buyer   User    @relation(fields: [buyerId], references: [id], onDelete: Restrict)
+  order   Order?  @relation(fields: [orderId], references: [id], onDelete: SetNull)
   images  ReviewImage[]
   replies ReviewReply[]
   reports ReviewReport[]
 
   @@index([productId, status])
+  @@index([orderId])
   @@index([buyerId])
   @@index([rating])
   @@index([createdAt])
@@ -736,6 +845,7 @@ model ReviewReply {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  shop   Shop   @relation(fields: [shopId], references: [id], onDelete: Cascade)
 
   @@index([reviewId])
   @@map("review_replies")
@@ -751,6 +861,7 @@ model ReviewReport {
   createdAt DateTime @default(now()) @map("created_at")
 
   review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  shop   Shop   @relation(fields: [shopId], references: [id], onDelete: Restrict)
 
   @@index([reviewId])
   @@map("review_reports")
@@ -759,6 +870,7 @@ model ReviewReport {
 // ─── Seller Chat ───────────────────────────────────────────────
 
 model Conversation {
+  /// A conversation is scoped to a shop-buyer-product triple. productId may be null for general shop inquiries.
   id        String  @id @default(uuid()) @db.Uuid
   shopId    String  @map("shop_id") @db.Uuid
   buyerId   String  @map("buyer_id") @db.Uuid
@@ -773,9 +885,11 @@ model Conversation {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  buyer    User           @relation(fields: [buyerId], references: [id], onDelete: Restrict)
+  product  Product?      @relation(fields: [productId], references: [id], onDelete: SetNull)
   messages ChatMessage[]
 
-  @@unique([shopId, buyerId])
+  @@unique([shopId, buyerId, productId])
   @@index([shopId, lastMessageAt])
   @@index([buyerId])
   @@map("conversations")
@@ -789,10 +903,12 @@ model ChatMessage {
   content        String          @db.Text
   metadata       Json?
 
-  isRead    Boolean  @default(false) @map("is_read")
-  createdAt DateTime @default(now()) @map("created_at")
+  isReadBySeller Boolean @default(false) @map("is_read_by_seller")
+  isReadByBuyer  Boolean @default(false) @map("is_read_by_buyer")
+  createdAt      DateTime @default(now()) @map("created_at")
 
   conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User         @relation(fields: [senderId], references: [id], onDelete: Restrict)
 
   @@index([conversationId, createdAt])
   @@index([senderId])
@@ -805,6 +921,7 @@ model ReturnRequest {
   id            String       @id @default(uuid()) @db.Uuid
   sellerOrderId String       @map("seller_order_id") @db.Uuid
   buyerId       String       @map("buyer_id") @db.Uuid
+  /// Denormalized from SellerOrder.shopId for query performance. Must be kept in sync with the parent SellerOrder.
   shopId        String       @map("shop_id") @db.Uuid
   status        ReturnStatus @default(REQUESTED)
   reason        ReturnReason
@@ -819,9 +936,12 @@ model ReturnRequest {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  items    ReturnItem[]
-  evidence ReturnEvidence[]
-  timeline ReturnTimeline[]
+  sellerOrder SellerOrder      @relation(fields: [sellerOrderId], references: [id], onDelete: Restrict)
+  buyer      User             @relation(fields: [buyerId], references: [id], onDelete: Restrict)
+  shop       Shop             @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  items      ReturnItem[]
+  evidence   ReturnEvidence[]
+  timeline   ReturnTimeline[]
 
   @@index([shopId, status])
   @@index([sellerOrderId])
@@ -834,9 +954,12 @@ model ReturnItem {
   id                String @id @default(uuid()) @db.Uuid
   returnRequestId   String @map("return_request_id") @db.Uuid
   sellerOrderItemId String @map("seller_order_item_id") @db.Uuid
+  variantId         String? @map("variant_id") @db.Uuid
   quantity          Int
 
-  returnRequest ReturnRequest @relation(fields: [returnRequestId], references: [id], onDelete: Cascade)
+  returnRequest    ReturnRequest    @relation(fields: [returnRequestId], references: [id], onDelete: Cascade)
+  sellerOrderItem  SellerOrderItem  @relation(fields: [sellerOrderItemId], references: [id], onDelete: Cascade)
+  variant          ProductVariant?  @relation(fields: [variantId], references: [id], onDelete: SetNull)
 
   @@index([returnRequestId])
   @@map("return_items")
@@ -851,7 +974,8 @@ model ReturnEvidence {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  returnRequest ReturnRequest @relation(fields: [returnRequestId], references: [id], onDelete: Cascade)
+  returnRequest    ReturnRequest @relation(fields: [returnRequestId], references: [id], onDelete: Cascade)
+  uploadedByAdmin Admin         @relation("ReturnEvidenceUploadedBy", fields: [uploadedBy], references: [id], onDelete: Restrict)
 
   @@index([returnRequestId])
   @@map("return_evidence")
@@ -867,7 +991,8 @@ model ReturnTimeline {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  returnRequest ReturnRequest @relation(fields: [returnRequestId], references: [id], onDelete: Cascade)
+  returnRequest    ReturnRequest @relation(fields: [returnRequestId], references: [id], onDelete: Cascade)
+  performedByAdmin Admin?        @relation("ReturnTimelinePerformedBy", fields: [performedBy], references: [id], onDelete: SetNull)
 
   @@index([returnRequestId])
   @@map("return_timeline")
@@ -892,7 +1017,10 @@ model ProductApproval {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  history ProductApprovalHistory[]
+  product         Product                  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  shop            Shop                     @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  reviewedByAdmin Admin?                   @relation("ProductApprovalReviewedBy", fields: [reviewedBy], references: [id], onDelete: SetNull)
+  history         ProductApprovalHistory[]
 
   @@index([productId])
   @@index([shopId, status])
@@ -910,7 +1038,8 @@ model ProductApprovalHistory {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  approval ProductApproval @relation(fields: [approvalId], references: [id], onDelete: Cascade)
+  approval         ProductApproval @relation(fields: [approvalId], references: [id], onDelete: Cascade)
+  performedByAdmin Admin?          @relation("ProductApprovalHistoryPerformedBy", fields: [performedBy], references: [id], onDelete: SetNull)
 
   @@index([approvalId])
   @@map("product_approval_history")
@@ -950,7 +1079,8 @@ model WarehouseStock {
 
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  warehouse Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  warehouse Warehouse      @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
   @@unique([warehouseId, variantId])
   @@index([variantId])
@@ -984,6 +1114,7 @@ model InventoryTransferItem {
   quantity   Int
 
   transfer InventoryTransfer @relation(fields: [transferId], references: [id], onDelete: Cascade)
+  variant  ProductVariant    @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
   @@index([transferId])
   @@map("inventory_transfer_items")
@@ -1012,7 +1143,10 @@ model SellerMetricSnapshot {
 
   createdAt DateTime @default(now()) @map("created_at")
 
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
   @@unique([shopId, date])
+  @@index([shopId])
   @@index([shopId, date])
   @@map("seller_metric_snapshots")
 }
@@ -1041,6 +1175,9 @@ model BulkJob {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
+  @@index([shopId])
   @@index([shopId, type])
   @@index([status])
   @@index([createdAt])
@@ -1060,6 +1197,9 @@ model SavedFilter {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
+  @@index([shopId])
   @@index([shopId, entity])
   @@map("saved_filters")
 }
@@ -1251,7 +1391,8 @@ model FlashSaleCampaign {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  slots FlashSaleSlot[]
+  createdByAdmin Admin?           @relation("FlashSaleCampaignCreatedBy", fields: [createdBy], references: [id], onDelete: SetNull)
+  slots          FlashSaleSlot[]
 
   @@index([status, startsAt])
   @@index([startsAt, endsAt])
@@ -1269,6 +1410,7 @@ model FlashSaleSlot {
   originalPrice Decimal @map("original_price") @db.Decimal(12, 2)
   salePrice     Decimal @map("sale_price") @db.Decimal(12, 2)
   totalStock    Int     @map("total_stock")
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   soldCount     Int     @default(0) @map("sold_count")
   purchaseLimit Int     @default(1) @map("purchase_limit")
 
@@ -1278,6 +1420,9 @@ model FlashSaleSlot {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   campaign FlashSaleCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  product  Product           @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant  ProductVariant?   @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  purchases FlashSalePurchase[]
 
   @@unique([campaignId, productId, variantId])
   @@index([campaignId, status])
@@ -1294,6 +1439,10 @@ model FlashSalePurchase {
   quantity Int
 
   createdAt DateTime @default(now()) @map("created_at")
+
+  slot  FlashSaleSlot @relation(fields: [slotId], references: [id], onDelete: Cascade)
+  buyer User          @relation(fields: [buyerId], references: [id], onDelete: Restrict)
+  order Order?        @relation(fields: [orderId], references: [id], onDelete: SetNull)
 
   @@index([slotId])
   @@index([buyerId, slotId])
@@ -1321,8 +1470,10 @@ model AdCampaign {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  shop     Shop      @relation(fields: [shopId], references: [id], onDelete: Cascade)
   adGroups AdGroup[]
 
+  @@index([shopId])
   @@index([shopId, status])
   @@index([status, startsAt])
   @@map("ad_campaigns")
@@ -1350,15 +1501,20 @@ model Ad {
   productId String  @map("product_id") @db.Uuid
   isActive  Boolean @default(true) @map("is_active")
 
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   impressions Int     @default(0)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   clicks      Int     @default(0)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   conversions Int     @default(0)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   spent       Decimal @default(0) @db.Decimal(12, 2)
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   adGroup        AdGroup        @relation(fields: [adGroupId], references: [id], onDelete: Cascade)
+  product        Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
   impressionLogs AdImpression[]
   clickLogs      AdClick[]
 
@@ -1390,9 +1546,11 @@ model AdImpression {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  ad Ad @relation(fields: [adId], references: [id], onDelete: Cascade)
+  ad    Ad    @relation(fields: [adId], references: [id], onDelete: Cascade)
+  buyer User? @relation(fields: [buyerId], references: [id], onDelete: SetNull)
 
   @@index([adId, createdAt])
+  @@index([buyerId])
   @@index([createdAt])
   @@map("ad_impressions")
 }
@@ -1405,9 +1563,11 @@ model AdClick {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  ad Ad @relation(fields: [adId], references: [id], onDelete: Cascade)
+  ad    Ad    @relation(fields: [adId], references: [id], onDelete: Cascade)
+  buyer User? @relation(fields: [buyerId], references: [id], onDelete: SetNull)
 
   @@index([adId, createdAt])
+  @@index([buyerId])
   @@index([createdAt])
   @@map("ad_clicks")
 }
@@ -1425,7 +1585,9 @@ model AffiliatePartner {
   socialLinks Json?   @map("social_links")
 
   commissionRate Decimal @default(5) @map("commission_rate") @db.Decimal(5, 2)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   totalEarnings  Decimal @default(0) @map("total_earnings") @db.Decimal(12, 2)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   pendingBalance Decimal @default(0) @map("pending_balance") @db.Decimal(12, 2)
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -1446,12 +1608,16 @@ model AffiliateLink {
   code      String  @unique
   url       String
 
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   clicks      Int @default(0)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   conversions Int @default(0)
 
   createdAt DateTime @default(now()) @map("created_at")
 
   partner          AffiliatePartner      @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  product          Product?              @relation(fields: [productId], references: [id], onDelete: SetNull)
+  shop             Shop?                 @relation(fields: [shopId], references: [id], onDelete: SetNull)
   trackClicks      AffiliateClick[]
   trackConversions AffiliateConversion[]
 
@@ -1489,8 +1655,10 @@ model AffiliateConversion {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  link AffiliateLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  link  AffiliateLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  buyer User          @relation(fields: [buyerId], references: [id], onDelete: Restrict)
 
+  @@index([buyerId])
   @@index([linkId])
   @@index([orderId])
   @@index([createdAt])
@@ -1575,7 +1743,8 @@ model SellerSubscription {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
 
-  plan     SubscriptionPlan      @relation(fields: [planId], references: [id])
+  shop     Shop                 @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  plan     SubscriptionPlan     @relation(fields: [planId], references: [id])
   invoices SubscriptionInvoice[]
 
   @@unique([shopId])
@@ -1631,9 +1800,11 @@ model LivestreamSession {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  shop         Shop                @relation(fields: [shopId], references: [id], onDelete: Cascade)
   products     LivestreamProduct[]
   chatMessages LivestreamChat[]
 
+  @@index([shopId])
   @@index([shopId, status])
   @@index([status, scheduledAt])
   @@map("livestream_sessions")
@@ -1652,6 +1823,7 @@ model LivestreamProduct {
   createdAt DateTime  @default(now()) @map("created_at")
 
   session LivestreamSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  product Product           @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@unique([sessionId, productId])
   @@index([sessionId])
@@ -1697,8 +1869,11 @@ model AiTask {
   completedAt DateTime? @map("completed_at")
   createdAt   DateTime  @default(now()) @map("created_at")
 
+  shop     Shop              @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  product  Product?          @relation(fields: [productId], references: [id], onDelete: SetNull)
   template AiPromptTemplate? @relation(fields: [templateId], references: [id])
 
+  @@index([shopId])
   @@index([shopId, type])
   @@index([status])
   @@index([productId])
@@ -1721,6 +1896,7 @@ model AiPromptTemplate {
   tasks AiTask[]
 
   @@unique([type, version])
+  @@index([type, isActive])
   @@map("ai_prompt_templates")
 }
 
@@ -1733,9 +1909,13 @@ model AiUsageLog {
   tokensUsed   Int     @default(0) @map("tokens_used")
   totalCostUsd Decimal @default(0) @map("total_cost_usd") @db.Decimal(10, 4)
 
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
   @@unique([shopId, month])
+  @@index([shopId])
   @@map("ai_usage_logs")
 }
 
@@ -1745,8 +1925,8 @@ model UserEvent {
   id         String  @id @default(uuid()) @db.Uuid
   userId     String? @map("user_id") @db.Uuid
   sessionId  String? @map("session_id")
-  event      String
-  entityType String  @map("entity_type")
+  event      UserEventType
+  entityType UserEventEntityType @map("entity_type")
   entityId   String  @map("entity_id") @db.Uuid
 
   metadata Json?
@@ -1763,7 +1943,7 @@ model UserEvent {
 model ProductScore {
   id        String @id @default(uuid()) @db.Uuid
   productId String @map("product_id") @db.Uuid
-  scoreType String @map("score_type")
+  scoreType ProductScoreType @map("score_type")
   score     Float
   metadata  Json?
 
@@ -1778,7 +1958,7 @@ model ProductRelation {
   id               String @id @default(uuid()) @db.Uuid
   productId        String @map("product_id") @db.Uuid
   relatedProductId String @map("related_product_id") @db.Uuid
-  relationType     String @map("relation_type")
+  relationType     ProductRelationType @map("relation_type")
   score            Float  @default(0)
 
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -1811,8 +1991,11 @@ model LoyaltyAccount {
   userId String  @unique @map("user_id") @db.Uuid
   tierId String? @map("tier_id") @db.Uuid
 
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   totalPoints     Int @default(0) @map("total_points")
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   availablePoints Int @default(0) @map("available_points")
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   lifetimePoints  Int @default(0) @map("lifetime_points")
 
   lastCheckIn DateTime? @map("last_check_in")
@@ -1821,6 +2004,7 @@ model LoyaltyAccount {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  user            User                     @relation(fields: [userId], references: [id], onDelete: Restrict)
   tier            LoyaltyTier?             @relation(fields: [tierId], references: [id])
   transactions    LoyaltyTransaction[]
   missionProgress LoyaltyMissionProgress[]
@@ -1846,6 +2030,7 @@ model LoyaltyTransaction {
   account LoyaltyAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
   @@index([accountId, createdAt])
+  @@index([referenceId])
   @@index([type])
   @@index([expiresAt])
   @@map("loyalty_transactions")
@@ -1895,7 +2080,7 @@ model LoyaltyReward {
   name        String
   description String? @db.Text
   pointsCost  Int     @map("points_cost")
-  rewardType  String  @map("reward_type")
+  rewardType  LoyaltyRewardType @map("reward_type")
   rewardValue Json    @map("reward_value")
   stock       Int?
   isActive    Boolean @default(true) @map("is_active")
@@ -1916,6 +2101,7 @@ model LoyaltyRedemption {
 
   createdAt DateTime @default(now()) @map("created_at")
 
+  user   User          @relation(fields: [userId], references: [id], onDelete: Restrict)
   reward LoyaltyReward @relation(fields: [rewardId], references: [id])
 
   @@index([userId])
@@ -1925,14 +2111,24 @@ model LoyaltyRedemption {
 
 // ─── 9. Wallet & Seller Balance System ────────────────────────
 
+enum WalletOwnerType {
+  SHOP
+  AFFILIATE
+  PLATFORM
+}
+
 model Wallet {
   id        String @id @default(uuid()) @db.Uuid
   ownerId   String @map("owner_id") @db.Uuid
-  ownerType String @map("owner_type")
+  ownerType WalletOwnerType @map("owner_type")
 
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   balance        Decimal @default(0) @db.Decimal(12, 2)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   pendingBalance Decimal @default(0) @map("pending_balance") @db.Decimal(12, 2)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   totalEarned    Decimal @default(0) @map("total_earned") @db.Decimal(12, 2)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   totalWithdrawn Decimal @default(0) @map("total_withdrawn") @db.Decimal(12, 2)
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -1965,6 +2161,7 @@ model WalletTransaction {
   wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
 
   @@index([walletId, createdAt])
+  @@index([walletId, type, status])
   @@index([type])
   @@index([reference, referenceId])
   @@map("wallet_transactions")
@@ -1990,9 +2187,11 @@ model WalletWithdrawal {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  wallet          Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  approvedByAdmin Admin? @relation("WalletWithdrawalApprovedBy", fields: [approvedBy], references: [id], onDelete: SetNull)
 
   @@index([walletId, status])
+  @@index([approvedBy])
   @@index([status])
   @@map("wallet_withdrawals")
 }
@@ -2028,7 +2227,9 @@ model SettlementItem {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  batch SettlementBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  batch       SettlementBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  shop        Shop            @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  sellerOrder SellerOrder     @relation(fields: [sellerOrderId], references: [id], onDelete: Restrict)
 
   @@index([batchId])
   @@index([shopId])
@@ -2075,6 +2276,7 @@ model SearchAnalytics {
   createdAt DateTime @default(now()) @map("created_at")
 
   @@index([query])
+  @@index([clickedProductId])
   @@index([createdAt])
   @@map("search_analytics")
 }
@@ -2089,7 +2291,9 @@ model AutomationRule {
 
   trigger    AutomationTrigger
   conditions Json?
-  actions    Json
+  /// @deprecated Use AutomationRuleAction rows instead.
+  /// @deprecated Column was renamed from "actions" to "actions_legacy" - run migration before deploying.
+  actionsLegacy Json? @map("actions_legacy")
 
   priority       Int  @default(0)
   maxExecutions  Int? @map("max_executions")
@@ -2099,11 +2303,24 @@ model AutomationRule {
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime  @updatedAt @map("updated_at")
 
+  actions    AutomationRuleAction[]
   executions AutomationExecution[]
 
   @@index([shopId, status])
   @@index([trigger, status])
   @@map("automation_rules")
+}
+
+model AutomationRuleAction {
+  id        String           @id @default(uuid()) @db.Uuid
+  ruleId    String           @map("rule_id") @db.Uuid
+  action    AutomationAction
+  params    Json?
+  sortOrder Int              @default(0) @map("sort_order")
+  rule      AutomationRule   @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  @@index([ruleId])
+  @@map("automation_rule_actions")
 }
 
 model AutomationExecution {
@@ -2179,6 +2396,7 @@ model Translation {
 model RegionalPricing {
   id           String  @id @default(uuid()) @db.Uuid
   productId    String  @map("product_id") @db.Uuid
+  variantId    String? @map("variant_id") @db.Uuid
   regionId     String  @map("region_id") @db.Uuid
   price        Decimal @db.Decimal(12, 2)
   currencyCode String  @map("currency_code")
@@ -2186,9 +2404,12 @@ model RegionalPricing {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  region Region @relation(fields: [regionId], references: [id], onDelete: Cascade)
+  product Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  region  Region          @relation(fields: [regionId], references: [id], onDelete: Cascade)
 
-  @@unique([productId, regionId])
+  @@unique([productId, variantId, regionId])
+  @@index([variantId])
   @@map("regional_pricings")
 }
 
@@ -2286,11 +2507,14 @@ model FeatureFlag {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  experiments Experiment[]
+
   @@map("feature_flags")
 }
 
 model Experiment {
   id          String           @id @default(uuid()) @db.Uuid
+  featureFlagId String?        @map("feature_flag_id") @db.Uuid
   name        String
   description String?          @db.Text
   status      ExperimentStatus @default(DRAFT)
@@ -2304,8 +2528,10 @@ model Experiment {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  variants ExperimentVariant[]
+  featureFlag FeatureFlag?        @relation(fields: [featureFlagId], references: [id], onDelete: SetNull)
+  variants    ExperimentVariant[]
 
+  @@index([featureFlagId])
   @@map("experiments")
 }
 
@@ -2316,7 +2542,9 @@ model ExperimentVariant {
   weight       Int    @default(50)
   config       Json?
 
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   impressions Int @default(0)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   conversions Int @default(0)
 
   experiment Experiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
@@ -2337,8 +2565,11 @@ model GrowthCampaign {
   startsAt DateTime? @map("starts_at")
   endsAt   DateTime? @map("ends_at")
 
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   impressions Int @default(0)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   clicks      Int @default(0)
+  /// Denormalized counter. Keep in sync via application logic or a reconciliation job.
   conversions Int @default(0)
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -2371,6 +2602,7 @@ enum AdminStatus {
 }
 
 model Admin {
+  /// Represents admin panel users only. Completely separate auth from User. Admins cannot place orders or act as buyers — create a User record for that.
   id           String      @id @default(uuid()) @db.Uuid
   email        String      @unique
   passwordHash String      @map("password_hash")
@@ -2378,14 +2610,29 @@ model Admin {
   lastName     String      @map("last_name")
   avatar       String?
   status       AdminStatus @default(ACTIVE)
+  emailVerified Boolean    @default(false) @map("email_verified")
   lastLoginAt  DateTime?   @map("last_login_at")
   createdAt    DateTime    @default(now()) @map("created_at")
   updatedAt    DateTime    @updatedAt @map("updated_at")
   deletedAt    DateTime?   @map("deleted_at")
 
-  adminRoles     AdminRoleAssignment[]
-  adminSessions  AdminSession[]
-  adminAuditLogs AdminAuditLog[]
+  adminRoles           AdminRoleAssignment[]
+  adminSessions        AdminSession[]
+  adminAuditLogs       AdminAuditLog[]
+  passwordResetTokens  AdminPasswordResetToken[]
+  orderAuditLogs       OrderAuditLog[]              @relation("OrderAuditLogPerformedBy")
+  productApprovalsReviewed ProductApproval[]        @relation("ProductApprovalReviewedBy")
+  productApprovalHistoryEntries ProductApprovalHistory[] @relation("ProductApprovalHistoryPerformedBy")
+  returnTimelineEntries ReturnTimeline[]            @relation("ReturnTimelinePerformedBy")
+  returnEvidenceUploads ReturnEvidence[]            @relation("ReturnEvidenceUploadedBy")
+  walletWithdrawalsApproved WalletWithdrawal[]      @relation("WalletWithdrawalApprovedBy")
+  flashSaleCampaignsCreated FlashSaleCampaign[]     @relation("FlashSaleCampaignCreatedBy")
+  approvedSellers      Seller[]                     @relation("SellerApprovedBy")
+  suspendedSellers     Seller[]                     @relation("SellerSuspendedBy")
+  rejectedSellers      Seller[]                     @relation("SellerRejectedBy")
+  bannersCreated       Banner[]                     @relation("BannerCreatedBy")
+  adminNotificationsSent AdminNotification[]        @relation("AdminNotificationSentBy")
+  platformVouchersCreated PlatformVoucher[]         @relation("PlatformVoucherCreatedBy")
 
   @@index([email])
   @@map("admins")
@@ -2472,6 +2719,20 @@ model AdminSession {
   @@map("admin_sessions")
 }
 
+model AdminPasswordResetToken {
+  id        String    @id @default(uuid()) @db.Uuid
+  adminId   String    @map("admin_id") @db.Uuid
+  token     String    @unique
+  expiresAt DateTime  @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  admin Admin @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@map("admin_password_reset_tokens")
+}
+
 // ─── Admin Seller Management ────────────────────────────────────
 
 enum SellerStatus {
@@ -2490,10 +2751,11 @@ enum SellerVerificationStatus {
 }
 
 model Seller {
+  /// shopName and shopDescription have been removed; use shop.name and shop.description via the shopId relation instead.
   id              String       @id @default(uuid()) @db.Uuid
   userId          String       @map("user_id") @db.Uuid
-  shopName        String       @map("shop_name")
-  shopDescription String?      @map("shop_description")
+  sellerProfileId String?      @unique @map("seller_profile_id") @db.Uuid
+  shopId          String?      @unique @map("shop_id") @db.Uuid
   phone           String?
   address         String?
   status          SellerStatus @default(PENDING)
@@ -2509,8 +2771,13 @@ model Seller {
   updatedAt       DateTime     @updatedAt @map("updated_at")
   deletedAt       DateTime?    @map("deleted_at")
 
-  user          User                 @relation(fields: [userId], references: [id])
-  verifications SellerVerification[]
+  user              User           @relation(fields: [userId], references: [id])
+  sellerProfile     SellerProfile? @relation(fields: [sellerProfileId], references: [id])
+  shop              Shop?          @relation(fields: [shopId], references: [id])
+  approvedByAdmin   Admin?         @relation("SellerApprovedBy", fields: [approvedBy], references: [id], onDelete: SetNull)
+  suspendedByAdmin  Admin?         @relation("SellerSuspendedBy", fields: [suspendedBy], references: [id], onDelete: SetNull)
+  rejectedByAdmin   Admin?         @relation("SellerRejectedBy", fields: [rejectedBy], references: [id], onDelete: SetNull)
+  verifications     SellerVerification[]
 
   @@index([userId])
   @@index([status])
@@ -2589,6 +2856,7 @@ model AdminAuditLog {
   adminId    String?         @map("admin_id") @db.Uuid
   action     AuditActionType
   entityType String?         @map("entity_type")
+  /// Polymorphic reference. entityType describes the table (e.g. "products", "users"). No FK enforced by design.
   entityId   String?         @map("entity_id") @db.Uuid
   metadata   Json?
   ipAddress  String?         @map("ip_address")
@@ -2714,6 +2982,8 @@ model Banner {
   createdAt      DateTime       @default(now()) @map("created_at")
   updatedAt      DateTime       @updatedAt @map("updated_at")
 
+  createdByAdmin Admin? @relation("BannerCreatedBy", fields: [createdBy], references: [id], onDelete: SetNull)
+
   @@index([position, status])
   @@index([startsAt, endsAt])
   @@map("banners")
@@ -2757,6 +3027,8 @@ model AdminNotification {
   createdAt DateTime                @default(now()) @map("created_at")
   updatedAt DateTime                @updatedAt @map("updated_at")
 
+  sentByAdmin Admin? @relation("AdminNotificationSentBy", fields: [sentBy], references: [id], onDelete: SetNull)
+
   @@index([status])
   @@index([createdAt])
   @@map("admin_notifications")
@@ -2799,6 +3071,8 @@ model PlatformVoucher {
   createdBy String?  @map("created_by") @db.Uuid
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  createdByAdmin Admin? @relation("PlatformVoucherCreatedBy", fields: [createdBy], references: [id], onDelete: SetNull)
 
   @@index([status])
   @@index([startsAt, expiresAt])

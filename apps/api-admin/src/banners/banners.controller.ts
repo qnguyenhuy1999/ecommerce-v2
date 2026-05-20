@@ -13,7 +13,7 @@ import { Permissions } from '../auth/decorators/permissions.decorator'
 import { AdminAuthGuard } from '../auth/guards/admin-auth.guard'
 import { PermissionGuard } from '../auth/guards/permission.guard'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
-import type { BannersService } from './banners.service'
+import { BannersService } from './banners.service'
 import type { BannerQueryDto, CreateBannerDto, UpdateBannerDto } from './dto/banner.dto'
 import { BannerResponseDto } from './dto/banner.dto'
 

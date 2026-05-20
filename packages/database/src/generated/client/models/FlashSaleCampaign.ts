@@ -264,6 +264,7 @@ export type FlashSaleCampaignWhereInput = {
   createdBy?: Prisma.UuidNullableFilter<"FlashSaleCampaign"> | string | null
   createdAt?: Prisma.DateTimeFilter<"FlashSaleCampaign"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FlashSaleCampaign"> | Date | string
+  createdByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
   slots?: Prisma.FlashSaleSlotListRelationFilter
 }
 
@@ -279,6 +280,7 @@ export type FlashSaleCampaignOrderByWithRelationInput = {
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  createdByAdmin?: Prisma.AdminOrderByWithRelationInput
   slots?: Prisma.FlashSaleSlotOrderByRelationAggregateInput
 }
 
@@ -297,6 +299,7 @@ export type FlashSaleCampaignWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.UuidNullableFilter<"FlashSaleCampaign"> | string | null
   createdAt?: Prisma.DateTimeFilter<"FlashSaleCampaign"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FlashSaleCampaign"> | Date | string
+  createdByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
   slots?: Prisma.FlashSaleSlotListRelationFilter
 }, "id">
 
@@ -345,9 +348,9 @@ export type FlashSaleCampaignCreateInput = {
   endsAt: Date | string
   maxSlotsPerSeller?: number
   isVisible?: boolean
-  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdByAdmin?: Prisma.AdminCreateNestedOneWithoutFlashSaleCampaignsCreatedInput
   slots?: Prisma.FlashSaleSlotCreateNestedManyWithoutCampaignInput
 }
 
@@ -375,9 +378,9 @@ export type FlashSaleCampaignUpdateInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxSlotsPerSeller?: Prisma.IntFieldUpdateOperationsInput | number
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdByAdmin?: Prisma.AdminUpdateOneWithoutFlashSaleCampaignsCreatedNestedInput
   slots?: Prisma.FlashSaleSlotUpdateManyWithoutCampaignNestedInput
 }
 
@@ -419,7 +422,6 @@ export type FlashSaleCampaignUpdateManyMutationInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxSlotsPerSeller?: Prisma.IntFieldUpdateOperationsInput | number
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -493,6 +495,16 @@ export type FlashSaleCampaignScalarRelationFilter = {
   isNot?: Prisma.FlashSaleCampaignWhereInput
 }
 
+export type FlashSaleCampaignListRelationFilter = {
+  every?: Prisma.FlashSaleCampaignWhereInput
+  some?: Prisma.FlashSaleCampaignWhereInput
+  none?: Prisma.FlashSaleCampaignWhereInput
+}
+
+export type FlashSaleCampaignOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
 export type EnumFlashSaleStatusFieldUpdateOperationsInput = {
   set?: $Enums.FlashSaleStatus
 }
@@ -511,6 +523,48 @@ export type FlashSaleCampaignUpdateOneRequiredWithoutSlotsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FlashSaleCampaignUpdateToOneWithWhereWithoutSlotsInput, Prisma.FlashSaleCampaignUpdateWithoutSlotsInput>, Prisma.FlashSaleCampaignUncheckedUpdateWithoutSlotsInput>
 }
 
+export type FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleCampaignCreateWithoutCreatedByAdminInput, Prisma.FlashSaleCampaignUncheckedCreateWithoutCreatedByAdminInput> | Prisma.FlashSaleCampaignCreateWithoutCreatedByAdminInput[] | Prisma.FlashSaleCampaignUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.FlashSaleCampaignCreateOrConnectWithoutCreatedByAdminInput | Prisma.FlashSaleCampaignCreateOrConnectWithoutCreatedByAdminInput[]
+  createMany?: Prisma.FlashSaleCampaignCreateManyCreatedByAdminInputEnvelope
+  connect?: Prisma.FlashSaleCampaignWhereUniqueInput | Prisma.FlashSaleCampaignWhereUniqueInput[]
+}
+
+export type FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleCampaignCreateWithoutCreatedByAdminInput, Prisma.FlashSaleCampaignUncheckedCreateWithoutCreatedByAdminInput> | Prisma.FlashSaleCampaignCreateWithoutCreatedByAdminInput[] | Prisma.FlashSaleCampaignUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.FlashSaleCampaignCreateOrConnectWithoutCreatedByAdminInput | Prisma.FlashSaleCampaignCreateOrConnectWithoutCreatedByAdminInput[]
+  createMany?: Prisma.FlashSaleCampaignCreateManyCreatedByAdminInputEnvelope
+  connect?: Prisma.FlashSaleCampaignWhereUniqueInput | Prisma.FlashSaleCampaignWhereUniqueInput[]
+}
+
+export type FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleCampaignCreateWithoutCreatedByAdminInput, Prisma.FlashSaleCampaignUncheckedCreateWithoutCreatedByAdminInput> | Prisma.FlashSaleCampaignCreateWithoutCreatedByAdminInput[] | Prisma.FlashSaleCampaignUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.FlashSaleCampaignCreateOrConnectWithoutCreatedByAdminInput | Prisma.FlashSaleCampaignCreateOrConnectWithoutCreatedByAdminInput[]
+  upsert?: Prisma.FlashSaleCampaignUpsertWithWhereUniqueWithoutCreatedByAdminInput | Prisma.FlashSaleCampaignUpsertWithWhereUniqueWithoutCreatedByAdminInput[]
+  createMany?: Prisma.FlashSaleCampaignCreateManyCreatedByAdminInputEnvelope
+  set?: Prisma.FlashSaleCampaignWhereUniqueInput | Prisma.FlashSaleCampaignWhereUniqueInput[]
+  disconnect?: Prisma.FlashSaleCampaignWhereUniqueInput | Prisma.FlashSaleCampaignWhereUniqueInput[]
+  delete?: Prisma.FlashSaleCampaignWhereUniqueInput | Prisma.FlashSaleCampaignWhereUniqueInput[]
+  connect?: Prisma.FlashSaleCampaignWhereUniqueInput | Prisma.FlashSaleCampaignWhereUniqueInput[]
+  update?: Prisma.FlashSaleCampaignUpdateWithWhereUniqueWithoutCreatedByAdminInput | Prisma.FlashSaleCampaignUpdateWithWhereUniqueWithoutCreatedByAdminInput[]
+  updateMany?: Prisma.FlashSaleCampaignUpdateManyWithWhereWithoutCreatedByAdminInput | Prisma.FlashSaleCampaignUpdateManyWithWhereWithoutCreatedByAdminInput[]
+  deleteMany?: Prisma.FlashSaleCampaignScalarWhereInput | Prisma.FlashSaleCampaignScalarWhereInput[]
+}
+
+export type FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleCampaignCreateWithoutCreatedByAdminInput, Prisma.FlashSaleCampaignUncheckedCreateWithoutCreatedByAdminInput> | Prisma.FlashSaleCampaignCreateWithoutCreatedByAdminInput[] | Prisma.FlashSaleCampaignUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.FlashSaleCampaignCreateOrConnectWithoutCreatedByAdminInput | Prisma.FlashSaleCampaignCreateOrConnectWithoutCreatedByAdminInput[]
+  upsert?: Prisma.FlashSaleCampaignUpsertWithWhereUniqueWithoutCreatedByAdminInput | Prisma.FlashSaleCampaignUpsertWithWhereUniqueWithoutCreatedByAdminInput[]
+  createMany?: Prisma.FlashSaleCampaignCreateManyCreatedByAdminInputEnvelope
+  set?: Prisma.FlashSaleCampaignWhereUniqueInput | Prisma.FlashSaleCampaignWhereUniqueInput[]
+  disconnect?: Prisma.FlashSaleCampaignWhereUniqueInput | Prisma.FlashSaleCampaignWhereUniqueInput[]
+  delete?: Prisma.FlashSaleCampaignWhereUniqueInput | Prisma.FlashSaleCampaignWhereUniqueInput[]
+  connect?: Prisma.FlashSaleCampaignWhereUniqueInput | Prisma.FlashSaleCampaignWhereUniqueInput[]
+  update?: Prisma.FlashSaleCampaignUpdateWithWhereUniqueWithoutCreatedByAdminInput | Prisma.FlashSaleCampaignUpdateWithWhereUniqueWithoutCreatedByAdminInput[]
+  updateMany?: Prisma.FlashSaleCampaignUpdateManyWithWhereWithoutCreatedByAdminInput | Prisma.FlashSaleCampaignUpdateManyWithWhereWithoutCreatedByAdminInput[]
+  deleteMany?: Prisma.FlashSaleCampaignScalarWhereInput | Prisma.FlashSaleCampaignScalarWhereInput[]
+}
+
 export type FlashSaleCampaignCreateWithoutSlotsInput = {
   id?: string
   name: string
@@ -520,9 +574,9 @@ export type FlashSaleCampaignCreateWithoutSlotsInput = {
   endsAt: Date | string
   maxSlotsPerSeller?: number
   isVisible?: boolean
-  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdByAdmin?: Prisma.AdminCreateNestedOneWithoutFlashSaleCampaignsCreatedInput
 }
 
 export type FlashSaleCampaignUncheckedCreateWithoutSlotsInput = {
@@ -564,9 +618,9 @@ export type FlashSaleCampaignUpdateWithoutSlotsInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maxSlotsPerSeller?: Prisma.IntFieldUpdateOperationsInput | number
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdByAdmin?: Prisma.AdminUpdateOneWithoutFlashSaleCampaignsCreatedNestedInput
 }
 
 export type FlashSaleCampaignUncheckedUpdateWithoutSlotsInput = {
@@ -579,6 +633,131 @@ export type FlashSaleCampaignUncheckedUpdateWithoutSlotsInput = {
   maxSlotsPerSeller?: Prisma.IntFieldUpdateOperationsInput | number
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FlashSaleCampaignCreateWithoutCreatedByAdminInput = {
+  id?: string
+  name: string
+  description?: string | null
+  status?: $Enums.FlashSaleStatus
+  startsAt: Date | string
+  endsAt: Date | string
+  maxSlotsPerSeller?: number
+  isVisible?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  slots?: Prisma.FlashSaleSlotCreateNestedManyWithoutCampaignInput
+}
+
+export type FlashSaleCampaignUncheckedCreateWithoutCreatedByAdminInput = {
+  id?: string
+  name: string
+  description?: string | null
+  status?: $Enums.FlashSaleStatus
+  startsAt: Date | string
+  endsAt: Date | string
+  maxSlotsPerSeller?: number
+  isVisible?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  slots?: Prisma.FlashSaleSlotUncheckedCreateNestedManyWithoutCampaignInput
+}
+
+export type FlashSaleCampaignCreateOrConnectWithoutCreatedByAdminInput = {
+  where: Prisma.FlashSaleCampaignWhereUniqueInput
+  create: Prisma.XOR<Prisma.FlashSaleCampaignCreateWithoutCreatedByAdminInput, Prisma.FlashSaleCampaignUncheckedCreateWithoutCreatedByAdminInput>
+}
+
+export type FlashSaleCampaignCreateManyCreatedByAdminInputEnvelope = {
+  data: Prisma.FlashSaleCampaignCreateManyCreatedByAdminInput | Prisma.FlashSaleCampaignCreateManyCreatedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type FlashSaleCampaignUpsertWithWhereUniqueWithoutCreatedByAdminInput = {
+  where: Prisma.FlashSaleCampaignWhereUniqueInput
+  update: Prisma.XOR<Prisma.FlashSaleCampaignUpdateWithoutCreatedByAdminInput, Prisma.FlashSaleCampaignUncheckedUpdateWithoutCreatedByAdminInput>
+  create: Prisma.XOR<Prisma.FlashSaleCampaignCreateWithoutCreatedByAdminInput, Prisma.FlashSaleCampaignUncheckedCreateWithoutCreatedByAdminInput>
+}
+
+export type FlashSaleCampaignUpdateWithWhereUniqueWithoutCreatedByAdminInput = {
+  where: Prisma.FlashSaleCampaignWhereUniqueInput
+  data: Prisma.XOR<Prisma.FlashSaleCampaignUpdateWithoutCreatedByAdminInput, Prisma.FlashSaleCampaignUncheckedUpdateWithoutCreatedByAdminInput>
+}
+
+export type FlashSaleCampaignUpdateManyWithWhereWithoutCreatedByAdminInput = {
+  where: Prisma.FlashSaleCampaignScalarWhereInput
+  data: Prisma.XOR<Prisma.FlashSaleCampaignUpdateManyMutationInput, Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminInput>
+}
+
+export type FlashSaleCampaignScalarWhereInput = {
+  AND?: Prisma.FlashSaleCampaignScalarWhereInput | Prisma.FlashSaleCampaignScalarWhereInput[]
+  OR?: Prisma.FlashSaleCampaignScalarWhereInput[]
+  NOT?: Prisma.FlashSaleCampaignScalarWhereInput | Prisma.FlashSaleCampaignScalarWhereInput[]
+  id?: Prisma.UuidFilter<"FlashSaleCampaign"> | string
+  name?: Prisma.StringFilter<"FlashSaleCampaign"> | string
+  description?: Prisma.StringNullableFilter<"FlashSaleCampaign"> | string | null
+  status?: Prisma.EnumFlashSaleStatusFilter<"FlashSaleCampaign"> | $Enums.FlashSaleStatus
+  startsAt?: Prisma.DateTimeFilter<"FlashSaleCampaign"> | Date | string
+  endsAt?: Prisma.DateTimeFilter<"FlashSaleCampaign"> | Date | string
+  maxSlotsPerSeller?: Prisma.IntFilter<"FlashSaleCampaign"> | number
+  isVisible?: Prisma.BoolFilter<"FlashSaleCampaign"> | boolean
+  createdBy?: Prisma.UuidNullableFilter<"FlashSaleCampaign"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"FlashSaleCampaign"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FlashSaleCampaign"> | Date | string
+}
+
+export type FlashSaleCampaignCreateManyCreatedByAdminInput = {
+  id?: string
+  name: string
+  description?: string | null
+  status?: $Enums.FlashSaleStatus
+  startsAt: Date | string
+  endsAt: Date | string
+  maxSlotsPerSeller?: number
+  isVisible?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FlashSaleCampaignUpdateWithoutCreatedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumFlashSaleStatusFieldUpdateOperationsInput | $Enums.FlashSaleStatus
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  maxSlotsPerSeller?: Prisma.IntFieldUpdateOperationsInput | number
+  isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slots?: Prisma.FlashSaleSlotUpdateManyWithoutCampaignNestedInput
+}
+
+export type FlashSaleCampaignUncheckedUpdateWithoutCreatedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumFlashSaleStatusFieldUpdateOperationsInput | $Enums.FlashSaleStatus
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  maxSlotsPerSeller?: Prisma.IntFieldUpdateOperationsInput | number
+  isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slots?: Prisma.FlashSaleSlotUncheckedUpdateManyWithoutCampaignNestedInput
+}
+
+export type FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumFlashSaleStatusFieldUpdateOperationsInput | $Enums.FlashSaleStatus
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  maxSlotsPerSeller?: Prisma.IntFieldUpdateOperationsInput | number
+  isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -626,6 +805,7 @@ export type FlashSaleCampaignSelect<ExtArgs extends runtime.Types.Extensions.Int
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  createdByAdmin?: boolean | Prisma.FlashSaleCampaign$createdByAdminArgs<ExtArgs>
   slots?: boolean | Prisma.FlashSaleCampaign$slotsArgs<ExtArgs>
   _count?: boolean | Prisma.FlashSaleCampaignCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["flashSaleCampaign"]>
@@ -642,6 +822,7 @@ export type FlashSaleCampaignSelectCreateManyAndReturn<ExtArgs extends runtime.T
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  createdByAdmin?: boolean | Prisma.FlashSaleCampaign$createdByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["flashSaleCampaign"]>
 
 export type FlashSaleCampaignSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -656,6 +837,7 @@ export type FlashSaleCampaignSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  createdByAdmin?: boolean | Prisma.FlashSaleCampaign$createdByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["flashSaleCampaign"]>
 
 export type FlashSaleCampaignSelectScalar = {
@@ -674,15 +856,21 @@ export type FlashSaleCampaignSelectScalar = {
 
 export type FlashSaleCampaignOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "status" | "startsAt" | "endsAt" | "maxSlotsPerSeller" | "isVisible" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["flashSaleCampaign"]>
 export type FlashSaleCampaignInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  createdByAdmin?: boolean | Prisma.FlashSaleCampaign$createdByAdminArgs<ExtArgs>
   slots?: boolean | Prisma.FlashSaleCampaign$slotsArgs<ExtArgs>
   _count?: boolean | Prisma.FlashSaleCampaignCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type FlashSaleCampaignIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type FlashSaleCampaignIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type FlashSaleCampaignIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  createdByAdmin?: boolean | Prisma.FlashSaleCampaign$createdByAdminArgs<ExtArgs>
+}
+export type FlashSaleCampaignIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  createdByAdmin?: boolean | Prisma.FlashSaleCampaign$createdByAdminArgs<ExtArgs>
+}
 
 export type $FlashSaleCampaignPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FlashSaleCampaign"
   objects: {
+    createdByAdmin: Prisma.$AdminPayload<ExtArgs> | null
     slots: Prisma.$FlashSaleSlotPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1091,6 +1279,7 @@ readonly fields: FlashSaleCampaignFieldRefs;
  */
 export interface Prisma__FlashSaleCampaignClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  createdByAdmin<T extends Prisma.FlashSaleCampaign$createdByAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FlashSaleCampaign$createdByAdminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   slots<T extends Prisma.FlashSaleCampaign$slotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FlashSaleCampaign$slotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlashSaleSlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1386,6 +1575,10 @@ export type FlashSaleCampaignCreateManyAndReturnArgs<ExtArgs extends runtime.Typ
    */
   data: Prisma.FlashSaleCampaignCreateManyInput | Prisma.FlashSaleCampaignCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSaleCampaignIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1456,6 +1649,10 @@ export type FlashSaleCampaignUpdateManyAndReturnArgs<ExtArgs extends runtime.Typ
    * Limit how many FlashSaleCampaigns to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSaleCampaignIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1522,6 +1719,25 @@ export type FlashSaleCampaignDeleteManyArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many FlashSaleCampaigns to delete.
    */
   limit?: number
+}
+
+/**
+ * FlashSaleCampaign.createdByAdmin
+ */
+export type FlashSaleCampaign$createdByAdminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
 }
 
 /**

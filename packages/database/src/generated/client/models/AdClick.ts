@@ -217,6 +217,7 @@ export type AdClickWhereInput = {
   cost?: Prisma.DecimalFilter<"AdClick"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"AdClick"> | Date | string
   ad?: Prisma.XOR<Prisma.AdScalarRelationFilter, Prisma.AdWhereInput>
+  buyer?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type AdClickOrderByWithRelationInput = {
@@ -226,6 +227,7 @@ export type AdClickOrderByWithRelationInput = {
   cost?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   ad?: Prisma.AdOrderByWithRelationInput
+  buyer?: Prisma.UserOrderByWithRelationInput
 }
 
 export type AdClickWhereUniqueInput = Prisma.AtLeast<{
@@ -238,6 +240,7 @@ export type AdClickWhereUniqueInput = Prisma.AtLeast<{
   cost?: Prisma.DecimalFilter<"AdClick"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"AdClick"> | Date | string
   ad?: Prisma.XOR<Prisma.AdScalarRelationFilter, Prisma.AdWhereInput>
+  buyer?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type AdClickOrderByWithAggregationInput = {
@@ -266,10 +269,10 @@ export type AdClickScalarWhereWithAggregatesInput = {
 
 export type AdClickCreateInput = {
   id?: string
-  buyerId?: string | null
   cost: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   ad: Prisma.AdCreateNestedOneWithoutClickLogsInput
+  buyer?: Prisma.UserCreateNestedOneWithoutAdClicksInput
 }
 
 export type AdClickUncheckedCreateInput = {
@@ -282,10 +285,10 @@ export type AdClickUncheckedCreateInput = {
 
 export type AdClickUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  buyerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ad?: Prisma.AdUpdateOneRequiredWithoutClickLogsNestedInput
+  buyer?: Prisma.UserUpdateOneWithoutAdClicksNestedInput
 }
 
 export type AdClickUncheckedUpdateInput = {
@@ -306,7 +309,6 @@ export type AdClickCreateManyInput = {
 
 export type AdClickUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  buyerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -361,6 +363,48 @@ export type AdClickSumOrderByAggregateInput = {
   cost?: Prisma.SortOrder
 }
 
+export type AdClickCreateNestedManyWithoutBuyerInput = {
+  create?: Prisma.XOR<Prisma.AdClickCreateWithoutBuyerInput, Prisma.AdClickUncheckedCreateWithoutBuyerInput> | Prisma.AdClickCreateWithoutBuyerInput[] | Prisma.AdClickUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.AdClickCreateOrConnectWithoutBuyerInput | Prisma.AdClickCreateOrConnectWithoutBuyerInput[]
+  createMany?: Prisma.AdClickCreateManyBuyerInputEnvelope
+  connect?: Prisma.AdClickWhereUniqueInput | Prisma.AdClickWhereUniqueInput[]
+}
+
+export type AdClickUncheckedCreateNestedManyWithoutBuyerInput = {
+  create?: Prisma.XOR<Prisma.AdClickCreateWithoutBuyerInput, Prisma.AdClickUncheckedCreateWithoutBuyerInput> | Prisma.AdClickCreateWithoutBuyerInput[] | Prisma.AdClickUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.AdClickCreateOrConnectWithoutBuyerInput | Prisma.AdClickCreateOrConnectWithoutBuyerInput[]
+  createMany?: Prisma.AdClickCreateManyBuyerInputEnvelope
+  connect?: Prisma.AdClickWhereUniqueInput | Prisma.AdClickWhereUniqueInput[]
+}
+
+export type AdClickUpdateManyWithoutBuyerNestedInput = {
+  create?: Prisma.XOR<Prisma.AdClickCreateWithoutBuyerInput, Prisma.AdClickUncheckedCreateWithoutBuyerInput> | Prisma.AdClickCreateWithoutBuyerInput[] | Prisma.AdClickUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.AdClickCreateOrConnectWithoutBuyerInput | Prisma.AdClickCreateOrConnectWithoutBuyerInput[]
+  upsert?: Prisma.AdClickUpsertWithWhereUniqueWithoutBuyerInput | Prisma.AdClickUpsertWithWhereUniqueWithoutBuyerInput[]
+  createMany?: Prisma.AdClickCreateManyBuyerInputEnvelope
+  set?: Prisma.AdClickWhereUniqueInput | Prisma.AdClickWhereUniqueInput[]
+  disconnect?: Prisma.AdClickWhereUniqueInput | Prisma.AdClickWhereUniqueInput[]
+  delete?: Prisma.AdClickWhereUniqueInput | Prisma.AdClickWhereUniqueInput[]
+  connect?: Prisma.AdClickWhereUniqueInput | Prisma.AdClickWhereUniqueInput[]
+  update?: Prisma.AdClickUpdateWithWhereUniqueWithoutBuyerInput | Prisma.AdClickUpdateWithWhereUniqueWithoutBuyerInput[]
+  updateMany?: Prisma.AdClickUpdateManyWithWhereWithoutBuyerInput | Prisma.AdClickUpdateManyWithWhereWithoutBuyerInput[]
+  deleteMany?: Prisma.AdClickScalarWhereInput | Prisma.AdClickScalarWhereInput[]
+}
+
+export type AdClickUncheckedUpdateManyWithoutBuyerNestedInput = {
+  create?: Prisma.XOR<Prisma.AdClickCreateWithoutBuyerInput, Prisma.AdClickUncheckedCreateWithoutBuyerInput> | Prisma.AdClickCreateWithoutBuyerInput[] | Prisma.AdClickUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.AdClickCreateOrConnectWithoutBuyerInput | Prisma.AdClickCreateOrConnectWithoutBuyerInput[]
+  upsert?: Prisma.AdClickUpsertWithWhereUniqueWithoutBuyerInput | Prisma.AdClickUpsertWithWhereUniqueWithoutBuyerInput[]
+  createMany?: Prisma.AdClickCreateManyBuyerInputEnvelope
+  set?: Prisma.AdClickWhereUniqueInput | Prisma.AdClickWhereUniqueInput[]
+  disconnect?: Prisma.AdClickWhereUniqueInput | Prisma.AdClickWhereUniqueInput[]
+  delete?: Prisma.AdClickWhereUniqueInput | Prisma.AdClickWhereUniqueInput[]
+  connect?: Prisma.AdClickWhereUniqueInput | Prisma.AdClickWhereUniqueInput[]
+  update?: Prisma.AdClickUpdateWithWhereUniqueWithoutBuyerInput | Prisma.AdClickUpdateWithWhereUniqueWithoutBuyerInput[]
+  updateMany?: Prisma.AdClickUpdateManyWithWhereWithoutBuyerInput | Prisma.AdClickUpdateManyWithWhereWithoutBuyerInput[]
+  deleteMany?: Prisma.AdClickScalarWhereInput | Prisma.AdClickScalarWhereInput[]
+}
+
 export type AdClickCreateNestedManyWithoutAdInput = {
   create?: Prisma.XOR<Prisma.AdClickCreateWithoutAdInput, Prisma.AdClickUncheckedCreateWithoutAdInput> | Prisma.AdClickCreateWithoutAdInput[] | Prisma.AdClickUncheckedCreateWithoutAdInput[]
   connectOrCreate?: Prisma.AdClickCreateOrConnectWithoutAdInput | Prisma.AdClickCreateOrConnectWithoutAdInput[]
@@ -403,11 +447,62 @@ export type AdClickUncheckedUpdateManyWithoutAdNestedInput = {
   deleteMany?: Prisma.AdClickScalarWhereInput | Prisma.AdClickScalarWhereInput[]
 }
 
-export type AdClickCreateWithoutAdInput = {
+export type AdClickCreateWithoutBuyerInput = {
   id?: string
-  buyerId?: string | null
   cost: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
+  ad: Prisma.AdCreateNestedOneWithoutClickLogsInput
+}
+
+export type AdClickUncheckedCreateWithoutBuyerInput = {
+  id?: string
+  adId: string
+  cost: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+}
+
+export type AdClickCreateOrConnectWithoutBuyerInput = {
+  where: Prisma.AdClickWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdClickCreateWithoutBuyerInput, Prisma.AdClickUncheckedCreateWithoutBuyerInput>
+}
+
+export type AdClickCreateManyBuyerInputEnvelope = {
+  data: Prisma.AdClickCreateManyBuyerInput | Prisma.AdClickCreateManyBuyerInput[]
+  skipDuplicates?: boolean
+}
+
+export type AdClickUpsertWithWhereUniqueWithoutBuyerInput = {
+  where: Prisma.AdClickWhereUniqueInput
+  update: Prisma.XOR<Prisma.AdClickUpdateWithoutBuyerInput, Prisma.AdClickUncheckedUpdateWithoutBuyerInput>
+  create: Prisma.XOR<Prisma.AdClickCreateWithoutBuyerInput, Prisma.AdClickUncheckedCreateWithoutBuyerInput>
+}
+
+export type AdClickUpdateWithWhereUniqueWithoutBuyerInput = {
+  where: Prisma.AdClickWhereUniqueInput
+  data: Prisma.XOR<Prisma.AdClickUpdateWithoutBuyerInput, Prisma.AdClickUncheckedUpdateWithoutBuyerInput>
+}
+
+export type AdClickUpdateManyWithWhereWithoutBuyerInput = {
+  where: Prisma.AdClickScalarWhereInput
+  data: Prisma.XOR<Prisma.AdClickUpdateManyMutationInput, Prisma.AdClickUncheckedUpdateManyWithoutBuyerInput>
+}
+
+export type AdClickScalarWhereInput = {
+  AND?: Prisma.AdClickScalarWhereInput | Prisma.AdClickScalarWhereInput[]
+  OR?: Prisma.AdClickScalarWhereInput[]
+  NOT?: Prisma.AdClickScalarWhereInput | Prisma.AdClickScalarWhereInput[]
+  id?: Prisma.UuidFilter<"AdClick"> | string
+  adId?: Prisma.UuidFilter<"AdClick"> | string
+  buyerId?: Prisma.UuidNullableFilter<"AdClick"> | string | null
+  cost?: Prisma.DecimalFilter<"AdClick"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFilter<"AdClick"> | Date | string
+}
+
+export type AdClickCreateWithoutAdInput = {
+  id?: string
+  cost: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  buyer?: Prisma.UserCreateNestedOneWithoutAdClicksInput
 }
 
 export type AdClickUncheckedCreateWithoutAdInput = {
@@ -443,15 +538,32 @@ export type AdClickUpdateManyWithWhereWithoutAdInput = {
   data: Prisma.XOR<Prisma.AdClickUpdateManyMutationInput, Prisma.AdClickUncheckedUpdateManyWithoutAdInput>
 }
 
-export type AdClickScalarWhereInput = {
-  AND?: Prisma.AdClickScalarWhereInput | Prisma.AdClickScalarWhereInput[]
-  OR?: Prisma.AdClickScalarWhereInput[]
-  NOT?: Prisma.AdClickScalarWhereInput | Prisma.AdClickScalarWhereInput[]
-  id?: Prisma.UuidFilter<"AdClick"> | string
-  adId?: Prisma.UuidFilter<"AdClick"> | string
-  buyerId?: Prisma.UuidNullableFilter<"AdClick"> | string | null
-  cost?: Prisma.DecimalFilter<"AdClick"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFilter<"AdClick"> | Date | string
+export type AdClickCreateManyBuyerInput = {
+  id?: string
+  adId: string
+  cost: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+}
+
+export type AdClickUpdateWithoutBuyerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  cost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ad?: Prisma.AdUpdateOneRequiredWithoutClickLogsNestedInput
+}
+
+export type AdClickUncheckedUpdateWithoutBuyerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  adId?: Prisma.StringFieldUpdateOperationsInput | string
+  cost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AdClickUncheckedUpdateManyWithoutBuyerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  adId?: Prisma.StringFieldUpdateOperationsInput | string
+  cost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AdClickCreateManyAdInput = {
@@ -463,9 +575,9 @@ export type AdClickCreateManyAdInput = {
 
 export type AdClickUpdateWithoutAdInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  buyerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  buyer?: Prisma.UserUpdateOneWithoutAdClicksNestedInput
 }
 
 export type AdClickUncheckedUpdateWithoutAdInput = {
@@ -491,6 +603,7 @@ export type AdClickSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   cost?: boolean
   createdAt?: boolean
   ad?: boolean | Prisma.AdDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.AdClick$buyerArgs<ExtArgs>
 }, ExtArgs["result"]["adClick"]>
 
 export type AdClickSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -500,6 +613,7 @@ export type AdClickSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   cost?: boolean
   createdAt?: boolean
   ad?: boolean | Prisma.AdDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.AdClick$buyerArgs<ExtArgs>
 }, ExtArgs["result"]["adClick"]>
 
 export type AdClickSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -509,6 +623,7 @@ export type AdClickSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   cost?: boolean
   createdAt?: boolean
   ad?: boolean | Prisma.AdDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.AdClick$buyerArgs<ExtArgs>
 }, ExtArgs["result"]["adClick"]>
 
 export type AdClickSelectScalar = {
@@ -522,18 +637,22 @@ export type AdClickSelectScalar = {
 export type AdClickOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "adId" | "buyerId" | "cost" | "createdAt", ExtArgs["result"]["adClick"]>
 export type AdClickInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ad?: boolean | Prisma.AdDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.AdClick$buyerArgs<ExtArgs>
 }
 export type AdClickIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ad?: boolean | Prisma.AdDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.AdClick$buyerArgs<ExtArgs>
 }
 export type AdClickIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ad?: boolean | Prisma.AdDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.AdClick$buyerArgs<ExtArgs>
 }
 
 export type $AdClickPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AdClick"
   objects: {
     ad: Prisma.$AdPayload<ExtArgs>
+    buyer: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,6 +1055,7 @@ readonly fields: AdClickFieldRefs;
 export interface Prisma__AdClickClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   ad<T extends Prisma.AdDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AdDefaultArgs<ExtArgs>>): Prisma.Prisma__AdClient<runtime.Types.Result.GetResult<Prisma.$AdPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  buyer<T extends Prisma.AdClick$buyerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AdClick$buyerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1368,6 +1488,25 @@ export type AdClickDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many AdClicks to delete.
    */
   limit?: number
+}
+
+/**
+ * AdClick.buyer
+ */
+export type AdClick$buyerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

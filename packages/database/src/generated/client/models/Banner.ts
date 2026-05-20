@@ -280,6 +280,7 @@ export type BannerWhereInput = {
   createdBy?: Prisma.UuidNullableFilter<"Banner"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Banner"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Banner"> | Date | string
+  createdByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }
 
 export type BannerOrderByWithRelationInput = {
@@ -296,6 +297,7 @@ export type BannerOrderByWithRelationInput = {
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  createdByAdmin?: Prisma.AdminOrderByWithRelationInput
 }
 
 export type BannerWhereUniqueInput = Prisma.AtLeast<{
@@ -315,6 +317,7 @@ export type BannerWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.UuidNullableFilter<"Banner"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Banner"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Banner"> | Date | string
+  createdByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }, "id">
 
 export type BannerOrderByWithAggregationInput = {
@@ -368,9 +371,9 @@ export type BannerCreateInput = {
   sortOrder?: number
   startsAt?: Date | string | null
   endsAt?: Date | string | null
-  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdByAdmin?: Prisma.AdminCreateNestedOneWithoutBannersCreatedInput
 }
 
 export type BannerUncheckedCreateInput = {
@@ -400,9 +403,9 @@ export type BannerUpdateInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdByAdmin?: Prisma.AdminUpdateOneWithoutBannersCreatedNestedInput
 }
 
 export type BannerUncheckedUpdateInput = {
@@ -448,7 +451,6 @@ export type BannerUpdateManyMutationInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -467,6 +469,16 @@ export type BannerUncheckedUpdateManyInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BannerListRelationFilter = {
+  every?: Prisma.BannerWhereInput
+  some?: Prisma.BannerWhereInput
+  none?: Prisma.BannerWhereInput
+}
+
+export type BannerOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type BannerCountOrderByAggregateInput = {
@@ -525,12 +537,189 @@ export type BannerSumOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
 }
 
+export type BannerCreateNestedManyWithoutCreatedByAdminInput = {
+  create?: Prisma.XOR<Prisma.BannerCreateWithoutCreatedByAdminInput, Prisma.BannerUncheckedCreateWithoutCreatedByAdminInput> | Prisma.BannerCreateWithoutCreatedByAdminInput[] | Prisma.BannerUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.BannerCreateOrConnectWithoutCreatedByAdminInput | Prisma.BannerCreateOrConnectWithoutCreatedByAdminInput[]
+  createMany?: Prisma.BannerCreateManyCreatedByAdminInputEnvelope
+  connect?: Prisma.BannerWhereUniqueInput | Prisma.BannerWhereUniqueInput[]
+}
+
+export type BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput = {
+  create?: Prisma.XOR<Prisma.BannerCreateWithoutCreatedByAdminInput, Prisma.BannerUncheckedCreateWithoutCreatedByAdminInput> | Prisma.BannerCreateWithoutCreatedByAdminInput[] | Prisma.BannerUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.BannerCreateOrConnectWithoutCreatedByAdminInput | Prisma.BannerCreateOrConnectWithoutCreatedByAdminInput[]
+  createMany?: Prisma.BannerCreateManyCreatedByAdminInputEnvelope
+  connect?: Prisma.BannerWhereUniqueInput | Prisma.BannerWhereUniqueInput[]
+}
+
+export type BannerUpdateManyWithoutCreatedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.BannerCreateWithoutCreatedByAdminInput, Prisma.BannerUncheckedCreateWithoutCreatedByAdminInput> | Prisma.BannerCreateWithoutCreatedByAdminInput[] | Prisma.BannerUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.BannerCreateOrConnectWithoutCreatedByAdminInput | Prisma.BannerCreateOrConnectWithoutCreatedByAdminInput[]
+  upsert?: Prisma.BannerUpsertWithWhereUniqueWithoutCreatedByAdminInput | Prisma.BannerUpsertWithWhereUniqueWithoutCreatedByAdminInput[]
+  createMany?: Prisma.BannerCreateManyCreatedByAdminInputEnvelope
+  set?: Prisma.BannerWhereUniqueInput | Prisma.BannerWhereUniqueInput[]
+  disconnect?: Prisma.BannerWhereUniqueInput | Prisma.BannerWhereUniqueInput[]
+  delete?: Prisma.BannerWhereUniqueInput | Prisma.BannerWhereUniqueInput[]
+  connect?: Prisma.BannerWhereUniqueInput | Prisma.BannerWhereUniqueInput[]
+  update?: Prisma.BannerUpdateWithWhereUniqueWithoutCreatedByAdminInput | Prisma.BannerUpdateWithWhereUniqueWithoutCreatedByAdminInput[]
+  updateMany?: Prisma.BannerUpdateManyWithWhereWithoutCreatedByAdminInput | Prisma.BannerUpdateManyWithWhereWithoutCreatedByAdminInput[]
+  deleteMany?: Prisma.BannerScalarWhereInput | Prisma.BannerScalarWhereInput[]
+}
+
+export type BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.BannerCreateWithoutCreatedByAdminInput, Prisma.BannerUncheckedCreateWithoutCreatedByAdminInput> | Prisma.BannerCreateWithoutCreatedByAdminInput[] | Prisma.BannerUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.BannerCreateOrConnectWithoutCreatedByAdminInput | Prisma.BannerCreateOrConnectWithoutCreatedByAdminInput[]
+  upsert?: Prisma.BannerUpsertWithWhereUniqueWithoutCreatedByAdminInput | Prisma.BannerUpsertWithWhereUniqueWithoutCreatedByAdminInput[]
+  createMany?: Prisma.BannerCreateManyCreatedByAdminInputEnvelope
+  set?: Prisma.BannerWhereUniqueInput | Prisma.BannerWhereUniqueInput[]
+  disconnect?: Prisma.BannerWhereUniqueInput | Prisma.BannerWhereUniqueInput[]
+  delete?: Prisma.BannerWhereUniqueInput | Prisma.BannerWhereUniqueInput[]
+  connect?: Prisma.BannerWhereUniqueInput | Prisma.BannerWhereUniqueInput[]
+  update?: Prisma.BannerUpdateWithWhereUniqueWithoutCreatedByAdminInput | Prisma.BannerUpdateWithWhereUniqueWithoutCreatedByAdminInput[]
+  updateMany?: Prisma.BannerUpdateManyWithWhereWithoutCreatedByAdminInput | Prisma.BannerUpdateManyWithWhereWithoutCreatedByAdminInput[]
+  deleteMany?: Prisma.BannerScalarWhereInput | Prisma.BannerScalarWhereInput[]
+}
+
 export type EnumBannerPositionFieldUpdateOperationsInput = {
   set?: $Enums.BannerPosition
 }
 
 export type EnumBannerStatusFieldUpdateOperationsInput = {
   set?: $Enums.BannerStatus
+}
+
+export type BannerCreateWithoutCreatedByAdminInput = {
+  id?: string
+  title: string
+  position: $Enums.BannerPosition
+  status?: $Enums.BannerStatus
+  imageUrl: string
+  mobileImageUrl?: string | null
+  linkUrl?: string | null
+  sortOrder?: number
+  startsAt?: Date | string | null
+  endsAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BannerUncheckedCreateWithoutCreatedByAdminInput = {
+  id?: string
+  title: string
+  position: $Enums.BannerPosition
+  status?: $Enums.BannerStatus
+  imageUrl: string
+  mobileImageUrl?: string | null
+  linkUrl?: string | null
+  sortOrder?: number
+  startsAt?: Date | string | null
+  endsAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BannerCreateOrConnectWithoutCreatedByAdminInput = {
+  where: Prisma.BannerWhereUniqueInput
+  create: Prisma.XOR<Prisma.BannerCreateWithoutCreatedByAdminInput, Prisma.BannerUncheckedCreateWithoutCreatedByAdminInput>
+}
+
+export type BannerCreateManyCreatedByAdminInputEnvelope = {
+  data: Prisma.BannerCreateManyCreatedByAdminInput | Prisma.BannerCreateManyCreatedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type BannerUpsertWithWhereUniqueWithoutCreatedByAdminInput = {
+  where: Prisma.BannerWhereUniqueInput
+  update: Prisma.XOR<Prisma.BannerUpdateWithoutCreatedByAdminInput, Prisma.BannerUncheckedUpdateWithoutCreatedByAdminInput>
+  create: Prisma.XOR<Prisma.BannerCreateWithoutCreatedByAdminInput, Prisma.BannerUncheckedCreateWithoutCreatedByAdminInput>
+}
+
+export type BannerUpdateWithWhereUniqueWithoutCreatedByAdminInput = {
+  where: Prisma.BannerWhereUniqueInput
+  data: Prisma.XOR<Prisma.BannerUpdateWithoutCreatedByAdminInput, Prisma.BannerUncheckedUpdateWithoutCreatedByAdminInput>
+}
+
+export type BannerUpdateManyWithWhereWithoutCreatedByAdminInput = {
+  where: Prisma.BannerScalarWhereInput
+  data: Prisma.XOR<Prisma.BannerUpdateManyMutationInput, Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminInput>
+}
+
+export type BannerScalarWhereInput = {
+  AND?: Prisma.BannerScalarWhereInput | Prisma.BannerScalarWhereInput[]
+  OR?: Prisma.BannerScalarWhereInput[]
+  NOT?: Prisma.BannerScalarWhereInput | Prisma.BannerScalarWhereInput[]
+  id?: Prisma.UuidFilter<"Banner"> | string
+  title?: Prisma.StringFilter<"Banner"> | string
+  position?: Prisma.EnumBannerPositionFilter<"Banner"> | $Enums.BannerPosition
+  status?: Prisma.EnumBannerStatusFilter<"Banner"> | $Enums.BannerStatus
+  imageUrl?: Prisma.StringFilter<"Banner"> | string
+  mobileImageUrl?: Prisma.StringNullableFilter<"Banner"> | string | null
+  linkUrl?: Prisma.StringNullableFilter<"Banner"> | string | null
+  sortOrder?: Prisma.IntFilter<"Banner"> | number
+  startsAt?: Prisma.DateTimeNullableFilter<"Banner"> | Date | string | null
+  endsAt?: Prisma.DateTimeNullableFilter<"Banner"> | Date | string | null
+  createdBy?: Prisma.UuidNullableFilter<"Banner"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Banner"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Banner"> | Date | string
+}
+
+export type BannerCreateManyCreatedByAdminInput = {
+  id?: string
+  title: string
+  position: $Enums.BannerPosition
+  status?: $Enums.BannerStatus
+  imageUrl: string
+  mobileImageUrl?: string | null
+  linkUrl?: string | null
+  sortOrder?: number
+  startsAt?: Date | string | null
+  endsAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BannerUpdateWithoutCreatedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.EnumBannerPositionFieldUpdateOperationsInput | $Enums.BannerPosition
+  status?: Prisma.EnumBannerStatusFieldUpdateOperationsInput | $Enums.BannerStatus
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  mobileImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BannerUncheckedUpdateWithoutCreatedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.EnumBannerPositionFieldUpdateOperationsInput | $Enums.BannerPosition
+  status?: Prisma.EnumBannerStatusFieldUpdateOperationsInput | $Enums.BannerStatus
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  mobileImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BannerUncheckedUpdateManyWithoutCreatedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.EnumBannerPositionFieldUpdateOperationsInput | $Enums.BannerPosition
+  status?: Prisma.EnumBannerStatusFieldUpdateOperationsInput | $Enums.BannerStatus
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  mobileImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -549,6 +738,7 @@ export type BannerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  createdByAdmin?: boolean | Prisma.Banner$createdByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["banner"]>
 
 export type BannerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -565,6 +755,7 @@ export type BannerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  createdByAdmin?: boolean | Prisma.Banner$createdByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["banner"]>
 
 export type BannerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -581,6 +772,7 @@ export type BannerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  createdByAdmin?: boolean | Prisma.Banner$createdByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["banner"]>
 
 export type BannerSelectScalar = {
@@ -600,10 +792,21 @@ export type BannerSelectScalar = {
 }
 
 export type BannerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "position" | "status" | "imageUrl" | "mobileImageUrl" | "linkUrl" | "sortOrder" | "startsAt" | "endsAt" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["banner"]>
+export type BannerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  createdByAdmin?: boolean | Prisma.Banner$createdByAdminArgs<ExtArgs>
+}
+export type BannerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  createdByAdmin?: boolean | Prisma.Banner$createdByAdminArgs<ExtArgs>
+}
+export type BannerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  createdByAdmin?: boolean | Prisma.Banner$createdByAdminArgs<ExtArgs>
+}
 
 export type $BannerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Banner"
-  objects: {}
+  objects: {
+    createdByAdmin: Prisma.$AdminPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
@@ -1012,6 +1215,7 @@ readonly fields: BannerFieldRefs;
  */
 export interface Prisma__BannerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  createdByAdmin<T extends Prisma.Banner$createdByAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Banner$createdByAdminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1071,6 +1275,10 @@ export type BannerFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.BannerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerInclude<ExtArgs> | null
+  /**
    * Filter, which Banner to fetch.
    */
   where: Prisma.BannerWhereUniqueInput
@@ -1089,6 +1297,10 @@ export type BannerFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.BannerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerInclude<ExtArgs> | null
+  /**
    * Filter, which Banner to fetch.
    */
   where: Prisma.BannerWhereUniqueInput
@@ -1106,6 +1318,10 @@ export type BannerFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Banner
    */
   omit?: Prisma.BannerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerInclude<ExtArgs> | null
   /**
    * Filter, which Banner to fetch.
    */
@@ -1155,6 +1371,10 @@ export type BannerFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.BannerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerInclude<ExtArgs> | null
+  /**
    * Filter, which Banner to fetch.
    */
   where?: Prisma.BannerWhereInput
@@ -1202,6 +1422,10 @@ export type BannerFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Banner
    */
   omit?: Prisma.BannerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerInclude<ExtArgs> | null
   /**
    * Filter, which Banners to fetch.
    */
@@ -1251,6 +1475,10 @@ export type BannerCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.BannerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerInclude<ExtArgs> | null
+  /**
    * The data needed to create a Banner.
    */
   data: Prisma.XOR<Prisma.BannerCreateInput, Prisma.BannerUncheckedCreateInput>
@@ -1284,6 +1512,10 @@ export type BannerCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.BannerCreateManyInput | Prisma.BannerCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1298,6 +1530,10 @@ export type BannerUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Banner
    */
   omit?: Prisma.BannerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerInclude<ExtArgs> | null
   /**
    * The data needed to update a Banner.
    */
@@ -1350,6 +1586,10 @@ export type BannerUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many Banners to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1364,6 +1604,10 @@ export type BannerUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Banner
    */
   omit?: Prisma.BannerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerInclude<ExtArgs> | null
   /**
    * The filter to search for the Banner to update in case it exists.
    */
@@ -1391,6 +1635,10 @@ export type BannerDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.BannerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerInclude<ExtArgs> | null
+  /**
    * Filter which Banner to delete.
    */
   where: Prisma.BannerWhereUniqueInput
@@ -1411,6 +1659,25 @@ export type BannerDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Banner.createdByAdmin
+ */
+export type Banner$createdByAdminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
+}
+
+/**
  * Banner without action
  */
 export type BannerDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1422,4 +1689,8 @@ export type BannerDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Banner
    */
   omit?: Prisma.BannerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerInclude<ExtArgs> | null
 }

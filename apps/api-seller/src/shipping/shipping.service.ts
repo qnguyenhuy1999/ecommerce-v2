@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 
 @Injectable()
 export class ShippingService {
@@ -40,14 +40,14 @@ export class ShippingService {
   ) {
     const sellerOrder = await this.prisma.sellerOrder.findFirst({
       where: { id: sellerOrderId, shopId },
-      include: { shipment: true },
+      include: { shipments: true },
     })
 
     if (!sellerOrder) {
       throw new NotFoundException('Order not found')
     }
 
-    if (sellerOrder.shipment) {
+    if (sellerOrder.shipments.length > 0) {
       throw new BadRequestException('Shipment already exists for this order')
     }
 

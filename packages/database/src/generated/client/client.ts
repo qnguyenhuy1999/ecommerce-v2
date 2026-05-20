@@ -47,16 +47,6 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
- * Model Role
- * 
- */
-export type Role = Prisma.RoleModel
-/**
- * Model UserRole
- * 
- */
-export type UserRole = Prisma.UserRoleModel
-/**
  * Model Session
  * 
  */
@@ -163,7 +153,7 @@ export type Shipment = Prisma.ShipmentModel
 export type Notification = Prisma.NotificationModel
 /**
  * Model AuditLog
- * 
+ * General-purpose audit log for application-level events. Use OrderAuditLog for order status changes and AdminAuditLog for admin actions.
  */
 export type AuditLog = Prisma.AuditLogModel
 /**
@@ -497,6 +487,11 @@ export type SearchAnalytics = Prisma.SearchAnalyticsModel
  */
 export type AutomationRule = Prisma.AutomationRuleModel
 /**
+ * Model AutomationRuleAction
+ * 
+ */
+export type AutomationRuleAction = Prisma.AutomationRuleActionModel
+/**
  * Model AutomationExecution
  * 
  */
@@ -591,6 +586,11 @@ export type RolePermission = Prisma.RolePermissionModel
  * 
  */
 export type AdminSession = Prisma.AdminSessionModel
+/**
+ * Model AdminPasswordResetToken
+ * 
+ */
+export type AdminPasswordResetToken = Prisma.AdminPasswordResetTokenModel
 /**
  * Model Seller
  * 

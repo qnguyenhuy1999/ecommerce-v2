@@ -1,3 +1,5 @@
+export { ensureWorkspaceEnvFileLoaded } from './server-env.js'
+
 export const API_PORTS = {
   admin: 4002,
   seller: 4003,

@@ -272,6 +272,9 @@ export type ProductApprovalWhereInput = {
   version?: Prisma.IntFilter<"ProductApproval"> | number
   createdAt?: Prisma.DateTimeFilter<"ProductApproval"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductApproval"> | Date | string
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
+  reviewedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
   history?: Prisma.ProductApprovalHistoryListRelationFilter
 }
 
@@ -288,6 +291,9 @@ export type ProductApprovalOrderByWithRelationInput = {
   version?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  product?: Prisma.ProductOrderByWithRelationInput
+  shop?: Prisma.ShopOrderByWithRelationInput
+  reviewedByAdmin?: Prisma.AdminOrderByWithRelationInput
   history?: Prisma.ProductApprovalHistoryOrderByRelationAggregateInput
 }
 
@@ -307,6 +313,9 @@ export type ProductApprovalWhereUniqueInput = Prisma.AtLeast<{
   version?: Prisma.IntFilter<"ProductApproval"> | number
   createdAt?: Prisma.DateTimeFilter<"ProductApproval"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductApproval"> | Date | string
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
+  reviewedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
   history?: Prisma.ProductApprovalHistoryListRelationFilter
 }, "id">
 
@@ -350,17 +359,17 @@ export type ProductApprovalScalarWhereWithAggregatesInput = {
 
 export type ProductApprovalCreateInput = {
   id?: string
-  productId: string
-  shopId: string
   status?: $Enums.ApprovalStatus
   submittedAt?: Date | string
   reviewedAt?: Date | string | null
-  reviewedBy?: string | null
   rejectionReason?: string | null
   revisionNote?: string | null
   version?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutProductApprovalsInput
+  shop: Prisma.ShopCreateNestedOneWithoutProductApprovalsInput
+  reviewedByAdmin?: Prisma.AdminCreateNestedOneWithoutProductApprovalsReviewedInput
   history?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutApprovalInput
 }
 
@@ -382,17 +391,17 @@ export type ProductApprovalUncheckedCreateInput = {
 
 export type ProductApprovalUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutProductApprovalsNestedInput
+  shop?: Prisma.ShopUpdateOneRequiredWithoutProductApprovalsNestedInput
+  reviewedByAdmin?: Prisma.AdminUpdateOneWithoutProductApprovalsReviewedNestedInput
   history?: Prisma.ProductApprovalHistoryUpdateManyWithoutApprovalNestedInput
 }
 
@@ -429,12 +438,9 @@ export type ProductApprovalCreateManyInput = {
 
 export type ProductApprovalUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
@@ -455,6 +461,16 @@ export type ProductApprovalUncheckedUpdateManyInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProductApprovalListRelationFilter = {
+  every?: Prisma.ProductApprovalWhereInput
+  some?: Prisma.ProductApprovalWhereInput
+  none?: Prisma.ProductApprovalWhereInput
+}
+
+export type ProductApprovalOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type ProductApprovalCountOrderByAggregateInput = {
@@ -515,6 +531,90 @@ export type ProductApprovalScalarRelationFilter = {
   isNot?: Prisma.ProductApprovalWhereInput
 }
 
+export type ProductApprovalCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutShopInput, Prisma.ProductApprovalUncheckedCreateWithoutShopInput> | Prisma.ProductApprovalCreateWithoutShopInput[] | Prisma.ProductApprovalUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutShopInput | Prisma.ProductApprovalCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.ProductApprovalCreateManyShopInputEnvelope
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+}
+
+export type ProductApprovalUncheckedCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutShopInput, Prisma.ProductApprovalUncheckedCreateWithoutShopInput> | Prisma.ProductApprovalCreateWithoutShopInput[] | Prisma.ProductApprovalUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutShopInput | Prisma.ProductApprovalCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.ProductApprovalCreateManyShopInputEnvelope
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+}
+
+export type ProductApprovalUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutShopInput, Prisma.ProductApprovalUncheckedCreateWithoutShopInput> | Prisma.ProductApprovalCreateWithoutShopInput[] | Prisma.ProductApprovalUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutShopInput | Prisma.ProductApprovalCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.ProductApprovalUpsertWithWhereUniqueWithoutShopInput | Prisma.ProductApprovalUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.ProductApprovalCreateManyShopInputEnvelope
+  set?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  disconnect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  delete?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  update?: Prisma.ProductApprovalUpdateWithWhereUniqueWithoutShopInput | Prisma.ProductApprovalUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.ProductApprovalUpdateManyWithWhereWithoutShopInput | Prisma.ProductApprovalUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.ProductApprovalScalarWhereInput | Prisma.ProductApprovalScalarWhereInput[]
+}
+
+export type ProductApprovalUncheckedUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutShopInput, Prisma.ProductApprovalUncheckedCreateWithoutShopInput> | Prisma.ProductApprovalCreateWithoutShopInput[] | Prisma.ProductApprovalUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutShopInput | Prisma.ProductApprovalCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.ProductApprovalUpsertWithWhereUniqueWithoutShopInput | Prisma.ProductApprovalUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.ProductApprovalCreateManyShopInputEnvelope
+  set?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  disconnect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  delete?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  update?: Prisma.ProductApprovalUpdateWithWhereUniqueWithoutShopInput | Prisma.ProductApprovalUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.ProductApprovalUpdateManyWithWhereWithoutShopInput | Prisma.ProductApprovalUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.ProductApprovalScalarWhereInput | Prisma.ProductApprovalScalarWhereInput[]
+}
+
+export type ProductApprovalCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutProductInput, Prisma.ProductApprovalUncheckedCreateWithoutProductInput> | Prisma.ProductApprovalCreateWithoutProductInput[] | Prisma.ProductApprovalUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutProductInput | Prisma.ProductApprovalCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.ProductApprovalCreateManyProductInputEnvelope
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+}
+
+export type ProductApprovalUncheckedCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutProductInput, Prisma.ProductApprovalUncheckedCreateWithoutProductInput> | Prisma.ProductApprovalCreateWithoutProductInput[] | Prisma.ProductApprovalUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutProductInput | Prisma.ProductApprovalCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.ProductApprovalCreateManyProductInputEnvelope
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+}
+
+export type ProductApprovalUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutProductInput, Prisma.ProductApprovalUncheckedCreateWithoutProductInput> | Prisma.ProductApprovalCreateWithoutProductInput[] | Prisma.ProductApprovalUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutProductInput | Prisma.ProductApprovalCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.ProductApprovalUpsertWithWhereUniqueWithoutProductInput | Prisma.ProductApprovalUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.ProductApprovalCreateManyProductInputEnvelope
+  set?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  disconnect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  delete?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  update?: Prisma.ProductApprovalUpdateWithWhereUniqueWithoutProductInput | Prisma.ProductApprovalUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.ProductApprovalUpdateManyWithWhereWithoutProductInput | Prisma.ProductApprovalUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.ProductApprovalScalarWhereInput | Prisma.ProductApprovalScalarWhereInput[]
+}
+
+export type ProductApprovalUncheckedUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutProductInput, Prisma.ProductApprovalUncheckedCreateWithoutProductInput> | Prisma.ProductApprovalCreateWithoutProductInput[] | Prisma.ProductApprovalUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutProductInput | Prisma.ProductApprovalCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.ProductApprovalUpsertWithWhereUniqueWithoutProductInput | Prisma.ProductApprovalUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.ProductApprovalCreateManyProductInputEnvelope
+  set?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  disconnect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  delete?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  update?: Prisma.ProductApprovalUpdateWithWhereUniqueWithoutProductInput | Prisma.ProductApprovalUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.ProductApprovalUpdateManyWithWhereWithoutProductInput | Prisma.ProductApprovalUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.ProductApprovalScalarWhereInput | Prisma.ProductApprovalScalarWhereInput[]
+}
+
 export type EnumApprovalStatusFieldUpdateOperationsInput = {
   set?: $Enums.ApprovalStatus
 }
@@ -533,9 +633,139 @@ export type ProductApprovalUpdateOneRequiredWithoutHistoryNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProductApprovalUpdateToOneWithWhereWithoutHistoryInput, Prisma.ProductApprovalUpdateWithoutHistoryInput>, Prisma.ProductApprovalUncheckedUpdateWithoutHistoryInput>
 }
 
-export type ProductApprovalCreateWithoutHistoryInput = {
+export type ProductApprovalCreateNestedManyWithoutReviewedByAdminInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutReviewedByAdminInput, Prisma.ProductApprovalUncheckedCreateWithoutReviewedByAdminInput> | Prisma.ProductApprovalCreateWithoutReviewedByAdminInput[] | Prisma.ProductApprovalUncheckedCreateWithoutReviewedByAdminInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutReviewedByAdminInput | Prisma.ProductApprovalCreateOrConnectWithoutReviewedByAdminInput[]
+  createMany?: Prisma.ProductApprovalCreateManyReviewedByAdminInputEnvelope
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+}
+
+export type ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutReviewedByAdminInput, Prisma.ProductApprovalUncheckedCreateWithoutReviewedByAdminInput> | Prisma.ProductApprovalCreateWithoutReviewedByAdminInput[] | Prisma.ProductApprovalUncheckedCreateWithoutReviewedByAdminInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutReviewedByAdminInput | Prisma.ProductApprovalCreateOrConnectWithoutReviewedByAdminInput[]
+  createMany?: Prisma.ProductApprovalCreateManyReviewedByAdminInputEnvelope
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+}
+
+export type ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutReviewedByAdminInput, Prisma.ProductApprovalUncheckedCreateWithoutReviewedByAdminInput> | Prisma.ProductApprovalCreateWithoutReviewedByAdminInput[] | Prisma.ProductApprovalUncheckedCreateWithoutReviewedByAdminInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutReviewedByAdminInput | Prisma.ProductApprovalCreateOrConnectWithoutReviewedByAdminInput[]
+  upsert?: Prisma.ProductApprovalUpsertWithWhereUniqueWithoutReviewedByAdminInput | Prisma.ProductApprovalUpsertWithWhereUniqueWithoutReviewedByAdminInput[]
+  createMany?: Prisma.ProductApprovalCreateManyReviewedByAdminInputEnvelope
+  set?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  disconnect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  delete?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  update?: Prisma.ProductApprovalUpdateWithWhereUniqueWithoutReviewedByAdminInput | Prisma.ProductApprovalUpdateWithWhereUniqueWithoutReviewedByAdminInput[]
+  updateMany?: Prisma.ProductApprovalUpdateManyWithWhereWithoutReviewedByAdminInput | Prisma.ProductApprovalUpdateManyWithWhereWithoutReviewedByAdminInput[]
+  deleteMany?: Prisma.ProductApprovalScalarWhereInput | Prisma.ProductApprovalScalarWhereInput[]
+}
+
+export type ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalCreateWithoutReviewedByAdminInput, Prisma.ProductApprovalUncheckedCreateWithoutReviewedByAdminInput> | Prisma.ProductApprovalCreateWithoutReviewedByAdminInput[] | Prisma.ProductApprovalUncheckedCreateWithoutReviewedByAdminInput[]
+  connectOrCreate?: Prisma.ProductApprovalCreateOrConnectWithoutReviewedByAdminInput | Prisma.ProductApprovalCreateOrConnectWithoutReviewedByAdminInput[]
+  upsert?: Prisma.ProductApprovalUpsertWithWhereUniqueWithoutReviewedByAdminInput | Prisma.ProductApprovalUpsertWithWhereUniqueWithoutReviewedByAdminInput[]
+  createMany?: Prisma.ProductApprovalCreateManyReviewedByAdminInputEnvelope
+  set?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  disconnect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  delete?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  connect?: Prisma.ProductApprovalWhereUniqueInput | Prisma.ProductApprovalWhereUniqueInput[]
+  update?: Prisma.ProductApprovalUpdateWithWhereUniqueWithoutReviewedByAdminInput | Prisma.ProductApprovalUpdateWithWhereUniqueWithoutReviewedByAdminInput[]
+  updateMany?: Prisma.ProductApprovalUpdateManyWithWhereWithoutReviewedByAdminInput | Prisma.ProductApprovalUpdateManyWithWhereWithoutReviewedByAdminInput[]
+  deleteMany?: Prisma.ProductApprovalScalarWhereInput | Prisma.ProductApprovalScalarWhereInput[]
+}
+
+export type ProductApprovalCreateWithoutShopInput = {
+  id?: string
+  status?: $Enums.ApprovalStatus
+  submittedAt?: Date | string
+  reviewedAt?: Date | string | null
+  rejectionReason?: string | null
+  revisionNote?: string | null
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutProductApprovalsInput
+  reviewedByAdmin?: Prisma.AdminCreateNestedOneWithoutProductApprovalsReviewedInput
+  history?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutApprovalInput
+}
+
+export type ProductApprovalUncheckedCreateWithoutShopInput = {
   id?: string
   productId: string
+  status?: $Enums.ApprovalStatus
+  submittedAt?: Date | string
+  reviewedAt?: Date | string | null
+  reviewedBy?: string | null
+  rejectionReason?: string | null
+  revisionNote?: string | null
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  history?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutApprovalInput
+}
+
+export type ProductApprovalCreateOrConnectWithoutShopInput = {
+  where: Prisma.ProductApprovalWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductApprovalCreateWithoutShopInput, Prisma.ProductApprovalUncheckedCreateWithoutShopInput>
+}
+
+export type ProductApprovalCreateManyShopInputEnvelope = {
+  data: Prisma.ProductApprovalCreateManyShopInput | Prisma.ProductApprovalCreateManyShopInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProductApprovalUpsertWithWhereUniqueWithoutShopInput = {
+  where: Prisma.ProductApprovalWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProductApprovalUpdateWithoutShopInput, Prisma.ProductApprovalUncheckedUpdateWithoutShopInput>
+  create: Prisma.XOR<Prisma.ProductApprovalCreateWithoutShopInput, Prisma.ProductApprovalUncheckedCreateWithoutShopInput>
+}
+
+export type ProductApprovalUpdateWithWhereUniqueWithoutShopInput = {
+  where: Prisma.ProductApprovalWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProductApprovalUpdateWithoutShopInput, Prisma.ProductApprovalUncheckedUpdateWithoutShopInput>
+}
+
+export type ProductApprovalUpdateManyWithWhereWithoutShopInput = {
+  where: Prisma.ProductApprovalScalarWhereInput
+  data: Prisma.XOR<Prisma.ProductApprovalUpdateManyMutationInput, Prisma.ProductApprovalUncheckedUpdateManyWithoutShopInput>
+}
+
+export type ProductApprovalScalarWhereInput = {
+  AND?: Prisma.ProductApprovalScalarWhereInput | Prisma.ProductApprovalScalarWhereInput[]
+  OR?: Prisma.ProductApprovalScalarWhereInput[]
+  NOT?: Prisma.ProductApprovalScalarWhereInput | Prisma.ProductApprovalScalarWhereInput[]
+  id?: Prisma.UuidFilter<"ProductApproval"> | string
+  productId?: Prisma.UuidFilter<"ProductApproval"> | string
+  shopId?: Prisma.UuidFilter<"ProductApproval"> | string
+  status?: Prisma.EnumApprovalStatusFilter<"ProductApproval"> | $Enums.ApprovalStatus
+  submittedAt?: Prisma.DateTimeFilter<"ProductApproval"> | Date | string
+  reviewedAt?: Prisma.DateTimeNullableFilter<"ProductApproval"> | Date | string | null
+  reviewedBy?: Prisma.UuidNullableFilter<"ProductApproval"> | string | null
+  rejectionReason?: Prisma.StringNullableFilter<"ProductApproval"> | string | null
+  revisionNote?: Prisma.StringNullableFilter<"ProductApproval"> | string | null
+  version?: Prisma.IntFilter<"ProductApproval"> | number
+  createdAt?: Prisma.DateTimeFilter<"ProductApproval"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ProductApproval"> | Date | string
+}
+
+export type ProductApprovalCreateWithoutProductInput = {
+  id?: string
+  status?: $Enums.ApprovalStatus
+  submittedAt?: Date | string
+  reviewedAt?: Date | string | null
+  rejectionReason?: string | null
+  revisionNote?: string | null
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutProductApprovalsInput
+  reviewedByAdmin?: Prisma.AdminCreateNestedOneWithoutProductApprovalsReviewedInput
+  history?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutApprovalInput
+}
+
+export type ProductApprovalUncheckedCreateWithoutProductInput = {
+  id?: string
   shopId: string
   status?: $Enums.ApprovalStatus
   submittedAt?: Date | string
@@ -546,6 +776,48 @@ export type ProductApprovalCreateWithoutHistoryInput = {
   version?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  history?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutApprovalInput
+}
+
+export type ProductApprovalCreateOrConnectWithoutProductInput = {
+  where: Prisma.ProductApprovalWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductApprovalCreateWithoutProductInput, Prisma.ProductApprovalUncheckedCreateWithoutProductInput>
+}
+
+export type ProductApprovalCreateManyProductInputEnvelope = {
+  data: Prisma.ProductApprovalCreateManyProductInput | Prisma.ProductApprovalCreateManyProductInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProductApprovalUpsertWithWhereUniqueWithoutProductInput = {
+  where: Prisma.ProductApprovalWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProductApprovalUpdateWithoutProductInput, Prisma.ProductApprovalUncheckedUpdateWithoutProductInput>
+  create: Prisma.XOR<Prisma.ProductApprovalCreateWithoutProductInput, Prisma.ProductApprovalUncheckedCreateWithoutProductInput>
+}
+
+export type ProductApprovalUpdateWithWhereUniqueWithoutProductInput = {
+  where: Prisma.ProductApprovalWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProductApprovalUpdateWithoutProductInput, Prisma.ProductApprovalUncheckedUpdateWithoutProductInput>
+}
+
+export type ProductApprovalUpdateManyWithWhereWithoutProductInput = {
+  where: Prisma.ProductApprovalScalarWhereInput
+  data: Prisma.XOR<Prisma.ProductApprovalUpdateManyMutationInput, Prisma.ProductApprovalUncheckedUpdateManyWithoutProductInput>
+}
+
+export type ProductApprovalCreateWithoutHistoryInput = {
+  id?: string
+  status?: $Enums.ApprovalStatus
+  submittedAt?: Date | string
+  reviewedAt?: Date | string | null
+  rejectionReason?: string | null
+  revisionNote?: string | null
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutProductApprovalsInput
+  shop: Prisma.ShopCreateNestedOneWithoutProductApprovalsInput
+  reviewedByAdmin?: Prisma.AdminCreateNestedOneWithoutProductApprovalsReviewedInput
 }
 
 export type ProductApprovalUncheckedCreateWithoutHistoryInput = {
@@ -581,6 +853,21 @@ export type ProductApprovalUpdateToOneWithWhereWithoutHistoryInput = {
 
 export type ProductApprovalUpdateWithoutHistoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutProductApprovalsNestedInput
+  shop?: Prisma.ShopUpdateOneRequiredWithoutProductApprovalsNestedInput
+  reviewedByAdmin?: Prisma.AdminUpdateOneWithoutProductApprovalsReviewedNestedInput
+}
+
+export type ProductApprovalUncheckedUpdateWithoutHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   shopId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
@@ -594,14 +881,229 @@ export type ProductApprovalUpdateWithoutHistoryInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ProductApprovalUncheckedUpdateWithoutHistoryInput = {
+export type ProductApprovalCreateWithoutReviewedByAdminInput = {
+  id?: string
+  status?: $Enums.ApprovalStatus
+  submittedAt?: Date | string
+  reviewedAt?: Date | string | null
+  rejectionReason?: string | null
+  revisionNote?: string | null
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutProductApprovalsInput
+  shop: Prisma.ShopCreateNestedOneWithoutProductApprovalsInput
+  history?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutApprovalInput
+}
+
+export type ProductApprovalUncheckedCreateWithoutReviewedByAdminInput = {
+  id?: string
+  productId: string
+  shopId: string
+  status?: $Enums.ApprovalStatus
+  submittedAt?: Date | string
+  reviewedAt?: Date | string | null
+  rejectionReason?: string | null
+  revisionNote?: string | null
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  history?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutApprovalInput
+}
+
+export type ProductApprovalCreateOrConnectWithoutReviewedByAdminInput = {
+  where: Prisma.ProductApprovalWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductApprovalCreateWithoutReviewedByAdminInput, Prisma.ProductApprovalUncheckedCreateWithoutReviewedByAdminInput>
+}
+
+export type ProductApprovalCreateManyReviewedByAdminInputEnvelope = {
+  data: Prisma.ProductApprovalCreateManyReviewedByAdminInput | Prisma.ProductApprovalCreateManyReviewedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProductApprovalUpsertWithWhereUniqueWithoutReviewedByAdminInput = {
+  where: Prisma.ProductApprovalWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProductApprovalUpdateWithoutReviewedByAdminInput, Prisma.ProductApprovalUncheckedUpdateWithoutReviewedByAdminInput>
+  create: Prisma.XOR<Prisma.ProductApprovalCreateWithoutReviewedByAdminInput, Prisma.ProductApprovalUncheckedCreateWithoutReviewedByAdminInput>
+}
+
+export type ProductApprovalUpdateWithWhereUniqueWithoutReviewedByAdminInput = {
+  where: Prisma.ProductApprovalWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProductApprovalUpdateWithoutReviewedByAdminInput, Prisma.ProductApprovalUncheckedUpdateWithoutReviewedByAdminInput>
+}
+
+export type ProductApprovalUpdateManyWithWhereWithoutReviewedByAdminInput = {
+  where: Prisma.ProductApprovalScalarWhereInput
+  data: Prisma.XOR<Prisma.ProductApprovalUpdateManyMutationInput, Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminInput>
+}
+
+export type ProductApprovalCreateManyShopInput = {
+  id?: string
+  productId: string
+  status?: $Enums.ApprovalStatus
+  submittedAt?: Date | string
+  reviewedAt?: Date | string | null
+  reviewedBy?: string | null
+  rejectionReason?: string | null
+  revisionNote?: string | null
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProductApprovalUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutProductApprovalsNestedInput
+  reviewedByAdmin?: Prisma.AdminUpdateOneWithoutProductApprovalsReviewedNestedInput
+  history?: Prisma.ProductApprovalHistoryUpdateManyWithoutApprovalNestedInput
+}
+
+export type ProductApprovalUncheckedUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  history?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutApprovalNestedInput
+}
+
+export type ProductApprovalUncheckedUpdateManyWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProductApprovalCreateManyProductInput = {
+  id?: string
+  shopId: string
+  status?: $Enums.ApprovalStatus
+  submittedAt?: Date | string
+  reviewedAt?: Date | string | null
+  reviewedBy?: string | null
+  rejectionReason?: string | null
+  revisionNote?: string | null
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProductApprovalUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutProductApprovalsNestedInput
+  reviewedByAdmin?: Prisma.AdminUpdateOneWithoutProductApprovalsReviewedNestedInput
+  history?: Prisma.ProductApprovalHistoryUpdateManyWithoutApprovalNestedInput
+}
+
+export type ProductApprovalUncheckedUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  history?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutApprovalNestedInput
+}
+
+export type ProductApprovalUncheckedUpdateManyWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProductApprovalCreateManyReviewedByAdminInput = {
+  id?: string
+  productId: string
+  shopId: string
+  status?: $Enums.ApprovalStatus
+  submittedAt?: Date | string
+  reviewedAt?: Date | string | null
+  rejectionReason?: string | null
+  revisionNote?: string | null
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProductApprovalUpdateWithoutReviewedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutProductApprovalsNestedInput
+  shop?: Prisma.ShopUpdateOneRequiredWithoutProductApprovalsNestedInput
+  history?: Prisma.ProductApprovalHistoryUpdateManyWithoutApprovalNestedInput
+}
+
+export type ProductApprovalUncheckedUpdateWithoutReviewedByAdminInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   shopId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  history?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutApprovalNestedInput
+}
+
+export type ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
@@ -653,6 +1155,9 @@ export type ProductApprovalSelect<ExtArgs extends runtime.Types.Extensions.Inter
   version?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  reviewedByAdmin?: boolean | Prisma.ProductApproval$reviewedByAdminArgs<ExtArgs>
   history?: boolean | Prisma.ProductApproval$historyArgs<ExtArgs>
   _count?: boolean | Prisma.ProductApprovalCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productApproval"]>
@@ -670,6 +1175,9 @@ export type ProductApprovalSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   version?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  reviewedByAdmin?: boolean | Prisma.ProductApproval$reviewedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["productApproval"]>
 
 export type ProductApprovalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -685,6 +1193,9 @@ export type ProductApprovalSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   version?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  reviewedByAdmin?: boolean | Prisma.ProductApproval$reviewedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["productApproval"]>
 
 export type ProductApprovalSelectScalar = {
@@ -704,15 +1215,29 @@ export type ProductApprovalSelectScalar = {
 
 export type ProductApprovalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "shopId" | "status" | "submittedAt" | "reviewedAt" | "reviewedBy" | "rejectionReason" | "revisionNote" | "version" | "createdAt" | "updatedAt", ExtArgs["result"]["productApproval"]>
 export type ProductApprovalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  reviewedByAdmin?: boolean | Prisma.ProductApproval$reviewedByAdminArgs<ExtArgs>
   history?: boolean | Prisma.ProductApproval$historyArgs<ExtArgs>
   _count?: boolean | Prisma.ProductApprovalCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ProductApprovalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type ProductApprovalIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ProductApprovalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  reviewedByAdmin?: boolean | Prisma.ProductApproval$reviewedByAdminArgs<ExtArgs>
+}
+export type ProductApprovalIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  reviewedByAdmin?: boolean | Prisma.ProductApproval$reviewedByAdminArgs<ExtArgs>
+}
 
 export type $ProductApprovalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProductApproval"
   objects: {
+    product: Prisma.$ProductPayload<ExtArgs>
+    shop: Prisma.$ShopPayload<ExtArgs>
+    reviewedByAdmin: Prisma.$AdminPayload<ExtArgs> | null
     history: Prisma.$ProductApprovalHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1122,6 +1647,9 @@ readonly fields: ProductApprovalFieldRefs;
  */
 export interface Prisma__ProductApprovalClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  shop<T extends Prisma.ShopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShopDefaultArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  reviewedByAdmin<T extends Prisma.ProductApproval$reviewedByAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductApproval$reviewedByAdminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   history<T extends Prisma.ProductApproval$historyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductApproval$historyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductApprovalHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1418,6 +1946,10 @@ export type ProductApprovalCreateManyAndReturnArgs<ExtArgs extends runtime.Types
    */
   data: Prisma.ProductApprovalCreateManyInput | Prisma.ProductApprovalCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductApprovalIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1488,6 +2020,10 @@ export type ProductApprovalUpdateManyAndReturnArgs<ExtArgs extends runtime.Types
    * Limit how many ProductApprovals to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductApprovalIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1554,6 +2090,25 @@ export type ProductApprovalDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many ProductApprovals to delete.
    */
   limit?: number
+}
+
+/**
+ * ProductApproval.reviewedByAdmin
+ */
+export type ProductApproval$reviewedByAdminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
 }
 
 /**

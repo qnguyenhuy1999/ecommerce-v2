@@ -209,6 +209,7 @@ export type InventoryTransferItemWhereInput = {
   variantId?: Prisma.UuidFilter<"InventoryTransferItem"> | string
   quantity?: Prisma.IntFilter<"InventoryTransferItem"> | number
   transfer?: Prisma.XOR<Prisma.InventoryTransferScalarRelationFilter, Prisma.InventoryTransferWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantScalarRelationFilter, Prisma.ProductVariantWhereInput>
 }
 
 export type InventoryTransferItemOrderByWithRelationInput = {
@@ -217,6 +218,7 @@ export type InventoryTransferItemOrderByWithRelationInput = {
   variantId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   transfer?: Prisma.InventoryTransferOrderByWithRelationInput
+  variant?: Prisma.ProductVariantOrderByWithRelationInput
 }
 
 export type InventoryTransferItemWhereUniqueInput = Prisma.AtLeast<{
@@ -228,6 +230,7 @@ export type InventoryTransferItemWhereUniqueInput = Prisma.AtLeast<{
   variantId?: Prisma.UuidFilter<"InventoryTransferItem"> | string
   quantity?: Prisma.IntFilter<"InventoryTransferItem"> | number
   transfer?: Prisma.XOR<Prisma.InventoryTransferScalarRelationFilter, Prisma.InventoryTransferWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantScalarRelationFilter, Prisma.ProductVariantWhereInput>
 }, "id">
 
 export type InventoryTransferItemOrderByWithAggregationInput = {
@@ -254,9 +257,9 @@ export type InventoryTransferItemScalarWhereWithAggregatesInput = {
 
 export type InventoryTransferItemCreateInput = {
   id?: string
-  variantId: string
   quantity: number
   transfer: Prisma.InventoryTransferCreateNestedOneWithoutItemsInput
+  variant: Prisma.ProductVariantCreateNestedOneWithoutInventoryTransferItemsInput
 }
 
 export type InventoryTransferItemUncheckedCreateInput = {
@@ -268,9 +271,9 @@ export type InventoryTransferItemUncheckedCreateInput = {
 
 export type InventoryTransferItemUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  variantId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   transfer?: Prisma.InventoryTransferUpdateOneRequiredWithoutItemsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneRequiredWithoutInventoryTransferItemsNestedInput
 }
 
 export type InventoryTransferItemUncheckedUpdateInput = {
@@ -289,7 +292,6 @@ export type InventoryTransferItemCreateManyInput = {
 
 export type InventoryTransferItemUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  variantId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -339,6 +341,48 @@ export type InventoryTransferItemSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
 }
 
+export type InventoryTransferItemCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.InventoryTransferItemCreateWithoutVariantInput, Prisma.InventoryTransferItemUncheckedCreateWithoutVariantInput> | Prisma.InventoryTransferItemCreateWithoutVariantInput[] | Prisma.InventoryTransferItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.InventoryTransferItemCreateOrConnectWithoutVariantInput | Prisma.InventoryTransferItemCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.InventoryTransferItemCreateManyVariantInputEnvelope
+  connect?: Prisma.InventoryTransferItemWhereUniqueInput | Prisma.InventoryTransferItemWhereUniqueInput[]
+}
+
+export type InventoryTransferItemUncheckedCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.InventoryTransferItemCreateWithoutVariantInput, Prisma.InventoryTransferItemUncheckedCreateWithoutVariantInput> | Prisma.InventoryTransferItemCreateWithoutVariantInput[] | Prisma.InventoryTransferItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.InventoryTransferItemCreateOrConnectWithoutVariantInput | Prisma.InventoryTransferItemCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.InventoryTransferItemCreateManyVariantInputEnvelope
+  connect?: Prisma.InventoryTransferItemWhereUniqueInput | Prisma.InventoryTransferItemWhereUniqueInput[]
+}
+
+export type InventoryTransferItemUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.InventoryTransferItemCreateWithoutVariantInput, Prisma.InventoryTransferItemUncheckedCreateWithoutVariantInput> | Prisma.InventoryTransferItemCreateWithoutVariantInput[] | Prisma.InventoryTransferItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.InventoryTransferItemCreateOrConnectWithoutVariantInput | Prisma.InventoryTransferItemCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.InventoryTransferItemUpsertWithWhereUniqueWithoutVariantInput | Prisma.InventoryTransferItemUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.InventoryTransferItemCreateManyVariantInputEnvelope
+  set?: Prisma.InventoryTransferItemWhereUniqueInput | Prisma.InventoryTransferItemWhereUniqueInput[]
+  disconnect?: Prisma.InventoryTransferItemWhereUniqueInput | Prisma.InventoryTransferItemWhereUniqueInput[]
+  delete?: Prisma.InventoryTransferItemWhereUniqueInput | Prisma.InventoryTransferItemWhereUniqueInput[]
+  connect?: Prisma.InventoryTransferItemWhereUniqueInput | Prisma.InventoryTransferItemWhereUniqueInput[]
+  update?: Prisma.InventoryTransferItemUpdateWithWhereUniqueWithoutVariantInput | Prisma.InventoryTransferItemUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.InventoryTransferItemUpdateManyWithWhereWithoutVariantInput | Prisma.InventoryTransferItemUpdateManyWithWhereWithoutVariantInput[]
+  deleteMany?: Prisma.InventoryTransferItemScalarWhereInput | Prisma.InventoryTransferItemScalarWhereInput[]
+}
+
+export type InventoryTransferItemUncheckedUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.InventoryTransferItemCreateWithoutVariantInput, Prisma.InventoryTransferItemUncheckedCreateWithoutVariantInput> | Prisma.InventoryTransferItemCreateWithoutVariantInput[] | Prisma.InventoryTransferItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.InventoryTransferItemCreateOrConnectWithoutVariantInput | Prisma.InventoryTransferItemCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.InventoryTransferItemUpsertWithWhereUniqueWithoutVariantInput | Prisma.InventoryTransferItemUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.InventoryTransferItemCreateManyVariantInputEnvelope
+  set?: Prisma.InventoryTransferItemWhereUniqueInput | Prisma.InventoryTransferItemWhereUniqueInput[]
+  disconnect?: Prisma.InventoryTransferItemWhereUniqueInput | Prisma.InventoryTransferItemWhereUniqueInput[]
+  delete?: Prisma.InventoryTransferItemWhereUniqueInput | Prisma.InventoryTransferItemWhereUniqueInput[]
+  connect?: Prisma.InventoryTransferItemWhereUniqueInput | Prisma.InventoryTransferItemWhereUniqueInput[]
+  update?: Prisma.InventoryTransferItemUpdateWithWhereUniqueWithoutVariantInput | Prisma.InventoryTransferItemUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.InventoryTransferItemUpdateManyWithWhereWithoutVariantInput | Prisma.InventoryTransferItemUpdateManyWithWhereWithoutVariantInput[]
+  deleteMany?: Prisma.InventoryTransferItemScalarWhereInput | Prisma.InventoryTransferItemScalarWhereInput[]
+}
+
 export type InventoryTransferItemCreateNestedManyWithoutTransferInput = {
   create?: Prisma.XOR<Prisma.InventoryTransferItemCreateWithoutTransferInput, Prisma.InventoryTransferItemUncheckedCreateWithoutTransferInput> | Prisma.InventoryTransferItemCreateWithoutTransferInput[] | Prisma.InventoryTransferItemUncheckedCreateWithoutTransferInput[]
   connectOrCreate?: Prisma.InventoryTransferItemCreateOrConnectWithoutTransferInput | Prisma.InventoryTransferItemCreateOrConnectWithoutTransferInput[]
@@ -381,10 +425,58 @@ export type InventoryTransferItemUncheckedUpdateManyWithoutTransferNestedInput =
   deleteMany?: Prisma.InventoryTransferItemScalarWhereInput | Prisma.InventoryTransferItemScalarWhereInput[]
 }
 
+export type InventoryTransferItemCreateWithoutVariantInput = {
+  id?: string
+  quantity: number
+  transfer: Prisma.InventoryTransferCreateNestedOneWithoutItemsInput
+}
+
+export type InventoryTransferItemUncheckedCreateWithoutVariantInput = {
+  id?: string
+  transferId: string
+  quantity: number
+}
+
+export type InventoryTransferItemCreateOrConnectWithoutVariantInput = {
+  where: Prisma.InventoryTransferItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.InventoryTransferItemCreateWithoutVariantInput, Prisma.InventoryTransferItemUncheckedCreateWithoutVariantInput>
+}
+
+export type InventoryTransferItemCreateManyVariantInputEnvelope = {
+  data: Prisma.InventoryTransferItemCreateManyVariantInput | Prisma.InventoryTransferItemCreateManyVariantInput[]
+  skipDuplicates?: boolean
+}
+
+export type InventoryTransferItemUpsertWithWhereUniqueWithoutVariantInput = {
+  where: Prisma.InventoryTransferItemWhereUniqueInput
+  update: Prisma.XOR<Prisma.InventoryTransferItemUpdateWithoutVariantInput, Prisma.InventoryTransferItemUncheckedUpdateWithoutVariantInput>
+  create: Prisma.XOR<Prisma.InventoryTransferItemCreateWithoutVariantInput, Prisma.InventoryTransferItemUncheckedCreateWithoutVariantInput>
+}
+
+export type InventoryTransferItemUpdateWithWhereUniqueWithoutVariantInput = {
+  where: Prisma.InventoryTransferItemWhereUniqueInput
+  data: Prisma.XOR<Prisma.InventoryTransferItemUpdateWithoutVariantInput, Prisma.InventoryTransferItemUncheckedUpdateWithoutVariantInput>
+}
+
+export type InventoryTransferItemUpdateManyWithWhereWithoutVariantInput = {
+  where: Prisma.InventoryTransferItemScalarWhereInput
+  data: Prisma.XOR<Prisma.InventoryTransferItemUpdateManyMutationInput, Prisma.InventoryTransferItemUncheckedUpdateManyWithoutVariantInput>
+}
+
+export type InventoryTransferItemScalarWhereInput = {
+  AND?: Prisma.InventoryTransferItemScalarWhereInput | Prisma.InventoryTransferItemScalarWhereInput[]
+  OR?: Prisma.InventoryTransferItemScalarWhereInput[]
+  NOT?: Prisma.InventoryTransferItemScalarWhereInput | Prisma.InventoryTransferItemScalarWhereInput[]
+  id?: Prisma.UuidFilter<"InventoryTransferItem"> | string
+  transferId?: Prisma.UuidFilter<"InventoryTransferItem"> | string
+  variantId?: Prisma.UuidFilter<"InventoryTransferItem"> | string
+  quantity?: Prisma.IntFilter<"InventoryTransferItem"> | number
+}
+
 export type InventoryTransferItemCreateWithoutTransferInput = {
   id?: string
-  variantId: string
   quantity: number
+  variant: Prisma.ProductVariantCreateNestedOneWithoutInventoryTransferItemsInput
 }
 
 export type InventoryTransferItemUncheckedCreateWithoutTransferInput = {
@@ -419,14 +511,28 @@ export type InventoryTransferItemUpdateManyWithWhereWithoutTransferInput = {
   data: Prisma.XOR<Prisma.InventoryTransferItemUpdateManyMutationInput, Prisma.InventoryTransferItemUncheckedUpdateManyWithoutTransferInput>
 }
 
-export type InventoryTransferItemScalarWhereInput = {
-  AND?: Prisma.InventoryTransferItemScalarWhereInput | Prisma.InventoryTransferItemScalarWhereInput[]
-  OR?: Prisma.InventoryTransferItemScalarWhereInput[]
-  NOT?: Prisma.InventoryTransferItemScalarWhereInput | Prisma.InventoryTransferItemScalarWhereInput[]
-  id?: Prisma.UuidFilter<"InventoryTransferItem"> | string
-  transferId?: Prisma.UuidFilter<"InventoryTransferItem"> | string
-  variantId?: Prisma.UuidFilter<"InventoryTransferItem"> | string
-  quantity?: Prisma.IntFilter<"InventoryTransferItem"> | number
+export type InventoryTransferItemCreateManyVariantInput = {
+  id?: string
+  transferId: string
+  quantity: number
+}
+
+export type InventoryTransferItemUpdateWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  transfer?: Prisma.InventoryTransferUpdateOneRequiredWithoutItemsNestedInput
+}
+
+export type InventoryTransferItemUncheckedUpdateWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  transferId?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type InventoryTransferItemUncheckedUpdateManyWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  transferId?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type InventoryTransferItemCreateManyTransferInput = {
@@ -437,8 +543,8 @@ export type InventoryTransferItemCreateManyTransferInput = {
 
 export type InventoryTransferItemUpdateWithoutTransferInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  variantId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  variant?: Prisma.ProductVariantUpdateOneRequiredWithoutInventoryTransferItemsNestedInput
 }
 
 export type InventoryTransferItemUncheckedUpdateWithoutTransferInput = {
@@ -461,6 +567,7 @@ export type InventoryTransferItemSelect<ExtArgs extends runtime.Types.Extensions
   variantId?: boolean
   quantity?: boolean
   transfer?: boolean | Prisma.InventoryTransferDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inventoryTransferItem"]>
 
 export type InventoryTransferItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -469,6 +576,7 @@ export type InventoryTransferItemSelectCreateManyAndReturn<ExtArgs extends runti
   variantId?: boolean
   quantity?: boolean
   transfer?: boolean | Prisma.InventoryTransferDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inventoryTransferItem"]>
 
 export type InventoryTransferItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -477,6 +585,7 @@ export type InventoryTransferItemSelectUpdateManyAndReturn<ExtArgs extends runti
   variantId?: boolean
   quantity?: boolean
   transfer?: boolean | Prisma.InventoryTransferDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inventoryTransferItem"]>
 
 export type InventoryTransferItemSelectScalar = {
@@ -489,18 +598,22 @@ export type InventoryTransferItemSelectScalar = {
 export type InventoryTransferItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "transferId" | "variantId" | "quantity", ExtArgs["result"]["inventoryTransferItem"]>
 export type InventoryTransferItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   transfer?: boolean | Prisma.InventoryTransferDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }
 export type InventoryTransferItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   transfer?: boolean | Prisma.InventoryTransferDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }
 export type InventoryTransferItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   transfer?: boolean | Prisma.InventoryTransferDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }
 
 export type $InventoryTransferItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "InventoryTransferItem"
   objects: {
     transfer: Prisma.$InventoryTransferPayload<ExtArgs>
+    variant: Prisma.$ProductVariantPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -902,6 +1015,7 @@ readonly fields: InventoryTransferItemFieldRefs;
 export interface Prisma__InventoryTransferItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   transfer<T extends Prisma.InventoryTransferDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InventoryTransferDefaultArgs<ExtArgs>>): Prisma.Prisma__InventoryTransferClient<runtime.Types.Result.GetResult<Prisma.$InventoryTransferPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  variant<T extends Prisma.ProductVariantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariantDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductVariantClient<runtime.Types.Result.GetResult<Prisma.$ProductVariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

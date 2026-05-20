@@ -1,14 +1,17 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
+import { join } from 'node:path'
 import * as bcrypt from 'bcrypt'
 import { PrismaService } from '@ecom/database'
 import type { SessionData } from '@ecom/auth'
-import { SessionService } from '@ecom/auth'
+import { SessionService, RESET_TOKEN_TTL, hashPassword } from '@ecom/auth'
+import { EmailService } from '@ecom/email'
 import { AdminStatus } from '@ecom/contracts/enums'
 import { SESSION_SERVICE } from './session.provider'
 import { AdminSessionData } from './decorators/current-admin.decorator'
 
 const SESSION_EXPIRY_DAYS = 7
+const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
 
 @Injectable()
 export class AuthService {
@@ -16,6 +19,7 @@ export class AuthService {
     private readonly prisma: PrismaService,
     @Inject(SESSION_SERVICE)
     private readonly sessionService: SessionService,
+    private readonly emailService: EmailService,
   ) {}
 
   async login(email: string, password: string, userAgent?: string, ipAddress?: string) {
@@ -91,6 +95,7 @@ export class AuthService {
         firstName: admin.firstName,
         lastName: admin.lastName,
         avatar: admin.avatar,
+        emailVerified: admin.emailVerified,
         roles,
         permissions,
       },
@@ -118,6 +123,7 @@ export class AuthService {
         lastName: true,
         avatar: true,
         status: true,
+        emailVerified: true,
       },
     })
 
@@ -135,13 +141,63 @@ export class AuthService {
   async refreshSession(sessionId: string) {
     await this.sessionService.refresh(sessionId)
   }
+
+  async forgotPassword(email: string) {
+    const admin = await this.prisma.admin.findUnique({
+      where: { email, deletedAt: null },
+    })
+    if (!admin || admin.status !== AdminStatus.ACTIVE) return
+
+    const token = randomUUID()
+    await this.prisma.adminPasswordResetToken.create({
+      data: {
+        adminId: admin.id,
+        token,
+        expiresAt: new Date(Date.now() + RESET_TOKEN_TTL * 1000),
+      },
+    })
+
+    this.emailService.sendMail({
+      to: admin.email,
+      subject: 'Reset your admin password',
+      templatePath: join(TEMPLATES_DIR, 'reset-password.hbs'),
+      context: {
+        name: admin.email,
+        link: `${process.env.ADMIN_APP_URL ?? 'http://localhost:3002'}/reset-password?token=${token}`,
+      },
+    }).catch(() => {})
+  }
+
+  async resetPassword(token: string, password: string) {
+    const resetToken = await this.prisma.adminPasswordResetToken.findUnique({ where: { token } })
+
+    if (!resetToken || resetToken.usedAt || resetToken.expiresAt < new Date()) {
+      throw new UnauthorizedException('Invalid or expired reset token')
+    }
+
+    const passwordHash = await hashPassword(password)
+
+    await this.prisma.$transaction([
+      this.prisma.admin.update({
+        where: { id: resetToken.adminId },
+        data: { passwordHash },
+      }),
+      this.prisma.adminPasswordResetToken.update({
+        where: { id: resetToken.id },
+        data: { usedAt: new Date() },
+      }),
+    ])
+  }
 }
 
 function parseAdminSessionData(session: SessionData): AdminSessionData {
   const adminId = session.adminId
   const permissions = session.permissions
+  const roles = session.roles
   if (
     typeof adminId !== 'string' ||
+    !Array.isArray(roles) ||
+    !roles.every((role) => typeof role === 'string') ||
     !Array.isArray(permissions) ||
     !permissions.every((permission) => typeof permission === 'string')
   ) {
@@ -151,6 +207,6 @@ function parseAdminSessionData(session: SessionData): AdminSessionData {
   return {
     adminId,
     permissions,
-    roles: session.roles,
+    roles,
   }
 }

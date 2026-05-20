@@ -37,7 +37,7 @@ export type ProductScoreSumAggregateOutputType = {
 export type ProductScoreMinAggregateOutputType = {
   id: string | null
   productId: string | null
-  scoreType: string | null
+  scoreType: $Enums.ProductScoreType | null
   score: number | null
   updatedAt: Date | null
 }
@@ -45,7 +45,7 @@ export type ProductScoreMinAggregateOutputType = {
 export type ProductScoreMaxAggregateOutputType = {
   id: string | null
   productId: string | null
-  scoreType: string | null
+  scoreType: $Enums.ProductScoreType | null
   score: number | null
   updatedAt: Date | null
 }
@@ -184,7 +184,7 @@ export type ProductScoreGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type ProductScoreGroupByOutputType = {
   id: string
   productId: string
-  scoreType: string
+  scoreType: $Enums.ProductScoreType
   score: number
   metadata: runtime.JsonValue | null
   updatedAt: Date
@@ -216,7 +216,7 @@ export type ProductScoreWhereInput = {
   NOT?: Prisma.ProductScoreWhereInput | Prisma.ProductScoreWhereInput[]
   id?: Prisma.UuidFilter<"ProductScore"> | string
   productId?: Prisma.UuidFilter<"ProductScore"> | string
-  scoreType?: Prisma.StringFilter<"ProductScore"> | string
+  scoreType?: Prisma.EnumProductScoreTypeFilter<"ProductScore"> | $Enums.ProductScoreType
   score?: Prisma.FloatFilter<"ProductScore"> | number
   metadata?: Prisma.JsonNullableFilter<"ProductScore">
   updatedAt?: Prisma.DateTimeFilter<"ProductScore"> | Date | string
@@ -238,7 +238,7 @@ export type ProductScoreWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ProductScoreWhereInput[]
   NOT?: Prisma.ProductScoreWhereInput | Prisma.ProductScoreWhereInput[]
   productId?: Prisma.UuidFilter<"ProductScore"> | string
-  scoreType?: Prisma.StringFilter<"ProductScore"> | string
+  scoreType?: Prisma.EnumProductScoreTypeFilter<"ProductScore"> | $Enums.ProductScoreType
   score?: Prisma.FloatFilter<"ProductScore"> | number
   metadata?: Prisma.JsonNullableFilter<"ProductScore">
   updatedAt?: Prisma.DateTimeFilter<"ProductScore"> | Date | string
@@ -264,7 +264,7 @@ export type ProductScoreScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ProductScoreScalarWhereWithAggregatesInput | Prisma.ProductScoreScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"ProductScore"> | string
   productId?: Prisma.UuidWithAggregatesFilter<"ProductScore"> | string
-  scoreType?: Prisma.StringWithAggregatesFilter<"ProductScore"> | string
+  scoreType?: Prisma.EnumProductScoreTypeWithAggregatesFilter<"ProductScore"> | $Enums.ProductScoreType
   score?: Prisma.FloatWithAggregatesFilter<"ProductScore"> | number
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"ProductScore">
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ProductScore"> | Date | string
@@ -273,7 +273,7 @@ export type ProductScoreScalarWhereWithAggregatesInput = {
 export type ProductScoreCreateInput = {
   id?: string
   productId: string
-  scoreType: string
+  scoreType: $Enums.ProductScoreType
   score: number
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   updatedAt?: Date | string
@@ -282,7 +282,7 @@ export type ProductScoreCreateInput = {
 export type ProductScoreUncheckedCreateInput = {
   id?: string
   productId: string
-  scoreType: string
+  scoreType: $Enums.ProductScoreType
   score: number
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   updatedAt?: Date | string
@@ -291,7 +291,7 @@ export type ProductScoreUncheckedCreateInput = {
 export type ProductScoreUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
-  scoreType?: Prisma.StringFieldUpdateOperationsInput | string
+  scoreType?: Prisma.EnumProductScoreTypeFieldUpdateOperationsInput | $Enums.ProductScoreType
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -300,7 +300,7 @@ export type ProductScoreUpdateInput = {
 export type ProductScoreUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
-  scoreType?: Prisma.StringFieldUpdateOperationsInput | string
+  scoreType?: Prisma.EnumProductScoreTypeFieldUpdateOperationsInput | $Enums.ProductScoreType
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -309,7 +309,7 @@ export type ProductScoreUncheckedUpdateInput = {
 export type ProductScoreCreateManyInput = {
   id?: string
   productId: string
-  scoreType: string
+  scoreType: $Enums.ProductScoreType
   score: number
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   updatedAt?: Date | string
@@ -318,7 +318,7 @@ export type ProductScoreCreateManyInput = {
 export type ProductScoreUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
-  scoreType?: Prisma.StringFieldUpdateOperationsInput | string
+  scoreType?: Prisma.EnumProductScoreTypeFieldUpdateOperationsInput | $Enums.ProductScoreType
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -327,7 +327,7 @@ export type ProductScoreUpdateManyMutationInput = {
 export type ProductScoreUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
-  scoreType?: Prisma.StringFieldUpdateOperationsInput | string
+  scoreType?: Prisma.EnumProductScoreTypeFieldUpdateOperationsInput | $Enums.ProductScoreType
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -335,7 +335,7 @@ export type ProductScoreUncheckedUpdateManyInput = {
 
 export type ProductScoreProductIdScoreTypeCompoundUniqueInput = {
   productId: string
-  scoreType: string
+  scoreType: $Enums.ProductScoreType
 }
 
 export type ProductScoreCountOrderByAggregateInput = {
@@ -369,6 +369,10 @@ export type ProductScoreMinOrderByAggregateInput = {
 
 export type ProductScoreSumOrderByAggregateInput = {
   score?: Prisma.SortOrder
+}
+
+export type EnumProductScoreTypeFieldUpdateOperationsInput = {
+  set?: $Enums.ProductScoreType
 }
 
 
@@ -417,7 +421,7 @@ export type $ProductScorePayload<ExtArgs extends runtime.Types.Extensions.Intern
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     productId: string
-    scoreType: string
+    scoreType: $Enums.ProductScoreType
     score: number
     metadata: runtime.JsonValue | null
     updatedAt: Date
@@ -846,7 +850,7 @@ export interface Prisma__ProductScoreClient<T, Null = never, ExtArgs extends run
 export interface ProductScoreFieldRefs {
   readonly id: Prisma.FieldRef<"ProductScore", 'String'>
   readonly productId: Prisma.FieldRef<"ProductScore", 'String'>
-  readonly scoreType: Prisma.FieldRef<"ProductScore", 'String'>
+  readonly scoreType: Prisma.FieldRef<"ProductScore", 'ProductScoreType'>
   readonly score: Prisma.FieldRef<"ProductScore", 'Float'>
   readonly metadata: Prisma.FieldRef<"ProductScore", 'Json'>
   readonly updatedAt: Prisma.FieldRef<"ProductScore", 'DateTime'>

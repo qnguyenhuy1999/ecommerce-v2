@@ -159,12 +159,14 @@ export type CouponCategoryWhereInput = {
   couponId?: Prisma.UuidFilter<"CouponCategory"> | string
   categoryId?: Prisma.UuidFilter<"CouponCategory"> | string
   coupon?: Prisma.XOR<Prisma.CouponScalarRelationFilter, Prisma.CouponWhereInput>
+  category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
 }
 
 export type CouponCategoryOrderByWithRelationInput = {
   couponId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   coupon?: Prisma.CouponOrderByWithRelationInput
+  category?: Prisma.CategoryOrderByWithRelationInput
 }
 
 export type CouponCategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -175,6 +177,7 @@ export type CouponCategoryWhereUniqueInput = Prisma.AtLeast<{
   couponId?: Prisma.UuidFilter<"CouponCategory"> | string
   categoryId?: Prisma.UuidFilter<"CouponCategory"> | string
   coupon?: Prisma.XOR<Prisma.CouponScalarRelationFilter, Prisma.CouponWhereInput>
+  category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
 }, "couponId_categoryId">
 
 export type CouponCategoryOrderByWithAggregationInput = {
@@ -194,8 +197,8 @@ export type CouponCategoryScalarWhereWithAggregatesInput = {
 }
 
 export type CouponCategoryCreateInput = {
-  categoryId: string
   coupon: Prisma.CouponCreateNestedOneWithoutCouponCategoriesInput
+  category: Prisma.CategoryCreateNestedOneWithoutCouponCategoriesInput
 }
 
 export type CouponCategoryUncheckedCreateInput = {
@@ -204,8 +207,8 @@ export type CouponCategoryUncheckedCreateInput = {
 }
 
 export type CouponCategoryUpdateInput = {
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   coupon?: Prisma.CouponUpdateOneRequiredWithoutCouponCategoriesNestedInput
+  category?: Prisma.CategoryUpdateOneRequiredWithoutCouponCategoriesNestedInput
 }
 
 export type CouponCategoryUncheckedUpdateInput = {
@@ -219,7 +222,7 @@ export type CouponCategoryCreateManyInput = {
 }
 
 export type CouponCategoryUpdateManyMutationInput = {
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+
 }
 
 export type CouponCategoryUncheckedUpdateManyInput = {
@@ -255,6 +258,48 @@ export type CouponCategoryMaxOrderByAggregateInput = {
 export type CouponCategoryMinOrderByAggregateInput = {
   couponId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+}
+
+export type CouponCategoryCreateNestedManyWithoutCategoryInput = {
+  create?: Prisma.XOR<Prisma.CouponCategoryCreateWithoutCategoryInput, Prisma.CouponCategoryUncheckedCreateWithoutCategoryInput> | Prisma.CouponCategoryCreateWithoutCategoryInput[] | Prisma.CouponCategoryUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.CouponCategoryCreateOrConnectWithoutCategoryInput | Prisma.CouponCategoryCreateOrConnectWithoutCategoryInput[]
+  createMany?: Prisma.CouponCategoryCreateManyCategoryInputEnvelope
+  connect?: Prisma.CouponCategoryWhereUniqueInput | Prisma.CouponCategoryWhereUniqueInput[]
+}
+
+export type CouponCategoryUncheckedCreateNestedManyWithoutCategoryInput = {
+  create?: Prisma.XOR<Prisma.CouponCategoryCreateWithoutCategoryInput, Prisma.CouponCategoryUncheckedCreateWithoutCategoryInput> | Prisma.CouponCategoryCreateWithoutCategoryInput[] | Prisma.CouponCategoryUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.CouponCategoryCreateOrConnectWithoutCategoryInput | Prisma.CouponCategoryCreateOrConnectWithoutCategoryInput[]
+  createMany?: Prisma.CouponCategoryCreateManyCategoryInputEnvelope
+  connect?: Prisma.CouponCategoryWhereUniqueInput | Prisma.CouponCategoryWhereUniqueInput[]
+}
+
+export type CouponCategoryUpdateManyWithoutCategoryNestedInput = {
+  create?: Prisma.XOR<Prisma.CouponCategoryCreateWithoutCategoryInput, Prisma.CouponCategoryUncheckedCreateWithoutCategoryInput> | Prisma.CouponCategoryCreateWithoutCategoryInput[] | Prisma.CouponCategoryUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.CouponCategoryCreateOrConnectWithoutCategoryInput | Prisma.CouponCategoryCreateOrConnectWithoutCategoryInput[]
+  upsert?: Prisma.CouponCategoryUpsertWithWhereUniqueWithoutCategoryInput | Prisma.CouponCategoryUpsertWithWhereUniqueWithoutCategoryInput[]
+  createMany?: Prisma.CouponCategoryCreateManyCategoryInputEnvelope
+  set?: Prisma.CouponCategoryWhereUniqueInput | Prisma.CouponCategoryWhereUniqueInput[]
+  disconnect?: Prisma.CouponCategoryWhereUniqueInput | Prisma.CouponCategoryWhereUniqueInput[]
+  delete?: Prisma.CouponCategoryWhereUniqueInput | Prisma.CouponCategoryWhereUniqueInput[]
+  connect?: Prisma.CouponCategoryWhereUniqueInput | Prisma.CouponCategoryWhereUniqueInput[]
+  update?: Prisma.CouponCategoryUpdateWithWhereUniqueWithoutCategoryInput | Prisma.CouponCategoryUpdateWithWhereUniqueWithoutCategoryInput[]
+  updateMany?: Prisma.CouponCategoryUpdateManyWithWhereWithoutCategoryInput | Prisma.CouponCategoryUpdateManyWithWhereWithoutCategoryInput[]
+  deleteMany?: Prisma.CouponCategoryScalarWhereInput | Prisma.CouponCategoryScalarWhereInput[]
+}
+
+export type CouponCategoryUncheckedUpdateManyWithoutCategoryNestedInput = {
+  create?: Prisma.XOR<Prisma.CouponCategoryCreateWithoutCategoryInput, Prisma.CouponCategoryUncheckedCreateWithoutCategoryInput> | Prisma.CouponCategoryCreateWithoutCategoryInput[] | Prisma.CouponCategoryUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.CouponCategoryCreateOrConnectWithoutCategoryInput | Prisma.CouponCategoryCreateOrConnectWithoutCategoryInput[]
+  upsert?: Prisma.CouponCategoryUpsertWithWhereUniqueWithoutCategoryInput | Prisma.CouponCategoryUpsertWithWhereUniqueWithoutCategoryInput[]
+  createMany?: Prisma.CouponCategoryCreateManyCategoryInputEnvelope
+  set?: Prisma.CouponCategoryWhereUniqueInput | Prisma.CouponCategoryWhereUniqueInput[]
+  disconnect?: Prisma.CouponCategoryWhereUniqueInput | Prisma.CouponCategoryWhereUniqueInput[]
+  delete?: Prisma.CouponCategoryWhereUniqueInput | Prisma.CouponCategoryWhereUniqueInput[]
+  connect?: Prisma.CouponCategoryWhereUniqueInput | Prisma.CouponCategoryWhereUniqueInput[]
+  update?: Prisma.CouponCategoryUpdateWithWhereUniqueWithoutCategoryInput | Prisma.CouponCategoryUpdateWithWhereUniqueWithoutCategoryInput[]
+  updateMany?: Prisma.CouponCategoryUpdateManyWithWhereWithoutCategoryInput | Prisma.CouponCategoryUpdateManyWithWhereWithoutCategoryInput[]
+  deleteMany?: Prisma.CouponCategoryScalarWhereInput | Prisma.CouponCategoryScalarWhereInput[]
 }
 
 export type CouponCategoryCreateNestedManyWithoutCouponInput = {
@@ -299,8 +344,50 @@ export type CouponCategoryUncheckedUpdateManyWithoutCouponNestedInput = {
   deleteMany?: Prisma.CouponCategoryScalarWhereInput | Prisma.CouponCategoryScalarWhereInput[]
 }
 
+export type CouponCategoryCreateWithoutCategoryInput = {
+  coupon: Prisma.CouponCreateNestedOneWithoutCouponCategoriesInput
+}
+
+export type CouponCategoryUncheckedCreateWithoutCategoryInput = {
+  couponId: string
+}
+
+export type CouponCategoryCreateOrConnectWithoutCategoryInput = {
+  where: Prisma.CouponCategoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.CouponCategoryCreateWithoutCategoryInput, Prisma.CouponCategoryUncheckedCreateWithoutCategoryInput>
+}
+
+export type CouponCategoryCreateManyCategoryInputEnvelope = {
+  data: Prisma.CouponCategoryCreateManyCategoryInput | Prisma.CouponCategoryCreateManyCategoryInput[]
+  skipDuplicates?: boolean
+}
+
+export type CouponCategoryUpsertWithWhereUniqueWithoutCategoryInput = {
+  where: Prisma.CouponCategoryWhereUniqueInput
+  update: Prisma.XOR<Prisma.CouponCategoryUpdateWithoutCategoryInput, Prisma.CouponCategoryUncheckedUpdateWithoutCategoryInput>
+  create: Prisma.XOR<Prisma.CouponCategoryCreateWithoutCategoryInput, Prisma.CouponCategoryUncheckedCreateWithoutCategoryInput>
+}
+
+export type CouponCategoryUpdateWithWhereUniqueWithoutCategoryInput = {
+  where: Prisma.CouponCategoryWhereUniqueInput
+  data: Prisma.XOR<Prisma.CouponCategoryUpdateWithoutCategoryInput, Prisma.CouponCategoryUncheckedUpdateWithoutCategoryInput>
+}
+
+export type CouponCategoryUpdateManyWithWhereWithoutCategoryInput = {
+  where: Prisma.CouponCategoryScalarWhereInput
+  data: Prisma.XOR<Prisma.CouponCategoryUpdateManyMutationInput, Prisma.CouponCategoryUncheckedUpdateManyWithoutCategoryInput>
+}
+
+export type CouponCategoryScalarWhereInput = {
+  AND?: Prisma.CouponCategoryScalarWhereInput | Prisma.CouponCategoryScalarWhereInput[]
+  OR?: Prisma.CouponCategoryScalarWhereInput[]
+  NOT?: Prisma.CouponCategoryScalarWhereInput | Prisma.CouponCategoryScalarWhereInput[]
+  couponId?: Prisma.UuidFilter<"CouponCategory"> | string
+  categoryId?: Prisma.UuidFilter<"CouponCategory"> | string
+}
+
 export type CouponCategoryCreateWithoutCouponInput = {
-  categoryId: string
+  category: Prisma.CategoryCreateNestedOneWithoutCouponCategoriesInput
 }
 
 export type CouponCategoryUncheckedCreateWithoutCouponInput = {
@@ -333,12 +420,20 @@ export type CouponCategoryUpdateManyWithWhereWithoutCouponInput = {
   data: Prisma.XOR<Prisma.CouponCategoryUpdateManyMutationInput, Prisma.CouponCategoryUncheckedUpdateManyWithoutCouponInput>
 }
 
-export type CouponCategoryScalarWhereInput = {
-  AND?: Prisma.CouponCategoryScalarWhereInput | Prisma.CouponCategoryScalarWhereInput[]
-  OR?: Prisma.CouponCategoryScalarWhereInput[]
-  NOT?: Prisma.CouponCategoryScalarWhereInput | Prisma.CouponCategoryScalarWhereInput[]
-  couponId?: Prisma.UuidFilter<"CouponCategory"> | string
-  categoryId?: Prisma.UuidFilter<"CouponCategory"> | string
+export type CouponCategoryCreateManyCategoryInput = {
+  couponId: string
+}
+
+export type CouponCategoryUpdateWithoutCategoryInput = {
+  coupon?: Prisma.CouponUpdateOneRequiredWithoutCouponCategoriesNestedInput
+}
+
+export type CouponCategoryUncheckedUpdateWithoutCategoryInput = {
+  couponId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type CouponCategoryUncheckedUpdateManyWithoutCategoryInput = {
+  couponId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CouponCategoryCreateManyCouponInput = {
@@ -346,7 +441,7 @@ export type CouponCategoryCreateManyCouponInput = {
 }
 
 export type CouponCategoryUpdateWithoutCouponInput = {
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.CategoryUpdateOneRequiredWithoutCouponCategoriesNestedInput
 }
 
 export type CouponCategoryUncheckedUpdateWithoutCouponInput = {
@@ -363,18 +458,21 @@ export type CouponCategorySelect<ExtArgs extends runtime.Types.Extensions.Intern
   couponId?: boolean
   categoryId?: boolean
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["couponCategory"]>
 
 export type CouponCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   couponId?: boolean
   categoryId?: boolean
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["couponCategory"]>
 
 export type CouponCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   couponId?: boolean
   categoryId?: boolean
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["couponCategory"]>
 
 export type CouponCategorySelectScalar = {
@@ -385,18 +483,22 @@ export type CouponCategorySelectScalar = {
 export type CouponCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"couponId" | "categoryId", ExtArgs["result"]["couponCategory"]>
 export type CouponCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }
 export type CouponCategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }
 export type CouponCategoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }
 
 export type $CouponCategoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CouponCategory"
   objects: {
     coupon: Prisma.$CouponPayload<ExtArgs>
+    category: Prisma.$CategoryPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     couponId: string
@@ -796,6 +898,7 @@ readonly fields: CouponCategoryFieldRefs;
 export interface Prisma__CouponCategoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   coupon<T extends Prisma.CouponDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CouponDefaultArgs<ExtArgs>>): Prisma.Prisma__CouponClient<runtime.Types.Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  category<T extends Prisma.CategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoryClient<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

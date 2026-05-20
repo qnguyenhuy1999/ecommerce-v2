@@ -613,7 +613,13 @@ export type $ExperimentVariantPayload<ExtArgs extends runtime.Types.Extensions.I
     name: string
     weight: number
     config: runtime.JsonValue | null
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     impressions: number
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     conversions: number
   }, ExtArgs["result"]["experimentVariant"]>
   composites: {}

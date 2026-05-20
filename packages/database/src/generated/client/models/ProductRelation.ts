@@ -38,7 +38,7 @@ export type ProductRelationMinAggregateOutputType = {
   id: string | null
   productId: string | null
   relatedProductId: string | null
-  relationType: string | null
+  relationType: $Enums.ProductRelationType | null
   score: number | null
   updatedAt: Date | null
 }
@@ -47,7 +47,7 @@ export type ProductRelationMaxAggregateOutputType = {
   id: string | null
   productId: string | null
   relatedProductId: string | null
-  relationType: string | null
+  relationType: $Enums.ProductRelationType | null
   score: number | null
   updatedAt: Date | null
 }
@@ -189,7 +189,7 @@ export type ProductRelationGroupByOutputType = {
   id: string
   productId: string
   relatedProductId: string
-  relationType: string
+  relationType: $Enums.ProductRelationType
   score: number
   updatedAt: Date
   _count: ProductRelationCountAggregateOutputType | null
@@ -221,7 +221,7 @@ export type ProductRelationWhereInput = {
   id?: Prisma.UuidFilter<"ProductRelation"> | string
   productId?: Prisma.UuidFilter<"ProductRelation"> | string
   relatedProductId?: Prisma.UuidFilter<"ProductRelation"> | string
-  relationType?: Prisma.StringFilter<"ProductRelation"> | string
+  relationType?: Prisma.EnumProductRelationTypeFilter<"ProductRelation"> | $Enums.ProductRelationType
   score?: Prisma.FloatFilter<"ProductRelation"> | number
   updatedAt?: Prisma.DateTimeFilter<"ProductRelation"> | Date | string
 }
@@ -243,7 +243,7 @@ export type ProductRelationWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ProductRelationWhereInput | Prisma.ProductRelationWhereInput[]
   productId?: Prisma.UuidFilter<"ProductRelation"> | string
   relatedProductId?: Prisma.UuidFilter<"ProductRelation"> | string
-  relationType?: Prisma.StringFilter<"ProductRelation"> | string
+  relationType?: Prisma.EnumProductRelationTypeFilter<"ProductRelation"> | $Enums.ProductRelationType
   score?: Prisma.FloatFilter<"ProductRelation"> | number
   updatedAt?: Prisma.DateTimeFilter<"ProductRelation"> | Date | string
 }, "id" | "productId_relatedProductId_relationType">
@@ -269,7 +269,7 @@ export type ProductRelationScalarWhereWithAggregatesInput = {
   id?: Prisma.UuidWithAggregatesFilter<"ProductRelation"> | string
   productId?: Prisma.UuidWithAggregatesFilter<"ProductRelation"> | string
   relatedProductId?: Prisma.UuidWithAggregatesFilter<"ProductRelation"> | string
-  relationType?: Prisma.StringWithAggregatesFilter<"ProductRelation"> | string
+  relationType?: Prisma.EnumProductRelationTypeWithAggregatesFilter<"ProductRelation"> | $Enums.ProductRelationType
   score?: Prisma.FloatWithAggregatesFilter<"ProductRelation"> | number
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ProductRelation"> | Date | string
 }
@@ -278,7 +278,7 @@ export type ProductRelationCreateInput = {
   id?: string
   productId: string
   relatedProductId: string
-  relationType: string
+  relationType: $Enums.ProductRelationType
   score?: number
   updatedAt?: Date | string
 }
@@ -287,7 +287,7 @@ export type ProductRelationUncheckedCreateInput = {
   id?: string
   productId: string
   relatedProductId: string
-  relationType: string
+  relationType: $Enums.ProductRelationType
   score?: number
   updatedAt?: Date | string
 }
@@ -296,7 +296,7 @@ export type ProductRelationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   relatedProductId?: Prisma.StringFieldUpdateOperationsInput | string
-  relationType?: Prisma.StringFieldUpdateOperationsInput | string
+  relationType?: Prisma.EnumProductRelationTypeFieldUpdateOperationsInput | $Enums.ProductRelationType
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -305,7 +305,7 @@ export type ProductRelationUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   relatedProductId?: Prisma.StringFieldUpdateOperationsInput | string
-  relationType?: Prisma.StringFieldUpdateOperationsInput | string
+  relationType?: Prisma.EnumProductRelationTypeFieldUpdateOperationsInput | $Enums.ProductRelationType
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -314,7 +314,7 @@ export type ProductRelationCreateManyInput = {
   id?: string
   productId: string
   relatedProductId: string
-  relationType: string
+  relationType: $Enums.ProductRelationType
   score?: number
   updatedAt?: Date | string
 }
@@ -323,7 +323,7 @@ export type ProductRelationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   relatedProductId?: Prisma.StringFieldUpdateOperationsInput | string
-  relationType?: Prisma.StringFieldUpdateOperationsInput | string
+  relationType?: Prisma.EnumProductRelationTypeFieldUpdateOperationsInput | $Enums.ProductRelationType
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -332,7 +332,7 @@ export type ProductRelationUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   relatedProductId?: Prisma.StringFieldUpdateOperationsInput | string
-  relationType?: Prisma.StringFieldUpdateOperationsInput | string
+  relationType?: Prisma.EnumProductRelationTypeFieldUpdateOperationsInput | $Enums.ProductRelationType
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -340,7 +340,7 @@ export type ProductRelationUncheckedUpdateManyInput = {
 export type ProductRelationProductIdRelatedProductIdRelationTypeCompoundUniqueInput = {
   productId: string
   relatedProductId: string
-  relationType: string
+  relationType: $Enums.ProductRelationType
 }
 
 export type ProductRelationCountOrderByAggregateInput = {
@@ -376,6 +376,10 @@ export type ProductRelationMinOrderByAggregateInput = {
 
 export type ProductRelationSumOrderByAggregateInput = {
   score?: Prisma.SortOrder
+}
+
+export type EnumProductRelationTypeFieldUpdateOperationsInput = {
+  set?: $Enums.ProductRelationType
 }
 
 
@@ -425,7 +429,7 @@ export type $ProductRelationPayload<ExtArgs extends runtime.Types.Extensions.Int
     id: string
     productId: string
     relatedProductId: string
-    relationType: string
+    relationType: $Enums.ProductRelationType
     score: number
     updatedAt: Date
   }, ExtArgs["result"]["productRelation"]>
@@ -854,7 +858,7 @@ export interface ProductRelationFieldRefs {
   readonly id: Prisma.FieldRef<"ProductRelation", 'String'>
   readonly productId: Prisma.FieldRef<"ProductRelation", 'String'>
   readonly relatedProductId: Prisma.FieldRef<"ProductRelation", 'String'>
-  readonly relationType: Prisma.FieldRef<"ProductRelation", 'String'>
+  readonly relationType: Prisma.FieldRef<"ProductRelation", 'ProductRelationType'>
   readonly score: Prisma.FieldRef<"ProductRelation", 'Float'>
   readonly updatedAt: Prisma.FieldRef<"ProductRelation", 'DateTime'>
 }

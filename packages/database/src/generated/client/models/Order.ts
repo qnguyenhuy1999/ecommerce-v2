@@ -249,6 +249,9 @@ export type OrderWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   sellerOrders?: Prisma.SellerOrderListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
+  couponUsages?: Prisma.CouponUsageListRelationFilter
+  flashSalePurchases?: Prisma.FlashSalePurchaseListRelationFilter
 }
 
 export type OrderOrderByWithRelationInput = {
@@ -262,6 +265,9 @@ export type OrderOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   sellerOrders?: Prisma.SellerOrderOrderByRelationAggregateInput
+  reviews?: Prisma.ReviewOrderByRelationAggregateInput
+  couponUsages?: Prisma.CouponUsageOrderByRelationAggregateInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseOrderByRelationAggregateInput
 }
 
 export type OrderWhereUniqueInput = Prisma.AtLeast<{
@@ -278,6 +284,9 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   sellerOrders?: Prisma.SellerOrderListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
+  couponUsages?: Prisma.CouponUsageListRelationFilter
+  flashSalePurchases?: Prisma.FlashSalePurchaseListRelationFilter
 }, "id">
 
 export type OrderOrderByWithAggregationInput = {
@@ -323,6 +332,9 @@ export type OrderCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutOrderInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutOrderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateInput = {
@@ -336,6 +348,9 @@ export type OrderUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutOrderInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutOrderInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutOrderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUpdateInput = {
@@ -349,6 +364,9 @@ export type OrderUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sellerOrders?: Prisma.SellerOrderUpdateManyWithoutOrderNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutOrderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateInput = {
@@ -362,6 +380,9 @@ export type OrderUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutOrderNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutOrderNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutOrderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateManyInput = {
@@ -449,6 +470,11 @@ export type OrderScalarRelationFilter = {
   isNot?: Prisma.OrderWhereInput
 }
 
+export type OrderNullableScalarRelationFilter = {
+  is?: Prisma.OrderWhereInput | null
+  isNot?: Prisma.OrderWhereInput | null
+}
+
 export type EnumOrderStatusFieldUpdateOperationsInput = {
   set?: $Enums.OrderStatus
 }
@@ -467,6 +493,54 @@ export type OrderUpdateOneRequiredWithoutSellerOrdersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutSellerOrdersInput, Prisma.OrderUpdateWithoutSellerOrdersInput>, Prisma.OrderUncheckedUpdateWithoutSellerOrdersInput>
 }
 
+export type OrderCreateNestedOneWithoutCouponUsagesInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutCouponUsagesInput, Prisma.OrderUncheckedCreateWithoutCouponUsagesInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutCouponUsagesInput
+  connect?: Prisma.OrderWhereUniqueInput
+}
+
+export type OrderUpdateOneWithoutCouponUsagesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutCouponUsagesInput, Prisma.OrderUncheckedCreateWithoutCouponUsagesInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutCouponUsagesInput
+  upsert?: Prisma.OrderUpsertWithoutCouponUsagesInput
+  disconnect?: Prisma.OrderWhereInput | boolean
+  delete?: Prisma.OrderWhereInput | boolean
+  connect?: Prisma.OrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutCouponUsagesInput, Prisma.OrderUpdateWithoutCouponUsagesInput>, Prisma.OrderUncheckedUpdateWithoutCouponUsagesInput>
+}
+
+export type OrderCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutReviewsInput, Prisma.OrderUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.OrderWhereUniqueInput
+}
+
+export type OrderUpdateOneWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutReviewsInput, Prisma.OrderUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.OrderUpsertWithoutReviewsInput
+  disconnect?: Prisma.OrderWhereInput | boolean
+  delete?: Prisma.OrderWhereInput | boolean
+  connect?: Prisma.OrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutReviewsInput, Prisma.OrderUpdateWithoutReviewsInput>, Prisma.OrderUncheckedUpdateWithoutReviewsInput>
+}
+
+export type OrderCreateNestedOneWithoutFlashSalePurchasesInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutFlashSalePurchasesInput, Prisma.OrderUncheckedCreateWithoutFlashSalePurchasesInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutFlashSalePurchasesInput
+  connect?: Prisma.OrderWhereUniqueInput
+}
+
+export type OrderUpdateOneWithoutFlashSalePurchasesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutFlashSalePurchasesInput, Prisma.OrderUncheckedCreateWithoutFlashSalePurchasesInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutFlashSalePurchasesInput
+  upsert?: Prisma.OrderUpsertWithoutFlashSalePurchasesInput
+  disconnect?: Prisma.OrderWhereInput | boolean
+  delete?: Prisma.OrderWhereInput | boolean
+  connect?: Prisma.OrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutFlashSalePurchasesInput, Prisma.OrderUpdateWithoutFlashSalePurchasesInput>, Prisma.OrderUncheckedUpdateWithoutFlashSalePurchasesInput>
+}
+
 export type OrderCreateWithoutSellerOrdersInput = {
   id?: string
   buyerId: string
@@ -477,6 +551,9 @@ export type OrderCreateWithoutSellerOrdersInput = {
   shippingAddress?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutOrderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutSellerOrdersInput = {
@@ -489,6 +566,9 @@ export type OrderUncheckedCreateWithoutSellerOrdersInput = {
   shippingAddress?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutOrderInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutOrderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutSellerOrdersInput = {
@@ -517,6 +597,9 @@ export type OrderUpdateWithoutSellerOrdersInput = {
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutOrderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutSellerOrdersInput = {
@@ -529,6 +612,237 @@ export type OrderUncheckedUpdateWithoutSellerOrdersInput = {
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutOrderNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutOrderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderCreateWithoutCouponUsagesInput = {
+  id?: string
+  buyerId: string
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OrderStatus
+  shippingName?: string | null
+  shippingPhone?: string | null
+  shippingAddress?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutOrderInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutOrderInput
+}
+
+export type OrderUncheckedCreateWithoutCouponUsagesInput = {
+  id?: string
+  buyerId: string
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OrderStatus
+  shippingName?: string | null
+  shippingPhone?: string | null
+  shippingAddress?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutOrderInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutOrderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type OrderCreateOrConnectWithoutCouponUsagesInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutCouponUsagesInput, Prisma.OrderUncheckedCreateWithoutCouponUsagesInput>
+}
+
+export type OrderUpsertWithoutCouponUsagesInput = {
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutCouponUsagesInput, Prisma.OrderUncheckedUpdateWithoutCouponUsagesInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutCouponUsagesInput, Prisma.OrderUncheckedCreateWithoutCouponUsagesInput>
+  where?: Prisma.OrderWhereInput
+}
+
+export type OrderUpdateToOneWithWhereWithoutCouponUsagesInput = {
+  where?: Prisma.OrderWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutCouponUsagesInput, Prisma.OrderUncheckedUpdateWithoutCouponUsagesInput>
+}
+
+export type OrderUpdateWithoutCouponUsagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  shippingName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutOrderNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutCouponUsagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  shippingName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutOrderNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutOrderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderCreateWithoutReviewsInput = {
+  id?: string
+  buyerId: string
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OrderStatus
+  shippingName?: string | null
+  shippingPhone?: string | null
+  shippingAddress?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutOrderInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutOrderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutOrderInput
+}
+
+export type OrderUncheckedCreateWithoutReviewsInput = {
+  id?: string
+  buyerId: string
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OrderStatus
+  shippingName?: string | null
+  shippingPhone?: string | null
+  shippingAddress?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutOrderInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutOrderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type OrderCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutReviewsInput, Prisma.OrderUncheckedCreateWithoutReviewsInput>
+}
+
+export type OrderUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutReviewsInput, Prisma.OrderUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutReviewsInput, Prisma.OrderUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.OrderWhereInput
+}
+
+export type OrderUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.OrderWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutReviewsInput, Prisma.OrderUncheckedUpdateWithoutReviewsInput>
+}
+
+export type OrderUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  shippingName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutOrderNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutOrderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  shippingName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutOrderNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutOrderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderCreateWithoutFlashSalePurchasesInput = {
+  id?: string
+  buyerId: string
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OrderStatus
+  shippingName?: string | null
+  shippingPhone?: string | null
+  shippingAddress?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutOrderInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutOrderInput
+}
+
+export type OrderUncheckedCreateWithoutFlashSalePurchasesInput = {
+  id?: string
+  buyerId: string
+  totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OrderStatus
+  shippingName?: string | null
+  shippingPhone?: string | null
+  shippingAddress?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutOrderInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutOrderInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type OrderCreateOrConnectWithoutFlashSalePurchasesInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutFlashSalePurchasesInput, Prisma.OrderUncheckedCreateWithoutFlashSalePurchasesInput>
+}
+
+export type OrderUpsertWithoutFlashSalePurchasesInput = {
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutFlashSalePurchasesInput, Prisma.OrderUncheckedUpdateWithoutFlashSalePurchasesInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutFlashSalePurchasesInput, Prisma.OrderUncheckedCreateWithoutFlashSalePurchasesInput>
+  where?: Prisma.OrderWhereInput
+}
+
+export type OrderUpdateToOneWithWhereWithoutFlashSalePurchasesInput = {
+  where?: Prisma.OrderWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutFlashSalePurchasesInput, Prisma.OrderUncheckedUpdateWithoutFlashSalePurchasesInput>
+}
+
+export type OrderUpdateWithoutFlashSalePurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  shippingName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutOrderNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutFlashSalePurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  shippingName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutOrderNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutOrderNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 
@@ -538,10 +852,16 @@ export type OrderUncheckedUpdateWithoutSellerOrdersInput = {
 
 export type OrderCountOutputType = {
   sellerOrders: number
+  reviews: number
+  couponUsages: number
+  flashSalePurchases: number
 }
 
 export type OrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sellerOrders?: boolean | OrderCountOutputTypeCountSellerOrdersArgs
+  reviews?: boolean | OrderCountOutputTypeCountReviewsArgs
+  couponUsages?: boolean | OrderCountOutputTypeCountCouponUsagesArgs
+  flashSalePurchases?: boolean | OrderCountOutputTypeCountFlashSalePurchasesArgs
 }
 
 /**
@@ -561,6 +881,27 @@ export type OrderCountOutputTypeCountSellerOrdersArgs<ExtArgs extends runtime.Ty
   where?: Prisma.SellerOrderWhereInput
 }
 
+/**
+ * OrderCountOutputType without action
+ */
+export type OrderCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
+/**
+ * OrderCountOutputType without action
+ */
+export type OrderCountOutputTypeCountCouponUsagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CouponUsageWhereInput
+}
+
+/**
+ * OrderCountOutputType without action
+ */
+export type OrderCountOutputTypeCountFlashSalePurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FlashSalePurchaseWhereInput
+}
+
 
 export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -573,6 +914,9 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   createdAt?: boolean
   updatedAt?: boolean
   sellerOrders?: boolean | Prisma.Order$sellerOrdersArgs<ExtArgs>
+  reviews?: boolean | Prisma.Order$reviewsArgs<ExtArgs>
+  couponUsages?: boolean | Prisma.Order$couponUsagesArgs<ExtArgs>
+  flashSalePurchases?: boolean | Prisma.Order$flashSalePurchasesArgs<ExtArgs>
   _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
@@ -615,6 +959,9 @@ export type OrderSelectScalar = {
 export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "buyerId" | "totalAmount" | "status" | "shippingName" | "shippingPhone" | "shippingAddress" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sellerOrders?: boolean | Prisma.Order$sellerOrdersArgs<ExtArgs>
+  reviews?: boolean | Prisma.Order$reviewsArgs<ExtArgs>
+  couponUsages?: boolean | Prisma.Order$couponUsagesArgs<ExtArgs>
+  flashSalePurchases?: boolean | Prisma.Order$flashSalePurchasesArgs<ExtArgs>
   _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -624,11 +971,17 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Order"
   objects: {
     sellerOrders: Prisma.$SellerOrderPayload<ExtArgs>[]
+    reviews: Prisma.$ReviewPayload<ExtArgs>[]
+    couponUsages: Prisma.$CouponUsagePayload<ExtArgs>[]
+    flashSalePurchases: Prisma.$FlashSalePurchasePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     buyerId: string
     totalAmount: runtime.Decimal
+    /**
+     * Independently managed aggregate order status. It is not currently derived automatically from child SellerOrder records.
+     */
     status: $Enums.OrderStatus
     shippingName: string | null
     shippingPhone: string | null
@@ -1030,6 +1383,9 @@ readonly fields: OrderFieldRefs;
 export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   sellerOrders<T extends Prisma.Order$sellerOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$sellerOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SellerOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.Order$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  couponUsages<T extends Prisma.Order$couponUsagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$couponUsagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CouponUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  flashSalePurchases<T extends Prisma.Order$flashSalePurchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$flashSalePurchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlashSalePurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1482,6 +1838,78 @@ export type Order$sellerOrdersArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.SellerOrderScalarFieldEnum | Prisma.SellerOrderScalarFieldEnum[]
+}
+
+/**
+ * Order.reviews
+ */
+export type Order$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * Order.couponUsages
+ */
+export type Order$couponUsagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CouponUsage
+   */
+  select?: Prisma.CouponUsageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CouponUsage
+   */
+  omit?: Prisma.CouponUsageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CouponUsageInclude<ExtArgs> | null
+  where?: Prisma.CouponUsageWhereInput
+  orderBy?: Prisma.CouponUsageOrderByWithRelationInput | Prisma.CouponUsageOrderByWithRelationInput[]
+  cursor?: Prisma.CouponUsageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CouponUsageScalarFieldEnum | Prisma.CouponUsageScalarFieldEnum[]
+}
+
+/**
+ * Order.flashSalePurchases
+ */
+export type Order$flashSalePurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FlashSalePurchase
+   */
+  select?: Prisma.FlashSalePurchaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FlashSalePurchase
+   */
+  omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
+  where?: Prisma.FlashSalePurchaseWhereInput
+  orderBy?: Prisma.FlashSalePurchaseOrderByWithRelationInput | Prisma.FlashSalePurchaseOrderByWithRelationInput[]
+  cursor?: Prisma.FlashSalePurchaseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FlashSalePurchaseScalarFieldEnum | Prisma.FlashSalePurchaseScalarFieldEnum[]
 }
 
 /**

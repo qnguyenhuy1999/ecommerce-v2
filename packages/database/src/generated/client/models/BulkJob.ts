@@ -312,6 +312,7 @@ export type BulkJobWhereInput = {
   completedAt?: Prisma.DateTimeNullableFilter<"BulkJob"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"BulkJob"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"BulkJob"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }
 
 export type BulkJobOrderByWithRelationInput = {
@@ -331,6 +332,7 @@ export type BulkJobOrderByWithRelationInput = {
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  shop?: Prisma.ShopOrderByWithRelationInput
 }
 
 export type BulkJobWhereUniqueInput = Prisma.AtLeast<{
@@ -353,6 +355,7 @@ export type BulkJobWhereUniqueInput = Prisma.AtLeast<{
   completedAt?: Prisma.DateTimeNullableFilter<"BulkJob"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"BulkJob"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"BulkJob"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }, "id">
 
 export type BulkJobOrderByWithAggregationInput = {
@@ -403,7 +406,6 @@ export type BulkJobScalarWhereWithAggregatesInput = {
 
 export type BulkJobCreateInput = {
   id?: string
-  shopId: string
   type: $Enums.BulkJobType
   status?: $Enums.BulkJobStatus
   fileName: string
@@ -418,6 +420,7 @@ export type BulkJobCreateInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutBulkJobsInput
 }
 
 export type BulkJobUncheckedCreateInput = {
@@ -441,7 +444,6 @@ export type BulkJobUncheckedCreateInput = {
 
 export type BulkJobUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumBulkJobTypeFieldUpdateOperationsInput | $Enums.BulkJobType
   status?: Prisma.EnumBulkJobStatusFieldUpdateOperationsInput | $Enums.BulkJobStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -456,6 +458,7 @@ export type BulkJobUpdateInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutBulkJobsNestedInput
 }
 
 export type BulkJobUncheckedUpdateInput = {
@@ -498,7 +501,6 @@ export type BulkJobCreateManyInput = {
 
 export type BulkJobUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumBulkJobTypeFieldUpdateOperationsInput | $Enums.BulkJobType
   status?: Prisma.EnumBulkJobStatusFieldUpdateOperationsInput | $Enums.BulkJobStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -532,6 +534,16 @@ export type BulkJobUncheckedUpdateManyInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BulkJobListRelationFilter = {
+  every?: Prisma.BulkJobWhereInput
+  some?: Prisma.BulkJobWhereInput
+  none?: Prisma.BulkJobWhereInput
+}
+
+export type BulkJobOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type BulkJobCountOrderByAggregateInput = {
@@ -603,12 +615,210 @@ export type BulkJobSumOrderByAggregateInput = {
   errorRows?: Prisma.SortOrder
 }
 
+export type BulkJobCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.BulkJobCreateWithoutShopInput, Prisma.BulkJobUncheckedCreateWithoutShopInput> | Prisma.BulkJobCreateWithoutShopInput[] | Prisma.BulkJobUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.BulkJobCreateOrConnectWithoutShopInput | Prisma.BulkJobCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.BulkJobCreateManyShopInputEnvelope
+  connect?: Prisma.BulkJobWhereUniqueInput | Prisma.BulkJobWhereUniqueInput[]
+}
+
+export type BulkJobUncheckedCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.BulkJobCreateWithoutShopInput, Prisma.BulkJobUncheckedCreateWithoutShopInput> | Prisma.BulkJobCreateWithoutShopInput[] | Prisma.BulkJobUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.BulkJobCreateOrConnectWithoutShopInput | Prisma.BulkJobCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.BulkJobCreateManyShopInputEnvelope
+  connect?: Prisma.BulkJobWhereUniqueInput | Prisma.BulkJobWhereUniqueInput[]
+}
+
+export type BulkJobUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.BulkJobCreateWithoutShopInput, Prisma.BulkJobUncheckedCreateWithoutShopInput> | Prisma.BulkJobCreateWithoutShopInput[] | Prisma.BulkJobUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.BulkJobCreateOrConnectWithoutShopInput | Prisma.BulkJobCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.BulkJobUpsertWithWhereUniqueWithoutShopInput | Prisma.BulkJobUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.BulkJobCreateManyShopInputEnvelope
+  set?: Prisma.BulkJobWhereUniqueInput | Prisma.BulkJobWhereUniqueInput[]
+  disconnect?: Prisma.BulkJobWhereUniqueInput | Prisma.BulkJobWhereUniqueInput[]
+  delete?: Prisma.BulkJobWhereUniqueInput | Prisma.BulkJobWhereUniqueInput[]
+  connect?: Prisma.BulkJobWhereUniqueInput | Prisma.BulkJobWhereUniqueInput[]
+  update?: Prisma.BulkJobUpdateWithWhereUniqueWithoutShopInput | Prisma.BulkJobUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.BulkJobUpdateManyWithWhereWithoutShopInput | Prisma.BulkJobUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.BulkJobScalarWhereInput | Prisma.BulkJobScalarWhereInput[]
+}
+
+export type BulkJobUncheckedUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.BulkJobCreateWithoutShopInput, Prisma.BulkJobUncheckedCreateWithoutShopInput> | Prisma.BulkJobCreateWithoutShopInput[] | Prisma.BulkJobUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.BulkJobCreateOrConnectWithoutShopInput | Prisma.BulkJobCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.BulkJobUpsertWithWhereUniqueWithoutShopInput | Prisma.BulkJobUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.BulkJobCreateManyShopInputEnvelope
+  set?: Prisma.BulkJobWhereUniqueInput | Prisma.BulkJobWhereUniqueInput[]
+  disconnect?: Prisma.BulkJobWhereUniqueInput | Prisma.BulkJobWhereUniqueInput[]
+  delete?: Prisma.BulkJobWhereUniqueInput | Prisma.BulkJobWhereUniqueInput[]
+  connect?: Prisma.BulkJobWhereUniqueInput | Prisma.BulkJobWhereUniqueInput[]
+  update?: Prisma.BulkJobUpdateWithWhereUniqueWithoutShopInput | Prisma.BulkJobUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.BulkJobUpdateManyWithWhereWithoutShopInput | Prisma.BulkJobUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.BulkJobScalarWhereInput | Prisma.BulkJobScalarWhereInput[]
+}
+
 export type EnumBulkJobTypeFieldUpdateOperationsInput = {
   set?: $Enums.BulkJobType
 }
 
 export type EnumBulkJobStatusFieldUpdateOperationsInput = {
   set?: $Enums.BulkJobStatus
+}
+
+export type BulkJobCreateWithoutShopInput = {
+  id?: string
+  type: $Enums.BulkJobType
+  status?: $Enums.BulkJobStatus
+  fileName: string
+  fileUrl?: string | null
+  resultUrl?: string | null
+  totalRows?: number
+  processedRows?: number
+  successRows?: number
+  errorRows?: number
+  errors?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BulkJobUncheckedCreateWithoutShopInput = {
+  id?: string
+  type: $Enums.BulkJobType
+  status?: $Enums.BulkJobStatus
+  fileName: string
+  fileUrl?: string | null
+  resultUrl?: string | null
+  totalRows?: number
+  processedRows?: number
+  successRows?: number
+  errorRows?: number
+  errors?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BulkJobCreateOrConnectWithoutShopInput = {
+  where: Prisma.BulkJobWhereUniqueInput
+  create: Prisma.XOR<Prisma.BulkJobCreateWithoutShopInput, Prisma.BulkJobUncheckedCreateWithoutShopInput>
+}
+
+export type BulkJobCreateManyShopInputEnvelope = {
+  data: Prisma.BulkJobCreateManyShopInput | Prisma.BulkJobCreateManyShopInput[]
+  skipDuplicates?: boolean
+}
+
+export type BulkJobUpsertWithWhereUniqueWithoutShopInput = {
+  where: Prisma.BulkJobWhereUniqueInput
+  update: Prisma.XOR<Prisma.BulkJobUpdateWithoutShopInput, Prisma.BulkJobUncheckedUpdateWithoutShopInput>
+  create: Prisma.XOR<Prisma.BulkJobCreateWithoutShopInput, Prisma.BulkJobUncheckedCreateWithoutShopInput>
+}
+
+export type BulkJobUpdateWithWhereUniqueWithoutShopInput = {
+  where: Prisma.BulkJobWhereUniqueInput
+  data: Prisma.XOR<Prisma.BulkJobUpdateWithoutShopInput, Prisma.BulkJobUncheckedUpdateWithoutShopInput>
+}
+
+export type BulkJobUpdateManyWithWhereWithoutShopInput = {
+  where: Prisma.BulkJobScalarWhereInput
+  data: Prisma.XOR<Prisma.BulkJobUpdateManyMutationInput, Prisma.BulkJobUncheckedUpdateManyWithoutShopInput>
+}
+
+export type BulkJobScalarWhereInput = {
+  AND?: Prisma.BulkJobScalarWhereInput | Prisma.BulkJobScalarWhereInput[]
+  OR?: Prisma.BulkJobScalarWhereInput[]
+  NOT?: Prisma.BulkJobScalarWhereInput | Prisma.BulkJobScalarWhereInput[]
+  id?: Prisma.UuidFilter<"BulkJob"> | string
+  shopId?: Prisma.UuidFilter<"BulkJob"> | string
+  type?: Prisma.EnumBulkJobTypeFilter<"BulkJob"> | $Enums.BulkJobType
+  status?: Prisma.EnumBulkJobStatusFilter<"BulkJob"> | $Enums.BulkJobStatus
+  fileName?: Prisma.StringFilter<"BulkJob"> | string
+  fileUrl?: Prisma.StringNullableFilter<"BulkJob"> | string | null
+  resultUrl?: Prisma.StringNullableFilter<"BulkJob"> | string | null
+  totalRows?: Prisma.IntFilter<"BulkJob"> | number
+  processedRows?: Prisma.IntFilter<"BulkJob"> | number
+  successRows?: Prisma.IntFilter<"BulkJob"> | number
+  errorRows?: Prisma.IntFilter<"BulkJob"> | number
+  errors?: Prisma.JsonNullableFilter<"BulkJob">
+  startedAt?: Prisma.DateTimeNullableFilter<"BulkJob"> | Date | string | null
+  completedAt?: Prisma.DateTimeNullableFilter<"BulkJob"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"BulkJob"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"BulkJob"> | Date | string
+}
+
+export type BulkJobCreateManyShopInput = {
+  id?: string
+  type: $Enums.BulkJobType
+  status?: $Enums.BulkJobStatus
+  fileName: string
+  fileUrl?: string | null
+  resultUrl?: string | null
+  totalRows?: number
+  processedRows?: number
+  successRows?: number
+  errorRows?: number
+  errors?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BulkJobUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumBulkJobTypeFieldUpdateOperationsInput | $Enums.BulkJobType
+  status?: Prisma.EnumBulkJobStatusFieldUpdateOperationsInput | $Enums.BulkJobStatus
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resultUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalRows?: Prisma.IntFieldUpdateOperationsInput | number
+  processedRows?: Prisma.IntFieldUpdateOperationsInput | number
+  successRows?: Prisma.IntFieldUpdateOperationsInput | number
+  errorRows?: Prisma.IntFieldUpdateOperationsInput | number
+  errors?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BulkJobUncheckedUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumBulkJobTypeFieldUpdateOperationsInput | $Enums.BulkJobType
+  status?: Prisma.EnumBulkJobStatusFieldUpdateOperationsInput | $Enums.BulkJobStatus
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resultUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalRows?: Prisma.IntFieldUpdateOperationsInput | number
+  processedRows?: Prisma.IntFieldUpdateOperationsInput | number
+  successRows?: Prisma.IntFieldUpdateOperationsInput | number
+  errorRows?: Prisma.IntFieldUpdateOperationsInput | number
+  errors?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BulkJobUncheckedUpdateManyWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumBulkJobTypeFieldUpdateOperationsInput | $Enums.BulkJobType
+  status?: Prisma.EnumBulkJobStatusFieldUpdateOperationsInput | $Enums.BulkJobStatus
+  fileName?: Prisma.StringFieldUpdateOperationsInput | string
+  fileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resultUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalRows?: Prisma.IntFieldUpdateOperationsInput | number
+  processedRows?: Prisma.IntFieldUpdateOperationsInput | number
+  successRows?: Prisma.IntFieldUpdateOperationsInput | number
+  errorRows?: Prisma.IntFieldUpdateOperationsInput | number
+  errors?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -630,6 +840,7 @@ export type BulkJobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bulkJob"]>
 
 export type BulkJobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -649,6 +860,7 @@ export type BulkJobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bulkJob"]>
 
 export type BulkJobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -668,6 +880,7 @@ export type BulkJobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bulkJob"]>
 
 export type BulkJobSelectScalar = {
@@ -690,10 +903,21 @@ export type BulkJobSelectScalar = {
 }
 
 export type BulkJobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopId" | "type" | "status" | "fileName" | "fileUrl" | "resultUrl" | "totalRows" | "processedRows" | "successRows" | "errorRows" | "errors" | "startedAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["bulkJob"]>
+export type BulkJobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
+export type BulkJobIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
+export type BulkJobIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
 
 export type $BulkJobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "BulkJob"
-  objects: {}
+  objects: {
+    shop: Prisma.$ShopPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     shopId: string
@@ -1105,6 +1329,7 @@ readonly fields: BulkJobFieldRefs;
  */
 export interface Prisma__BulkJobClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  shop<T extends Prisma.ShopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShopDefaultArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1167,6 +1392,10 @@ export type BulkJobFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.BulkJobOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobInclude<ExtArgs> | null
+  /**
    * Filter, which BulkJob to fetch.
    */
   where: Prisma.BulkJobWhereUniqueInput
@@ -1185,6 +1414,10 @@ export type BulkJobFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.BulkJobOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobInclude<ExtArgs> | null
+  /**
    * Filter, which BulkJob to fetch.
    */
   where: Prisma.BulkJobWhereUniqueInput
@@ -1202,6 +1435,10 @@ export type BulkJobFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the BulkJob
    */
   omit?: Prisma.BulkJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobInclude<ExtArgs> | null
   /**
    * Filter, which BulkJob to fetch.
    */
@@ -1251,6 +1488,10 @@ export type BulkJobFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.BulkJobOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobInclude<ExtArgs> | null
+  /**
    * Filter, which BulkJob to fetch.
    */
   where?: Prisma.BulkJobWhereInput
@@ -1298,6 +1539,10 @@ export type BulkJobFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the BulkJob
    */
   omit?: Prisma.BulkJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobInclude<ExtArgs> | null
   /**
    * Filter, which BulkJobs to fetch.
    */
@@ -1347,6 +1592,10 @@ export type BulkJobCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.BulkJobOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobInclude<ExtArgs> | null
+  /**
    * The data needed to create a BulkJob.
    */
   data: Prisma.XOR<Prisma.BulkJobCreateInput, Prisma.BulkJobUncheckedCreateInput>
@@ -1380,6 +1629,10 @@ export type BulkJobCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    */
   data: Prisma.BulkJobCreateManyInput | Prisma.BulkJobCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1394,6 +1647,10 @@ export type BulkJobUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the BulkJob
    */
   omit?: Prisma.BulkJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobInclude<ExtArgs> | null
   /**
    * The data needed to update a BulkJob.
    */
@@ -1446,6 +1703,10 @@ export type BulkJobUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many BulkJobs to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1460,6 +1721,10 @@ export type BulkJobUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the BulkJob
    */
   omit?: Prisma.BulkJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobInclude<ExtArgs> | null
   /**
    * The filter to search for the BulkJob to update in case it exists.
    */
@@ -1486,6 +1751,10 @@ export type BulkJobDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the BulkJob
    */
   omit?: Prisma.BulkJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobInclude<ExtArgs> | null
   /**
    * Filter which BulkJob to delete.
    */
@@ -1518,4 +1787,8 @@ export type BulkJobDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the BulkJob
    */
   omit?: Prisma.BulkJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobInclude<ExtArgs> | null
 }

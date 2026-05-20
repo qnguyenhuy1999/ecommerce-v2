@@ -5,7 +5,10 @@ import { useRouter } from 'next/navigation'
 
 export interface AuthUser {
   userId: string
-  roles: string[]
+  roles?: string[]
+  sellerProfile?: unknown
+  isStaff?: boolean
+  [key: string]: unknown
 }
 
 export interface AuthContextValue {
@@ -19,6 +22,7 @@ export interface AuthContextValue {
 export interface CreateAuthClientOptions {
   apiUrl?: string
   requiredRole?: string
+  requireSeller?: boolean
   forbiddenRedirectTo?: string
   meEndpoint?: string
   loginEndpoint?: string
@@ -29,6 +33,7 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
   const {
     apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000',
     requiredRole,
+    requireSeller = false,
     forbiddenRedirectTo = '/',
     meEndpoint = '/auth/me',
     loginEndpoint = '/auth/login',
@@ -51,13 +56,22 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
         if (res.ok) {
           const payload: unknown = await res.json()
           const data = isRecord(payload) ? payload : {}
+          const roles = getRoles(data)
           const authUser: AuthUser = {
             userId: getString(data.userId) ?? getString(data.adminId) ?? getString(data.id) ?? '',
-            roles: getRoles(data),
             ...data,
           }
+          if (roles.length > 0) {
+            authUser.roles = roles
+          }
 
-          if (requiredRole && !authUser.roles.includes(requiredRole)) {
+          if (requiredRole && !roles.includes(requiredRole)) {
+            router.replace(forbiddenRedirectTo)
+            setUser(null)
+            return
+          }
+
+          if (requireSeller && !hasSellerProfile(authUser)) {
             router.replace(forbiddenRedirectTo)
             setUser(null)
             return
@@ -72,7 +86,7 @@ export function createAuthClient(options: CreateAuthClientOptions = {}) {
       } finally {
         setLoading(false)
       }
-    }, [apiUrl, forbiddenRedirectTo, requiredRole, router, meEndpoint])
+    }, [apiUrl, forbiddenRedirectTo, meEndpoint, requireSeller, requiredRole, router])
 
     useEffect(() => {
       void refresh()
@@ -135,4 +149,8 @@ function getRoles(data: Record<string, unknown>): string[] {
   }
   const role = getString(data.role)
   return role ? [role] : []
+}
+
+function hasSellerProfile(user: AuthUser): boolean {
+  return !!user.sellerProfile && typeof user.sellerProfile === 'object'
 }

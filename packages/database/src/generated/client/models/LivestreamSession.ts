@@ -320,6 +320,7 @@ export type LivestreamSessionWhereInput = {
   totalReactions?: Prisma.IntFilter<"LivestreamSession"> | number
   createdAt?: Prisma.DateTimeFilter<"LivestreamSession"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LivestreamSession"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
   products?: Prisma.LivestreamProductListRelationFilter
   chatMessages?: Prisma.LivestreamChatListRelationFilter
 }
@@ -342,6 +343,7 @@ export type LivestreamSessionOrderByWithRelationInput = {
   totalReactions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  shop?: Prisma.ShopOrderByWithRelationInput
   products?: Prisma.LivestreamProductOrderByRelationAggregateInput
   chatMessages?: Prisma.LivestreamChatOrderByRelationAggregateInput
 }
@@ -367,6 +369,7 @@ export type LivestreamSessionWhereUniqueInput = Prisma.AtLeast<{
   totalReactions?: Prisma.IntFilter<"LivestreamSession"> | number
   createdAt?: Prisma.DateTimeFilter<"LivestreamSession"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LivestreamSession"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
   products?: Prisma.LivestreamProductListRelationFilter
   chatMessages?: Prisma.LivestreamChatListRelationFilter
 }, "id">
@@ -421,7 +424,6 @@ export type LivestreamSessionScalarWhereWithAggregatesInput = {
 
 export type LivestreamSessionCreateInput = {
   id?: string
-  shopId: string
   title: string
   description?: string | null
   status?: $Enums.LivestreamStatus
@@ -437,6 +439,7 @@ export type LivestreamSessionCreateInput = {
   totalReactions?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutLivestreamSessionsInput
   products?: Prisma.LivestreamProductCreateNestedManyWithoutSessionInput
   chatMessages?: Prisma.LivestreamChatCreateNestedManyWithoutSessionInput
 }
@@ -465,7 +468,6 @@ export type LivestreamSessionUncheckedCreateInput = {
 
 export type LivestreamSessionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLivestreamStatusFieldUpdateOperationsInput | $Enums.LivestreamStatus
@@ -481,6 +483,7 @@ export type LivestreamSessionUpdateInput = {
   totalReactions?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutLivestreamSessionsNestedInput
   products?: Prisma.LivestreamProductUpdateManyWithoutSessionNestedInput
   chatMessages?: Prisma.LivestreamChatUpdateManyWithoutSessionNestedInput
 }
@@ -529,7 +532,6 @@ export type LivestreamSessionCreateManyInput = {
 
 export type LivestreamSessionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLivestreamStatusFieldUpdateOperationsInput | $Enums.LivestreamStatus
@@ -565,6 +567,16 @@ export type LivestreamSessionUncheckedUpdateManyInput = {
   totalReactions?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type LivestreamSessionListRelationFilter = {
+  every?: Prisma.LivestreamSessionWhereInput
+  some?: Prisma.LivestreamSessionWhereInput
+  none?: Prisma.LivestreamSessionWhereInput
+}
+
+export type LivestreamSessionOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type LivestreamSessionCountOrderByAggregateInput = {
@@ -644,6 +656,48 @@ export type LivestreamSessionScalarRelationFilter = {
   isNot?: Prisma.LivestreamSessionWhereInput
 }
 
+export type LivestreamSessionCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.LivestreamSessionCreateWithoutShopInput, Prisma.LivestreamSessionUncheckedCreateWithoutShopInput> | Prisma.LivestreamSessionCreateWithoutShopInput[] | Prisma.LivestreamSessionUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.LivestreamSessionCreateOrConnectWithoutShopInput | Prisma.LivestreamSessionCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.LivestreamSessionCreateManyShopInputEnvelope
+  connect?: Prisma.LivestreamSessionWhereUniqueInput | Prisma.LivestreamSessionWhereUniqueInput[]
+}
+
+export type LivestreamSessionUncheckedCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.LivestreamSessionCreateWithoutShopInput, Prisma.LivestreamSessionUncheckedCreateWithoutShopInput> | Prisma.LivestreamSessionCreateWithoutShopInput[] | Prisma.LivestreamSessionUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.LivestreamSessionCreateOrConnectWithoutShopInput | Prisma.LivestreamSessionCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.LivestreamSessionCreateManyShopInputEnvelope
+  connect?: Prisma.LivestreamSessionWhereUniqueInput | Prisma.LivestreamSessionWhereUniqueInput[]
+}
+
+export type LivestreamSessionUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.LivestreamSessionCreateWithoutShopInput, Prisma.LivestreamSessionUncheckedCreateWithoutShopInput> | Prisma.LivestreamSessionCreateWithoutShopInput[] | Prisma.LivestreamSessionUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.LivestreamSessionCreateOrConnectWithoutShopInput | Prisma.LivestreamSessionCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.LivestreamSessionUpsertWithWhereUniqueWithoutShopInput | Prisma.LivestreamSessionUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.LivestreamSessionCreateManyShopInputEnvelope
+  set?: Prisma.LivestreamSessionWhereUniqueInput | Prisma.LivestreamSessionWhereUniqueInput[]
+  disconnect?: Prisma.LivestreamSessionWhereUniqueInput | Prisma.LivestreamSessionWhereUniqueInput[]
+  delete?: Prisma.LivestreamSessionWhereUniqueInput | Prisma.LivestreamSessionWhereUniqueInput[]
+  connect?: Prisma.LivestreamSessionWhereUniqueInput | Prisma.LivestreamSessionWhereUniqueInput[]
+  update?: Prisma.LivestreamSessionUpdateWithWhereUniqueWithoutShopInput | Prisma.LivestreamSessionUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.LivestreamSessionUpdateManyWithWhereWithoutShopInput | Prisma.LivestreamSessionUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.LivestreamSessionScalarWhereInput | Prisma.LivestreamSessionScalarWhereInput[]
+}
+
+export type LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.LivestreamSessionCreateWithoutShopInput, Prisma.LivestreamSessionUncheckedCreateWithoutShopInput> | Prisma.LivestreamSessionCreateWithoutShopInput[] | Prisma.LivestreamSessionUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.LivestreamSessionCreateOrConnectWithoutShopInput | Prisma.LivestreamSessionCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.LivestreamSessionUpsertWithWhereUniqueWithoutShopInput | Prisma.LivestreamSessionUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.LivestreamSessionCreateManyShopInputEnvelope
+  set?: Prisma.LivestreamSessionWhereUniqueInput | Prisma.LivestreamSessionWhereUniqueInput[]
+  disconnect?: Prisma.LivestreamSessionWhereUniqueInput | Prisma.LivestreamSessionWhereUniqueInput[]
+  delete?: Prisma.LivestreamSessionWhereUniqueInput | Prisma.LivestreamSessionWhereUniqueInput[]
+  connect?: Prisma.LivestreamSessionWhereUniqueInput | Prisma.LivestreamSessionWhereUniqueInput[]
+  update?: Prisma.LivestreamSessionUpdateWithWhereUniqueWithoutShopInput | Prisma.LivestreamSessionUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.LivestreamSessionUpdateManyWithWhereWithoutShopInput | Prisma.LivestreamSessionUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.LivestreamSessionScalarWhereInput | Prisma.LivestreamSessionScalarWhereInput[]
+}
+
 export type EnumLivestreamStatusFieldUpdateOperationsInput = {
   set?: $Enums.LivestreamStatus
 }
@@ -676,9 +730,8 @@ export type LivestreamSessionUpdateOneRequiredWithoutChatMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.LivestreamSessionUpdateToOneWithWhereWithoutChatMessagesInput, Prisma.LivestreamSessionUpdateWithoutChatMessagesInput>, Prisma.LivestreamSessionUncheckedUpdateWithoutChatMessagesInput>
 }
 
-export type LivestreamSessionCreateWithoutProductsInput = {
+export type LivestreamSessionCreateWithoutShopInput = {
   id?: string
-  shopId: string
   title: string
   description?: string | null
   status?: $Enums.LivestreamStatus
@@ -694,6 +747,98 @@ export type LivestreamSessionCreateWithoutProductsInput = {
   totalReactions?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  products?: Prisma.LivestreamProductCreateNestedManyWithoutSessionInput
+  chatMessages?: Prisma.LivestreamChatCreateNestedManyWithoutSessionInput
+}
+
+export type LivestreamSessionUncheckedCreateWithoutShopInput = {
+  id?: string
+  title: string
+  description?: string | null
+  status?: $Enums.LivestreamStatus
+  thumbnailUrl?: string | null
+  streamUrl?: string | null
+  streamKey?: string | null
+  replayUrl?: string | null
+  scheduledAt: Date | string
+  startedAt?: Date | string | null
+  endedAt?: Date | string | null
+  viewerCount?: number
+  peakViewers?: number
+  totalReactions?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.LivestreamProductUncheckedCreateNestedManyWithoutSessionInput
+  chatMessages?: Prisma.LivestreamChatUncheckedCreateNestedManyWithoutSessionInput
+}
+
+export type LivestreamSessionCreateOrConnectWithoutShopInput = {
+  where: Prisma.LivestreamSessionWhereUniqueInput
+  create: Prisma.XOR<Prisma.LivestreamSessionCreateWithoutShopInput, Prisma.LivestreamSessionUncheckedCreateWithoutShopInput>
+}
+
+export type LivestreamSessionCreateManyShopInputEnvelope = {
+  data: Prisma.LivestreamSessionCreateManyShopInput | Prisma.LivestreamSessionCreateManyShopInput[]
+  skipDuplicates?: boolean
+}
+
+export type LivestreamSessionUpsertWithWhereUniqueWithoutShopInput = {
+  where: Prisma.LivestreamSessionWhereUniqueInput
+  update: Prisma.XOR<Prisma.LivestreamSessionUpdateWithoutShopInput, Prisma.LivestreamSessionUncheckedUpdateWithoutShopInput>
+  create: Prisma.XOR<Prisma.LivestreamSessionCreateWithoutShopInput, Prisma.LivestreamSessionUncheckedCreateWithoutShopInput>
+}
+
+export type LivestreamSessionUpdateWithWhereUniqueWithoutShopInput = {
+  where: Prisma.LivestreamSessionWhereUniqueInput
+  data: Prisma.XOR<Prisma.LivestreamSessionUpdateWithoutShopInput, Prisma.LivestreamSessionUncheckedUpdateWithoutShopInput>
+}
+
+export type LivestreamSessionUpdateManyWithWhereWithoutShopInput = {
+  where: Prisma.LivestreamSessionScalarWhereInput
+  data: Prisma.XOR<Prisma.LivestreamSessionUpdateManyMutationInput, Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopInput>
+}
+
+export type LivestreamSessionScalarWhereInput = {
+  AND?: Prisma.LivestreamSessionScalarWhereInput | Prisma.LivestreamSessionScalarWhereInput[]
+  OR?: Prisma.LivestreamSessionScalarWhereInput[]
+  NOT?: Prisma.LivestreamSessionScalarWhereInput | Prisma.LivestreamSessionScalarWhereInput[]
+  id?: Prisma.UuidFilter<"LivestreamSession"> | string
+  shopId?: Prisma.UuidFilter<"LivestreamSession"> | string
+  title?: Prisma.StringFilter<"LivestreamSession"> | string
+  description?: Prisma.StringNullableFilter<"LivestreamSession"> | string | null
+  status?: Prisma.EnumLivestreamStatusFilter<"LivestreamSession"> | $Enums.LivestreamStatus
+  thumbnailUrl?: Prisma.StringNullableFilter<"LivestreamSession"> | string | null
+  streamUrl?: Prisma.StringNullableFilter<"LivestreamSession"> | string | null
+  streamKey?: Prisma.StringNullableFilter<"LivestreamSession"> | string | null
+  replayUrl?: Prisma.StringNullableFilter<"LivestreamSession"> | string | null
+  scheduledAt?: Prisma.DateTimeFilter<"LivestreamSession"> | Date | string
+  startedAt?: Prisma.DateTimeNullableFilter<"LivestreamSession"> | Date | string | null
+  endedAt?: Prisma.DateTimeNullableFilter<"LivestreamSession"> | Date | string | null
+  viewerCount?: Prisma.IntFilter<"LivestreamSession"> | number
+  peakViewers?: Prisma.IntFilter<"LivestreamSession"> | number
+  totalReactions?: Prisma.IntFilter<"LivestreamSession"> | number
+  createdAt?: Prisma.DateTimeFilter<"LivestreamSession"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"LivestreamSession"> | Date | string
+}
+
+export type LivestreamSessionCreateWithoutProductsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  status?: $Enums.LivestreamStatus
+  thumbnailUrl?: string | null
+  streamUrl?: string | null
+  streamKey?: string | null
+  replayUrl?: string | null
+  scheduledAt: Date | string
+  startedAt?: Date | string | null
+  endedAt?: Date | string | null
+  viewerCount?: number
+  peakViewers?: number
+  totalReactions?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutLivestreamSessionsInput
   chatMessages?: Prisma.LivestreamChatCreateNestedManyWithoutSessionInput
 }
 
@@ -736,7 +881,6 @@ export type LivestreamSessionUpdateToOneWithWhereWithoutProductsInput = {
 
 export type LivestreamSessionUpdateWithoutProductsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLivestreamStatusFieldUpdateOperationsInput | $Enums.LivestreamStatus
@@ -752,6 +896,7 @@ export type LivestreamSessionUpdateWithoutProductsInput = {
   totalReactions?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutLivestreamSessionsNestedInput
   chatMessages?: Prisma.LivestreamChatUpdateManyWithoutSessionNestedInput
 }
 
@@ -778,7 +923,6 @@ export type LivestreamSessionUncheckedUpdateWithoutProductsInput = {
 
 export type LivestreamSessionCreateWithoutChatMessagesInput = {
   id?: string
-  shopId: string
   title: string
   description?: string | null
   status?: $Enums.LivestreamStatus
@@ -794,6 +938,7 @@ export type LivestreamSessionCreateWithoutChatMessagesInput = {
   totalReactions?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutLivestreamSessionsInput
   products?: Prisma.LivestreamProductCreateNestedManyWithoutSessionInput
 }
 
@@ -836,7 +981,6 @@ export type LivestreamSessionUpdateToOneWithWhereWithoutChatMessagesInput = {
 
 export type LivestreamSessionUpdateWithoutChatMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumLivestreamStatusFieldUpdateOperationsInput | $Enums.LivestreamStatus
@@ -852,6 +996,7 @@ export type LivestreamSessionUpdateWithoutChatMessagesInput = {
   totalReactions?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutLivestreamSessionsNestedInput
   products?: Prisma.LivestreamProductUpdateManyWithoutSessionNestedInput
 }
 
@@ -874,6 +1019,86 @@ export type LivestreamSessionUncheckedUpdateWithoutChatMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.LivestreamProductUncheckedUpdateManyWithoutSessionNestedInput
+}
+
+export type LivestreamSessionCreateManyShopInput = {
+  id?: string
+  title: string
+  description?: string | null
+  status?: $Enums.LivestreamStatus
+  thumbnailUrl?: string | null
+  streamUrl?: string | null
+  streamKey?: string | null
+  replayUrl?: string | null
+  scheduledAt: Date | string
+  startedAt?: Date | string | null
+  endedAt?: Date | string | null
+  viewerCount?: number
+  peakViewers?: number
+  totalReactions?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type LivestreamSessionUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumLivestreamStatusFieldUpdateOperationsInput | $Enums.LivestreamStatus
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streamUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streamKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replayUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  peakViewers?: Prisma.IntFieldUpdateOperationsInput | number
+  totalReactions?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.LivestreamProductUpdateManyWithoutSessionNestedInput
+  chatMessages?: Prisma.LivestreamChatUpdateManyWithoutSessionNestedInput
+}
+
+export type LivestreamSessionUncheckedUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumLivestreamStatusFieldUpdateOperationsInput | $Enums.LivestreamStatus
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streamUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streamKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replayUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  peakViewers?: Prisma.IntFieldUpdateOperationsInput | number
+  totalReactions?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.LivestreamProductUncheckedUpdateManyWithoutSessionNestedInput
+  chatMessages?: Prisma.LivestreamChatUncheckedUpdateManyWithoutSessionNestedInput
+}
+
+export type LivestreamSessionUncheckedUpdateManyWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumLivestreamStatusFieldUpdateOperationsInput | $Enums.LivestreamStatus
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streamUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streamKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  replayUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewerCount?: Prisma.IntFieldUpdateOperationsInput | number
+  peakViewers?: Prisma.IntFieldUpdateOperationsInput | number
+  totalReactions?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -934,6 +1159,7 @@ export type LivestreamSessionSelect<ExtArgs extends runtime.Types.Extensions.Int
   totalReactions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
   products?: boolean | Prisma.LivestreamSession$productsArgs<ExtArgs>
   chatMessages?: boolean | Prisma.LivestreamSession$chatMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.LivestreamSessionCountOutputTypeDefaultArgs<ExtArgs>
@@ -957,6 +1183,7 @@ export type LivestreamSessionSelectCreateManyAndReturn<ExtArgs extends runtime.T
   totalReactions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["livestreamSession"]>
 
 export type LivestreamSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -977,6 +1204,7 @@ export type LivestreamSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   totalReactions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["livestreamSession"]>
 
 export type LivestreamSessionSelectScalar = {
@@ -1001,16 +1229,22 @@ export type LivestreamSessionSelectScalar = {
 
 export type LivestreamSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopId" | "title" | "description" | "status" | "thumbnailUrl" | "streamUrl" | "streamKey" | "replayUrl" | "scheduledAt" | "startedAt" | "endedAt" | "viewerCount" | "peakViewers" | "totalReactions" | "createdAt" | "updatedAt", ExtArgs["result"]["livestreamSession"]>
 export type LivestreamSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
   products?: boolean | Prisma.LivestreamSession$productsArgs<ExtArgs>
   chatMessages?: boolean | Prisma.LivestreamSession$chatMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.LivestreamSessionCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type LivestreamSessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type LivestreamSessionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type LivestreamSessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
+export type LivestreamSessionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
 
 export type $LivestreamSessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "LivestreamSession"
   objects: {
+    shop: Prisma.$ShopPayload<ExtArgs>
     products: Prisma.$LivestreamProductPayload<ExtArgs>[]
     chatMessages: Prisma.$LivestreamChatPayload<ExtArgs>[]
   }
@@ -1426,6 +1660,7 @@ readonly fields: LivestreamSessionFieldRefs;
  */
 export interface Prisma__LivestreamSessionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  shop<T extends Prisma.ShopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShopDefaultArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   products<T extends Prisma.LivestreamSession$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LivestreamSession$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LivestreamProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   chatMessages<T extends Prisma.LivestreamSession$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LivestreamSession$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LivestreamChatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1728,6 +1963,10 @@ export type LivestreamSessionCreateManyAndReturnArgs<ExtArgs extends runtime.Typ
    */
   data: Prisma.LivestreamSessionCreateManyInput | Prisma.LivestreamSessionCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LivestreamSessionIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1798,6 +2037,10 @@ export type LivestreamSessionUpdateManyAndReturnArgs<ExtArgs extends runtime.Typ
    * Limit how many LivestreamSessions to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LivestreamSessionIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

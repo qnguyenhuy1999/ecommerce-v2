@@ -27,8 +27,8 @@ export type AggregateSeller = {
 export type SellerMinAggregateOutputType = {
   id: string | null
   userId: string | null
-  shopName: string | null
-  shopDescription: string | null
+  sellerProfileId: string | null
+  shopId: string | null
   phone: string | null
   address: string | null
   status: $Enums.SellerStatus | null
@@ -48,8 +48,8 @@ export type SellerMinAggregateOutputType = {
 export type SellerMaxAggregateOutputType = {
   id: string | null
   userId: string | null
-  shopName: string | null
-  shopDescription: string | null
+  sellerProfileId: string | null
+  shopId: string | null
   phone: string | null
   address: string | null
   status: $Enums.SellerStatus | null
@@ -69,8 +69,8 @@ export type SellerMaxAggregateOutputType = {
 export type SellerCountAggregateOutputType = {
   id: number
   userId: number
-  shopName: number
-  shopDescription: number
+  sellerProfileId: number
+  shopId: number
   phone: number
   address: number
   status: number
@@ -92,8 +92,8 @@ export type SellerCountAggregateOutputType = {
 export type SellerMinAggregateInputType = {
   id?: true
   userId?: true
-  shopName?: true
-  shopDescription?: true
+  sellerProfileId?: true
+  shopId?: true
   phone?: true
   address?: true
   status?: true
@@ -113,8 +113,8 @@ export type SellerMinAggregateInputType = {
 export type SellerMaxAggregateInputType = {
   id?: true
   userId?: true
-  shopName?: true
-  shopDescription?: true
+  sellerProfileId?: true
+  shopId?: true
   phone?: true
   address?: true
   status?: true
@@ -134,8 +134,8 @@ export type SellerMaxAggregateInputType = {
 export type SellerCountAggregateInputType = {
   id?: true
   userId?: true
-  shopName?: true
-  shopDescription?: true
+  sellerProfileId?: true
+  shopId?: true
   phone?: true
   address?: true
   status?: true
@@ -228,8 +228,8 @@ export type SellerGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type SellerGroupByOutputType = {
   id: string
   userId: string
-  shopName: string
-  shopDescription: string | null
+  sellerProfileId: string | null
+  shopId: string | null
   phone: string | null
   address: string | null
   status: $Enums.SellerStatus
@@ -270,8 +270,8 @@ export type SellerWhereInput = {
   NOT?: Prisma.SellerWhereInput | Prisma.SellerWhereInput[]
   id?: Prisma.UuidFilter<"Seller"> | string
   userId?: Prisma.UuidFilter<"Seller"> | string
-  shopName?: Prisma.StringFilter<"Seller"> | string
-  shopDescription?: Prisma.StringNullableFilter<"Seller"> | string | null
+  sellerProfileId?: Prisma.UuidNullableFilter<"Seller"> | string | null
+  shopId?: Prisma.UuidNullableFilter<"Seller"> | string | null
   phone?: Prisma.StringNullableFilter<"Seller"> | string | null
   address?: Prisma.StringNullableFilter<"Seller"> | string | null
   status?: Prisma.EnumSellerStatusFilter<"Seller"> | $Enums.SellerStatus
@@ -287,14 +287,19 @@ export type SellerWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Seller"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Seller"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  sellerProfile?: Prisma.XOR<Prisma.SellerProfileNullableScalarRelationFilter, Prisma.SellerProfileWhereInput> | null
+  shop?: Prisma.XOR<Prisma.ShopNullableScalarRelationFilter, Prisma.ShopWhereInput> | null
+  approvedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
+  suspendedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
+  rejectedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
   verifications?: Prisma.SellerVerificationListRelationFilter
 }
 
 export type SellerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  shopName?: Prisma.SortOrder
-  shopDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  sellerProfileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  shopId?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -310,17 +315,22 @@ export type SellerOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  sellerProfile?: Prisma.SellerProfileOrderByWithRelationInput
+  shop?: Prisma.ShopOrderByWithRelationInput
+  approvedByAdmin?: Prisma.AdminOrderByWithRelationInput
+  suspendedByAdmin?: Prisma.AdminOrderByWithRelationInput
+  rejectedByAdmin?: Prisma.AdminOrderByWithRelationInput
   verifications?: Prisma.SellerVerificationOrderByRelationAggregateInput
 }
 
 export type SellerWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  sellerProfileId?: string
+  shopId?: string
   AND?: Prisma.SellerWhereInput | Prisma.SellerWhereInput[]
   OR?: Prisma.SellerWhereInput[]
   NOT?: Prisma.SellerWhereInput | Prisma.SellerWhereInput[]
   userId?: Prisma.UuidFilter<"Seller"> | string
-  shopName?: Prisma.StringFilter<"Seller"> | string
-  shopDescription?: Prisma.StringNullableFilter<"Seller"> | string | null
   phone?: Prisma.StringNullableFilter<"Seller"> | string | null
   address?: Prisma.StringNullableFilter<"Seller"> | string | null
   status?: Prisma.EnumSellerStatusFilter<"Seller"> | $Enums.SellerStatus
@@ -336,14 +346,19 @@ export type SellerWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Seller"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Seller"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  sellerProfile?: Prisma.XOR<Prisma.SellerProfileNullableScalarRelationFilter, Prisma.SellerProfileWhereInput> | null
+  shop?: Prisma.XOR<Prisma.ShopNullableScalarRelationFilter, Prisma.ShopWhereInput> | null
+  approvedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
+  suspendedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
+  rejectedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
   verifications?: Prisma.SellerVerificationListRelationFilter
-}, "id">
+}, "id" | "sellerProfileId" | "shopId">
 
 export type SellerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  shopName?: Prisma.SortOrder
-  shopDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  sellerProfileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  shopId?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -369,8 +384,8 @@ export type SellerScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SellerScalarWhereWithAggregatesInput | Prisma.SellerScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"Seller"> | string
   userId?: Prisma.UuidWithAggregatesFilter<"Seller"> | string
-  shopName?: Prisma.StringWithAggregatesFilter<"Seller"> | string
-  shopDescription?: Prisma.StringNullableWithAggregatesFilter<"Seller"> | string | null
+  sellerProfileId?: Prisma.UuidNullableWithAggregatesFilter<"Seller"> | string | null
+  shopId?: Prisma.UuidNullableWithAggregatesFilter<"Seller"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"Seller"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"Seller"> | string | null
   status?: Prisma.EnumSellerStatusWithAggregatesFilter<"Seller"> | $Enums.SellerStatus
@@ -389,31 +404,31 @@ export type SellerScalarWhereWithAggregatesInput = {
 
 export type SellerCreateInput = {
   id?: string
-  shopName: string
-  shopDescription?: string | null
   phone?: string | null
   address?: string | null
   status?: $Enums.SellerStatus
   approvedAt?: Date | string | null
-  approvedBy?: string | null
   suspendedAt?: Date | string | null
-  suspendedBy?: string | null
   suspendReason?: string | null
   rejectedAt?: Date | string | null
-  rejectedBy?: string | null
   rejectReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutSellersInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutAdminSellerRecordsInput
+  shop?: Prisma.ShopCreateNestedOneWithoutAdminSellerRecordInput
+  approvedByAdmin?: Prisma.AdminCreateNestedOneWithoutApprovedSellersInput
+  suspendedByAdmin?: Prisma.AdminCreateNestedOneWithoutSuspendedSellersInput
+  rejectedByAdmin?: Prisma.AdminCreateNestedOneWithoutRejectedSellersInput
   verifications?: Prisma.SellerVerificationCreateNestedManyWithoutSellerInput
 }
 
 export type SellerUncheckedCreateInput = {
   id?: string
   userId: string
-  shopName: string
-  shopDescription?: string | null
+  sellerProfileId?: string | null
+  shopId?: string | null
   phone?: string | null
   address?: string | null
   status?: $Enums.SellerStatus
@@ -433,31 +448,31 @@ export type SellerUncheckedCreateInput = {
 
 export type SellerUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopName?: Prisma.StringFieldUpdateOperationsInput | string
-  shopDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  suspendedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutSellersNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutAdminSellerRecordsNestedInput
+  shop?: Prisma.ShopUpdateOneWithoutAdminSellerRecordNestedInput
+  approvedByAdmin?: Prisma.AdminUpdateOneWithoutApprovedSellersNestedInput
+  suspendedByAdmin?: Prisma.AdminUpdateOneWithoutSuspendedSellersNestedInput
+  rejectedByAdmin?: Prisma.AdminUpdateOneWithoutRejectedSellersNestedInput
   verifications?: Prisma.SellerVerificationUpdateManyWithoutSellerNestedInput
 }
 
 export type SellerUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  shopName?: Prisma.StringFieldUpdateOperationsInput | string
-  shopDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
@@ -478,8 +493,8 @@ export type SellerUncheckedUpdateInput = {
 export type SellerCreateManyInput = {
   id?: string
   userId: string
-  shopName: string
-  shopDescription?: string | null
+  sellerProfileId?: string | null
+  shopId?: string | null
   phone?: string | null
   address?: string | null
   status?: $Enums.SellerStatus
@@ -498,18 +513,13 @@ export type SellerCreateManyInput = {
 
 export type SellerUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopName?: Prisma.StringFieldUpdateOperationsInput | string
-  shopDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  suspendedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -519,8 +529,8 @@ export type SellerUpdateManyMutationInput = {
 export type SellerUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  shopName?: Prisma.StringFieldUpdateOperationsInput | string
-  shopDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
@@ -547,11 +557,16 @@ export type SellerOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type SellerNullableScalarRelationFilter = {
+  is?: Prisma.SellerWhereInput | null
+  isNot?: Prisma.SellerWhereInput | null
+}
+
 export type SellerCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  shopName?: Prisma.SortOrder
-  shopDescription?: Prisma.SortOrder
+  sellerProfileId?: Prisma.SortOrder
+  shopId?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -571,8 +586,8 @@ export type SellerCountOrderByAggregateInput = {
 export type SellerMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  shopName?: Prisma.SortOrder
-  shopDescription?: Prisma.SortOrder
+  sellerProfileId?: Prisma.SortOrder
+  shopId?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -592,8 +607,8 @@ export type SellerMaxOrderByAggregateInput = {
 export type SellerMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  shopName?: Prisma.SortOrder
-  shopDescription?: Prisma.SortOrder
+  sellerProfileId?: Prisma.SortOrder
+  shopId?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -657,6 +672,206 @@ export type SellerUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.SellerScalarWhereInput | Prisma.SellerScalarWhereInput[]
 }
 
+export type SellerCreateNestedManyWithoutSellerProfileInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutSellerProfileInput, Prisma.SellerUncheckedCreateWithoutSellerProfileInput> | Prisma.SellerCreateWithoutSellerProfileInput[] | Prisma.SellerUncheckedCreateWithoutSellerProfileInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutSellerProfileInput | Prisma.SellerCreateOrConnectWithoutSellerProfileInput[]
+  createMany?: Prisma.SellerCreateManySellerProfileInputEnvelope
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+}
+
+export type SellerUncheckedCreateNestedManyWithoutSellerProfileInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutSellerProfileInput, Prisma.SellerUncheckedCreateWithoutSellerProfileInput> | Prisma.SellerCreateWithoutSellerProfileInput[] | Prisma.SellerUncheckedCreateWithoutSellerProfileInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutSellerProfileInput | Prisma.SellerCreateOrConnectWithoutSellerProfileInput[]
+  createMany?: Prisma.SellerCreateManySellerProfileInputEnvelope
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+}
+
+export type SellerUpdateManyWithoutSellerProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutSellerProfileInput, Prisma.SellerUncheckedCreateWithoutSellerProfileInput> | Prisma.SellerCreateWithoutSellerProfileInput[] | Prisma.SellerUncheckedCreateWithoutSellerProfileInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutSellerProfileInput | Prisma.SellerCreateOrConnectWithoutSellerProfileInput[]
+  upsert?: Prisma.SellerUpsertWithWhereUniqueWithoutSellerProfileInput | Prisma.SellerUpsertWithWhereUniqueWithoutSellerProfileInput[]
+  createMany?: Prisma.SellerCreateManySellerProfileInputEnvelope
+  set?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  disconnect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  delete?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  update?: Prisma.SellerUpdateWithWhereUniqueWithoutSellerProfileInput | Prisma.SellerUpdateWithWhereUniqueWithoutSellerProfileInput[]
+  updateMany?: Prisma.SellerUpdateManyWithWhereWithoutSellerProfileInput | Prisma.SellerUpdateManyWithWhereWithoutSellerProfileInput[]
+  deleteMany?: Prisma.SellerScalarWhereInput | Prisma.SellerScalarWhereInput[]
+}
+
+export type SellerUncheckedUpdateManyWithoutSellerProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutSellerProfileInput, Prisma.SellerUncheckedCreateWithoutSellerProfileInput> | Prisma.SellerCreateWithoutSellerProfileInput[] | Prisma.SellerUncheckedCreateWithoutSellerProfileInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutSellerProfileInput | Prisma.SellerCreateOrConnectWithoutSellerProfileInput[]
+  upsert?: Prisma.SellerUpsertWithWhereUniqueWithoutSellerProfileInput | Prisma.SellerUpsertWithWhereUniqueWithoutSellerProfileInput[]
+  createMany?: Prisma.SellerCreateManySellerProfileInputEnvelope
+  set?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  disconnect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  delete?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  update?: Prisma.SellerUpdateWithWhereUniqueWithoutSellerProfileInput | Prisma.SellerUpdateWithWhereUniqueWithoutSellerProfileInput[]
+  updateMany?: Prisma.SellerUpdateManyWithWhereWithoutSellerProfileInput | Prisma.SellerUpdateManyWithWhereWithoutSellerProfileInput[]
+  deleteMany?: Prisma.SellerScalarWhereInput | Prisma.SellerScalarWhereInput[]
+}
+
+export type SellerCreateNestedOneWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutShopInput, Prisma.SellerUncheckedCreateWithoutShopInput>
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutShopInput
+  connect?: Prisma.SellerWhereUniqueInput
+}
+
+export type SellerUncheckedCreateNestedOneWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutShopInput, Prisma.SellerUncheckedCreateWithoutShopInput>
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutShopInput
+  connect?: Prisma.SellerWhereUniqueInput
+}
+
+export type SellerUpdateOneWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutShopInput, Prisma.SellerUncheckedCreateWithoutShopInput>
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutShopInput
+  upsert?: Prisma.SellerUpsertWithoutShopInput
+  disconnect?: Prisma.SellerWhereInput | boolean
+  delete?: Prisma.SellerWhereInput | boolean
+  connect?: Prisma.SellerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SellerUpdateToOneWithWhereWithoutShopInput, Prisma.SellerUpdateWithoutShopInput>, Prisma.SellerUncheckedUpdateWithoutShopInput>
+}
+
+export type SellerUncheckedUpdateOneWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutShopInput, Prisma.SellerUncheckedCreateWithoutShopInput>
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutShopInput
+  upsert?: Prisma.SellerUpsertWithoutShopInput
+  disconnect?: Prisma.SellerWhereInput | boolean
+  delete?: Prisma.SellerWhereInput | boolean
+  connect?: Prisma.SellerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SellerUpdateToOneWithWhereWithoutShopInput, Prisma.SellerUpdateWithoutShopInput>, Prisma.SellerUncheckedUpdateWithoutShopInput>
+}
+
+export type SellerCreateNestedManyWithoutApprovedByAdminInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutApprovedByAdminInput, Prisma.SellerUncheckedCreateWithoutApprovedByAdminInput> | Prisma.SellerCreateWithoutApprovedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutApprovedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutApprovedByAdminInput | Prisma.SellerCreateOrConnectWithoutApprovedByAdminInput[]
+  createMany?: Prisma.SellerCreateManyApprovedByAdminInputEnvelope
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+}
+
+export type SellerCreateNestedManyWithoutSuspendedByAdminInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutSuspendedByAdminInput, Prisma.SellerUncheckedCreateWithoutSuspendedByAdminInput> | Prisma.SellerCreateWithoutSuspendedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutSuspendedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutSuspendedByAdminInput | Prisma.SellerCreateOrConnectWithoutSuspendedByAdminInput[]
+  createMany?: Prisma.SellerCreateManySuspendedByAdminInputEnvelope
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+}
+
+export type SellerCreateNestedManyWithoutRejectedByAdminInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutRejectedByAdminInput, Prisma.SellerUncheckedCreateWithoutRejectedByAdminInput> | Prisma.SellerCreateWithoutRejectedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutRejectedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutRejectedByAdminInput | Prisma.SellerCreateOrConnectWithoutRejectedByAdminInput[]
+  createMany?: Prisma.SellerCreateManyRejectedByAdminInputEnvelope
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+}
+
+export type SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutApprovedByAdminInput, Prisma.SellerUncheckedCreateWithoutApprovedByAdminInput> | Prisma.SellerCreateWithoutApprovedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutApprovedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutApprovedByAdminInput | Prisma.SellerCreateOrConnectWithoutApprovedByAdminInput[]
+  createMany?: Prisma.SellerCreateManyApprovedByAdminInputEnvelope
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+}
+
+export type SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutSuspendedByAdminInput, Prisma.SellerUncheckedCreateWithoutSuspendedByAdminInput> | Prisma.SellerCreateWithoutSuspendedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutSuspendedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutSuspendedByAdminInput | Prisma.SellerCreateOrConnectWithoutSuspendedByAdminInput[]
+  createMany?: Prisma.SellerCreateManySuspendedByAdminInputEnvelope
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+}
+
+export type SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutRejectedByAdminInput, Prisma.SellerUncheckedCreateWithoutRejectedByAdminInput> | Prisma.SellerCreateWithoutRejectedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutRejectedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutRejectedByAdminInput | Prisma.SellerCreateOrConnectWithoutRejectedByAdminInput[]
+  createMany?: Prisma.SellerCreateManyRejectedByAdminInputEnvelope
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+}
+
+export type SellerUpdateManyWithoutApprovedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutApprovedByAdminInput, Prisma.SellerUncheckedCreateWithoutApprovedByAdminInput> | Prisma.SellerCreateWithoutApprovedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutApprovedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutApprovedByAdminInput | Prisma.SellerCreateOrConnectWithoutApprovedByAdminInput[]
+  upsert?: Prisma.SellerUpsertWithWhereUniqueWithoutApprovedByAdminInput | Prisma.SellerUpsertWithWhereUniqueWithoutApprovedByAdminInput[]
+  createMany?: Prisma.SellerCreateManyApprovedByAdminInputEnvelope
+  set?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  disconnect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  delete?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  update?: Prisma.SellerUpdateWithWhereUniqueWithoutApprovedByAdminInput | Prisma.SellerUpdateWithWhereUniqueWithoutApprovedByAdminInput[]
+  updateMany?: Prisma.SellerUpdateManyWithWhereWithoutApprovedByAdminInput | Prisma.SellerUpdateManyWithWhereWithoutApprovedByAdminInput[]
+  deleteMany?: Prisma.SellerScalarWhereInput | Prisma.SellerScalarWhereInput[]
+}
+
+export type SellerUpdateManyWithoutSuspendedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutSuspendedByAdminInput, Prisma.SellerUncheckedCreateWithoutSuspendedByAdminInput> | Prisma.SellerCreateWithoutSuspendedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutSuspendedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutSuspendedByAdminInput | Prisma.SellerCreateOrConnectWithoutSuspendedByAdminInput[]
+  upsert?: Prisma.SellerUpsertWithWhereUniqueWithoutSuspendedByAdminInput | Prisma.SellerUpsertWithWhereUniqueWithoutSuspendedByAdminInput[]
+  createMany?: Prisma.SellerCreateManySuspendedByAdminInputEnvelope
+  set?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  disconnect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  delete?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  update?: Prisma.SellerUpdateWithWhereUniqueWithoutSuspendedByAdminInput | Prisma.SellerUpdateWithWhereUniqueWithoutSuspendedByAdminInput[]
+  updateMany?: Prisma.SellerUpdateManyWithWhereWithoutSuspendedByAdminInput | Prisma.SellerUpdateManyWithWhereWithoutSuspendedByAdminInput[]
+  deleteMany?: Prisma.SellerScalarWhereInput | Prisma.SellerScalarWhereInput[]
+}
+
+export type SellerUpdateManyWithoutRejectedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutRejectedByAdminInput, Prisma.SellerUncheckedCreateWithoutRejectedByAdminInput> | Prisma.SellerCreateWithoutRejectedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutRejectedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutRejectedByAdminInput | Prisma.SellerCreateOrConnectWithoutRejectedByAdminInput[]
+  upsert?: Prisma.SellerUpsertWithWhereUniqueWithoutRejectedByAdminInput | Prisma.SellerUpsertWithWhereUniqueWithoutRejectedByAdminInput[]
+  createMany?: Prisma.SellerCreateManyRejectedByAdminInputEnvelope
+  set?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  disconnect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  delete?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  update?: Prisma.SellerUpdateWithWhereUniqueWithoutRejectedByAdminInput | Prisma.SellerUpdateWithWhereUniqueWithoutRejectedByAdminInput[]
+  updateMany?: Prisma.SellerUpdateManyWithWhereWithoutRejectedByAdminInput | Prisma.SellerUpdateManyWithWhereWithoutRejectedByAdminInput[]
+  deleteMany?: Prisma.SellerScalarWhereInput | Prisma.SellerScalarWhereInput[]
+}
+
+export type SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutApprovedByAdminInput, Prisma.SellerUncheckedCreateWithoutApprovedByAdminInput> | Prisma.SellerCreateWithoutApprovedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutApprovedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutApprovedByAdminInput | Prisma.SellerCreateOrConnectWithoutApprovedByAdminInput[]
+  upsert?: Prisma.SellerUpsertWithWhereUniqueWithoutApprovedByAdminInput | Prisma.SellerUpsertWithWhereUniqueWithoutApprovedByAdminInput[]
+  createMany?: Prisma.SellerCreateManyApprovedByAdminInputEnvelope
+  set?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  disconnect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  delete?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  update?: Prisma.SellerUpdateWithWhereUniqueWithoutApprovedByAdminInput | Prisma.SellerUpdateWithWhereUniqueWithoutApprovedByAdminInput[]
+  updateMany?: Prisma.SellerUpdateManyWithWhereWithoutApprovedByAdminInput | Prisma.SellerUpdateManyWithWhereWithoutApprovedByAdminInput[]
+  deleteMany?: Prisma.SellerScalarWhereInput | Prisma.SellerScalarWhereInput[]
+}
+
+export type SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutSuspendedByAdminInput, Prisma.SellerUncheckedCreateWithoutSuspendedByAdminInput> | Prisma.SellerCreateWithoutSuspendedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutSuspendedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutSuspendedByAdminInput | Prisma.SellerCreateOrConnectWithoutSuspendedByAdminInput[]
+  upsert?: Prisma.SellerUpsertWithWhereUniqueWithoutSuspendedByAdminInput | Prisma.SellerUpsertWithWhereUniqueWithoutSuspendedByAdminInput[]
+  createMany?: Prisma.SellerCreateManySuspendedByAdminInputEnvelope
+  set?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  disconnect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  delete?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  update?: Prisma.SellerUpdateWithWhereUniqueWithoutSuspendedByAdminInput | Prisma.SellerUpdateWithWhereUniqueWithoutSuspendedByAdminInput[]
+  updateMany?: Prisma.SellerUpdateManyWithWhereWithoutSuspendedByAdminInput | Prisma.SellerUpdateManyWithWhereWithoutSuspendedByAdminInput[]
+  deleteMany?: Prisma.SellerScalarWhereInput | Prisma.SellerScalarWhereInput[]
+}
+
+export type SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerCreateWithoutRejectedByAdminInput, Prisma.SellerUncheckedCreateWithoutRejectedByAdminInput> | Prisma.SellerCreateWithoutRejectedByAdminInput[] | Prisma.SellerUncheckedCreateWithoutRejectedByAdminInput[]
+  connectOrCreate?: Prisma.SellerCreateOrConnectWithoutRejectedByAdminInput | Prisma.SellerCreateOrConnectWithoutRejectedByAdminInput[]
+  upsert?: Prisma.SellerUpsertWithWhereUniqueWithoutRejectedByAdminInput | Prisma.SellerUpsertWithWhereUniqueWithoutRejectedByAdminInput[]
+  createMany?: Prisma.SellerCreateManyRejectedByAdminInputEnvelope
+  set?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  disconnect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  delete?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  connect?: Prisma.SellerWhereUniqueInput | Prisma.SellerWhereUniqueInput[]
+  update?: Prisma.SellerUpdateWithWhereUniqueWithoutRejectedByAdminInput | Prisma.SellerUpdateWithWhereUniqueWithoutRejectedByAdminInput[]
+  updateMany?: Prisma.SellerUpdateManyWithWhereWithoutRejectedByAdminInput | Prisma.SellerUpdateManyWithWhereWithoutRejectedByAdminInput[]
+  deleteMany?: Prisma.SellerScalarWhereInput | Prisma.SellerScalarWhereInput[]
+}
+
 export type EnumSellerStatusFieldUpdateOperationsInput = {
   set?: $Enums.SellerStatus
 }
@@ -677,29 +892,29 @@ export type SellerUpdateOneRequiredWithoutVerificationsNestedInput = {
 
 export type SellerCreateWithoutUserInput = {
   id?: string
-  shopName: string
-  shopDescription?: string | null
   phone?: string | null
   address?: string | null
   status?: $Enums.SellerStatus
   approvedAt?: Date | string | null
-  approvedBy?: string | null
   suspendedAt?: Date | string | null
-  suspendedBy?: string | null
   suspendReason?: string | null
   rejectedAt?: Date | string | null
-  rejectedBy?: string | null
   rejectReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutAdminSellerRecordsInput
+  shop?: Prisma.ShopCreateNestedOneWithoutAdminSellerRecordInput
+  approvedByAdmin?: Prisma.AdminCreateNestedOneWithoutApprovedSellersInput
+  suspendedByAdmin?: Prisma.AdminCreateNestedOneWithoutSuspendedSellersInput
+  rejectedByAdmin?: Prisma.AdminCreateNestedOneWithoutRejectedSellersInput
   verifications?: Prisma.SellerVerificationCreateNestedManyWithoutSellerInput
 }
 
 export type SellerUncheckedCreateWithoutUserInput = {
   id?: string
-  shopName: string
-  shopDescription?: string | null
+  sellerProfileId?: string | null
+  shopId?: string | null
   phone?: string | null
   address?: string | null
   status?: $Enums.SellerStatus
@@ -749,8 +964,8 @@ export type SellerScalarWhereInput = {
   NOT?: Prisma.SellerScalarWhereInput | Prisma.SellerScalarWhereInput[]
   id?: Prisma.UuidFilter<"Seller"> | string
   userId?: Prisma.UuidFilter<"Seller"> | string
-  shopName?: Prisma.StringFilter<"Seller"> | string
-  shopDescription?: Prisma.StringNullableFilter<"Seller"> | string | null
+  sellerProfileId?: Prisma.UuidNullableFilter<"Seller"> | string | null
+  shopId?: Prisma.UuidNullableFilter<"Seller"> | string | null
   phone?: Prisma.StringNullableFilter<"Seller"> | string | null
   address?: Prisma.StringNullableFilter<"Seller"> | string | null
   status?: Prisma.EnumSellerStatusFilter<"Seller"> | $Enums.SellerStatus
@@ -767,10 +982,31 @@ export type SellerScalarWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"Seller"> | Date | string | null
 }
 
-export type SellerCreateWithoutVerificationsInput = {
+export type SellerCreateWithoutSellerProfileInput = {
   id?: string
-  shopName: string
-  shopDescription?: string | null
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  suspendedAt?: Date | string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutSellersInput
+  shop?: Prisma.ShopCreateNestedOneWithoutAdminSellerRecordInput
+  approvedByAdmin?: Prisma.AdminCreateNestedOneWithoutApprovedSellersInput
+  suspendedByAdmin?: Prisma.AdminCreateNestedOneWithoutSuspendedSellersInput
+  rejectedByAdmin?: Prisma.AdminCreateNestedOneWithoutRejectedSellersInput
+  verifications?: Prisma.SellerVerificationCreateNestedManyWithoutSellerInput
+}
+
+export type SellerUncheckedCreateWithoutSellerProfileInput = {
+  id?: string
+  userId: string
+  shopId?: string | null
   phone?: string | null
   address?: string | null
   status?: $Enums.SellerStatus
@@ -785,14 +1021,365 @@ export type SellerCreateWithoutVerificationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  verifications?: Prisma.SellerVerificationUncheckedCreateNestedManyWithoutSellerInput
+}
+
+export type SellerCreateOrConnectWithoutSellerProfileInput = {
+  where: Prisma.SellerWhereUniqueInput
+  create: Prisma.XOR<Prisma.SellerCreateWithoutSellerProfileInput, Prisma.SellerUncheckedCreateWithoutSellerProfileInput>
+}
+
+export type SellerCreateManySellerProfileInputEnvelope = {
+  data: Prisma.SellerCreateManySellerProfileInput | Prisma.SellerCreateManySellerProfileInput[]
+  skipDuplicates?: boolean
+}
+
+export type SellerUpsertWithWhereUniqueWithoutSellerProfileInput = {
+  where: Prisma.SellerWhereUniqueInput
+  update: Prisma.XOR<Prisma.SellerUpdateWithoutSellerProfileInput, Prisma.SellerUncheckedUpdateWithoutSellerProfileInput>
+  create: Prisma.XOR<Prisma.SellerCreateWithoutSellerProfileInput, Prisma.SellerUncheckedCreateWithoutSellerProfileInput>
+}
+
+export type SellerUpdateWithWhereUniqueWithoutSellerProfileInput = {
+  where: Prisma.SellerWhereUniqueInput
+  data: Prisma.XOR<Prisma.SellerUpdateWithoutSellerProfileInput, Prisma.SellerUncheckedUpdateWithoutSellerProfileInput>
+}
+
+export type SellerUpdateManyWithWhereWithoutSellerProfileInput = {
+  where: Prisma.SellerScalarWhereInput
+  data: Prisma.XOR<Prisma.SellerUpdateManyMutationInput, Prisma.SellerUncheckedUpdateManyWithoutSellerProfileInput>
+}
+
+export type SellerCreateWithoutShopInput = {
+  id?: string
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  suspendedAt?: Date | string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutSellersInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutAdminSellerRecordsInput
+  approvedByAdmin?: Prisma.AdminCreateNestedOneWithoutApprovedSellersInput
+  suspendedByAdmin?: Prisma.AdminCreateNestedOneWithoutSuspendedSellersInput
+  rejectedByAdmin?: Prisma.AdminCreateNestedOneWithoutRejectedSellersInput
+  verifications?: Prisma.SellerVerificationCreateNestedManyWithoutSellerInput
+}
+
+export type SellerUncheckedCreateWithoutShopInput = {
+  id?: string
+  userId: string
+  sellerProfileId?: string | null
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  approvedBy?: string | null
+  suspendedAt?: Date | string | null
+  suspendedBy?: string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectedBy?: string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verifications?: Prisma.SellerVerificationUncheckedCreateNestedManyWithoutSellerInput
+}
+
+export type SellerCreateOrConnectWithoutShopInput = {
+  where: Prisma.SellerWhereUniqueInput
+  create: Prisma.XOR<Prisma.SellerCreateWithoutShopInput, Prisma.SellerUncheckedCreateWithoutShopInput>
+}
+
+export type SellerUpsertWithoutShopInput = {
+  update: Prisma.XOR<Prisma.SellerUpdateWithoutShopInput, Prisma.SellerUncheckedUpdateWithoutShopInput>
+  create: Prisma.XOR<Prisma.SellerCreateWithoutShopInput, Prisma.SellerUncheckedCreateWithoutShopInput>
+  where?: Prisma.SellerWhereInput
+}
+
+export type SellerUpdateToOneWithWhereWithoutShopInput = {
+  where?: Prisma.SellerWhereInput
+  data: Prisma.XOR<Prisma.SellerUpdateWithoutShopInput, Prisma.SellerUncheckedUpdateWithoutShopInput>
+}
+
+export type SellerUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutSellersNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutAdminSellerRecordsNestedInput
+  approvedByAdmin?: Prisma.AdminUpdateOneWithoutApprovedSellersNestedInput
+  suspendedByAdmin?: Prisma.AdminUpdateOneWithoutSuspendedSellersNestedInput
+  rejectedByAdmin?: Prisma.AdminUpdateOneWithoutRejectedSellersNestedInput
+  verifications?: Prisma.SellerVerificationUpdateManyWithoutSellerNestedInput
+}
+
+export type SellerUncheckedUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifications?: Prisma.SellerVerificationUncheckedUpdateManyWithoutSellerNestedInput
+}
+
+export type SellerCreateWithoutApprovedByAdminInput = {
+  id?: string
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  suspendedAt?: Date | string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutSellersInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutAdminSellerRecordsInput
+  shop?: Prisma.ShopCreateNestedOneWithoutAdminSellerRecordInput
+  suspendedByAdmin?: Prisma.AdminCreateNestedOneWithoutSuspendedSellersInput
+  rejectedByAdmin?: Prisma.AdminCreateNestedOneWithoutRejectedSellersInput
+  verifications?: Prisma.SellerVerificationCreateNestedManyWithoutSellerInput
+}
+
+export type SellerUncheckedCreateWithoutApprovedByAdminInput = {
+  id?: string
+  userId: string
+  sellerProfileId?: string | null
+  shopId?: string | null
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  suspendedAt?: Date | string | null
+  suspendedBy?: string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectedBy?: string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verifications?: Prisma.SellerVerificationUncheckedCreateNestedManyWithoutSellerInput
+}
+
+export type SellerCreateOrConnectWithoutApprovedByAdminInput = {
+  where: Prisma.SellerWhereUniqueInput
+  create: Prisma.XOR<Prisma.SellerCreateWithoutApprovedByAdminInput, Prisma.SellerUncheckedCreateWithoutApprovedByAdminInput>
+}
+
+export type SellerCreateManyApprovedByAdminInputEnvelope = {
+  data: Prisma.SellerCreateManyApprovedByAdminInput | Prisma.SellerCreateManyApprovedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type SellerCreateWithoutSuspendedByAdminInput = {
+  id?: string
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  suspendedAt?: Date | string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutSellersInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutAdminSellerRecordsInput
+  shop?: Prisma.ShopCreateNestedOneWithoutAdminSellerRecordInput
+  approvedByAdmin?: Prisma.AdminCreateNestedOneWithoutApprovedSellersInput
+  rejectedByAdmin?: Prisma.AdminCreateNestedOneWithoutRejectedSellersInput
+  verifications?: Prisma.SellerVerificationCreateNestedManyWithoutSellerInput
+}
+
+export type SellerUncheckedCreateWithoutSuspendedByAdminInput = {
+  id?: string
+  userId: string
+  sellerProfileId?: string | null
+  shopId?: string | null
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  approvedBy?: string | null
+  suspendedAt?: Date | string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectedBy?: string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verifications?: Prisma.SellerVerificationUncheckedCreateNestedManyWithoutSellerInput
+}
+
+export type SellerCreateOrConnectWithoutSuspendedByAdminInput = {
+  where: Prisma.SellerWhereUniqueInput
+  create: Prisma.XOR<Prisma.SellerCreateWithoutSuspendedByAdminInput, Prisma.SellerUncheckedCreateWithoutSuspendedByAdminInput>
+}
+
+export type SellerCreateManySuspendedByAdminInputEnvelope = {
+  data: Prisma.SellerCreateManySuspendedByAdminInput | Prisma.SellerCreateManySuspendedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type SellerCreateWithoutRejectedByAdminInput = {
+  id?: string
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  suspendedAt?: Date | string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutSellersInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutAdminSellerRecordsInput
+  shop?: Prisma.ShopCreateNestedOneWithoutAdminSellerRecordInput
+  approvedByAdmin?: Prisma.AdminCreateNestedOneWithoutApprovedSellersInput
+  suspendedByAdmin?: Prisma.AdminCreateNestedOneWithoutSuspendedSellersInput
+  verifications?: Prisma.SellerVerificationCreateNestedManyWithoutSellerInput
+}
+
+export type SellerUncheckedCreateWithoutRejectedByAdminInput = {
+  id?: string
+  userId: string
+  sellerProfileId?: string | null
+  shopId?: string | null
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  approvedBy?: string | null
+  suspendedAt?: Date | string | null
+  suspendedBy?: string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verifications?: Prisma.SellerVerificationUncheckedCreateNestedManyWithoutSellerInput
+}
+
+export type SellerCreateOrConnectWithoutRejectedByAdminInput = {
+  where: Prisma.SellerWhereUniqueInput
+  create: Prisma.XOR<Prisma.SellerCreateWithoutRejectedByAdminInput, Prisma.SellerUncheckedCreateWithoutRejectedByAdminInput>
+}
+
+export type SellerCreateManyRejectedByAdminInputEnvelope = {
+  data: Prisma.SellerCreateManyRejectedByAdminInput | Prisma.SellerCreateManyRejectedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type SellerUpsertWithWhereUniqueWithoutApprovedByAdminInput = {
+  where: Prisma.SellerWhereUniqueInput
+  update: Prisma.XOR<Prisma.SellerUpdateWithoutApprovedByAdminInput, Prisma.SellerUncheckedUpdateWithoutApprovedByAdminInput>
+  create: Prisma.XOR<Prisma.SellerCreateWithoutApprovedByAdminInput, Prisma.SellerUncheckedCreateWithoutApprovedByAdminInput>
+}
+
+export type SellerUpdateWithWhereUniqueWithoutApprovedByAdminInput = {
+  where: Prisma.SellerWhereUniqueInput
+  data: Prisma.XOR<Prisma.SellerUpdateWithoutApprovedByAdminInput, Prisma.SellerUncheckedUpdateWithoutApprovedByAdminInput>
+}
+
+export type SellerUpdateManyWithWhereWithoutApprovedByAdminInput = {
+  where: Prisma.SellerScalarWhereInput
+  data: Prisma.XOR<Prisma.SellerUpdateManyMutationInput, Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminInput>
+}
+
+export type SellerUpsertWithWhereUniqueWithoutSuspendedByAdminInput = {
+  where: Prisma.SellerWhereUniqueInput
+  update: Prisma.XOR<Prisma.SellerUpdateWithoutSuspendedByAdminInput, Prisma.SellerUncheckedUpdateWithoutSuspendedByAdminInput>
+  create: Prisma.XOR<Prisma.SellerCreateWithoutSuspendedByAdminInput, Prisma.SellerUncheckedCreateWithoutSuspendedByAdminInput>
+}
+
+export type SellerUpdateWithWhereUniqueWithoutSuspendedByAdminInput = {
+  where: Prisma.SellerWhereUniqueInput
+  data: Prisma.XOR<Prisma.SellerUpdateWithoutSuspendedByAdminInput, Prisma.SellerUncheckedUpdateWithoutSuspendedByAdminInput>
+}
+
+export type SellerUpdateManyWithWhereWithoutSuspendedByAdminInput = {
+  where: Prisma.SellerScalarWhereInput
+  data: Prisma.XOR<Prisma.SellerUpdateManyMutationInput, Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminInput>
+}
+
+export type SellerUpsertWithWhereUniqueWithoutRejectedByAdminInput = {
+  where: Prisma.SellerWhereUniqueInput
+  update: Prisma.XOR<Prisma.SellerUpdateWithoutRejectedByAdminInput, Prisma.SellerUncheckedUpdateWithoutRejectedByAdminInput>
+  create: Prisma.XOR<Prisma.SellerCreateWithoutRejectedByAdminInput, Prisma.SellerUncheckedCreateWithoutRejectedByAdminInput>
+}
+
+export type SellerUpdateWithWhereUniqueWithoutRejectedByAdminInput = {
+  where: Prisma.SellerWhereUniqueInput
+  data: Prisma.XOR<Prisma.SellerUpdateWithoutRejectedByAdminInput, Prisma.SellerUncheckedUpdateWithoutRejectedByAdminInput>
+}
+
+export type SellerUpdateManyWithWhereWithoutRejectedByAdminInput = {
+  where: Prisma.SellerScalarWhereInput
+  data: Prisma.XOR<Prisma.SellerUpdateManyMutationInput, Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminInput>
+}
+
+export type SellerCreateWithoutVerificationsInput = {
+  id?: string
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  suspendedAt?: Date | string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutSellersInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutAdminSellerRecordsInput
+  shop?: Prisma.ShopCreateNestedOneWithoutAdminSellerRecordInput
+  approvedByAdmin?: Prisma.AdminCreateNestedOneWithoutApprovedSellersInput
+  suspendedByAdmin?: Prisma.AdminCreateNestedOneWithoutSuspendedSellersInput
+  rejectedByAdmin?: Prisma.AdminCreateNestedOneWithoutRejectedSellersInput
 }
 
 export type SellerUncheckedCreateWithoutVerificationsInput = {
   id?: string
   userId: string
-  shopName: string
-  shopDescription?: string | null
+  sellerProfileId?: string | null
+  shopId?: string | null
   phone?: string | null
   address?: string | null
   status?: $Enums.SellerStatus
@@ -827,30 +1414,30 @@ export type SellerUpdateToOneWithWhereWithoutVerificationsInput = {
 
 export type SellerUpdateWithoutVerificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopName?: Prisma.StringFieldUpdateOperationsInput | string
-  shopDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  suspendedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutSellersNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutAdminSellerRecordsNestedInput
+  shop?: Prisma.ShopUpdateOneWithoutAdminSellerRecordNestedInput
+  approvedByAdmin?: Prisma.AdminUpdateOneWithoutApprovedSellersNestedInput
+  suspendedByAdmin?: Prisma.AdminUpdateOneWithoutSuspendedSellersNestedInput
+  rejectedByAdmin?: Prisma.AdminUpdateOneWithoutRejectedSellersNestedInput
 }
 
 export type SellerUncheckedUpdateWithoutVerificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  shopName?: Prisma.StringFieldUpdateOperationsInput | string
-  shopDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
@@ -869,8 +1456,8 @@ export type SellerUncheckedUpdateWithoutVerificationsInput = {
 
 export type SellerCreateManyUserInput = {
   id?: string
-  shopName: string
-  shopDescription?: string | null
+  sellerProfileId?: string | null
+  shopId?: string | null
   phone?: string | null
   address?: string | null
   status?: $Enums.SellerStatus
@@ -889,29 +1476,29 @@ export type SellerCreateManyUserInput = {
 
 export type SellerUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopName?: Prisma.StringFieldUpdateOperationsInput | string
-  shopDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  suspendedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutAdminSellerRecordsNestedInput
+  shop?: Prisma.ShopUpdateOneWithoutAdminSellerRecordNestedInput
+  approvedByAdmin?: Prisma.AdminUpdateOneWithoutApprovedSellersNestedInput
+  suspendedByAdmin?: Prisma.AdminUpdateOneWithoutSuspendedSellersNestedInput
+  rejectedByAdmin?: Prisma.AdminUpdateOneWithoutRejectedSellersNestedInput
   verifications?: Prisma.SellerVerificationUpdateManyWithoutSellerNestedInput
 }
 
 export type SellerUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopName?: Prisma.StringFieldUpdateOperationsInput | string
-  shopDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
@@ -931,8 +1518,8 @@ export type SellerUncheckedUpdateWithoutUserInput = {
 
 export type SellerUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopName?: Prisma.StringFieldUpdateOperationsInput | string
-  shopDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
@@ -943,6 +1530,334 @@ export type SellerUncheckedUpdateManyWithoutUserInput = {
   suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type SellerCreateManySellerProfileInput = {
+  id?: string
+  userId: string
+  shopId?: string | null
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  approvedBy?: string | null
+  suspendedAt?: Date | string | null
+  suspendedBy?: string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectedBy?: string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type SellerUpdateWithoutSellerProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutSellersNestedInput
+  shop?: Prisma.ShopUpdateOneWithoutAdminSellerRecordNestedInput
+  approvedByAdmin?: Prisma.AdminUpdateOneWithoutApprovedSellersNestedInput
+  suspendedByAdmin?: Prisma.AdminUpdateOneWithoutSuspendedSellersNestedInput
+  rejectedByAdmin?: Prisma.AdminUpdateOneWithoutRejectedSellersNestedInput
+  verifications?: Prisma.SellerVerificationUpdateManyWithoutSellerNestedInput
+}
+
+export type SellerUncheckedUpdateWithoutSellerProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifications?: Prisma.SellerVerificationUncheckedUpdateManyWithoutSellerNestedInput
+}
+
+export type SellerUncheckedUpdateManyWithoutSellerProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type SellerCreateManyApprovedByAdminInput = {
+  id?: string
+  userId: string
+  sellerProfileId?: string | null
+  shopId?: string | null
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  suspendedAt?: Date | string | null
+  suspendedBy?: string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectedBy?: string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type SellerCreateManySuspendedByAdminInput = {
+  id?: string
+  userId: string
+  sellerProfileId?: string | null
+  shopId?: string | null
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  approvedBy?: string | null
+  suspendedAt?: Date | string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectedBy?: string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type SellerCreateManyRejectedByAdminInput = {
+  id?: string
+  userId: string
+  sellerProfileId?: string | null
+  shopId?: string | null
+  phone?: string | null
+  address?: string | null
+  status?: $Enums.SellerStatus
+  approvedAt?: Date | string | null
+  approvedBy?: string | null
+  suspendedAt?: Date | string | null
+  suspendedBy?: string | null
+  suspendReason?: string | null
+  rejectedAt?: Date | string | null
+  rejectReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type SellerUpdateWithoutApprovedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutSellersNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutAdminSellerRecordsNestedInput
+  shop?: Prisma.ShopUpdateOneWithoutAdminSellerRecordNestedInput
+  suspendedByAdmin?: Prisma.AdminUpdateOneWithoutSuspendedSellersNestedInput
+  rejectedByAdmin?: Prisma.AdminUpdateOneWithoutRejectedSellersNestedInput
+  verifications?: Prisma.SellerVerificationUpdateManyWithoutSellerNestedInput
+}
+
+export type SellerUncheckedUpdateWithoutApprovedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifications?: Prisma.SellerVerificationUncheckedUpdateManyWithoutSellerNestedInput
+}
+
+export type SellerUncheckedUpdateManyWithoutApprovedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type SellerUpdateWithoutSuspendedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutSellersNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutAdminSellerRecordsNestedInput
+  shop?: Prisma.ShopUpdateOneWithoutAdminSellerRecordNestedInput
+  approvedByAdmin?: Prisma.AdminUpdateOneWithoutApprovedSellersNestedInput
+  rejectedByAdmin?: Prisma.AdminUpdateOneWithoutRejectedSellersNestedInput
+  verifications?: Prisma.SellerVerificationUpdateManyWithoutSellerNestedInput
+}
+
+export type SellerUncheckedUpdateWithoutSuspendedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifications?: Prisma.SellerVerificationUncheckedUpdateManyWithoutSellerNestedInput
+}
+
+export type SellerUncheckedUpdateManyWithoutSuspendedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type SellerUpdateWithoutRejectedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutSellersNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutAdminSellerRecordsNestedInput
+  shop?: Prisma.ShopUpdateOneWithoutAdminSellerRecordNestedInput
+  approvedByAdmin?: Prisma.AdminUpdateOneWithoutApprovedSellersNestedInput
+  suspendedByAdmin?: Prisma.AdminUpdateOneWithoutSuspendedSellersNestedInput
+  verifications?: Prisma.SellerVerificationUpdateManyWithoutSellerNestedInput
+}
+
+export type SellerUncheckedUpdateWithoutRejectedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verifications?: Prisma.SellerVerificationUncheckedUpdateManyWithoutSellerNestedInput
+}
+
+export type SellerUncheckedUpdateManyWithoutRejectedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspendedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -983,8 +1898,8 @@ export type SellerCountOutputTypeCountVerificationsArgs<ExtArgs extends runtime.
 export type SellerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  shopName?: boolean
-  shopDescription?: boolean
+  sellerProfileId?: boolean
+  shopId?: boolean
   phone?: boolean
   address?: boolean
   status?: boolean
@@ -1000,6 +1915,11 @@ export type SellerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   updatedAt?: boolean
   deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  sellerProfile?: boolean | Prisma.Seller$sellerProfileArgs<ExtArgs>
+  shop?: boolean | Prisma.Seller$shopArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.Seller$approvedByAdminArgs<ExtArgs>
+  suspendedByAdmin?: boolean | Prisma.Seller$suspendedByAdminArgs<ExtArgs>
+  rejectedByAdmin?: boolean | Prisma.Seller$rejectedByAdminArgs<ExtArgs>
   verifications?: boolean | Prisma.Seller$verificationsArgs<ExtArgs>
   _count?: boolean | Prisma.SellerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["seller"]>
@@ -1007,8 +1927,8 @@ export type SellerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type SellerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  shopName?: boolean
-  shopDescription?: boolean
+  sellerProfileId?: boolean
+  shopId?: boolean
   phone?: boolean
   address?: boolean
   status?: boolean
@@ -1024,13 +1944,18 @@ export type SellerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   updatedAt?: boolean
   deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  sellerProfile?: boolean | Prisma.Seller$sellerProfileArgs<ExtArgs>
+  shop?: boolean | Prisma.Seller$shopArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.Seller$approvedByAdminArgs<ExtArgs>
+  suspendedByAdmin?: boolean | Prisma.Seller$suspendedByAdminArgs<ExtArgs>
+  rejectedByAdmin?: boolean | Prisma.Seller$rejectedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["seller"]>
 
 export type SellerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  shopName?: boolean
-  shopDescription?: boolean
+  sellerProfileId?: boolean
+  shopId?: boolean
   phone?: boolean
   address?: boolean
   status?: boolean
@@ -1046,13 +1971,18 @@ export type SellerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   updatedAt?: boolean
   deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  sellerProfile?: boolean | Prisma.Seller$sellerProfileArgs<ExtArgs>
+  shop?: boolean | Prisma.Seller$shopArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.Seller$approvedByAdminArgs<ExtArgs>
+  suspendedByAdmin?: boolean | Prisma.Seller$suspendedByAdminArgs<ExtArgs>
+  rejectedByAdmin?: boolean | Prisma.Seller$rejectedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["seller"]>
 
 export type SellerSelectScalar = {
   id?: boolean
   userId?: boolean
-  shopName?: boolean
-  shopDescription?: boolean
+  sellerProfileId?: boolean
+  shopId?: boolean
   phone?: boolean
   address?: boolean
   status?: boolean
@@ -1069,30 +1999,53 @@ export type SellerSelectScalar = {
   deletedAt?: boolean
 }
 
-export type SellerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "shopName" | "shopDescription" | "phone" | "address" | "status" | "approvedAt" | "approvedBy" | "suspendedAt" | "suspendedBy" | "suspendReason" | "rejectedAt" | "rejectedBy" | "rejectReason" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["seller"]>
+export type SellerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "sellerProfileId" | "shopId" | "phone" | "address" | "status" | "approvedAt" | "approvedBy" | "suspendedAt" | "suspendedBy" | "suspendReason" | "rejectedAt" | "rejectedBy" | "rejectReason" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["seller"]>
 export type SellerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  sellerProfile?: boolean | Prisma.Seller$sellerProfileArgs<ExtArgs>
+  shop?: boolean | Prisma.Seller$shopArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.Seller$approvedByAdminArgs<ExtArgs>
+  suspendedByAdmin?: boolean | Prisma.Seller$suspendedByAdminArgs<ExtArgs>
+  rejectedByAdmin?: boolean | Prisma.Seller$rejectedByAdminArgs<ExtArgs>
   verifications?: boolean | Prisma.Seller$verificationsArgs<ExtArgs>
   _count?: boolean | Prisma.SellerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SellerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  sellerProfile?: boolean | Prisma.Seller$sellerProfileArgs<ExtArgs>
+  shop?: boolean | Prisma.Seller$shopArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.Seller$approvedByAdminArgs<ExtArgs>
+  suspendedByAdmin?: boolean | Prisma.Seller$suspendedByAdminArgs<ExtArgs>
+  rejectedByAdmin?: boolean | Prisma.Seller$rejectedByAdminArgs<ExtArgs>
 }
 export type SellerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  sellerProfile?: boolean | Prisma.Seller$sellerProfileArgs<ExtArgs>
+  shop?: boolean | Prisma.Seller$shopArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.Seller$approvedByAdminArgs<ExtArgs>
+  suspendedByAdmin?: boolean | Prisma.Seller$suspendedByAdminArgs<ExtArgs>
+  rejectedByAdmin?: boolean | Prisma.Seller$rejectedByAdminArgs<ExtArgs>
 }
 
 export type $SellerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Seller"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    sellerProfile: Prisma.$SellerProfilePayload<ExtArgs> | null
+    shop: Prisma.$ShopPayload<ExtArgs> | null
+    approvedByAdmin: Prisma.$AdminPayload<ExtArgs> | null
+    suspendedByAdmin: Prisma.$AdminPayload<ExtArgs> | null
+    rejectedByAdmin: Prisma.$AdminPayload<ExtArgs> | null
     verifications: Prisma.$SellerVerificationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
+    /**
+     * shopName and shopDescription have been removed; use shop.name and shop.description via the shopId relation instead.
+     */
     id: string
     userId: string
-    shopName: string
-    shopDescription: string | null
+    sellerProfileId: string | null
+    shopId: string | null
     phone: string | null
     address: string | null
     status: $Enums.SellerStatus
@@ -1502,6 +2455,11 @@ readonly fields: SellerFieldRefs;
 export interface Prisma__SellerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  sellerProfile<T extends Prisma.Seller$sellerProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Seller$sellerProfileArgs<ExtArgs>>): Prisma.Prisma__SellerProfileClient<runtime.Types.Result.GetResult<Prisma.$SellerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  shop<T extends Prisma.Seller$shopArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Seller$shopArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  approvedByAdmin<T extends Prisma.Seller$approvedByAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Seller$approvedByAdminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  suspendedByAdmin<T extends Prisma.Seller$suspendedByAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Seller$suspendedByAdminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  rejectedByAdmin<T extends Prisma.Seller$rejectedByAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Seller$rejectedByAdminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   verifications<T extends Prisma.Seller$verificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Seller$verificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SellerVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1534,8 +2492,8 @@ export interface Prisma__SellerClient<T, Null = never, ExtArgs extends runtime.T
 export interface SellerFieldRefs {
   readonly id: Prisma.FieldRef<"Seller", 'String'>
   readonly userId: Prisma.FieldRef<"Seller", 'String'>
-  readonly shopName: Prisma.FieldRef<"Seller", 'String'>
-  readonly shopDescription: Prisma.FieldRef<"Seller", 'String'>
+  readonly sellerProfileId: Prisma.FieldRef<"Seller", 'String'>
+  readonly shopId: Prisma.FieldRef<"Seller", 'String'>
   readonly phone: Prisma.FieldRef<"Seller", 'String'>
   readonly address: Prisma.FieldRef<"Seller", 'String'>
   readonly status: Prisma.FieldRef<"Seller", 'SellerStatus'>
@@ -1948,6 +2906,101 @@ export type SellerDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Sellers to delete.
    */
   limit?: number
+}
+
+/**
+ * Seller.sellerProfile
+ */
+export type Seller$sellerProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SellerProfile
+   */
+  select?: Prisma.SellerProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SellerProfile
+   */
+  omit?: Prisma.SellerProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerProfileInclude<ExtArgs> | null
+  where?: Prisma.SellerProfileWhereInput
+}
+
+/**
+ * Seller.shop
+ */
+export type Seller$shopArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Shop
+   */
+  select?: Prisma.ShopSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Shop
+   */
+  omit?: Prisma.ShopOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShopInclude<ExtArgs> | null
+  where?: Prisma.ShopWhereInput
+}
+
+/**
+ * Seller.approvedByAdmin
+ */
+export type Seller$approvedByAdminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
+}
+
+/**
+ * Seller.suspendedByAdmin
+ */
+export type Seller$suspendedByAdminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
+}
+
+/**
+ * Seller.rejectedByAdmin
+ */
+export type Seller$rejectedByAdminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
 }
 
 /**

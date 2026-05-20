@@ -626,6 +626,9 @@ export type $AdminAuditLogPayload<ExtArgs extends runtime.Types.Extensions.Inter
     adminId: string | null
     action: $Enums.AuditActionType
     entityType: string | null
+    /**
+     * Polymorphic reference. entityType describes the table (e.g. "products", "users"). No FK enforced by design.
+     */
     entityId: string | null
     metadata: runtime.JsonValue | null
     ipAddress: string | null

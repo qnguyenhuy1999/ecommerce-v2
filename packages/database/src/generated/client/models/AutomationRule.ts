@@ -73,7 +73,7 @@ export type AutomationRuleCountAggregateOutputType = {
   status: number
   trigger: number
   conditions: number
-  actions: number
+  actionsLegacy: number
   priority: number
   maxExecutions: number
   executionCount: number
@@ -131,7 +131,7 @@ export type AutomationRuleCountAggregateInputType = {
   status?: true
   trigger?: true
   conditions?: true
-  actions?: true
+  actionsLegacy?: true
   priority?: true
   maxExecutions?: true
   executionCount?: true
@@ -234,7 +234,7 @@ export type AutomationRuleGroupByOutputType = {
   status: $Enums.AutomationStatus
   trigger: $Enums.AutomationTrigger
   conditions: runtime.JsonValue | null
-  actions: runtime.JsonValue
+  actionsLegacy: runtime.JsonValue | null
   priority: number
   maxExecutions: number | null
   executionCount: number
@@ -273,13 +273,14 @@ export type AutomationRuleWhereInput = {
   status?: Prisma.EnumAutomationStatusFilter<"AutomationRule"> | $Enums.AutomationStatus
   trigger?: Prisma.EnumAutomationTriggerFilter<"AutomationRule"> | $Enums.AutomationTrigger
   conditions?: Prisma.JsonNullableFilter<"AutomationRule">
-  actions?: Prisma.JsonFilter<"AutomationRule">
+  actionsLegacy?: Prisma.JsonNullableFilter<"AutomationRule">
   priority?: Prisma.IntFilter<"AutomationRule"> | number
   maxExecutions?: Prisma.IntNullableFilter<"AutomationRule"> | number | null
   executionCount?: Prisma.IntFilter<"AutomationRule"> | number
   lastExecutedAt?: Prisma.DateTimeNullableFilter<"AutomationRule"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AutomationRule"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AutomationRule"> | Date | string
+  actions?: Prisma.AutomationRuleActionListRelationFilter
   executions?: Prisma.AutomationExecutionListRelationFilter
 }
 
@@ -290,13 +291,14 @@ export type AutomationRuleOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   trigger?: Prisma.SortOrder
   conditions?: Prisma.SortOrderInput | Prisma.SortOrder
-  actions?: Prisma.SortOrder
+  actionsLegacy?: Prisma.SortOrderInput | Prisma.SortOrder
   priority?: Prisma.SortOrder
   maxExecutions?: Prisma.SortOrderInput | Prisma.SortOrder
   executionCount?: Prisma.SortOrder
   lastExecutedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  actions?: Prisma.AutomationRuleActionOrderByRelationAggregateInput
   executions?: Prisma.AutomationExecutionOrderByRelationAggregateInput
 }
 
@@ -310,13 +312,14 @@ export type AutomationRuleWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumAutomationStatusFilter<"AutomationRule"> | $Enums.AutomationStatus
   trigger?: Prisma.EnumAutomationTriggerFilter<"AutomationRule"> | $Enums.AutomationTrigger
   conditions?: Prisma.JsonNullableFilter<"AutomationRule">
-  actions?: Prisma.JsonFilter<"AutomationRule">
+  actionsLegacy?: Prisma.JsonNullableFilter<"AutomationRule">
   priority?: Prisma.IntFilter<"AutomationRule"> | number
   maxExecutions?: Prisma.IntNullableFilter<"AutomationRule"> | number | null
   executionCount?: Prisma.IntFilter<"AutomationRule"> | number
   lastExecutedAt?: Prisma.DateTimeNullableFilter<"AutomationRule"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AutomationRule"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AutomationRule"> | Date | string
+  actions?: Prisma.AutomationRuleActionListRelationFilter
   executions?: Prisma.AutomationExecutionListRelationFilter
 }, "id">
 
@@ -327,7 +330,7 @@ export type AutomationRuleOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   trigger?: Prisma.SortOrder
   conditions?: Prisma.SortOrderInput | Prisma.SortOrder
-  actions?: Prisma.SortOrder
+  actionsLegacy?: Prisma.SortOrderInput | Prisma.SortOrder
   priority?: Prisma.SortOrder
   maxExecutions?: Prisma.SortOrderInput | Prisma.SortOrder
   executionCount?: Prisma.SortOrder
@@ -351,7 +354,7 @@ export type AutomationRuleScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumAutomationStatusWithAggregatesFilter<"AutomationRule"> | $Enums.AutomationStatus
   trigger?: Prisma.EnumAutomationTriggerWithAggregatesFilter<"AutomationRule"> | $Enums.AutomationTrigger
   conditions?: Prisma.JsonNullableWithAggregatesFilter<"AutomationRule">
-  actions?: Prisma.JsonWithAggregatesFilter<"AutomationRule">
+  actionsLegacy?: Prisma.JsonNullableWithAggregatesFilter<"AutomationRule">
   priority?: Prisma.IntWithAggregatesFilter<"AutomationRule"> | number
   maxExecutions?: Prisma.IntNullableWithAggregatesFilter<"AutomationRule"> | number | null
   executionCount?: Prisma.IntWithAggregatesFilter<"AutomationRule"> | number
@@ -367,13 +370,14 @@ export type AutomationRuleCreateInput = {
   status?: $Enums.AutomationStatus
   trigger: $Enums.AutomationTrigger
   conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  actions: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   priority?: number
   maxExecutions?: number | null
   executionCount?: number
   lastExecutedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  actions?: Prisma.AutomationRuleActionCreateNestedManyWithoutRuleInput
   executions?: Prisma.AutomationExecutionCreateNestedManyWithoutRuleInput
 }
 
@@ -384,13 +388,14 @@ export type AutomationRuleUncheckedCreateInput = {
   status?: $Enums.AutomationStatus
   trigger: $Enums.AutomationTrigger
   conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  actions: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   priority?: number
   maxExecutions?: number | null
   executionCount?: number
   lastExecutedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  actions?: Prisma.AutomationRuleActionUncheckedCreateNestedManyWithoutRuleInput
   executions?: Prisma.AutomationExecutionUncheckedCreateNestedManyWithoutRuleInput
 }
 
@@ -401,13 +406,14 @@ export type AutomationRuleUpdateInput = {
   status?: Prisma.EnumAutomationStatusFieldUpdateOperationsInput | $Enums.AutomationStatus
   trigger?: Prisma.EnumAutomationTriggerFieldUpdateOperationsInput | $Enums.AutomationTrigger
   conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  actions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   priority?: Prisma.IntFieldUpdateOperationsInput | number
   maxExecutions?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   executionCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastExecutedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  actions?: Prisma.AutomationRuleActionUpdateManyWithoutRuleNestedInput
   executions?: Prisma.AutomationExecutionUpdateManyWithoutRuleNestedInput
 }
 
@@ -418,13 +424,14 @@ export type AutomationRuleUncheckedUpdateInput = {
   status?: Prisma.EnumAutomationStatusFieldUpdateOperationsInput | $Enums.AutomationStatus
   trigger?: Prisma.EnumAutomationTriggerFieldUpdateOperationsInput | $Enums.AutomationTrigger
   conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  actions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   priority?: Prisma.IntFieldUpdateOperationsInput | number
   maxExecutions?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   executionCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastExecutedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  actions?: Prisma.AutomationRuleActionUncheckedUpdateManyWithoutRuleNestedInput
   executions?: Prisma.AutomationExecutionUncheckedUpdateManyWithoutRuleNestedInput
 }
 
@@ -435,7 +442,7 @@ export type AutomationRuleCreateManyInput = {
   status?: $Enums.AutomationStatus
   trigger: $Enums.AutomationTrigger
   conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  actions: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   priority?: number
   maxExecutions?: number | null
   executionCount?: number
@@ -451,7 +458,7 @@ export type AutomationRuleUpdateManyMutationInput = {
   status?: Prisma.EnumAutomationStatusFieldUpdateOperationsInput | $Enums.AutomationStatus
   trigger?: Prisma.EnumAutomationTriggerFieldUpdateOperationsInput | $Enums.AutomationTrigger
   conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  actions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   priority?: Prisma.IntFieldUpdateOperationsInput | number
   maxExecutions?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   executionCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -467,7 +474,7 @@ export type AutomationRuleUncheckedUpdateManyInput = {
   status?: Prisma.EnumAutomationStatusFieldUpdateOperationsInput | $Enums.AutomationStatus
   trigger?: Prisma.EnumAutomationTriggerFieldUpdateOperationsInput | $Enums.AutomationTrigger
   conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  actions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   priority?: Prisma.IntFieldUpdateOperationsInput | number
   maxExecutions?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   executionCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -483,7 +490,7 @@ export type AutomationRuleCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   trigger?: Prisma.SortOrder
   conditions?: Prisma.SortOrder
-  actions?: Prisma.SortOrder
+  actionsLegacy?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   maxExecutions?: Prisma.SortOrder
   executionCount?: Prisma.SortOrder
@@ -545,6 +552,20 @@ export type EnumAutomationTriggerFieldUpdateOperationsInput = {
   set?: $Enums.AutomationTrigger
 }
 
+export type AutomationRuleCreateNestedOneWithoutActionsInput = {
+  create?: Prisma.XOR<Prisma.AutomationRuleCreateWithoutActionsInput, Prisma.AutomationRuleUncheckedCreateWithoutActionsInput>
+  connectOrCreate?: Prisma.AutomationRuleCreateOrConnectWithoutActionsInput
+  connect?: Prisma.AutomationRuleWhereUniqueInput
+}
+
+export type AutomationRuleUpdateOneRequiredWithoutActionsNestedInput = {
+  create?: Prisma.XOR<Prisma.AutomationRuleCreateWithoutActionsInput, Prisma.AutomationRuleUncheckedCreateWithoutActionsInput>
+  connectOrCreate?: Prisma.AutomationRuleCreateOrConnectWithoutActionsInput
+  upsert?: Prisma.AutomationRuleUpsertWithoutActionsInput
+  connect?: Prisma.AutomationRuleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AutomationRuleUpdateToOneWithWhereWithoutActionsInput, Prisma.AutomationRuleUpdateWithoutActionsInput>, Prisma.AutomationRuleUncheckedUpdateWithoutActionsInput>
+}
+
 export type AutomationRuleCreateNestedOneWithoutExecutionsInput = {
   create?: Prisma.XOR<Prisma.AutomationRuleCreateWithoutExecutionsInput, Prisma.AutomationRuleUncheckedCreateWithoutExecutionsInput>
   connectOrCreate?: Prisma.AutomationRuleCreateOrConnectWithoutExecutionsInput
@@ -559,6 +580,90 @@ export type AutomationRuleUpdateOneRequiredWithoutExecutionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AutomationRuleUpdateToOneWithWhereWithoutExecutionsInput, Prisma.AutomationRuleUpdateWithoutExecutionsInput>, Prisma.AutomationRuleUncheckedUpdateWithoutExecutionsInput>
 }
 
+export type AutomationRuleCreateWithoutActionsInput = {
+  id?: string
+  shopId: string
+  name: string
+  status?: $Enums.AutomationStatus
+  trigger: $Enums.AutomationTrigger
+  conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: number
+  maxExecutions?: number | null
+  executionCount?: number
+  lastExecutedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  executions?: Prisma.AutomationExecutionCreateNestedManyWithoutRuleInput
+}
+
+export type AutomationRuleUncheckedCreateWithoutActionsInput = {
+  id?: string
+  shopId: string
+  name: string
+  status?: $Enums.AutomationStatus
+  trigger: $Enums.AutomationTrigger
+  conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: number
+  maxExecutions?: number | null
+  executionCount?: number
+  lastExecutedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  executions?: Prisma.AutomationExecutionUncheckedCreateNestedManyWithoutRuleInput
+}
+
+export type AutomationRuleCreateOrConnectWithoutActionsInput = {
+  where: Prisma.AutomationRuleWhereUniqueInput
+  create: Prisma.XOR<Prisma.AutomationRuleCreateWithoutActionsInput, Prisma.AutomationRuleUncheckedCreateWithoutActionsInput>
+}
+
+export type AutomationRuleUpsertWithoutActionsInput = {
+  update: Prisma.XOR<Prisma.AutomationRuleUpdateWithoutActionsInput, Prisma.AutomationRuleUncheckedUpdateWithoutActionsInput>
+  create: Prisma.XOR<Prisma.AutomationRuleCreateWithoutActionsInput, Prisma.AutomationRuleUncheckedCreateWithoutActionsInput>
+  where?: Prisma.AutomationRuleWhereInput
+}
+
+export type AutomationRuleUpdateToOneWithWhereWithoutActionsInput = {
+  where?: Prisma.AutomationRuleWhereInput
+  data: Prisma.XOR<Prisma.AutomationRuleUpdateWithoutActionsInput, Prisma.AutomationRuleUncheckedUpdateWithoutActionsInput>
+}
+
+export type AutomationRuleUpdateWithoutActionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAutomationStatusFieldUpdateOperationsInput | $Enums.AutomationStatus
+  trigger?: Prisma.EnumAutomationTriggerFieldUpdateOperationsInput | $Enums.AutomationTrigger
+  conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  maxExecutions?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  executionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastExecutedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  executions?: Prisma.AutomationExecutionUpdateManyWithoutRuleNestedInput
+}
+
+export type AutomationRuleUncheckedUpdateWithoutActionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumAutomationStatusFieldUpdateOperationsInput | $Enums.AutomationStatus
+  trigger?: Prisma.EnumAutomationTriggerFieldUpdateOperationsInput | $Enums.AutomationTrigger
+  conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  maxExecutions?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  executionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastExecutedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  executions?: Prisma.AutomationExecutionUncheckedUpdateManyWithoutRuleNestedInput
+}
+
 export type AutomationRuleCreateWithoutExecutionsInput = {
   id?: string
   shopId: string
@@ -566,13 +671,14 @@ export type AutomationRuleCreateWithoutExecutionsInput = {
   status?: $Enums.AutomationStatus
   trigger: $Enums.AutomationTrigger
   conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  actions: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   priority?: number
   maxExecutions?: number | null
   executionCount?: number
   lastExecutedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  actions?: Prisma.AutomationRuleActionCreateNestedManyWithoutRuleInput
 }
 
 export type AutomationRuleUncheckedCreateWithoutExecutionsInput = {
@@ -582,13 +688,14 @@ export type AutomationRuleUncheckedCreateWithoutExecutionsInput = {
   status?: $Enums.AutomationStatus
   trigger: $Enums.AutomationTrigger
   conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  actions: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   priority?: number
   maxExecutions?: number | null
   executionCount?: number
   lastExecutedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  actions?: Prisma.AutomationRuleActionUncheckedCreateNestedManyWithoutRuleInput
 }
 
 export type AutomationRuleCreateOrConnectWithoutExecutionsInput = {
@@ -614,13 +721,14 @@ export type AutomationRuleUpdateWithoutExecutionsInput = {
   status?: Prisma.EnumAutomationStatusFieldUpdateOperationsInput | $Enums.AutomationStatus
   trigger?: Prisma.EnumAutomationTriggerFieldUpdateOperationsInput | $Enums.AutomationTrigger
   conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  actions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   priority?: Prisma.IntFieldUpdateOperationsInput | number
   maxExecutions?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   executionCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastExecutedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  actions?: Prisma.AutomationRuleActionUpdateManyWithoutRuleNestedInput
 }
 
 export type AutomationRuleUncheckedUpdateWithoutExecutionsInput = {
@@ -630,13 +738,14 @@ export type AutomationRuleUncheckedUpdateWithoutExecutionsInput = {
   status?: Prisma.EnumAutomationStatusFieldUpdateOperationsInput | $Enums.AutomationStatus
   trigger?: Prisma.EnumAutomationTriggerFieldUpdateOperationsInput | $Enums.AutomationTrigger
   conditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  actions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  actionsLegacy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   priority?: Prisma.IntFieldUpdateOperationsInput | number
   maxExecutions?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   executionCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastExecutedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  actions?: Prisma.AutomationRuleActionUncheckedUpdateManyWithoutRuleNestedInput
 }
 
 
@@ -645,10 +754,12 @@ export type AutomationRuleUncheckedUpdateWithoutExecutionsInput = {
  */
 
 export type AutomationRuleCountOutputType = {
+  actions: number
   executions: number
 }
 
 export type AutomationRuleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  actions?: boolean | AutomationRuleCountOutputTypeCountActionsArgs
   executions?: boolean | AutomationRuleCountOutputTypeCountExecutionsArgs
 }
 
@@ -660,6 +771,13 @@ export type AutomationRuleCountOutputTypeDefaultArgs<ExtArgs extends runtime.Typ
    * Select specific fields to fetch from the AutomationRuleCountOutputType
    */
   select?: Prisma.AutomationRuleCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * AutomationRuleCountOutputType without action
+ */
+export type AutomationRuleCountOutputTypeCountActionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AutomationRuleActionWhereInput
 }
 
 /**
@@ -677,13 +795,14 @@ export type AutomationRuleSelect<ExtArgs extends runtime.Types.Extensions.Intern
   status?: boolean
   trigger?: boolean
   conditions?: boolean
-  actions?: boolean
+  actionsLegacy?: boolean
   priority?: boolean
   maxExecutions?: boolean
   executionCount?: boolean
   lastExecutedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  actions?: boolean | Prisma.AutomationRule$actionsArgs<ExtArgs>
   executions?: boolean | Prisma.AutomationRule$executionsArgs<ExtArgs>
   _count?: boolean | Prisma.AutomationRuleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["automationRule"]>
@@ -695,7 +814,7 @@ export type AutomationRuleSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   status?: boolean
   trigger?: boolean
   conditions?: boolean
-  actions?: boolean
+  actionsLegacy?: boolean
   priority?: boolean
   maxExecutions?: boolean
   executionCount?: boolean
@@ -711,7 +830,7 @@ export type AutomationRuleSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   status?: boolean
   trigger?: boolean
   conditions?: boolean
-  actions?: boolean
+  actionsLegacy?: boolean
   priority?: boolean
   maxExecutions?: boolean
   executionCount?: boolean
@@ -727,7 +846,7 @@ export type AutomationRuleSelectScalar = {
   status?: boolean
   trigger?: boolean
   conditions?: boolean
-  actions?: boolean
+  actionsLegacy?: boolean
   priority?: boolean
   maxExecutions?: boolean
   executionCount?: boolean
@@ -736,8 +855,9 @@ export type AutomationRuleSelectScalar = {
   updatedAt?: boolean
 }
 
-export type AutomationRuleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopId" | "name" | "status" | "trigger" | "conditions" | "actions" | "priority" | "maxExecutions" | "executionCount" | "lastExecutedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["automationRule"]>
+export type AutomationRuleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopId" | "name" | "status" | "trigger" | "conditions" | "actionsLegacy" | "priority" | "maxExecutions" | "executionCount" | "lastExecutedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["automationRule"]>
 export type AutomationRuleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  actions?: boolean | Prisma.AutomationRule$actionsArgs<ExtArgs>
   executions?: boolean | Prisma.AutomationRule$executionsArgs<ExtArgs>
   _count?: boolean | Prisma.AutomationRuleCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -747,6 +867,7 @@ export type AutomationRuleIncludeUpdateManyAndReturn<ExtArgs extends runtime.Typ
 export type $AutomationRulePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AutomationRule"
   objects: {
+    actions: Prisma.$AutomationRuleActionPayload<ExtArgs>[]
     executions: Prisma.$AutomationExecutionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -756,7 +877,11 @@ export type $AutomationRulePayload<ExtArgs extends runtime.Types.Extensions.Inte
     status: $Enums.AutomationStatus
     trigger: $Enums.AutomationTrigger
     conditions: runtime.JsonValue | null
-    actions: runtime.JsonValue
+    /**
+     * @deprecated Use AutomationRuleAction rows instead.
+     * @deprecated Column was renamed from "actions" to "actions_legacy" - run migration before deploying.
+     */
+    actionsLegacy: runtime.JsonValue | null
     priority: number
     maxExecutions: number | null
     executionCount: number
@@ -1157,6 +1282,7 @@ readonly fields: AutomationRuleFieldRefs;
  */
 export interface Prisma__AutomationRuleClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  actions<T extends Prisma.AutomationRule$actionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AutomationRule$actionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AutomationRuleActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   executions<T extends Prisma.AutomationRule$executionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AutomationRule$executionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AutomationExecutionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1193,7 +1319,7 @@ export interface AutomationRuleFieldRefs {
   readonly status: Prisma.FieldRef<"AutomationRule", 'AutomationStatus'>
   readonly trigger: Prisma.FieldRef<"AutomationRule", 'AutomationTrigger'>
   readonly conditions: Prisma.FieldRef<"AutomationRule", 'Json'>
-  readonly actions: Prisma.FieldRef<"AutomationRule", 'Json'>
+  readonly actionsLegacy: Prisma.FieldRef<"AutomationRule", 'Json'>
   readonly priority: Prisma.FieldRef<"AutomationRule", 'Int'>
   readonly maxExecutions: Prisma.FieldRef<"AutomationRule", 'Int'>
   readonly executionCount: Prisma.FieldRef<"AutomationRule", 'Int'>
@@ -1590,6 +1716,30 @@ export type AutomationRuleDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many AutomationRules to delete.
    */
   limit?: number
+}
+
+/**
+ * AutomationRule.actions
+ */
+export type AutomationRule$actionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AutomationRuleAction
+   */
+  select?: Prisma.AutomationRuleActionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AutomationRuleAction
+   */
+  omit?: Prisma.AutomationRuleActionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AutomationRuleActionInclude<ExtArgs> | null
+  where?: Prisma.AutomationRuleActionWhereInput
+  orderBy?: Prisma.AutomationRuleActionOrderByWithRelationInput | Prisma.AutomationRuleActionOrderByWithRelationInput[]
+  cursor?: Prisma.AutomationRuleActionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AutomationRuleActionScalarFieldEnum | Prisma.AutomationRuleActionScalarFieldEnum[]
 }
 
 /**

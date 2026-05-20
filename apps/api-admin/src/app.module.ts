@@ -1,5 +1,6 @@
-import { getAdminThrottleConfig, getRedisConfig } from '@ecom/config'
+import { getAdminThrottleConfig, getRedisConfig, getSmtpConfig } from '@ecom/config'
 import { DatabaseModule } from '@ecom/database'
+import { EmailModule } from '@ecom/email'
 import { RedisModule } from '@ecom/redis'
 import { Module } from '@nestjs/common'
 import { APP_INTERCEPTOR } from '@nestjs/core'
@@ -34,6 +35,7 @@ import { UsersModule } from './users/users.module'
         }
       })(),
     ),
+    EmailModule.forRoot(getSmtpConfig()),
     DatabaseModule,
     AuthModule,
     SellersModule,

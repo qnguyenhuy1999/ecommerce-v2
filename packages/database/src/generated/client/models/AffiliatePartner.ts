@@ -847,7 +847,13 @@ export type $AffiliatePartnerPayload<ExtArgs extends runtime.Types.Extensions.In
     website: string | null
     socialLinks: runtime.JsonValue | null
     commissionRate: runtime.Decimal
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     totalEarnings: runtime.Decimal
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     pendingBalance: runtime.Decimal
     createdAt: Date
     updatedAt: Date

@@ -611,8 +611,17 @@ export type $GrowthCampaignPayload<ExtArgs extends runtime.Types.Extensions.Inte
     isActive: boolean
     startsAt: Date | null
     endsAt: Date | null
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     impressions: number
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     clicks: number
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     conversions: number
     createdAt: Date
     updatedAt: Date

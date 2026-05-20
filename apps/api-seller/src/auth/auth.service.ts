@@ -25,7 +25,6 @@ import { UserStatus } from '@ecom/contracts/enums'
 import { SESSION_SERVICE } from './session.provider'
 
 const TEMPLATES_DIR = join(__dirname, '..', 'email', 'templates')
-const SELLER_ROLE = 'seller'
 
 @Injectable()
 export class AuthService extends BaseUserAuthService<PrismaService> {
@@ -49,11 +48,6 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
 
     const hashedPassword = await hashPassword(password)
 
-    const sellerRole = await this.prisma.role.findUnique({ where: { name: SELLER_ROLE } })
-    if (!sellerRole) {
-      throw new Error('Default seller role not found. Run db:seed first.')
-    }
-
     let user
     try {
       user = await this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
@@ -61,9 +55,7 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
           data: {
             email,
             passwordHash: hashedPassword,
-            userRoles: { create: { roleId: sellerRole.id } },
           },
-          include: { userRoles: { include: { role: true } } },
         })
 
         const profile = await tx.sellerProfile.create({
@@ -114,14 +106,13 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
     return {
       id: user.id,
       email: user.email,
-      roles: user.userRoles.map((ur: { role: { name: string } }) => ur.role.name),
     }
   }
 
   async login(email: string, password: string, userAgent?: string, ipAddress?: string) {
     const user = await this.prisma.user.findUnique({
       where: { email },
-      include: { userRoles: { include: { role: true } } },
+      include: { sellerProfile: true },
     })
 
     if (!user) {
@@ -132,10 +123,7 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
       throw new UnauthorizedException('Account is not active')
     }
 
-    const isSeller = user.userRoles.some(
-      (ur: { role: { name: string } }) => ur.role.name === SELLER_ROLE,
-    )
-    if (!isSeller) {
+    if (!user.sellerProfile) {
       throw new UnauthorizedException('Not a seller account')
     }
 
@@ -144,11 +132,10 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
       throw new UnauthorizedException('Invalid credentials')
     }
 
-    const roles = user.userRoles.map((ur: { role: { name: string } }) => ur.role.name)
     const sessionId = randomUUID()
     const expiresAt = new Date(Date.now() + SESSION_EXPIRY_DAYS * 24 * 60 * 60 * 1000)
 
-    const sessionData: SessionData = { userId: user.id, roles }
+    const sessionData: SessionData = { userId: user.id, sellerProfileId: user.sellerProfile.id }
     await this.sessionService.create(sessionId, sessionData)
 
     await this.prisma.session.create({
@@ -161,7 +148,7 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
       },
     })
 
-    return { sessionId, userId: user.id, roles }
+    return { sessionId, userId: user.id, sellerProfileId: user.sellerProfile.id }
   }
 
   async logout(sessionId: string) {
@@ -197,11 +184,12 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
 
     return {
       userId: session.userId,
-      roles: session.roles,
       email: user?.email,
       firstName: user?.firstName,
       lastName: user?.lastName,
       emailVerified: user?.emailVerified,
+      isStaff: user?.isStaff,
+      sellerProfile: user?.sellerProfile ? { id: user.sellerProfile.id } : null,
       shop: user?.sellerProfile?.shop ?? null,
     }
   }

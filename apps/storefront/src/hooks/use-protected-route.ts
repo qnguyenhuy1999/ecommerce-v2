@@ -12,8 +12,7 @@ interface UseProtectedRouteOptions {
 }
 
 function getForbiddenRedirect(user: AuthUser): string {
-  if (user.roles.includes('seller')) return '/seller/dashboard'
-  if (user.roles.includes('admin')) return '/admin'
+  if (user.sellerProfile && typeof user.sellerProfile === 'object') return '/seller/dashboard'
   return '/'
 }
 

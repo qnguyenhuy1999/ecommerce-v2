@@ -159,12 +159,14 @@ export type CouponProductWhereInput = {
   couponId?: Prisma.UuidFilter<"CouponProduct"> | string
   productId?: Prisma.UuidFilter<"CouponProduct"> | string
   coupon?: Prisma.XOR<Prisma.CouponScalarRelationFilter, Prisma.CouponWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
 }
 
 export type CouponProductOrderByWithRelationInput = {
   couponId?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   coupon?: Prisma.CouponOrderByWithRelationInput
+  product?: Prisma.ProductOrderByWithRelationInput
 }
 
 export type CouponProductWhereUniqueInput = Prisma.AtLeast<{
@@ -175,6 +177,7 @@ export type CouponProductWhereUniqueInput = Prisma.AtLeast<{
   couponId?: Prisma.UuidFilter<"CouponProduct"> | string
   productId?: Prisma.UuidFilter<"CouponProduct"> | string
   coupon?: Prisma.XOR<Prisma.CouponScalarRelationFilter, Prisma.CouponWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
 }, "couponId_productId">
 
 export type CouponProductOrderByWithAggregationInput = {
@@ -194,8 +197,8 @@ export type CouponProductScalarWhereWithAggregatesInput = {
 }
 
 export type CouponProductCreateInput = {
-  productId: string
   coupon: Prisma.CouponCreateNestedOneWithoutCouponProductsInput
+  product: Prisma.ProductCreateNestedOneWithoutCouponProductsInput
 }
 
 export type CouponProductUncheckedCreateInput = {
@@ -204,8 +207,8 @@ export type CouponProductUncheckedCreateInput = {
 }
 
 export type CouponProductUpdateInput = {
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   coupon?: Prisma.CouponUpdateOneRequiredWithoutCouponProductsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutCouponProductsNestedInput
 }
 
 export type CouponProductUncheckedUpdateInput = {
@@ -219,7 +222,7 @@ export type CouponProductCreateManyInput = {
 }
 
 export type CouponProductUpdateManyMutationInput = {
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
+
 }
 
 export type CouponProductUncheckedUpdateManyInput = {
@@ -255,6 +258,48 @@ export type CouponProductMaxOrderByAggregateInput = {
 export type CouponProductMinOrderByAggregateInput = {
   couponId?: Prisma.SortOrder
   productId?: Prisma.SortOrder
+}
+
+export type CouponProductCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.CouponProductCreateWithoutProductInput, Prisma.CouponProductUncheckedCreateWithoutProductInput> | Prisma.CouponProductCreateWithoutProductInput[] | Prisma.CouponProductUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.CouponProductCreateOrConnectWithoutProductInput | Prisma.CouponProductCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.CouponProductCreateManyProductInputEnvelope
+  connect?: Prisma.CouponProductWhereUniqueInput | Prisma.CouponProductWhereUniqueInput[]
+}
+
+export type CouponProductUncheckedCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.CouponProductCreateWithoutProductInput, Prisma.CouponProductUncheckedCreateWithoutProductInput> | Prisma.CouponProductCreateWithoutProductInput[] | Prisma.CouponProductUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.CouponProductCreateOrConnectWithoutProductInput | Prisma.CouponProductCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.CouponProductCreateManyProductInputEnvelope
+  connect?: Prisma.CouponProductWhereUniqueInput | Prisma.CouponProductWhereUniqueInput[]
+}
+
+export type CouponProductUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.CouponProductCreateWithoutProductInput, Prisma.CouponProductUncheckedCreateWithoutProductInput> | Prisma.CouponProductCreateWithoutProductInput[] | Prisma.CouponProductUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.CouponProductCreateOrConnectWithoutProductInput | Prisma.CouponProductCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.CouponProductUpsertWithWhereUniqueWithoutProductInput | Prisma.CouponProductUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.CouponProductCreateManyProductInputEnvelope
+  set?: Prisma.CouponProductWhereUniqueInput | Prisma.CouponProductWhereUniqueInput[]
+  disconnect?: Prisma.CouponProductWhereUniqueInput | Prisma.CouponProductWhereUniqueInput[]
+  delete?: Prisma.CouponProductWhereUniqueInput | Prisma.CouponProductWhereUniqueInput[]
+  connect?: Prisma.CouponProductWhereUniqueInput | Prisma.CouponProductWhereUniqueInput[]
+  update?: Prisma.CouponProductUpdateWithWhereUniqueWithoutProductInput | Prisma.CouponProductUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.CouponProductUpdateManyWithWhereWithoutProductInput | Prisma.CouponProductUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.CouponProductScalarWhereInput | Prisma.CouponProductScalarWhereInput[]
+}
+
+export type CouponProductUncheckedUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.CouponProductCreateWithoutProductInput, Prisma.CouponProductUncheckedCreateWithoutProductInput> | Prisma.CouponProductCreateWithoutProductInput[] | Prisma.CouponProductUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.CouponProductCreateOrConnectWithoutProductInput | Prisma.CouponProductCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.CouponProductUpsertWithWhereUniqueWithoutProductInput | Prisma.CouponProductUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.CouponProductCreateManyProductInputEnvelope
+  set?: Prisma.CouponProductWhereUniqueInput | Prisma.CouponProductWhereUniqueInput[]
+  disconnect?: Prisma.CouponProductWhereUniqueInput | Prisma.CouponProductWhereUniqueInput[]
+  delete?: Prisma.CouponProductWhereUniqueInput | Prisma.CouponProductWhereUniqueInput[]
+  connect?: Prisma.CouponProductWhereUniqueInput | Prisma.CouponProductWhereUniqueInput[]
+  update?: Prisma.CouponProductUpdateWithWhereUniqueWithoutProductInput | Prisma.CouponProductUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.CouponProductUpdateManyWithWhereWithoutProductInput | Prisma.CouponProductUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.CouponProductScalarWhereInput | Prisma.CouponProductScalarWhereInput[]
 }
 
 export type CouponProductCreateNestedManyWithoutCouponInput = {
@@ -299,8 +344,50 @@ export type CouponProductUncheckedUpdateManyWithoutCouponNestedInput = {
   deleteMany?: Prisma.CouponProductScalarWhereInput | Prisma.CouponProductScalarWhereInput[]
 }
 
+export type CouponProductCreateWithoutProductInput = {
+  coupon: Prisma.CouponCreateNestedOneWithoutCouponProductsInput
+}
+
+export type CouponProductUncheckedCreateWithoutProductInput = {
+  couponId: string
+}
+
+export type CouponProductCreateOrConnectWithoutProductInput = {
+  where: Prisma.CouponProductWhereUniqueInput
+  create: Prisma.XOR<Prisma.CouponProductCreateWithoutProductInput, Prisma.CouponProductUncheckedCreateWithoutProductInput>
+}
+
+export type CouponProductCreateManyProductInputEnvelope = {
+  data: Prisma.CouponProductCreateManyProductInput | Prisma.CouponProductCreateManyProductInput[]
+  skipDuplicates?: boolean
+}
+
+export type CouponProductUpsertWithWhereUniqueWithoutProductInput = {
+  where: Prisma.CouponProductWhereUniqueInput
+  update: Prisma.XOR<Prisma.CouponProductUpdateWithoutProductInput, Prisma.CouponProductUncheckedUpdateWithoutProductInput>
+  create: Prisma.XOR<Prisma.CouponProductCreateWithoutProductInput, Prisma.CouponProductUncheckedCreateWithoutProductInput>
+}
+
+export type CouponProductUpdateWithWhereUniqueWithoutProductInput = {
+  where: Prisma.CouponProductWhereUniqueInput
+  data: Prisma.XOR<Prisma.CouponProductUpdateWithoutProductInput, Prisma.CouponProductUncheckedUpdateWithoutProductInput>
+}
+
+export type CouponProductUpdateManyWithWhereWithoutProductInput = {
+  where: Prisma.CouponProductScalarWhereInput
+  data: Prisma.XOR<Prisma.CouponProductUpdateManyMutationInput, Prisma.CouponProductUncheckedUpdateManyWithoutProductInput>
+}
+
+export type CouponProductScalarWhereInput = {
+  AND?: Prisma.CouponProductScalarWhereInput | Prisma.CouponProductScalarWhereInput[]
+  OR?: Prisma.CouponProductScalarWhereInput[]
+  NOT?: Prisma.CouponProductScalarWhereInput | Prisma.CouponProductScalarWhereInput[]
+  couponId?: Prisma.UuidFilter<"CouponProduct"> | string
+  productId?: Prisma.UuidFilter<"CouponProduct"> | string
+}
+
 export type CouponProductCreateWithoutCouponInput = {
-  productId: string
+  product: Prisma.ProductCreateNestedOneWithoutCouponProductsInput
 }
 
 export type CouponProductUncheckedCreateWithoutCouponInput = {
@@ -333,12 +420,20 @@ export type CouponProductUpdateManyWithWhereWithoutCouponInput = {
   data: Prisma.XOR<Prisma.CouponProductUpdateManyMutationInput, Prisma.CouponProductUncheckedUpdateManyWithoutCouponInput>
 }
 
-export type CouponProductScalarWhereInput = {
-  AND?: Prisma.CouponProductScalarWhereInput | Prisma.CouponProductScalarWhereInput[]
-  OR?: Prisma.CouponProductScalarWhereInput[]
-  NOT?: Prisma.CouponProductScalarWhereInput | Prisma.CouponProductScalarWhereInput[]
-  couponId?: Prisma.UuidFilter<"CouponProduct"> | string
-  productId?: Prisma.UuidFilter<"CouponProduct"> | string
+export type CouponProductCreateManyProductInput = {
+  couponId: string
+}
+
+export type CouponProductUpdateWithoutProductInput = {
+  coupon?: Prisma.CouponUpdateOneRequiredWithoutCouponProductsNestedInput
+}
+
+export type CouponProductUncheckedUpdateWithoutProductInput = {
+  couponId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type CouponProductUncheckedUpdateManyWithoutProductInput = {
+  couponId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CouponProductCreateManyCouponInput = {
@@ -346,7 +441,7 @@ export type CouponProductCreateManyCouponInput = {
 }
 
 export type CouponProductUpdateWithoutCouponInput = {
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutCouponProductsNestedInput
 }
 
 export type CouponProductUncheckedUpdateWithoutCouponInput = {
@@ -363,18 +458,21 @@ export type CouponProductSelect<ExtArgs extends runtime.Types.Extensions.Interna
   couponId?: boolean
   productId?: boolean
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["couponProduct"]>
 
 export type CouponProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   couponId?: boolean
   productId?: boolean
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["couponProduct"]>
 
 export type CouponProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   couponId?: boolean
   productId?: boolean
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["couponProduct"]>
 
 export type CouponProductSelectScalar = {
@@ -385,18 +483,22 @@ export type CouponProductSelectScalar = {
 export type CouponProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"couponId" | "productId", ExtArgs["result"]["couponProduct"]>
 export type CouponProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 export type CouponProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 export type CouponProductIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   coupon?: boolean | Prisma.CouponDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 
 export type $CouponProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CouponProduct"
   objects: {
     coupon: Prisma.$CouponPayload<ExtArgs>
+    product: Prisma.$ProductPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     couponId: string
@@ -796,6 +898,7 @@ readonly fields: CouponProductFieldRefs;
 export interface Prisma__CouponProductClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   coupon<T extends Prisma.CouponDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CouponDefaultArgs<ExtArgs>>): Prisma.Prisma__CouponClient<runtime.Types.Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

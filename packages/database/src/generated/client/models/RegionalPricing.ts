@@ -37,6 +37,7 @@ export type RegionalPricingSumAggregateOutputType = {
 export type RegionalPricingMinAggregateOutputType = {
   id: string | null
   productId: string | null
+  variantId: string | null
   regionId: string | null
   price: runtime.Decimal | null
   currencyCode: string | null
@@ -47,6 +48,7 @@ export type RegionalPricingMinAggregateOutputType = {
 export type RegionalPricingMaxAggregateOutputType = {
   id: string | null
   productId: string | null
+  variantId: string | null
   regionId: string | null
   price: runtime.Decimal | null
   currencyCode: string | null
@@ -57,6 +59,7 @@ export type RegionalPricingMaxAggregateOutputType = {
 export type RegionalPricingCountAggregateOutputType = {
   id: number
   productId: number
+  variantId: number
   regionId: number
   price: number
   currencyCode: number
@@ -77,6 +80,7 @@ export type RegionalPricingSumAggregateInputType = {
 export type RegionalPricingMinAggregateInputType = {
   id?: true
   productId?: true
+  variantId?: true
   regionId?: true
   price?: true
   currencyCode?: true
@@ -87,6 +91,7 @@ export type RegionalPricingMinAggregateInputType = {
 export type RegionalPricingMaxAggregateInputType = {
   id?: true
   productId?: true
+  variantId?: true
   regionId?: true
   price?: true
   currencyCode?: true
@@ -97,6 +102,7 @@ export type RegionalPricingMaxAggregateInputType = {
 export type RegionalPricingCountAggregateInputType = {
   id?: true
   productId?: true
+  variantId?: true
   regionId?: true
   price?: true
   currencyCode?: true
@@ -194,6 +200,7 @@ export type RegionalPricingGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 export type RegionalPricingGroupByOutputType = {
   id: string
   productId: string
+  variantId: string | null
   regionId: string
   price: runtime.Decimal
   currencyCode: string
@@ -227,43 +234,53 @@ export type RegionalPricingWhereInput = {
   NOT?: Prisma.RegionalPricingWhereInput | Prisma.RegionalPricingWhereInput[]
   id?: Prisma.UuidFilter<"RegionalPricing"> | string
   productId?: Prisma.UuidFilter<"RegionalPricing"> | string
+  variantId?: Prisma.UuidNullableFilter<"RegionalPricing"> | string | null
   regionId?: Prisma.UuidFilter<"RegionalPricing"> | string
   price?: Prisma.DecimalFilter<"RegionalPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode?: Prisma.StringFilter<"RegionalPricing"> | string
   createdAt?: Prisma.DateTimeFilter<"RegionalPricing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RegionalPricing"> | Date | string
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
   region?: Prisma.XOR<Prisma.RegionScalarRelationFilter, Prisma.RegionWhereInput>
 }
 
 export type RegionalPricingOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrderInput | Prisma.SortOrder
   regionId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   currencyCode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  product?: Prisma.ProductOrderByWithRelationInput
+  variant?: Prisma.ProductVariantOrderByWithRelationInput
   region?: Prisma.RegionOrderByWithRelationInput
 }
 
 export type RegionalPricingWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  productId_regionId?: Prisma.RegionalPricingProductIdRegionIdCompoundUniqueInput
+  productId_variantId_regionId?: Prisma.RegionalPricingProductIdVariantIdRegionIdCompoundUniqueInput
   AND?: Prisma.RegionalPricingWhereInput | Prisma.RegionalPricingWhereInput[]
   OR?: Prisma.RegionalPricingWhereInput[]
   NOT?: Prisma.RegionalPricingWhereInput | Prisma.RegionalPricingWhereInput[]
   productId?: Prisma.UuidFilter<"RegionalPricing"> | string
+  variantId?: Prisma.UuidNullableFilter<"RegionalPricing"> | string | null
   regionId?: Prisma.UuidFilter<"RegionalPricing"> | string
   price?: Prisma.DecimalFilter<"RegionalPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode?: Prisma.StringFilter<"RegionalPricing"> | string
   createdAt?: Prisma.DateTimeFilter<"RegionalPricing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RegionalPricing"> | Date | string
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
   region?: Prisma.XOR<Prisma.RegionScalarRelationFilter, Prisma.RegionWhereInput>
-}, "id" | "productId_regionId">
+}, "id" | "productId_variantId_regionId">
 
 export type RegionalPricingOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrderInput | Prisma.SortOrder
   regionId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   currencyCode?: Prisma.SortOrder
@@ -282,6 +299,7 @@ export type RegionalPricingScalarWhereWithAggregatesInput = {
   NOT?: Prisma.RegionalPricingScalarWhereWithAggregatesInput | Prisma.RegionalPricingScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"RegionalPricing"> | string
   productId?: Prisma.UuidWithAggregatesFilter<"RegionalPricing"> | string
+  variantId?: Prisma.UuidNullableWithAggregatesFilter<"RegionalPricing"> | string | null
   regionId?: Prisma.UuidWithAggregatesFilter<"RegionalPricing"> | string
   price?: Prisma.DecimalWithAggregatesFilter<"RegionalPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode?: Prisma.StringWithAggregatesFilter<"RegionalPricing"> | string
@@ -291,17 +309,19 @@ export type RegionalPricingScalarWhereWithAggregatesInput = {
 
 export type RegionalPricingCreateInput = {
   id?: string
-  productId: string
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutRegionalPricingsInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutRegionalPricingsInput
   region: Prisma.RegionCreateNestedOneWithoutRegionalPricingsInput
 }
 
 export type RegionalPricingUncheckedCreateInput = {
   id?: string
   productId: string
+  variantId?: string | null
   regionId: string
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode: string
@@ -311,17 +331,19 @@ export type RegionalPricingUncheckedCreateInput = {
 
 export type RegionalPricingUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutRegionalPricingsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutRegionalPricingsNestedInput
   region?: Prisma.RegionUpdateOneRequiredWithoutRegionalPricingsNestedInput
 }
 
 export type RegionalPricingUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   regionId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -332,6 +354,7 @@ export type RegionalPricingUncheckedUpdateInput = {
 export type RegionalPricingCreateManyInput = {
   id?: string
   productId: string
+  variantId?: string | null
   regionId: string
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode: string
@@ -341,7 +364,6 @@ export type RegionalPricingCreateManyInput = {
 
 export type RegionalPricingUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -351,6 +373,7 @@ export type RegionalPricingUpdateManyMutationInput = {
 export type RegionalPricingUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   regionId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -368,14 +391,16 @@ export type RegionalPricingOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type RegionalPricingProductIdRegionIdCompoundUniqueInput = {
+export type RegionalPricingProductIdVariantIdRegionIdCompoundUniqueInput = {
   productId: string
+  variantId: string
   regionId: string
 }
 
 export type RegionalPricingCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   currencyCode?: Prisma.SortOrder
@@ -390,6 +415,7 @@ export type RegionalPricingAvgOrderByAggregateInput = {
 export type RegionalPricingMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   currencyCode?: Prisma.SortOrder
@@ -400,6 +426,7 @@ export type RegionalPricingMaxOrderByAggregateInput = {
 export type RegionalPricingMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   currencyCode?: Prisma.SortOrder
@@ -409,6 +436,90 @@ export type RegionalPricingMinOrderByAggregateInput = {
 
 export type RegionalPricingSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
+}
+
+export type RegionalPricingCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.RegionalPricingCreateWithoutProductInput, Prisma.RegionalPricingUncheckedCreateWithoutProductInput> | Prisma.RegionalPricingCreateWithoutProductInput[] | Prisma.RegionalPricingUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.RegionalPricingCreateOrConnectWithoutProductInput | Prisma.RegionalPricingCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.RegionalPricingCreateManyProductInputEnvelope
+  connect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+}
+
+export type RegionalPricingUncheckedCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.RegionalPricingCreateWithoutProductInput, Prisma.RegionalPricingUncheckedCreateWithoutProductInput> | Prisma.RegionalPricingCreateWithoutProductInput[] | Prisma.RegionalPricingUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.RegionalPricingCreateOrConnectWithoutProductInput | Prisma.RegionalPricingCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.RegionalPricingCreateManyProductInputEnvelope
+  connect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+}
+
+export type RegionalPricingUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.RegionalPricingCreateWithoutProductInput, Prisma.RegionalPricingUncheckedCreateWithoutProductInput> | Prisma.RegionalPricingCreateWithoutProductInput[] | Prisma.RegionalPricingUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.RegionalPricingCreateOrConnectWithoutProductInput | Prisma.RegionalPricingCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.RegionalPricingUpsertWithWhereUniqueWithoutProductInput | Prisma.RegionalPricingUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.RegionalPricingCreateManyProductInputEnvelope
+  set?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  disconnect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  delete?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  connect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  update?: Prisma.RegionalPricingUpdateWithWhereUniqueWithoutProductInput | Prisma.RegionalPricingUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.RegionalPricingUpdateManyWithWhereWithoutProductInput | Prisma.RegionalPricingUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.RegionalPricingScalarWhereInput | Prisma.RegionalPricingScalarWhereInput[]
+}
+
+export type RegionalPricingUncheckedUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.RegionalPricingCreateWithoutProductInput, Prisma.RegionalPricingUncheckedCreateWithoutProductInput> | Prisma.RegionalPricingCreateWithoutProductInput[] | Prisma.RegionalPricingUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.RegionalPricingCreateOrConnectWithoutProductInput | Prisma.RegionalPricingCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.RegionalPricingUpsertWithWhereUniqueWithoutProductInput | Prisma.RegionalPricingUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.RegionalPricingCreateManyProductInputEnvelope
+  set?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  disconnect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  delete?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  connect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  update?: Prisma.RegionalPricingUpdateWithWhereUniqueWithoutProductInput | Prisma.RegionalPricingUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.RegionalPricingUpdateManyWithWhereWithoutProductInput | Prisma.RegionalPricingUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.RegionalPricingScalarWhereInput | Prisma.RegionalPricingScalarWhereInput[]
+}
+
+export type RegionalPricingCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.RegionalPricingCreateWithoutVariantInput, Prisma.RegionalPricingUncheckedCreateWithoutVariantInput> | Prisma.RegionalPricingCreateWithoutVariantInput[] | Prisma.RegionalPricingUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.RegionalPricingCreateOrConnectWithoutVariantInput | Prisma.RegionalPricingCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.RegionalPricingCreateManyVariantInputEnvelope
+  connect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+}
+
+export type RegionalPricingUncheckedCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.RegionalPricingCreateWithoutVariantInput, Prisma.RegionalPricingUncheckedCreateWithoutVariantInput> | Prisma.RegionalPricingCreateWithoutVariantInput[] | Prisma.RegionalPricingUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.RegionalPricingCreateOrConnectWithoutVariantInput | Prisma.RegionalPricingCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.RegionalPricingCreateManyVariantInputEnvelope
+  connect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+}
+
+export type RegionalPricingUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.RegionalPricingCreateWithoutVariantInput, Prisma.RegionalPricingUncheckedCreateWithoutVariantInput> | Prisma.RegionalPricingCreateWithoutVariantInput[] | Prisma.RegionalPricingUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.RegionalPricingCreateOrConnectWithoutVariantInput | Prisma.RegionalPricingCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.RegionalPricingUpsertWithWhereUniqueWithoutVariantInput | Prisma.RegionalPricingUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.RegionalPricingCreateManyVariantInputEnvelope
+  set?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  disconnect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  delete?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  connect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  update?: Prisma.RegionalPricingUpdateWithWhereUniqueWithoutVariantInput | Prisma.RegionalPricingUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.RegionalPricingUpdateManyWithWhereWithoutVariantInput | Prisma.RegionalPricingUpdateManyWithWhereWithoutVariantInput[]
+  deleteMany?: Prisma.RegionalPricingScalarWhereInput | Prisma.RegionalPricingScalarWhereInput[]
+}
+
+export type RegionalPricingUncheckedUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.RegionalPricingCreateWithoutVariantInput, Prisma.RegionalPricingUncheckedCreateWithoutVariantInput> | Prisma.RegionalPricingCreateWithoutVariantInput[] | Prisma.RegionalPricingUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.RegionalPricingCreateOrConnectWithoutVariantInput | Prisma.RegionalPricingCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.RegionalPricingUpsertWithWhereUniqueWithoutVariantInput | Prisma.RegionalPricingUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.RegionalPricingCreateManyVariantInputEnvelope
+  set?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  disconnect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  delete?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  connect?: Prisma.RegionalPricingWhereUniqueInput | Prisma.RegionalPricingWhereUniqueInput[]
+  update?: Prisma.RegionalPricingUpdateWithWhereUniqueWithoutVariantInput | Prisma.RegionalPricingUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.RegionalPricingUpdateManyWithWhereWithoutVariantInput | Prisma.RegionalPricingUpdateManyWithWhereWithoutVariantInput[]
+  deleteMany?: Prisma.RegionalPricingScalarWhereInput | Prisma.RegionalPricingScalarWhereInput[]
 }
 
 export type RegionalPricingCreateNestedManyWithoutRegionInput = {
@@ -453,18 +564,126 @@ export type RegionalPricingUncheckedUpdateManyWithoutRegionNestedInput = {
   deleteMany?: Prisma.RegionalPricingScalarWhereInput | Prisma.RegionalPricingScalarWhereInput[]
 }
 
-export type RegionalPricingCreateWithoutRegionInput = {
+export type RegionalPricingCreateWithoutProductInput = {
   id?: string
-  productId: string
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutRegionalPricingsInput
+  region: Prisma.RegionCreateNestedOneWithoutRegionalPricingsInput
+}
+
+export type RegionalPricingUncheckedCreateWithoutProductInput = {
+  id?: string
+  variantId?: string | null
+  regionId: string
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
+export type RegionalPricingCreateOrConnectWithoutProductInput = {
+  where: Prisma.RegionalPricingWhereUniqueInput
+  create: Prisma.XOR<Prisma.RegionalPricingCreateWithoutProductInput, Prisma.RegionalPricingUncheckedCreateWithoutProductInput>
+}
+
+export type RegionalPricingCreateManyProductInputEnvelope = {
+  data: Prisma.RegionalPricingCreateManyProductInput | Prisma.RegionalPricingCreateManyProductInput[]
+  skipDuplicates?: boolean
+}
+
+export type RegionalPricingUpsertWithWhereUniqueWithoutProductInput = {
+  where: Prisma.RegionalPricingWhereUniqueInput
+  update: Prisma.XOR<Prisma.RegionalPricingUpdateWithoutProductInput, Prisma.RegionalPricingUncheckedUpdateWithoutProductInput>
+  create: Prisma.XOR<Prisma.RegionalPricingCreateWithoutProductInput, Prisma.RegionalPricingUncheckedCreateWithoutProductInput>
+}
+
+export type RegionalPricingUpdateWithWhereUniqueWithoutProductInput = {
+  where: Prisma.RegionalPricingWhereUniqueInput
+  data: Prisma.XOR<Prisma.RegionalPricingUpdateWithoutProductInput, Prisma.RegionalPricingUncheckedUpdateWithoutProductInput>
+}
+
+export type RegionalPricingUpdateManyWithWhereWithoutProductInput = {
+  where: Prisma.RegionalPricingScalarWhereInput
+  data: Prisma.XOR<Prisma.RegionalPricingUpdateManyMutationInput, Prisma.RegionalPricingUncheckedUpdateManyWithoutProductInput>
+}
+
+export type RegionalPricingScalarWhereInput = {
+  AND?: Prisma.RegionalPricingScalarWhereInput | Prisma.RegionalPricingScalarWhereInput[]
+  OR?: Prisma.RegionalPricingScalarWhereInput[]
+  NOT?: Prisma.RegionalPricingScalarWhereInput | Prisma.RegionalPricingScalarWhereInput[]
+  id?: Prisma.UuidFilter<"RegionalPricing"> | string
+  productId?: Prisma.UuidFilter<"RegionalPricing"> | string
+  variantId?: Prisma.UuidNullableFilter<"RegionalPricing"> | string | null
+  regionId?: Prisma.UuidFilter<"RegionalPricing"> | string
+  price?: Prisma.DecimalFilter<"RegionalPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode?: Prisma.StringFilter<"RegionalPricing"> | string
+  createdAt?: Prisma.DateTimeFilter<"RegionalPricing"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"RegionalPricing"> | Date | string
+}
+
+export type RegionalPricingCreateWithoutVariantInput = {
+  id?: string
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutRegionalPricingsInput
+  region: Prisma.RegionCreateNestedOneWithoutRegionalPricingsInput
+}
+
+export type RegionalPricingUncheckedCreateWithoutVariantInput = {
+  id?: string
+  productId: string
+  regionId: string
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type RegionalPricingCreateOrConnectWithoutVariantInput = {
+  where: Prisma.RegionalPricingWhereUniqueInput
+  create: Prisma.XOR<Prisma.RegionalPricingCreateWithoutVariantInput, Prisma.RegionalPricingUncheckedCreateWithoutVariantInput>
+}
+
+export type RegionalPricingCreateManyVariantInputEnvelope = {
+  data: Prisma.RegionalPricingCreateManyVariantInput | Prisma.RegionalPricingCreateManyVariantInput[]
+  skipDuplicates?: boolean
+}
+
+export type RegionalPricingUpsertWithWhereUniqueWithoutVariantInput = {
+  where: Prisma.RegionalPricingWhereUniqueInput
+  update: Prisma.XOR<Prisma.RegionalPricingUpdateWithoutVariantInput, Prisma.RegionalPricingUncheckedUpdateWithoutVariantInput>
+  create: Prisma.XOR<Prisma.RegionalPricingCreateWithoutVariantInput, Prisma.RegionalPricingUncheckedCreateWithoutVariantInput>
+}
+
+export type RegionalPricingUpdateWithWhereUniqueWithoutVariantInput = {
+  where: Prisma.RegionalPricingWhereUniqueInput
+  data: Prisma.XOR<Prisma.RegionalPricingUpdateWithoutVariantInput, Prisma.RegionalPricingUncheckedUpdateWithoutVariantInput>
+}
+
+export type RegionalPricingUpdateManyWithWhereWithoutVariantInput = {
+  where: Prisma.RegionalPricingScalarWhereInput
+  data: Prisma.XOR<Prisma.RegionalPricingUpdateManyMutationInput, Prisma.RegionalPricingUncheckedUpdateManyWithoutVariantInput>
+}
+
+export type RegionalPricingCreateWithoutRegionInput = {
+  id?: string
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutRegionalPricingsInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutRegionalPricingsInput
+}
+
 export type RegionalPricingUncheckedCreateWithoutRegionInput = {
   id?: string
   productId: string
+  variantId?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode: string
   createdAt?: Date | string
@@ -497,22 +716,90 @@ export type RegionalPricingUpdateManyWithWhereWithoutRegionInput = {
   data: Prisma.XOR<Prisma.RegionalPricingUpdateManyMutationInput, Prisma.RegionalPricingUncheckedUpdateManyWithoutRegionInput>
 }
 
-export type RegionalPricingScalarWhereInput = {
-  AND?: Prisma.RegionalPricingScalarWhereInput | Prisma.RegionalPricingScalarWhereInput[]
-  OR?: Prisma.RegionalPricingScalarWhereInput[]
-  NOT?: Prisma.RegionalPricingScalarWhereInput | Prisma.RegionalPricingScalarWhereInput[]
-  id?: Prisma.UuidFilter<"RegionalPricing"> | string
-  productId?: Prisma.UuidFilter<"RegionalPricing"> | string
-  regionId?: Prisma.UuidFilter<"RegionalPricing"> | string
-  price?: Prisma.DecimalFilter<"RegionalPricing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  currencyCode?: Prisma.StringFilter<"RegionalPricing"> | string
-  createdAt?: Prisma.DateTimeFilter<"RegionalPricing"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"RegionalPricing"> | Date | string
+export type RegionalPricingCreateManyProductInput = {
+  id?: string
+  variantId?: string | null
+  regionId: string
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type RegionalPricingUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variant?: Prisma.ProductVariantUpdateOneWithoutRegionalPricingsNestedInput
+  region?: Prisma.RegionUpdateOneRequiredWithoutRegionalPricingsNestedInput
+}
+
+export type RegionalPricingUncheckedUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  regionId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RegionalPricingUncheckedUpdateManyWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  regionId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RegionalPricingCreateManyVariantInput = {
+  id?: string
+  productId: string
+  regionId: string
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type RegionalPricingUpdateWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutRegionalPricingsNestedInput
+  region?: Prisma.RegionUpdateOneRequiredWithoutRegionalPricingsNestedInput
+}
+
+export type RegionalPricingUncheckedUpdateWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  regionId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RegionalPricingUncheckedUpdateManyWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  regionId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RegionalPricingCreateManyRegionInput = {
   id?: string
   productId: string
+  variantId?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode: string
   createdAt?: Date | string
@@ -521,16 +808,18 @@ export type RegionalPricingCreateManyRegionInput = {
 
 export type RegionalPricingUpdateWithoutRegionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutRegionalPricingsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutRegionalPricingsNestedInput
 }
 
 export type RegionalPricingUncheckedUpdateWithoutRegionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -540,6 +829,7 @@ export type RegionalPricingUncheckedUpdateWithoutRegionInput = {
 export type RegionalPricingUncheckedUpdateManyWithoutRegionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currencyCode?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -551,39 +841,49 @@ export type RegionalPricingUncheckedUpdateManyWithoutRegionInput = {
 export type RegionalPricingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productId?: boolean
+  variantId?: boolean
   regionId?: boolean
   price?: boolean
   currencyCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.RegionalPricing$variantArgs<ExtArgs>
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["regionalPricing"]>
 
 export type RegionalPricingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productId?: boolean
+  variantId?: boolean
   regionId?: boolean
   price?: boolean
   currencyCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.RegionalPricing$variantArgs<ExtArgs>
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["regionalPricing"]>
 
 export type RegionalPricingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productId?: boolean
+  variantId?: boolean
   regionId?: boolean
   price?: boolean
   currencyCode?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.RegionalPricing$variantArgs<ExtArgs>
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["regionalPricing"]>
 
 export type RegionalPricingSelectScalar = {
   id?: boolean
   productId?: boolean
+  variantId?: boolean
   regionId?: boolean
   price?: boolean
   currencyCode?: boolean
@@ -591,25 +891,34 @@ export type RegionalPricingSelectScalar = {
   updatedAt?: boolean
 }
 
-export type RegionalPricingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "regionId" | "price" | "currencyCode" | "createdAt" | "updatedAt", ExtArgs["result"]["regionalPricing"]>
+export type RegionalPricingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "variantId" | "regionId" | "price" | "currencyCode" | "createdAt" | "updatedAt", ExtArgs["result"]["regionalPricing"]>
 export type RegionalPricingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.RegionalPricing$variantArgs<ExtArgs>
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
 }
 export type RegionalPricingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.RegionalPricing$variantArgs<ExtArgs>
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
 }
 export type RegionalPricingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.RegionalPricing$variantArgs<ExtArgs>
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
 }
 
 export type $RegionalPricingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RegionalPricing"
   objects: {
+    product: Prisma.$ProductPayload<ExtArgs>
+    variant: Prisma.$ProductVariantPayload<ExtArgs> | null
     region: Prisma.$RegionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     productId: string
+    variantId: string | null
     regionId: string
     price: runtime.Decimal
     currencyCode: string
@@ -1009,6 +1318,8 @@ readonly fields: RegionalPricingFieldRefs;
  */
 export interface Prisma__RegionalPricingClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  variant<T extends Prisma.RegionalPricing$variantArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RegionalPricing$variantArgs<ExtArgs>>): Prisma.Prisma__ProductVariantClient<runtime.Types.Result.GetResult<Prisma.$ProductVariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   region<T extends Prisma.RegionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RegionDefaultArgs<ExtArgs>>): Prisma.Prisma__RegionClient<runtime.Types.Result.GetResult<Prisma.$RegionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1041,6 +1352,7 @@ export interface Prisma__RegionalPricingClient<T, Null = never, ExtArgs extends 
 export interface RegionalPricingFieldRefs {
   readonly id: Prisma.FieldRef<"RegionalPricing", 'String'>
   readonly productId: Prisma.FieldRef<"RegionalPricing", 'String'>
+  readonly variantId: Prisma.FieldRef<"RegionalPricing", 'String'>
   readonly regionId: Prisma.FieldRef<"RegionalPricing", 'String'>
   readonly price: Prisma.FieldRef<"RegionalPricing", 'Decimal'>
   readonly currencyCode: Prisma.FieldRef<"RegionalPricing", 'String'>
@@ -1444,6 +1756,25 @@ export type RegionalPricingDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many RegionalPricings to delete.
    */
   limit?: number
+}
+
+/**
+ * RegionalPricing.variant
+ */
+export type RegionalPricing$variantArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductVariant
+   */
+  select?: Prisma.ProductVariantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductVariant
+   */
+  omit?: Prisma.ProductVariantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductVariantInclude<ExtArgs> | null
+  where?: Prisma.ProductVariantWhereInput
 }
 
 /**

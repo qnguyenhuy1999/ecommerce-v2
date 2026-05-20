@@ -40,14 +40,16 @@ function getSessionIdFromRequest(req: Request): string | undefined {
 }
 
 function toAdminSessionData(session: {
-  roles: string[]
   [key: string]: unknown
 }): AdminSessionData {
   const adminId = session.adminId
   const permissions = session.permissions
+  const roles = session.roles
 
   if (
     typeof adminId !== 'string' ||
+    !Array.isArray(roles) ||
+    !roles.every((role) => typeof role === 'string') ||
     !Array.isArray(permissions) ||
     !permissions.every((permission) => typeof permission === 'string')
   ) {
@@ -56,7 +58,7 @@ function toAdminSessionData(session: {
 
   return {
     adminId,
-    roles: session.roles,
+    roles,
     permissions,
   }
 }

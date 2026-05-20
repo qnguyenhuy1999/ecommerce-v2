@@ -297,6 +297,7 @@ export type WalletWithdrawalWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"WalletWithdrawal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WalletWithdrawal"> | Date | string
   wallet?: Prisma.XOR<Prisma.WalletScalarRelationFilter, Prisma.WalletWhereInput>
+  approvedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }
 
 export type WalletWithdrawalOrderByWithRelationInput = {
@@ -316,6 +317,7 @@ export type WalletWithdrawalOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   wallet?: Prisma.WalletOrderByWithRelationInput
+  approvedByAdmin?: Prisma.AdminOrderByWithRelationInput
 }
 
 export type WalletWithdrawalWhereUniqueInput = Prisma.AtLeast<{
@@ -338,6 +340,7 @@ export type WalletWithdrawalWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"WalletWithdrawal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WalletWithdrawal"> | Date | string
   wallet?: Prisma.XOR<Prisma.WalletScalarRelationFilter, Prisma.WalletWhereInput>
+  approvedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }, "id">
 
 export type WalletWithdrawalOrderByWithAggregationInput = {
@@ -393,13 +396,13 @@ export type WalletWithdrawalCreateInput = {
   accountHolder?: string | null
   paymentRef?: string | null
   note?: string | null
-  approvedBy?: string | null
   approvedAt?: Date | string | null
   processedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   wallet: Prisma.WalletCreateNestedOneWithoutWithdrawalsInput
+  approvedByAdmin?: Prisma.AdminCreateNestedOneWithoutWalletWithdrawalsApprovedInput
 }
 
 export type WalletWithdrawalUncheckedCreateInput = {
@@ -429,13 +432,13 @@ export type WalletWithdrawalUpdateInput = {
   accountHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUpdateOneRequiredWithoutWithdrawalsNestedInput
+  approvedByAdmin?: Prisma.AdminUpdateOneWithoutWalletWithdrawalsApprovedNestedInput
 }
 
 export type WalletWithdrawalUncheckedUpdateInput = {
@@ -483,7 +486,6 @@ export type WalletWithdrawalUpdateManyMutationInput = {
   accountHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -627,6 +629,48 @@ export type EnumWithdrawalStatusFieldUpdateOperationsInput = {
   set?: $Enums.WithdrawalStatus
 }
 
+export type WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput = {
+  create?: Prisma.XOR<Prisma.WalletWithdrawalCreateWithoutApprovedByAdminInput, Prisma.WalletWithdrawalUncheckedCreateWithoutApprovedByAdminInput> | Prisma.WalletWithdrawalCreateWithoutApprovedByAdminInput[] | Prisma.WalletWithdrawalUncheckedCreateWithoutApprovedByAdminInput[]
+  connectOrCreate?: Prisma.WalletWithdrawalCreateOrConnectWithoutApprovedByAdminInput | Prisma.WalletWithdrawalCreateOrConnectWithoutApprovedByAdminInput[]
+  createMany?: Prisma.WalletWithdrawalCreateManyApprovedByAdminInputEnvelope
+  connect?: Prisma.WalletWithdrawalWhereUniqueInput | Prisma.WalletWithdrawalWhereUniqueInput[]
+}
+
+export type WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput = {
+  create?: Prisma.XOR<Prisma.WalletWithdrawalCreateWithoutApprovedByAdminInput, Prisma.WalletWithdrawalUncheckedCreateWithoutApprovedByAdminInput> | Prisma.WalletWithdrawalCreateWithoutApprovedByAdminInput[] | Prisma.WalletWithdrawalUncheckedCreateWithoutApprovedByAdminInput[]
+  connectOrCreate?: Prisma.WalletWithdrawalCreateOrConnectWithoutApprovedByAdminInput | Prisma.WalletWithdrawalCreateOrConnectWithoutApprovedByAdminInput[]
+  createMany?: Prisma.WalletWithdrawalCreateManyApprovedByAdminInputEnvelope
+  connect?: Prisma.WalletWithdrawalWhereUniqueInput | Prisma.WalletWithdrawalWhereUniqueInput[]
+}
+
+export type WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.WalletWithdrawalCreateWithoutApprovedByAdminInput, Prisma.WalletWithdrawalUncheckedCreateWithoutApprovedByAdminInput> | Prisma.WalletWithdrawalCreateWithoutApprovedByAdminInput[] | Prisma.WalletWithdrawalUncheckedCreateWithoutApprovedByAdminInput[]
+  connectOrCreate?: Prisma.WalletWithdrawalCreateOrConnectWithoutApprovedByAdminInput | Prisma.WalletWithdrawalCreateOrConnectWithoutApprovedByAdminInput[]
+  upsert?: Prisma.WalletWithdrawalUpsertWithWhereUniqueWithoutApprovedByAdminInput | Prisma.WalletWithdrawalUpsertWithWhereUniqueWithoutApprovedByAdminInput[]
+  createMany?: Prisma.WalletWithdrawalCreateManyApprovedByAdminInputEnvelope
+  set?: Prisma.WalletWithdrawalWhereUniqueInput | Prisma.WalletWithdrawalWhereUniqueInput[]
+  disconnect?: Prisma.WalletWithdrawalWhereUniqueInput | Prisma.WalletWithdrawalWhereUniqueInput[]
+  delete?: Prisma.WalletWithdrawalWhereUniqueInput | Prisma.WalletWithdrawalWhereUniqueInput[]
+  connect?: Prisma.WalletWithdrawalWhereUniqueInput | Prisma.WalletWithdrawalWhereUniqueInput[]
+  update?: Prisma.WalletWithdrawalUpdateWithWhereUniqueWithoutApprovedByAdminInput | Prisma.WalletWithdrawalUpdateWithWhereUniqueWithoutApprovedByAdminInput[]
+  updateMany?: Prisma.WalletWithdrawalUpdateManyWithWhereWithoutApprovedByAdminInput | Prisma.WalletWithdrawalUpdateManyWithWhereWithoutApprovedByAdminInput[]
+  deleteMany?: Prisma.WalletWithdrawalScalarWhereInput | Prisma.WalletWithdrawalScalarWhereInput[]
+}
+
+export type WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.WalletWithdrawalCreateWithoutApprovedByAdminInput, Prisma.WalletWithdrawalUncheckedCreateWithoutApprovedByAdminInput> | Prisma.WalletWithdrawalCreateWithoutApprovedByAdminInput[] | Prisma.WalletWithdrawalUncheckedCreateWithoutApprovedByAdminInput[]
+  connectOrCreate?: Prisma.WalletWithdrawalCreateOrConnectWithoutApprovedByAdminInput | Prisma.WalletWithdrawalCreateOrConnectWithoutApprovedByAdminInput[]
+  upsert?: Prisma.WalletWithdrawalUpsertWithWhereUniqueWithoutApprovedByAdminInput | Prisma.WalletWithdrawalUpsertWithWhereUniqueWithoutApprovedByAdminInput[]
+  createMany?: Prisma.WalletWithdrawalCreateManyApprovedByAdminInputEnvelope
+  set?: Prisma.WalletWithdrawalWhereUniqueInput | Prisma.WalletWithdrawalWhereUniqueInput[]
+  disconnect?: Prisma.WalletWithdrawalWhereUniqueInput | Prisma.WalletWithdrawalWhereUniqueInput[]
+  delete?: Prisma.WalletWithdrawalWhereUniqueInput | Prisma.WalletWithdrawalWhereUniqueInput[]
+  connect?: Prisma.WalletWithdrawalWhereUniqueInput | Prisma.WalletWithdrawalWhereUniqueInput[]
+  update?: Prisma.WalletWithdrawalUpdateWithWhereUniqueWithoutApprovedByAdminInput | Prisma.WalletWithdrawalUpdateWithWhereUniqueWithoutApprovedByAdminInput[]
+  updateMany?: Prisma.WalletWithdrawalUpdateManyWithWhereWithoutApprovedByAdminInput | Prisma.WalletWithdrawalUpdateManyWithWhereWithoutApprovedByAdminInput[]
+  deleteMany?: Prisma.WalletWithdrawalScalarWhereInput | Prisma.WalletWithdrawalScalarWhereInput[]
+}
+
 export type WalletWithdrawalCreateWithoutWalletInput = {
   id?: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -636,12 +680,12 @@ export type WalletWithdrawalCreateWithoutWalletInput = {
   accountHolder?: string | null
   paymentRef?: string | null
   note?: string | null
-  approvedBy?: string | null
   approvedAt?: Date | string | null
   processedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  approvedByAdmin?: Prisma.AdminCreateNestedOneWithoutWalletWithdrawalsApprovedInput
 }
 
 export type WalletWithdrawalUncheckedCreateWithoutWalletInput = {
@@ -708,6 +752,66 @@ export type WalletWithdrawalScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"WalletWithdrawal"> | Date | string
 }
 
+export type WalletWithdrawalCreateWithoutApprovedByAdminInput = {
+  id?: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.WithdrawalStatus
+  bankName?: string | null
+  accountNumber?: string | null
+  accountHolder?: string | null
+  paymentRef?: string | null
+  note?: string | null
+  approvedAt?: Date | string | null
+  processedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  wallet: Prisma.WalletCreateNestedOneWithoutWithdrawalsInput
+}
+
+export type WalletWithdrawalUncheckedCreateWithoutApprovedByAdminInput = {
+  id?: string
+  walletId: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.WithdrawalStatus
+  bankName?: string | null
+  accountNumber?: string | null
+  accountHolder?: string | null
+  paymentRef?: string | null
+  note?: string | null
+  approvedAt?: Date | string | null
+  processedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type WalletWithdrawalCreateOrConnectWithoutApprovedByAdminInput = {
+  where: Prisma.WalletWithdrawalWhereUniqueInput
+  create: Prisma.XOR<Prisma.WalletWithdrawalCreateWithoutApprovedByAdminInput, Prisma.WalletWithdrawalUncheckedCreateWithoutApprovedByAdminInput>
+}
+
+export type WalletWithdrawalCreateManyApprovedByAdminInputEnvelope = {
+  data: Prisma.WalletWithdrawalCreateManyApprovedByAdminInput | Prisma.WalletWithdrawalCreateManyApprovedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type WalletWithdrawalUpsertWithWhereUniqueWithoutApprovedByAdminInput = {
+  where: Prisma.WalletWithdrawalWhereUniqueInput
+  update: Prisma.XOR<Prisma.WalletWithdrawalUpdateWithoutApprovedByAdminInput, Prisma.WalletWithdrawalUncheckedUpdateWithoutApprovedByAdminInput>
+  create: Prisma.XOR<Prisma.WalletWithdrawalCreateWithoutApprovedByAdminInput, Prisma.WalletWithdrawalUncheckedCreateWithoutApprovedByAdminInput>
+}
+
+export type WalletWithdrawalUpdateWithWhereUniqueWithoutApprovedByAdminInput = {
+  where: Prisma.WalletWithdrawalWhereUniqueInput
+  data: Prisma.XOR<Prisma.WalletWithdrawalUpdateWithoutApprovedByAdminInput, Prisma.WalletWithdrawalUncheckedUpdateWithoutApprovedByAdminInput>
+}
+
+export type WalletWithdrawalUpdateManyWithWhereWithoutApprovedByAdminInput = {
+  where: Prisma.WalletWithdrawalScalarWhereInput
+  data: Prisma.XOR<Prisma.WalletWithdrawalUpdateManyMutationInput, Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminInput>
+}
+
 export type WalletWithdrawalCreateManyWalletInput = {
   id?: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -734,12 +838,12 @@ export type WalletWithdrawalUpdateWithoutWalletInput = {
   accountHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvedByAdmin?: Prisma.AdminUpdateOneWithoutWalletWithdrawalsApprovedNestedInput
 }
 
 export type WalletWithdrawalUncheckedUpdateWithoutWalletInput = {
@@ -776,6 +880,74 @@ export type WalletWithdrawalUncheckedUpdateManyWithoutWalletInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type WalletWithdrawalCreateManyApprovedByAdminInput = {
+  id?: string
+  walletId: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.WithdrawalStatus
+  bankName?: string | null
+  accountNumber?: string | null
+  accountHolder?: string | null
+  paymentRef?: string | null
+  note?: string | null
+  approvedAt?: Date | string | null
+  processedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type WalletWithdrawalUpdateWithoutApprovedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumWithdrawalStatusFieldUpdateOperationsInput | $Enums.WithdrawalStatus
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wallet?: Prisma.WalletUpdateOneRequiredWithoutWithdrawalsNestedInput
+}
+
+export type WalletWithdrawalUncheckedUpdateWithoutApprovedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  walletId?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumWithdrawalStatusFieldUpdateOperationsInput | $Enums.WithdrawalStatus
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  walletId?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumWithdrawalStatusFieldUpdateOperationsInput | $Enums.WithdrawalStatus
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type WalletWithdrawalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -795,6 +967,7 @@ export type WalletWithdrawalSelect<ExtArgs extends runtime.Types.Extensions.Inte
   createdAt?: boolean
   updatedAt?: boolean
   wallet?: boolean | Prisma.WalletDefaultArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.WalletWithdrawal$approvedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["walletWithdrawal"]>
 
 export type WalletWithdrawalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -814,6 +987,7 @@ export type WalletWithdrawalSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   createdAt?: boolean
   updatedAt?: boolean
   wallet?: boolean | Prisma.WalletDefaultArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.WalletWithdrawal$approvedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["walletWithdrawal"]>
 
 export type WalletWithdrawalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -833,6 +1007,7 @@ export type WalletWithdrawalSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   createdAt?: boolean
   updatedAt?: boolean
   wallet?: boolean | Prisma.WalletDefaultArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.WalletWithdrawal$approvedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["walletWithdrawal"]>
 
 export type WalletWithdrawalSelectScalar = {
@@ -856,18 +1031,22 @@ export type WalletWithdrawalSelectScalar = {
 export type WalletWithdrawalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "walletId" | "amount" | "status" | "bankName" | "accountNumber" | "accountHolder" | "paymentRef" | "note" | "approvedBy" | "approvedAt" | "processedAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["walletWithdrawal"]>
 export type WalletWithdrawalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   wallet?: boolean | Prisma.WalletDefaultArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.WalletWithdrawal$approvedByAdminArgs<ExtArgs>
 }
 export type WalletWithdrawalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   wallet?: boolean | Prisma.WalletDefaultArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.WalletWithdrawal$approvedByAdminArgs<ExtArgs>
 }
 export type WalletWithdrawalIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   wallet?: boolean | Prisma.WalletDefaultArgs<ExtArgs>
+  approvedByAdmin?: boolean | Prisma.WalletWithdrawal$approvedByAdminArgs<ExtArgs>
 }
 
 export type $WalletWithdrawalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "WalletWithdrawal"
   objects: {
     wallet: Prisma.$WalletPayload<ExtArgs>
+    approvedByAdmin: Prisma.$AdminPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1280,6 +1459,7 @@ readonly fields: WalletWithdrawalFieldRefs;
 export interface Prisma__WalletWithdrawalClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   wallet<T extends Prisma.WalletDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WalletDefaultArgs<ExtArgs>>): Prisma.Prisma__WalletClient<runtime.Types.Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  approvedByAdmin<T extends Prisma.WalletWithdrawal$approvedByAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WalletWithdrawal$approvedByAdminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1722,6 +1902,25 @@ export type WalletWithdrawalDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many WalletWithdrawals to delete.
    */
   limit?: number
+}
+
+/**
+ * WalletWithdrawal.approvedByAdmin
+ */
+export type WalletWithdrawal$approvedByAdminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
 }
 
 /**

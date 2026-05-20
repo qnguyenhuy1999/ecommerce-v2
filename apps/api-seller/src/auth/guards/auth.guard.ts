@@ -5,9 +5,12 @@ import { SessionService } from '@ecom/auth'
 import { SESSION_COOKIE_NAME } from '@ecom/auth'
 import { SESSION_SERVICE } from '../session.provider'
 
-type UserRequest = Request & { user?: { userId: string; roles: string[] } }
+type SellerSessionData = {
+  userId: string
+  sellerProfileId: string
+}
 
-const SELLER_ROLE = 'seller'
+type UserRequest = Request & { user?: SellerSessionData }
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -29,11 +32,14 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('Session expired or invalid')
     }
 
-    if (!session.roles.includes(SELLER_ROLE)) {
+    if (typeof session.sellerProfileId !== 'string') {
       throw new UnauthorizedException('Seller access required')
     }
 
-    request.user = session
+    request.user = {
+      userId: session.userId,
+      sellerProfileId: session.sellerProfileId,
+    }
     return true
   }
 }

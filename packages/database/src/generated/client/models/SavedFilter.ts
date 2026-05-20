@@ -202,6 +202,7 @@ export type SavedFilterWhereInput = {
   isDefault?: Prisma.BoolFilter<"SavedFilter"> | boolean
   createdAt?: Prisma.DateTimeFilter<"SavedFilter"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SavedFilter"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }
 
 export type SavedFilterOrderByWithRelationInput = {
@@ -213,6 +214,7 @@ export type SavedFilterOrderByWithRelationInput = {
   isDefault?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  shop?: Prisma.ShopOrderByWithRelationInput
 }
 
 export type SavedFilterWhereUniqueInput = Prisma.AtLeast<{
@@ -227,6 +229,7 @@ export type SavedFilterWhereUniqueInput = Prisma.AtLeast<{
   isDefault?: Prisma.BoolFilter<"SavedFilter"> | boolean
   createdAt?: Prisma.DateTimeFilter<"SavedFilter"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SavedFilter"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }, "id">
 
 export type SavedFilterOrderByWithAggregationInput = {
@@ -259,13 +262,13 @@ export type SavedFilterScalarWhereWithAggregatesInput = {
 
 export type SavedFilterCreateInput = {
   id?: string
-  shopId: string
   name: string
   entity: string
   filters: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isDefault?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutSavedFiltersInput
 }
 
 export type SavedFilterUncheckedCreateInput = {
@@ -281,13 +284,13 @@ export type SavedFilterUncheckedCreateInput = {
 
 export type SavedFilterUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   entity?: Prisma.StringFieldUpdateOperationsInput | string
   filters?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutSavedFiltersNestedInput
 }
 
 export type SavedFilterUncheckedUpdateInput = {
@@ -314,7 +317,6 @@ export type SavedFilterCreateManyInput = {
 
 export type SavedFilterUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   entity?: Prisma.StringFieldUpdateOperationsInput | string
   filters?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -332,6 +334,16 @@ export type SavedFilterUncheckedUpdateManyInput = {
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SavedFilterListRelationFilter = {
+  every?: Prisma.SavedFilterWhereInput
+  some?: Prisma.SavedFilterWhereInput
+  none?: Prisma.SavedFilterWhereInput
+}
+
+export type SavedFilterOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type SavedFilterCountOrderByAggregateInput = {
@@ -365,6 +377,148 @@ export type SavedFilterMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type SavedFilterCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.SavedFilterCreateWithoutShopInput, Prisma.SavedFilterUncheckedCreateWithoutShopInput> | Prisma.SavedFilterCreateWithoutShopInput[] | Prisma.SavedFilterUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.SavedFilterCreateOrConnectWithoutShopInput | Prisma.SavedFilterCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.SavedFilterCreateManyShopInputEnvelope
+  connect?: Prisma.SavedFilterWhereUniqueInput | Prisma.SavedFilterWhereUniqueInput[]
+}
+
+export type SavedFilterUncheckedCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.SavedFilterCreateWithoutShopInput, Prisma.SavedFilterUncheckedCreateWithoutShopInput> | Prisma.SavedFilterCreateWithoutShopInput[] | Prisma.SavedFilterUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.SavedFilterCreateOrConnectWithoutShopInput | Prisma.SavedFilterCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.SavedFilterCreateManyShopInputEnvelope
+  connect?: Prisma.SavedFilterWhereUniqueInput | Prisma.SavedFilterWhereUniqueInput[]
+}
+
+export type SavedFilterUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.SavedFilterCreateWithoutShopInput, Prisma.SavedFilterUncheckedCreateWithoutShopInput> | Prisma.SavedFilterCreateWithoutShopInput[] | Prisma.SavedFilterUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.SavedFilterCreateOrConnectWithoutShopInput | Prisma.SavedFilterCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.SavedFilterUpsertWithWhereUniqueWithoutShopInput | Prisma.SavedFilterUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.SavedFilterCreateManyShopInputEnvelope
+  set?: Prisma.SavedFilterWhereUniqueInput | Prisma.SavedFilterWhereUniqueInput[]
+  disconnect?: Prisma.SavedFilterWhereUniqueInput | Prisma.SavedFilterWhereUniqueInput[]
+  delete?: Prisma.SavedFilterWhereUniqueInput | Prisma.SavedFilterWhereUniqueInput[]
+  connect?: Prisma.SavedFilterWhereUniqueInput | Prisma.SavedFilterWhereUniqueInput[]
+  update?: Prisma.SavedFilterUpdateWithWhereUniqueWithoutShopInput | Prisma.SavedFilterUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.SavedFilterUpdateManyWithWhereWithoutShopInput | Prisma.SavedFilterUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.SavedFilterScalarWhereInput | Prisma.SavedFilterScalarWhereInput[]
+}
+
+export type SavedFilterUncheckedUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.SavedFilterCreateWithoutShopInput, Prisma.SavedFilterUncheckedCreateWithoutShopInput> | Prisma.SavedFilterCreateWithoutShopInput[] | Prisma.SavedFilterUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.SavedFilterCreateOrConnectWithoutShopInput | Prisma.SavedFilterCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.SavedFilterUpsertWithWhereUniqueWithoutShopInput | Prisma.SavedFilterUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.SavedFilterCreateManyShopInputEnvelope
+  set?: Prisma.SavedFilterWhereUniqueInput | Prisma.SavedFilterWhereUniqueInput[]
+  disconnect?: Prisma.SavedFilterWhereUniqueInput | Prisma.SavedFilterWhereUniqueInput[]
+  delete?: Prisma.SavedFilterWhereUniqueInput | Prisma.SavedFilterWhereUniqueInput[]
+  connect?: Prisma.SavedFilterWhereUniqueInput | Prisma.SavedFilterWhereUniqueInput[]
+  update?: Prisma.SavedFilterUpdateWithWhereUniqueWithoutShopInput | Prisma.SavedFilterUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.SavedFilterUpdateManyWithWhereWithoutShopInput | Prisma.SavedFilterUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.SavedFilterScalarWhereInput | Prisma.SavedFilterScalarWhereInput[]
+}
+
+export type SavedFilterCreateWithoutShopInput = {
+  id?: string
+  name: string
+  entity: string
+  filters: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isDefault?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type SavedFilterUncheckedCreateWithoutShopInput = {
+  id?: string
+  name: string
+  entity: string
+  filters: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isDefault?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type SavedFilterCreateOrConnectWithoutShopInput = {
+  where: Prisma.SavedFilterWhereUniqueInput
+  create: Prisma.XOR<Prisma.SavedFilterCreateWithoutShopInput, Prisma.SavedFilterUncheckedCreateWithoutShopInput>
+}
+
+export type SavedFilterCreateManyShopInputEnvelope = {
+  data: Prisma.SavedFilterCreateManyShopInput | Prisma.SavedFilterCreateManyShopInput[]
+  skipDuplicates?: boolean
+}
+
+export type SavedFilterUpsertWithWhereUniqueWithoutShopInput = {
+  where: Prisma.SavedFilterWhereUniqueInput
+  update: Prisma.XOR<Prisma.SavedFilterUpdateWithoutShopInput, Prisma.SavedFilterUncheckedUpdateWithoutShopInput>
+  create: Prisma.XOR<Prisma.SavedFilterCreateWithoutShopInput, Prisma.SavedFilterUncheckedCreateWithoutShopInput>
+}
+
+export type SavedFilterUpdateWithWhereUniqueWithoutShopInput = {
+  where: Prisma.SavedFilterWhereUniqueInput
+  data: Prisma.XOR<Prisma.SavedFilterUpdateWithoutShopInput, Prisma.SavedFilterUncheckedUpdateWithoutShopInput>
+}
+
+export type SavedFilterUpdateManyWithWhereWithoutShopInput = {
+  where: Prisma.SavedFilterScalarWhereInput
+  data: Prisma.XOR<Prisma.SavedFilterUpdateManyMutationInput, Prisma.SavedFilterUncheckedUpdateManyWithoutShopInput>
+}
+
+export type SavedFilterScalarWhereInput = {
+  AND?: Prisma.SavedFilterScalarWhereInput | Prisma.SavedFilterScalarWhereInput[]
+  OR?: Prisma.SavedFilterScalarWhereInput[]
+  NOT?: Prisma.SavedFilterScalarWhereInput | Prisma.SavedFilterScalarWhereInput[]
+  id?: Prisma.UuidFilter<"SavedFilter"> | string
+  shopId?: Prisma.UuidFilter<"SavedFilter"> | string
+  name?: Prisma.StringFilter<"SavedFilter"> | string
+  entity?: Prisma.StringFilter<"SavedFilter"> | string
+  filters?: Prisma.JsonFilter<"SavedFilter">
+  isDefault?: Prisma.BoolFilter<"SavedFilter"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"SavedFilter"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"SavedFilter"> | Date | string
+}
+
+export type SavedFilterCreateManyShopInput = {
+  id?: string
+  name: string
+  entity: string
+  filters: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isDefault?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type SavedFilterUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  entity?: Prisma.StringFieldUpdateOperationsInput | string
+  filters?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SavedFilterUncheckedUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  entity?: Prisma.StringFieldUpdateOperationsInput | string
+  filters?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SavedFilterUncheckedUpdateManyWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  entity?: Prisma.StringFieldUpdateOperationsInput | string
+  filters?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type SavedFilterSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -376,6 +530,7 @@ export type SavedFilterSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   isDefault?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["savedFilter"]>
 
 export type SavedFilterSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -387,6 +542,7 @@ export type SavedFilterSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   isDefault?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["savedFilter"]>
 
 export type SavedFilterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -398,6 +554,7 @@ export type SavedFilterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   isDefault?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["savedFilter"]>
 
 export type SavedFilterSelectScalar = {
@@ -412,10 +569,21 @@ export type SavedFilterSelectScalar = {
 }
 
 export type SavedFilterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopId" | "name" | "entity" | "filters" | "isDefault" | "createdAt" | "updatedAt", ExtArgs["result"]["savedFilter"]>
+export type SavedFilterInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
+export type SavedFilterIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
+export type SavedFilterIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
 
 export type $SavedFilterPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SavedFilter"
-  objects: {}
+  objects: {
+    shop: Prisma.$ShopPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     shopId: string
@@ -819,6 +987,7 @@ readonly fields: SavedFilterFieldRefs;
  */
 export interface Prisma__SavedFilterClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  shop<T extends Prisma.ShopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShopDefaultArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -873,6 +1042,10 @@ export type SavedFilterFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.SavedFilterOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterInclude<ExtArgs> | null
+  /**
    * Filter, which SavedFilter to fetch.
    */
   where: Prisma.SavedFilterWhereUniqueInput
@@ -891,6 +1064,10 @@ export type SavedFilterFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Exten
    */
   omit?: Prisma.SavedFilterOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterInclude<ExtArgs> | null
+  /**
    * Filter, which SavedFilter to fetch.
    */
   where: Prisma.SavedFilterWhereUniqueInput
@@ -908,6 +1085,10 @@ export type SavedFilterFindFirstArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the SavedFilter
    */
   omit?: Prisma.SavedFilterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterInclude<ExtArgs> | null
   /**
    * Filter, which SavedFilter to fetch.
    */
@@ -957,6 +1138,10 @@ export type SavedFilterFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extens
    */
   omit?: Prisma.SavedFilterOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterInclude<ExtArgs> | null
+  /**
    * Filter, which SavedFilter to fetch.
    */
   where?: Prisma.SavedFilterWhereInput
@@ -1004,6 +1189,10 @@ export type SavedFilterFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the SavedFilter
    */
   omit?: Prisma.SavedFilterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterInclude<ExtArgs> | null
   /**
    * Filter, which SavedFilters to fetch.
    */
@@ -1053,6 +1242,10 @@ export type SavedFilterCreateArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.SavedFilterOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterInclude<ExtArgs> | null
+  /**
    * The data needed to create a SavedFilter.
    */
   data: Prisma.XOR<Prisma.SavedFilterCreateInput, Prisma.SavedFilterUncheckedCreateInput>
@@ -1086,6 +1279,10 @@ export type SavedFilterCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    */
   data: Prisma.SavedFilterCreateManyInput | Prisma.SavedFilterCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1100,6 +1297,10 @@ export type SavedFilterUpdateArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the SavedFilter
    */
   omit?: Prisma.SavedFilterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterInclude<ExtArgs> | null
   /**
    * The data needed to update a SavedFilter.
    */
@@ -1152,6 +1353,10 @@ export type SavedFilterUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    * Limit how many SavedFilters to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1166,6 +1371,10 @@ export type SavedFilterUpsertArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the SavedFilter
    */
   omit?: Prisma.SavedFilterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterInclude<ExtArgs> | null
   /**
    * The filter to search for the SavedFilter to update in case it exists.
    */
@@ -1192,6 +1401,10 @@ export type SavedFilterDeleteArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the SavedFilter
    */
   omit?: Prisma.SavedFilterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterInclude<ExtArgs> | null
   /**
    * Filter which SavedFilter to delete.
    */
@@ -1224,4 +1437,8 @@ export type SavedFilterDefaultArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the SavedFilter
    */
   omit?: Prisma.SavedFilterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterInclude<ExtArgs> | null
 }

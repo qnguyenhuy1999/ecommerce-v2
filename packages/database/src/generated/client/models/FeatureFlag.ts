@@ -244,6 +244,7 @@ export type FeatureFlagWhereInput = {
   rolloutPercentage?: Prisma.IntFilter<"FeatureFlag"> | number
   createdAt?: Prisma.DateTimeFilter<"FeatureFlag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FeatureFlag"> | Date | string
+  experiments?: Prisma.ExperimentListRelationFilter
 }
 
 export type FeatureFlagOrderByWithRelationInput = {
@@ -256,6 +257,7 @@ export type FeatureFlagOrderByWithRelationInput = {
   rolloutPercentage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  experiments?: Prisma.ExperimentOrderByRelationAggregateInput
 }
 
 export type FeatureFlagWhereUniqueInput = Prisma.AtLeast<{
@@ -271,6 +273,7 @@ export type FeatureFlagWhereUniqueInput = Prisma.AtLeast<{
   rolloutPercentage?: Prisma.IntFilter<"FeatureFlag"> | number
   createdAt?: Prisma.DateTimeFilter<"FeatureFlag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FeatureFlag"> | Date | string
+  experiments?: Prisma.ExperimentListRelationFilter
 }, "id" | "key">
 
 export type FeatureFlagOrderByWithAggregationInput = {
@@ -315,6 +318,7 @@ export type FeatureFlagCreateInput = {
   rolloutPercentage?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  experiments?: Prisma.ExperimentCreateNestedManyWithoutFeatureFlagInput
 }
 
 export type FeatureFlagUncheckedCreateInput = {
@@ -327,6 +331,7 @@ export type FeatureFlagUncheckedCreateInput = {
   rolloutPercentage?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  experiments?: Prisma.ExperimentUncheckedCreateNestedManyWithoutFeatureFlagInput
 }
 
 export type FeatureFlagUpdateInput = {
@@ -339,6 +344,7 @@ export type FeatureFlagUpdateInput = {
   rolloutPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  experiments?: Prisma.ExperimentUpdateManyWithoutFeatureFlagNestedInput
 }
 
 export type FeatureFlagUncheckedUpdateInput = {
@@ -351,6 +357,7 @@ export type FeatureFlagUncheckedUpdateInput = {
   rolloutPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  experiments?: Prisma.ExperimentUncheckedUpdateManyWithoutFeatureFlagNestedInput
 }
 
 export type FeatureFlagCreateManyInput = {
@@ -431,6 +438,120 @@ export type FeatureFlagSumOrderByAggregateInput = {
   rolloutPercentage?: Prisma.SortOrder
 }
 
+export type FeatureFlagNullableScalarRelationFilter = {
+  is?: Prisma.FeatureFlagWhereInput | null
+  isNot?: Prisma.FeatureFlagWhereInput | null
+}
+
+export type FeatureFlagCreateNestedOneWithoutExperimentsInput = {
+  create?: Prisma.XOR<Prisma.FeatureFlagCreateWithoutExperimentsInput, Prisma.FeatureFlagUncheckedCreateWithoutExperimentsInput>
+  connectOrCreate?: Prisma.FeatureFlagCreateOrConnectWithoutExperimentsInput
+  connect?: Prisma.FeatureFlagWhereUniqueInput
+}
+
+export type FeatureFlagUpdateOneWithoutExperimentsNestedInput = {
+  create?: Prisma.XOR<Prisma.FeatureFlagCreateWithoutExperimentsInput, Prisma.FeatureFlagUncheckedCreateWithoutExperimentsInput>
+  connectOrCreate?: Prisma.FeatureFlagCreateOrConnectWithoutExperimentsInput
+  upsert?: Prisma.FeatureFlagUpsertWithoutExperimentsInput
+  disconnect?: Prisma.FeatureFlagWhereInput | boolean
+  delete?: Prisma.FeatureFlagWhereInput | boolean
+  connect?: Prisma.FeatureFlagWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FeatureFlagUpdateToOneWithWhereWithoutExperimentsInput, Prisma.FeatureFlagUpdateWithoutExperimentsInput>, Prisma.FeatureFlagUncheckedUpdateWithoutExperimentsInput>
+}
+
+export type FeatureFlagCreateWithoutExperimentsInput = {
+  id?: string
+  key: string
+  name: string
+  description?: string | null
+  isEnabled?: boolean
+  targetRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rolloutPercentage?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FeatureFlagUncheckedCreateWithoutExperimentsInput = {
+  id?: string
+  key: string
+  name: string
+  description?: string | null
+  isEnabled?: boolean
+  targetRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rolloutPercentage?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FeatureFlagCreateOrConnectWithoutExperimentsInput = {
+  where: Prisma.FeatureFlagWhereUniqueInput
+  create: Prisma.XOR<Prisma.FeatureFlagCreateWithoutExperimentsInput, Prisma.FeatureFlagUncheckedCreateWithoutExperimentsInput>
+}
+
+export type FeatureFlagUpsertWithoutExperimentsInput = {
+  update: Prisma.XOR<Prisma.FeatureFlagUpdateWithoutExperimentsInput, Prisma.FeatureFlagUncheckedUpdateWithoutExperimentsInput>
+  create: Prisma.XOR<Prisma.FeatureFlagCreateWithoutExperimentsInput, Prisma.FeatureFlagUncheckedCreateWithoutExperimentsInput>
+  where?: Prisma.FeatureFlagWhereInput
+}
+
+export type FeatureFlagUpdateToOneWithWhereWithoutExperimentsInput = {
+  where?: Prisma.FeatureFlagWhereInput
+  data: Prisma.XOR<Prisma.FeatureFlagUpdateWithoutExperimentsInput, Prisma.FeatureFlagUncheckedUpdateWithoutExperimentsInput>
+}
+
+export type FeatureFlagUpdateWithoutExperimentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  key?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  targetRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rolloutPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FeatureFlagUncheckedUpdateWithoutExperimentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  key?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  targetRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rolloutPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type FeatureFlagCountOutputType
+ */
+
+export type FeatureFlagCountOutputType = {
+  experiments: number
+}
+
+export type FeatureFlagCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  experiments?: boolean | FeatureFlagCountOutputTypeCountExperimentsArgs
+}
+
+/**
+ * FeatureFlagCountOutputType without action
+ */
+export type FeatureFlagCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FeatureFlagCountOutputType
+   */
+  select?: Prisma.FeatureFlagCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * FeatureFlagCountOutputType without action
+ */
+export type FeatureFlagCountOutputTypeCountExperimentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExperimentWhereInput
+}
 
 
 export type FeatureFlagSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -443,6 +564,8 @@ export type FeatureFlagSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   rolloutPercentage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  experiments?: boolean | Prisma.FeatureFlag$experimentsArgs<ExtArgs>
+  _count?: boolean | Prisma.FeatureFlagCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["featureFlag"]>
 
 export type FeatureFlagSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -482,10 +605,18 @@ export type FeatureFlagSelectScalar = {
 }
 
 export type FeatureFlagOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "key" | "name" | "description" | "isEnabled" | "targetRules" | "rolloutPercentage" | "createdAt" | "updatedAt", ExtArgs["result"]["featureFlag"]>
+export type FeatureFlagInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  experiments?: boolean | Prisma.FeatureFlag$experimentsArgs<ExtArgs>
+  _count?: boolean | Prisma.FeatureFlagCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type FeatureFlagIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type FeatureFlagIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $FeatureFlagPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FeatureFlag"
-  objects: {}
+  objects: {
+    experiments: Prisma.$ExperimentPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     key: string
@@ -890,6 +1021,7 @@ readonly fields: FeatureFlagFieldRefs;
  */
 export interface Prisma__FeatureFlagClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  experiments<T extends Prisma.FeatureFlag$experimentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FeatureFlag$experimentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExperimentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -945,6 +1077,10 @@ export type FeatureFlagFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.FeatureFlagOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureFlagInclude<ExtArgs> | null
+  /**
    * Filter, which FeatureFlag to fetch.
    */
   where: Prisma.FeatureFlagWhereUniqueInput
@@ -963,6 +1099,10 @@ export type FeatureFlagFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Exten
    */
   omit?: Prisma.FeatureFlagOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureFlagInclude<ExtArgs> | null
+  /**
    * Filter, which FeatureFlag to fetch.
    */
   where: Prisma.FeatureFlagWhereUniqueInput
@@ -980,6 +1120,10 @@ export type FeatureFlagFindFirstArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the FeatureFlag
    */
   omit?: Prisma.FeatureFlagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureFlagInclude<ExtArgs> | null
   /**
    * Filter, which FeatureFlag to fetch.
    */
@@ -1029,6 +1173,10 @@ export type FeatureFlagFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extens
    */
   omit?: Prisma.FeatureFlagOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureFlagInclude<ExtArgs> | null
+  /**
    * Filter, which FeatureFlag to fetch.
    */
   where?: Prisma.FeatureFlagWhereInput
@@ -1076,6 +1224,10 @@ export type FeatureFlagFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the FeatureFlag
    */
   omit?: Prisma.FeatureFlagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureFlagInclude<ExtArgs> | null
   /**
    * Filter, which FeatureFlags to fetch.
    */
@@ -1125,6 +1277,10 @@ export type FeatureFlagCreateArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.FeatureFlagOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureFlagInclude<ExtArgs> | null
+  /**
    * The data needed to create a FeatureFlag.
    */
   data: Prisma.XOR<Prisma.FeatureFlagCreateInput, Prisma.FeatureFlagUncheckedCreateInput>
@@ -1172,6 +1328,10 @@ export type FeatureFlagUpdateArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the FeatureFlag
    */
   omit?: Prisma.FeatureFlagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureFlagInclude<ExtArgs> | null
   /**
    * The data needed to update a FeatureFlag.
    */
@@ -1239,6 +1399,10 @@ export type FeatureFlagUpsertArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.FeatureFlagOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureFlagInclude<ExtArgs> | null
+  /**
    * The filter to search for the FeatureFlag to update in case it exists.
    */
   where: Prisma.FeatureFlagWhereUniqueInput
@@ -1265,6 +1429,10 @@ export type FeatureFlagDeleteArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.FeatureFlagOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureFlagInclude<ExtArgs> | null
+  /**
    * Filter which FeatureFlag to delete.
    */
   where: Prisma.FeatureFlagWhereUniqueInput
@@ -1285,6 +1453,30 @@ export type FeatureFlagDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
+ * FeatureFlag.experiments
+ */
+export type FeatureFlag$experimentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Experiment
+   */
+  select?: Prisma.ExperimentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Experiment
+   */
+  omit?: Prisma.ExperimentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExperimentInclude<ExtArgs> | null
+  where?: Prisma.ExperimentWhereInput
+  orderBy?: Prisma.ExperimentOrderByWithRelationInput | Prisma.ExperimentOrderByWithRelationInput[]
+  cursor?: Prisma.ExperimentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExperimentScalarFieldEnum | Prisma.ExperimentScalarFieldEnum[]
+}
+
+/**
  * FeatureFlag without action
  */
 export type FeatureFlagDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1296,4 +1488,8 @@ export type FeatureFlagDefaultArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the FeatureFlag
    */
   omit?: Prisma.FeatureFlagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureFlagInclude<ExtArgs> | null
 }

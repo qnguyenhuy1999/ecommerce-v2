@@ -216,6 +216,7 @@ export type LoyaltyRedemptionWhereInput = {
   rewardId?: Prisma.UuidFilter<"LoyaltyRedemption"> | string
   pointsSpent?: Prisma.IntFilter<"LoyaltyRedemption"> | number
   createdAt?: Prisma.DateTimeFilter<"LoyaltyRedemption"> | Date | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   reward?: Prisma.XOR<Prisma.LoyaltyRewardScalarRelationFilter, Prisma.LoyaltyRewardWhereInput>
 }
 
@@ -225,6 +226,7 @@ export type LoyaltyRedemptionOrderByWithRelationInput = {
   rewardId?: Prisma.SortOrder
   pointsSpent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
   reward?: Prisma.LoyaltyRewardOrderByWithRelationInput
 }
 
@@ -237,6 +239,7 @@ export type LoyaltyRedemptionWhereUniqueInput = Prisma.AtLeast<{
   rewardId?: Prisma.UuidFilter<"LoyaltyRedemption"> | string
   pointsSpent?: Prisma.IntFilter<"LoyaltyRedemption"> | number
   createdAt?: Prisma.DateTimeFilter<"LoyaltyRedemption"> | Date | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   reward?: Prisma.XOR<Prisma.LoyaltyRewardScalarRelationFilter, Prisma.LoyaltyRewardWhereInput>
 }, "id">
 
@@ -266,9 +269,9 @@ export type LoyaltyRedemptionScalarWhereWithAggregatesInput = {
 
 export type LoyaltyRedemptionCreateInput = {
   id?: string
-  userId: string
   pointsSpent: number
   createdAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutLoyaltyRedemptionsInput
   reward: Prisma.LoyaltyRewardCreateNestedOneWithoutRedemptionsInput
 }
 
@@ -282,9 +285,9 @@ export type LoyaltyRedemptionUncheckedCreateInput = {
 
 export type LoyaltyRedemptionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   pointsSpent?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutLoyaltyRedemptionsNestedInput
   reward?: Prisma.LoyaltyRewardUpdateOneRequiredWithoutRedemptionsNestedInput
 }
 
@@ -306,7 +309,6 @@ export type LoyaltyRedemptionCreateManyInput = {
 
 export type LoyaltyRedemptionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   pointsSpent?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -361,6 +363,48 @@ export type LoyaltyRedemptionSumOrderByAggregateInput = {
   pointsSpent?: Prisma.SortOrder
 }
 
+export type LoyaltyRedemptionCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.LoyaltyRedemptionCreateWithoutUserInput, Prisma.LoyaltyRedemptionUncheckedCreateWithoutUserInput> | Prisma.LoyaltyRedemptionCreateWithoutUserInput[] | Prisma.LoyaltyRedemptionUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.LoyaltyRedemptionCreateOrConnectWithoutUserInput | Prisma.LoyaltyRedemptionCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.LoyaltyRedemptionCreateManyUserInputEnvelope
+  connect?: Prisma.LoyaltyRedemptionWhereUniqueInput | Prisma.LoyaltyRedemptionWhereUniqueInput[]
+}
+
+export type LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.LoyaltyRedemptionCreateWithoutUserInput, Prisma.LoyaltyRedemptionUncheckedCreateWithoutUserInput> | Prisma.LoyaltyRedemptionCreateWithoutUserInput[] | Prisma.LoyaltyRedemptionUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.LoyaltyRedemptionCreateOrConnectWithoutUserInput | Prisma.LoyaltyRedemptionCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.LoyaltyRedemptionCreateManyUserInputEnvelope
+  connect?: Prisma.LoyaltyRedemptionWhereUniqueInput | Prisma.LoyaltyRedemptionWhereUniqueInput[]
+}
+
+export type LoyaltyRedemptionUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.LoyaltyRedemptionCreateWithoutUserInput, Prisma.LoyaltyRedemptionUncheckedCreateWithoutUserInput> | Prisma.LoyaltyRedemptionCreateWithoutUserInput[] | Prisma.LoyaltyRedemptionUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.LoyaltyRedemptionCreateOrConnectWithoutUserInput | Prisma.LoyaltyRedemptionCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.LoyaltyRedemptionUpsertWithWhereUniqueWithoutUserInput | Prisma.LoyaltyRedemptionUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.LoyaltyRedemptionCreateManyUserInputEnvelope
+  set?: Prisma.LoyaltyRedemptionWhereUniqueInput | Prisma.LoyaltyRedemptionWhereUniqueInput[]
+  disconnect?: Prisma.LoyaltyRedemptionWhereUniqueInput | Prisma.LoyaltyRedemptionWhereUniqueInput[]
+  delete?: Prisma.LoyaltyRedemptionWhereUniqueInput | Prisma.LoyaltyRedemptionWhereUniqueInput[]
+  connect?: Prisma.LoyaltyRedemptionWhereUniqueInput | Prisma.LoyaltyRedemptionWhereUniqueInput[]
+  update?: Prisma.LoyaltyRedemptionUpdateWithWhereUniqueWithoutUserInput | Prisma.LoyaltyRedemptionUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.LoyaltyRedemptionUpdateManyWithWhereWithoutUserInput | Prisma.LoyaltyRedemptionUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.LoyaltyRedemptionScalarWhereInput | Prisma.LoyaltyRedemptionScalarWhereInput[]
+}
+
+export type LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.LoyaltyRedemptionCreateWithoutUserInput, Prisma.LoyaltyRedemptionUncheckedCreateWithoutUserInput> | Prisma.LoyaltyRedemptionCreateWithoutUserInput[] | Prisma.LoyaltyRedemptionUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.LoyaltyRedemptionCreateOrConnectWithoutUserInput | Prisma.LoyaltyRedemptionCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.LoyaltyRedemptionUpsertWithWhereUniqueWithoutUserInput | Prisma.LoyaltyRedemptionUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.LoyaltyRedemptionCreateManyUserInputEnvelope
+  set?: Prisma.LoyaltyRedemptionWhereUniqueInput | Prisma.LoyaltyRedemptionWhereUniqueInput[]
+  disconnect?: Prisma.LoyaltyRedemptionWhereUniqueInput | Prisma.LoyaltyRedemptionWhereUniqueInput[]
+  delete?: Prisma.LoyaltyRedemptionWhereUniqueInput | Prisma.LoyaltyRedemptionWhereUniqueInput[]
+  connect?: Prisma.LoyaltyRedemptionWhereUniqueInput | Prisma.LoyaltyRedemptionWhereUniqueInput[]
+  update?: Prisma.LoyaltyRedemptionUpdateWithWhereUniqueWithoutUserInput | Prisma.LoyaltyRedemptionUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.LoyaltyRedemptionUpdateManyWithWhereWithoutUserInput | Prisma.LoyaltyRedemptionUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.LoyaltyRedemptionScalarWhereInput | Prisma.LoyaltyRedemptionScalarWhereInput[]
+}
+
 export type LoyaltyRedemptionCreateNestedManyWithoutRewardInput = {
   create?: Prisma.XOR<Prisma.LoyaltyRedemptionCreateWithoutRewardInput, Prisma.LoyaltyRedemptionUncheckedCreateWithoutRewardInput> | Prisma.LoyaltyRedemptionCreateWithoutRewardInput[] | Prisma.LoyaltyRedemptionUncheckedCreateWithoutRewardInput[]
   connectOrCreate?: Prisma.LoyaltyRedemptionCreateOrConnectWithoutRewardInput | Prisma.LoyaltyRedemptionCreateOrConnectWithoutRewardInput[]
@@ -403,11 +447,62 @@ export type LoyaltyRedemptionUncheckedUpdateManyWithoutRewardNestedInput = {
   deleteMany?: Prisma.LoyaltyRedemptionScalarWhereInput | Prisma.LoyaltyRedemptionScalarWhereInput[]
 }
 
-export type LoyaltyRedemptionCreateWithoutRewardInput = {
+export type LoyaltyRedemptionCreateWithoutUserInput = {
   id?: string
-  userId: string
   pointsSpent: number
   createdAt?: Date | string
+  reward: Prisma.LoyaltyRewardCreateNestedOneWithoutRedemptionsInput
+}
+
+export type LoyaltyRedemptionUncheckedCreateWithoutUserInput = {
+  id?: string
+  rewardId: string
+  pointsSpent: number
+  createdAt?: Date | string
+}
+
+export type LoyaltyRedemptionCreateOrConnectWithoutUserInput = {
+  where: Prisma.LoyaltyRedemptionWhereUniqueInput
+  create: Prisma.XOR<Prisma.LoyaltyRedemptionCreateWithoutUserInput, Prisma.LoyaltyRedemptionUncheckedCreateWithoutUserInput>
+}
+
+export type LoyaltyRedemptionCreateManyUserInputEnvelope = {
+  data: Prisma.LoyaltyRedemptionCreateManyUserInput | Prisma.LoyaltyRedemptionCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type LoyaltyRedemptionUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.LoyaltyRedemptionWhereUniqueInput
+  update: Prisma.XOR<Prisma.LoyaltyRedemptionUpdateWithoutUserInput, Prisma.LoyaltyRedemptionUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.LoyaltyRedemptionCreateWithoutUserInput, Prisma.LoyaltyRedemptionUncheckedCreateWithoutUserInput>
+}
+
+export type LoyaltyRedemptionUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.LoyaltyRedemptionWhereUniqueInput
+  data: Prisma.XOR<Prisma.LoyaltyRedemptionUpdateWithoutUserInput, Prisma.LoyaltyRedemptionUncheckedUpdateWithoutUserInput>
+}
+
+export type LoyaltyRedemptionUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.LoyaltyRedemptionScalarWhereInput
+  data: Prisma.XOR<Prisma.LoyaltyRedemptionUpdateManyMutationInput, Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserInput>
+}
+
+export type LoyaltyRedemptionScalarWhereInput = {
+  AND?: Prisma.LoyaltyRedemptionScalarWhereInput | Prisma.LoyaltyRedemptionScalarWhereInput[]
+  OR?: Prisma.LoyaltyRedemptionScalarWhereInput[]
+  NOT?: Prisma.LoyaltyRedemptionScalarWhereInput | Prisma.LoyaltyRedemptionScalarWhereInput[]
+  id?: Prisma.UuidFilter<"LoyaltyRedemption"> | string
+  userId?: Prisma.UuidFilter<"LoyaltyRedemption"> | string
+  rewardId?: Prisma.UuidFilter<"LoyaltyRedemption"> | string
+  pointsSpent?: Prisma.IntFilter<"LoyaltyRedemption"> | number
+  createdAt?: Prisma.DateTimeFilter<"LoyaltyRedemption"> | Date | string
+}
+
+export type LoyaltyRedemptionCreateWithoutRewardInput = {
+  id?: string
+  pointsSpent: number
+  createdAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutLoyaltyRedemptionsInput
 }
 
 export type LoyaltyRedemptionUncheckedCreateWithoutRewardInput = {
@@ -443,15 +538,32 @@ export type LoyaltyRedemptionUpdateManyWithWhereWithoutRewardInput = {
   data: Prisma.XOR<Prisma.LoyaltyRedemptionUpdateManyMutationInput, Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutRewardInput>
 }
 
-export type LoyaltyRedemptionScalarWhereInput = {
-  AND?: Prisma.LoyaltyRedemptionScalarWhereInput | Prisma.LoyaltyRedemptionScalarWhereInput[]
-  OR?: Prisma.LoyaltyRedemptionScalarWhereInput[]
-  NOT?: Prisma.LoyaltyRedemptionScalarWhereInput | Prisma.LoyaltyRedemptionScalarWhereInput[]
-  id?: Prisma.UuidFilter<"LoyaltyRedemption"> | string
-  userId?: Prisma.UuidFilter<"LoyaltyRedemption"> | string
-  rewardId?: Prisma.UuidFilter<"LoyaltyRedemption"> | string
-  pointsSpent?: Prisma.IntFilter<"LoyaltyRedemption"> | number
-  createdAt?: Prisma.DateTimeFilter<"LoyaltyRedemption"> | Date | string
+export type LoyaltyRedemptionCreateManyUserInput = {
+  id?: string
+  rewardId: string
+  pointsSpent: number
+  createdAt?: Date | string
+}
+
+export type LoyaltyRedemptionUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  pointsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reward?: Prisma.LoyaltyRewardUpdateOneRequiredWithoutRedemptionsNestedInput
+}
+
+export type LoyaltyRedemptionUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rewardId?: Prisma.StringFieldUpdateOperationsInput | string
+  pointsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type LoyaltyRedemptionUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rewardId?: Prisma.StringFieldUpdateOperationsInput | string
+  pointsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LoyaltyRedemptionCreateManyRewardInput = {
@@ -463,9 +575,9 @@ export type LoyaltyRedemptionCreateManyRewardInput = {
 
 export type LoyaltyRedemptionUpdateWithoutRewardInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   pointsSpent?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutLoyaltyRedemptionsNestedInput
 }
 
 export type LoyaltyRedemptionUncheckedUpdateWithoutRewardInput = {
@@ -490,6 +602,7 @@ export type LoyaltyRedemptionSelect<ExtArgs extends runtime.Types.Extensions.Int
   rewardId?: boolean
   pointsSpent?: boolean
   createdAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reward?: boolean | Prisma.LoyaltyRewardDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["loyaltyRedemption"]>
 
@@ -499,6 +612,7 @@ export type LoyaltyRedemptionSelectCreateManyAndReturn<ExtArgs extends runtime.T
   rewardId?: boolean
   pointsSpent?: boolean
   createdAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reward?: boolean | Prisma.LoyaltyRewardDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["loyaltyRedemption"]>
 
@@ -508,6 +622,7 @@ export type LoyaltyRedemptionSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   rewardId?: boolean
   pointsSpent?: boolean
   createdAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reward?: boolean | Prisma.LoyaltyRewardDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["loyaltyRedemption"]>
 
@@ -521,18 +636,22 @@ export type LoyaltyRedemptionSelectScalar = {
 
 export type LoyaltyRedemptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "rewardId" | "pointsSpent" | "createdAt", ExtArgs["result"]["loyaltyRedemption"]>
 export type LoyaltyRedemptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reward?: boolean | Prisma.LoyaltyRewardDefaultArgs<ExtArgs>
 }
 export type LoyaltyRedemptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reward?: boolean | Prisma.LoyaltyRewardDefaultArgs<ExtArgs>
 }
 export type LoyaltyRedemptionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reward?: boolean | Prisma.LoyaltyRewardDefaultArgs<ExtArgs>
 }
 
 export type $LoyaltyRedemptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "LoyaltyRedemption"
   objects: {
+    user: Prisma.$UserPayload<ExtArgs>
     reward: Prisma.$LoyaltyRewardPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -935,6 +1054,7 @@ readonly fields: LoyaltyRedemptionFieldRefs;
  */
 export interface Prisma__LoyaltyRedemptionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   reward<T extends Prisma.LoyaltyRewardDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LoyaltyRewardDefaultArgs<ExtArgs>>): Prisma.Prisma__LoyaltyRewardClient<runtime.Types.Result.GetResult<Prisma.$LoyaltyRewardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

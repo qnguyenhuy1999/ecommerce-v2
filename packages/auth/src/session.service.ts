@@ -2,7 +2,6 @@ import type Redis from 'ioredis'
 
 export interface SessionData {
   userId: string
-  roles: string[]
   [key: string]: unknown
 }
 
@@ -54,9 +53,5 @@ export class SessionService {
 function isSessionData(value: unknown): value is SessionData {
   if (!value || typeof value !== 'object') return false
   const candidate = value as Record<string, unknown>
-  return (
-    typeof candidate.userId === 'string' &&
-    Array.isArray(candidate.roles) &&
-    candidate.roles.every((role) => typeof role === 'string')
-  )
+  return typeof candidate.userId === 'string'
 }

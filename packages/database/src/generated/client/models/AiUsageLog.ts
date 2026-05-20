@@ -45,6 +45,7 @@ export type AiUsageLogMinAggregateOutputType = {
   tasksUsed: number | null
   tokensUsed: number | null
   totalCostUsd: runtime.Decimal | null
+  createdAt: Date | null
   updatedAt: Date | null
 }
 
@@ -55,6 +56,7 @@ export type AiUsageLogMaxAggregateOutputType = {
   tasksUsed: number | null
   tokensUsed: number | null
   totalCostUsd: runtime.Decimal | null
+  createdAt: Date | null
   updatedAt: Date | null
 }
 
@@ -65,6 +67,7 @@ export type AiUsageLogCountAggregateOutputType = {
   tasksUsed: number
   tokensUsed: number
   totalCostUsd: number
+  createdAt: number
   updatedAt: number
   _all: number
 }
@@ -89,6 +92,7 @@ export type AiUsageLogMinAggregateInputType = {
   tasksUsed?: true
   tokensUsed?: true
   totalCostUsd?: true
+  createdAt?: true
   updatedAt?: true
 }
 
@@ -99,6 +103,7 @@ export type AiUsageLogMaxAggregateInputType = {
   tasksUsed?: true
   tokensUsed?: true
   totalCostUsd?: true
+  createdAt?: true
   updatedAt?: true
 }
 
@@ -109,6 +114,7 @@ export type AiUsageLogCountAggregateInputType = {
   tasksUsed?: true
   tokensUsed?: true
   totalCostUsd?: true
+  createdAt?: true
   updatedAt?: true
   _all?: true
 }
@@ -206,6 +212,7 @@ export type AiUsageLogGroupByOutputType = {
   tasksUsed: number
   tokensUsed: number
   totalCostUsd: runtime.Decimal
+  createdAt: Date
   updatedAt: Date
   _count: AiUsageLogCountAggregateOutputType | null
   _avg: AiUsageLogAvgAggregateOutputType | null
@@ -239,7 +246,9 @@ export type AiUsageLogWhereInput = {
   tasksUsed?: Prisma.IntFilter<"AiUsageLog"> | number
   tokensUsed?: Prisma.IntFilter<"AiUsageLog"> | number
   totalCostUsd?: Prisma.DecimalFilter<"AiUsageLog"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFilter<"AiUsageLog"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AiUsageLog"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }
 
 export type AiUsageLogOrderByWithRelationInput = {
@@ -249,7 +258,9 @@ export type AiUsageLogOrderByWithRelationInput = {
   tasksUsed?: Prisma.SortOrder
   tokensUsed?: Prisma.SortOrder
   totalCostUsd?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  shop?: Prisma.ShopOrderByWithRelationInput
 }
 
 export type AiUsageLogWhereUniqueInput = Prisma.AtLeast<{
@@ -263,7 +274,9 @@ export type AiUsageLogWhereUniqueInput = Prisma.AtLeast<{
   tasksUsed?: Prisma.IntFilter<"AiUsageLog"> | number
   tokensUsed?: Prisma.IntFilter<"AiUsageLog"> | number
   totalCostUsd?: Prisma.DecimalFilter<"AiUsageLog"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFilter<"AiUsageLog"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AiUsageLog"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }, "id" | "shopId_month">
 
 export type AiUsageLogOrderByWithAggregationInput = {
@@ -273,6 +286,7 @@ export type AiUsageLogOrderByWithAggregationInput = {
   tasksUsed?: Prisma.SortOrder
   tokensUsed?: Prisma.SortOrder
   totalCostUsd?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.AiUsageLogCountOrderByAggregateInput
   _avg?: Prisma.AiUsageLogAvgOrderByAggregateInput
@@ -291,17 +305,19 @@ export type AiUsageLogScalarWhereWithAggregatesInput = {
   tasksUsed?: Prisma.IntWithAggregatesFilter<"AiUsageLog"> | number
   tokensUsed?: Prisma.IntWithAggregatesFilter<"AiUsageLog"> | number
   totalCostUsd?: Prisma.DecimalWithAggregatesFilter<"AiUsageLog"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"AiUsageLog"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AiUsageLog"> | Date | string
 }
 
 export type AiUsageLogCreateInput = {
   id?: string
-  shopId: string
   month: string
   tasksUsed?: number
   tokensUsed?: number
   totalCostUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
   updatedAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutAiUsageLogsInput
 }
 
 export type AiUsageLogUncheckedCreateInput = {
@@ -311,17 +327,19 @@ export type AiUsageLogUncheckedCreateInput = {
   tasksUsed?: number
   tokensUsed?: number
   totalCostUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type AiUsageLogUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   month?: Prisma.StringFieldUpdateOperationsInput | string
   tasksUsed?: Prisma.IntFieldUpdateOperationsInput | number
   tokensUsed?: Prisma.IntFieldUpdateOperationsInput | number
   totalCostUsd?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutAiUsageLogsNestedInput
 }
 
 export type AiUsageLogUncheckedUpdateInput = {
@@ -331,6 +349,7 @@ export type AiUsageLogUncheckedUpdateInput = {
   tasksUsed?: Prisma.IntFieldUpdateOperationsInput | number
   tokensUsed?: Prisma.IntFieldUpdateOperationsInput | number
   totalCostUsd?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -341,16 +360,17 @@ export type AiUsageLogCreateManyInput = {
   tasksUsed?: number
   tokensUsed?: number
   totalCostUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type AiUsageLogUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   month?: Prisma.StringFieldUpdateOperationsInput | string
   tasksUsed?: Prisma.IntFieldUpdateOperationsInput | number
   tokensUsed?: Prisma.IntFieldUpdateOperationsInput | number
   totalCostUsd?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -361,7 +381,18 @@ export type AiUsageLogUncheckedUpdateManyInput = {
   tasksUsed?: Prisma.IntFieldUpdateOperationsInput | number
   tokensUsed?: Prisma.IntFieldUpdateOperationsInput | number
   totalCostUsd?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AiUsageLogListRelationFilter = {
+  every?: Prisma.AiUsageLogWhereInput
+  some?: Prisma.AiUsageLogWhereInput
+  none?: Prisma.AiUsageLogWhereInput
+}
+
+export type AiUsageLogOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type AiUsageLogShopIdMonthCompoundUniqueInput = {
@@ -376,6 +407,7 @@ export type AiUsageLogCountOrderByAggregateInput = {
   tasksUsed?: Prisma.SortOrder
   tokensUsed?: Prisma.SortOrder
   totalCostUsd?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -392,6 +424,7 @@ export type AiUsageLogMaxOrderByAggregateInput = {
   tasksUsed?: Prisma.SortOrder
   tokensUsed?: Prisma.SortOrder
   totalCostUsd?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -402,6 +435,7 @@ export type AiUsageLogMinOrderByAggregateInput = {
   tasksUsed?: Prisma.SortOrder
   tokensUsed?: Prisma.SortOrder
   totalCostUsd?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -409,6 +443,148 @@ export type AiUsageLogSumOrderByAggregateInput = {
   tasksUsed?: Prisma.SortOrder
   tokensUsed?: Prisma.SortOrder
   totalCostUsd?: Prisma.SortOrder
+}
+
+export type AiUsageLogCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.AiUsageLogCreateWithoutShopInput, Prisma.AiUsageLogUncheckedCreateWithoutShopInput> | Prisma.AiUsageLogCreateWithoutShopInput[] | Prisma.AiUsageLogUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AiUsageLogCreateOrConnectWithoutShopInput | Prisma.AiUsageLogCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.AiUsageLogCreateManyShopInputEnvelope
+  connect?: Prisma.AiUsageLogWhereUniqueInput | Prisma.AiUsageLogWhereUniqueInput[]
+}
+
+export type AiUsageLogUncheckedCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.AiUsageLogCreateWithoutShopInput, Prisma.AiUsageLogUncheckedCreateWithoutShopInput> | Prisma.AiUsageLogCreateWithoutShopInput[] | Prisma.AiUsageLogUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AiUsageLogCreateOrConnectWithoutShopInput | Prisma.AiUsageLogCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.AiUsageLogCreateManyShopInputEnvelope
+  connect?: Prisma.AiUsageLogWhereUniqueInput | Prisma.AiUsageLogWhereUniqueInput[]
+}
+
+export type AiUsageLogUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.AiUsageLogCreateWithoutShopInput, Prisma.AiUsageLogUncheckedCreateWithoutShopInput> | Prisma.AiUsageLogCreateWithoutShopInput[] | Prisma.AiUsageLogUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AiUsageLogCreateOrConnectWithoutShopInput | Prisma.AiUsageLogCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.AiUsageLogUpsertWithWhereUniqueWithoutShopInput | Prisma.AiUsageLogUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.AiUsageLogCreateManyShopInputEnvelope
+  set?: Prisma.AiUsageLogWhereUniqueInput | Prisma.AiUsageLogWhereUniqueInput[]
+  disconnect?: Prisma.AiUsageLogWhereUniqueInput | Prisma.AiUsageLogWhereUniqueInput[]
+  delete?: Prisma.AiUsageLogWhereUniqueInput | Prisma.AiUsageLogWhereUniqueInput[]
+  connect?: Prisma.AiUsageLogWhereUniqueInput | Prisma.AiUsageLogWhereUniqueInput[]
+  update?: Prisma.AiUsageLogUpdateWithWhereUniqueWithoutShopInput | Prisma.AiUsageLogUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.AiUsageLogUpdateManyWithWhereWithoutShopInput | Prisma.AiUsageLogUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.AiUsageLogScalarWhereInput | Prisma.AiUsageLogScalarWhereInput[]
+}
+
+export type AiUsageLogUncheckedUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.AiUsageLogCreateWithoutShopInput, Prisma.AiUsageLogUncheckedCreateWithoutShopInput> | Prisma.AiUsageLogCreateWithoutShopInput[] | Prisma.AiUsageLogUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AiUsageLogCreateOrConnectWithoutShopInput | Prisma.AiUsageLogCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.AiUsageLogUpsertWithWhereUniqueWithoutShopInput | Prisma.AiUsageLogUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.AiUsageLogCreateManyShopInputEnvelope
+  set?: Prisma.AiUsageLogWhereUniqueInput | Prisma.AiUsageLogWhereUniqueInput[]
+  disconnect?: Prisma.AiUsageLogWhereUniqueInput | Prisma.AiUsageLogWhereUniqueInput[]
+  delete?: Prisma.AiUsageLogWhereUniqueInput | Prisma.AiUsageLogWhereUniqueInput[]
+  connect?: Prisma.AiUsageLogWhereUniqueInput | Prisma.AiUsageLogWhereUniqueInput[]
+  update?: Prisma.AiUsageLogUpdateWithWhereUniqueWithoutShopInput | Prisma.AiUsageLogUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.AiUsageLogUpdateManyWithWhereWithoutShopInput | Prisma.AiUsageLogUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.AiUsageLogScalarWhereInput | Prisma.AiUsageLogScalarWhereInput[]
+}
+
+export type AiUsageLogCreateWithoutShopInput = {
+  id?: string
+  month: string
+  tasksUsed?: number
+  tokensUsed?: number
+  totalCostUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AiUsageLogUncheckedCreateWithoutShopInput = {
+  id?: string
+  month: string
+  tasksUsed?: number
+  tokensUsed?: number
+  totalCostUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AiUsageLogCreateOrConnectWithoutShopInput = {
+  where: Prisma.AiUsageLogWhereUniqueInput
+  create: Prisma.XOR<Prisma.AiUsageLogCreateWithoutShopInput, Prisma.AiUsageLogUncheckedCreateWithoutShopInput>
+}
+
+export type AiUsageLogCreateManyShopInputEnvelope = {
+  data: Prisma.AiUsageLogCreateManyShopInput | Prisma.AiUsageLogCreateManyShopInput[]
+  skipDuplicates?: boolean
+}
+
+export type AiUsageLogUpsertWithWhereUniqueWithoutShopInput = {
+  where: Prisma.AiUsageLogWhereUniqueInput
+  update: Prisma.XOR<Prisma.AiUsageLogUpdateWithoutShopInput, Prisma.AiUsageLogUncheckedUpdateWithoutShopInput>
+  create: Prisma.XOR<Prisma.AiUsageLogCreateWithoutShopInput, Prisma.AiUsageLogUncheckedCreateWithoutShopInput>
+}
+
+export type AiUsageLogUpdateWithWhereUniqueWithoutShopInput = {
+  where: Prisma.AiUsageLogWhereUniqueInput
+  data: Prisma.XOR<Prisma.AiUsageLogUpdateWithoutShopInput, Prisma.AiUsageLogUncheckedUpdateWithoutShopInput>
+}
+
+export type AiUsageLogUpdateManyWithWhereWithoutShopInput = {
+  where: Prisma.AiUsageLogScalarWhereInput
+  data: Prisma.XOR<Prisma.AiUsageLogUpdateManyMutationInput, Prisma.AiUsageLogUncheckedUpdateManyWithoutShopInput>
+}
+
+export type AiUsageLogScalarWhereInput = {
+  AND?: Prisma.AiUsageLogScalarWhereInput | Prisma.AiUsageLogScalarWhereInput[]
+  OR?: Prisma.AiUsageLogScalarWhereInput[]
+  NOT?: Prisma.AiUsageLogScalarWhereInput | Prisma.AiUsageLogScalarWhereInput[]
+  id?: Prisma.UuidFilter<"AiUsageLog"> | string
+  shopId?: Prisma.UuidFilter<"AiUsageLog"> | string
+  month?: Prisma.StringFilter<"AiUsageLog"> | string
+  tasksUsed?: Prisma.IntFilter<"AiUsageLog"> | number
+  tokensUsed?: Prisma.IntFilter<"AiUsageLog"> | number
+  totalCostUsd?: Prisma.DecimalFilter<"AiUsageLog"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFilter<"AiUsageLog"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AiUsageLog"> | Date | string
+}
+
+export type AiUsageLogCreateManyShopInput = {
+  id?: string
+  month: string
+  tasksUsed?: number
+  tokensUsed?: number
+  totalCostUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AiUsageLogUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  month?: Prisma.StringFieldUpdateOperationsInput | string
+  tasksUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  tokensUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  totalCostUsd?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AiUsageLogUncheckedUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  month?: Prisma.StringFieldUpdateOperationsInput | string
+  tasksUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  tokensUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  totalCostUsd?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AiUsageLogUncheckedUpdateManyWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  month?: Prisma.StringFieldUpdateOperationsInput | string
+  tasksUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  tokensUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  totalCostUsd?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -420,7 +596,9 @@ export type AiUsageLogSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   tasksUsed?: boolean
   tokensUsed?: boolean
   totalCostUsd?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["aiUsageLog"]>
 
 export type AiUsageLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -430,7 +608,9 @@ export type AiUsageLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   tasksUsed?: boolean
   tokensUsed?: boolean
   totalCostUsd?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["aiUsageLog"]>
 
 export type AiUsageLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -440,7 +620,9 @@ export type AiUsageLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   tasksUsed?: boolean
   tokensUsed?: boolean
   totalCostUsd?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["aiUsageLog"]>
 
 export type AiUsageLogSelectScalar = {
@@ -450,14 +632,26 @@ export type AiUsageLogSelectScalar = {
   tasksUsed?: boolean
   tokensUsed?: boolean
   totalCostUsd?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AiUsageLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopId" | "month" | "tasksUsed" | "tokensUsed" | "totalCostUsd" | "updatedAt", ExtArgs["result"]["aiUsageLog"]>
+export type AiUsageLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopId" | "month" | "tasksUsed" | "tokensUsed" | "totalCostUsd" | "createdAt" | "updatedAt", ExtArgs["result"]["aiUsageLog"]>
+export type AiUsageLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
+export type AiUsageLogIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
+export type AiUsageLogIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
 
 export type $AiUsageLogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AiUsageLog"
-  objects: {}
+  objects: {
+    shop: Prisma.$ShopPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     shopId: string
@@ -465,6 +659,7 @@ export type $AiUsageLogPayload<ExtArgs extends runtime.Types.Extensions.Internal
     tasksUsed: number
     tokensUsed: number
     totalCostUsd: runtime.Decimal
+    createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["aiUsageLog"]>
   composites: {}
@@ -860,6 +1055,7 @@ readonly fields: AiUsageLogFieldRefs;
  */
 export interface Prisma__AiUsageLogClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  shop<T extends Prisma.ShopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShopDefaultArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -895,6 +1091,7 @@ export interface AiUsageLogFieldRefs {
   readonly tasksUsed: Prisma.FieldRef<"AiUsageLog", 'Int'>
   readonly tokensUsed: Prisma.FieldRef<"AiUsageLog", 'Int'>
   readonly totalCostUsd: Prisma.FieldRef<"AiUsageLog", 'Decimal'>
+  readonly createdAt: Prisma.FieldRef<"AiUsageLog", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"AiUsageLog", 'DateTime'>
 }
     
@@ -912,6 +1109,10 @@ export type AiUsageLogFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the AiUsageLog
    */
   omit?: Prisma.AiUsageLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogInclude<ExtArgs> | null
   /**
    * Filter, which AiUsageLog to fetch.
    */
@@ -931,6 +1132,10 @@ export type AiUsageLogFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extens
    */
   omit?: Prisma.AiUsageLogOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogInclude<ExtArgs> | null
+  /**
    * Filter, which AiUsageLog to fetch.
    */
   where: Prisma.AiUsageLogWhereUniqueInput
@@ -948,6 +1153,10 @@ export type AiUsageLogFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the AiUsageLog
    */
   omit?: Prisma.AiUsageLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogInclude<ExtArgs> | null
   /**
    * Filter, which AiUsageLog to fetch.
    */
@@ -997,6 +1206,10 @@ export type AiUsageLogFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.AiUsageLogOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogInclude<ExtArgs> | null
+  /**
    * Filter, which AiUsageLog to fetch.
    */
   where?: Prisma.AiUsageLogWhereInput
@@ -1044,6 +1257,10 @@ export type AiUsageLogFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the AiUsageLog
    */
   omit?: Prisma.AiUsageLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogInclude<ExtArgs> | null
   /**
    * Filter, which AiUsageLogs to fetch.
    */
@@ -1093,6 +1310,10 @@ export type AiUsageLogCreateArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.AiUsageLogOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogInclude<ExtArgs> | null
+  /**
    * The data needed to create a AiUsageLog.
    */
   data: Prisma.XOR<Prisma.AiUsageLogCreateInput, Prisma.AiUsageLogUncheckedCreateInput>
@@ -1126,6 +1347,10 @@ export type AiUsageLogCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    */
   data: Prisma.AiUsageLogCreateManyInput | Prisma.AiUsageLogCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1140,6 +1365,10 @@ export type AiUsageLogUpdateArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the AiUsageLog
    */
   omit?: Prisma.AiUsageLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogInclude<ExtArgs> | null
   /**
    * The data needed to update a AiUsageLog.
    */
@@ -1192,6 +1421,10 @@ export type AiUsageLogUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    * Limit how many AiUsageLogs to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1206,6 +1439,10 @@ export type AiUsageLogUpsertArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the AiUsageLog
    */
   omit?: Prisma.AiUsageLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogInclude<ExtArgs> | null
   /**
    * The filter to search for the AiUsageLog to update in case it exists.
    */
@@ -1232,6 +1469,10 @@ export type AiUsageLogDeleteArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the AiUsageLog
    */
   omit?: Prisma.AiUsageLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogInclude<ExtArgs> | null
   /**
    * Filter which AiUsageLog to delete.
    */
@@ -1264,4 +1505,8 @@ export type AiUsageLogDefaultArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the AiUsageLog
    */
   omit?: Prisma.AiUsageLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogInclude<ExtArgs> | null
 }

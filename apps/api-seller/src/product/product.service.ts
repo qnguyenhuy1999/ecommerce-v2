@@ -13,7 +13,7 @@ import type {
 } from './dto/create-product.dto'
 import type { ProductQueryDto } from './dto/product-query.dto'
 import type { UpdateProductDto } from './dto/update-product.dto'
-import type { ProductRepository } from './repositories/product.repository'
+import { ProductRepository } from './repositories/product.repository'
 
 @Injectable()
 export class ProductService {

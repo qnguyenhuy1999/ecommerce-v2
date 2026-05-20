@@ -269,6 +269,7 @@ export type AdWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
   adGroup?: Prisma.XOR<Prisma.AdGroupScalarRelationFilter, Prisma.AdGroupWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   impressionLogs?: Prisma.AdImpressionListRelationFilter
   clickLogs?: Prisma.AdClickListRelationFilter
 }
@@ -285,6 +286,7 @@ export type AdOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   adGroup?: Prisma.AdGroupOrderByWithRelationInput
+  product?: Prisma.ProductOrderByWithRelationInput
   impressionLogs?: Prisma.AdImpressionOrderByRelationAggregateInput
   clickLogs?: Prisma.AdClickOrderByRelationAggregateInput
 }
@@ -304,6 +306,7 @@ export type AdWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
   adGroup?: Prisma.XOR<Prisma.AdGroupScalarRelationFilter, Prisma.AdGroupWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   impressionLogs?: Prisma.AdImpressionListRelationFilter
   clickLogs?: Prisma.AdClickListRelationFilter
 }, "id">
@@ -344,7 +347,6 @@ export type AdScalarWhereWithAggregatesInput = {
 
 export type AdCreateInput = {
   id?: string
-  productId: string
   isActive?: boolean
   impressions?: number
   clicks?: number
@@ -353,6 +355,7 @@ export type AdCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   adGroup: Prisma.AdGroupCreateNestedOneWithoutAdsInput
+  product: Prisma.ProductCreateNestedOneWithoutAdsInput
   impressionLogs?: Prisma.AdImpressionCreateNestedManyWithoutAdInput
   clickLogs?: Prisma.AdClickCreateNestedManyWithoutAdInput
 }
@@ -374,7 +377,6 @@ export type AdUncheckedCreateInput = {
 
 export type AdUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   impressions?: Prisma.IntFieldUpdateOperationsInput | number
   clicks?: Prisma.IntFieldUpdateOperationsInput | number
@@ -383,6 +385,7 @@ export type AdUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adGroup?: Prisma.AdGroupUpdateOneRequiredWithoutAdsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutAdsNestedInput
   impressionLogs?: Prisma.AdImpressionUpdateManyWithoutAdNestedInput
   clickLogs?: Prisma.AdClickUpdateManyWithoutAdNestedInput
 }
@@ -417,7 +420,6 @@ export type AdCreateManyInput = {
 
 export type AdUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   impressions?: Prisma.IntFieldUpdateOperationsInput | number
   clicks?: Prisma.IntFieldUpdateOperationsInput | number
@@ -508,6 +510,48 @@ export type AdScalarRelationFilter = {
   isNot?: Prisma.AdWhereInput
 }
 
+export type AdCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.AdCreateWithoutProductInput, Prisma.AdUncheckedCreateWithoutProductInput> | Prisma.AdCreateWithoutProductInput[] | Prisma.AdUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.AdCreateOrConnectWithoutProductInput | Prisma.AdCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.AdCreateManyProductInputEnvelope
+  connect?: Prisma.AdWhereUniqueInput | Prisma.AdWhereUniqueInput[]
+}
+
+export type AdUncheckedCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.AdCreateWithoutProductInput, Prisma.AdUncheckedCreateWithoutProductInput> | Prisma.AdCreateWithoutProductInput[] | Prisma.AdUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.AdCreateOrConnectWithoutProductInput | Prisma.AdCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.AdCreateManyProductInputEnvelope
+  connect?: Prisma.AdWhereUniqueInput | Prisma.AdWhereUniqueInput[]
+}
+
+export type AdUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.AdCreateWithoutProductInput, Prisma.AdUncheckedCreateWithoutProductInput> | Prisma.AdCreateWithoutProductInput[] | Prisma.AdUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.AdCreateOrConnectWithoutProductInput | Prisma.AdCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.AdUpsertWithWhereUniqueWithoutProductInput | Prisma.AdUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.AdCreateManyProductInputEnvelope
+  set?: Prisma.AdWhereUniqueInput | Prisma.AdWhereUniqueInput[]
+  disconnect?: Prisma.AdWhereUniqueInput | Prisma.AdWhereUniqueInput[]
+  delete?: Prisma.AdWhereUniqueInput | Prisma.AdWhereUniqueInput[]
+  connect?: Prisma.AdWhereUniqueInput | Prisma.AdWhereUniqueInput[]
+  update?: Prisma.AdUpdateWithWhereUniqueWithoutProductInput | Prisma.AdUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.AdUpdateManyWithWhereWithoutProductInput | Prisma.AdUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.AdScalarWhereInput | Prisma.AdScalarWhereInput[]
+}
+
+export type AdUncheckedUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.AdCreateWithoutProductInput, Prisma.AdUncheckedCreateWithoutProductInput> | Prisma.AdCreateWithoutProductInput[] | Prisma.AdUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.AdCreateOrConnectWithoutProductInput | Prisma.AdCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.AdUpsertWithWhereUniqueWithoutProductInput | Prisma.AdUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.AdCreateManyProductInputEnvelope
+  set?: Prisma.AdWhereUniqueInput | Prisma.AdWhereUniqueInput[]
+  disconnect?: Prisma.AdWhereUniqueInput | Prisma.AdWhereUniqueInput[]
+  delete?: Prisma.AdWhereUniqueInput | Prisma.AdWhereUniqueInput[]
+  connect?: Prisma.AdWhereUniqueInput | Prisma.AdWhereUniqueInput[]
+  update?: Prisma.AdUpdateWithWhereUniqueWithoutProductInput | Prisma.AdUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.AdUpdateManyWithWhereWithoutProductInput | Prisma.AdUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.AdScalarWhereInput | Prisma.AdScalarWhereInput[]
+}
+
 export type AdCreateNestedManyWithoutAdGroupInput = {
   create?: Prisma.XOR<Prisma.AdCreateWithoutAdGroupInput, Prisma.AdUncheckedCreateWithoutAdGroupInput> | Prisma.AdCreateWithoutAdGroupInput[] | Prisma.AdUncheckedCreateWithoutAdGroupInput[]
   connectOrCreate?: Prisma.AdCreateOrConnectWithoutAdGroupInput | Prisma.AdCreateOrConnectWithoutAdGroupInput[]
@@ -578,9 +622,8 @@ export type AdUpdateOneRequiredWithoutClickLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AdUpdateToOneWithWhereWithoutClickLogsInput, Prisma.AdUpdateWithoutClickLogsInput>, Prisma.AdUncheckedUpdateWithoutClickLogsInput>
 }
 
-export type AdCreateWithoutAdGroupInput = {
+export type AdCreateWithoutProductInput = {
   id?: string
-  productId: string
   isActive?: boolean
   impressions?: number
   clicks?: number
@@ -588,6 +631,77 @@ export type AdCreateWithoutAdGroupInput = {
   spent?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  adGroup: Prisma.AdGroupCreateNestedOneWithoutAdsInput
+  impressionLogs?: Prisma.AdImpressionCreateNestedManyWithoutAdInput
+  clickLogs?: Prisma.AdClickCreateNestedManyWithoutAdInput
+}
+
+export type AdUncheckedCreateWithoutProductInput = {
+  id?: string
+  adGroupId: string
+  isActive?: boolean
+  impressions?: number
+  clicks?: number
+  conversions?: number
+  spent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  impressionLogs?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutAdInput
+  clickLogs?: Prisma.AdClickUncheckedCreateNestedManyWithoutAdInput
+}
+
+export type AdCreateOrConnectWithoutProductInput = {
+  where: Prisma.AdWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdCreateWithoutProductInput, Prisma.AdUncheckedCreateWithoutProductInput>
+}
+
+export type AdCreateManyProductInputEnvelope = {
+  data: Prisma.AdCreateManyProductInput | Prisma.AdCreateManyProductInput[]
+  skipDuplicates?: boolean
+}
+
+export type AdUpsertWithWhereUniqueWithoutProductInput = {
+  where: Prisma.AdWhereUniqueInput
+  update: Prisma.XOR<Prisma.AdUpdateWithoutProductInput, Prisma.AdUncheckedUpdateWithoutProductInput>
+  create: Prisma.XOR<Prisma.AdCreateWithoutProductInput, Prisma.AdUncheckedCreateWithoutProductInput>
+}
+
+export type AdUpdateWithWhereUniqueWithoutProductInput = {
+  where: Prisma.AdWhereUniqueInput
+  data: Prisma.XOR<Prisma.AdUpdateWithoutProductInput, Prisma.AdUncheckedUpdateWithoutProductInput>
+}
+
+export type AdUpdateManyWithWhereWithoutProductInput = {
+  where: Prisma.AdScalarWhereInput
+  data: Prisma.XOR<Prisma.AdUpdateManyMutationInput, Prisma.AdUncheckedUpdateManyWithoutProductInput>
+}
+
+export type AdScalarWhereInput = {
+  AND?: Prisma.AdScalarWhereInput | Prisma.AdScalarWhereInput[]
+  OR?: Prisma.AdScalarWhereInput[]
+  NOT?: Prisma.AdScalarWhereInput | Prisma.AdScalarWhereInput[]
+  id?: Prisma.UuidFilter<"Ad"> | string
+  adGroupId?: Prisma.UuidFilter<"Ad"> | string
+  productId?: Prisma.UuidFilter<"Ad"> | string
+  isActive?: Prisma.BoolFilter<"Ad"> | boolean
+  impressions?: Prisma.IntFilter<"Ad"> | number
+  clicks?: Prisma.IntFilter<"Ad"> | number
+  conversions?: Prisma.IntFilter<"Ad"> | number
+  spent?: Prisma.DecimalFilter<"Ad"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
+}
+
+export type AdCreateWithoutAdGroupInput = {
+  id?: string
+  isActive?: boolean
+  impressions?: number
+  clicks?: number
+  conversions?: number
+  spent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutAdsInput
   impressionLogs?: Prisma.AdImpressionCreateNestedManyWithoutAdInput
   clickLogs?: Prisma.AdClickCreateNestedManyWithoutAdInput
 }
@@ -632,25 +746,8 @@ export type AdUpdateManyWithWhereWithoutAdGroupInput = {
   data: Prisma.XOR<Prisma.AdUpdateManyMutationInput, Prisma.AdUncheckedUpdateManyWithoutAdGroupInput>
 }
 
-export type AdScalarWhereInput = {
-  AND?: Prisma.AdScalarWhereInput | Prisma.AdScalarWhereInput[]
-  OR?: Prisma.AdScalarWhereInput[]
-  NOT?: Prisma.AdScalarWhereInput | Prisma.AdScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Ad"> | string
-  adGroupId?: Prisma.UuidFilter<"Ad"> | string
-  productId?: Prisma.UuidFilter<"Ad"> | string
-  isActive?: Prisma.BoolFilter<"Ad"> | boolean
-  impressions?: Prisma.IntFilter<"Ad"> | number
-  clicks?: Prisma.IntFilter<"Ad"> | number
-  conversions?: Prisma.IntFilter<"Ad"> | number
-  spent?: Prisma.DecimalFilter<"Ad"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
-}
-
 export type AdCreateWithoutImpressionLogsInput = {
   id?: string
-  productId: string
   isActive?: boolean
   impressions?: number
   clicks?: number
@@ -659,6 +756,7 @@ export type AdCreateWithoutImpressionLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   adGroup: Prisma.AdGroupCreateNestedOneWithoutAdsInput
+  product: Prisma.ProductCreateNestedOneWithoutAdsInput
   clickLogs?: Prisma.AdClickCreateNestedManyWithoutAdInput
 }
 
@@ -694,7 +792,6 @@ export type AdUpdateToOneWithWhereWithoutImpressionLogsInput = {
 
 export type AdUpdateWithoutImpressionLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   impressions?: Prisma.IntFieldUpdateOperationsInput | number
   clicks?: Prisma.IntFieldUpdateOperationsInput | number
@@ -703,6 +800,7 @@ export type AdUpdateWithoutImpressionLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adGroup?: Prisma.AdGroupUpdateOneRequiredWithoutAdsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutAdsNestedInput
   clickLogs?: Prisma.AdClickUpdateManyWithoutAdNestedInput
 }
 
@@ -722,7 +820,6 @@ export type AdUncheckedUpdateWithoutImpressionLogsInput = {
 
 export type AdCreateWithoutClickLogsInput = {
   id?: string
-  productId: string
   isActive?: boolean
   impressions?: number
   clicks?: number
@@ -731,6 +828,7 @@ export type AdCreateWithoutClickLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   adGroup: Prisma.AdGroupCreateNestedOneWithoutAdsInput
+  product: Prisma.ProductCreateNestedOneWithoutAdsInput
   impressionLogs?: Prisma.AdImpressionCreateNestedManyWithoutAdInput
 }
 
@@ -766,7 +864,6 @@ export type AdUpdateToOneWithWhereWithoutClickLogsInput = {
 
 export type AdUpdateWithoutClickLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   impressions?: Prisma.IntFieldUpdateOperationsInput | number
   clicks?: Prisma.IntFieldUpdateOperationsInput | number
@@ -775,6 +872,7 @@ export type AdUpdateWithoutClickLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adGroup?: Prisma.AdGroupUpdateOneRequiredWithoutAdsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutAdsNestedInput
   impressionLogs?: Prisma.AdImpressionUpdateManyWithoutAdNestedInput
 }
 
@@ -792,6 +890,58 @@ export type AdUncheckedUpdateWithoutClickLogsInput = {
   impressionLogs?: Prisma.AdImpressionUncheckedUpdateManyWithoutAdNestedInput
 }
 
+export type AdCreateManyProductInput = {
+  id?: string
+  adGroupId: string
+  isActive?: boolean
+  impressions?: number
+  clicks?: number
+  conversions?: number
+  spent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AdUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  impressions?: Prisma.IntFieldUpdateOperationsInput | number
+  clicks?: Prisma.IntFieldUpdateOperationsInput | number
+  conversions?: Prisma.IntFieldUpdateOperationsInput | number
+  spent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  adGroup?: Prisma.AdGroupUpdateOneRequiredWithoutAdsNestedInput
+  impressionLogs?: Prisma.AdImpressionUpdateManyWithoutAdNestedInput
+  clickLogs?: Prisma.AdClickUpdateManyWithoutAdNestedInput
+}
+
+export type AdUncheckedUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  adGroupId?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  impressions?: Prisma.IntFieldUpdateOperationsInput | number
+  clicks?: Prisma.IntFieldUpdateOperationsInput | number
+  conversions?: Prisma.IntFieldUpdateOperationsInput | number
+  spent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  impressionLogs?: Prisma.AdImpressionUncheckedUpdateManyWithoutAdNestedInput
+  clickLogs?: Prisma.AdClickUncheckedUpdateManyWithoutAdNestedInput
+}
+
+export type AdUncheckedUpdateManyWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  adGroupId?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  impressions?: Prisma.IntFieldUpdateOperationsInput | number
+  clicks?: Prisma.IntFieldUpdateOperationsInput | number
+  conversions?: Prisma.IntFieldUpdateOperationsInput | number
+  spent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type AdCreateManyAdGroupInput = {
   id?: string
   productId: string
@@ -806,7 +956,6 @@ export type AdCreateManyAdGroupInput = {
 
 export type AdUpdateWithoutAdGroupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   impressions?: Prisma.IntFieldUpdateOperationsInput | number
   clicks?: Prisma.IntFieldUpdateOperationsInput | number
@@ -814,6 +963,7 @@ export type AdUpdateWithoutAdGroupInput = {
   spent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutAdsNestedInput
   impressionLogs?: Prisma.AdImpressionUpdateManyWithoutAdNestedInput
   clickLogs?: Prisma.AdClickUpdateManyWithoutAdNestedInput
 }
@@ -896,6 +1046,7 @@ export type AdSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
   createdAt?: boolean
   updatedAt?: boolean
   adGroup?: boolean | Prisma.AdGroupDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   impressionLogs?: boolean | Prisma.Ad$impressionLogsArgs<ExtArgs>
   clickLogs?: boolean | Prisma.Ad$clickLogsArgs<ExtArgs>
   _count?: boolean | Prisma.AdCountOutputTypeDefaultArgs<ExtArgs>
@@ -913,6 +1064,7 @@ export type AdSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   createdAt?: boolean
   updatedAt?: boolean
   adGroup?: boolean | Prisma.AdGroupDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ad"]>
 
 export type AdSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -927,6 +1079,7 @@ export type AdSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   createdAt?: boolean
   updatedAt?: boolean
   adGroup?: boolean | Prisma.AdGroupDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ad"]>
 
 export type AdSelectScalar = {
@@ -945,21 +1098,25 @@ export type AdSelectScalar = {
 export type AdOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "adGroupId" | "productId" | "isActive" | "impressions" | "clicks" | "conversions" | "spent" | "createdAt" | "updatedAt", ExtArgs["result"]["ad"]>
 export type AdInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   adGroup?: boolean | Prisma.AdGroupDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   impressionLogs?: boolean | Prisma.Ad$impressionLogsArgs<ExtArgs>
   clickLogs?: boolean | Prisma.Ad$clickLogsArgs<ExtArgs>
   _count?: boolean | Prisma.AdCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AdIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   adGroup?: boolean | Prisma.AdGroupDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 export type AdIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   adGroup?: boolean | Prisma.AdGroupDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 
 export type $AdPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Ad"
   objects: {
     adGroup: Prisma.$AdGroupPayload<ExtArgs>
+    product: Prisma.$ProductPayload<ExtArgs>
     impressionLogs: Prisma.$AdImpressionPayload<ExtArgs>[]
     clickLogs: Prisma.$AdClickPayload<ExtArgs>[]
   }
@@ -968,9 +1125,21 @@ export type $AdPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     adGroupId: string
     productId: string
     isActive: boolean
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     impressions: number
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     clicks: number
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     conversions: number
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     spent: runtime.Decimal
     createdAt: Date
     updatedAt: Date
@@ -1369,6 +1538,7 @@ readonly fields: AdFieldRefs;
 export interface Prisma__AdClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   adGroup<T extends Prisma.AdGroupDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AdGroupDefaultArgs<ExtArgs>>): Prisma.Prisma__AdGroupClient<runtime.Types.Result.GetResult<Prisma.$AdGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   impressionLogs<T extends Prisma.Ad$impressionLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Ad$impressionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdImpressionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clickLogs<T extends Prisma.Ad$clickLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Ad$clickLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdClickPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**

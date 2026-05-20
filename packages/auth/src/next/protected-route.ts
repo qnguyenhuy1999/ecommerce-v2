@@ -6,6 +6,7 @@ import type { AuthContextValue, AuthUser } from './client'
 
 export interface ProtectedRouteOptions {
   requiredRoles?: string[]
+  requireSeller?: boolean
   redirectTo?: string
   onForbiddenRedirect?: (user: AuthUser) => string
   forbiddenRedirectTo?: string
@@ -15,7 +16,7 @@ export function useProtectedRoute(
   useAuth: () => AuthContextValue,
   options: ProtectedRouteOptions = {},
 ) {
-  const { requiredRoles, redirectTo = '/login' } = options
+  const { requiredRoles, requireSeller = false, redirectTo = '/login' } = options
   const { forbiddenRedirectTo = '/', onForbiddenRedirect } = options
 
   const { user, loading } = useAuth()
@@ -30,13 +31,32 @@ export function useProtectedRoute(
     }
 
     if (requiredRoles && requiredRoles.length > 0) {
-      const hasRequired = requiredRoles.some((role) => user.roles.includes(role))
+      const roles = Array.isArray(user.roles) ? user.roles : []
+      const hasRequired = requiredRoles.some((role) => roles.includes(role))
       if (!hasRequired) {
         const target = onForbiddenRedirect ? onForbiddenRedirect(user) : forbiddenRedirectTo
         router.replace(target)
       }
     }
-  }, [forbiddenRedirectTo, loading, onForbiddenRedirect, redirectTo, requiredRoles, router, user])
+
+    if (requireSeller && !hasSellerProfile(user)) {
+      const target = onForbiddenRedirect ? onForbiddenRedirect(user) : forbiddenRedirectTo
+      router.replace(target)
+    }
+  }, [
+    forbiddenRedirectTo,
+    loading,
+    onForbiddenRedirect,
+    redirectTo,
+    requireSeller,
+    requiredRoles,
+    router,
+    user,
+  ])
 
   return { user, loading }
+}
+
+function hasSellerProfile(user: AuthUser): boolean {
+  return !!user.sellerProfile && typeof user.sellerProfile === 'object'
 }

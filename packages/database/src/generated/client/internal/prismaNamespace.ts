@@ -385,8 +385,6 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Role: 'Role',
-  UserRole: 'UserRole',
   Session: 'Session',
   PasswordResetToken: 'PasswordResetToken',
   EmailVerifyToken: 'EmailVerifyToken',
@@ -475,6 +473,7 @@ export const ModelName = {
   SearchBoostRule: 'SearchBoostRule',
   SearchAnalytics: 'SearchAnalytics',
   AutomationRule: 'AutomationRule',
+  AutomationRuleAction: 'AutomationRuleAction',
   AutomationExecution: 'AutomationExecution',
   Region: 'Region',
   Currency: 'Currency',
@@ -494,6 +493,7 @@ export const ModelName = {
   AdminRoleAssignment: 'AdminRoleAssignment',
   RolePermission: 'RolePermission',
   AdminSession: 'AdminSession',
+  AdminPasswordResetToken: 'AdminPasswordResetToken',
   Seller: 'Seller',
   SellerVerification: 'SellerVerification',
   AdminAuditLog: 'AdminAuditLog',
@@ -520,7 +520,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "role" | "userRole" | "session" | "passwordResetToken" | "emailVerifyToken" | "sellerProfile" | "shop" | "category" | "product" | "productVariantOptionGroup" | "productVariantOption" | "productVariant" | "productVariantOptionValue" | "productImage" | "order" | "sellerOrder" | "sellerOrderItem" | "orderAuditLog" | "inventoryTransaction" | "shippingProvider" | "sellerShippingMethod" | "shipment" | "notification" | "auditLog" | "coupon" | "couponProduct" | "couponCategory" | "couponUsage" | "review" | "reviewImage" | "reviewReply" | "reviewReport" | "conversation" | "chatMessage" | "returnRequest" | "returnItem" | "returnEvidence" | "returnTimeline" | "productApproval" | "productApprovalHistory" | "warehouse" | "warehouseStock" | "inventoryTransfer" | "inventoryTransferItem" | "sellerMetricSnapshot" | "bulkJob" | "savedFilter" | "flashSaleCampaign" | "flashSaleSlot" | "flashSalePurchase" | "adCampaign" | "adGroup" | "ad" | "adKeyword" | "adImpression" | "adClick" | "affiliatePartner" | "affiliateLink" | "affiliateClick" | "affiliateConversion" | "commissionPayout" | "subscriptionPlan" | "planEntitlement" | "sellerSubscription" | "subscriptionInvoice" | "livestreamSession" | "livestreamProduct" | "livestreamChat" | "aiTask" | "aiPromptTemplate" | "aiUsageLog" | "userEvent" | "productScore" | "productRelation" | "loyaltyTier" | "loyaltyAccount" | "loyaltyTransaction" | "loyaltyMission" | "loyaltyMissionProgress" | "loyaltyReward" | "loyaltyRedemption" | "wallet" | "walletTransaction" | "walletWithdrawal" | "settlementBatch" | "settlementItem" | "searchSynonym" | "searchBoostRule" | "searchAnalytics" | "automationRule" | "automationExecution" | "region" | "currency" | "translation" | "regionalPricing" | "taxRate" | "platformEvent" | "eventSubscription" | "referral" | "featureFlag" | "experiment" | "experimentVariant" | "growthCampaign" | "userSegment" | "admin" | "adminRole" | "adminRoleAssignment" | "rolePermission" | "adminSession" | "seller" | "sellerVerification" | "adminAuditLog" | "productReport" | "attributeGroup" | "attributeValue" | "categoryAttribute" | "banner" | "notificationTemplate" | "adminNotification" | "platformVoucher"
+    modelProps: "user" | "session" | "passwordResetToken" | "emailVerifyToken" | "sellerProfile" | "shop" | "category" | "product" | "productVariantOptionGroup" | "productVariantOption" | "productVariant" | "productVariantOptionValue" | "productImage" | "order" | "sellerOrder" | "sellerOrderItem" | "orderAuditLog" | "inventoryTransaction" | "shippingProvider" | "sellerShippingMethod" | "shipment" | "notification" | "auditLog" | "coupon" | "couponProduct" | "couponCategory" | "couponUsage" | "review" | "reviewImage" | "reviewReply" | "reviewReport" | "conversation" | "chatMessage" | "returnRequest" | "returnItem" | "returnEvidence" | "returnTimeline" | "productApproval" | "productApprovalHistory" | "warehouse" | "warehouseStock" | "inventoryTransfer" | "inventoryTransferItem" | "sellerMetricSnapshot" | "bulkJob" | "savedFilter" | "flashSaleCampaign" | "flashSaleSlot" | "flashSalePurchase" | "adCampaign" | "adGroup" | "ad" | "adKeyword" | "adImpression" | "adClick" | "affiliatePartner" | "affiliateLink" | "affiliateClick" | "affiliateConversion" | "commissionPayout" | "subscriptionPlan" | "planEntitlement" | "sellerSubscription" | "subscriptionInvoice" | "livestreamSession" | "livestreamProduct" | "livestreamChat" | "aiTask" | "aiPromptTemplate" | "aiUsageLog" | "userEvent" | "productScore" | "productRelation" | "loyaltyTier" | "loyaltyAccount" | "loyaltyTransaction" | "loyaltyMission" | "loyaltyMissionProgress" | "loyaltyReward" | "loyaltyRedemption" | "wallet" | "walletTransaction" | "walletWithdrawal" | "settlementBatch" | "settlementItem" | "searchSynonym" | "searchBoostRule" | "searchAnalytics" | "automationRule" | "automationRuleAction" | "automationExecution" | "region" | "currency" | "translation" | "regionalPricing" | "taxRate" | "platformEvent" | "eventSubscription" | "referral" | "featureFlag" | "experiment" | "experimentVariant" | "growthCampaign" | "userSegment" | "admin" | "adminRole" | "adminRoleAssignment" | "rolePermission" | "adminSession" | "adminPasswordResetToken" | "seller" | "sellerVerification" | "adminAuditLog" | "productReport" | "attributeGroup" | "attributeValue" | "categoryAttribute" | "banner" | "notificationTemplate" | "adminNotification" | "platformVoucher"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -595,154 +595,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
-        }
-      }
-    }
-    Role: {
-      payload: Prisma.$RolePayload<ExtArgs>
-      fields: Prisma.RoleFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.RoleFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.RoleFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
-        }
-        findFirst: {
-          args: Prisma.RoleFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.RoleFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
-        }
-        findMany: {
-          args: Prisma.RoleFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>[]
-        }
-        create: {
-          args: Prisma.RoleCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
-        }
-        createMany: {
-          args: Prisma.RoleCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.RoleCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>[]
-        }
-        delete: {
-          args: Prisma.RoleDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
-        }
-        update: {
-          args: Prisma.RoleUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
-        }
-        deleteMany: {
-          args: Prisma.RoleDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.RoleUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.RoleUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>[]
-        }
-        upsert: {
-          args: Prisma.RoleUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
-        }
-        aggregate: {
-          args: Prisma.RoleAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateRole>
-        }
-        groupBy: {
-          args: Prisma.RoleGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RoleGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.RoleCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RoleCountAggregateOutputType> | number
-        }
-      }
-    }
-    UserRole: {
-      payload: Prisma.$UserRolePayload<ExtArgs>
-      fields: Prisma.UserRoleFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.UserRoleFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserRolePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.UserRoleFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserRolePayload>
-        }
-        findFirst: {
-          args: Prisma.UserRoleFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserRolePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.UserRoleFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserRolePayload>
-        }
-        findMany: {
-          args: Prisma.UserRoleFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserRolePayload>[]
-        }
-        create: {
-          args: Prisma.UserRoleCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserRolePayload>
-        }
-        createMany: {
-          args: Prisma.UserRoleCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.UserRoleCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserRolePayload>[]
-        }
-        delete: {
-          args: Prisma.UserRoleDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserRolePayload>
-        }
-        update: {
-          args: Prisma.UserRoleUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserRolePayload>
-        }
-        deleteMany: {
-          args: Prisma.UserRoleDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.UserRoleUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.UserRoleUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserRolePayload>[]
-        }
-        upsert: {
-          args: Prisma.UserRoleUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserRolePayload>
-        }
-        aggregate: {
-          args: Prisma.UserRoleAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateUserRole>
-        }
-        groupBy: {
-          args: Prisma.UserRoleGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UserRoleGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.UserRoleCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UserRoleCountAggregateOutputType> | number
         }
       }
     }
@@ -7258,6 +7110,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AutomationRuleAction: {
+      payload: Prisma.$AutomationRuleActionPayload<ExtArgs>
+      fields: Prisma.AutomationRuleActionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AutomationRuleActionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AutomationRuleActionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AutomationRuleActionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AutomationRuleActionPayload>
+        }
+        findFirst: {
+          args: Prisma.AutomationRuleActionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AutomationRuleActionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AutomationRuleActionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AutomationRuleActionPayload>
+        }
+        findMany: {
+          args: Prisma.AutomationRuleActionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AutomationRuleActionPayload>[]
+        }
+        create: {
+          args: Prisma.AutomationRuleActionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AutomationRuleActionPayload>
+        }
+        createMany: {
+          args: Prisma.AutomationRuleActionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AutomationRuleActionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AutomationRuleActionPayload>[]
+        }
+        delete: {
+          args: Prisma.AutomationRuleActionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AutomationRuleActionPayload>
+        }
+        update: {
+          args: Prisma.AutomationRuleActionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AutomationRuleActionPayload>
+        }
+        deleteMany: {
+          args: Prisma.AutomationRuleActionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AutomationRuleActionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AutomationRuleActionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AutomationRuleActionPayload>[]
+        }
+        upsert: {
+          args: Prisma.AutomationRuleActionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AutomationRuleActionPayload>
+        }
+        aggregate: {
+          args: Prisma.AutomationRuleActionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAutomationRuleAction>
+        }
+        groupBy: {
+          args: Prisma.AutomationRuleActionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AutomationRuleActionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AutomationRuleActionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AutomationRuleActionCountAggregateOutputType> | number
+        }
+      }
+    }
     AutomationExecution: {
       payload: Prisma.$AutomationExecutionPayload<ExtArgs>
       fields: Prisma.AutomationExecutionFieldRefs
@@ -8664,6 +8590,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AdminPasswordResetToken: {
+      payload: Prisma.$AdminPasswordResetTokenPayload<ExtArgs>
+      fields: Prisma.AdminPasswordResetTokenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AdminPasswordResetTokenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPasswordResetTokenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AdminPasswordResetTokenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPasswordResetTokenPayload>
+        }
+        findFirst: {
+          args: Prisma.AdminPasswordResetTokenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPasswordResetTokenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AdminPasswordResetTokenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPasswordResetTokenPayload>
+        }
+        findMany: {
+          args: Prisma.AdminPasswordResetTokenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPasswordResetTokenPayload>[]
+        }
+        create: {
+          args: Prisma.AdminPasswordResetTokenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPasswordResetTokenPayload>
+        }
+        createMany: {
+          args: Prisma.AdminPasswordResetTokenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AdminPasswordResetTokenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPasswordResetTokenPayload>[]
+        }
+        delete: {
+          args: Prisma.AdminPasswordResetTokenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPasswordResetTokenPayload>
+        }
+        update: {
+          args: Prisma.AdminPasswordResetTokenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPasswordResetTokenPayload>
+        }
+        deleteMany: {
+          args: Prisma.AdminPasswordResetTokenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AdminPasswordResetTokenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AdminPasswordResetTokenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPasswordResetTokenPayload>[]
+        }
+        upsert: {
+          args: Prisma.AdminPasswordResetTokenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminPasswordResetTokenPayload>
+        }
+        aggregate: {
+          args: Prisma.AdminPasswordResetTokenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAdminPasswordResetToken>
+        }
+        groupBy: {
+          args: Prisma.AdminPasswordResetTokenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminPasswordResetTokenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AdminPasswordResetTokenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminPasswordResetTokenCountAggregateOutputType> | number
+        }
+      }
+    }
     Seller: {
       payload: Prisma.$SellerPayload<ExtArgs>
       fields: Prisma.SellerFieldRefs
@@ -9526,27 +9526,12 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   emailVerified: 'emailVerified',
   status: 'status',
+  isStaff: 'isStaff',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-export const RoleScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-} as const
-
-export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
-
-
-export const UserRoleScalarFieldEnum = {
-  userId: 'userId',
-  roleId: 'roleId'
-} as const
-
-export type UserRoleScalarFieldEnum = (typeof UserRoleScalarFieldEnum)[keyof typeof UserRoleScalarFieldEnum]
 
 
 export const SessionScalarFieldEnum = {
@@ -9631,6 +9616,8 @@ export const CategoryScalarFieldEnum = {
   banner: 'banner',
   metaTitle: 'metaTitle',
   metaDesc: 'metaDesc',
+  depth: 'depth',
+  path: 'path',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -9706,6 +9693,7 @@ export type ProductVariantOptionValueScalarFieldEnum = (typeof ProductVariantOpt
 export const ProductImageScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
+  variantId: 'variantId',
   url: 'url',
   alt: 'alt',
   sortOrder: 'sortOrder',
@@ -9815,6 +9803,7 @@ export const ShipmentScalarFieldEnum = {
   providerId: 'providerId',
   trackingNumber: 'trackingNumber',
   status: 'status',
+  isPrimary: 'isPrimary',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -9977,7 +9966,8 @@ export const ChatMessageScalarFieldEnum = {
   type: 'type',
   content: 'content',
   metadata: 'metadata',
-  isRead: 'isRead',
+  isReadBySeller: 'isReadBySeller',
+  isReadByBuyer: 'isReadByBuyer',
   createdAt: 'createdAt'
 } as const
 
@@ -10007,6 +9997,7 @@ export const ReturnItemScalarFieldEnum = {
   id: 'id',
   returnRequestId: 'returnRequestId',
   sellerOrderItemId: 'sellerOrderItemId',
+  variantId: 'variantId',
   quantity: 'quantity'
 } as const
 
@@ -10540,6 +10531,7 @@ export const AiUsageLogScalarFieldEnum = {
   tasksUsed: 'tasksUsed',
   tokensUsed: 'tokensUsed',
   totalCostUsd: 'totalCostUsd',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
@@ -10818,7 +10810,7 @@ export const AutomationRuleScalarFieldEnum = {
   status: 'status',
   trigger: 'trigger',
   conditions: 'conditions',
-  actions: 'actions',
+  actionsLegacy: 'actionsLegacy',
   priority: 'priority',
   maxExecutions: 'maxExecutions',
   executionCount: 'executionCount',
@@ -10828,6 +10820,17 @@ export const AutomationRuleScalarFieldEnum = {
 } as const
 
 export type AutomationRuleScalarFieldEnum = (typeof AutomationRuleScalarFieldEnum)[keyof typeof AutomationRuleScalarFieldEnum]
+
+
+export const AutomationRuleActionScalarFieldEnum = {
+  id: 'id',
+  ruleId: 'ruleId',
+  action: 'action',
+  params: 'params',
+  sortOrder: 'sortOrder'
+} as const
+
+export type AutomationRuleActionScalarFieldEnum = (typeof AutomationRuleActionScalarFieldEnum)[keyof typeof AutomationRuleActionScalarFieldEnum]
 
 
 export const AutomationExecutionScalarFieldEnum = {
@@ -10889,6 +10892,7 @@ export type TranslationScalarFieldEnum = (typeof TranslationScalarFieldEnum)[key
 export const RegionalPricingScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
+  variantId: 'variantId',
   regionId: 'regionId',
   price: 'price',
   currencyCode: 'currencyCode',
@@ -10978,6 +10982,7 @@ export type FeatureFlagScalarFieldEnum = (typeof FeatureFlagScalarFieldEnum)[key
 
 export const ExperimentScalarFieldEnum = {
   id: 'id',
+  featureFlagId: 'featureFlagId',
   name: 'name',
   description: 'description',
   status: 'status',
@@ -11046,6 +11051,7 @@ export const AdminScalarFieldEnum = {
   lastName: 'lastName',
   avatar: 'avatar',
   status: 'status',
+  emailVerified: 'emailVerified',
   lastLoginAt: 'lastLoginAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -11095,11 +11101,23 @@ export const AdminSessionScalarFieldEnum = {
 export type AdminSessionScalarFieldEnum = (typeof AdminSessionScalarFieldEnum)[keyof typeof AdminSessionScalarFieldEnum]
 
 
+export const AdminPasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  adminId: 'adminId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type AdminPasswordResetTokenScalarFieldEnum = (typeof AdminPasswordResetTokenScalarFieldEnum)[keyof typeof AdminPasswordResetTokenScalarFieldEnum]
+
+
 export const SellerScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  shopName: 'shopName',
-  shopDescription: 'shopDescription',
+  sellerProfileId: 'sellerProfileId',
+  shopId: 'shopId',
   phone: 'phone',
   address: 'address',
   status: 'status',
@@ -11835,6 +11853,62 @@ export type ListEnumAiTaskStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
+ * Reference to a field of type 'UserEventType'
+ */
+export type EnumUserEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserEventType'>
+    
+
+
+/**
+ * Reference to a field of type 'UserEventType[]'
+ */
+export type ListEnumUserEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserEventType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'UserEventEntityType'
+ */
+export type EnumUserEventEntityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserEventEntityType'>
+    
+
+
+/**
+ * Reference to a field of type 'UserEventEntityType[]'
+ */
+export type ListEnumUserEventEntityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserEventEntityType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductScoreType'
+ */
+export type EnumProductScoreTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductScoreType'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductScoreType[]'
+ */
+export type ListEnumProductScoreTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductScoreType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductRelationType'
+ */
+export type EnumProductRelationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductRelationType'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductRelationType[]'
+ */
+export type ListEnumProductRelationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductRelationType[]'>
+    
+
+
+/**
  * Reference to a field of type 'LoyaltyTransactionType'
  */
 export type EnumLoyaltyTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LoyaltyTransactionType'>
@@ -11845,6 +11919,34 @@ export type EnumLoyaltyTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInpu
  * Reference to a field of type 'LoyaltyTransactionType[]'
  */
 export type ListEnumLoyaltyTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LoyaltyTransactionType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LoyaltyRewardType'
+ */
+export type EnumLoyaltyRewardTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LoyaltyRewardType'>
+    
+
+
+/**
+ * Reference to a field of type 'LoyaltyRewardType[]'
+ */
+export type ListEnumLoyaltyRewardTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LoyaltyRewardType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'WalletOwnerType'
+ */
+export type EnumWalletOwnerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WalletOwnerType'>
+    
+
+
+/**
+ * Reference to a field of type 'WalletOwnerType[]'
+ */
+export type ListEnumWalletOwnerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WalletOwnerType[]'>
     
 
 
@@ -11915,6 +12017,20 @@ export type EnumAutomationTriggerFieldRefInput<$PrismaModel> = FieldRefInputType
  * Reference to a field of type 'AutomationTrigger[]'
  */
 export type ListEnumAutomationTriggerFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AutomationTrigger[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AutomationAction'
+ */
+export type EnumAutomationActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AutomationAction'>
+    
+
+
+/**
+ * Reference to a field of type 'AutomationAction[]'
+ */
+export type ListEnumAutomationActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AutomationAction[]'>
     
 
 
@@ -12266,8 +12382,6 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
-  role?: Prisma.RoleOmit
-  userRole?: Prisma.UserRoleOmit
   session?: Prisma.SessionOmit
   passwordResetToken?: Prisma.PasswordResetTokenOmit
   emailVerifyToken?: Prisma.EmailVerifyTokenOmit
@@ -12356,6 +12470,7 @@ export type GlobalOmitConfig = {
   searchBoostRule?: Prisma.SearchBoostRuleOmit
   searchAnalytics?: Prisma.SearchAnalyticsOmit
   automationRule?: Prisma.AutomationRuleOmit
+  automationRuleAction?: Prisma.AutomationRuleActionOmit
   automationExecution?: Prisma.AutomationExecutionOmit
   region?: Prisma.RegionOmit
   currency?: Prisma.CurrencyOmit
@@ -12375,6 +12490,7 @@ export type GlobalOmitConfig = {
   adminRoleAssignment?: Prisma.AdminRoleAssignmentOmit
   rolePermission?: Prisma.RolePermissionOmit
   adminSession?: Prisma.AdminSessionOmit
+  adminPasswordResetToken?: Prisma.AdminPasswordResetTokenOmit
   seller?: Prisma.SellerOmit
   sellerVerification?: Prisma.SellerVerificationOmit
   adminAuditLog?: Prisma.AdminAuditLogOmit

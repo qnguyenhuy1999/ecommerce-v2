@@ -38,6 +38,7 @@ export type ReturnItemMinAggregateOutputType = {
   id: string | null
   returnRequestId: string | null
   sellerOrderItemId: string | null
+  variantId: string | null
   quantity: number | null
 }
 
@@ -45,6 +46,7 @@ export type ReturnItemMaxAggregateOutputType = {
   id: string | null
   returnRequestId: string | null
   sellerOrderItemId: string | null
+  variantId: string | null
   quantity: number | null
 }
 
@@ -52,6 +54,7 @@ export type ReturnItemCountAggregateOutputType = {
   id: number
   returnRequestId: number
   sellerOrderItemId: number
+  variantId: number
   quantity: number
   _all: number
 }
@@ -69,6 +72,7 @@ export type ReturnItemMinAggregateInputType = {
   id?: true
   returnRequestId?: true
   sellerOrderItemId?: true
+  variantId?: true
   quantity?: true
 }
 
@@ -76,6 +80,7 @@ export type ReturnItemMaxAggregateInputType = {
   id?: true
   returnRequestId?: true
   sellerOrderItemId?: true
+  variantId?: true
   quantity?: true
 }
 
@@ -83,6 +88,7 @@ export type ReturnItemCountAggregateInputType = {
   id?: true
   returnRequestId?: true
   sellerOrderItemId?: true
+  variantId?: true
   quantity?: true
   _all?: true
 }
@@ -177,6 +183,7 @@ export type ReturnItemGroupByOutputType = {
   id: string
   returnRequestId: string
   sellerOrderItemId: string
+  variantId: string | null
   quantity: number
   _count: ReturnItemCountAggregateOutputType | null
   _avg: ReturnItemAvgAggregateOutputType | null
@@ -207,16 +214,22 @@ export type ReturnItemWhereInput = {
   id?: Prisma.UuidFilter<"ReturnItem"> | string
   returnRequestId?: Prisma.UuidFilter<"ReturnItem"> | string
   sellerOrderItemId?: Prisma.UuidFilter<"ReturnItem"> | string
+  variantId?: Prisma.UuidNullableFilter<"ReturnItem"> | string | null
   quantity?: Prisma.IntFilter<"ReturnItem"> | number
   returnRequest?: Prisma.XOR<Prisma.ReturnRequestScalarRelationFilter, Prisma.ReturnRequestWhereInput>
+  sellerOrderItem?: Prisma.XOR<Prisma.SellerOrderItemScalarRelationFilter, Prisma.SellerOrderItemWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
 }
 
 export type ReturnItemOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   returnRequestId?: Prisma.SortOrder
   sellerOrderItemId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrderInput | Prisma.SortOrder
   quantity?: Prisma.SortOrder
   returnRequest?: Prisma.ReturnRequestOrderByWithRelationInput
+  sellerOrderItem?: Prisma.SellerOrderItemOrderByWithRelationInput
+  variant?: Prisma.ProductVariantOrderByWithRelationInput
 }
 
 export type ReturnItemWhereUniqueInput = Prisma.AtLeast<{
@@ -226,14 +239,18 @@ export type ReturnItemWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ReturnItemWhereInput | Prisma.ReturnItemWhereInput[]
   returnRequestId?: Prisma.UuidFilter<"ReturnItem"> | string
   sellerOrderItemId?: Prisma.UuidFilter<"ReturnItem"> | string
+  variantId?: Prisma.UuidNullableFilter<"ReturnItem"> | string | null
   quantity?: Prisma.IntFilter<"ReturnItem"> | number
   returnRequest?: Prisma.XOR<Prisma.ReturnRequestScalarRelationFilter, Prisma.ReturnRequestWhereInput>
+  sellerOrderItem?: Prisma.XOR<Prisma.SellerOrderItemScalarRelationFilter, Prisma.SellerOrderItemWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
 }, "id">
 
 export type ReturnItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   returnRequestId?: Prisma.SortOrder
   sellerOrderItemId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrderInput | Prisma.SortOrder
   quantity?: Prisma.SortOrder
   _count?: Prisma.ReturnItemCountOrderByAggregateInput
   _avg?: Prisma.ReturnItemAvgOrderByAggregateInput
@@ -249,34 +266,39 @@ export type ReturnItemScalarWhereWithAggregatesInput = {
   id?: Prisma.UuidWithAggregatesFilter<"ReturnItem"> | string
   returnRequestId?: Prisma.UuidWithAggregatesFilter<"ReturnItem"> | string
   sellerOrderItemId?: Prisma.UuidWithAggregatesFilter<"ReturnItem"> | string
+  variantId?: Prisma.UuidNullableWithAggregatesFilter<"ReturnItem"> | string | null
   quantity?: Prisma.IntWithAggregatesFilter<"ReturnItem"> | number
 }
 
 export type ReturnItemCreateInput = {
   id?: string
-  sellerOrderItemId: string
   quantity: number
   returnRequest: Prisma.ReturnRequestCreateNestedOneWithoutItemsInput
+  sellerOrderItem: Prisma.SellerOrderItemCreateNestedOneWithoutReturnItemsInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutReturnItemsInput
 }
 
 export type ReturnItemUncheckedCreateInput = {
   id?: string
   returnRequestId: string
   sellerOrderItemId: string
+  variantId?: string | null
   quantity: number
 }
 
 export type ReturnItemUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sellerOrderItemId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   returnRequest?: Prisma.ReturnRequestUpdateOneRequiredWithoutItemsNestedInput
+  sellerOrderItem?: Prisma.SellerOrderItemUpdateOneRequiredWithoutReturnItemsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutReturnItemsNestedInput
 }
 
 export type ReturnItemUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   returnRequestId?: Prisma.StringFieldUpdateOperationsInput | string
   sellerOrderItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -284,12 +306,12 @@ export type ReturnItemCreateManyInput = {
   id?: string
   returnRequestId: string
   sellerOrderItemId: string
+  variantId?: string | null
   quantity: number
 }
 
 export type ReturnItemUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sellerOrderItemId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -297,6 +319,7 @@ export type ReturnItemUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   returnRequestId?: Prisma.StringFieldUpdateOperationsInput | string
   sellerOrderItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -314,6 +337,7 @@ export type ReturnItemCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   returnRequestId?: Prisma.SortOrder
   sellerOrderItemId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
 }
 
@@ -325,6 +349,7 @@ export type ReturnItemMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   returnRequestId?: Prisma.SortOrder
   sellerOrderItemId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
 }
 
@@ -332,11 +357,96 @@ export type ReturnItemMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   returnRequestId?: Prisma.SortOrder
   sellerOrderItemId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
 }
 
 export type ReturnItemSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+}
+
+export type ReturnItemCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.ReturnItemCreateWithoutVariantInput, Prisma.ReturnItemUncheckedCreateWithoutVariantInput> | Prisma.ReturnItemCreateWithoutVariantInput[] | Prisma.ReturnItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.ReturnItemCreateOrConnectWithoutVariantInput | Prisma.ReturnItemCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.ReturnItemCreateManyVariantInputEnvelope
+  connect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+}
+
+export type ReturnItemUncheckedCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.ReturnItemCreateWithoutVariantInput, Prisma.ReturnItemUncheckedCreateWithoutVariantInput> | Prisma.ReturnItemCreateWithoutVariantInput[] | Prisma.ReturnItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.ReturnItemCreateOrConnectWithoutVariantInput | Prisma.ReturnItemCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.ReturnItemCreateManyVariantInputEnvelope
+  connect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+}
+
+export type ReturnItemUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.ReturnItemCreateWithoutVariantInput, Prisma.ReturnItemUncheckedCreateWithoutVariantInput> | Prisma.ReturnItemCreateWithoutVariantInput[] | Prisma.ReturnItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.ReturnItemCreateOrConnectWithoutVariantInput | Prisma.ReturnItemCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.ReturnItemUpsertWithWhereUniqueWithoutVariantInput | Prisma.ReturnItemUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.ReturnItemCreateManyVariantInputEnvelope
+  set?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  disconnect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  delete?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  connect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  update?: Prisma.ReturnItemUpdateWithWhereUniqueWithoutVariantInput | Prisma.ReturnItemUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.ReturnItemUpdateManyWithWhereWithoutVariantInput | Prisma.ReturnItemUpdateManyWithWhereWithoutVariantInput[]
+  deleteMany?: Prisma.ReturnItemScalarWhereInput | Prisma.ReturnItemScalarWhereInput[]
+}
+
+export type ReturnItemUncheckedUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.ReturnItemCreateWithoutVariantInput, Prisma.ReturnItemUncheckedCreateWithoutVariantInput> | Prisma.ReturnItemCreateWithoutVariantInput[] | Prisma.ReturnItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.ReturnItemCreateOrConnectWithoutVariantInput | Prisma.ReturnItemCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.ReturnItemUpsertWithWhereUniqueWithoutVariantInput | Prisma.ReturnItemUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.ReturnItemCreateManyVariantInputEnvelope
+  set?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  disconnect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  delete?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  connect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  update?: Prisma.ReturnItemUpdateWithWhereUniqueWithoutVariantInput | Prisma.ReturnItemUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.ReturnItemUpdateManyWithWhereWithoutVariantInput | Prisma.ReturnItemUpdateManyWithWhereWithoutVariantInput[]
+  deleteMany?: Prisma.ReturnItemScalarWhereInput | Prisma.ReturnItemScalarWhereInput[]
+}
+
+export type ReturnItemCreateNestedManyWithoutSellerOrderItemInput = {
+  create?: Prisma.XOR<Prisma.ReturnItemCreateWithoutSellerOrderItemInput, Prisma.ReturnItemUncheckedCreateWithoutSellerOrderItemInput> | Prisma.ReturnItemCreateWithoutSellerOrderItemInput[] | Prisma.ReturnItemUncheckedCreateWithoutSellerOrderItemInput[]
+  connectOrCreate?: Prisma.ReturnItemCreateOrConnectWithoutSellerOrderItemInput | Prisma.ReturnItemCreateOrConnectWithoutSellerOrderItemInput[]
+  createMany?: Prisma.ReturnItemCreateManySellerOrderItemInputEnvelope
+  connect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+}
+
+export type ReturnItemUncheckedCreateNestedManyWithoutSellerOrderItemInput = {
+  create?: Prisma.XOR<Prisma.ReturnItemCreateWithoutSellerOrderItemInput, Prisma.ReturnItemUncheckedCreateWithoutSellerOrderItemInput> | Prisma.ReturnItemCreateWithoutSellerOrderItemInput[] | Prisma.ReturnItemUncheckedCreateWithoutSellerOrderItemInput[]
+  connectOrCreate?: Prisma.ReturnItemCreateOrConnectWithoutSellerOrderItemInput | Prisma.ReturnItemCreateOrConnectWithoutSellerOrderItemInput[]
+  createMany?: Prisma.ReturnItemCreateManySellerOrderItemInputEnvelope
+  connect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+}
+
+export type ReturnItemUpdateManyWithoutSellerOrderItemNestedInput = {
+  create?: Prisma.XOR<Prisma.ReturnItemCreateWithoutSellerOrderItemInput, Prisma.ReturnItemUncheckedCreateWithoutSellerOrderItemInput> | Prisma.ReturnItemCreateWithoutSellerOrderItemInput[] | Prisma.ReturnItemUncheckedCreateWithoutSellerOrderItemInput[]
+  connectOrCreate?: Prisma.ReturnItemCreateOrConnectWithoutSellerOrderItemInput | Prisma.ReturnItemCreateOrConnectWithoutSellerOrderItemInput[]
+  upsert?: Prisma.ReturnItemUpsertWithWhereUniqueWithoutSellerOrderItemInput | Prisma.ReturnItemUpsertWithWhereUniqueWithoutSellerOrderItemInput[]
+  createMany?: Prisma.ReturnItemCreateManySellerOrderItemInputEnvelope
+  set?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  disconnect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  delete?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  connect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  update?: Prisma.ReturnItemUpdateWithWhereUniqueWithoutSellerOrderItemInput | Prisma.ReturnItemUpdateWithWhereUniqueWithoutSellerOrderItemInput[]
+  updateMany?: Prisma.ReturnItemUpdateManyWithWhereWithoutSellerOrderItemInput | Prisma.ReturnItemUpdateManyWithWhereWithoutSellerOrderItemInput[]
+  deleteMany?: Prisma.ReturnItemScalarWhereInput | Prisma.ReturnItemScalarWhereInput[]
+}
+
+export type ReturnItemUncheckedUpdateManyWithoutSellerOrderItemNestedInput = {
+  create?: Prisma.XOR<Prisma.ReturnItemCreateWithoutSellerOrderItemInput, Prisma.ReturnItemUncheckedCreateWithoutSellerOrderItemInput> | Prisma.ReturnItemCreateWithoutSellerOrderItemInput[] | Prisma.ReturnItemUncheckedCreateWithoutSellerOrderItemInput[]
+  connectOrCreate?: Prisma.ReturnItemCreateOrConnectWithoutSellerOrderItemInput | Prisma.ReturnItemCreateOrConnectWithoutSellerOrderItemInput[]
+  upsert?: Prisma.ReturnItemUpsertWithWhereUniqueWithoutSellerOrderItemInput | Prisma.ReturnItemUpsertWithWhereUniqueWithoutSellerOrderItemInput[]
+  createMany?: Prisma.ReturnItemCreateManySellerOrderItemInputEnvelope
+  set?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  disconnect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  delete?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  connect?: Prisma.ReturnItemWhereUniqueInput | Prisma.ReturnItemWhereUniqueInput[]
+  update?: Prisma.ReturnItemUpdateWithWhereUniqueWithoutSellerOrderItemInput | Prisma.ReturnItemUpdateWithWhereUniqueWithoutSellerOrderItemInput[]
+  updateMany?: Prisma.ReturnItemUpdateManyWithWhereWithoutSellerOrderItemInput | Prisma.ReturnItemUpdateManyWithWhereWithoutSellerOrderItemInput[]
+  deleteMany?: Prisma.ReturnItemScalarWhereInput | Prisma.ReturnItemScalarWhereInput[]
 }
 
 export type ReturnItemCreateNestedManyWithoutReturnRequestInput = {
@@ -381,15 +491,108 @@ export type ReturnItemUncheckedUpdateManyWithoutReturnRequestNestedInput = {
   deleteMany?: Prisma.ReturnItemScalarWhereInput | Prisma.ReturnItemScalarWhereInput[]
 }
 
-export type ReturnItemCreateWithoutReturnRequestInput = {
+export type ReturnItemCreateWithoutVariantInput = {
   id?: string
+  quantity: number
+  returnRequest: Prisma.ReturnRequestCreateNestedOneWithoutItemsInput
+  sellerOrderItem: Prisma.SellerOrderItemCreateNestedOneWithoutReturnItemsInput
+}
+
+export type ReturnItemUncheckedCreateWithoutVariantInput = {
+  id?: string
+  returnRequestId: string
   sellerOrderItemId: string
   quantity: number
+}
+
+export type ReturnItemCreateOrConnectWithoutVariantInput = {
+  where: Prisma.ReturnItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReturnItemCreateWithoutVariantInput, Prisma.ReturnItemUncheckedCreateWithoutVariantInput>
+}
+
+export type ReturnItemCreateManyVariantInputEnvelope = {
+  data: Prisma.ReturnItemCreateManyVariantInput | Prisma.ReturnItemCreateManyVariantInput[]
+  skipDuplicates?: boolean
+}
+
+export type ReturnItemUpsertWithWhereUniqueWithoutVariantInput = {
+  where: Prisma.ReturnItemWhereUniqueInput
+  update: Prisma.XOR<Prisma.ReturnItemUpdateWithoutVariantInput, Prisma.ReturnItemUncheckedUpdateWithoutVariantInput>
+  create: Prisma.XOR<Prisma.ReturnItemCreateWithoutVariantInput, Prisma.ReturnItemUncheckedCreateWithoutVariantInput>
+}
+
+export type ReturnItemUpdateWithWhereUniqueWithoutVariantInput = {
+  where: Prisma.ReturnItemWhereUniqueInput
+  data: Prisma.XOR<Prisma.ReturnItemUpdateWithoutVariantInput, Prisma.ReturnItemUncheckedUpdateWithoutVariantInput>
+}
+
+export type ReturnItemUpdateManyWithWhereWithoutVariantInput = {
+  where: Prisma.ReturnItemScalarWhereInput
+  data: Prisma.XOR<Prisma.ReturnItemUpdateManyMutationInput, Prisma.ReturnItemUncheckedUpdateManyWithoutVariantInput>
+}
+
+export type ReturnItemScalarWhereInput = {
+  AND?: Prisma.ReturnItemScalarWhereInput | Prisma.ReturnItemScalarWhereInput[]
+  OR?: Prisma.ReturnItemScalarWhereInput[]
+  NOT?: Prisma.ReturnItemScalarWhereInput | Prisma.ReturnItemScalarWhereInput[]
+  id?: Prisma.UuidFilter<"ReturnItem"> | string
+  returnRequestId?: Prisma.UuidFilter<"ReturnItem"> | string
+  sellerOrderItemId?: Prisma.UuidFilter<"ReturnItem"> | string
+  variantId?: Prisma.UuidNullableFilter<"ReturnItem"> | string | null
+  quantity?: Prisma.IntFilter<"ReturnItem"> | number
+}
+
+export type ReturnItemCreateWithoutSellerOrderItemInput = {
+  id?: string
+  quantity: number
+  returnRequest: Prisma.ReturnRequestCreateNestedOneWithoutItemsInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutReturnItemsInput
+}
+
+export type ReturnItemUncheckedCreateWithoutSellerOrderItemInput = {
+  id?: string
+  returnRequestId: string
+  variantId?: string | null
+  quantity: number
+}
+
+export type ReturnItemCreateOrConnectWithoutSellerOrderItemInput = {
+  where: Prisma.ReturnItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReturnItemCreateWithoutSellerOrderItemInput, Prisma.ReturnItemUncheckedCreateWithoutSellerOrderItemInput>
+}
+
+export type ReturnItemCreateManySellerOrderItemInputEnvelope = {
+  data: Prisma.ReturnItemCreateManySellerOrderItemInput | Prisma.ReturnItemCreateManySellerOrderItemInput[]
+  skipDuplicates?: boolean
+}
+
+export type ReturnItemUpsertWithWhereUniqueWithoutSellerOrderItemInput = {
+  where: Prisma.ReturnItemWhereUniqueInput
+  update: Prisma.XOR<Prisma.ReturnItemUpdateWithoutSellerOrderItemInput, Prisma.ReturnItemUncheckedUpdateWithoutSellerOrderItemInput>
+  create: Prisma.XOR<Prisma.ReturnItemCreateWithoutSellerOrderItemInput, Prisma.ReturnItemUncheckedCreateWithoutSellerOrderItemInput>
+}
+
+export type ReturnItemUpdateWithWhereUniqueWithoutSellerOrderItemInput = {
+  where: Prisma.ReturnItemWhereUniqueInput
+  data: Prisma.XOR<Prisma.ReturnItemUpdateWithoutSellerOrderItemInput, Prisma.ReturnItemUncheckedUpdateWithoutSellerOrderItemInput>
+}
+
+export type ReturnItemUpdateManyWithWhereWithoutSellerOrderItemInput = {
+  where: Prisma.ReturnItemScalarWhereInput
+  data: Prisma.XOR<Prisma.ReturnItemUpdateManyMutationInput, Prisma.ReturnItemUncheckedUpdateManyWithoutSellerOrderItemInput>
+}
+
+export type ReturnItemCreateWithoutReturnRequestInput = {
+  id?: string
+  quantity: number
+  sellerOrderItem: Prisma.SellerOrderItemCreateNestedOneWithoutReturnItemsInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutReturnItemsInput
 }
 
 export type ReturnItemUncheckedCreateWithoutReturnRequestInput = {
   id?: string
   sellerOrderItemId: string
+  variantId?: string | null
   quantity: number
 }
 
@@ -419,37 +622,87 @@ export type ReturnItemUpdateManyWithWhereWithoutReturnRequestInput = {
   data: Prisma.XOR<Prisma.ReturnItemUpdateManyMutationInput, Prisma.ReturnItemUncheckedUpdateManyWithoutReturnRequestInput>
 }
 
-export type ReturnItemScalarWhereInput = {
-  AND?: Prisma.ReturnItemScalarWhereInput | Prisma.ReturnItemScalarWhereInput[]
-  OR?: Prisma.ReturnItemScalarWhereInput[]
-  NOT?: Prisma.ReturnItemScalarWhereInput | Prisma.ReturnItemScalarWhereInput[]
-  id?: Prisma.UuidFilter<"ReturnItem"> | string
-  returnRequestId?: Prisma.UuidFilter<"ReturnItem"> | string
-  sellerOrderItemId?: Prisma.UuidFilter<"ReturnItem"> | string
-  quantity?: Prisma.IntFilter<"ReturnItem"> | number
+export type ReturnItemCreateManyVariantInput = {
+  id?: string
+  returnRequestId: string
+  sellerOrderItemId: string
+  quantity: number
+}
+
+export type ReturnItemUpdateWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  returnRequest?: Prisma.ReturnRequestUpdateOneRequiredWithoutItemsNestedInput
+  sellerOrderItem?: Prisma.SellerOrderItemUpdateOneRequiredWithoutReturnItemsNestedInput
+}
+
+export type ReturnItemUncheckedUpdateWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  returnRequestId?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerOrderItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type ReturnItemUncheckedUpdateManyWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  returnRequestId?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerOrderItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type ReturnItemCreateManySellerOrderItemInput = {
+  id?: string
+  returnRequestId: string
+  variantId?: string | null
+  quantity: number
+}
+
+export type ReturnItemUpdateWithoutSellerOrderItemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  returnRequest?: Prisma.ReturnRequestUpdateOneRequiredWithoutItemsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutReturnItemsNestedInput
+}
+
+export type ReturnItemUncheckedUpdateWithoutSellerOrderItemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  returnRequestId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type ReturnItemUncheckedUpdateManyWithoutSellerOrderItemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  returnRequestId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ReturnItemCreateManyReturnRequestInput = {
   id?: string
   sellerOrderItemId: string
+  variantId?: string | null
   quantity: number
 }
 
 export type ReturnItemUpdateWithoutReturnRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sellerOrderItemId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  sellerOrderItem?: Prisma.SellerOrderItemUpdateOneRequiredWithoutReturnItemsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutReturnItemsNestedInput
 }
 
 export type ReturnItemUncheckedUpdateWithoutReturnRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sellerOrderItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ReturnItemUncheckedUpdateManyWithoutReturnRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   sellerOrderItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -459,53 +712,72 @@ export type ReturnItemSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   returnRequestId?: boolean
   sellerOrderItemId?: boolean
+  variantId?: boolean
   quantity?: boolean
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  sellerOrderItem?: boolean | Prisma.SellerOrderItemDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ReturnItem$variantArgs<ExtArgs>
 }, ExtArgs["result"]["returnItem"]>
 
 export type ReturnItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   returnRequestId?: boolean
   sellerOrderItemId?: boolean
+  variantId?: boolean
   quantity?: boolean
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  sellerOrderItem?: boolean | Prisma.SellerOrderItemDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ReturnItem$variantArgs<ExtArgs>
 }, ExtArgs["result"]["returnItem"]>
 
 export type ReturnItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   returnRequestId?: boolean
   sellerOrderItemId?: boolean
+  variantId?: boolean
   quantity?: boolean
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  sellerOrderItem?: boolean | Prisma.SellerOrderItemDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ReturnItem$variantArgs<ExtArgs>
 }, ExtArgs["result"]["returnItem"]>
 
 export type ReturnItemSelectScalar = {
   id?: boolean
   returnRequestId?: boolean
   sellerOrderItemId?: boolean
+  variantId?: boolean
   quantity?: boolean
 }
 
-export type ReturnItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "returnRequestId" | "sellerOrderItemId" | "quantity", ExtArgs["result"]["returnItem"]>
+export type ReturnItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "returnRequestId" | "sellerOrderItemId" | "variantId" | "quantity", ExtArgs["result"]["returnItem"]>
 export type ReturnItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  sellerOrderItem?: boolean | Prisma.SellerOrderItemDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ReturnItem$variantArgs<ExtArgs>
 }
 export type ReturnItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  sellerOrderItem?: boolean | Prisma.SellerOrderItemDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ReturnItem$variantArgs<ExtArgs>
 }
 export type ReturnItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  sellerOrderItem?: boolean | Prisma.SellerOrderItemDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ReturnItem$variantArgs<ExtArgs>
 }
 
 export type $ReturnItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ReturnItem"
   objects: {
     returnRequest: Prisma.$ReturnRequestPayload<ExtArgs>
+    sellerOrderItem: Prisma.$SellerOrderItemPayload<ExtArgs>
+    variant: Prisma.$ProductVariantPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     returnRequestId: string
     sellerOrderItemId: string
+    variantId: string | null
     quantity: number
   }, ExtArgs["result"]["returnItem"]>
   composites: {}
@@ -902,6 +1174,8 @@ readonly fields: ReturnItemFieldRefs;
 export interface Prisma__ReturnItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   returnRequest<T extends Prisma.ReturnRequestDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReturnRequestDefaultArgs<ExtArgs>>): Prisma.Prisma__ReturnRequestClient<runtime.Types.Result.GetResult<Prisma.$ReturnRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  sellerOrderItem<T extends Prisma.SellerOrderItemDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SellerOrderItemDefaultArgs<ExtArgs>>): Prisma.Prisma__SellerOrderItemClient<runtime.Types.Result.GetResult<Prisma.$SellerOrderItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  variant<T extends Prisma.ReturnItem$variantArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReturnItem$variantArgs<ExtArgs>>): Prisma.Prisma__ProductVariantClient<runtime.Types.Result.GetResult<Prisma.$ProductVariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -934,6 +1208,7 @@ export interface ReturnItemFieldRefs {
   readonly id: Prisma.FieldRef<"ReturnItem", 'String'>
   readonly returnRequestId: Prisma.FieldRef<"ReturnItem", 'String'>
   readonly sellerOrderItemId: Prisma.FieldRef<"ReturnItem", 'String'>
+  readonly variantId: Prisma.FieldRef<"ReturnItem", 'String'>
   readonly quantity: Prisma.FieldRef<"ReturnItem", 'Int'>
 }
     
@@ -1333,6 +1608,25 @@ export type ReturnItemDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many ReturnItems to delete.
    */
   limit?: number
+}
+
+/**
+ * ReturnItem.variant
+ */
+export type ReturnItem$variantArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductVariant
+   */
+  select?: Prisma.ProductVariantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductVariant
+   */
+  omit?: Prisma.ProductVariantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductVariantInclude<ExtArgs> | null
+  where?: Prisma.ProductVariantWhereInput
 }
 
 /**

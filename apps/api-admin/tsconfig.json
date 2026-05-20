@@ -17,6 +17,8 @@
       "@ecom/contracts/*": ["../../packages/contracts/src/*"],
       "@ecom/database": ["../../packages/database/src"],
       "@ecom/database/*": ["../../packages/database/src/*"],
+      "@ecom/email": ["../../packages/email/src"],
+      "@ecom/email/*": ["../../packages/email/src/*"],
       "@ecom/redis": ["../../packages/redis/src"],
       "@ecom/redis/*": ["../../packages/redis/src/*"],
       "@ecom/nestjs-core": ["../../packages/nestjs-core/src"],
@@ -30,6 +32,6 @@
       "@ecom/shared/errors": ["../../packages/shared/src/errors"]
     }
   },
-  "include": ["src/**/*", "../../packages/database/src/generated/**/*.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test"]
 }

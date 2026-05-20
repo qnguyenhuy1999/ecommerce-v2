@@ -33,6 +33,7 @@ export type UserMinAggregateOutputType = {
   phone: string | null
   emailVerified: boolean | null
   status: $Enums.UserStatus | null
+  isStaff: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +47,7 @@ export type UserMaxAggregateOutputType = {
   phone: string | null
   emailVerified: boolean | null
   status: $Enums.UserStatus | null
+  isStaff: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -59,6 +61,7 @@ export type UserCountAggregateOutputType = {
   phone: number
   emailVerified: number
   status: number
+  isStaff: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -74,6 +77,7 @@ export type UserMinAggregateInputType = {
   phone?: true
   emailVerified?: true
   status?: true
+  isStaff?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -87,6 +91,7 @@ export type UserMaxAggregateInputType = {
   phone?: true
   emailVerified?: true
   status?: true
+  isStaff?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +105,7 @@ export type UserCountAggregateInputType = {
   phone?: true
   emailVerified?: true
   status?: true
+  isStaff?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -186,6 +192,7 @@ export type UserGroupByOutputType = {
   phone: string | null
   emailVerified: boolean
   status: $Enums.UserStatus
+  isStaff: boolean
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -220,14 +227,26 @@ export type UserWhereInput = {
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
+  isStaff?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  userRoles?: Prisma.UserRoleListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   sellerProfile?: Prisma.XOR<Prisma.SellerProfileNullableScalarRelationFilter, Prisma.SellerProfileWhereInput> | null
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
   emailVerifyTokens?: Prisma.EmailVerifyTokenListRelationFilter
+  conversations?: Prisma.ConversationListRelationFilter
+  chatMessages?: Prisma.ChatMessageListRelationFilter
+  flashSalePurchases?: Prisma.FlashSalePurchaseListRelationFilter
+  couponUsages?: Prisma.CouponUsageListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
+  returnRequests?: Prisma.ReturnRequestListRelationFilter
+  adImpressions?: Prisma.AdImpressionListRelationFilter
+  adClicks?: Prisma.AdClickListRelationFilter
+  affiliateConversions?: Prisma.AffiliateConversionListRelationFilter
+  loyaltyAccount?: Prisma.XOR<Prisma.LoyaltyAccountNullableScalarRelationFilter, Prisma.LoyaltyAccountWhereInput> | null
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionListRelationFilter
   sellers?: Prisma.SellerListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -239,14 +258,26 @@ export type UserOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isStaff?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  userRoles?: Prisma.UserRoleOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   sellerProfile?: Prisma.SellerProfileOrderByWithRelationInput
   passwordResetTokens?: Prisma.PasswordResetTokenOrderByRelationAggregateInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenOrderByRelationAggregateInput
+  conversations?: Prisma.ConversationOrderByRelationAggregateInput
+  chatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseOrderByRelationAggregateInput
+  couponUsages?: Prisma.CouponUsageOrderByRelationAggregateInput
+  reviews?: Prisma.ReviewOrderByRelationAggregateInput
+  returnRequests?: Prisma.ReturnRequestOrderByRelationAggregateInput
+  adImpressions?: Prisma.AdImpressionOrderByRelationAggregateInput
+  adClicks?: Prisma.AdClickOrderByRelationAggregateInput
+  affiliateConversions?: Prisma.AffiliateConversionOrderByRelationAggregateInput
+  loyaltyAccount?: Prisma.LoyaltyAccountOrderByWithRelationInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionOrderByRelationAggregateInput
   sellers?: Prisma.SellerOrderByRelationAggregateInput
+  auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -261,14 +292,26 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
+  isStaff?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  userRoles?: Prisma.UserRoleListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   sellerProfile?: Prisma.XOR<Prisma.SellerProfileNullableScalarRelationFilter, Prisma.SellerProfileWhereInput> | null
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
   emailVerifyTokens?: Prisma.EmailVerifyTokenListRelationFilter
+  conversations?: Prisma.ConversationListRelationFilter
+  chatMessages?: Prisma.ChatMessageListRelationFilter
+  flashSalePurchases?: Prisma.FlashSalePurchaseListRelationFilter
+  couponUsages?: Prisma.CouponUsageListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
+  returnRequests?: Prisma.ReturnRequestListRelationFilter
+  adImpressions?: Prisma.AdImpressionListRelationFilter
+  adClicks?: Prisma.AdClickListRelationFilter
+  affiliateConversions?: Prisma.AffiliateConversionListRelationFilter
+  loyaltyAccount?: Prisma.XOR<Prisma.LoyaltyAccountNullableScalarRelationFilter, Prisma.LoyaltyAccountWhereInput> | null
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionListRelationFilter
   sellers?: Prisma.SellerListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -280,6 +323,7 @@ export type UserOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isStaff?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -299,6 +343,7 @@ export type UserScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
+  isStaff?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -312,14 +357,26 @@ export type UserCreateInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
   sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -331,14 +388,26 @@ export type UserUncheckedCreateInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
   sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -350,14 +419,26 @@ export type UserUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
   sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -369,14 +450,26 @@ export type UserUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
   sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -388,6 +481,7 @@ export type UserCreateManyInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -401,6 +495,7 @@ export type UserUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -414,6 +509,7 @@ export type UserUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -427,6 +523,7 @@ export type UserCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isStaff?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -440,6 +537,7 @@ export type UserMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isStaff?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -453,6 +551,7 @@ export type UserMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isStaff?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -460,6 +559,11 @@ export type UserMinOrderByAggregateInput = {
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -480,20 +584,6 @@ export type EnumUserStatusFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
-}
-
-export type UserCreateNestedOneWithoutUserRolesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutUserRolesInput, Prisma.UserUncheckedCreateWithoutUserRolesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserRolesInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutUserRolesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutUserRolesInput, Prisma.UserUncheckedCreateWithoutUserRolesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserRolesInput
-  upsert?: Prisma.UserUpsertWithoutUserRolesInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUserRolesInput, Prisma.UserUpdateWithoutUserRolesInput>, Prisma.UserUncheckedUpdateWithoutUserRolesInput>
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -552,6 +642,180 @@ export type UserUpdateOneRequiredWithoutSellerProfileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSellerProfileInput, Prisma.UserUpdateWithoutSellerProfileInput>, Prisma.UserUncheckedUpdateWithoutSellerProfileInput>
 }
 
+export type UserCreateNestedOneWithoutAuditLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAuditLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
+  upsert?: Prisma.UserUpsertWithoutAuditLogsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.UserUpdateWithoutAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+}
+
+export type UserCreateNestedOneWithoutCouponUsagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCouponUsagesInput, Prisma.UserUncheckedCreateWithoutCouponUsagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCouponUsagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCouponUsagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCouponUsagesInput, Prisma.UserUncheckedCreateWithoutCouponUsagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCouponUsagesInput
+  upsert?: Prisma.UserUpsertWithoutCouponUsagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCouponUsagesInput, Prisma.UserUpdateWithoutCouponUsagesInput>, Prisma.UserUncheckedUpdateWithoutCouponUsagesInput>
+}
+
+export type UserCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.UserUpsertWithoutReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsInput, Prisma.UserUpdateWithoutReviewsInput>, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+}
+
+export type UserCreateNestedOneWithoutConversationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutConversationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsInput
+  upsert?: Prisma.UserUpsertWithoutConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationsInput, Prisma.UserUpdateWithoutConversationsInput>, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+}
+
+export type UserCreateNestedOneWithoutChatMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutChatMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatMessagesInput
+  upsert?: Prisma.UserUpsertWithoutChatMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChatMessagesInput, Prisma.UserUpdateWithoutChatMessagesInput>, Prisma.UserUncheckedUpdateWithoutChatMessagesInput>
+}
+
+export type UserCreateNestedOneWithoutReturnRequestsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReturnRequestsInput, Prisma.UserUncheckedCreateWithoutReturnRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReturnRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutReturnRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReturnRequestsInput, Prisma.UserUncheckedCreateWithoutReturnRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReturnRequestsInput
+  upsert?: Prisma.UserUpsertWithoutReturnRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReturnRequestsInput, Prisma.UserUpdateWithoutReturnRequestsInput>, Prisma.UserUncheckedUpdateWithoutReturnRequestsInput>
+}
+
+export type UserCreateNestedOneWithoutFlashSalePurchasesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFlashSalePurchasesInput, Prisma.UserUncheckedCreateWithoutFlashSalePurchasesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFlashSalePurchasesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutFlashSalePurchasesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFlashSalePurchasesInput, Prisma.UserUncheckedCreateWithoutFlashSalePurchasesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFlashSalePurchasesInput
+  upsert?: Prisma.UserUpsertWithoutFlashSalePurchasesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFlashSalePurchasesInput, Prisma.UserUpdateWithoutFlashSalePurchasesInput>, Prisma.UserUncheckedUpdateWithoutFlashSalePurchasesInput>
+}
+
+export type UserCreateNestedOneWithoutAdImpressionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdImpressionsInput, Prisma.UserUncheckedCreateWithoutAdImpressionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdImpressionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAdImpressionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdImpressionsInput, Prisma.UserUncheckedCreateWithoutAdImpressionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdImpressionsInput
+  upsert?: Prisma.UserUpsertWithoutAdImpressionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdImpressionsInput, Prisma.UserUpdateWithoutAdImpressionsInput>, Prisma.UserUncheckedUpdateWithoutAdImpressionsInput>
+}
+
+export type UserCreateNestedOneWithoutAdClicksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdClicksInput, Prisma.UserUncheckedCreateWithoutAdClicksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdClicksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAdClicksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdClicksInput, Prisma.UserUncheckedCreateWithoutAdClicksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdClicksInput
+  upsert?: Prisma.UserUpsertWithoutAdClicksInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdClicksInput, Prisma.UserUpdateWithoutAdClicksInput>, Prisma.UserUncheckedUpdateWithoutAdClicksInput>
+}
+
+export type UserCreateNestedOneWithoutAffiliateConversionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAffiliateConversionsInput, Prisma.UserUncheckedCreateWithoutAffiliateConversionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAffiliateConversionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAffiliateConversionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAffiliateConversionsInput, Prisma.UserUncheckedCreateWithoutAffiliateConversionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAffiliateConversionsInput
+  upsert?: Prisma.UserUpsertWithoutAffiliateConversionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAffiliateConversionsInput, Prisma.UserUpdateWithoutAffiliateConversionsInput>, Prisma.UserUncheckedUpdateWithoutAffiliateConversionsInput>
+}
+
+export type UserCreateNestedOneWithoutLoyaltyAccountInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLoyaltyAccountInput, Prisma.UserUncheckedCreateWithoutLoyaltyAccountInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLoyaltyAccountInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLoyaltyAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLoyaltyAccountInput, Prisma.UserUncheckedCreateWithoutLoyaltyAccountInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLoyaltyAccountInput
+  upsert?: Prisma.UserUpsertWithoutLoyaltyAccountInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLoyaltyAccountInput, Prisma.UserUpdateWithoutLoyaltyAccountInput>, Prisma.UserUncheckedUpdateWithoutLoyaltyAccountInput>
+}
+
+export type UserCreateNestedOneWithoutLoyaltyRedemptionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLoyaltyRedemptionsInput, Prisma.UserUncheckedCreateWithoutLoyaltyRedemptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLoyaltyRedemptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLoyaltyRedemptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLoyaltyRedemptionsInput, Prisma.UserUncheckedCreateWithoutLoyaltyRedemptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLoyaltyRedemptionsInput
+  upsert?: Prisma.UserUpsertWithoutLoyaltyRedemptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLoyaltyRedemptionsInput, Prisma.UserUpdateWithoutLoyaltyRedemptionsInput>, Prisma.UserUncheckedUpdateWithoutLoyaltyRedemptionsInput>
+}
+
 export type UserCreateNestedOneWithoutSellersInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSellersInput, Prisma.UserUncheckedCreateWithoutSellersInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSellersInput
@@ -566,94 +830,6 @@ export type UserUpdateOneRequiredWithoutSellersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSellersInput, Prisma.UserUpdateWithoutSellersInput>, Prisma.UserUncheckedUpdateWithoutSellersInput>
 }
 
-export type UserCreateWithoutUserRolesInput = {
-  id?: string
-  email: string
-  passwordHash: string
-  firstName?: string | null
-  lastName?: string | null
-  phone?: string | null
-  emailVerified?: boolean
-  status?: $Enums.UserStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
-  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
-  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
-  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutUserRolesInput = {
-  id?: string
-  email: string
-  passwordHash: string
-  firstName?: string | null
-  lastName?: string | null
-  phone?: string | null
-  emailVerified?: boolean
-  status?: $Enums.UserStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
-  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
-  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
-  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutUserRolesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutUserRolesInput, Prisma.UserUncheckedCreateWithoutUserRolesInput>
-}
-
-export type UserUpsertWithoutUserRolesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutUserRolesInput, Prisma.UserUncheckedUpdateWithoutUserRolesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutUserRolesInput, Prisma.UserUncheckedCreateWithoutUserRolesInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutUserRolesInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutUserRolesInput, Prisma.UserUncheckedUpdateWithoutUserRolesInput>
-}
-
-export type UserUpdateWithoutUserRolesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
-  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
-  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
-  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutUserRolesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
-  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
-  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
-  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
-}
-
 export type UserCreateWithoutSessionsInput = {
   id?: string
   email: string
@@ -663,13 +839,25 @@ export type UserCreateWithoutSessionsInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
   sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -681,13 +869,25 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
   sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -715,13 +915,25 @@ export type UserUpdateWithoutSessionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
   sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -733,13 +945,25 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
   sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -751,13 +975,25 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
   sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -769,13 +1005,25 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
   sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -803,13 +1051,25 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
   sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -821,13 +1081,25 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
   sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEmailVerifyTokensInput = {
@@ -839,13 +1111,25 @@ export type UserCreateWithoutEmailVerifyTokensInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
   sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailVerifyTokensInput = {
@@ -857,13 +1141,25 @@ export type UserUncheckedCreateWithoutEmailVerifyTokensInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
   sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailVerifyTokensInput = {
@@ -891,13 +1187,25 @@ export type UserUpdateWithoutEmailVerifyTokensInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
   sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailVerifyTokensInput = {
@@ -909,13 +1217,25 @@ export type UserUncheckedUpdateWithoutEmailVerifyTokensInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
   sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSellerProfileInput = {
@@ -927,13 +1247,25 @@ export type UserCreateWithoutSellerProfileInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
   sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSellerProfileInput = {
@@ -945,13 +1277,25 @@ export type UserUncheckedCreateWithoutSellerProfileInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
   sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSellerProfileInput = {
@@ -979,13 +1323,25 @@ export type UserUpdateWithoutSellerProfileInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
   sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSellerProfileInput = {
@@ -997,13 +1353,1657 @@ export type UserUncheckedUpdateWithoutSellerProfileInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
   sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAuditLogsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAuditLogsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAuditLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+}
+
+export type UserUpsertWithoutAuditLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuditLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+}
+
+export type UserUpdateWithoutAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCouponUsagesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCouponUsagesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCouponUsagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCouponUsagesInput, Prisma.UserUncheckedCreateWithoutCouponUsagesInput>
+}
+
+export type UserUpsertWithoutCouponUsagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCouponUsagesInput, Prisma.UserUncheckedUpdateWithoutCouponUsagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCouponUsagesInput, Prisma.UserUncheckedCreateWithoutCouponUsagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCouponUsagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCouponUsagesInput, Prisma.UserUncheckedUpdateWithoutCouponUsagesInput>
+}
+
+export type UserUpdateWithoutCouponUsagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCouponUsagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutReviewsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutReviewsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+}
+
+export type UserUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+}
+
+export type UserUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutConversationsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutConversationsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutConversationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+}
+
+export type UserUpsertWithoutConversationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationsInput, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationsInput, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+}
+
+export type UserUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutChatMessagesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutChatMessagesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutChatMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+}
+
+export type UserUpsertWithoutChatMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutChatMessagesInput, Prisma.UserUncheckedUpdateWithoutChatMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutChatMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutChatMessagesInput, Prisma.UserUncheckedUpdateWithoutChatMessagesInput>
+}
+
+export type UserUpdateWithoutChatMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutChatMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutReturnRequestsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutReturnRequestsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutReturnRequestsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReturnRequestsInput, Prisma.UserUncheckedCreateWithoutReturnRequestsInput>
+}
+
+export type UserUpsertWithoutReturnRequestsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReturnRequestsInput, Prisma.UserUncheckedUpdateWithoutReturnRequestsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReturnRequestsInput, Prisma.UserUncheckedCreateWithoutReturnRequestsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReturnRequestsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReturnRequestsInput, Prisma.UserUncheckedUpdateWithoutReturnRequestsInput>
+}
+
+export type UserUpdateWithoutReturnRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReturnRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutFlashSalePurchasesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFlashSalePurchasesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFlashSalePurchasesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFlashSalePurchasesInput, Prisma.UserUncheckedCreateWithoutFlashSalePurchasesInput>
+}
+
+export type UserUpsertWithoutFlashSalePurchasesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFlashSalePurchasesInput, Prisma.UserUncheckedUpdateWithoutFlashSalePurchasesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFlashSalePurchasesInput, Prisma.UserUncheckedCreateWithoutFlashSalePurchasesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFlashSalePurchasesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFlashSalePurchasesInput, Prisma.UserUncheckedUpdateWithoutFlashSalePurchasesInput>
+}
+
+export type UserUpdateWithoutFlashSalePurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFlashSalePurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAdImpressionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAdImpressionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAdImpressionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdImpressionsInput, Prisma.UserUncheckedCreateWithoutAdImpressionsInput>
+}
+
+export type UserUpsertWithoutAdImpressionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAdImpressionsInput, Prisma.UserUncheckedUpdateWithoutAdImpressionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdImpressionsInput, Prisma.UserUncheckedCreateWithoutAdImpressionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAdImpressionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAdImpressionsInput, Prisma.UserUncheckedUpdateWithoutAdImpressionsInput>
+}
+
+export type UserUpdateWithoutAdImpressionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAdImpressionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAdClicksInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAdClicksInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAdClicksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdClicksInput, Prisma.UserUncheckedCreateWithoutAdClicksInput>
+}
+
+export type UserUpsertWithoutAdClicksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAdClicksInput, Prisma.UserUncheckedUpdateWithoutAdClicksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdClicksInput, Prisma.UserUncheckedCreateWithoutAdClicksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAdClicksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAdClicksInput, Prisma.UserUncheckedUpdateWithoutAdClicksInput>
+}
+
+export type UserUpdateWithoutAdClicksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAdClicksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAffiliateConversionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAffiliateConversionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAffiliateConversionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAffiliateConversionsInput, Prisma.UserUncheckedCreateWithoutAffiliateConversionsInput>
+}
+
+export type UserUpsertWithoutAffiliateConversionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAffiliateConversionsInput, Prisma.UserUncheckedUpdateWithoutAffiliateConversionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAffiliateConversionsInput, Prisma.UserUncheckedCreateWithoutAffiliateConversionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAffiliateConversionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAffiliateConversionsInput, Prisma.UserUncheckedUpdateWithoutAffiliateConversionsInput>
+}
+
+export type UserUpdateWithoutAffiliateConversionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAffiliateConversionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutLoyaltyAccountInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutLoyaltyAccountInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLoyaltyAccountInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLoyaltyAccountInput, Prisma.UserUncheckedCreateWithoutLoyaltyAccountInput>
+}
+
+export type UserUpsertWithoutLoyaltyAccountInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLoyaltyAccountInput, Prisma.UserUncheckedUpdateWithoutLoyaltyAccountInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLoyaltyAccountInput, Prisma.UserUncheckedCreateWithoutLoyaltyAccountInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLoyaltyAccountInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLoyaltyAccountInput, Prisma.UserUncheckedUpdateWithoutLoyaltyAccountInput>
+}
+
+export type UserUpdateWithoutLoyaltyAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLoyaltyAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutLoyaltyRedemptionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  sellers?: Prisma.SellerCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutLoyaltyRedemptionsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName?: string | null
+  lastName?: string | null
+  phone?: string | null
+  emailVerified?: boolean
+  status?: $Enums.UserStatus
+  isStaff?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLoyaltyRedemptionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLoyaltyRedemptionsInput, Prisma.UserUncheckedCreateWithoutLoyaltyRedemptionsInput>
+}
+
+export type UserUpsertWithoutLoyaltyRedemptionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLoyaltyRedemptionsInput, Prisma.UserUncheckedUpdateWithoutLoyaltyRedemptionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLoyaltyRedemptionsInput, Prisma.UserUncheckedCreateWithoutLoyaltyRedemptionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLoyaltyRedemptionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLoyaltyRedemptionsInput, Prisma.UserUncheckedUpdateWithoutLoyaltyRedemptionsInput>
+}
+
+export type UserUpdateWithoutLoyaltyRedemptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLoyaltyRedemptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSellersInput = {
@@ -1015,13 +3015,25 @@ export type UserCreateWithoutSellersInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   sellerProfile?: Prisma.SellerProfileCreateNestedOneWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSellersInput = {
@@ -1033,13 +3045,25 @@ export type UserUncheckedCreateWithoutSellersInput = {
   phone?: string | null
   emailVerified?: boolean
   status?: $Enums.UserStatus
+  isStaff?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   sellerProfile?: Prisma.SellerProfileUncheckedCreateNestedOneWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput
+  couponUsages?: Prisma.CouponUsageUncheckedCreateNestedManyWithoutBuyerInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutBuyerInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutBuyerInput
+  adImpressions?: Prisma.AdImpressionUncheckedCreateNestedManyWithoutBuyerInput
+  adClicks?: Prisma.AdClickUncheckedCreateNestedManyWithoutBuyerInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSellersInput = {
@@ -1067,13 +3091,25 @@ export type UserUpdateWithoutSellersInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   sellerProfile?: Prisma.SellerProfileUpdateOneWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSellersInput = {
@@ -1085,13 +3121,25 @@ export type UserUncheckedUpdateWithoutSellersInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isStaff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   sellerProfile?: Prisma.SellerProfileUncheckedUpdateOneWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   emailVerifyTokens?: Prisma.EmailVerifyTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  flashSalePurchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput
+  couponUsages?: Prisma.CouponUsageUncheckedUpdateManyWithoutBuyerNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutBuyerNestedInput
+  adImpressions?: Prisma.AdImpressionUncheckedUpdateManyWithoutBuyerNestedInput
+  adClicks?: Prisma.AdClickUncheckedUpdateManyWithoutBuyerNestedInput
+  affiliateConversions?: Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput
+  loyaltyAccount?: Prisma.LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput
+  loyaltyRedemptions?: Prisma.LoyaltyRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1100,19 +3148,39 @@ export type UserUncheckedUpdateWithoutSellersInput = {
  */
 
 export type UserCountOutputType = {
-  userRoles: number
   sessions: number
   passwordResetTokens: number
   emailVerifyTokens: number
+  conversations: number
+  chatMessages: number
+  flashSalePurchases: number
+  couponUsages: number
+  reviews: number
+  returnRequests: number
+  adImpressions: number
+  adClicks: number
+  affiliateConversions: number
+  loyaltyRedemptions: number
   sellers: number
+  auditLogs: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  userRoles?: boolean | UserCountOutputTypeCountUserRolesArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
   emailVerifyTokens?: boolean | UserCountOutputTypeCountEmailVerifyTokensArgs
+  conversations?: boolean | UserCountOutputTypeCountConversationsArgs
+  chatMessages?: boolean | UserCountOutputTypeCountChatMessagesArgs
+  flashSalePurchases?: boolean | UserCountOutputTypeCountFlashSalePurchasesArgs
+  couponUsages?: boolean | UserCountOutputTypeCountCouponUsagesArgs
+  reviews?: boolean | UserCountOutputTypeCountReviewsArgs
+  returnRequests?: boolean | UserCountOutputTypeCountReturnRequestsArgs
+  adImpressions?: boolean | UserCountOutputTypeCountAdImpressionsArgs
+  adClicks?: boolean | UserCountOutputTypeCountAdClicksArgs
+  affiliateConversions?: boolean | UserCountOutputTypeCountAffiliateConversionsArgs
+  loyaltyRedemptions?: boolean | UserCountOutputTypeCountLoyaltyRedemptionsArgs
   sellers?: boolean | UserCountOutputTypeCountSellersArgs
+  auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
 }
 
 /**
@@ -1123,13 +3191,6 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the UserCountOutputType
    */
   select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountUserRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserRoleWhereInput
 }
 
 /**
@@ -1156,8 +3217,85 @@ export type UserCountOutputTypeCountEmailVerifyTokensArgs<ExtArgs extends runtim
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountChatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChatMessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFlashSalePurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FlashSalePurchaseWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCouponUsagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CouponUsageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReturnRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReturnRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAdImpressionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AdImpressionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAdClicksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AdClickWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAffiliateConversionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AffiliateConversionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLoyaltyRedemptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LoyaltyRedemptionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountSellersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SellerWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditLogWhereInput
 }
 
 
@@ -1170,14 +3308,26 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   phone?: boolean
   emailVerified?: boolean
   status?: boolean
+  isStaff?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  userRoles?: boolean | Prisma.User$userRolesArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   sellerProfile?: boolean | Prisma.User$sellerProfileArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
   emailVerifyTokens?: boolean | Prisma.User$emailVerifyTokensArgs<ExtArgs>
+  conversations?: boolean | Prisma.User$conversationsArgs<ExtArgs>
+  chatMessages?: boolean | Prisma.User$chatMessagesArgs<ExtArgs>
+  flashSalePurchases?: boolean | Prisma.User$flashSalePurchasesArgs<ExtArgs>
+  couponUsages?: boolean | Prisma.User$couponUsagesArgs<ExtArgs>
+  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
+  returnRequests?: boolean | Prisma.User$returnRequestsArgs<ExtArgs>
+  adImpressions?: boolean | Prisma.User$adImpressionsArgs<ExtArgs>
+  adClicks?: boolean | Prisma.User$adClicksArgs<ExtArgs>
+  affiliateConversions?: boolean | Prisma.User$affiliateConversionsArgs<ExtArgs>
+  loyaltyAccount?: boolean | Prisma.User$loyaltyAccountArgs<ExtArgs>
+  loyaltyRedemptions?: boolean | Prisma.User$loyaltyRedemptionsArgs<ExtArgs>
   sellers?: boolean | Prisma.User$sellersArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1190,6 +3340,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   emailVerified?: boolean
   status?: boolean
+  isStaff?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1203,6 +3354,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   emailVerified?: boolean
   status?: boolean
+  isStaff?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1216,18 +3368,30 @@ export type UserSelectScalar = {
   phone?: boolean
   emailVerified?: boolean
   status?: boolean
+  isStaff?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "phone" | "emailVerified" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "phone" | "emailVerified" | "status" | "isStaff" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  userRoles?: boolean | Prisma.User$userRolesArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   sellerProfile?: boolean | Prisma.User$sellerProfileArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
   emailVerifyTokens?: boolean | Prisma.User$emailVerifyTokensArgs<ExtArgs>
+  conversations?: boolean | Prisma.User$conversationsArgs<ExtArgs>
+  chatMessages?: boolean | Prisma.User$chatMessagesArgs<ExtArgs>
+  flashSalePurchases?: boolean | Prisma.User$flashSalePurchasesArgs<ExtArgs>
+  couponUsages?: boolean | Prisma.User$couponUsagesArgs<ExtArgs>
+  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
+  returnRequests?: boolean | Prisma.User$returnRequestsArgs<ExtArgs>
+  adImpressions?: boolean | Prisma.User$adImpressionsArgs<ExtArgs>
+  adClicks?: boolean | Prisma.User$adClicksArgs<ExtArgs>
+  affiliateConversions?: boolean | Prisma.User$affiliateConversionsArgs<ExtArgs>
+  loyaltyAccount?: boolean | Prisma.User$loyaltyAccountArgs<ExtArgs>
+  loyaltyRedemptions?: boolean | Prisma.User$loyaltyRedemptionsArgs<ExtArgs>
   sellers?: boolean | Prisma.User$sellersArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1236,14 +3400,28 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    userRoles: Prisma.$UserRolePayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     sellerProfile: Prisma.$SellerProfilePayload<ExtArgs> | null
     passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
     emailVerifyTokens: Prisma.$EmailVerifyTokenPayload<ExtArgs>[]
+    conversations: Prisma.$ConversationPayload<ExtArgs>[]
+    chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
+    flashSalePurchases: Prisma.$FlashSalePurchasePayload<ExtArgs>[]
+    couponUsages: Prisma.$CouponUsagePayload<ExtArgs>[]
+    reviews: Prisma.$ReviewPayload<ExtArgs>[]
+    returnRequests: Prisma.$ReturnRequestPayload<ExtArgs>[]
+    adImpressions: Prisma.$AdImpressionPayload<ExtArgs>[]
+    adClicks: Prisma.$AdClickPayload<ExtArgs>[]
+    affiliateConversions: Prisma.$AffiliateConversionPayload<ExtArgs>[]
+    loyaltyAccount: Prisma.$LoyaltyAccountPayload<ExtArgs> | null
+    loyaltyRedemptions: Prisma.$LoyaltyRedemptionPayload<ExtArgs>[]
     sellers: Prisma.$SellerPayload<ExtArgs>[]
+    auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
+    /**
+     * Represents all end-users: buyers, sellers, and internal staff. Admin panel users are managed separately in the Admin model.
+     */
     id: string
     email: string
     passwordHash: string
@@ -1252,6 +3430,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     phone: string | null
     emailVerified: boolean
     status: $Enums.UserStatus
+    /**
+     * True for internal platform users (e.g. support agents) who are not full admins but may have limited elevated access. Gate specific features in application code.
+     */
+    isStaff: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1648,12 +3830,23 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  userRoles<T extends Prisma.User$userRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$userRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sellerProfile<T extends Prisma.User$sellerProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sellerProfileArgs<ExtArgs>>): Prisma.Prisma__SellerProfileClient<runtime.Types.Result.GetResult<Prisma.$SellerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   passwordResetTokens<T extends Prisma.User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   emailVerifyTokens<T extends Prisma.User$emailVerifyTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailVerifyTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailVerifyTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversations<T extends Prisma.User$conversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chatMessages<T extends Prisma.User$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  flashSalePurchases<T extends Prisma.User$flashSalePurchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$flashSalePurchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlashSalePurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  couponUsages<T extends Prisma.User$couponUsagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$couponUsagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CouponUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  returnRequests<T extends Prisma.User$returnRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$returnRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReturnRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  adImpressions<T extends Prisma.User$adImpressionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adImpressionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdImpressionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  adClicks<T extends Prisma.User$adClicksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adClicksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdClickPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  affiliateConversions<T extends Prisma.User$affiliateConversionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$affiliateConversionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AffiliateConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  loyaltyAccount<T extends Prisma.User$loyaltyAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$loyaltyAccountArgs<ExtArgs>>): Prisma.Prisma__LoyaltyAccountClient<runtime.Types.Result.GetResult<Prisma.$LoyaltyAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  loyaltyRedemptions<T extends Prisma.User$loyaltyRedemptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$loyaltyRedemptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LoyaltyRedemptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sellers<T extends Prisma.User$sellersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sellersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1691,6 +3884,7 @@ export interface UserFieldRefs {
   readonly phone: Prisma.FieldRef<"User", 'String'>
   readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly status: Prisma.FieldRef<"User", 'UserStatus'>
+  readonly isStaff: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -2086,30 +4280,6 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.userRoles
- */
-export type User$userRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UserRole
-   */
-  select?: Prisma.UserRoleSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UserRole
-   */
-  omit?: Prisma.UserRoleOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserRoleInclude<ExtArgs> | null
-  where?: Prisma.UserRoleWhereInput
-  orderBy?: Prisma.UserRoleOrderByWithRelationInput | Prisma.UserRoleOrderByWithRelationInput[]
-  cursor?: Prisma.UserRoleWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UserRoleScalarFieldEnum | Prisma.UserRoleScalarFieldEnum[]
-}
-
-/**
  * User.sessions
  */
 export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2201,6 +4371,265 @@ export type User$emailVerifyTokensArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
+ * User.conversations
+ */
+export type User$conversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
+  orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
+}
+
+/**
+ * User.chatMessages
+ */
+export type User$chatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatMessage
+   */
+  select?: Prisma.ChatMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatMessage
+   */
+  omit?: Prisma.ChatMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatMessageInclude<ExtArgs> | null
+  where?: Prisma.ChatMessageWhereInput
+  orderBy?: Prisma.ChatMessageOrderByWithRelationInput | Prisma.ChatMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ChatMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChatMessageScalarFieldEnum | Prisma.ChatMessageScalarFieldEnum[]
+}
+
+/**
+ * User.flashSalePurchases
+ */
+export type User$flashSalePurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FlashSalePurchase
+   */
+  select?: Prisma.FlashSalePurchaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FlashSalePurchase
+   */
+  omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
+  where?: Prisma.FlashSalePurchaseWhereInput
+  orderBy?: Prisma.FlashSalePurchaseOrderByWithRelationInput | Prisma.FlashSalePurchaseOrderByWithRelationInput[]
+  cursor?: Prisma.FlashSalePurchaseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FlashSalePurchaseScalarFieldEnum | Prisma.FlashSalePurchaseScalarFieldEnum[]
+}
+
+/**
+ * User.couponUsages
+ */
+export type User$couponUsagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CouponUsage
+   */
+  select?: Prisma.CouponUsageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CouponUsage
+   */
+  omit?: Prisma.CouponUsageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CouponUsageInclude<ExtArgs> | null
+  where?: Prisma.CouponUsageWhereInput
+  orderBy?: Prisma.CouponUsageOrderByWithRelationInput | Prisma.CouponUsageOrderByWithRelationInput[]
+  cursor?: Prisma.CouponUsageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CouponUsageScalarFieldEnum | Prisma.CouponUsageScalarFieldEnum[]
+}
+
+/**
+ * User.reviews
+ */
+export type User$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * User.returnRequests
+ */
+export type User$returnRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReturnRequest
+   */
+  select?: Prisma.ReturnRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReturnRequest
+   */
+  omit?: Prisma.ReturnRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReturnRequestInclude<ExtArgs> | null
+  where?: Prisma.ReturnRequestWhereInput
+  orderBy?: Prisma.ReturnRequestOrderByWithRelationInput | Prisma.ReturnRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ReturnRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReturnRequestScalarFieldEnum | Prisma.ReturnRequestScalarFieldEnum[]
+}
+
+/**
+ * User.adImpressions
+ */
+export type User$adImpressionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AdImpression
+   */
+  select?: Prisma.AdImpressionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AdImpression
+   */
+  omit?: Prisma.AdImpressionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdImpressionInclude<ExtArgs> | null
+  where?: Prisma.AdImpressionWhereInput
+  orderBy?: Prisma.AdImpressionOrderByWithRelationInput | Prisma.AdImpressionOrderByWithRelationInput[]
+  cursor?: Prisma.AdImpressionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AdImpressionScalarFieldEnum | Prisma.AdImpressionScalarFieldEnum[]
+}
+
+/**
+ * User.adClicks
+ */
+export type User$adClicksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AdClick
+   */
+  select?: Prisma.AdClickSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AdClick
+   */
+  omit?: Prisma.AdClickOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdClickInclude<ExtArgs> | null
+  where?: Prisma.AdClickWhereInput
+  orderBy?: Prisma.AdClickOrderByWithRelationInput | Prisma.AdClickOrderByWithRelationInput[]
+  cursor?: Prisma.AdClickWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AdClickScalarFieldEnum | Prisma.AdClickScalarFieldEnum[]
+}
+
+/**
+ * User.affiliateConversions
+ */
+export type User$affiliateConversionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AffiliateConversion
+   */
+  select?: Prisma.AffiliateConversionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AffiliateConversion
+   */
+  omit?: Prisma.AffiliateConversionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AffiliateConversionInclude<ExtArgs> | null
+  where?: Prisma.AffiliateConversionWhereInput
+  orderBy?: Prisma.AffiliateConversionOrderByWithRelationInput | Prisma.AffiliateConversionOrderByWithRelationInput[]
+  cursor?: Prisma.AffiliateConversionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AffiliateConversionScalarFieldEnum | Prisma.AffiliateConversionScalarFieldEnum[]
+}
+
+/**
+ * User.loyaltyAccount
+ */
+export type User$loyaltyAccountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LoyaltyAccount
+   */
+  select?: Prisma.LoyaltyAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LoyaltyAccount
+   */
+  omit?: Prisma.LoyaltyAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LoyaltyAccountInclude<ExtArgs> | null
+  where?: Prisma.LoyaltyAccountWhereInput
+}
+
+/**
+ * User.loyaltyRedemptions
+ */
+export type User$loyaltyRedemptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LoyaltyRedemption
+   */
+  select?: Prisma.LoyaltyRedemptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LoyaltyRedemption
+   */
+  omit?: Prisma.LoyaltyRedemptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LoyaltyRedemptionInclude<ExtArgs> | null
+  where?: Prisma.LoyaltyRedemptionWhereInput
+  orderBy?: Prisma.LoyaltyRedemptionOrderByWithRelationInput | Prisma.LoyaltyRedemptionOrderByWithRelationInput[]
+  cursor?: Prisma.LoyaltyRedemptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LoyaltyRedemptionScalarFieldEnum | Prisma.LoyaltyRedemptionScalarFieldEnum[]
+}
+
+/**
  * User.sellers
  */
 export type User$sellersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2222,6 +4651,30 @@ export type User$sellersArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.SellerScalarFieldEnum | Prisma.SellerScalarFieldEnum[]
+}
+
+/**
+ * User.auditLogs
+ */
+export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditLog
+   */
+  select?: Prisma.AuditLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditLog
+   */
+  omit?: Prisma.AuditLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditLogInclude<ExtArgs> | null
+  where?: Prisma.AuditLogWhereInput
+  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
+  cursor?: Prisma.AuditLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
 }
 
 /**

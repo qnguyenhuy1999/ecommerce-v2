@@ -7,6 +7,7 @@ export interface AdminProfile {
   firstName: string
   lastName: string
   avatar: string | null
+  emailVerified: boolean
   status: string
   roles: string[]
   permissions: string[]

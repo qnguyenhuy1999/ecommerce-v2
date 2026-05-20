@@ -41,7 +41,7 @@ export type LoyaltyRewardMinAggregateOutputType = {
   name: string | null
   description: string | null
   pointsCost: number | null
-  rewardType: string | null
+  rewardType: $Enums.LoyaltyRewardType | null
   stock: number | null
   isActive: boolean | null
   createdAt: Date | null
@@ -53,7 +53,7 @@ export type LoyaltyRewardMaxAggregateOutputType = {
   name: string | null
   description: string | null
   pointsCost: number | null
-  rewardType: string | null
+  rewardType: $Enums.LoyaltyRewardType | null
   stock: number | null
   isActive: boolean | null
   createdAt: Date | null
@@ -214,7 +214,7 @@ export type LoyaltyRewardGroupByOutputType = {
   name: string
   description: string | null
   pointsCost: number
-  rewardType: string
+  rewardType: $Enums.LoyaltyRewardType
   rewardValue: runtime.JsonValue
   stock: number | null
   isActive: boolean
@@ -250,7 +250,7 @@ export type LoyaltyRewardWhereInput = {
   name?: Prisma.StringFilter<"LoyaltyReward"> | string
   description?: Prisma.StringNullableFilter<"LoyaltyReward"> | string | null
   pointsCost?: Prisma.IntFilter<"LoyaltyReward"> | number
-  rewardType?: Prisma.StringFilter<"LoyaltyReward"> | string
+  rewardType?: Prisma.EnumLoyaltyRewardTypeFilter<"LoyaltyReward"> | $Enums.LoyaltyRewardType
   rewardValue?: Prisma.JsonFilter<"LoyaltyReward">
   stock?: Prisma.IntNullableFilter<"LoyaltyReward"> | number | null
   isActive?: Prisma.BoolFilter<"LoyaltyReward"> | boolean
@@ -281,7 +281,7 @@ export type LoyaltyRewardWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"LoyaltyReward"> | string
   description?: Prisma.StringNullableFilter<"LoyaltyReward"> | string | null
   pointsCost?: Prisma.IntFilter<"LoyaltyReward"> | number
-  rewardType?: Prisma.StringFilter<"LoyaltyReward"> | string
+  rewardType?: Prisma.EnumLoyaltyRewardTypeFilter<"LoyaltyReward"> | $Enums.LoyaltyRewardType
   rewardValue?: Prisma.JsonFilter<"LoyaltyReward">
   stock?: Prisma.IntNullableFilter<"LoyaltyReward"> | number | null
   isActive?: Prisma.BoolFilter<"LoyaltyReward"> | boolean
@@ -316,7 +316,7 @@ export type LoyaltyRewardScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"LoyaltyReward"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"LoyaltyReward"> | string | null
   pointsCost?: Prisma.IntWithAggregatesFilter<"LoyaltyReward"> | number
-  rewardType?: Prisma.StringWithAggregatesFilter<"LoyaltyReward"> | string
+  rewardType?: Prisma.EnumLoyaltyRewardTypeWithAggregatesFilter<"LoyaltyReward"> | $Enums.LoyaltyRewardType
   rewardValue?: Prisma.JsonWithAggregatesFilter<"LoyaltyReward">
   stock?: Prisma.IntNullableWithAggregatesFilter<"LoyaltyReward"> | number | null
   isActive?: Prisma.BoolWithAggregatesFilter<"LoyaltyReward"> | boolean
@@ -329,7 +329,7 @@ export type LoyaltyRewardCreateInput = {
   name: string
   description?: string | null
   pointsCost: number
-  rewardType: string
+  rewardType: $Enums.LoyaltyRewardType
   rewardValue: Prisma.JsonNullValueInput | runtime.InputJsonValue
   stock?: number | null
   isActive?: boolean
@@ -343,7 +343,7 @@ export type LoyaltyRewardUncheckedCreateInput = {
   name: string
   description?: string | null
   pointsCost: number
-  rewardType: string
+  rewardType: $Enums.LoyaltyRewardType
   rewardValue: Prisma.JsonNullValueInput | runtime.InputJsonValue
   stock?: number | null
   isActive?: boolean
@@ -357,7 +357,7 @@ export type LoyaltyRewardUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsCost?: Prisma.IntFieldUpdateOperationsInput | number
-  rewardType?: Prisma.StringFieldUpdateOperationsInput | string
+  rewardType?: Prisma.EnumLoyaltyRewardTypeFieldUpdateOperationsInput | $Enums.LoyaltyRewardType
   rewardValue?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -371,7 +371,7 @@ export type LoyaltyRewardUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsCost?: Prisma.IntFieldUpdateOperationsInput | number
-  rewardType?: Prisma.StringFieldUpdateOperationsInput | string
+  rewardType?: Prisma.EnumLoyaltyRewardTypeFieldUpdateOperationsInput | $Enums.LoyaltyRewardType
   rewardValue?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -385,7 +385,7 @@ export type LoyaltyRewardCreateManyInput = {
   name: string
   description?: string | null
   pointsCost: number
-  rewardType: string
+  rewardType: $Enums.LoyaltyRewardType
   rewardValue: Prisma.JsonNullValueInput | runtime.InputJsonValue
   stock?: number | null
   isActive?: boolean
@@ -398,7 +398,7 @@ export type LoyaltyRewardUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsCost?: Prisma.IntFieldUpdateOperationsInput | number
-  rewardType?: Prisma.StringFieldUpdateOperationsInput | string
+  rewardType?: Prisma.EnumLoyaltyRewardTypeFieldUpdateOperationsInput | $Enums.LoyaltyRewardType
   rewardValue?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -411,7 +411,7 @@ export type LoyaltyRewardUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsCost?: Prisma.IntFieldUpdateOperationsInput | number
-  rewardType?: Prisma.StringFieldUpdateOperationsInput | string
+  rewardType?: Prisma.EnumLoyaltyRewardTypeFieldUpdateOperationsInput | $Enums.LoyaltyRewardType
   rewardValue?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -471,6 +471,10 @@ export type LoyaltyRewardScalarRelationFilter = {
   isNot?: Prisma.LoyaltyRewardWhereInput
 }
 
+export type EnumLoyaltyRewardTypeFieldUpdateOperationsInput = {
+  set?: $Enums.LoyaltyRewardType
+}
+
 export type LoyaltyRewardCreateNestedOneWithoutRedemptionsInput = {
   create?: Prisma.XOR<Prisma.LoyaltyRewardCreateWithoutRedemptionsInput, Prisma.LoyaltyRewardUncheckedCreateWithoutRedemptionsInput>
   connectOrCreate?: Prisma.LoyaltyRewardCreateOrConnectWithoutRedemptionsInput
@@ -490,7 +494,7 @@ export type LoyaltyRewardCreateWithoutRedemptionsInput = {
   name: string
   description?: string | null
   pointsCost: number
-  rewardType: string
+  rewardType: $Enums.LoyaltyRewardType
   rewardValue: Prisma.JsonNullValueInput | runtime.InputJsonValue
   stock?: number | null
   isActive?: boolean
@@ -503,7 +507,7 @@ export type LoyaltyRewardUncheckedCreateWithoutRedemptionsInput = {
   name: string
   description?: string | null
   pointsCost: number
-  rewardType: string
+  rewardType: $Enums.LoyaltyRewardType
   rewardValue: Prisma.JsonNullValueInput | runtime.InputJsonValue
   stock?: number | null
   isActive?: boolean
@@ -532,7 +536,7 @@ export type LoyaltyRewardUpdateWithoutRedemptionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsCost?: Prisma.IntFieldUpdateOperationsInput | number
-  rewardType?: Prisma.StringFieldUpdateOperationsInput | string
+  rewardType?: Prisma.EnumLoyaltyRewardTypeFieldUpdateOperationsInput | $Enums.LoyaltyRewardType
   rewardValue?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -545,7 +549,7 @@ export type LoyaltyRewardUncheckedUpdateWithoutRedemptionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsCost?: Prisma.IntFieldUpdateOperationsInput | number
-  rewardType?: Prisma.StringFieldUpdateOperationsInput | string
+  rewardType?: Prisma.EnumLoyaltyRewardTypeFieldUpdateOperationsInput | $Enums.LoyaltyRewardType
   rewardValue?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -656,7 +660,7 @@ export type $LoyaltyRewardPayload<ExtArgs extends runtime.Types.Extensions.Inter
     name: string
     description: string | null
     pointsCost: number
-    rewardType: string
+    rewardType: $Enums.LoyaltyRewardType
     rewardValue: runtime.JsonValue
     stock: number | null
     isActive: boolean
@@ -1090,7 +1094,7 @@ export interface LoyaltyRewardFieldRefs {
   readonly name: Prisma.FieldRef<"LoyaltyReward", 'String'>
   readonly description: Prisma.FieldRef<"LoyaltyReward", 'String'>
   readonly pointsCost: Prisma.FieldRef<"LoyaltyReward", 'Int'>
-  readonly rewardType: Prisma.FieldRef<"LoyaltyReward", 'String'>
+  readonly rewardType: Prisma.FieldRef<"LoyaltyReward", 'LoyaltyRewardType'>
   readonly rewardValue: Prisma.FieldRef<"LoyaltyReward", 'Json'>
   readonly stock: Prisma.FieldRef<"LoyaltyReward", 'Int'>
   readonly isActive: Prisma.FieldRef<"LoyaltyReward", 'Boolean'>

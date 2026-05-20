@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { FlashSaleStatus, FlashSaleSlotStatus, ProductStatus } from '@ecom/contracts/enums'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'

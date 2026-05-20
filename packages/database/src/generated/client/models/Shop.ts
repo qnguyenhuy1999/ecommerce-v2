@@ -293,6 +293,21 @@ export type ShopWhereInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodListRelationFilter
   coupons?: Prisma.CouponListRelationFilter
   warehouses?: Prisma.WarehouseListRelationFilter
+  productApprovals?: Prisma.ProductApprovalListRelationFilter
+  reviewReplies?: Prisma.ReviewReplyListRelationFilter
+  reviewReports?: Prisma.ReviewReportListRelationFilter
+  returnRequests?: Prisma.ReturnRequestListRelationFilter
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotListRelationFilter
+  bulkJobs?: Prisma.BulkJobListRelationFilter
+  savedFilters?: Prisma.SavedFilterListRelationFilter
+  adCampaigns?: Prisma.AdCampaignListRelationFilter
+  affiliateLinks?: Prisma.AffiliateLinkListRelationFilter
+  subscription?: Prisma.XOR<Prisma.SellerSubscriptionNullableScalarRelationFilter, Prisma.SellerSubscriptionWhereInput> | null
+  livestreamSessions?: Prisma.LivestreamSessionListRelationFilter
+  aiTasks?: Prisma.AiTaskListRelationFilter
+  aiUsageLogs?: Prisma.AiUsageLogListRelationFilter
+  settlementItems?: Prisma.SettlementItemListRelationFilter
+  adminSellerRecord?: Prisma.XOR<Prisma.SellerNullableScalarRelationFilter, Prisma.SellerWhereInput> | null
 }
 
 export type ShopOrderByWithRelationInput = {
@@ -321,6 +336,21 @@ export type ShopOrderByWithRelationInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodOrderByRelationAggregateInput
   coupons?: Prisma.CouponOrderByRelationAggregateInput
   warehouses?: Prisma.WarehouseOrderByRelationAggregateInput
+  productApprovals?: Prisma.ProductApprovalOrderByRelationAggregateInput
+  reviewReplies?: Prisma.ReviewReplyOrderByRelationAggregateInput
+  reviewReports?: Prisma.ReviewReportOrderByRelationAggregateInput
+  returnRequests?: Prisma.ReturnRequestOrderByRelationAggregateInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotOrderByRelationAggregateInput
+  bulkJobs?: Prisma.BulkJobOrderByRelationAggregateInput
+  savedFilters?: Prisma.SavedFilterOrderByRelationAggregateInput
+  adCampaigns?: Prisma.AdCampaignOrderByRelationAggregateInput
+  affiliateLinks?: Prisma.AffiliateLinkOrderByRelationAggregateInput
+  subscription?: Prisma.SellerSubscriptionOrderByWithRelationInput
+  livestreamSessions?: Prisma.LivestreamSessionOrderByRelationAggregateInput
+  aiTasks?: Prisma.AiTaskOrderByRelationAggregateInput
+  aiUsageLogs?: Prisma.AiUsageLogOrderByRelationAggregateInput
+  settlementItems?: Prisma.SettlementItemOrderByRelationAggregateInput
+  adminSellerRecord?: Prisma.SellerOrderByWithRelationInput
 }
 
 export type ShopWhereUniqueInput = Prisma.AtLeast<{
@@ -352,6 +382,21 @@ export type ShopWhereUniqueInput = Prisma.AtLeast<{
   sellerShippingMethods?: Prisma.SellerShippingMethodListRelationFilter
   coupons?: Prisma.CouponListRelationFilter
   warehouses?: Prisma.WarehouseListRelationFilter
+  productApprovals?: Prisma.ProductApprovalListRelationFilter
+  reviewReplies?: Prisma.ReviewReplyListRelationFilter
+  reviewReports?: Prisma.ReviewReportListRelationFilter
+  returnRequests?: Prisma.ReturnRequestListRelationFilter
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotListRelationFilter
+  bulkJobs?: Prisma.BulkJobListRelationFilter
+  savedFilters?: Prisma.SavedFilterListRelationFilter
+  adCampaigns?: Prisma.AdCampaignListRelationFilter
+  affiliateLinks?: Prisma.AffiliateLinkListRelationFilter
+  subscription?: Prisma.XOR<Prisma.SellerSubscriptionNullableScalarRelationFilter, Prisma.SellerSubscriptionWhereInput> | null
+  livestreamSessions?: Prisma.LivestreamSessionListRelationFilter
+  aiTasks?: Prisma.AiTaskListRelationFilter
+  aiUsageLogs?: Prisma.AiUsageLogListRelationFilter
+  settlementItems?: Prisma.SettlementItemListRelationFilter
+  adminSellerRecord?: Prisma.XOR<Prisma.SellerNullableScalarRelationFilter, Prisma.SellerWhereInput> | null
 }, "id" | "sellerId" | "slug">
 
 export type ShopOrderByWithAggregationInput = {
@@ -427,6 +472,21 @@ export type ShopCreateInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
 }
 
 export type ShopUncheckedCreateInput = {
@@ -454,6 +514,21 @@ export type ShopUncheckedCreateInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
 }
 
 export type ShopUpdateInput = {
@@ -481,6 +556,21 @@ export type ShopUpdateInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateInput = {
@@ -508,6 +598,21 @@ export type ShopUncheckedUpdateInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
 }
 
 export type ShopCreateManyInput = {
@@ -751,6 +856,62 @@ export type ShopUpdateOneRequiredWithoutCouponsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutCouponsInput, Prisma.ShopUpdateWithoutCouponsInput>, Prisma.ShopUncheckedUpdateWithoutCouponsInput>
 }
 
+export type ShopCreateNestedOneWithoutReviewRepliesInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutReviewRepliesInput, Prisma.ShopUncheckedCreateWithoutReviewRepliesInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutReviewRepliesInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutReviewRepliesNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutReviewRepliesInput, Prisma.ShopUncheckedCreateWithoutReviewRepliesInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutReviewRepliesInput
+  upsert?: Prisma.ShopUpsertWithoutReviewRepliesInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutReviewRepliesInput, Prisma.ShopUpdateWithoutReviewRepliesInput>, Prisma.ShopUncheckedUpdateWithoutReviewRepliesInput>
+}
+
+export type ShopCreateNestedOneWithoutReviewReportsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutReviewReportsInput, Prisma.ShopUncheckedCreateWithoutReviewReportsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutReviewReportsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutReviewReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutReviewReportsInput, Prisma.ShopUncheckedCreateWithoutReviewReportsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutReviewReportsInput
+  upsert?: Prisma.ShopUpsertWithoutReviewReportsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutReviewReportsInput, Prisma.ShopUpdateWithoutReviewReportsInput>, Prisma.ShopUncheckedUpdateWithoutReviewReportsInput>
+}
+
+export type ShopCreateNestedOneWithoutReturnRequestsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutReturnRequestsInput, Prisma.ShopUncheckedCreateWithoutReturnRequestsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutReturnRequestsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutReturnRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutReturnRequestsInput, Prisma.ShopUncheckedCreateWithoutReturnRequestsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutReturnRequestsInput
+  upsert?: Prisma.ShopUpsertWithoutReturnRequestsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutReturnRequestsInput, Prisma.ShopUpdateWithoutReturnRequestsInput>, Prisma.ShopUncheckedUpdateWithoutReturnRequestsInput>
+}
+
+export type ShopCreateNestedOneWithoutProductApprovalsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutProductApprovalsInput, Prisma.ShopUncheckedCreateWithoutProductApprovalsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutProductApprovalsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutProductApprovalsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutProductApprovalsInput, Prisma.ShopUncheckedCreateWithoutProductApprovalsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutProductApprovalsInput
+  upsert?: Prisma.ShopUpsertWithoutProductApprovalsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutProductApprovalsInput, Prisma.ShopUpdateWithoutProductApprovalsInput>, Prisma.ShopUncheckedUpdateWithoutProductApprovalsInput>
+}
+
 export type ShopCreateNestedOneWithoutWarehousesInput = {
   create?: Prisma.XOR<Prisma.ShopCreateWithoutWarehousesInput, Prisma.ShopUncheckedCreateWithoutWarehousesInput>
   connectOrCreate?: Prisma.ShopCreateOrConnectWithoutWarehousesInput
@@ -763,6 +924,164 @@ export type ShopUpdateOneRequiredWithoutWarehousesNestedInput = {
   upsert?: Prisma.ShopUpsertWithoutWarehousesInput
   connect?: Prisma.ShopWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutWarehousesInput, Prisma.ShopUpdateWithoutWarehousesInput>, Prisma.ShopUncheckedUpdateWithoutWarehousesInput>
+}
+
+export type ShopCreateNestedOneWithoutSellerMetricSnapshotsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutSellerMetricSnapshotsInput, Prisma.ShopUncheckedCreateWithoutSellerMetricSnapshotsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutSellerMetricSnapshotsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutSellerMetricSnapshotsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutSellerMetricSnapshotsInput, Prisma.ShopUncheckedCreateWithoutSellerMetricSnapshotsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutSellerMetricSnapshotsInput
+  upsert?: Prisma.ShopUpsertWithoutSellerMetricSnapshotsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutSellerMetricSnapshotsInput, Prisma.ShopUpdateWithoutSellerMetricSnapshotsInput>, Prisma.ShopUncheckedUpdateWithoutSellerMetricSnapshotsInput>
+}
+
+export type ShopCreateNestedOneWithoutBulkJobsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutBulkJobsInput, Prisma.ShopUncheckedCreateWithoutBulkJobsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutBulkJobsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutBulkJobsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutBulkJobsInput, Prisma.ShopUncheckedCreateWithoutBulkJobsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutBulkJobsInput
+  upsert?: Prisma.ShopUpsertWithoutBulkJobsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutBulkJobsInput, Prisma.ShopUpdateWithoutBulkJobsInput>, Prisma.ShopUncheckedUpdateWithoutBulkJobsInput>
+}
+
+export type ShopCreateNestedOneWithoutSavedFiltersInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutSavedFiltersInput, Prisma.ShopUncheckedCreateWithoutSavedFiltersInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutSavedFiltersInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutSavedFiltersNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutSavedFiltersInput, Prisma.ShopUncheckedCreateWithoutSavedFiltersInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutSavedFiltersInput
+  upsert?: Prisma.ShopUpsertWithoutSavedFiltersInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutSavedFiltersInput, Prisma.ShopUpdateWithoutSavedFiltersInput>, Prisma.ShopUncheckedUpdateWithoutSavedFiltersInput>
+}
+
+export type ShopCreateNestedOneWithoutAdCampaignsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutAdCampaignsInput, Prisma.ShopUncheckedCreateWithoutAdCampaignsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutAdCampaignsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutAdCampaignsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutAdCampaignsInput, Prisma.ShopUncheckedCreateWithoutAdCampaignsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutAdCampaignsInput
+  upsert?: Prisma.ShopUpsertWithoutAdCampaignsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutAdCampaignsInput, Prisma.ShopUpdateWithoutAdCampaignsInput>, Prisma.ShopUncheckedUpdateWithoutAdCampaignsInput>
+}
+
+export type ShopCreateNestedOneWithoutAffiliateLinksInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutAffiliateLinksInput, Prisma.ShopUncheckedCreateWithoutAffiliateLinksInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutAffiliateLinksInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneWithoutAffiliateLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutAffiliateLinksInput, Prisma.ShopUncheckedCreateWithoutAffiliateLinksInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutAffiliateLinksInput
+  upsert?: Prisma.ShopUpsertWithoutAffiliateLinksInput
+  disconnect?: Prisma.ShopWhereInput | boolean
+  delete?: Prisma.ShopWhereInput | boolean
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutAffiliateLinksInput, Prisma.ShopUpdateWithoutAffiliateLinksInput>, Prisma.ShopUncheckedUpdateWithoutAffiliateLinksInput>
+}
+
+export type ShopCreateNestedOneWithoutSubscriptionInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutSubscriptionInput, Prisma.ShopUncheckedCreateWithoutSubscriptionInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutSubscriptionInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutSubscriptionNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutSubscriptionInput, Prisma.ShopUncheckedCreateWithoutSubscriptionInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutSubscriptionInput
+  upsert?: Prisma.ShopUpsertWithoutSubscriptionInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutSubscriptionInput, Prisma.ShopUpdateWithoutSubscriptionInput>, Prisma.ShopUncheckedUpdateWithoutSubscriptionInput>
+}
+
+export type ShopCreateNestedOneWithoutLivestreamSessionsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutLivestreamSessionsInput, Prisma.ShopUncheckedCreateWithoutLivestreamSessionsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutLivestreamSessionsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutLivestreamSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutLivestreamSessionsInput, Prisma.ShopUncheckedCreateWithoutLivestreamSessionsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutLivestreamSessionsInput
+  upsert?: Prisma.ShopUpsertWithoutLivestreamSessionsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutLivestreamSessionsInput, Prisma.ShopUpdateWithoutLivestreamSessionsInput>, Prisma.ShopUncheckedUpdateWithoutLivestreamSessionsInput>
+}
+
+export type ShopCreateNestedOneWithoutAiTasksInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutAiTasksInput, Prisma.ShopUncheckedCreateWithoutAiTasksInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutAiTasksInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutAiTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutAiTasksInput, Prisma.ShopUncheckedCreateWithoutAiTasksInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutAiTasksInput
+  upsert?: Prisma.ShopUpsertWithoutAiTasksInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutAiTasksInput, Prisma.ShopUpdateWithoutAiTasksInput>, Prisma.ShopUncheckedUpdateWithoutAiTasksInput>
+}
+
+export type ShopCreateNestedOneWithoutAiUsageLogsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutAiUsageLogsInput, Prisma.ShopUncheckedCreateWithoutAiUsageLogsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutAiUsageLogsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutAiUsageLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutAiUsageLogsInput, Prisma.ShopUncheckedCreateWithoutAiUsageLogsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutAiUsageLogsInput
+  upsert?: Prisma.ShopUpsertWithoutAiUsageLogsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutAiUsageLogsInput, Prisma.ShopUpdateWithoutAiUsageLogsInput>, Prisma.ShopUncheckedUpdateWithoutAiUsageLogsInput>
+}
+
+export type ShopCreateNestedOneWithoutSettlementItemsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutSettlementItemsInput, Prisma.ShopUncheckedCreateWithoutSettlementItemsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutSettlementItemsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutSettlementItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutSettlementItemsInput, Prisma.ShopUncheckedCreateWithoutSettlementItemsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutSettlementItemsInput
+  upsert?: Prisma.ShopUpsertWithoutSettlementItemsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutSettlementItemsInput, Prisma.ShopUpdateWithoutSettlementItemsInput>, Prisma.ShopUncheckedUpdateWithoutSettlementItemsInput>
+}
+
+export type ShopCreateNestedOneWithoutAdminSellerRecordInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutAdminSellerRecordInput, Prisma.ShopUncheckedCreateWithoutAdminSellerRecordInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutAdminSellerRecordInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneWithoutAdminSellerRecordNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutAdminSellerRecordInput, Prisma.ShopUncheckedCreateWithoutAdminSellerRecordInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutAdminSellerRecordInput
+  upsert?: Prisma.ShopUpsertWithoutAdminSellerRecordInput
+  disconnect?: Prisma.ShopWhereInput | boolean
+  delete?: Prisma.ShopWhereInput | boolean
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutAdminSellerRecordInput, Prisma.ShopUpdateWithoutAdminSellerRecordInput>, Prisma.ShopUncheckedUpdateWithoutAdminSellerRecordInput>
 }
 
 export type ShopCreateWithoutSellerInput = {
@@ -789,6 +1108,21 @@ export type ShopCreateWithoutSellerInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutSellerInput = {
@@ -815,6 +1149,21 @@ export type ShopUncheckedCreateWithoutSellerInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutSellerInput = {
@@ -857,6 +1206,21 @@ export type ShopUpdateWithoutSellerInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutSellerInput = {
@@ -883,6 +1247,21 @@ export type ShopUncheckedUpdateWithoutSellerInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutProductsInput = {
@@ -909,6 +1288,21 @@ export type ShopCreateWithoutProductsInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutProductsInput = {
@@ -935,6 +1329,21 @@ export type ShopUncheckedCreateWithoutProductsInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutProductsInput = {
@@ -977,6 +1386,21 @@ export type ShopUpdateWithoutProductsInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutProductsInput = {
@@ -1003,6 +1427,21 @@ export type ShopUncheckedUpdateWithoutProductsInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutSellerOrdersInput = {
@@ -1029,6 +1468,21 @@ export type ShopCreateWithoutSellerOrdersInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutSellerOrdersInput = {
@@ -1055,6 +1509,21 @@ export type ShopUncheckedCreateWithoutSellerOrdersInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutSellerOrdersInput = {
@@ -1097,6 +1566,21 @@ export type ShopUpdateWithoutSellerOrdersInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutSellerOrdersInput = {
@@ -1123,6 +1607,21 @@ export type ShopUncheckedUpdateWithoutSellerOrdersInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutSellerShippingMethodsInput = {
@@ -1149,6 +1648,21 @@ export type ShopCreateWithoutSellerShippingMethodsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutSellerShippingMethodsInput = {
@@ -1175,6 +1689,21 @@ export type ShopUncheckedCreateWithoutSellerShippingMethodsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutSellerShippingMethodsInput = {
@@ -1217,6 +1746,21 @@ export type ShopUpdateWithoutSellerShippingMethodsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutSellerShippingMethodsInput = {
@@ -1243,6 +1787,21 @@ export type ShopUncheckedUpdateWithoutSellerShippingMethodsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutNotificationsInput = {
@@ -1269,6 +1828,21 @@ export type ShopCreateWithoutNotificationsInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutNotificationsInput = {
@@ -1295,6 +1869,21 @@ export type ShopUncheckedCreateWithoutNotificationsInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutNotificationsInput = {
@@ -1337,6 +1926,21 @@ export type ShopUpdateWithoutNotificationsInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutNotificationsInput = {
@@ -1363,6 +1967,21 @@ export type ShopUncheckedUpdateWithoutNotificationsInput = {
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutCouponsInput = {
@@ -1389,6 +2008,21 @@ export type ShopCreateWithoutCouponsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
   sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutCouponsInput = {
@@ -1415,6 +2049,21 @@ export type ShopUncheckedCreateWithoutCouponsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutCouponsInput = {
@@ -1457,6 +2106,21 @@ export type ShopUpdateWithoutCouponsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
   sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutCouponsInput = {
@@ -1483,6 +2147,741 @@ export type ShopUncheckedUpdateWithoutCouponsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutReviewRepliesInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutReviewRepliesInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutReviewRepliesInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutReviewRepliesInput, Prisma.ShopUncheckedCreateWithoutReviewRepliesInput>
+}
+
+export type ShopUpsertWithoutReviewRepliesInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutReviewRepliesInput, Prisma.ShopUncheckedUpdateWithoutReviewRepliesInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutReviewRepliesInput, Prisma.ShopUncheckedCreateWithoutReviewRepliesInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutReviewRepliesInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutReviewRepliesInput, Prisma.ShopUncheckedUpdateWithoutReviewRepliesInput>
+}
+
+export type ShopUpdateWithoutReviewRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutReviewRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutReviewReportsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutReviewReportsInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutReviewReportsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutReviewReportsInput, Prisma.ShopUncheckedCreateWithoutReviewReportsInput>
+}
+
+export type ShopUpsertWithoutReviewReportsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutReviewReportsInput, Prisma.ShopUncheckedUpdateWithoutReviewReportsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutReviewReportsInput, Prisma.ShopUncheckedCreateWithoutReviewReportsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutReviewReportsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutReviewReportsInput, Prisma.ShopUncheckedUpdateWithoutReviewReportsInput>
+}
+
+export type ShopUpdateWithoutReviewReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutReviewReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutReturnRequestsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutReturnRequestsInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutReturnRequestsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutReturnRequestsInput, Prisma.ShopUncheckedCreateWithoutReturnRequestsInput>
+}
+
+export type ShopUpsertWithoutReturnRequestsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutReturnRequestsInput, Prisma.ShopUncheckedUpdateWithoutReturnRequestsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutReturnRequestsInput, Prisma.ShopUncheckedCreateWithoutReturnRequestsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutReturnRequestsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutReturnRequestsInput, Prisma.ShopUncheckedUpdateWithoutReturnRequestsInput>
+}
+
+export type ShopUpdateWithoutReturnRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutReturnRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutProductApprovalsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutProductApprovalsInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutProductApprovalsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutProductApprovalsInput, Prisma.ShopUncheckedCreateWithoutProductApprovalsInput>
+}
+
+export type ShopUpsertWithoutProductApprovalsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutProductApprovalsInput, Prisma.ShopUncheckedUpdateWithoutProductApprovalsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutProductApprovalsInput, Prisma.ShopUncheckedCreateWithoutProductApprovalsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutProductApprovalsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutProductApprovalsInput, Prisma.ShopUncheckedUpdateWithoutProductApprovalsInput>
+}
+
+export type ShopUpdateWithoutProductApprovalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutProductApprovalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutWarehousesInput = {
@@ -1509,6 +2908,21 @@ export type ShopCreateWithoutWarehousesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
   sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutWarehousesInput = {
@@ -1535,6 +2949,21 @@ export type ShopUncheckedCreateWithoutWarehousesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutWarehousesInput = {
@@ -1577,6 +3006,21 @@ export type ShopUpdateWithoutWarehousesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
   sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutWarehousesInput = {
@@ -1603,6 +3047,2001 @@ export type ShopUncheckedUpdateWithoutWarehousesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
   sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutSellerMetricSnapshotsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutSellerMetricSnapshotsInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutSellerMetricSnapshotsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutSellerMetricSnapshotsInput, Prisma.ShopUncheckedCreateWithoutSellerMetricSnapshotsInput>
+}
+
+export type ShopUpsertWithoutSellerMetricSnapshotsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutSellerMetricSnapshotsInput, Prisma.ShopUncheckedUpdateWithoutSellerMetricSnapshotsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutSellerMetricSnapshotsInput, Prisma.ShopUncheckedCreateWithoutSellerMetricSnapshotsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutSellerMetricSnapshotsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutSellerMetricSnapshotsInput, Prisma.ShopUncheckedUpdateWithoutSellerMetricSnapshotsInput>
+}
+
+export type ShopUpdateWithoutSellerMetricSnapshotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutSellerMetricSnapshotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutBulkJobsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutBulkJobsInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutBulkJobsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutBulkJobsInput, Prisma.ShopUncheckedCreateWithoutBulkJobsInput>
+}
+
+export type ShopUpsertWithoutBulkJobsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutBulkJobsInput, Prisma.ShopUncheckedUpdateWithoutBulkJobsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutBulkJobsInput, Prisma.ShopUncheckedCreateWithoutBulkJobsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutBulkJobsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutBulkJobsInput, Prisma.ShopUncheckedUpdateWithoutBulkJobsInput>
+}
+
+export type ShopUpdateWithoutBulkJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutBulkJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutSavedFiltersInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutSavedFiltersInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutSavedFiltersInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutSavedFiltersInput, Prisma.ShopUncheckedCreateWithoutSavedFiltersInput>
+}
+
+export type ShopUpsertWithoutSavedFiltersInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutSavedFiltersInput, Prisma.ShopUncheckedUpdateWithoutSavedFiltersInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutSavedFiltersInput, Prisma.ShopUncheckedCreateWithoutSavedFiltersInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutSavedFiltersInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutSavedFiltersInput, Prisma.ShopUncheckedUpdateWithoutSavedFiltersInput>
+}
+
+export type ShopUpdateWithoutSavedFiltersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutSavedFiltersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutAdCampaignsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutAdCampaignsInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutAdCampaignsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutAdCampaignsInput, Prisma.ShopUncheckedCreateWithoutAdCampaignsInput>
+}
+
+export type ShopUpsertWithoutAdCampaignsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutAdCampaignsInput, Prisma.ShopUncheckedUpdateWithoutAdCampaignsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutAdCampaignsInput, Prisma.ShopUncheckedCreateWithoutAdCampaignsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutAdCampaignsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutAdCampaignsInput, Prisma.ShopUncheckedUpdateWithoutAdCampaignsInput>
+}
+
+export type ShopUpdateWithoutAdCampaignsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutAdCampaignsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutAffiliateLinksInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutAffiliateLinksInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutAffiliateLinksInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutAffiliateLinksInput, Prisma.ShopUncheckedCreateWithoutAffiliateLinksInput>
+}
+
+export type ShopUpsertWithoutAffiliateLinksInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutAffiliateLinksInput, Prisma.ShopUncheckedUpdateWithoutAffiliateLinksInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutAffiliateLinksInput, Prisma.ShopUncheckedCreateWithoutAffiliateLinksInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutAffiliateLinksInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutAffiliateLinksInput, Prisma.ShopUncheckedUpdateWithoutAffiliateLinksInput>
+}
+
+export type ShopUpdateWithoutAffiliateLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutAffiliateLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutSubscriptionInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutSubscriptionInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutSubscriptionInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutSubscriptionInput, Prisma.ShopUncheckedCreateWithoutSubscriptionInput>
+}
+
+export type ShopUpsertWithoutSubscriptionInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutSubscriptionInput, Prisma.ShopUncheckedUpdateWithoutSubscriptionInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutSubscriptionInput, Prisma.ShopUncheckedCreateWithoutSubscriptionInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutSubscriptionInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutSubscriptionInput, Prisma.ShopUncheckedUpdateWithoutSubscriptionInput>
+}
+
+export type ShopUpdateWithoutSubscriptionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutSubscriptionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutLivestreamSessionsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutLivestreamSessionsInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutLivestreamSessionsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutLivestreamSessionsInput, Prisma.ShopUncheckedCreateWithoutLivestreamSessionsInput>
+}
+
+export type ShopUpsertWithoutLivestreamSessionsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutLivestreamSessionsInput, Prisma.ShopUncheckedUpdateWithoutLivestreamSessionsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutLivestreamSessionsInput, Prisma.ShopUncheckedCreateWithoutLivestreamSessionsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutLivestreamSessionsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutLivestreamSessionsInput, Prisma.ShopUncheckedUpdateWithoutLivestreamSessionsInput>
+}
+
+export type ShopUpdateWithoutLivestreamSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutLivestreamSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutAiTasksInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutAiTasksInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutAiTasksInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutAiTasksInput, Prisma.ShopUncheckedCreateWithoutAiTasksInput>
+}
+
+export type ShopUpsertWithoutAiTasksInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutAiTasksInput, Prisma.ShopUncheckedUpdateWithoutAiTasksInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutAiTasksInput, Prisma.ShopUncheckedCreateWithoutAiTasksInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutAiTasksInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutAiTasksInput, Prisma.ShopUncheckedUpdateWithoutAiTasksInput>
+}
+
+export type ShopUpdateWithoutAiTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutAiTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutAiUsageLogsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutAiUsageLogsInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutAiUsageLogsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutAiUsageLogsInput, Prisma.ShopUncheckedCreateWithoutAiUsageLogsInput>
+}
+
+export type ShopUpsertWithoutAiUsageLogsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutAiUsageLogsInput, Prisma.ShopUncheckedUpdateWithoutAiUsageLogsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutAiUsageLogsInput, Prisma.ShopUncheckedCreateWithoutAiUsageLogsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutAiUsageLogsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutAiUsageLogsInput, Prisma.ShopUncheckedUpdateWithoutAiUsageLogsInput>
+}
+
+export type ShopUpdateWithoutAiUsageLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutAiUsageLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutSettlementItemsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerCreateNestedOneWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutSettlementItemsInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  adminSellerRecord?: Prisma.SellerUncheckedCreateNestedOneWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutSettlementItemsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutSettlementItemsInput, Prisma.ShopUncheckedCreateWithoutSettlementItemsInput>
+}
+
+export type ShopUpsertWithoutSettlementItemsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutSettlementItemsInput, Prisma.ShopUncheckedUpdateWithoutSettlementItemsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutSettlementItemsInput, Prisma.ShopUncheckedCreateWithoutSettlementItemsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutSettlementItemsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutSettlementItemsInput, Prisma.ShopUncheckedUpdateWithoutSettlementItemsInput>
+}
+
+export type ShopUpdateWithoutSettlementItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUpdateOneWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutSettlementItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  adminSellerRecord?: Prisma.SellerUncheckedUpdateOneWithoutShopNestedInput
+}
+
+export type ShopCreateWithoutAdminSellerRecordInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.SellerProfileCreateNestedOneWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemCreateNestedManyWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutAdminSellerRecordInput = {
+  id?: string
+  sellerId: string
+  name: string
+  slug: string
+  description?: string | null
+  logo?: string | null
+  banner?: string | null
+  phone?: string | null
+  email?: string | null
+  status?: $Enums.ShopStatus
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  sellerOrders?: Prisma.SellerOrderUncheckedCreateNestedManyWithoutShopInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutShopInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedCreateNestedManyWithoutShopInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutShopInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutShopInput
+  productApprovals?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutShopInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedCreateNestedManyWithoutShopInput
+  reviewReports?: Prisma.ReviewReportUncheckedCreateNestedManyWithoutShopInput
+  returnRequests?: Prisma.ReturnRequestUncheckedCreateNestedManyWithoutShopInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput
+  bulkJobs?: Prisma.BulkJobUncheckedCreateNestedManyWithoutShopInput
+  savedFilters?: Prisma.SavedFilterUncheckedCreateNestedManyWithoutShopInput
+  adCampaigns?: Prisma.AdCampaignUncheckedCreateNestedManyWithoutShopInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedCreateNestedManyWithoutShopInput
+  subscription?: Prisma.SellerSubscriptionUncheckedCreateNestedOneWithoutShopInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedCreateNestedManyWithoutShopInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutShopInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedCreateNestedManyWithoutShopInput
+  settlementItems?: Prisma.SettlementItemUncheckedCreateNestedManyWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutAdminSellerRecordInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutAdminSellerRecordInput, Prisma.ShopUncheckedCreateWithoutAdminSellerRecordInput>
+}
+
+export type ShopUpsertWithoutAdminSellerRecordInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutAdminSellerRecordInput, Prisma.ShopUncheckedUpdateWithoutAdminSellerRecordInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutAdminSellerRecordInput, Prisma.ShopUncheckedCreateWithoutAdminSellerRecordInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutAdminSellerRecordInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutAdminSellerRecordInput, Prisma.ShopUncheckedUpdateWithoutAdminSellerRecordInput>
+}
+
+export type ShopUpdateWithoutAdminSellerRecordInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.SellerProfileUpdateOneRequiredWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUpdateManyWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutAdminSellerRecordInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShopStatusFieldUpdateOperationsInput | $Enums.ShopStatus
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  sellerOrders?: Prisma.SellerOrderUncheckedUpdateManyWithoutShopNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutShopNestedInput
+  sellerShippingMethods?: Prisma.SellerShippingMethodUncheckedUpdateManyWithoutShopNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutShopNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutShopNestedInput
+  productApprovals?: Prisma.ProductApprovalUncheckedUpdateManyWithoutShopNestedInput
+  reviewReplies?: Prisma.ReviewReplyUncheckedUpdateManyWithoutShopNestedInput
+  reviewReports?: Prisma.ReviewReportUncheckedUpdateManyWithoutShopNestedInput
+  returnRequests?: Prisma.ReturnRequestUncheckedUpdateManyWithoutShopNestedInput
+  sellerMetricSnapshots?: Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput
+  bulkJobs?: Prisma.BulkJobUncheckedUpdateManyWithoutShopNestedInput
+  savedFilters?: Prisma.SavedFilterUncheckedUpdateManyWithoutShopNestedInput
+  adCampaigns?: Prisma.AdCampaignUncheckedUpdateManyWithoutShopNestedInput
+  affiliateLinks?: Prisma.AffiliateLinkUncheckedUpdateManyWithoutShopNestedInput
+  subscription?: Prisma.SellerSubscriptionUncheckedUpdateOneWithoutShopNestedInput
+  livestreamSessions?: Prisma.LivestreamSessionUncheckedUpdateManyWithoutShopNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutShopNestedInput
+  aiUsageLogs?: Prisma.AiUsageLogUncheckedUpdateManyWithoutShopNestedInput
+  settlementItems?: Prisma.SettlementItemUncheckedUpdateManyWithoutShopNestedInput
 }
 
 
@@ -1617,6 +5056,19 @@ export type ShopCountOutputType = {
   sellerShippingMethods: number
   coupons: number
   warehouses: number
+  productApprovals: number
+  reviewReplies: number
+  reviewReports: number
+  returnRequests: number
+  sellerMetricSnapshots: number
+  bulkJobs: number
+  savedFilters: number
+  adCampaigns: number
+  affiliateLinks: number
+  livestreamSessions: number
+  aiTasks: number
+  aiUsageLogs: number
+  settlementItems: number
 }
 
 export type ShopCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1626,6 +5078,19 @@ export type ShopCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   sellerShippingMethods?: boolean | ShopCountOutputTypeCountSellerShippingMethodsArgs
   coupons?: boolean | ShopCountOutputTypeCountCouponsArgs
   warehouses?: boolean | ShopCountOutputTypeCountWarehousesArgs
+  productApprovals?: boolean | ShopCountOutputTypeCountProductApprovalsArgs
+  reviewReplies?: boolean | ShopCountOutputTypeCountReviewRepliesArgs
+  reviewReports?: boolean | ShopCountOutputTypeCountReviewReportsArgs
+  returnRequests?: boolean | ShopCountOutputTypeCountReturnRequestsArgs
+  sellerMetricSnapshots?: boolean | ShopCountOutputTypeCountSellerMetricSnapshotsArgs
+  bulkJobs?: boolean | ShopCountOutputTypeCountBulkJobsArgs
+  savedFilters?: boolean | ShopCountOutputTypeCountSavedFiltersArgs
+  adCampaigns?: boolean | ShopCountOutputTypeCountAdCampaignsArgs
+  affiliateLinks?: boolean | ShopCountOutputTypeCountAffiliateLinksArgs
+  livestreamSessions?: boolean | ShopCountOutputTypeCountLivestreamSessionsArgs
+  aiTasks?: boolean | ShopCountOutputTypeCountAiTasksArgs
+  aiUsageLogs?: boolean | ShopCountOutputTypeCountAiUsageLogsArgs
+  settlementItems?: boolean | ShopCountOutputTypeCountSettlementItemsArgs
 }
 
 /**
@@ -1680,6 +5145,97 @@ export type ShopCountOutputTypeCountWarehousesArgs<ExtArgs extends runtime.Types
   where?: Prisma.WarehouseWhereInput
 }
 
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountProductApprovalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductApprovalWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountReviewRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewReplyWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountReviewReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewReportWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountReturnRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReturnRequestWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountSellerMetricSnapshotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SellerMetricSnapshotWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountBulkJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BulkJobWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountSavedFiltersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SavedFilterWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountAdCampaignsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AdCampaignWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountAffiliateLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AffiliateLinkWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountLivestreamSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LivestreamSessionWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountAiTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiTaskWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountAiUsageLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiUsageLogWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountSettlementItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SettlementItemWhereInput
+}
+
 
 export type ShopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1707,6 +5263,21 @@ export type ShopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sellerShippingMethods?: boolean | Prisma.Shop$sellerShippingMethodsArgs<ExtArgs>
   coupons?: boolean | Prisma.Shop$couponsArgs<ExtArgs>
   warehouses?: boolean | Prisma.Shop$warehousesArgs<ExtArgs>
+  productApprovals?: boolean | Prisma.Shop$productApprovalsArgs<ExtArgs>
+  reviewReplies?: boolean | Prisma.Shop$reviewRepliesArgs<ExtArgs>
+  reviewReports?: boolean | Prisma.Shop$reviewReportsArgs<ExtArgs>
+  returnRequests?: boolean | Prisma.Shop$returnRequestsArgs<ExtArgs>
+  sellerMetricSnapshots?: boolean | Prisma.Shop$sellerMetricSnapshotsArgs<ExtArgs>
+  bulkJobs?: boolean | Prisma.Shop$bulkJobsArgs<ExtArgs>
+  savedFilters?: boolean | Prisma.Shop$savedFiltersArgs<ExtArgs>
+  adCampaigns?: boolean | Prisma.Shop$adCampaignsArgs<ExtArgs>
+  affiliateLinks?: boolean | Prisma.Shop$affiliateLinksArgs<ExtArgs>
+  subscription?: boolean | Prisma.Shop$subscriptionArgs<ExtArgs>
+  livestreamSessions?: boolean | Prisma.Shop$livestreamSessionsArgs<ExtArgs>
+  aiTasks?: boolean | Prisma.Shop$aiTasksArgs<ExtArgs>
+  aiUsageLogs?: boolean | Prisma.Shop$aiUsageLogsArgs<ExtArgs>
+  settlementItems?: boolean | Prisma.Shop$settlementItemsArgs<ExtArgs>
+  adminSellerRecord?: boolean | Prisma.Shop$adminSellerRecordArgs<ExtArgs>
   _count?: boolean | Prisma.ShopCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shop"]>
 
@@ -1784,6 +5355,21 @@ export type ShopInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sellerShippingMethods?: boolean | Prisma.Shop$sellerShippingMethodsArgs<ExtArgs>
   coupons?: boolean | Prisma.Shop$couponsArgs<ExtArgs>
   warehouses?: boolean | Prisma.Shop$warehousesArgs<ExtArgs>
+  productApprovals?: boolean | Prisma.Shop$productApprovalsArgs<ExtArgs>
+  reviewReplies?: boolean | Prisma.Shop$reviewRepliesArgs<ExtArgs>
+  reviewReports?: boolean | Prisma.Shop$reviewReportsArgs<ExtArgs>
+  returnRequests?: boolean | Prisma.Shop$returnRequestsArgs<ExtArgs>
+  sellerMetricSnapshots?: boolean | Prisma.Shop$sellerMetricSnapshotsArgs<ExtArgs>
+  bulkJobs?: boolean | Prisma.Shop$bulkJobsArgs<ExtArgs>
+  savedFilters?: boolean | Prisma.Shop$savedFiltersArgs<ExtArgs>
+  adCampaigns?: boolean | Prisma.Shop$adCampaignsArgs<ExtArgs>
+  affiliateLinks?: boolean | Prisma.Shop$affiliateLinksArgs<ExtArgs>
+  subscription?: boolean | Prisma.Shop$subscriptionArgs<ExtArgs>
+  livestreamSessions?: boolean | Prisma.Shop$livestreamSessionsArgs<ExtArgs>
+  aiTasks?: boolean | Prisma.Shop$aiTasksArgs<ExtArgs>
+  aiUsageLogs?: boolean | Prisma.Shop$aiUsageLogsArgs<ExtArgs>
+  settlementItems?: boolean | Prisma.Shop$settlementItemsArgs<ExtArgs>
+  adminSellerRecord?: boolean | Prisma.Shop$adminSellerRecordArgs<ExtArgs>
   _count?: boolean | Prisma.ShopCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ShopIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1803,6 +5389,21 @@ export type $ShopPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sellerShippingMethods: Prisma.$SellerShippingMethodPayload<ExtArgs>[]
     coupons: Prisma.$CouponPayload<ExtArgs>[]
     warehouses: Prisma.$WarehousePayload<ExtArgs>[]
+    productApprovals: Prisma.$ProductApprovalPayload<ExtArgs>[]
+    reviewReplies: Prisma.$ReviewReplyPayload<ExtArgs>[]
+    reviewReports: Prisma.$ReviewReportPayload<ExtArgs>[]
+    returnRequests: Prisma.$ReturnRequestPayload<ExtArgs>[]
+    sellerMetricSnapshots: Prisma.$SellerMetricSnapshotPayload<ExtArgs>[]
+    bulkJobs: Prisma.$BulkJobPayload<ExtArgs>[]
+    savedFilters: Prisma.$SavedFilterPayload<ExtArgs>[]
+    adCampaigns: Prisma.$AdCampaignPayload<ExtArgs>[]
+    affiliateLinks: Prisma.$AffiliateLinkPayload<ExtArgs>[]
+    subscription: Prisma.$SellerSubscriptionPayload<ExtArgs> | null
+    livestreamSessions: Prisma.$LivestreamSessionPayload<ExtArgs>[]
+    aiTasks: Prisma.$AiTaskPayload<ExtArgs>[]
+    aiUsageLogs: Prisma.$AiUsageLogPayload<ExtArgs>[]
+    settlementItems: Prisma.$SettlementItemPayload<ExtArgs>[]
+    adminSellerRecord: Prisma.$SellerPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2224,6 +5825,21 @@ export interface Prisma__ShopClient<T, Null = never, ExtArgs extends runtime.Typ
   sellerShippingMethods<T extends Prisma.Shop$sellerShippingMethodsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$sellerShippingMethodsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SellerShippingMethodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coupons<T extends Prisma.Shop$couponsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$couponsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   warehouses<T extends Prisma.Shop$warehousesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$warehousesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WarehousePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productApprovals<T extends Prisma.Shop$productApprovalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$productApprovalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewReplies<T extends Prisma.Shop$reviewRepliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$reviewRepliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewReports<T extends Prisma.Shop$reviewReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$reviewReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  returnRequests<T extends Prisma.Shop$returnRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$returnRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReturnRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sellerMetricSnapshots<T extends Prisma.Shop$sellerMetricSnapshotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$sellerMetricSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SellerMetricSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bulkJobs<T extends Prisma.Shop$bulkJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$bulkJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BulkJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  savedFilters<T extends Prisma.Shop$savedFiltersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$savedFiltersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  adCampaigns<T extends Prisma.Shop$adCampaignsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$adCampaignsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdCampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  affiliateLinks<T extends Prisma.Shop$affiliateLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$affiliateLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AffiliateLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  subscription<T extends Prisma.Shop$subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$subscriptionArgs<ExtArgs>>): Prisma.Prisma__SellerSubscriptionClient<runtime.Types.Result.GetResult<Prisma.$SellerSubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  livestreamSessions<T extends Prisma.Shop$livestreamSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$livestreamSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LivestreamSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiTasks<T extends Prisma.Shop$aiTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$aiTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiUsageLogs<T extends Prisma.Shop$aiUsageLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$aiUsageLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiUsageLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  settlementItems<T extends Prisma.Shop$settlementItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$settlementItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SettlementItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  adminSellerRecord<T extends Prisma.Shop$adminSellerRecordArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$adminSellerRecordArgs<ExtArgs>>): Prisma.Prisma__SellerClient<runtime.Types.Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2813,6 +6429,356 @@ export type Shop$warehousesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.WarehouseScalarFieldEnum | Prisma.WarehouseScalarFieldEnum[]
+}
+
+/**
+ * Shop.productApprovals
+ */
+export type Shop$productApprovalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductApproval
+   */
+  select?: Prisma.ProductApprovalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductApproval
+   */
+  omit?: Prisma.ProductApprovalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductApprovalInclude<ExtArgs> | null
+  where?: Prisma.ProductApprovalWhereInput
+  orderBy?: Prisma.ProductApprovalOrderByWithRelationInput | Prisma.ProductApprovalOrderByWithRelationInput[]
+  cursor?: Prisma.ProductApprovalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductApprovalScalarFieldEnum | Prisma.ProductApprovalScalarFieldEnum[]
+}
+
+/**
+ * Shop.reviewReplies
+ */
+export type Shop$reviewRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReviewReply
+   */
+  select?: Prisma.ReviewReplySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReviewReply
+   */
+  omit?: Prisma.ReviewReplyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewReplyInclude<ExtArgs> | null
+  where?: Prisma.ReviewReplyWhereInput
+  orderBy?: Prisma.ReviewReplyOrderByWithRelationInput | Prisma.ReviewReplyOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewReplyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewReplyScalarFieldEnum | Prisma.ReviewReplyScalarFieldEnum[]
+}
+
+/**
+ * Shop.reviewReports
+ */
+export type Shop$reviewReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReviewReport
+   */
+  select?: Prisma.ReviewReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReviewReport
+   */
+  omit?: Prisma.ReviewReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewReportInclude<ExtArgs> | null
+  where?: Prisma.ReviewReportWhereInput
+  orderBy?: Prisma.ReviewReportOrderByWithRelationInput | Prisma.ReviewReportOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewReportScalarFieldEnum | Prisma.ReviewReportScalarFieldEnum[]
+}
+
+/**
+ * Shop.returnRequests
+ */
+export type Shop$returnRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReturnRequest
+   */
+  select?: Prisma.ReturnRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReturnRequest
+   */
+  omit?: Prisma.ReturnRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReturnRequestInclude<ExtArgs> | null
+  where?: Prisma.ReturnRequestWhereInput
+  orderBy?: Prisma.ReturnRequestOrderByWithRelationInput | Prisma.ReturnRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ReturnRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReturnRequestScalarFieldEnum | Prisma.ReturnRequestScalarFieldEnum[]
+}
+
+/**
+ * Shop.sellerMetricSnapshots
+ */
+export type Shop$sellerMetricSnapshotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SellerMetricSnapshot
+   */
+  select?: Prisma.SellerMetricSnapshotSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SellerMetricSnapshot
+   */
+  omit?: Prisma.SellerMetricSnapshotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotInclude<ExtArgs> | null
+  where?: Prisma.SellerMetricSnapshotWhereInput
+  orderBy?: Prisma.SellerMetricSnapshotOrderByWithRelationInput | Prisma.SellerMetricSnapshotOrderByWithRelationInput[]
+  cursor?: Prisma.SellerMetricSnapshotWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SellerMetricSnapshotScalarFieldEnum | Prisma.SellerMetricSnapshotScalarFieldEnum[]
+}
+
+/**
+ * Shop.bulkJobs
+ */
+export type Shop$bulkJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BulkJob
+   */
+  select?: Prisma.BulkJobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BulkJob
+   */
+  omit?: Prisma.BulkJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BulkJobInclude<ExtArgs> | null
+  where?: Prisma.BulkJobWhereInput
+  orderBy?: Prisma.BulkJobOrderByWithRelationInput | Prisma.BulkJobOrderByWithRelationInput[]
+  cursor?: Prisma.BulkJobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BulkJobScalarFieldEnum | Prisma.BulkJobScalarFieldEnum[]
+}
+
+/**
+ * Shop.savedFilters
+ */
+export type Shop$savedFiltersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SavedFilter
+   */
+  select?: Prisma.SavedFilterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SavedFilter
+   */
+  omit?: Prisma.SavedFilterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedFilterInclude<ExtArgs> | null
+  where?: Prisma.SavedFilterWhereInput
+  orderBy?: Prisma.SavedFilterOrderByWithRelationInput | Prisma.SavedFilterOrderByWithRelationInput[]
+  cursor?: Prisma.SavedFilterWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SavedFilterScalarFieldEnum | Prisma.SavedFilterScalarFieldEnum[]
+}
+
+/**
+ * Shop.adCampaigns
+ */
+export type Shop$adCampaignsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AdCampaign
+   */
+  select?: Prisma.AdCampaignSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AdCampaign
+   */
+  omit?: Prisma.AdCampaignOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdCampaignInclude<ExtArgs> | null
+  where?: Prisma.AdCampaignWhereInput
+  orderBy?: Prisma.AdCampaignOrderByWithRelationInput | Prisma.AdCampaignOrderByWithRelationInput[]
+  cursor?: Prisma.AdCampaignWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AdCampaignScalarFieldEnum | Prisma.AdCampaignScalarFieldEnum[]
+}
+
+/**
+ * Shop.affiliateLinks
+ */
+export type Shop$affiliateLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AffiliateLink
+   */
+  select?: Prisma.AffiliateLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AffiliateLink
+   */
+  omit?: Prisma.AffiliateLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AffiliateLinkInclude<ExtArgs> | null
+  where?: Prisma.AffiliateLinkWhereInput
+  orderBy?: Prisma.AffiliateLinkOrderByWithRelationInput | Prisma.AffiliateLinkOrderByWithRelationInput[]
+  cursor?: Prisma.AffiliateLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AffiliateLinkScalarFieldEnum | Prisma.AffiliateLinkScalarFieldEnum[]
+}
+
+/**
+ * Shop.subscription
+ */
+export type Shop$subscriptionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SellerSubscription
+   */
+  select?: Prisma.SellerSubscriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SellerSubscription
+   */
+  omit?: Prisma.SellerSubscriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerSubscriptionInclude<ExtArgs> | null
+  where?: Prisma.SellerSubscriptionWhereInput
+}
+
+/**
+ * Shop.livestreamSessions
+ */
+export type Shop$livestreamSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LivestreamSession
+   */
+  select?: Prisma.LivestreamSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LivestreamSession
+   */
+  omit?: Prisma.LivestreamSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LivestreamSessionInclude<ExtArgs> | null
+  where?: Prisma.LivestreamSessionWhereInput
+  orderBy?: Prisma.LivestreamSessionOrderByWithRelationInput | Prisma.LivestreamSessionOrderByWithRelationInput[]
+  cursor?: Prisma.LivestreamSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LivestreamSessionScalarFieldEnum | Prisma.LivestreamSessionScalarFieldEnum[]
+}
+
+/**
+ * Shop.aiTasks
+ */
+export type Shop$aiTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiTask
+   */
+  select?: Prisma.AiTaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiTask
+   */
+  omit?: Prisma.AiTaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiTaskInclude<ExtArgs> | null
+  where?: Prisma.AiTaskWhereInput
+  orderBy?: Prisma.AiTaskOrderByWithRelationInput | Prisma.AiTaskOrderByWithRelationInput[]
+  cursor?: Prisma.AiTaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiTaskScalarFieldEnum | Prisma.AiTaskScalarFieldEnum[]
+}
+
+/**
+ * Shop.aiUsageLogs
+ */
+export type Shop$aiUsageLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiUsageLog
+   */
+  select?: Prisma.AiUsageLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiUsageLog
+   */
+  omit?: Prisma.AiUsageLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiUsageLogInclude<ExtArgs> | null
+  where?: Prisma.AiUsageLogWhereInput
+  orderBy?: Prisma.AiUsageLogOrderByWithRelationInput | Prisma.AiUsageLogOrderByWithRelationInput[]
+  cursor?: Prisma.AiUsageLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiUsageLogScalarFieldEnum | Prisma.AiUsageLogScalarFieldEnum[]
+}
+
+/**
+ * Shop.settlementItems
+ */
+export type Shop$settlementItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SettlementItem
+   */
+  select?: Prisma.SettlementItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SettlementItem
+   */
+  omit?: Prisma.SettlementItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettlementItemInclude<ExtArgs> | null
+  where?: Prisma.SettlementItemWhereInput
+  orderBy?: Prisma.SettlementItemOrderByWithRelationInput | Prisma.SettlementItemOrderByWithRelationInput[]
+  cursor?: Prisma.SettlementItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SettlementItemScalarFieldEnum | Prisma.SettlementItemScalarFieldEnum[]
+}
+
+/**
+ * Shop.adminSellerRecord
+ */
+export type Shop$adminSellerRecordArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Seller
+   */
+  select?: Prisma.SellerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Seller
+   */
+  omit?: Prisma.SellerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerInclude<ExtArgs> | null
+  where?: Prisma.SellerWhereInput
 }
 
 /**

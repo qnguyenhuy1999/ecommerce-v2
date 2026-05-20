@@ -199,6 +199,7 @@ export type OrderAuditLogWhereInput = {
   performedBy?: Prisma.UuidNullableFilter<"OrderAuditLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"OrderAuditLog"> | Date | string
   sellerOrder?: Prisma.XOR<Prisma.SellerOrderScalarRelationFilter, Prisma.SellerOrderWhereInput>
+  performedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }
 
 export type OrderAuditLogOrderByWithRelationInput = {
@@ -210,6 +211,7 @@ export type OrderAuditLogOrderByWithRelationInput = {
   performedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   sellerOrder?: Prisma.SellerOrderOrderByWithRelationInput
+  performedByAdmin?: Prisma.AdminOrderByWithRelationInput
 }
 
 export type OrderAuditLogWhereUniqueInput = Prisma.AtLeast<{
@@ -224,6 +226,7 @@ export type OrderAuditLogWhereUniqueInput = Prisma.AtLeast<{
   performedBy?: Prisma.UuidNullableFilter<"OrderAuditLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"OrderAuditLog"> | Date | string
   sellerOrder?: Prisma.XOR<Prisma.SellerOrderScalarRelationFilter, Prisma.SellerOrderWhereInput>
+  performedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }, "id">
 
 export type OrderAuditLogOrderByWithAggregationInput = {
@@ -257,9 +260,9 @@ export type OrderAuditLogCreateInput = {
   fromStatus: string
   toStatus: string
   note?: string | null
-  performedBy?: string | null
   createdAt?: Date | string
   sellerOrder: Prisma.SellerOrderCreateNestedOneWithoutAuditLogsInput
+  performedByAdmin?: Prisma.AdminCreateNestedOneWithoutOrderAuditLogsInput
 }
 
 export type OrderAuditLogUncheckedCreateInput = {
@@ -277,9 +280,9 @@ export type OrderAuditLogUpdateInput = {
   fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
   toStatus?: Prisma.StringFieldUpdateOperationsInput | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  performedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sellerOrder?: Prisma.SellerOrderUpdateOneRequiredWithoutAuditLogsNestedInput
+  performedByAdmin?: Prisma.AdminUpdateOneWithoutOrderAuditLogsNestedInput
 }
 
 export type OrderAuditLogUncheckedUpdateInput = {
@@ -307,7 +310,6 @@ export type OrderAuditLogUpdateManyMutationInput = {
   fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
   toStatus?: Prisma.StringFieldUpdateOperationsInput | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  performedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -403,13 +405,55 @@ export type OrderAuditLogUncheckedUpdateManyWithoutSellerOrderNestedInput = {
   deleteMany?: Prisma.OrderAuditLogScalarWhereInput | Prisma.OrderAuditLogScalarWhereInput[]
 }
 
+export type OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput = {
+  create?: Prisma.XOR<Prisma.OrderAuditLogCreateWithoutPerformedByAdminInput, Prisma.OrderAuditLogUncheckedCreateWithoutPerformedByAdminInput> | Prisma.OrderAuditLogCreateWithoutPerformedByAdminInput[] | Prisma.OrderAuditLogUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.OrderAuditLogCreateOrConnectWithoutPerformedByAdminInput | Prisma.OrderAuditLogCreateOrConnectWithoutPerformedByAdminInput[]
+  createMany?: Prisma.OrderAuditLogCreateManyPerformedByAdminInputEnvelope
+  connect?: Prisma.OrderAuditLogWhereUniqueInput | Prisma.OrderAuditLogWhereUniqueInput[]
+}
+
+export type OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput = {
+  create?: Prisma.XOR<Prisma.OrderAuditLogCreateWithoutPerformedByAdminInput, Prisma.OrderAuditLogUncheckedCreateWithoutPerformedByAdminInput> | Prisma.OrderAuditLogCreateWithoutPerformedByAdminInput[] | Prisma.OrderAuditLogUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.OrderAuditLogCreateOrConnectWithoutPerformedByAdminInput | Prisma.OrderAuditLogCreateOrConnectWithoutPerformedByAdminInput[]
+  createMany?: Prisma.OrderAuditLogCreateManyPerformedByAdminInputEnvelope
+  connect?: Prisma.OrderAuditLogWhereUniqueInput | Prisma.OrderAuditLogWhereUniqueInput[]
+}
+
+export type OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderAuditLogCreateWithoutPerformedByAdminInput, Prisma.OrderAuditLogUncheckedCreateWithoutPerformedByAdminInput> | Prisma.OrderAuditLogCreateWithoutPerformedByAdminInput[] | Prisma.OrderAuditLogUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.OrderAuditLogCreateOrConnectWithoutPerformedByAdminInput | Prisma.OrderAuditLogCreateOrConnectWithoutPerformedByAdminInput[]
+  upsert?: Prisma.OrderAuditLogUpsertWithWhereUniqueWithoutPerformedByAdminInput | Prisma.OrderAuditLogUpsertWithWhereUniqueWithoutPerformedByAdminInput[]
+  createMany?: Prisma.OrderAuditLogCreateManyPerformedByAdminInputEnvelope
+  set?: Prisma.OrderAuditLogWhereUniqueInput | Prisma.OrderAuditLogWhereUniqueInput[]
+  disconnect?: Prisma.OrderAuditLogWhereUniqueInput | Prisma.OrderAuditLogWhereUniqueInput[]
+  delete?: Prisma.OrderAuditLogWhereUniqueInput | Prisma.OrderAuditLogWhereUniqueInput[]
+  connect?: Prisma.OrderAuditLogWhereUniqueInput | Prisma.OrderAuditLogWhereUniqueInput[]
+  update?: Prisma.OrderAuditLogUpdateWithWhereUniqueWithoutPerformedByAdminInput | Prisma.OrderAuditLogUpdateWithWhereUniqueWithoutPerformedByAdminInput[]
+  updateMany?: Prisma.OrderAuditLogUpdateManyWithWhereWithoutPerformedByAdminInput | Prisma.OrderAuditLogUpdateManyWithWhereWithoutPerformedByAdminInput[]
+  deleteMany?: Prisma.OrderAuditLogScalarWhereInput | Prisma.OrderAuditLogScalarWhereInput[]
+}
+
+export type OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderAuditLogCreateWithoutPerformedByAdminInput, Prisma.OrderAuditLogUncheckedCreateWithoutPerformedByAdminInput> | Prisma.OrderAuditLogCreateWithoutPerformedByAdminInput[] | Prisma.OrderAuditLogUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.OrderAuditLogCreateOrConnectWithoutPerformedByAdminInput | Prisma.OrderAuditLogCreateOrConnectWithoutPerformedByAdminInput[]
+  upsert?: Prisma.OrderAuditLogUpsertWithWhereUniqueWithoutPerformedByAdminInput | Prisma.OrderAuditLogUpsertWithWhereUniqueWithoutPerformedByAdminInput[]
+  createMany?: Prisma.OrderAuditLogCreateManyPerformedByAdminInputEnvelope
+  set?: Prisma.OrderAuditLogWhereUniqueInput | Prisma.OrderAuditLogWhereUniqueInput[]
+  disconnect?: Prisma.OrderAuditLogWhereUniqueInput | Prisma.OrderAuditLogWhereUniqueInput[]
+  delete?: Prisma.OrderAuditLogWhereUniqueInput | Prisma.OrderAuditLogWhereUniqueInput[]
+  connect?: Prisma.OrderAuditLogWhereUniqueInput | Prisma.OrderAuditLogWhereUniqueInput[]
+  update?: Prisma.OrderAuditLogUpdateWithWhereUniqueWithoutPerformedByAdminInput | Prisma.OrderAuditLogUpdateWithWhereUniqueWithoutPerformedByAdminInput[]
+  updateMany?: Prisma.OrderAuditLogUpdateManyWithWhereWithoutPerformedByAdminInput | Prisma.OrderAuditLogUpdateManyWithWhereWithoutPerformedByAdminInput[]
+  deleteMany?: Prisma.OrderAuditLogScalarWhereInput | Prisma.OrderAuditLogScalarWhereInput[]
+}
+
 export type OrderAuditLogCreateWithoutSellerOrderInput = {
   id?: string
   fromStatus: string
   toStatus: string
   note?: string | null
-  performedBy?: string | null
   createdAt?: Date | string
+  performedByAdmin?: Prisma.AdminCreateNestedOneWithoutOrderAuditLogsInput
 }
 
 export type OrderAuditLogUncheckedCreateWithoutSellerOrderInput = {
@@ -460,6 +504,50 @@ export type OrderAuditLogScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"OrderAuditLog"> | Date | string
 }
 
+export type OrderAuditLogCreateWithoutPerformedByAdminInput = {
+  id?: string
+  fromStatus: string
+  toStatus: string
+  note?: string | null
+  createdAt?: Date | string
+  sellerOrder: Prisma.SellerOrderCreateNestedOneWithoutAuditLogsInput
+}
+
+export type OrderAuditLogUncheckedCreateWithoutPerformedByAdminInput = {
+  id?: string
+  sellerOrderId: string
+  fromStatus: string
+  toStatus: string
+  note?: string | null
+  createdAt?: Date | string
+}
+
+export type OrderAuditLogCreateOrConnectWithoutPerformedByAdminInput = {
+  where: Prisma.OrderAuditLogWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderAuditLogCreateWithoutPerformedByAdminInput, Prisma.OrderAuditLogUncheckedCreateWithoutPerformedByAdminInput>
+}
+
+export type OrderAuditLogCreateManyPerformedByAdminInputEnvelope = {
+  data: Prisma.OrderAuditLogCreateManyPerformedByAdminInput | Prisma.OrderAuditLogCreateManyPerformedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type OrderAuditLogUpsertWithWhereUniqueWithoutPerformedByAdminInput = {
+  where: Prisma.OrderAuditLogWhereUniqueInput
+  update: Prisma.XOR<Prisma.OrderAuditLogUpdateWithoutPerformedByAdminInput, Prisma.OrderAuditLogUncheckedUpdateWithoutPerformedByAdminInput>
+  create: Prisma.XOR<Prisma.OrderAuditLogCreateWithoutPerformedByAdminInput, Prisma.OrderAuditLogUncheckedCreateWithoutPerformedByAdminInput>
+}
+
+export type OrderAuditLogUpdateWithWhereUniqueWithoutPerformedByAdminInput = {
+  where: Prisma.OrderAuditLogWhereUniqueInput
+  data: Prisma.XOR<Prisma.OrderAuditLogUpdateWithoutPerformedByAdminInput, Prisma.OrderAuditLogUncheckedUpdateWithoutPerformedByAdminInput>
+}
+
+export type OrderAuditLogUpdateManyWithWhereWithoutPerformedByAdminInput = {
+  where: Prisma.OrderAuditLogScalarWhereInput
+  data: Prisma.XOR<Prisma.OrderAuditLogUpdateManyMutationInput, Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminInput>
+}
+
 export type OrderAuditLogCreateManySellerOrderInput = {
   id?: string
   fromStatus: string
@@ -474,8 +562,8 @@ export type OrderAuditLogUpdateWithoutSellerOrderInput = {
   fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
   toStatus?: Prisma.StringFieldUpdateOperationsInput | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  performedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  performedByAdmin?: Prisma.AdminUpdateOneWithoutOrderAuditLogsNestedInput
 }
 
 export type OrderAuditLogUncheckedUpdateWithoutSellerOrderInput = {
@@ -496,6 +584,42 @@ export type OrderAuditLogUncheckedUpdateManyWithoutSellerOrderInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type OrderAuditLogCreateManyPerformedByAdminInput = {
+  id?: string
+  sellerOrderId: string
+  fromStatus: string
+  toStatus: string
+  note?: string | null
+  createdAt?: Date | string
+}
+
+export type OrderAuditLogUpdateWithoutPerformedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  toStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sellerOrder?: Prisma.SellerOrderUpdateOneRequiredWithoutAuditLogsNestedInput
+}
+
+export type OrderAuditLogUncheckedUpdateWithoutPerformedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerOrderId?: Prisma.StringFieldUpdateOperationsInput | string
+  fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  toStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerOrderId?: Prisma.StringFieldUpdateOperationsInput | string
+  fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  toStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type OrderAuditLogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -507,6 +631,7 @@ export type OrderAuditLogSelect<ExtArgs extends runtime.Types.Extensions.Interna
   performedBy?: boolean
   createdAt?: boolean
   sellerOrder?: boolean | Prisma.SellerOrderDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.OrderAuditLog$performedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["orderAuditLog"]>
 
 export type OrderAuditLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -518,6 +643,7 @@ export type OrderAuditLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   performedBy?: boolean
   createdAt?: boolean
   sellerOrder?: boolean | Prisma.SellerOrderDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.OrderAuditLog$performedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["orderAuditLog"]>
 
 export type OrderAuditLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -529,6 +655,7 @@ export type OrderAuditLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   performedBy?: boolean
   createdAt?: boolean
   sellerOrder?: boolean | Prisma.SellerOrderDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.OrderAuditLog$performedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["orderAuditLog"]>
 
 export type OrderAuditLogSelectScalar = {
@@ -544,18 +671,22 @@ export type OrderAuditLogSelectScalar = {
 export type OrderAuditLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sellerOrderId" | "fromStatus" | "toStatus" | "note" | "performedBy" | "createdAt", ExtArgs["result"]["orderAuditLog"]>
 export type OrderAuditLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sellerOrder?: boolean | Prisma.SellerOrderDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.OrderAuditLog$performedByAdminArgs<ExtArgs>
 }
 export type OrderAuditLogIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sellerOrder?: boolean | Prisma.SellerOrderDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.OrderAuditLog$performedByAdminArgs<ExtArgs>
 }
 export type OrderAuditLogIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sellerOrder?: boolean | Prisma.SellerOrderDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.OrderAuditLog$performedByAdminArgs<ExtArgs>
 }
 
 export type $OrderAuditLogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "OrderAuditLog"
   objects: {
     sellerOrder: Prisma.$SellerOrderPayload<ExtArgs>
+    performedByAdmin: Prisma.$AdminPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -960,6 +1091,7 @@ readonly fields: OrderAuditLogFieldRefs;
 export interface Prisma__OrderAuditLogClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   sellerOrder<T extends Prisma.SellerOrderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SellerOrderDefaultArgs<ExtArgs>>): Prisma.Prisma__SellerOrderClient<runtime.Types.Result.GetResult<Prisma.$SellerOrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  performedByAdmin<T extends Prisma.OrderAuditLog$performedByAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderAuditLog$performedByAdminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1394,6 +1526,25 @@ export type OrderAuditLogDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many OrderAuditLogs to delete.
    */
   limit?: number
+}
+
+/**
+ * OrderAuditLog.performedByAdmin
+ */
+export type OrderAuditLog$performedByAdminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
 }
 
 /**

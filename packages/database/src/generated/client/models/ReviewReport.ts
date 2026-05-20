@@ -191,6 +191,7 @@ export type ReviewReportWhereInput = {
   details?: Prisma.StringNullableFilter<"ReviewReport"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReviewReport"> | Date | string
   review?: Prisma.XOR<Prisma.ReviewScalarRelationFilter, Prisma.ReviewWhereInput>
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }
 
 export type ReviewReportOrderByWithRelationInput = {
@@ -201,6 +202,7 @@ export type ReviewReportOrderByWithRelationInput = {
   details?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   review?: Prisma.ReviewOrderByWithRelationInput
+  shop?: Prisma.ShopOrderByWithRelationInput
 }
 
 export type ReviewReportWhereUniqueInput = Prisma.AtLeast<{
@@ -214,6 +216,7 @@ export type ReviewReportWhereUniqueInput = Prisma.AtLeast<{
   details?: Prisma.StringNullableFilter<"ReviewReport"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReviewReport"> | Date | string
   review?: Prisma.XOR<Prisma.ReviewScalarRelationFilter, Prisma.ReviewWhereInput>
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }, "id">
 
 export type ReviewReportOrderByWithAggregationInput = {
@@ -242,11 +245,11 @@ export type ReviewReportScalarWhereWithAggregatesInput = {
 
 export type ReviewReportCreateInput = {
   id?: string
-  shopId: string
   reason: string
   details?: string | null
   createdAt?: Date | string
   review: Prisma.ReviewCreateNestedOneWithoutReportsInput
+  shop: Prisma.ShopCreateNestedOneWithoutReviewReportsInput
 }
 
 export type ReviewReportUncheckedCreateInput = {
@@ -260,11 +263,11 @@ export type ReviewReportUncheckedCreateInput = {
 
 export type ReviewReportUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   details?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   review?: Prisma.ReviewUpdateOneRequiredWithoutReportsNestedInput
+  shop?: Prisma.ShopUpdateOneRequiredWithoutReviewReportsNestedInput
 }
 
 export type ReviewReportUncheckedUpdateInput = {
@@ -287,7 +290,6 @@ export type ReviewReportCreateManyInput = {
 
 export type ReviewReportUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   details?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -339,6 +341,48 @@ export type ReviewReportMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
 }
 
+export type ReviewReportCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.ReviewReportCreateWithoutShopInput, Prisma.ReviewReportUncheckedCreateWithoutShopInput> | Prisma.ReviewReportCreateWithoutShopInput[] | Prisma.ReviewReportUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.ReviewReportCreateOrConnectWithoutShopInput | Prisma.ReviewReportCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.ReviewReportCreateManyShopInputEnvelope
+  connect?: Prisma.ReviewReportWhereUniqueInput | Prisma.ReviewReportWhereUniqueInput[]
+}
+
+export type ReviewReportUncheckedCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.ReviewReportCreateWithoutShopInput, Prisma.ReviewReportUncheckedCreateWithoutShopInput> | Prisma.ReviewReportCreateWithoutShopInput[] | Prisma.ReviewReportUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.ReviewReportCreateOrConnectWithoutShopInput | Prisma.ReviewReportCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.ReviewReportCreateManyShopInputEnvelope
+  connect?: Prisma.ReviewReportWhereUniqueInput | Prisma.ReviewReportWhereUniqueInput[]
+}
+
+export type ReviewReportUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewReportCreateWithoutShopInput, Prisma.ReviewReportUncheckedCreateWithoutShopInput> | Prisma.ReviewReportCreateWithoutShopInput[] | Prisma.ReviewReportUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.ReviewReportCreateOrConnectWithoutShopInput | Prisma.ReviewReportCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.ReviewReportUpsertWithWhereUniqueWithoutShopInput | Prisma.ReviewReportUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.ReviewReportCreateManyShopInputEnvelope
+  set?: Prisma.ReviewReportWhereUniqueInput | Prisma.ReviewReportWhereUniqueInput[]
+  disconnect?: Prisma.ReviewReportWhereUniqueInput | Prisma.ReviewReportWhereUniqueInput[]
+  delete?: Prisma.ReviewReportWhereUniqueInput | Prisma.ReviewReportWhereUniqueInput[]
+  connect?: Prisma.ReviewReportWhereUniqueInput | Prisma.ReviewReportWhereUniqueInput[]
+  update?: Prisma.ReviewReportUpdateWithWhereUniqueWithoutShopInput | Prisma.ReviewReportUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.ReviewReportUpdateManyWithWhereWithoutShopInput | Prisma.ReviewReportUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.ReviewReportScalarWhereInput | Prisma.ReviewReportScalarWhereInput[]
+}
+
+export type ReviewReportUncheckedUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewReportCreateWithoutShopInput, Prisma.ReviewReportUncheckedCreateWithoutShopInput> | Prisma.ReviewReportCreateWithoutShopInput[] | Prisma.ReviewReportUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.ReviewReportCreateOrConnectWithoutShopInput | Prisma.ReviewReportCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.ReviewReportUpsertWithWhereUniqueWithoutShopInput | Prisma.ReviewReportUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.ReviewReportCreateManyShopInputEnvelope
+  set?: Prisma.ReviewReportWhereUniqueInput | Prisma.ReviewReportWhereUniqueInput[]
+  disconnect?: Prisma.ReviewReportWhereUniqueInput | Prisma.ReviewReportWhereUniqueInput[]
+  delete?: Prisma.ReviewReportWhereUniqueInput | Prisma.ReviewReportWhereUniqueInput[]
+  connect?: Prisma.ReviewReportWhereUniqueInput | Prisma.ReviewReportWhereUniqueInput[]
+  update?: Prisma.ReviewReportUpdateWithWhereUniqueWithoutShopInput | Prisma.ReviewReportUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.ReviewReportUpdateManyWithWhereWithoutShopInput | Prisma.ReviewReportUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.ReviewReportScalarWhereInput | Prisma.ReviewReportScalarWhereInput[]
+}
+
 export type ReviewReportCreateNestedManyWithoutReviewInput = {
   create?: Prisma.XOR<Prisma.ReviewReportCreateWithoutReviewInput, Prisma.ReviewReportUncheckedCreateWithoutReviewInput> | Prisma.ReviewReportCreateWithoutReviewInput[] | Prisma.ReviewReportUncheckedCreateWithoutReviewInput[]
   connectOrCreate?: Prisma.ReviewReportCreateOrConnectWithoutReviewInput | Prisma.ReviewReportCreateOrConnectWithoutReviewInput[]
@@ -381,12 +425,66 @@ export type ReviewReportUncheckedUpdateManyWithoutReviewNestedInput = {
   deleteMany?: Prisma.ReviewReportScalarWhereInput | Prisma.ReviewReportScalarWhereInput[]
 }
 
-export type ReviewReportCreateWithoutReviewInput = {
+export type ReviewReportCreateWithoutShopInput = {
   id?: string
-  shopId: string
   reason: string
   details?: string | null
   createdAt?: Date | string
+  review: Prisma.ReviewCreateNestedOneWithoutReportsInput
+}
+
+export type ReviewReportUncheckedCreateWithoutShopInput = {
+  id?: string
+  reviewId: string
+  reason: string
+  details?: string | null
+  createdAt?: Date | string
+}
+
+export type ReviewReportCreateOrConnectWithoutShopInput = {
+  where: Prisma.ReviewReportWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReviewReportCreateWithoutShopInput, Prisma.ReviewReportUncheckedCreateWithoutShopInput>
+}
+
+export type ReviewReportCreateManyShopInputEnvelope = {
+  data: Prisma.ReviewReportCreateManyShopInput | Prisma.ReviewReportCreateManyShopInput[]
+  skipDuplicates?: boolean
+}
+
+export type ReviewReportUpsertWithWhereUniqueWithoutShopInput = {
+  where: Prisma.ReviewReportWhereUniqueInput
+  update: Prisma.XOR<Prisma.ReviewReportUpdateWithoutShopInput, Prisma.ReviewReportUncheckedUpdateWithoutShopInput>
+  create: Prisma.XOR<Prisma.ReviewReportCreateWithoutShopInput, Prisma.ReviewReportUncheckedCreateWithoutShopInput>
+}
+
+export type ReviewReportUpdateWithWhereUniqueWithoutShopInput = {
+  where: Prisma.ReviewReportWhereUniqueInput
+  data: Prisma.XOR<Prisma.ReviewReportUpdateWithoutShopInput, Prisma.ReviewReportUncheckedUpdateWithoutShopInput>
+}
+
+export type ReviewReportUpdateManyWithWhereWithoutShopInput = {
+  where: Prisma.ReviewReportScalarWhereInput
+  data: Prisma.XOR<Prisma.ReviewReportUpdateManyMutationInput, Prisma.ReviewReportUncheckedUpdateManyWithoutShopInput>
+}
+
+export type ReviewReportScalarWhereInput = {
+  AND?: Prisma.ReviewReportScalarWhereInput | Prisma.ReviewReportScalarWhereInput[]
+  OR?: Prisma.ReviewReportScalarWhereInput[]
+  NOT?: Prisma.ReviewReportScalarWhereInput | Prisma.ReviewReportScalarWhereInput[]
+  id?: Prisma.UuidFilter<"ReviewReport"> | string
+  reviewId?: Prisma.UuidFilter<"ReviewReport"> | string
+  shopId?: Prisma.UuidFilter<"ReviewReport"> | string
+  reason?: Prisma.StringFilter<"ReviewReport"> | string
+  details?: Prisma.StringNullableFilter<"ReviewReport"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"ReviewReport"> | Date | string
+}
+
+export type ReviewReportCreateWithoutReviewInput = {
+  id?: string
+  reason: string
+  details?: string | null
+  createdAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutReviewReportsInput
 }
 
 export type ReviewReportUncheckedCreateWithoutReviewInput = {
@@ -423,16 +521,36 @@ export type ReviewReportUpdateManyWithWhereWithoutReviewInput = {
   data: Prisma.XOR<Prisma.ReviewReportUpdateManyMutationInput, Prisma.ReviewReportUncheckedUpdateManyWithoutReviewInput>
 }
 
-export type ReviewReportScalarWhereInput = {
-  AND?: Prisma.ReviewReportScalarWhereInput | Prisma.ReviewReportScalarWhereInput[]
-  OR?: Prisma.ReviewReportScalarWhereInput[]
-  NOT?: Prisma.ReviewReportScalarWhereInput | Prisma.ReviewReportScalarWhereInput[]
-  id?: Prisma.UuidFilter<"ReviewReport"> | string
-  reviewId?: Prisma.UuidFilter<"ReviewReport"> | string
-  shopId?: Prisma.UuidFilter<"ReviewReport"> | string
-  reason?: Prisma.StringFilter<"ReviewReport"> | string
-  details?: Prisma.StringNullableFilter<"ReviewReport"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"ReviewReport"> | Date | string
+export type ReviewReportCreateManyShopInput = {
+  id?: string
+  reviewId: string
+  reason: string
+  details?: string | null
+  createdAt?: Date | string
+}
+
+export type ReviewReportUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  details?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  review?: Prisma.ReviewUpdateOneRequiredWithoutReportsNestedInput
+}
+
+export type ReviewReportUncheckedUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewId?: Prisma.StringFieldUpdateOperationsInput | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  details?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReviewReportUncheckedUpdateManyWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewId?: Prisma.StringFieldUpdateOperationsInput | string
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  details?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewReportCreateManyReviewInput = {
@@ -445,10 +563,10 @@ export type ReviewReportCreateManyReviewInput = {
 
 export type ReviewReportUpdateWithoutReviewInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   details?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutReviewReportsNestedInput
 }
 
 export type ReviewReportUncheckedUpdateWithoutReviewInput = {
@@ -477,6 +595,7 @@ export type ReviewReportSelect<ExtArgs extends runtime.Types.Extensions.Internal
   details?: boolean
   createdAt?: boolean
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviewReport"]>
 
 export type ReviewReportSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -487,6 +606,7 @@ export type ReviewReportSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   details?: boolean
   createdAt?: boolean
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviewReport"]>
 
 export type ReviewReportSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -497,6 +617,7 @@ export type ReviewReportSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   details?: boolean
   createdAt?: boolean
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviewReport"]>
 
 export type ReviewReportSelectScalar = {
@@ -511,18 +632,22 @@ export type ReviewReportSelectScalar = {
 export type ReviewReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reviewId" | "shopId" | "reason" | "details" | "createdAt", ExtArgs["result"]["reviewReport"]>
 export type ReviewReportInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }
 export type ReviewReportIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }
 export type ReviewReportIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   review?: boolean | Prisma.ReviewDefaultArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }
 
 export type $ReviewReportPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ReviewReport"
   objects: {
     review: Prisma.$ReviewPayload<ExtArgs>
+    shop: Prisma.$ShopPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -926,6 +1051,7 @@ readonly fields: ReviewReportFieldRefs;
 export interface Prisma__ReviewReportClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   review<T extends Prisma.ReviewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReviewDefaultArgs<ExtArgs>>): Prisma.Prisma__ReviewClient<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  shop<T extends Prisma.ShopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShopDefaultArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

@@ -48,12 +48,7 @@ export class AuthController {
     const userAgent = req.headers['user-agent']
     const ipAddress = getClientIp(req)
 
-    const { sessionId, userId, roles } = await this.authService.login(
-      dto.email,
-      dto.password,
-      userAgent,
-      ipAddress,
-    )
+    const { sessionId, userId } = await this.authService.login(dto.email, dto.password, userAgent, ipAddress)
 
     const cookieOptions = getSessionCookieOptions(process.env.COOKIE_DOMAIN)
     res.cookie(cookieOptions.name, sessionId, {
@@ -65,7 +60,7 @@ export class AuthController {
       ...(cookieOptions.domain ? { domain: cookieOptions.domain } : {}),
     })
 
-    return { user: { userId, roles } }
+    return { user: { userId } }
   }
 
   @Post('logout')
@@ -100,7 +95,7 @@ export class AuthController {
     }
 
     const session = await this.authService.getMe(sessionId)
-    return { userId: session.userId, roles: session.roles }
+    return session
   }
 }
 

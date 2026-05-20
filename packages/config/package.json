@@ -12,6 +12,11 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
+    "./server-env": {
+      "types": "./src/server-env.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
     "./env": {
       "types": "./src/env/index.ts",
       "import": "./dist/env/index.js",

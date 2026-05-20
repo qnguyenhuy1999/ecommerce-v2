@@ -268,6 +268,7 @@ export type LoyaltyAccountWhereInput = {
   streak?: Prisma.IntFilter<"LoyaltyAccount"> | number
   createdAt?: Prisma.DateTimeFilter<"LoyaltyAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LoyaltyAccount"> | Date | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tier?: Prisma.XOR<Prisma.LoyaltyTierNullableScalarRelationFilter, Prisma.LoyaltyTierWhereInput> | null
   transactions?: Prisma.LoyaltyTransactionListRelationFilter
   missionProgress?: Prisma.LoyaltyMissionProgressListRelationFilter
@@ -284,6 +285,7 @@ export type LoyaltyAccountOrderByWithRelationInput = {
   streak?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
   tier?: Prisma.LoyaltyTierOrderByWithRelationInput
   transactions?: Prisma.LoyaltyTransactionOrderByRelationAggregateInput
   missionProgress?: Prisma.LoyaltyMissionProgressOrderByRelationAggregateInput
@@ -303,6 +305,7 @@ export type LoyaltyAccountWhereUniqueInput = Prisma.AtLeast<{
   streak?: Prisma.IntFilter<"LoyaltyAccount"> | number
   createdAt?: Prisma.DateTimeFilter<"LoyaltyAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LoyaltyAccount"> | Date | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tier?: Prisma.XOR<Prisma.LoyaltyTierNullableScalarRelationFilter, Prisma.LoyaltyTierWhereInput> | null
   transactions?: Prisma.LoyaltyTransactionListRelationFilter
   missionProgress?: Prisma.LoyaltyMissionProgressListRelationFilter
@@ -344,7 +347,6 @@ export type LoyaltyAccountScalarWhereWithAggregatesInput = {
 
 export type LoyaltyAccountCreateInput = {
   id?: string
-  userId: string
   totalPoints?: number
   availablePoints?: number
   lifetimePoints?: number
@@ -352,6 +354,7 @@ export type LoyaltyAccountCreateInput = {
   streak?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutLoyaltyAccountInput
   tier?: Prisma.LoyaltyTierCreateNestedOneWithoutAccountsInput
   transactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutAccountInput
   missionProgress?: Prisma.LoyaltyMissionProgressCreateNestedManyWithoutAccountInput
@@ -374,7 +377,6 @@ export type LoyaltyAccountUncheckedCreateInput = {
 
 export type LoyaltyAccountUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   totalPoints?: Prisma.IntFieldUpdateOperationsInput | number
   availablePoints?: Prisma.IntFieldUpdateOperationsInput | number
   lifetimePoints?: Prisma.IntFieldUpdateOperationsInput | number
@@ -382,6 +384,7 @@ export type LoyaltyAccountUpdateInput = {
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutLoyaltyAccountNestedInput
   tier?: Prisma.LoyaltyTierUpdateOneWithoutAccountsNestedInput
   transactions?: Prisma.LoyaltyTransactionUpdateManyWithoutAccountNestedInput
   missionProgress?: Prisma.LoyaltyMissionProgressUpdateManyWithoutAccountNestedInput
@@ -417,7 +420,6 @@ export type LoyaltyAccountCreateManyInput = {
 
 export type LoyaltyAccountUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   totalPoints?: Prisma.IntFieldUpdateOperationsInput | number
   availablePoints?: Prisma.IntFieldUpdateOperationsInput | number
   lifetimePoints?: Prisma.IntFieldUpdateOperationsInput | number
@@ -438,6 +440,11 @@ export type LoyaltyAccountUncheckedUpdateManyInput = {
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type LoyaltyAccountNullableScalarRelationFilter = {
+  is?: Prisma.LoyaltyAccountWhereInput | null
+  isNot?: Prisma.LoyaltyAccountWhereInput | null
 }
 
 export type LoyaltyAccountListRelationFilter = {
@@ -506,6 +513,38 @@ export type LoyaltyAccountSumOrderByAggregateInput = {
 export type LoyaltyAccountScalarRelationFilter = {
   is?: Prisma.LoyaltyAccountWhereInput
   isNot?: Prisma.LoyaltyAccountWhereInput
+}
+
+export type LoyaltyAccountCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.LoyaltyAccountCreateWithoutUserInput, Prisma.LoyaltyAccountUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.LoyaltyAccountCreateOrConnectWithoutUserInput
+  connect?: Prisma.LoyaltyAccountWhereUniqueInput
+}
+
+export type LoyaltyAccountUncheckedCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.LoyaltyAccountCreateWithoutUserInput, Prisma.LoyaltyAccountUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.LoyaltyAccountCreateOrConnectWithoutUserInput
+  connect?: Prisma.LoyaltyAccountWhereUniqueInput
+}
+
+export type LoyaltyAccountUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.LoyaltyAccountCreateWithoutUserInput, Prisma.LoyaltyAccountUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.LoyaltyAccountCreateOrConnectWithoutUserInput
+  upsert?: Prisma.LoyaltyAccountUpsertWithoutUserInput
+  disconnect?: Prisma.LoyaltyAccountWhereInput | boolean
+  delete?: Prisma.LoyaltyAccountWhereInput | boolean
+  connect?: Prisma.LoyaltyAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LoyaltyAccountUpdateToOneWithWhereWithoutUserInput, Prisma.LoyaltyAccountUpdateWithoutUserInput>, Prisma.LoyaltyAccountUncheckedUpdateWithoutUserInput>
+}
+
+export type LoyaltyAccountUncheckedUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.LoyaltyAccountCreateWithoutUserInput, Prisma.LoyaltyAccountUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.LoyaltyAccountCreateOrConnectWithoutUserInput
+  upsert?: Prisma.LoyaltyAccountUpsertWithoutUserInput
+  disconnect?: Prisma.LoyaltyAccountWhereInput | boolean
+  delete?: Prisma.LoyaltyAccountWhereInput | boolean
+  connect?: Prisma.LoyaltyAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LoyaltyAccountUpdateToOneWithWhereWithoutUserInput, Prisma.LoyaltyAccountUpdateWithoutUserInput>, Prisma.LoyaltyAccountUncheckedUpdateWithoutUserInput>
 }
 
 export type LoyaltyAccountCreateNestedManyWithoutTierInput = {
@@ -578,9 +617,8 @@ export type LoyaltyAccountUpdateOneRequiredWithoutMissionProgressNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.LoyaltyAccountUpdateToOneWithWhereWithoutMissionProgressInput, Prisma.LoyaltyAccountUpdateWithoutMissionProgressInput>, Prisma.LoyaltyAccountUncheckedUpdateWithoutMissionProgressInput>
 }
 
-export type LoyaltyAccountCreateWithoutTierInput = {
+export type LoyaltyAccountCreateWithoutUserInput = {
   id?: string
-  userId: string
   totalPoints?: number
   availablePoints?: number
   lifetimePoints?: number
@@ -588,6 +626,79 @@ export type LoyaltyAccountCreateWithoutTierInput = {
   streak?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  tier?: Prisma.LoyaltyTierCreateNestedOneWithoutAccountsInput
+  transactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutAccountInput
+  missionProgress?: Prisma.LoyaltyMissionProgressCreateNestedManyWithoutAccountInput
+}
+
+export type LoyaltyAccountUncheckedCreateWithoutUserInput = {
+  id?: string
+  tierId?: string | null
+  totalPoints?: number
+  availablePoints?: number
+  lifetimePoints?: number
+  lastCheckIn?: Date | string | null
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  transactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutAccountInput
+  missionProgress?: Prisma.LoyaltyMissionProgressUncheckedCreateNestedManyWithoutAccountInput
+}
+
+export type LoyaltyAccountCreateOrConnectWithoutUserInput = {
+  where: Prisma.LoyaltyAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.LoyaltyAccountCreateWithoutUserInput, Prisma.LoyaltyAccountUncheckedCreateWithoutUserInput>
+}
+
+export type LoyaltyAccountUpsertWithoutUserInput = {
+  update: Prisma.XOR<Prisma.LoyaltyAccountUpdateWithoutUserInput, Prisma.LoyaltyAccountUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.LoyaltyAccountCreateWithoutUserInput, Prisma.LoyaltyAccountUncheckedCreateWithoutUserInput>
+  where?: Prisma.LoyaltyAccountWhereInput
+}
+
+export type LoyaltyAccountUpdateToOneWithWhereWithoutUserInput = {
+  where?: Prisma.LoyaltyAccountWhereInput
+  data: Prisma.XOR<Prisma.LoyaltyAccountUpdateWithoutUserInput, Prisma.LoyaltyAccountUncheckedUpdateWithoutUserInput>
+}
+
+export type LoyaltyAccountUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  totalPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  availablePoints?: Prisma.IntFieldUpdateOperationsInput | number
+  lifetimePoints?: Prisma.IntFieldUpdateOperationsInput | number
+  lastCheckIn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tier?: Prisma.LoyaltyTierUpdateOneWithoutAccountsNestedInput
+  transactions?: Prisma.LoyaltyTransactionUpdateManyWithoutAccountNestedInput
+  missionProgress?: Prisma.LoyaltyMissionProgressUpdateManyWithoutAccountNestedInput
+}
+
+export type LoyaltyAccountUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  availablePoints?: Prisma.IntFieldUpdateOperationsInput | number
+  lifetimePoints?: Prisma.IntFieldUpdateOperationsInput | number
+  lastCheckIn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  transactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutAccountNestedInput
+  missionProgress?: Prisma.LoyaltyMissionProgressUncheckedUpdateManyWithoutAccountNestedInput
+}
+
+export type LoyaltyAccountCreateWithoutTierInput = {
+  id?: string
+  totalPoints?: number
+  availablePoints?: number
+  lifetimePoints?: number
+  lastCheckIn?: Date | string | null
+  streak?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutLoyaltyAccountInput
   transactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutAccountInput
   missionProgress?: Prisma.LoyaltyMissionProgressCreateNestedManyWithoutAccountInput
 }
@@ -650,7 +761,6 @@ export type LoyaltyAccountScalarWhereInput = {
 
 export type LoyaltyAccountCreateWithoutTransactionsInput = {
   id?: string
-  userId: string
   totalPoints?: number
   availablePoints?: number
   lifetimePoints?: number
@@ -658,6 +768,7 @@ export type LoyaltyAccountCreateWithoutTransactionsInput = {
   streak?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutLoyaltyAccountInput
   tier?: Prisma.LoyaltyTierCreateNestedOneWithoutAccountsInput
   missionProgress?: Prisma.LoyaltyMissionProgressCreateNestedManyWithoutAccountInput
 }
@@ -694,7 +805,6 @@ export type LoyaltyAccountUpdateToOneWithWhereWithoutTransactionsInput = {
 
 export type LoyaltyAccountUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   totalPoints?: Prisma.IntFieldUpdateOperationsInput | number
   availablePoints?: Prisma.IntFieldUpdateOperationsInput | number
   lifetimePoints?: Prisma.IntFieldUpdateOperationsInput | number
@@ -702,6 +812,7 @@ export type LoyaltyAccountUpdateWithoutTransactionsInput = {
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutLoyaltyAccountNestedInput
   tier?: Prisma.LoyaltyTierUpdateOneWithoutAccountsNestedInput
   missionProgress?: Prisma.LoyaltyMissionProgressUpdateManyWithoutAccountNestedInput
 }
@@ -722,7 +833,6 @@ export type LoyaltyAccountUncheckedUpdateWithoutTransactionsInput = {
 
 export type LoyaltyAccountCreateWithoutMissionProgressInput = {
   id?: string
-  userId: string
   totalPoints?: number
   availablePoints?: number
   lifetimePoints?: number
@@ -730,6 +840,7 @@ export type LoyaltyAccountCreateWithoutMissionProgressInput = {
   streak?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutLoyaltyAccountInput
   tier?: Prisma.LoyaltyTierCreateNestedOneWithoutAccountsInput
   transactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutAccountInput
 }
@@ -766,7 +877,6 @@ export type LoyaltyAccountUpdateToOneWithWhereWithoutMissionProgressInput = {
 
 export type LoyaltyAccountUpdateWithoutMissionProgressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   totalPoints?: Prisma.IntFieldUpdateOperationsInput | number
   availablePoints?: Prisma.IntFieldUpdateOperationsInput | number
   lifetimePoints?: Prisma.IntFieldUpdateOperationsInput | number
@@ -774,6 +884,7 @@ export type LoyaltyAccountUpdateWithoutMissionProgressInput = {
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutLoyaltyAccountNestedInput
   tier?: Prisma.LoyaltyTierUpdateOneWithoutAccountsNestedInput
   transactions?: Prisma.LoyaltyTransactionUpdateManyWithoutAccountNestedInput
 }
@@ -806,7 +917,6 @@ export type LoyaltyAccountCreateManyTierInput = {
 
 export type LoyaltyAccountUpdateWithoutTierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   totalPoints?: Prisma.IntFieldUpdateOperationsInput | number
   availablePoints?: Prisma.IntFieldUpdateOperationsInput | number
   lifetimePoints?: Prisma.IntFieldUpdateOperationsInput | number
@@ -814,6 +924,7 @@ export type LoyaltyAccountUpdateWithoutTierInput = {
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutLoyaltyAccountNestedInput
   transactions?: Prisma.LoyaltyTransactionUpdateManyWithoutAccountNestedInput
   missionProgress?: Prisma.LoyaltyMissionProgressUpdateManyWithoutAccountNestedInput
 }
@@ -895,6 +1006,7 @@ export type LoyaltyAccountSelect<ExtArgs extends runtime.Types.Extensions.Intern
   streak?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tier?: boolean | Prisma.LoyaltyAccount$tierArgs<ExtArgs>
   transactions?: boolean | Prisma.LoyaltyAccount$transactionsArgs<ExtArgs>
   missionProgress?: boolean | Prisma.LoyaltyAccount$missionProgressArgs<ExtArgs>
@@ -912,6 +1024,7 @@ export type LoyaltyAccountSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   streak?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tier?: boolean | Prisma.LoyaltyAccount$tierArgs<ExtArgs>
 }, ExtArgs["result"]["loyaltyAccount"]>
 
@@ -926,6 +1039,7 @@ export type LoyaltyAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   streak?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tier?: boolean | Prisma.LoyaltyAccount$tierArgs<ExtArgs>
 }, ExtArgs["result"]["loyaltyAccount"]>
 
@@ -944,21 +1058,25 @@ export type LoyaltyAccountSelectScalar = {
 
 export type LoyaltyAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tierId" | "totalPoints" | "availablePoints" | "lifetimePoints" | "lastCheckIn" | "streak" | "createdAt" | "updatedAt", ExtArgs["result"]["loyaltyAccount"]>
 export type LoyaltyAccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tier?: boolean | Prisma.LoyaltyAccount$tierArgs<ExtArgs>
   transactions?: boolean | Prisma.LoyaltyAccount$transactionsArgs<ExtArgs>
   missionProgress?: boolean | Prisma.LoyaltyAccount$missionProgressArgs<ExtArgs>
   _count?: boolean | Prisma.LoyaltyAccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LoyaltyAccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tier?: boolean | Prisma.LoyaltyAccount$tierArgs<ExtArgs>
 }
 export type LoyaltyAccountIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tier?: boolean | Prisma.LoyaltyAccount$tierArgs<ExtArgs>
 }
 
 export type $LoyaltyAccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "LoyaltyAccount"
   objects: {
+    user: Prisma.$UserPayload<ExtArgs>
     tier: Prisma.$LoyaltyTierPayload<ExtArgs> | null
     transactions: Prisma.$LoyaltyTransactionPayload<ExtArgs>[]
     missionProgress: Prisma.$LoyaltyMissionProgressPayload<ExtArgs>[]
@@ -967,8 +1085,17 @@ export type $LoyaltyAccountPayload<ExtArgs extends runtime.Types.Extensions.Inte
     id: string
     userId: string
     tierId: string | null
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     totalPoints: number
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     availablePoints: number
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     lifetimePoints: number
     lastCheckIn: Date | null
     streak: number
@@ -1368,6 +1495,7 @@ readonly fields: LoyaltyAccountFieldRefs;
  */
 export interface Prisma__LoyaltyAccountClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tier<T extends Prisma.LoyaltyAccount$tierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LoyaltyAccount$tierArgs<ExtArgs>>): Prisma.Prisma__LoyaltyTierClient<runtime.Types.Result.GetResult<Prisma.$LoyaltyTierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   transactions<T extends Prisma.LoyaltyAccount$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LoyaltyAccount$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LoyaltyTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   missionProgress<T extends Prisma.LoyaltyAccount$missionProgressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LoyaltyAccount$missionProgressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LoyaltyMissionProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>

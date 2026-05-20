@@ -1541,6 +1541,9 @@ export type $CouponPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     minOrderAmount: runtime.Decimal | null
     usageLimit: number | null
     usageLimitPerUser: number | null
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     usedCount: number
     autoApply: boolean
     startsAt: Date

@@ -1,12 +1,23 @@
 import { NestFactory } from '@nestjs/core'
 import { Logger, ValidationPipe } from '@nestjs/common'
 import cookieParser from 'cookie-parser'
-import { AppModule } from './app.module'
-import { AllExceptionsFilter, ResponseInterceptor } from '@ecom/nestjs-core'
-import { buildSwaggerDocument } from '@ecom/nestjs-core/openapi'
-import { getCorsOrigins, getSellerPort } from '@ecom/config'
+import { ensureWorkspaceEnvFileLoaded } from '@ecom/config'
 
 async function bootstrap() {
+  ensureWorkspaceEnvFileLoaded()
+
+  const [
+    { AppModule },
+    { getCorsOrigins, getSellerPort },
+    { AllExceptionsFilter, ResponseInterceptor },
+    { buildSwaggerDocument },
+  ] = await Promise.all([
+    import('./app.module'),
+    import('@ecom/config'),
+    import('@ecom/nestjs-core'),
+    import('@ecom/nestjs-core/openapi'),
+  ])
+
   const app = await NestFactory.create(AppModule)
   const logger = new Logger('Bootstrap')
 

@@ -348,6 +348,7 @@ export type SellerMetricSnapshotWhereInput = {
   refundRate?: Prisma.FloatFilter<"SellerMetricSnapshot"> | number
   sellerScore?: Prisma.FloatFilter<"SellerMetricSnapshot"> | number
   createdAt?: Prisma.DateTimeFilter<"SellerMetricSnapshot"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }
 
 export type SellerMetricSnapshotOrderByWithRelationInput = {
@@ -367,6 +368,7 @@ export type SellerMetricSnapshotOrderByWithRelationInput = {
   refundRate?: Prisma.SortOrder
   sellerScore?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  shop?: Prisma.ShopOrderByWithRelationInput
 }
 
 export type SellerMetricSnapshotWhereUniqueInput = Prisma.AtLeast<{
@@ -390,6 +392,7 @@ export type SellerMetricSnapshotWhereUniqueInput = Prisma.AtLeast<{
   refundRate?: Prisma.FloatFilter<"SellerMetricSnapshot"> | number
   sellerScore?: Prisma.FloatFilter<"SellerMetricSnapshot"> | number
   createdAt?: Prisma.DateTimeFilter<"SellerMetricSnapshot"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }, "id" | "shopId_date">
 
 export type SellerMetricSnapshotOrderByWithAggregationInput = {
@@ -440,7 +443,6 @@ export type SellerMetricSnapshotScalarWhereWithAggregatesInput = {
 
 export type SellerMetricSnapshotCreateInput = {
   id?: string
-  shopId: string
   date: Date | string
   totalOrders?: number
   cancelledOrders?: number
@@ -455,6 +457,7 @@ export type SellerMetricSnapshotCreateInput = {
   refundRate?: number
   sellerScore?: number
   createdAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutSellerMetricSnapshotsInput
 }
 
 export type SellerMetricSnapshotUncheckedCreateInput = {
@@ -478,7 +481,6 @@ export type SellerMetricSnapshotUncheckedCreateInput = {
 
 export type SellerMetricSnapshotUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalOrders?: Prisma.IntFieldUpdateOperationsInput | number
   cancelledOrders?: Prisma.IntFieldUpdateOperationsInput | number
@@ -493,6 +495,7 @@ export type SellerMetricSnapshotUpdateInput = {
   refundRate?: Prisma.FloatFieldUpdateOperationsInput | number
   sellerScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutSellerMetricSnapshotsNestedInput
 }
 
 export type SellerMetricSnapshotUncheckedUpdateInput = {
@@ -535,7 +538,6 @@ export type SellerMetricSnapshotCreateManyInput = {
 
 export type SellerMetricSnapshotUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalOrders?: Prisma.IntFieldUpdateOperationsInput | number
   cancelledOrders?: Prisma.IntFieldUpdateOperationsInput | number
@@ -569,6 +571,16 @@ export type SellerMetricSnapshotUncheckedUpdateManyInput = {
   refundRate?: Prisma.FloatFieldUpdateOperationsInput | number
   sellerScore?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SellerMetricSnapshotListRelationFilter = {
+  every?: Prisma.SellerMetricSnapshotWhereInput
+  some?: Prisma.SellerMetricSnapshotWhereInput
+  none?: Prisma.SellerMetricSnapshotWhereInput
+}
+
+export type SellerMetricSnapshotOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type SellerMetricSnapshotShopIdDateCompoundUniqueInput = {
@@ -663,6 +675,48 @@ export type SellerMetricSnapshotSumOrderByAggregateInput = {
   sellerScore?: Prisma.SortOrder
 }
 
+export type SellerMetricSnapshotCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.SellerMetricSnapshotCreateWithoutShopInput, Prisma.SellerMetricSnapshotUncheckedCreateWithoutShopInput> | Prisma.SellerMetricSnapshotCreateWithoutShopInput[] | Prisma.SellerMetricSnapshotUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.SellerMetricSnapshotCreateOrConnectWithoutShopInput | Prisma.SellerMetricSnapshotCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.SellerMetricSnapshotCreateManyShopInputEnvelope
+  connect?: Prisma.SellerMetricSnapshotWhereUniqueInput | Prisma.SellerMetricSnapshotWhereUniqueInput[]
+}
+
+export type SellerMetricSnapshotUncheckedCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.SellerMetricSnapshotCreateWithoutShopInput, Prisma.SellerMetricSnapshotUncheckedCreateWithoutShopInput> | Prisma.SellerMetricSnapshotCreateWithoutShopInput[] | Prisma.SellerMetricSnapshotUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.SellerMetricSnapshotCreateOrConnectWithoutShopInput | Prisma.SellerMetricSnapshotCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.SellerMetricSnapshotCreateManyShopInputEnvelope
+  connect?: Prisma.SellerMetricSnapshotWhereUniqueInput | Prisma.SellerMetricSnapshotWhereUniqueInput[]
+}
+
+export type SellerMetricSnapshotUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerMetricSnapshotCreateWithoutShopInput, Prisma.SellerMetricSnapshotUncheckedCreateWithoutShopInput> | Prisma.SellerMetricSnapshotCreateWithoutShopInput[] | Prisma.SellerMetricSnapshotUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.SellerMetricSnapshotCreateOrConnectWithoutShopInput | Prisma.SellerMetricSnapshotCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.SellerMetricSnapshotUpsertWithWhereUniqueWithoutShopInput | Prisma.SellerMetricSnapshotUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.SellerMetricSnapshotCreateManyShopInputEnvelope
+  set?: Prisma.SellerMetricSnapshotWhereUniqueInput | Prisma.SellerMetricSnapshotWhereUniqueInput[]
+  disconnect?: Prisma.SellerMetricSnapshotWhereUniqueInput | Prisma.SellerMetricSnapshotWhereUniqueInput[]
+  delete?: Prisma.SellerMetricSnapshotWhereUniqueInput | Prisma.SellerMetricSnapshotWhereUniqueInput[]
+  connect?: Prisma.SellerMetricSnapshotWhereUniqueInput | Prisma.SellerMetricSnapshotWhereUniqueInput[]
+  update?: Prisma.SellerMetricSnapshotUpdateWithWhereUniqueWithoutShopInput | Prisma.SellerMetricSnapshotUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.SellerMetricSnapshotUpdateManyWithWhereWithoutShopInput | Prisma.SellerMetricSnapshotUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.SellerMetricSnapshotScalarWhereInput | Prisma.SellerMetricSnapshotScalarWhereInput[]
+}
+
+export type SellerMetricSnapshotUncheckedUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerMetricSnapshotCreateWithoutShopInput, Prisma.SellerMetricSnapshotUncheckedCreateWithoutShopInput> | Prisma.SellerMetricSnapshotCreateWithoutShopInput[] | Prisma.SellerMetricSnapshotUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.SellerMetricSnapshotCreateOrConnectWithoutShopInput | Prisma.SellerMetricSnapshotCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.SellerMetricSnapshotUpsertWithWhereUniqueWithoutShopInput | Prisma.SellerMetricSnapshotUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.SellerMetricSnapshotCreateManyShopInputEnvelope
+  set?: Prisma.SellerMetricSnapshotWhereUniqueInput | Prisma.SellerMetricSnapshotWhereUniqueInput[]
+  disconnect?: Prisma.SellerMetricSnapshotWhereUniqueInput | Prisma.SellerMetricSnapshotWhereUniqueInput[]
+  delete?: Prisma.SellerMetricSnapshotWhereUniqueInput | Prisma.SellerMetricSnapshotWhereUniqueInput[]
+  connect?: Prisma.SellerMetricSnapshotWhereUniqueInput | Prisma.SellerMetricSnapshotWhereUniqueInput[]
+  update?: Prisma.SellerMetricSnapshotUpdateWithWhereUniqueWithoutShopInput | Prisma.SellerMetricSnapshotUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.SellerMetricSnapshotUpdateManyWithWhereWithoutShopInput | Prisma.SellerMetricSnapshotUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.SellerMetricSnapshotScalarWhereInput | Prisma.SellerMetricSnapshotScalarWhereInput[]
+}
+
 export type NullableFloatFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -677,6 +731,162 @@ export type FloatFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type SellerMetricSnapshotCreateWithoutShopInput = {
+  id?: string
+  date: Date | string
+  totalOrders?: number
+  cancelledOrders?: number
+  lateShipments?: number
+  totalRefunds?: number
+  messagesReceived?: number
+  messagesResponded?: number
+  avgResponseMinutes?: number | null
+  cancellationRate?: number
+  lateShipmentRate?: number
+  responseRate?: number
+  refundRate?: number
+  sellerScore?: number
+  createdAt?: Date | string
+}
+
+export type SellerMetricSnapshotUncheckedCreateWithoutShopInput = {
+  id?: string
+  date: Date | string
+  totalOrders?: number
+  cancelledOrders?: number
+  lateShipments?: number
+  totalRefunds?: number
+  messagesReceived?: number
+  messagesResponded?: number
+  avgResponseMinutes?: number | null
+  cancellationRate?: number
+  lateShipmentRate?: number
+  responseRate?: number
+  refundRate?: number
+  sellerScore?: number
+  createdAt?: Date | string
+}
+
+export type SellerMetricSnapshotCreateOrConnectWithoutShopInput = {
+  where: Prisma.SellerMetricSnapshotWhereUniqueInput
+  create: Prisma.XOR<Prisma.SellerMetricSnapshotCreateWithoutShopInput, Prisma.SellerMetricSnapshotUncheckedCreateWithoutShopInput>
+}
+
+export type SellerMetricSnapshotCreateManyShopInputEnvelope = {
+  data: Prisma.SellerMetricSnapshotCreateManyShopInput | Prisma.SellerMetricSnapshotCreateManyShopInput[]
+  skipDuplicates?: boolean
+}
+
+export type SellerMetricSnapshotUpsertWithWhereUniqueWithoutShopInput = {
+  where: Prisma.SellerMetricSnapshotWhereUniqueInput
+  update: Prisma.XOR<Prisma.SellerMetricSnapshotUpdateWithoutShopInput, Prisma.SellerMetricSnapshotUncheckedUpdateWithoutShopInput>
+  create: Prisma.XOR<Prisma.SellerMetricSnapshotCreateWithoutShopInput, Prisma.SellerMetricSnapshotUncheckedCreateWithoutShopInput>
+}
+
+export type SellerMetricSnapshotUpdateWithWhereUniqueWithoutShopInput = {
+  where: Prisma.SellerMetricSnapshotWhereUniqueInput
+  data: Prisma.XOR<Prisma.SellerMetricSnapshotUpdateWithoutShopInput, Prisma.SellerMetricSnapshotUncheckedUpdateWithoutShopInput>
+}
+
+export type SellerMetricSnapshotUpdateManyWithWhereWithoutShopInput = {
+  where: Prisma.SellerMetricSnapshotScalarWhereInput
+  data: Prisma.XOR<Prisma.SellerMetricSnapshotUpdateManyMutationInput, Prisma.SellerMetricSnapshotUncheckedUpdateManyWithoutShopInput>
+}
+
+export type SellerMetricSnapshotScalarWhereInput = {
+  AND?: Prisma.SellerMetricSnapshotScalarWhereInput | Prisma.SellerMetricSnapshotScalarWhereInput[]
+  OR?: Prisma.SellerMetricSnapshotScalarWhereInput[]
+  NOT?: Prisma.SellerMetricSnapshotScalarWhereInput | Prisma.SellerMetricSnapshotScalarWhereInput[]
+  id?: Prisma.UuidFilter<"SellerMetricSnapshot"> | string
+  shopId?: Prisma.UuidFilter<"SellerMetricSnapshot"> | string
+  date?: Prisma.DateTimeFilter<"SellerMetricSnapshot"> | Date | string
+  totalOrders?: Prisma.IntFilter<"SellerMetricSnapshot"> | number
+  cancelledOrders?: Prisma.IntFilter<"SellerMetricSnapshot"> | number
+  lateShipments?: Prisma.IntFilter<"SellerMetricSnapshot"> | number
+  totalRefunds?: Prisma.IntFilter<"SellerMetricSnapshot"> | number
+  messagesReceived?: Prisma.IntFilter<"SellerMetricSnapshot"> | number
+  messagesResponded?: Prisma.IntFilter<"SellerMetricSnapshot"> | number
+  avgResponseMinutes?: Prisma.FloatNullableFilter<"SellerMetricSnapshot"> | number | null
+  cancellationRate?: Prisma.FloatFilter<"SellerMetricSnapshot"> | number
+  lateShipmentRate?: Prisma.FloatFilter<"SellerMetricSnapshot"> | number
+  responseRate?: Prisma.FloatFilter<"SellerMetricSnapshot"> | number
+  refundRate?: Prisma.FloatFilter<"SellerMetricSnapshot"> | number
+  sellerScore?: Prisma.FloatFilter<"SellerMetricSnapshot"> | number
+  createdAt?: Prisma.DateTimeFilter<"SellerMetricSnapshot"> | Date | string
+}
+
+export type SellerMetricSnapshotCreateManyShopInput = {
+  id?: string
+  date: Date | string
+  totalOrders?: number
+  cancelledOrders?: number
+  lateShipments?: number
+  totalRefunds?: number
+  messagesReceived?: number
+  messagesResponded?: number
+  avgResponseMinutes?: number | null
+  cancellationRate?: number
+  lateShipmentRate?: number
+  responseRate?: number
+  refundRate?: number
+  sellerScore?: number
+  createdAt?: Date | string
+}
+
+export type SellerMetricSnapshotUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalOrders?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledOrders?: Prisma.IntFieldUpdateOperationsInput | number
+  lateShipments?: Prisma.IntFieldUpdateOperationsInput | number
+  totalRefunds?: Prisma.IntFieldUpdateOperationsInput | number
+  messagesReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  messagesResponded?: Prisma.IntFieldUpdateOperationsInput | number
+  avgResponseMinutes?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  cancellationRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  lateShipmentRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  sellerScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SellerMetricSnapshotUncheckedUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalOrders?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledOrders?: Prisma.IntFieldUpdateOperationsInput | number
+  lateShipments?: Prisma.IntFieldUpdateOperationsInput | number
+  totalRefunds?: Prisma.IntFieldUpdateOperationsInput | number
+  messagesReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  messagesResponded?: Prisma.IntFieldUpdateOperationsInput | number
+  avgResponseMinutes?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  cancellationRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  lateShipmentRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  sellerScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SellerMetricSnapshotUncheckedUpdateManyWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalOrders?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledOrders?: Prisma.IntFieldUpdateOperationsInput | number
+  lateShipments?: Prisma.IntFieldUpdateOperationsInput | number
+  totalRefunds?: Prisma.IntFieldUpdateOperationsInput | number
+  messagesReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  messagesResponded?: Prisma.IntFieldUpdateOperationsInput | number
+  avgResponseMinutes?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  cancellationRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  lateShipmentRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  sellerScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -698,6 +908,7 @@ export type SellerMetricSnapshotSelect<ExtArgs extends runtime.Types.Extensions.
   refundRate?: boolean
   sellerScore?: boolean
   createdAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["sellerMetricSnapshot"]>
 
 export type SellerMetricSnapshotSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -717,6 +928,7 @@ export type SellerMetricSnapshotSelectCreateManyAndReturn<ExtArgs extends runtim
   refundRate?: boolean
   sellerScore?: boolean
   createdAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["sellerMetricSnapshot"]>
 
 export type SellerMetricSnapshotSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -736,6 +948,7 @@ export type SellerMetricSnapshotSelectUpdateManyAndReturn<ExtArgs extends runtim
   refundRate?: boolean
   sellerScore?: boolean
   createdAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["sellerMetricSnapshot"]>
 
 export type SellerMetricSnapshotSelectScalar = {
@@ -758,10 +971,21 @@ export type SellerMetricSnapshotSelectScalar = {
 }
 
 export type SellerMetricSnapshotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopId" | "date" | "totalOrders" | "cancelledOrders" | "lateShipments" | "totalRefunds" | "messagesReceived" | "messagesResponded" | "avgResponseMinutes" | "cancellationRate" | "lateShipmentRate" | "responseRate" | "refundRate" | "sellerScore" | "createdAt", ExtArgs["result"]["sellerMetricSnapshot"]>
+export type SellerMetricSnapshotInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
+export type SellerMetricSnapshotIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
+export type SellerMetricSnapshotIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
 
 export type $SellerMetricSnapshotPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SellerMetricSnapshot"
-  objects: {}
+  objects: {
+    shop: Prisma.$ShopPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     shopId: string
@@ -1173,6 +1397,7 @@ readonly fields: SellerMetricSnapshotFieldRefs;
  */
 export interface Prisma__SellerMetricSnapshotClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  shop<T extends Prisma.ShopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShopDefaultArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1235,6 +1460,10 @@ export type SellerMetricSnapshotFindUniqueArgs<ExtArgs extends runtime.Types.Ext
    */
   omit?: Prisma.SellerMetricSnapshotOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotInclude<ExtArgs> | null
+  /**
    * Filter, which SellerMetricSnapshot to fetch.
    */
   where: Prisma.SellerMetricSnapshotWhereUniqueInput
@@ -1253,6 +1482,10 @@ export type SellerMetricSnapshotFindUniqueOrThrowArgs<ExtArgs extends runtime.Ty
    */
   omit?: Prisma.SellerMetricSnapshotOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotInclude<ExtArgs> | null
+  /**
    * Filter, which SellerMetricSnapshot to fetch.
    */
   where: Prisma.SellerMetricSnapshotWhereUniqueInput
@@ -1270,6 +1503,10 @@ export type SellerMetricSnapshotFindFirstArgs<ExtArgs extends runtime.Types.Exte
    * Omit specific fields from the SellerMetricSnapshot
    */
   omit?: Prisma.SellerMetricSnapshotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotInclude<ExtArgs> | null
   /**
    * Filter, which SellerMetricSnapshot to fetch.
    */
@@ -1319,6 +1556,10 @@ export type SellerMetricSnapshotFindFirstOrThrowArgs<ExtArgs extends runtime.Typ
    */
   omit?: Prisma.SellerMetricSnapshotOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotInclude<ExtArgs> | null
+  /**
    * Filter, which SellerMetricSnapshot to fetch.
    */
   where?: Prisma.SellerMetricSnapshotWhereInput
@@ -1366,6 +1607,10 @@ export type SellerMetricSnapshotFindManyArgs<ExtArgs extends runtime.Types.Exten
    * Omit specific fields from the SellerMetricSnapshot
    */
   omit?: Prisma.SellerMetricSnapshotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotInclude<ExtArgs> | null
   /**
    * Filter, which SellerMetricSnapshots to fetch.
    */
@@ -1415,6 +1660,10 @@ export type SellerMetricSnapshotCreateArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.SellerMetricSnapshotOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotInclude<ExtArgs> | null
+  /**
    * The data needed to create a SellerMetricSnapshot.
    */
   data: Prisma.XOR<Prisma.SellerMetricSnapshotCreateInput, Prisma.SellerMetricSnapshotUncheckedCreateInput>
@@ -1448,6 +1697,10 @@ export type SellerMetricSnapshotCreateManyAndReturnArgs<ExtArgs extends runtime.
    */
   data: Prisma.SellerMetricSnapshotCreateManyInput | Prisma.SellerMetricSnapshotCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1462,6 +1715,10 @@ export type SellerMetricSnapshotUpdateArgs<ExtArgs extends runtime.Types.Extensi
    * Omit specific fields from the SellerMetricSnapshot
    */
   omit?: Prisma.SellerMetricSnapshotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotInclude<ExtArgs> | null
   /**
    * The data needed to update a SellerMetricSnapshot.
    */
@@ -1514,6 +1771,10 @@ export type SellerMetricSnapshotUpdateManyAndReturnArgs<ExtArgs extends runtime.
    * Limit how many SellerMetricSnapshots to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1528,6 +1789,10 @@ export type SellerMetricSnapshotUpsertArgs<ExtArgs extends runtime.Types.Extensi
    * Omit specific fields from the SellerMetricSnapshot
    */
   omit?: Prisma.SellerMetricSnapshotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotInclude<ExtArgs> | null
   /**
    * The filter to search for the SellerMetricSnapshot to update in case it exists.
    */
@@ -1554,6 +1819,10 @@ export type SellerMetricSnapshotDeleteArgs<ExtArgs extends runtime.Types.Extensi
    * Omit specific fields from the SellerMetricSnapshot
    */
   omit?: Prisma.SellerMetricSnapshotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotInclude<ExtArgs> | null
   /**
    * Filter which SellerMetricSnapshot to delete.
    */
@@ -1586,4 +1855,8 @@ export type SellerMetricSnapshotDefaultArgs<ExtArgs extends runtime.Types.Extens
    * Omit specific fields from the SellerMetricSnapshot
    */
   omit?: Prisma.SellerMetricSnapshotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerMetricSnapshotInclude<ExtArgs> | null
 }

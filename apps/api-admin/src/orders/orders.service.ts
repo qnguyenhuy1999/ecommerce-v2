@@ -46,7 +46,7 @@ export class OrdersService {
           include: {
             shop: { select: { id: true, name: true } },
             items: true,
-            shipment: true,
+            shipments: true,
             auditLogs: { orderBy: { createdAt: 'desc' } },
           },
         },

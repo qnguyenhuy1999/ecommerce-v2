@@ -21,7 +21,7 @@ import type {
 } from './dto/product-action.dto'
 import type { ProductQueryDto } from './dto/product-query.dto'
 import { ProductResponseDto } from './dto/product-query.dto'
-import type { ProductsService } from './products.service'
+import { ProductsService } from './products.service'
 
 @ApiTags('Admin/Products')
 @Controller('products')

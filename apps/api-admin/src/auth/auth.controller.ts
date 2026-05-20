@@ -19,6 +19,8 @@ import { LoginDto } from '@ecom/contracts'
 import { AdminAuthGuard } from './guards/admin-auth.guard'
 import { AuditLog } from '../common/decorators/audit-log.decorator'
 import { ApiOkResponseData, ApiErrorResponses, ApiAuth } from '@ecom/nestjs-core/openapi'
+import { ForgotPasswordDto } from './dto/forgot-password.dto'
+import { ResetPasswordDto } from './dto/reset-password.dto'
 
 @ApiTags('Admin/Auth')
 @Controller('auth')
@@ -111,6 +113,25 @@ export class AuthController {
       throw new UnauthorizedException('No session cookie')
     }
     await this.authService.refreshSession(sessionId)
+    return { data: { success: true } }
+  }
+
+  @ApiOperation({ summary: 'Request admin password reset email' })
+  @ApiOkResponseData(Object)
+  @Post('forgot-password')
+  @Throttle({ default: { limit: 3, ttl: 60_000 } })
+  @HttpCode(HttpStatus.OK)
+  async forgotPassword(@Body() dto: ForgotPasswordDto) {
+    await this.authService.forgotPassword(dto.email)
+    return { data: { success: true } }
+  }
+
+  @ApiOperation({ summary: 'Reset admin password with token' })
+  @ApiOkResponseData(Object)
+  @Post('reset-password')
+  @HttpCode(HttpStatus.OK)
+  async resetPassword(@Body() dto: ResetPasswordDto) {
+    await this.authService.resetPassword(dto.token, dto.password)
     return { data: { success: true } }
   }
 }

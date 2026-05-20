@@ -32,6 +32,7 @@ export type AdminMinAggregateOutputType = {
   lastName: string | null
   avatar: string | null
   status: $Enums.AdminStatus | null
+  emailVerified: boolean | null
   lastLoginAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -46,6 +47,7 @@ export type AdminMaxAggregateOutputType = {
   lastName: string | null
   avatar: string | null
   status: $Enums.AdminStatus | null
+  emailVerified: boolean | null
   lastLoginAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -60,6 +62,7 @@ export type AdminCountAggregateOutputType = {
   lastName: number
   avatar: number
   status: number
+  emailVerified: number
   lastLoginAt: number
   createdAt: number
   updatedAt: number
@@ -76,6 +79,7 @@ export type AdminMinAggregateInputType = {
   lastName?: true
   avatar?: true
   status?: true
+  emailVerified?: true
   lastLoginAt?: true
   createdAt?: true
   updatedAt?: true
@@ -90,6 +94,7 @@ export type AdminMaxAggregateInputType = {
   lastName?: true
   avatar?: true
   status?: true
+  emailVerified?: true
   lastLoginAt?: true
   createdAt?: true
   updatedAt?: true
@@ -104,6 +109,7 @@ export type AdminCountAggregateInputType = {
   lastName?: true
   avatar?: true
   status?: true
+  emailVerified?: true
   lastLoginAt?: true
   createdAt?: true
   updatedAt?: true
@@ -191,6 +197,7 @@ export type AdminGroupByOutputType = {
   lastName: string
   avatar: string | null
   status: $Enums.AdminStatus
+  emailVerified: boolean
   lastLoginAt: Date | null
   createdAt: Date
   updatedAt: Date
@@ -226,6 +233,7 @@ export type AdminWhereInput = {
   lastName?: Prisma.StringFilter<"Admin"> | string
   avatar?: Prisma.StringNullableFilter<"Admin"> | string | null
   status?: Prisma.EnumAdminStatusFilter<"Admin"> | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFilter<"Admin"> | boolean
   lastLoginAt?: Prisma.DateTimeNullableFilter<"Admin"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Admin"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Admin"> | Date | string
@@ -233,6 +241,20 @@ export type AdminWhereInput = {
   adminRoles?: Prisma.AdminRoleAssignmentListRelationFilter
   adminSessions?: Prisma.AdminSessionListRelationFilter
   adminAuditLogs?: Prisma.AdminAuditLogListRelationFilter
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenListRelationFilter
+  orderAuditLogs?: Prisma.OrderAuditLogListRelationFilter
+  productApprovalsReviewed?: Prisma.ProductApprovalListRelationFilter
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryListRelationFilter
+  returnTimelineEntries?: Prisma.ReturnTimelineListRelationFilter
+  returnEvidenceUploads?: Prisma.ReturnEvidenceListRelationFilter
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalListRelationFilter
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignListRelationFilter
+  approvedSellers?: Prisma.SellerListRelationFilter
+  suspendedSellers?: Prisma.SellerListRelationFilter
+  rejectedSellers?: Prisma.SellerListRelationFilter
+  bannersCreated?: Prisma.BannerListRelationFilter
+  adminNotificationsSent?: Prisma.AdminNotificationListRelationFilter
+  platformVouchersCreated?: Prisma.PlatformVoucherListRelationFilter
 }
 
 export type AdminOrderByWithRelationInput = {
@@ -243,6 +265,7 @@ export type AdminOrderByWithRelationInput = {
   lastName?: Prisma.SortOrder
   avatar?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -250,6 +273,20 @@ export type AdminOrderByWithRelationInput = {
   adminRoles?: Prisma.AdminRoleAssignmentOrderByRelationAggregateInput
   adminSessions?: Prisma.AdminSessionOrderByRelationAggregateInput
   adminAuditLogs?: Prisma.AdminAuditLogOrderByRelationAggregateInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenOrderByRelationAggregateInput
+  orderAuditLogs?: Prisma.OrderAuditLogOrderByRelationAggregateInput
+  productApprovalsReviewed?: Prisma.ProductApprovalOrderByRelationAggregateInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryOrderByRelationAggregateInput
+  returnTimelineEntries?: Prisma.ReturnTimelineOrderByRelationAggregateInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceOrderByRelationAggregateInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalOrderByRelationAggregateInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignOrderByRelationAggregateInput
+  approvedSellers?: Prisma.SellerOrderByRelationAggregateInput
+  suspendedSellers?: Prisma.SellerOrderByRelationAggregateInput
+  rejectedSellers?: Prisma.SellerOrderByRelationAggregateInput
+  bannersCreated?: Prisma.BannerOrderByRelationAggregateInput
+  adminNotificationsSent?: Prisma.AdminNotificationOrderByRelationAggregateInput
+  platformVouchersCreated?: Prisma.PlatformVoucherOrderByRelationAggregateInput
 }
 
 export type AdminWhereUniqueInput = Prisma.AtLeast<{
@@ -263,6 +300,7 @@ export type AdminWhereUniqueInput = Prisma.AtLeast<{
   lastName?: Prisma.StringFilter<"Admin"> | string
   avatar?: Prisma.StringNullableFilter<"Admin"> | string | null
   status?: Prisma.EnumAdminStatusFilter<"Admin"> | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFilter<"Admin"> | boolean
   lastLoginAt?: Prisma.DateTimeNullableFilter<"Admin"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Admin"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Admin"> | Date | string
@@ -270,6 +308,20 @@ export type AdminWhereUniqueInput = Prisma.AtLeast<{
   adminRoles?: Prisma.AdminRoleAssignmentListRelationFilter
   adminSessions?: Prisma.AdminSessionListRelationFilter
   adminAuditLogs?: Prisma.AdminAuditLogListRelationFilter
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenListRelationFilter
+  orderAuditLogs?: Prisma.OrderAuditLogListRelationFilter
+  productApprovalsReviewed?: Prisma.ProductApprovalListRelationFilter
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryListRelationFilter
+  returnTimelineEntries?: Prisma.ReturnTimelineListRelationFilter
+  returnEvidenceUploads?: Prisma.ReturnEvidenceListRelationFilter
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalListRelationFilter
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignListRelationFilter
+  approvedSellers?: Prisma.SellerListRelationFilter
+  suspendedSellers?: Prisma.SellerListRelationFilter
+  rejectedSellers?: Prisma.SellerListRelationFilter
+  bannersCreated?: Prisma.BannerListRelationFilter
+  adminNotificationsSent?: Prisma.AdminNotificationListRelationFilter
+  platformVouchersCreated?: Prisma.PlatformVoucherListRelationFilter
 }, "id" | "email">
 
 export type AdminOrderByWithAggregationInput = {
@@ -280,6 +332,7 @@ export type AdminOrderByWithAggregationInput = {
   lastName?: Prisma.SortOrder
   avatar?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -300,6 +353,7 @@ export type AdminScalarWhereWithAggregatesInput = {
   lastName?: Prisma.StringWithAggregatesFilter<"Admin"> | string
   avatar?: Prisma.StringNullableWithAggregatesFilter<"Admin"> | string | null
   status?: Prisma.EnumAdminStatusWithAggregatesFilter<"Admin"> | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolWithAggregatesFilter<"Admin"> | boolean
   lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Admin"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Admin"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Admin"> | Date | string
@@ -314,6 +368,7 @@ export type AdminCreateInput = {
   lastName: string
   avatar?: string | null
   status?: $Enums.AdminStatus
+  emailVerified?: boolean
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -321,6 +376,20 @@ export type AdminCreateInput = {
   adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
   adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
   adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
 }
 
 export type AdminUncheckedCreateInput = {
@@ -331,6 +400,7 @@ export type AdminUncheckedCreateInput = {
   lastName: string
   avatar?: string | null
   status?: $Enums.AdminStatus
+  emailVerified?: boolean
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -338,6 +408,20 @@ export type AdminUncheckedCreateInput = {
   adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
   adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
   adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
 }
 
 export type AdminUpdateInput = {
@@ -348,6 +432,7 @@ export type AdminUpdateInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -355,6 +440,20 @@ export type AdminUpdateInput = {
   adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
   adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
   adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
 }
 
 export type AdminUncheckedUpdateInput = {
@@ -365,6 +464,7 @@ export type AdminUncheckedUpdateInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -372,6 +472,20 @@ export type AdminUncheckedUpdateInput = {
   adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
   adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
   adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
 }
 
 export type AdminCreateManyInput = {
@@ -382,6 +496,7 @@ export type AdminCreateManyInput = {
   lastName: string
   avatar?: string | null
   status?: $Enums.AdminStatus
+  emailVerified?: boolean
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -396,6 +511,7 @@ export type AdminUpdateManyMutationInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -410,10 +526,21 @@ export type AdminUncheckedUpdateManyInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type AdminNullableScalarRelationFilter = {
+  is?: Prisma.AdminWhereInput | null
+  isNot?: Prisma.AdminWhereInput | null
+}
+
+export type AdminScalarRelationFilter = {
+  is?: Prisma.AdminWhereInput
+  isNot?: Prisma.AdminWhereInput
 }
 
 export type AdminCountOrderByAggregateInput = {
@@ -424,6 +551,7 @@ export type AdminCountOrderByAggregateInput = {
   lastName?: Prisma.SortOrder
   avatar?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -438,6 +566,7 @@ export type AdminMaxOrderByAggregateInput = {
   lastName?: Prisma.SortOrder
   avatar?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -452,20 +581,121 @@ export type AdminMinOrderByAggregateInput = {
   lastName?: Prisma.SortOrder
   avatar?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
-export type AdminScalarRelationFilter = {
-  is?: Prisma.AdminWhereInput
-  isNot?: Prisma.AdminWhereInput
+export type AdminCreateNestedOneWithoutOrderAuditLogsInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutOrderAuditLogsInput, Prisma.AdminUncheckedCreateWithoutOrderAuditLogsInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutOrderAuditLogsInput
+  connect?: Prisma.AdminWhereUniqueInput
 }
 
-export type AdminNullableScalarRelationFilter = {
-  is?: Prisma.AdminWhereInput | null
-  isNot?: Prisma.AdminWhereInput | null
+export type AdminUpdateOneWithoutOrderAuditLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutOrderAuditLogsInput, Prisma.AdminUncheckedCreateWithoutOrderAuditLogsInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutOrderAuditLogsInput
+  upsert?: Prisma.AdminUpsertWithoutOrderAuditLogsInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutOrderAuditLogsInput, Prisma.AdminUpdateWithoutOrderAuditLogsInput>, Prisma.AdminUncheckedUpdateWithoutOrderAuditLogsInput>
+}
+
+export type AdminCreateNestedOneWithoutReturnEvidenceUploadsInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutReturnEvidenceUploadsInput, Prisma.AdminUncheckedCreateWithoutReturnEvidenceUploadsInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutReturnEvidenceUploadsInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminUpdateOneRequiredWithoutReturnEvidenceUploadsNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutReturnEvidenceUploadsInput, Prisma.AdminUncheckedCreateWithoutReturnEvidenceUploadsInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutReturnEvidenceUploadsInput
+  upsert?: Prisma.AdminUpsertWithoutReturnEvidenceUploadsInput
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutReturnEvidenceUploadsInput, Prisma.AdminUpdateWithoutReturnEvidenceUploadsInput>, Prisma.AdminUncheckedUpdateWithoutReturnEvidenceUploadsInput>
+}
+
+export type AdminCreateNestedOneWithoutReturnTimelineEntriesInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutReturnTimelineEntriesInput, Prisma.AdminUncheckedCreateWithoutReturnTimelineEntriesInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutReturnTimelineEntriesInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminUpdateOneWithoutReturnTimelineEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutReturnTimelineEntriesInput, Prisma.AdminUncheckedCreateWithoutReturnTimelineEntriesInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutReturnTimelineEntriesInput
+  upsert?: Prisma.AdminUpsertWithoutReturnTimelineEntriesInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutReturnTimelineEntriesInput, Prisma.AdminUpdateWithoutReturnTimelineEntriesInput>, Prisma.AdminUncheckedUpdateWithoutReturnTimelineEntriesInput>
+}
+
+export type AdminCreateNestedOneWithoutProductApprovalsReviewedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutProductApprovalsReviewedInput, Prisma.AdminUncheckedCreateWithoutProductApprovalsReviewedInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutProductApprovalsReviewedInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminUpdateOneWithoutProductApprovalsReviewedNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutProductApprovalsReviewedInput, Prisma.AdminUncheckedCreateWithoutProductApprovalsReviewedInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutProductApprovalsReviewedInput
+  upsert?: Prisma.AdminUpsertWithoutProductApprovalsReviewedInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutProductApprovalsReviewedInput, Prisma.AdminUpdateWithoutProductApprovalsReviewedInput>, Prisma.AdminUncheckedUpdateWithoutProductApprovalsReviewedInput>
+}
+
+export type AdminCreateNestedOneWithoutProductApprovalHistoryEntriesInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutProductApprovalHistoryEntriesInput, Prisma.AdminUncheckedCreateWithoutProductApprovalHistoryEntriesInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutProductApprovalHistoryEntriesInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminUpdateOneWithoutProductApprovalHistoryEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutProductApprovalHistoryEntriesInput, Prisma.AdminUncheckedCreateWithoutProductApprovalHistoryEntriesInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutProductApprovalHistoryEntriesInput
+  upsert?: Prisma.AdminUpsertWithoutProductApprovalHistoryEntriesInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutProductApprovalHistoryEntriesInput, Prisma.AdminUpdateWithoutProductApprovalHistoryEntriesInput>, Prisma.AdminUncheckedUpdateWithoutProductApprovalHistoryEntriesInput>
+}
+
+export type AdminCreateNestedOneWithoutFlashSaleCampaignsCreatedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutFlashSaleCampaignsCreatedInput, Prisma.AdminUncheckedCreateWithoutFlashSaleCampaignsCreatedInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutFlashSaleCampaignsCreatedInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminUpdateOneWithoutFlashSaleCampaignsCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutFlashSaleCampaignsCreatedInput, Prisma.AdminUncheckedCreateWithoutFlashSaleCampaignsCreatedInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutFlashSaleCampaignsCreatedInput
+  upsert?: Prisma.AdminUpsertWithoutFlashSaleCampaignsCreatedInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutFlashSaleCampaignsCreatedInput, Prisma.AdminUpdateWithoutFlashSaleCampaignsCreatedInput>, Prisma.AdminUncheckedUpdateWithoutFlashSaleCampaignsCreatedInput>
+}
+
+export type AdminCreateNestedOneWithoutWalletWithdrawalsApprovedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutWalletWithdrawalsApprovedInput, Prisma.AdminUncheckedCreateWithoutWalletWithdrawalsApprovedInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutWalletWithdrawalsApprovedInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminUpdateOneWithoutWalletWithdrawalsApprovedNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutWalletWithdrawalsApprovedInput, Prisma.AdminUncheckedCreateWithoutWalletWithdrawalsApprovedInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutWalletWithdrawalsApprovedInput
+  upsert?: Prisma.AdminUpsertWithoutWalletWithdrawalsApprovedInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutWalletWithdrawalsApprovedInput, Prisma.AdminUpdateWithoutWalletWithdrawalsApprovedInput>, Prisma.AdminUncheckedUpdateWithoutWalletWithdrawalsApprovedInput>
 }
 
 export type EnumAdminStatusFieldUpdateOperationsInput = {
@@ -500,6 +730,68 @@ export type AdminUpdateOneRequiredWithoutAdminSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutAdminSessionsInput, Prisma.AdminUpdateWithoutAdminSessionsInput>, Prisma.AdminUncheckedUpdateWithoutAdminSessionsInput>
 }
 
+export type AdminCreateNestedOneWithoutPasswordResetTokensInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutPasswordResetTokensInput, Prisma.AdminUncheckedCreateWithoutPasswordResetTokensInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutPasswordResetTokensInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutPasswordResetTokensInput, Prisma.AdminUncheckedCreateWithoutPasswordResetTokensInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutPasswordResetTokensInput
+  upsert?: Prisma.AdminUpsertWithoutPasswordResetTokensInput
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutPasswordResetTokensInput, Prisma.AdminUpdateWithoutPasswordResetTokensInput>, Prisma.AdminUncheckedUpdateWithoutPasswordResetTokensInput>
+}
+
+export type AdminCreateNestedOneWithoutApprovedSellersInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutApprovedSellersInput, Prisma.AdminUncheckedCreateWithoutApprovedSellersInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutApprovedSellersInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminCreateNestedOneWithoutSuspendedSellersInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutSuspendedSellersInput, Prisma.AdminUncheckedCreateWithoutSuspendedSellersInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutSuspendedSellersInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminCreateNestedOneWithoutRejectedSellersInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutRejectedSellersInput, Prisma.AdminUncheckedCreateWithoutRejectedSellersInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutRejectedSellersInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminUpdateOneWithoutApprovedSellersNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutApprovedSellersInput, Prisma.AdminUncheckedCreateWithoutApprovedSellersInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutApprovedSellersInput
+  upsert?: Prisma.AdminUpsertWithoutApprovedSellersInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutApprovedSellersInput, Prisma.AdminUpdateWithoutApprovedSellersInput>, Prisma.AdminUncheckedUpdateWithoutApprovedSellersInput>
+}
+
+export type AdminUpdateOneWithoutSuspendedSellersNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutSuspendedSellersInput, Prisma.AdminUncheckedCreateWithoutSuspendedSellersInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutSuspendedSellersInput
+  upsert?: Prisma.AdminUpsertWithoutSuspendedSellersInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutSuspendedSellersInput, Prisma.AdminUpdateWithoutSuspendedSellersInput>, Prisma.AdminUncheckedUpdateWithoutSuspendedSellersInput>
+}
+
+export type AdminUpdateOneWithoutRejectedSellersNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutRejectedSellersInput, Prisma.AdminUncheckedCreateWithoutRejectedSellersInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutRejectedSellersInput
+  upsert?: Prisma.AdminUpsertWithoutRejectedSellersInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutRejectedSellersInput, Prisma.AdminUpdateWithoutRejectedSellersInput>, Prisma.AdminUncheckedUpdateWithoutRejectedSellersInput>
+}
+
 export type AdminCreateNestedOneWithoutAdminAuditLogsInput = {
   create?: Prisma.XOR<Prisma.AdminCreateWithoutAdminAuditLogsInput, Prisma.AdminUncheckedCreateWithoutAdminAuditLogsInput>
   connectOrCreate?: Prisma.AdminCreateOrConnectWithoutAdminAuditLogsInput
@@ -516,6 +808,1034 @@ export type AdminUpdateOneWithoutAdminAuditLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutAdminAuditLogsInput, Prisma.AdminUpdateWithoutAdminAuditLogsInput>, Prisma.AdminUncheckedUpdateWithoutAdminAuditLogsInput>
 }
 
+export type AdminCreateNestedOneWithoutBannersCreatedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutBannersCreatedInput, Prisma.AdminUncheckedCreateWithoutBannersCreatedInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutBannersCreatedInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminUpdateOneWithoutBannersCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutBannersCreatedInput, Prisma.AdminUncheckedCreateWithoutBannersCreatedInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutBannersCreatedInput
+  upsert?: Prisma.AdminUpsertWithoutBannersCreatedInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutBannersCreatedInput, Prisma.AdminUpdateWithoutBannersCreatedInput>, Prisma.AdminUncheckedUpdateWithoutBannersCreatedInput>
+}
+
+export type AdminCreateNestedOneWithoutAdminNotificationsSentInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutAdminNotificationsSentInput, Prisma.AdminUncheckedCreateWithoutAdminNotificationsSentInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutAdminNotificationsSentInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminUpdateOneWithoutAdminNotificationsSentNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutAdminNotificationsSentInput, Prisma.AdminUncheckedCreateWithoutAdminNotificationsSentInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutAdminNotificationsSentInput
+  upsert?: Prisma.AdminUpsertWithoutAdminNotificationsSentInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutAdminNotificationsSentInput, Prisma.AdminUpdateWithoutAdminNotificationsSentInput>, Prisma.AdminUncheckedUpdateWithoutAdminNotificationsSentInput>
+}
+
+export type AdminCreateNestedOneWithoutPlatformVouchersCreatedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutPlatformVouchersCreatedInput, Prisma.AdminUncheckedCreateWithoutPlatformVouchersCreatedInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutPlatformVouchersCreatedInput
+  connect?: Prisma.AdminWhereUniqueInput
+}
+
+export type AdminUpdateOneWithoutPlatformVouchersCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.AdminCreateWithoutPlatformVouchersCreatedInput, Prisma.AdminUncheckedCreateWithoutPlatformVouchersCreatedInput>
+  connectOrCreate?: Prisma.AdminCreateOrConnectWithoutPlatformVouchersCreatedInput
+  upsert?: Prisma.AdminUpsertWithoutPlatformVouchersCreatedInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
+  connect?: Prisma.AdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutPlatformVouchersCreatedInput, Prisma.AdminUpdateWithoutPlatformVouchersCreatedInput>, Prisma.AdminUncheckedUpdateWithoutPlatformVouchersCreatedInput>
+}
+
+export type AdminCreateWithoutOrderAuditLogsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutOrderAuditLogsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutOrderAuditLogsInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutOrderAuditLogsInput, Prisma.AdminUncheckedCreateWithoutOrderAuditLogsInput>
+}
+
+export type AdminUpsertWithoutOrderAuditLogsInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutOrderAuditLogsInput, Prisma.AdminUncheckedUpdateWithoutOrderAuditLogsInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutOrderAuditLogsInput, Prisma.AdminUncheckedCreateWithoutOrderAuditLogsInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutOrderAuditLogsInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutOrderAuditLogsInput, Prisma.AdminUncheckedUpdateWithoutOrderAuditLogsInput>
+}
+
+export type AdminUpdateWithoutOrderAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutOrderAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminCreateWithoutReturnEvidenceUploadsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutReturnEvidenceUploadsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutReturnEvidenceUploadsInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutReturnEvidenceUploadsInput, Prisma.AdminUncheckedCreateWithoutReturnEvidenceUploadsInput>
+}
+
+export type AdminUpsertWithoutReturnEvidenceUploadsInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutReturnEvidenceUploadsInput, Prisma.AdminUncheckedUpdateWithoutReturnEvidenceUploadsInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutReturnEvidenceUploadsInput, Prisma.AdminUncheckedCreateWithoutReturnEvidenceUploadsInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutReturnEvidenceUploadsInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutReturnEvidenceUploadsInput, Prisma.AdminUncheckedUpdateWithoutReturnEvidenceUploadsInput>
+}
+
+export type AdminUpdateWithoutReturnEvidenceUploadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutReturnEvidenceUploadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminCreateWithoutReturnTimelineEntriesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutReturnTimelineEntriesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutReturnTimelineEntriesInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutReturnTimelineEntriesInput, Prisma.AdminUncheckedCreateWithoutReturnTimelineEntriesInput>
+}
+
+export type AdminUpsertWithoutReturnTimelineEntriesInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutReturnTimelineEntriesInput, Prisma.AdminUncheckedUpdateWithoutReturnTimelineEntriesInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutReturnTimelineEntriesInput, Prisma.AdminUncheckedCreateWithoutReturnTimelineEntriesInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutReturnTimelineEntriesInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutReturnTimelineEntriesInput, Prisma.AdminUncheckedUpdateWithoutReturnTimelineEntriesInput>
+}
+
+export type AdminUpdateWithoutReturnTimelineEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutReturnTimelineEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminCreateWithoutProductApprovalsReviewedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutProductApprovalsReviewedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutProductApprovalsReviewedInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutProductApprovalsReviewedInput, Prisma.AdminUncheckedCreateWithoutProductApprovalsReviewedInput>
+}
+
+export type AdminUpsertWithoutProductApprovalsReviewedInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutProductApprovalsReviewedInput, Prisma.AdminUncheckedUpdateWithoutProductApprovalsReviewedInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutProductApprovalsReviewedInput, Prisma.AdminUncheckedCreateWithoutProductApprovalsReviewedInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutProductApprovalsReviewedInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutProductApprovalsReviewedInput, Prisma.AdminUncheckedUpdateWithoutProductApprovalsReviewedInput>
+}
+
+export type AdminUpdateWithoutProductApprovalsReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutProductApprovalsReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminCreateWithoutProductApprovalHistoryEntriesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutProductApprovalHistoryEntriesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutProductApprovalHistoryEntriesInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutProductApprovalHistoryEntriesInput, Prisma.AdminUncheckedCreateWithoutProductApprovalHistoryEntriesInput>
+}
+
+export type AdminUpsertWithoutProductApprovalHistoryEntriesInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutProductApprovalHistoryEntriesInput, Prisma.AdminUncheckedUpdateWithoutProductApprovalHistoryEntriesInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutProductApprovalHistoryEntriesInput, Prisma.AdminUncheckedCreateWithoutProductApprovalHistoryEntriesInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutProductApprovalHistoryEntriesInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutProductApprovalHistoryEntriesInput, Prisma.AdminUncheckedUpdateWithoutProductApprovalHistoryEntriesInput>
+}
+
+export type AdminUpdateWithoutProductApprovalHistoryEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutProductApprovalHistoryEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminCreateWithoutFlashSaleCampaignsCreatedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutFlashSaleCampaignsCreatedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutFlashSaleCampaignsCreatedInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutFlashSaleCampaignsCreatedInput, Prisma.AdminUncheckedCreateWithoutFlashSaleCampaignsCreatedInput>
+}
+
+export type AdminUpsertWithoutFlashSaleCampaignsCreatedInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutFlashSaleCampaignsCreatedInput, Prisma.AdminUncheckedUpdateWithoutFlashSaleCampaignsCreatedInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutFlashSaleCampaignsCreatedInput, Prisma.AdminUncheckedCreateWithoutFlashSaleCampaignsCreatedInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutFlashSaleCampaignsCreatedInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutFlashSaleCampaignsCreatedInput, Prisma.AdminUncheckedUpdateWithoutFlashSaleCampaignsCreatedInput>
+}
+
+export type AdminUpdateWithoutFlashSaleCampaignsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutFlashSaleCampaignsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminCreateWithoutWalletWithdrawalsApprovedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutWalletWithdrawalsApprovedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutWalletWithdrawalsApprovedInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutWalletWithdrawalsApprovedInput, Prisma.AdminUncheckedCreateWithoutWalletWithdrawalsApprovedInput>
+}
+
+export type AdminUpsertWithoutWalletWithdrawalsApprovedInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutWalletWithdrawalsApprovedInput, Prisma.AdminUncheckedUpdateWithoutWalletWithdrawalsApprovedInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutWalletWithdrawalsApprovedInput, Prisma.AdminUncheckedCreateWithoutWalletWithdrawalsApprovedInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutWalletWithdrawalsApprovedInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutWalletWithdrawalsApprovedInput, Prisma.AdminUncheckedUpdateWithoutWalletWithdrawalsApprovedInput>
+}
+
+export type AdminUpdateWithoutWalletWithdrawalsApprovedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutWalletWithdrawalsApprovedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
 export type AdminCreateWithoutAdminRolesInput = {
   id?: string
   email: string
@@ -524,12 +1844,27 @@ export type AdminCreateWithoutAdminRolesInput = {
   lastName: string
   avatar?: string | null
   status?: $Enums.AdminStatus
+  emailVerified?: boolean
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
   adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
 }
 
 export type AdminUncheckedCreateWithoutAdminRolesInput = {
@@ -540,12 +1875,27 @@ export type AdminUncheckedCreateWithoutAdminRolesInput = {
   lastName: string
   avatar?: string | null
   status?: $Enums.AdminStatus
+  emailVerified?: boolean
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
   adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
 }
 
 export type AdminCreateOrConnectWithoutAdminRolesInput = {
@@ -572,12 +1922,27 @@ export type AdminUpdateWithoutAdminRolesInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
   adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
 }
 
 export type AdminUncheckedUpdateWithoutAdminRolesInput = {
@@ -588,12 +1953,27 @@ export type AdminUncheckedUpdateWithoutAdminRolesInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
   adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
 }
 
 export type AdminCreateWithoutAdminSessionsInput = {
@@ -604,12 +1984,27 @@ export type AdminCreateWithoutAdminSessionsInput = {
   lastName: string
   avatar?: string | null
   status?: $Enums.AdminStatus
+  emailVerified?: boolean
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
   adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
 }
 
 export type AdminUncheckedCreateWithoutAdminSessionsInput = {
@@ -620,12 +2015,27 @@ export type AdminUncheckedCreateWithoutAdminSessionsInput = {
   lastName: string
   avatar?: string | null
   status?: $Enums.AdminStatus
+  emailVerified?: boolean
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
   adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
 }
 
 export type AdminCreateOrConnectWithoutAdminSessionsInput = {
@@ -652,12 +2062,27 @@ export type AdminUpdateWithoutAdminSessionsInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
   adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
 }
 
 export type AdminUncheckedUpdateWithoutAdminSessionsInput = {
@@ -668,12 +2093,587 @@ export type AdminUncheckedUpdateWithoutAdminSessionsInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
   adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminCreateWithoutPasswordResetTokensInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutPasswordResetTokensInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutPasswordResetTokensInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutPasswordResetTokensInput, Prisma.AdminUncheckedCreateWithoutPasswordResetTokensInput>
+}
+
+export type AdminUpsertWithoutPasswordResetTokensInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutPasswordResetTokensInput, Prisma.AdminUncheckedUpdateWithoutPasswordResetTokensInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutPasswordResetTokensInput, Prisma.AdminUncheckedCreateWithoutPasswordResetTokensInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutPasswordResetTokensInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutPasswordResetTokensInput, Prisma.AdminUncheckedUpdateWithoutPasswordResetTokensInput>
+}
+
+export type AdminUpdateWithoutPasswordResetTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutPasswordResetTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminCreateWithoutApprovedSellersInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutApprovedSellersInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutApprovedSellersInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutApprovedSellersInput, Prisma.AdminUncheckedCreateWithoutApprovedSellersInput>
+}
+
+export type AdminCreateWithoutSuspendedSellersInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutSuspendedSellersInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutSuspendedSellersInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutSuspendedSellersInput, Prisma.AdminUncheckedCreateWithoutSuspendedSellersInput>
+}
+
+export type AdminCreateWithoutRejectedSellersInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutRejectedSellersInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutRejectedSellersInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutRejectedSellersInput, Prisma.AdminUncheckedCreateWithoutRejectedSellersInput>
+}
+
+export type AdminUpsertWithoutApprovedSellersInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutApprovedSellersInput, Prisma.AdminUncheckedUpdateWithoutApprovedSellersInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutApprovedSellersInput, Prisma.AdminUncheckedCreateWithoutApprovedSellersInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutApprovedSellersInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutApprovedSellersInput, Prisma.AdminUncheckedUpdateWithoutApprovedSellersInput>
+}
+
+export type AdminUpdateWithoutApprovedSellersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutApprovedSellersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUpsertWithoutSuspendedSellersInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutSuspendedSellersInput, Prisma.AdminUncheckedUpdateWithoutSuspendedSellersInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutSuspendedSellersInput, Prisma.AdminUncheckedCreateWithoutSuspendedSellersInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutSuspendedSellersInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutSuspendedSellersInput, Prisma.AdminUncheckedUpdateWithoutSuspendedSellersInput>
+}
+
+export type AdminUpdateWithoutSuspendedSellersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutSuspendedSellersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUpsertWithoutRejectedSellersInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutRejectedSellersInput, Prisma.AdminUncheckedUpdateWithoutRejectedSellersInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutRejectedSellersInput, Prisma.AdminUncheckedCreateWithoutRejectedSellersInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutRejectedSellersInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutRejectedSellersInput, Prisma.AdminUncheckedUpdateWithoutRejectedSellersInput>
+}
+
+export type AdminUpdateWithoutRejectedSellersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutRejectedSellersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
 }
 
 export type AdminCreateWithoutAdminAuditLogsInput = {
@@ -684,12 +2684,27 @@ export type AdminCreateWithoutAdminAuditLogsInput = {
   lastName: string
   avatar?: string | null
   status?: $Enums.AdminStatus
+  emailVerified?: boolean
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
   adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
 }
 
 export type AdminUncheckedCreateWithoutAdminAuditLogsInput = {
@@ -700,12 +2715,27 @@ export type AdminUncheckedCreateWithoutAdminAuditLogsInput = {
   lastName: string
   avatar?: string | null
   status?: $Enums.AdminStatus
+  emailVerified?: boolean
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
   adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
 }
 
 export type AdminCreateOrConnectWithoutAdminAuditLogsInput = {
@@ -732,12 +2762,27 @@ export type AdminUpdateWithoutAdminAuditLogsInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
   adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
 }
 
 export type AdminUncheckedUpdateWithoutAdminAuditLogsInput = {
@@ -748,12 +2793,447 @@ export type AdminUncheckedUpdateWithoutAdminAuditLogsInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
   adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminCreateWithoutBannersCreatedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutBannersCreatedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutBannersCreatedInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutBannersCreatedInput, Prisma.AdminUncheckedCreateWithoutBannersCreatedInput>
+}
+
+export type AdminUpsertWithoutBannersCreatedInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutBannersCreatedInput, Prisma.AdminUncheckedUpdateWithoutBannersCreatedInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutBannersCreatedInput, Prisma.AdminUncheckedCreateWithoutBannersCreatedInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutBannersCreatedInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutBannersCreatedInput, Prisma.AdminUncheckedUpdateWithoutBannersCreatedInput>
+}
+
+export type AdminUpdateWithoutBannersCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutBannersCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminCreateWithoutAdminNotificationsSentInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutAdminNotificationsSentInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutAdminNotificationsSentInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutAdminNotificationsSentInput, Prisma.AdminUncheckedCreateWithoutAdminNotificationsSentInput>
+}
+
+export type AdminUpsertWithoutAdminNotificationsSentInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutAdminNotificationsSentInput, Prisma.AdminUncheckedUpdateWithoutAdminNotificationsSentInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutAdminNotificationsSentInput, Prisma.AdminUncheckedCreateWithoutAdminNotificationsSentInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutAdminNotificationsSentInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutAdminNotificationsSentInput, Prisma.AdminUncheckedUpdateWithoutAdminNotificationsSentInput>
+}
+
+export type AdminUpdateWithoutAdminNotificationsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutAdminNotificationsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  platformVouchersCreated?: Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+}
+
+export type AdminCreateWithoutPlatformVouchersCreatedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationCreateNestedManyWithoutSentByAdminInput
+}
+
+export type AdminUncheckedCreateWithoutPlatformVouchersCreatedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  avatar?: string | null
+  status?: $Enums.AdminStatus
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedCreateNestedManyWithoutAdminInput
+  adminSessions?: Prisma.AdminSessionUncheckedCreateNestedManyWithoutAdminInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedCreateNestedManyWithoutAdminInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedCreateNestedManyWithoutAdminInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedCreateNestedManyWithoutReviewedByAdminInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  approvedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutApprovedByAdminInput
+  suspendedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutSuspendedByAdminInput
+  rejectedSellers?: Prisma.SellerUncheckedCreateNestedManyWithoutRejectedByAdminInput
+  bannersCreated?: Prisma.BannerUncheckedCreateNestedManyWithoutCreatedByAdminInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutSentByAdminInput
+}
+
+export type AdminCreateOrConnectWithoutPlatformVouchersCreatedInput = {
+  where: Prisma.AdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdminCreateWithoutPlatformVouchersCreatedInput, Prisma.AdminUncheckedCreateWithoutPlatformVouchersCreatedInput>
+}
+
+export type AdminUpsertWithoutPlatformVouchersCreatedInput = {
+  update: Prisma.XOR<Prisma.AdminUpdateWithoutPlatformVouchersCreatedInput, Prisma.AdminUncheckedUpdateWithoutPlatformVouchersCreatedInput>
+  create: Prisma.XOR<Prisma.AdminCreateWithoutPlatformVouchersCreatedInput, Prisma.AdminUncheckedCreateWithoutPlatformVouchersCreatedInput>
+  where?: Prisma.AdminWhereInput
+}
+
+export type AdminUpdateToOneWithWhereWithoutPlatformVouchersCreatedInput = {
+  where?: Prisma.AdminWhereInput
+  data: Prisma.XOR<Prisma.AdminUpdateWithoutPlatformVouchersCreatedInput, Prisma.AdminUncheckedUpdateWithoutPlatformVouchersCreatedInput>
+}
+
+export type AdminUpdateWithoutPlatformVouchersCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUpdateManyWithoutSentByAdminNestedInput
+}
+
+export type AdminUncheckedUpdateWithoutPlatformVouchersCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  adminRoles?: Prisma.AdminRoleAssignmentUncheckedUpdateManyWithoutAdminNestedInput
+  adminSessions?: Prisma.AdminSessionUncheckedUpdateManyWithoutAdminNestedInput
+  adminAuditLogs?: Prisma.AdminAuditLogUncheckedUpdateManyWithoutAdminNestedInput
+  passwordResetTokens?: Prisma.AdminPasswordResetTokenUncheckedUpdateManyWithoutAdminNestedInput
+  orderAuditLogs?: Prisma.OrderAuditLogUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  productApprovalsReviewed?: Prisma.ProductApprovalUncheckedUpdateManyWithoutReviewedByAdminNestedInput
+  productApprovalHistoryEntries?: Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnTimelineEntries?: Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput
+  returnEvidenceUploads?: Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput
+  walletWithdrawalsApproved?: Prisma.WalletWithdrawalUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  flashSaleCampaignsCreated?: Prisma.FlashSaleCampaignUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  approvedSellers?: Prisma.SellerUncheckedUpdateManyWithoutApprovedByAdminNestedInput
+  suspendedSellers?: Prisma.SellerUncheckedUpdateManyWithoutSuspendedByAdminNestedInput
+  rejectedSellers?: Prisma.SellerUncheckedUpdateManyWithoutRejectedByAdminNestedInput
+  bannersCreated?: Prisma.BannerUncheckedUpdateManyWithoutCreatedByAdminNestedInput
+  adminNotificationsSent?: Prisma.AdminNotificationUncheckedUpdateManyWithoutSentByAdminNestedInput
 }
 
 
@@ -765,12 +3245,40 @@ export type AdminCountOutputType = {
   adminRoles: number
   adminSessions: number
   adminAuditLogs: number
+  passwordResetTokens: number
+  orderAuditLogs: number
+  productApprovalsReviewed: number
+  productApprovalHistoryEntries: number
+  returnTimelineEntries: number
+  returnEvidenceUploads: number
+  walletWithdrawalsApproved: number
+  flashSaleCampaignsCreated: number
+  approvedSellers: number
+  suspendedSellers: number
+  rejectedSellers: number
+  bannersCreated: number
+  adminNotificationsSent: number
+  platformVouchersCreated: number
 }
 
 export type AdminCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   adminRoles?: boolean | AdminCountOutputTypeCountAdminRolesArgs
   adminSessions?: boolean | AdminCountOutputTypeCountAdminSessionsArgs
   adminAuditLogs?: boolean | AdminCountOutputTypeCountAdminAuditLogsArgs
+  passwordResetTokens?: boolean | AdminCountOutputTypeCountPasswordResetTokensArgs
+  orderAuditLogs?: boolean | AdminCountOutputTypeCountOrderAuditLogsArgs
+  productApprovalsReviewed?: boolean | AdminCountOutputTypeCountProductApprovalsReviewedArgs
+  productApprovalHistoryEntries?: boolean | AdminCountOutputTypeCountProductApprovalHistoryEntriesArgs
+  returnTimelineEntries?: boolean | AdminCountOutputTypeCountReturnTimelineEntriesArgs
+  returnEvidenceUploads?: boolean | AdminCountOutputTypeCountReturnEvidenceUploadsArgs
+  walletWithdrawalsApproved?: boolean | AdminCountOutputTypeCountWalletWithdrawalsApprovedArgs
+  flashSaleCampaignsCreated?: boolean | AdminCountOutputTypeCountFlashSaleCampaignsCreatedArgs
+  approvedSellers?: boolean | AdminCountOutputTypeCountApprovedSellersArgs
+  suspendedSellers?: boolean | AdminCountOutputTypeCountSuspendedSellersArgs
+  rejectedSellers?: boolean | AdminCountOutputTypeCountRejectedSellersArgs
+  bannersCreated?: boolean | AdminCountOutputTypeCountBannersCreatedArgs
+  adminNotificationsSent?: boolean | AdminCountOutputTypeCountAdminNotificationsSentArgs
+  platformVouchersCreated?: boolean | AdminCountOutputTypeCountPlatformVouchersCreatedArgs
 }
 
 /**
@@ -804,6 +3312,104 @@ export type AdminCountOutputTypeCountAdminAuditLogsArgs<ExtArgs extends runtime.
   where?: Prisma.AdminAuditLogWhereInput
 }
 
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AdminPasswordResetTokenWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountOrderAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderAuditLogWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountProductApprovalsReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductApprovalWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountProductApprovalHistoryEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductApprovalHistoryWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountReturnTimelineEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReturnTimelineWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountReturnEvidenceUploadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReturnEvidenceWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountWalletWithdrawalsApprovedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WalletWithdrawalWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountFlashSaleCampaignsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FlashSaleCampaignWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountApprovedSellersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SellerWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountSuspendedSellersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SellerWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountRejectedSellersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SellerWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountBannersCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BannerWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountAdminNotificationsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AdminNotificationWhereInput
+}
+
+/**
+ * AdminCountOutputType without action
+ */
+export type AdminCountOutputTypeCountPlatformVouchersCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlatformVoucherWhereInput
+}
+
 
 export type AdminSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -813,6 +3419,7 @@ export type AdminSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   lastName?: boolean
   avatar?: boolean
   status?: boolean
+  emailVerified?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -820,6 +3427,20 @@ export type AdminSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   adminRoles?: boolean | Prisma.Admin$adminRolesArgs<ExtArgs>
   adminSessions?: boolean | Prisma.Admin$adminSessionsArgs<ExtArgs>
   adminAuditLogs?: boolean | Prisma.Admin$adminAuditLogsArgs<ExtArgs>
+  passwordResetTokens?: boolean | Prisma.Admin$passwordResetTokensArgs<ExtArgs>
+  orderAuditLogs?: boolean | Prisma.Admin$orderAuditLogsArgs<ExtArgs>
+  productApprovalsReviewed?: boolean | Prisma.Admin$productApprovalsReviewedArgs<ExtArgs>
+  productApprovalHistoryEntries?: boolean | Prisma.Admin$productApprovalHistoryEntriesArgs<ExtArgs>
+  returnTimelineEntries?: boolean | Prisma.Admin$returnTimelineEntriesArgs<ExtArgs>
+  returnEvidenceUploads?: boolean | Prisma.Admin$returnEvidenceUploadsArgs<ExtArgs>
+  walletWithdrawalsApproved?: boolean | Prisma.Admin$walletWithdrawalsApprovedArgs<ExtArgs>
+  flashSaleCampaignsCreated?: boolean | Prisma.Admin$flashSaleCampaignsCreatedArgs<ExtArgs>
+  approvedSellers?: boolean | Prisma.Admin$approvedSellersArgs<ExtArgs>
+  suspendedSellers?: boolean | Prisma.Admin$suspendedSellersArgs<ExtArgs>
+  rejectedSellers?: boolean | Prisma.Admin$rejectedSellersArgs<ExtArgs>
+  bannersCreated?: boolean | Prisma.Admin$bannersCreatedArgs<ExtArgs>
+  adminNotificationsSent?: boolean | Prisma.Admin$adminNotificationsSentArgs<ExtArgs>
+  platformVouchersCreated?: boolean | Prisma.Admin$platformVouchersCreatedArgs<ExtArgs>
   _count?: boolean | Prisma.AdminCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["admin"]>
 
@@ -831,6 +3452,7 @@ export type AdminSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   lastName?: boolean
   avatar?: boolean
   status?: boolean
+  emailVerified?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -845,6 +3467,7 @@ export type AdminSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   lastName?: boolean
   avatar?: boolean
   status?: boolean
+  emailVerified?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -859,17 +3482,32 @@ export type AdminSelectScalar = {
   lastName?: boolean
   avatar?: boolean
   status?: boolean
+  emailVerified?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type AdminOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "avatar" | "status" | "lastLoginAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["admin"]>
+export type AdminOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "avatar" | "status" | "emailVerified" | "lastLoginAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["admin"]>
 export type AdminInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   adminRoles?: boolean | Prisma.Admin$adminRolesArgs<ExtArgs>
   adminSessions?: boolean | Prisma.Admin$adminSessionsArgs<ExtArgs>
   adminAuditLogs?: boolean | Prisma.Admin$adminAuditLogsArgs<ExtArgs>
+  passwordResetTokens?: boolean | Prisma.Admin$passwordResetTokensArgs<ExtArgs>
+  orderAuditLogs?: boolean | Prisma.Admin$orderAuditLogsArgs<ExtArgs>
+  productApprovalsReviewed?: boolean | Prisma.Admin$productApprovalsReviewedArgs<ExtArgs>
+  productApprovalHistoryEntries?: boolean | Prisma.Admin$productApprovalHistoryEntriesArgs<ExtArgs>
+  returnTimelineEntries?: boolean | Prisma.Admin$returnTimelineEntriesArgs<ExtArgs>
+  returnEvidenceUploads?: boolean | Prisma.Admin$returnEvidenceUploadsArgs<ExtArgs>
+  walletWithdrawalsApproved?: boolean | Prisma.Admin$walletWithdrawalsApprovedArgs<ExtArgs>
+  flashSaleCampaignsCreated?: boolean | Prisma.Admin$flashSaleCampaignsCreatedArgs<ExtArgs>
+  approvedSellers?: boolean | Prisma.Admin$approvedSellersArgs<ExtArgs>
+  suspendedSellers?: boolean | Prisma.Admin$suspendedSellersArgs<ExtArgs>
+  rejectedSellers?: boolean | Prisma.Admin$rejectedSellersArgs<ExtArgs>
+  bannersCreated?: boolean | Prisma.Admin$bannersCreatedArgs<ExtArgs>
+  adminNotificationsSent?: boolean | Prisma.Admin$adminNotificationsSentArgs<ExtArgs>
+  platformVouchersCreated?: boolean | Prisma.Admin$platformVouchersCreatedArgs<ExtArgs>
   _count?: boolean | Prisma.AdminCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AdminIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -881,8 +3519,25 @@ export type $AdminPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     adminRoles: Prisma.$AdminRoleAssignmentPayload<ExtArgs>[]
     adminSessions: Prisma.$AdminSessionPayload<ExtArgs>[]
     adminAuditLogs: Prisma.$AdminAuditLogPayload<ExtArgs>[]
+    passwordResetTokens: Prisma.$AdminPasswordResetTokenPayload<ExtArgs>[]
+    orderAuditLogs: Prisma.$OrderAuditLogPayload<ExtArgs>[]
+    productApprovalsReviewed: Prisma.$ProductApprovalPayload<ExtArgs>[]
+    productApprovalHistoryEntries: Prisma.$ProductApprovalHistoryPayload<ExtArgs>[]
+    returnTimelineEntries: Prisma.$ReturnTimelinePayload<ExtArgs>[]
+    returnEvidenceUploads: Prisma.$ReturnEvidencePayload<ExtArgs>[]
+    walletWithdrawalsApproved: Prisma.$WalletWithdrawalPayload<ExtArgs>[]
+    flashSaleCampaignsCreated: Prisma.$FlashSaleCampaignPayload<ExtArgs>[]
+    approvedSellers: Prisma.$SellerPayload<ExtArgs>[]
+    suspendedSellers: Prisma.$SellerPayload<ExtArgs>[]
+    rejectedSellers: Prisma.$SellerPayload<ExtArgs>[]
+    bannersCreated: Prisma.$BannerPayload<ExtArgs>[]
+    adminNotificationsSent: Prisma.$AdminNotificationPayload<ExtArgs>[]
+    platformVouchersCreated: Prisma.$PlatformVoucherPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
+    /**
+     * Represents admin panel users only. Completely separate auth from User. Admins cannot place orders or act as buyers — create a User record for that.
+     */
     id: string
     email: string
     passwordHash: string
@@ -890,6 +3545,7 @@ export type $AdminPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     lastName: string
     avatar: string | null
     status: $Enums.AdminStatus
+    emailVerified: boolean
     lastLoginAt: Date | null
     createdAt: Date
     updatedAt: Date
@@ -1291,6 +3947,20 @@ export interface Prisma__AdminClient<T, Null = never, ExtArgs extends runtime.Ty
   adminRoles<T extends Prisma.Admin$adminRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$adminRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   adminSessions<T extends Prisma.Admin$adminSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$adminSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   adminAuditLogs<T extends Prisma.Admin$adminAuditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$adminAuditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminAuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passwordResetTokens<T extends Prisma.Admin$passwordResetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminPasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orderAuditLogs<T extends Prisma.Admin$orderAuditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$orderAuditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderAuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productApprovalsReviewed<T extends Prisma.Admin$productApprovalsReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$productApprovalsReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productApprovalHistoryEntries<T extends Prisma.Admin$productApprovalHistoryEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$productApprovalHistoryEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductApprovalHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  returnTimelineEntries<T extends Prisma.Admin$returnTimelineEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$returnTimelineEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReturnTimelinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  returnEvidenceUploads<T extends Prisma.Admin$returnEvidenceUploadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$returnEvidenceUploadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReturnEvidencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  walletWithdrawalsApproved<T extends Prisma.Admin$walletWithdrawalsApprovedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$walletWithdrawalsApprovedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WalletWithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  flashSaleCampaignsCreated<T extends Prisma.Admin$flashSaleCampaignsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$flashSaleCampaignsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlashSaleCampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  approvedSellers<T extends Prisma.Admin$approvedSellersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$approvedSellersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  suspendedSellers<T extends Prisma.Admin$suspendedSellersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$suspendedSellersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  rejectedSellers<T extends Prisma.Admin$rejectedSellersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$rejectedSellersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bannersCreated<T extends Prisma.Admin$bannersCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$bannersCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BannerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  adminNotificationsSent<T extends Prisma.Admin$adminNotificationsSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$adminNotificationsSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  platformVouchersCreated<T extends Prisma.Admin$platformVouchersCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Admin$platformVouchersCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformVoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1327,6 +3997,7 @@ export interface AdminFieldRefs {
   readonly lastName: Prisma.FieldRef<"Admin", 'String'>
   readonly avatar: Prisma.FieldRef<"Admin", 'String'>
   readonly status: Prisma.FieldRef<"Admin", 'AdminStatus'>
+  readonly emailVerified: Prisma.FieldRef<"Admin", 'Boolean'>
   readonly lastLoginAt: Prisma.FieldRef<"Admin", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Admin", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Admin", 'DateTime'>
@@ -1793,6 +4464,342 @@ export type Admin$adminAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.AdminAuditLogScalarFieldEnum | Prisma.AdminAuditLogScalarFieldEnum[]
+}
+
+/**
+ * Admin.passwordResetTokens
+ */
+export type Admin$passwordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AdminPasswordResetToken
+   */
+  select?: Prisma.AdminPasswordResetTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AdminPasswordResetToken
+   */
+  omit?: Prisma.AdminPasswordResetTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminPasswordResetTokenInclude<ExtArgs> | null
+  where?: Prisma.AdminPasswordResetTokenWhereInput
+  orderBy?: Prisma.AdminPasswordResetTokenOrderByWithRelationInput | Prisma.AdminPasswordResetTokenOrderByWithRelationInput[]
+  cursor?: Prisma.AdminPasswordResetTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AdminPasswordResetTokenScalarFieldEnum | Prisma.AdminPasswordResetTokenScalarFieldEnum[]
+}
+
+/**
+ * Admin.orderAuditLogs
+ */
+export type Admin$orderAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OrderAuditLog
+   */
+  select?: Prisma.OrderAuditLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OrderAuditLog
+   */
+  omit?: Prisma.OrderAuditLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderAuditLogInclude<ExtArgs> | null
+  where?: Prisma.OrderAuditLogWhereInput
+  orderBy?: Prisma.OrderAuditLogOrderByWithRelationInput | Prisma.OrderAuditLogOrderByWithRelationInput[]
+  cursor?: Prisma.OrderAuditLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderAuditLogScalarFieldEnum | Prisma.OrderAuditLogScalarFieldEnum[]
+}
+
+/**
+ * Admin.productApprovalsReviewed
+ */
+export type Admin$productApprovalsReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductApproval
+   */
+  select?: Prisma.ProductApprovalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductApproval
+   */
+  omit?: Prisma.ProductApprovalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductApprovalInclude<ExtArgs> | null
+  where?: Prisma.ProductApprovalWhereInput
+  orderBy?: Prisma.ProductApprovalOrderByWithRelationInput | Prisma.ProductApprovalOrderByWithRelationInput[]
+  cursor?: Prisma.ProductApprovalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductApprovalScalarFieldEnum | Prisma.ProductApprovalScalarFieldEnum[]
+}
+
+/**
+ * Admin.productApprovalHistoryEntries
+ */
+export type Admin$productApprovalHistoryEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductApprovalHistory
+   */
+  select?: Prisma.ProductApprovalHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductApprovalHistory
+   */
+  omit?: Prisma.ProductApprovalHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductApprovalHistoryInclude<ExtArgs> | null
+  where?: Prisma.ProductApprovalHistoryWhereInput
+  orderBy?: Prisma.ProductApprovalHistoryOrderByWithRelationInput | Prisma.ProductApprovalHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.ProductApprovalHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductApprovalHistoryScalarFieldEnum | Prisma.ProductApprovalHistoryScalarFieldEnum[]
+}
+
+/**
+ * Admin.returnTimelineEntries
+ */
+export type Admin$returnTimelineEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReturnTimeline
+   */
+  select?: Prisma.ReturnTimelineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReturnTimeline
+   */
+  omit?: Prisma.ReturnTimelineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReturnTimelineInclude<ExtArgs> | null
+  where?: Prisma.ReturnTimelineWhereInput
+  orderBy?: Prisma.ReturnTimelineOrderByWithRelationInput | Prisma.ReturnTimelineOrderByWithRelationInput[]
+  cursor?: Prisma.ReturnTimelineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReturnTimelineScalarFieldEnum | Prisma.ReturnTimelineScalarFieldEnum[]
+}
+
+/**
+ * Admin.returnEvidenceUploads
+ */
+export type Admin$returnEvidenceUploadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReturnEvidence
+   */
+  select?: Prisma.ReturnEvidenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReturnEvidence
+   */
+  omit?: Prisma.ReturnEvidenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReturnEvidenceInclude<ExtArgs> | null
+  where?: Prisma.ReturnEvidenceWhereInput
+  orderBy?: Prisma.ReturnEvidenceOrderByWithRelationInput | Prisma.ReturnEvidenceOrderByWithRelationInput[]
+  cursor?: Prisma.ReturnEvidenceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReturnEvidenceScalarFieldEnum | Prisma.ReturnEvidenceScalarFieldEnum[]
+}
+
+/**
+ * Admin.walletWithdrawalsApproved
+ */
+export type Admin$walletWithdrawalsApprovedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WalletWithdrawal
+   */
+  select?: Prisma.WalletWithdrawalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WalletWithdrawal
+   */
+  omit?: Prisma.WalletWithdrawalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WalletWithdrawalInclude<ExtArgs> | null
+  where?: Prisma.WalletWithdrawalWhereInput
+  orderBy?: Prisma.WalletWithdrawalOrderByWithRelationInput | Prisma.WalletWithdrawalOrderByWithRelationInput[]
+  cursor?: Prisma.WalletWithdrawalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WalletWithdrawalScalarFieldEnum | Prisma.WalletWithdrawalScalarFieldEnum[]
+}
+
+/**
+ * Admin.flashSaleCampaignsCreated
+ */
+export type Admin$flashSaleCampaignsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FlashSaleCampaign
+   */
+  select?: Prisma.FlashSaleCampaignSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FlashSaleCampaign
+   */
+  omit?: Prisma.FlashSaleCampaignOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSaleCampaignInclude<ExtArgs> | null
+  where?: Prisma.FlashSaleCampaignWhereInput
+  orderBy?: Prisma.FlashSaleCampaignOrderByWithRelationInput | Prisma.FlashSaleCampaignOrderByWithRelationInput[]
+  cursor?: Prisma.FlashSaleCampaignWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FlashSaleCampaignScalarFieldEnum | Prisma.FlashSaleCampaignScalarFieldEnum[]
+}
+
+/**
+ * Admin.approvedSellers
+ */
+export type Admin$approvedSellersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Seller
+   */
+  select?: Prisma.SellerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Seller
+   */
+  omit?: Prisma.SellerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerInclude<ExtArgs> | null
+  where?: Prisma.SellerWhereInput
+  orderBy?: Prisma.SellerOrderByWithRelationInput | Prisma.SellerOrderByWithRelationInput[]
+  cursor?: Prisma.SellerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SellerScalarFieldEnum | Prisma.SellerScalarFieldEnum[]
+}
+
+/**
+ * Admin.suspendedSellers
+ */
+export type Admin$suspendedSellersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Seller
+   */
+  select?: Prisma.SellerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Seller
+   */
+  omit?: Prisma.SellerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerInclude<ExtArgs> | null
+  where?: Prisma.SellerWhereInput
+  orderBy?: Prisma.SellerOrderByWithRelationInput | Prisma.SellerOrderByWithRelationInput[]
+  cursor?: Prisma.SellerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SellerScalarFieldEnum | Prisma.SellerScalarFieldEnum[]
+}
+
+/**
+ * Admin.rejectedSellers
+ */
+export type Admin$rejectedSellersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Seller
+   */
+  select?: Prisma.SellerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Seller
+   */
+  omit?: Prisma.SellerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerInclude<ExtArgs> | null
+  where?: Prisma.SellerWhereInput
+  orderBy?: Prisma.SellerOrderByWithRelationInput | Prisma.SellerOrderByWithRelationInput[]
+  cursor?: Prisma.SellerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SellerScalarFieldEnum | Prisma.SellerScalarFieldEnum[]
+}
+
+/**
+ * Admin.bannersCreated
+ */
+export type Admin$bannersCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Banner
+   */
+  select?: Prisma.BannerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Banner
+   */
+  omit?: Prisma.BannerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BannerInclude<ExtArgs> | null
+  where?: Prisma.BannerWhereInput
+  orderBy?: Prisma.BannerOrderByWithRelationInput | Prisma.BannerOrderByWithRelationInput[]
+  cursor?: Prisma.BannerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BannerScalarFieldEnum | Prisma.BannerScalarFieldEnum[]
+}
+
+/**
+ * Admin.adminNotificationsSent
+ */
+export type Admin$adminNotificationsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AdminNotification
+   */
+  select?: Prisma.AdminNotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AdminNotification
+   */
+  omit?: Prisma.AdminNotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminNotificationInclude<ExtArgs> | null
+  where?: Prisma.AdminNotificationWhereInput
+  orderBy?: Prisma.AdminNotificationOrderByWithRelationInput | Prisma.AdminNotificationOrderByWithRelationInput[]
+  cursor?: Prisma.AdminNotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AdminNotificationScalarFieldEnum | Prisma.AdminNotificationScalarFieldEnum[]
+}
+
+/**
+ * Admin.platformVouchersCreated
+ */
+export type Admin$platformVouchersCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlatformVoucher
+   */
+  select?: Prisma.PlatformVoucherSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlatformVoucher
+   */
+  omit?: Prisma.PlatformVoucherOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherInclude<ExtArgs> | null
+  where?: Prisma.PlatformVoucherWhereInput
+  orderBy?: Prisma.PlatformVoucherOrderByWithRelationInput | Prisma.PlatformVoucherOrderByWithRelationInput[]
+  cursor?: Prisma.PlatformVoucherWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlatformVoucherScalarFieldEnum | Prisma.PlatformVoucherScalarFieldEnum[]
 }
 
 /**

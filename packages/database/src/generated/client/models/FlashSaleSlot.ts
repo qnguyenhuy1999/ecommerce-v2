@@ -309,6 +309,9 @@ export type FlashSaleSlotWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"FlashSaleSlot"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FlashSaleSlot"> | Date | string
   campaign?: Prisma.XOR<Prisma.FlashSaleCampaignScalarRelationFilter, Prisma.FlashSaleCampaignWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
+  purchases?: Prisma.FlashSalePurchaseListRelationFilter
 }
 
 export type FlashSaleSlotOrderByWithRelationInput = {
@@ -327,6 +330,9 @@ export type FlashSaleSlotOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   campaign?: Prisma.FlashSaleCampaignOrderByWithRelationInput
+  product?: Prisma.ProductOrderByWithRelationInput
+  variant?: Prisma.ProductVariantOrderByWithRelationInput
+  purchases?: Prisma.FlashSalePurchaseOrderByRelationAggregateInput
 }
 
 export type FlashSaleSlotWhereUniqueInput = Prisma.AtLeast<{
@@ -349,6 +355,9 @@ export type FlashSaleSlotWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"FlashSaleSlot"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FlashSaleSlot"> | Date | string
   campaign?: Prisma.XOR<Prisma.FlashSaleCampaignScalarRelationFilter, Prisma.FlashSaleCampaignWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
+  purchases?: Prisma.FlashSalePurchaseListRelationFilter
 }, "id" | "campaignId_productId_variantId">
 
 export type FlashSaleSlotOrderByWithAggregationInput = {
@@ -396,8 +405,6 @@ export type FlashSaleSlotScalarWhereWithAggregatesInput = {
 export type FlashSaleSlotCreateInput = {
   id?: string
   shopId: string
-  productId: string
-  variantId?: string | null
   status?: $Enums.FlashSaleSlotStatus
   originalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -408,6 +415,9 @@ export type FlashSaleSlotCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   campaign: Prisma.FlashSaleCampaignCreateNestedOneWithoutSlotsInput
+  product: Prisma.ProductCreateNestedOneWithoutFlashSaleSlotsInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutFlashSaleSlotsInput
+  purchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutSlotInput
 }
 
 export type FlashSaleSlotUncheckedCreateInput = {
@@ -425,13 +435,12 @@ export type FlashSaleSlotUncheckedCreateInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  purchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutSlotInput
 }
 
 export type FlashSaleSlotUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   shopId?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumFlashSaleSlotStatusFieldUpdateOperationsInput | $Enums.FlashSaleSlotStatus
   originalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -442,6 +451,9 @@ export type FlashSaleSlotUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   campaign?: Prisma.FlashSaleCampaignUpdateOneRequiredWithoutSlotsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutFlashSaleSlotsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutFlashSaleSlotsNestedInput
+  purchases?: Prisma.FlashSalePurchaseUpdateManyWithoutSlotNestedInput
 }
 
 export type FlashSaleSlotUncheckedUpdateInput = {
@@ -459,6 +471,7 @@ export type FlashSaleSlotUncheckedUpdateInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutSlotNestedInput
 }
 
 export type FlashSaleSlotCreateManyInput = {
@@ -481,8 +494,6 @@ export type FlashSaleSlotCreateManyInput = {
 export type FlashSaleSlotUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   shopId?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumFlashSaleSlotStatusFieldUpdateOperationsInput | $Enums.FlashSaleSlotStatus
   originalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -596,6 +607,95 @@ export type FlashSaleSlotSumOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
 }
 
+export type FlashSaleSlotScalarRelationFilter = {
+  is?: Prisma.FlashSaleSlotWhereInput
+  isNot?: Prisma.FlashSaleSlotWhereInput
+}
+
+export type FlashSaleSlotCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutProductInput, Prisma.FlashSaleSlotUncheckedCreateWithoutProductInput> | Prisma.FlashSaleSlotCreateWithoutProductInput[] | Prisma.FlashSaleSlotUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.FlashSaleSlotCreateOrConnectWithoutProductInput | Prisma.FlashSaleSlotCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.FlashSaleSlotCreateManyProductInputEnvelope
+  connect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+}
+
+export type FlashSaleSlotUncheckedCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutProductInput, Prisma.FlashSaleSlotUncheckedCreateWithoutProductInput> | Prisma.FlashSaleSlotCreateWithoutProductInput[] | Prisma.FlashSaleSlotUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.FlashSaleSlotCreateOrConnectWithoutProductInput | Prisma.FlashSaleSlotCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.FlashSaleSlotCreateManyProductInputEnvelope
+  connect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+}
+
+export type FlashSaleSlotUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutProductInput, Prisma.FlashSaleSlotUncheckedCreateWithoutProductInput> | Prisma.FlashSaleSlotCreateWithoutProductInput[] | Prisma.FlashSaleSlotUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.FlashSaleSlotCreateOrConnectWithoutProductInput | Prisma.FlashSaleSlotCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.FlashSaleSlotUpsertWithWhereUniqueWithoutProductInput | Prisma.FlashSaleSlotUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.FlashSaleSlotCreateManyProductInputEnvelope
+  set?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  disconnect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  delete?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  connect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  update?: Prisma.FlashSaleSlotUpdateWithWhereUniqueWithoutProductInput | Prisma.FlashSaleSlotUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.FlashSaleSlotUpdateManyWithWhereWithoutProductInput | Prisma.FlashSaleSlotUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.FlashSaleSlotScalarWhereInput | Prisma.FlashSaleSlotScalarWhereInput[]
+}
+
+export type FlashSaleSlotUncheckedUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutProductInput, Prisma.FlashSaleSlotUncheckedCreateWithoutProductInput> | Prisma.FlashSaleSlotCreateWithoutProductInput[] | Prisma.FlashSaleSlotUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.FlashSaleSlotCreateOrConnectWithoutProductInput | Prisma.FlashSaleSlotCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.FlashSaleSlotUpsertWithWhereUniqueWithoutProductInput | Prisma.FlashSaleSlotUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.FlashSaleSlotCreateManyProductInputEnvelope
+  set?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  disconnect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  delete?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  connect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  update?: Prisma.FlashSaleSlotUpdateWithWhereUniqueWithoutProductInput | Prisma.FlashSaleSlotUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.FlashSaleSlotUpdateManyWithWhereWithoutProductInput | Prisma.FlashSaleSlotUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.FlashSaleSlotScalarWhereInput | Prisma.FlashSaleSlotScalarWhereInput[]
+}
+
+export type FlashSaleSlotCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutVariantInput, Prisma.FlashSaleSlotUncheckedCreateWithoutVariantInput> | Prisma.FlashSaleSlotCreateWithoutVariantInput[] | Prisma.FlashSaleSlotUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.FlashSaleSlotCreateOrConnectWithoutVariantInput | Prisma.FlashSaleSlotCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.FlashSaleSlotCreateManyVariantInputEnvelope
+  connect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+}
+
+export type FlashSaleSlotUncheckedCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutVariantInput, Prisma.FlashSaleSlotUncheckedCreateWithoutVariantInput> | Prisma.FlashSaleSlotCreateWithoutVariantInput[] | Prisma.FlashSaleSlotUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.FlashSaleSlotCreateOrConnectWithoutVariantInput | Prisma.FlashSaleSlotCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.FlashSaleSlotCreateManyVariantInputEnvelope
+  connect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+}
+
+export type FlashSaleSlotUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutVariantInput, Prisma.FlashSaleSlotUncheckedCreateWithoutVariantInput> | Prisma.FlashSaleSlotCreateWithoutVariantInput[] | Prisma.FlashSaleSlotUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.FlashSaleSlotCreateOrConnectWithoutVariantInput | Prisma.FlashSaleSlotCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.FlashSaleSlotUpsertWithWhereUniqueWithoutVariantInput | Prisma.FlashSaleSlotUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.FlashSaleSlotCreateManyVariantInputEnvelope
+  set?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  disconnect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  delete?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  connect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  update?: Prisma.FlashSaleSlotUpdateWithWhereUniqueWithoutVariantInput | Prisma.FlashSaleSlotUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.FlashSaleSlotUpdateManyWithWhereWithoutVariantInput | Prisma.FlashSaleSlotUpdateManyWithWhereWithoutVariantInput[]
+  deleteMany?: Prisma.FlashSaleSlotScalarWhereInput | Prisma.FlashSaleSlotScalarWhereInput[]
+}
+
+export type FlashSaleSlotUncheckedUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutVariantInput, Prisma.FlashSaleSlotUncheckedCreateWithoutVariantInput> | Prisma.FlashSaleSlotCreateWithoutVariantInput[] | Prisma.FlashSaleSlotUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.FlashSaleSlotCreateOrConnectWithoutVariantInput | Prisma.FlashSaleSlotCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.FlashSaleSlotUpsertWithWhereUniqueWithoutVariantInput | Prisma.FlashSaleSlotUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.FlashSaleSlotCreateManyVariantInputEnvelope
+  set?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  disconnect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  delete?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  connect?: Prisma.FlashSaleSlotWhereUniqueInput | Prisma.FlashSaleSlotWhereUniqueInput[]
+  update?: Prisma.FlashSaleSlotUpdateWithWhereUniqueWithoutVariantInput | Prisma.FlashSaleSlotUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.FlashSaleSlotUpdateManyWithWhereWithoutVariantInput | Prisma.FlashSaleSlotUpdateManyWithWhereWithoutVariantInput[]
+  deleteMany?: Prisma.FlashSaleSlotScalarWhereInput | Prisma.FlashSaleSlotScalarWhereInput[]
+}
+
 export type FlashSaleSlotCreateNestedManyWithoutCampaignInput = {
   create?: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutCampaignInput, Prisma.FlashSaleSlotUncheckedCreateWithoutCampaignInput> | Prisma.FlashSaleSlotCreateWithoutCampaignInput[] | Prisma.FlashSaleSlotUncheckedCreateWithoutCampaignInput[]
   connectOrCreate?: Prisma.FlashSaleSlotCreateOrConnectWithoutCampaignInput | Prisma.FlashSaleSlotCreateOrConnectWithoutCampaignInput[]
@@ -642,10 +742,41 @@ export type EnumFlashSaleSlotStatusFieldUpdateOperationsInput = {
   set?: $Enums.FlashSaleSlotStatus
 }
 
-export type FlashSaleSlotCreateWithoutCampaignInput = {
+export type FlashSaleSlotCreateNestedOneWithoutPurchasesInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutPurchasesInput, Prisma.FlashSaleSlotUncheckedCreateWithoutPurchasesInput>
+  connectOrCreate?: Prisma.FlashSaleSlotCreateOrConnectWithoutPurchasesInput
+  connect?: Prisma.FlashSaleSlotWhereUniqueInput
+}
+
+export type FlashSaleSlotUpdateOneRequiredWithoutPurchasesNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutPurchasesInput, Prisma.FlashSaleSlotUncheckedCreateWithoutPurchasesInput>
+  connectOrCreate?: Prisma.FlashSaleSlotCreateOrConnectWithoutPurchasesInput
+  upsert?: Prisma.FlashSaleSlotUpsertWithoutPurchasesInput
+  connect?: Prisma.FlashSaleSlotWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FlashSaleSlotUpdateToOneWithWhereWithoutPurchasesInput, Prisma.FlashSaleSlotUpdateWithoutPurchasesInput>, Prisma.FlashSaleSlotUncheckedUpdateWithoutPurchasesInput>
+}
+
+export type FlashSaleSlotCreateWithoutProductInput = {
   id?: string
   shopId: string
-  productId: string
+  status?: $Enums.FlashSaleSlotStatus
+  originalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock: number
+  soldCount?: number
+  purchaseLimit?: number
+  sortOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  campaign: Prisma.FlashSaleCampaignCreateNestedOneWithoutSlotsInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutFlashSaleSlotsInput
+  purchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutSlotInput
+}
+
+export type FlashSaleSlotUncheckedCreateWithoutProductInput = {
+  id?: string
+  campaignId: string
+  shopId: string
   variantId?: string | null
   status?: $Enums.FlashSaleSlotStatus
   originalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -656,6 +787,130 @@ export type FlashSaleSlotCreateWithoutCampaignInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  purchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutSlotInput
+}
+
+export type FlashSaleSlotCreateOrConnectWithoutProductInput = {
+  where: Prisma.FlashSaleSlotWhereUniqueInput
+  create: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutProductInput, Prisma.FlashSaleSlotUncheckedCreateWithoutProductInput>
+}
+
+export type FlashSaleSlotCreateManyProductInputEnvelope = {
+  data: Prisma.FlashSaleSlotCreateManyProductInput | Prisma.FlashSaleSlotCreateManyProductInput[]
+  skipDuplicates?: boolean
+}
+
+export type FlashSaleSlotUpsertWithWhereUniqueWithoutProductInput = {
+  where: Prisma.FlashSaleSlotWhereUniqueInput
+  update: Prisma.XOR<Prisma.FlashSaleSlotUpdateWithoutProductInput, Prisma.FlashSaleSlotUncheckedUpdateWithoutProductInput>
+  create: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutProductInput, Prisma.FlashSaleSlotUncheckedCreateWithoutProductInput>
+}
+
+export type FlashSaleSlotUpdateWithWhereUniqueWithoutProductInput = {
+  where: Prisma.FlashSaleSlotWhereUniqueInput
+  data: Prisma.XOR<Prisma.FlashSaleSlotUpdateWithoutProductInput, Prisma.FlashSaleSlotUncheckedUpdateWithoutProductInput>
+}
+
+export type FlashSaleSlotUpdateManyWithWhereWithoutProductInput = {
+  where: Prisma.FlashSaleSlotScalarWhereInput
+  data: Prisma.XOR<Prisma.FlashSaleSlotUpdateManyMutationInput, Prisma.FlashSaleSlotUncheckedUpdateManyWithoutProductInput>
+}
+
+export type FlashSaleSlotScalarWhereInput = {
+  AND?: Prisma.FlashSaleSlotScalarWhereInput | Prisma.FlashSaleSlotScalarWhereInput[]
+  OR?: Prisma.FlashSaleSlotScalarWhereInput[]
+  NOT?: Prisma.FlashSaleSlotScalarWhereInput | Prisma.FlashSaleSlotScalarWhereInput[]
+  id?: Prisma.UuidFilter<"FlashSaleSlot"> | string
+  campaignId?: Prisma.UuidFilter<"FlashSaleSlot"> | string
+  shopId?: Prisma.UuidFilter<"FlashSaleSlot"> | string
+  productId?: Prisma.UuidFilter<"FlashSaleSlot"> | string
+  variantId?: Prisma.UuidNullableFilter<"FlashSaleSlot"> | string | null
+  status?: Prisma.EnumFlashSaleSlotStatusFilter<"FlashSaleSlot"> | $Enums.FlashSaleSlotStatus
+  originalPrice?: Prisma.DecimalFilter<"FlashSaleSlot"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice?: Prisma.DecimalFilter<"FlashSaleSlot"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock?: Prisma.IntFilter<"FlashSaleSlot"> | number
+  soldCount?: Prisma.IntFilter<"FlashSaleSlot"> | number
+  purchaseLimit?: Prisma.IntFilter<"FlashSaleSlot"> | number
+  sortOrder?: Prisma.IntFilter<"FlashSaleSlot"> | number
+  createdAt?: Prisma.DateTimeFilter<"FlashSaleSlot"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FlashSaleSlot"> | Date | string
+}
+
+export type FlashSaleSlotCreateWithoutVariantInput = {
+  id?: string
+  shopId: string
+  status?: $Enums.FlashSaleSlotStatus
+  originalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock: number
+  soldCount?: number
+  purchaseLimit?: number
+  sortOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  campaign: Prisma.FlashSaleCampaignCreateNestedOneWithoutSlotsInput
+  product: Prisma.ProductCreateNestedOneWithoutFlashSaleSlotsInput
+  purchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutSlotInput
+}
+
+export type FlashSaleSlotUncheckedCreateWithoutVariantInput = {
+  id?: string
+  campaignId: string
+  shopId: string
+  productId: string
+  status?: $Enums.FlashSaleSlotStatus
+  originalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock: number
+  soldCount?: number
+  purchaseLimit?: number
+  sortOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  purchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutSlotInput
+}
+
+export type FlashSaleSlotCreateOrConnectWithoutVariantInput = {
+  where: Prisma.FlashSaleSlotWhereUniqueInput
+  create: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutVariantInput, Prisma.FlashSaleSlotUncheckedCreateWithoutVariantInput>
+}
+
+export type FlashSaleSlotCreateManyVariantInputEnvelope = {
+  data: Prisma.FlashSaleSlotCreateManyVariantInput | Prisma.FlashSaleSlotCreateManyVariantInput[]
+  skipDuplicates?: boolean
+}
+
+export type FlashSaleSlotUpsertWithWhereUniqueWithoutVariantInput = {
+  where: Prisma.FlashSaleSlotWhereUniqueInput
+  update: Prisma.XOR<Prisma.FlashSaleSlotUpdateWithoutVariantInput, Prisma.FlashSaleSlotUncheckedUpdateWithoutVariantInput>
+  create: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutVariantInput, Prisma.FlashSaleSlotUncheckedCreateWithoutVariantInput>
+}
+
+export type FlashSaleSlotUpdateWithWhereUniqueWithoutVariantInput = {
+  where: Prisma.FlashSaleSlotWhereUniqueInput
+  data: Prisma.XOR<Prisma.FlashSaleSlotUpdateWithoutVariantInput, Prisma.FlashSaleSlotUncheckedUpdateWithoutVariantInput>
+}
+
+export type FlashSaleSlotUpdateManyWithWhereWithoutVariantInput = {
+  where: Prisma.FlashSaleSlotScalarWhereInput
+  data: Prisma.XOR<Prisma.FlashSaleSlotUpdateManyMutationInput, Prisma.FlashSaleSlotUncheckedUpdateManyWithoutVariantInput>
+}
+
+export type FlashSaleSlotCreateWithoutCampaignInput = {
+  id?: string
+  shopId: string
+  status?: $Enums.FlashSaleSlotStatus
+  originalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock: number
+  soldCount?: number
+  purchaseLimit?: number
+  sortOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutFlashSaleSlotsInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutFlashSaleSlotsInput
+  purchases?: Prisma.FlashSalePurchaseCreateNestedManyWithoutSlotInput
 }
 
 export type FlashSaleSlotUncheckedCreateWithoutCampaignInput = {
@@ -672,6 +927,7 @@ export type FlashSaleSlotUncheckedCreateWithoutCampaignInput = {
   sortOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  purchases?: Prisma.FlashSalePurchaseUncheckedCreateNestedManyWithoutSlotInput
 }
 
 export type FlashSaleSlotCreateOrConnectWithoutCampaignInput = {
@@ -700,24 +956,220 @@ export type FlashSaleSlotUpdateManyWithWhereWithoutCampaignInput = {
   data: Prisma.XOR<Prisma.FlashSaleSlotUpdateManyMutationInput, Prisma.FlashSaleSlotUncheckedUpdateManyWithoutCampaignInput>
 }
 
-export type FlashSaleSlotScalarWhereInput = {
-  AND?: Prisma.FlashSaleSlotScalarWhereInput | Prisma.FlashSaleSlotScalarWhereInput[]
-  OR?: Prisma.FlashSaleSlotScalarWhereInput[]
-  NOT?: Prisma.FlashSaleSlotScalarWhereInput | Prisma.FlashSaleSlotScalarWhereInput[]
-  id?: Prisma.UuidFilter<"FlashSaleSlot"> | string
-  campaignId?: Prisma.UuidFilter<"FlashSaleSlot"> | string
-  shopId?: Prisma.UuidFilter<"FlashSaleSlot"> | string
-  productId?: Prisma.UuidFilter<"FlashSaleSlot"> | string
-  variantId?: Prisma.UuidNullableFilter<"FlashSaleSlot"> | string | null
-  status?: Prisma.EnumFlashSaleSlotStatusFilter<"FlashSaleSlot"> | $Enums.FlashSaleSlotStatus
-  originalPrice?: Prisma.DecimalFilter<"FlashSaleSlot"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  salePrice?: Prisma.DecimalFilter<"FlashSaleSlot"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  totalStock?: Prisma.IntFilter<"FlashSaleSlot"> | number
-  soldCount?: Prisma.IntFilter<"FlashSaleSlot"> | number
-  purchaseLimit?: Prisma.IntFilter<"FlashSaleSlot"> | number
-  sortOrder?: Prisma.IntFilter<"FlashSaleSlot"> | number
-  createdAt?: Prisma.DateTimeFilter<"FlashSaleSlot"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"FlashSaleSlot"> | Date | string
+export type FlashSaleSlotCreateWithoutPurchasesInput = {
+  id?: string
+  shopId: string
+  status?: $Enums.FlashSaleSlotStatus
+  originalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock: number
+  soldCount?: number
+  purchaseLimit?: number
+  sortOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  campaign: Prisma.FlashSaleCampaignCreateNestedOneWithoutSlotsInput
+  product: Prisma.ProductCreateNestedOneWithoutFlashSaleSlotsInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutFlashSaleSlotsInput
+}
+
+export type FlashSaleSlotUncheckedCreateWithoutPurchasesInput = {
+  id?: string
+  campaignId: string
+  shopId: string
+  productId: string
+  variantId?: string | null
+  status?: $Enums.FlashSaleSlotStatus
+  originalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock: number
+  soldCount?: number
+  purchaseLimit?: number
+  sortOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FlashSaleSlotCreateOrConnectWithoutPurchasesInput = {
+  where: Prisma.FlashSaleSlotWhereUniqueInput
+  create: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutPurchasesInput, Prisma.FlashSaleSlotUncheckedCreateWithoutPurchasesInput>
+}
+
+export type FlashSaleSlotUpsertWithoutPurchasesInput = {
+  update: Prisma.XOR<Prisma.FlashSaleSlotUpdateWithoutPurchasesInput, Prisma.FlashSaleSlotUncheckedUpdateWithoutPurchasesInput>
+  create: Prisma.XOR<Prisma.FlashSaleSlotCreateWithoutPurchasesInput, Prisma.FlashSaleSlotUncheckedCreateWithoutPurchasesInput>
+  where?: Prisma.FlashSaleSlotWhereInput
+}
+
+export type FlashSaleSlotUpdateToOneWithWhereWithoutPurchasesInput = {
+  where?: Prisma.FlashSaleSlotWhereInput
+  data: Prisma.XOR<Prisma.FlashSaleSlotUpdateWithoutPurchasesInput, Prisma.FlashSaleSlotUncheckedUpdateWithoutPurchasesInput>
+}
+
+export type FlashSaleSlotUpdateWithoutPurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumFlashSaleSlotStatusFieldUpdateOperationsInput | $Enums.FlashSaleSlotStatus
+  originalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock?: Prisma.IntFieldUpdateOperationsInput | number
+  soldCount?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  campaign?: Prisma.FlashSaleCampaignUpdateOneRequiredWithoutSlotsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutFlashSaleSlotsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutFlashSaleSlotsNestedInput
+}
+
+export type FlashSaleSlotUncheckedUpdateWithoutPurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  campaignId?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumFlashSaleSlotStatusFieldUpdateOperationsInput | $Enums.FlashSaleSlotStatus
+  originalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock?: Prisma.IntFieldUpdateOperationsInput | number
+  soldCount?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FlashSaleSlotCreateManyProductInput = {
+  id?: string
+  campaignId: string
+  shopId: string
+  variantId?: string | null
+  status?: $Enums.FlashSaleSlotStatus
+  originalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock: number
+  soldCount?: number
+  purchaseLimit?: number
+  sortOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FlashSaleSlotUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumFlashSaleSlotStatusFieldUpdateOperationsInput | $Enums.FlashSaleSlotStatus
+  originalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock?: Prisma.IntFieldUpdateOperationsInput | number
+  soldCount?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  campaign?: Prisma.FlashSaleCampaignUpdateOneRequiredWithoutSlotsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutFlashSaleSlotsNestedInput
+  purchases?: Prisma.FlashSalePurchaseUpdateManyWithoutSlotNestedInput
+}
+
+export type FlashSaleSlotUncheckedUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  campaignId?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumFlashSaleSlotStatusFieldUpdateOperationsInput | $Enums.FlashSaleSlotStatus
+  originalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock?: Prisma.IntFieldUpdateOperationsInput | number
+  soldCount?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutSlotNestedInput
+}
+
+export type FlashSaleSlotUncheckedUpdateManyWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  campaignId?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumFlashSaleSlotStatusFieldUpdateOperationsInput | $Enums.FlashSaleSlotStatus
+  originalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock?: Prisma.IntFieldUpdateOperationsInput | number
+  soldCount?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FlashSaleSlotCreateManyVariantInput = {
+  id?: string
+  campaignId: string
+  shopId: string
+  productId: string
+  status?: $Enums.FlashSaleSlotStatus
+  originalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock: number
+  soldCount?: number
+  purchaseLimit?: number
+  sortOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FlashSaleSlotUpdateWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumFlashSaleSlotStatusFieldUpdateOperationsInput | $Enums.FlashSaleSlotStatus
+  originalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock?: Prisma.IntFieldUpdateOperationsInput | number
+  soldCount?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  campaign?: Prisma.FlashSaleCampaignUpdateOneRequiredWithoutSlotsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutFlashSaleSlotsNestedInput
+  purchases?: Prisma.FlashSalePurchaseUpdateManyWithoutSlotNestedInput
+}
+
+export type FlashSaleSlotUncheckedUpdateWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  campaignId?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumFlashSaleSlotStatusFieldUpdateOperationsInput | $Enums.FlashSaleSlotStatus
+  originalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock?: Prisma.IntFieldUpdateOperationsInput | number
+  soldCount?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutSlotNestedInput
+}
+
+export type FlashSaleSlotUncheckedUpdateManyWithoutVariantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  campaignId?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumFlashSaleSlotStatusFieldUpdateOperationsInput | $Enums.FlashSaleSlotStatus
+  originalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  salePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalStock?: Prisma.IntFieldUpdateOperationsInput | number
+  soldCount?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FlashSaleSlotCreateManyCampaignInput = {
@@ -739,8 +1191,6 @@ export type FlashSaleSlotCreateManyCampaignInput = {
 export type FlashSaleSlotUpdateWithoutCampaignInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   shopId?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
-  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumFlashSaleSlotStatusFieldUpdateOperationsInput | $Enums.FlashSaleSlotStatus
   originalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   salePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -750,6 +1200,9 @@ export type FlashSaleSlotUpdateWithoutCampaignInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutFlashSaleSlotsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutFlashSaleSlotsNestedInput
+  purchases?: Prisma.FlashSalePurchaseUpdateManyWithoutSlotNestedInput
 }
 
 export type FlashSaleSlotUncheckedUpdateWithoutCampaignInput = {
@@ -766,6 +1219,7 @@ export type FlashSaleSlotUncheckedUpdateWithoutCampaignInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchases?: Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutSlotNestedInput
 }
 
 export type FlashSaleSlotUncheckedUpdateManyWithoutCampaignInput = {
@@ -785,6 +1239,35 @@ export type FlashSaleSlotUncheckedUpdateManyWithoutCampaignInput = {
 }
 
 
+/**
+ * Count Type FlashSaleSlotCountOutputType
+ */
+
+export type FlashSaleSlotCountOutputType = {
+  purchases: number
+}
+
+export type FlashSaleSlotCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  purchases?: boolean | FlashSaleSlotCountOutputTypeCountPurchasesArgs
+}
+
+/**
+ * FlashSaleSlotCountOutputType without action
+ */
+export type FlashSaleSlotCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FlashSaleSlotCountOutputType
+   */
+  select?: Prisma.FlashSaleSlotCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * FlashSaleSlotCountOutputType without action
+ */
+export type FlashSaleSlotCountOutputTypeCountPurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FlashSalePurchaseWhereInput
+}
+
 
 export type FlashSaleSlotSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -802,6 +1285,10 @@ export type FlashSaleSlotSelect<ExtArgs extends runtime.Types.Extensions.Interna
   createdAt?: boolean
   updatedAt?: boolean
   campaign?: boolean | Prisma.FlashSaleCampaignDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.FlashSaleSlot$variantArgs<ExtArgs>
+  purchases?: boolean | Prisma.FlashSaleSlot$purchasesArgs<ExtArgs>
+  _count?: boolean | Prisma.FlashSaleSlotCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["flashSaleSlot"]>
 
 export type FlashSaleSlotSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -820,6 +1307,8 @@ export type FlashSaleSlotSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   createdAt?: boolean
   updatedAt?: boolean
   campaign?: boolean | Prisma.FlashSaleCampaignDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.FlashSaleSlot$variantArgs<ExtArgs>
 }, ExtArgs["result"]["flashSaleSlot"]>
 
 export type FlashSaleSlotSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -838,6 +1327,8 @@ export type FlashSaleSlotSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   createdAt?: boolean
   updatedAt?: boolean
   campaign?: boolean | Prisma.FlashSaleCampaignDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.FlashSaleSlot$variantArgs<ExtArgs>
 }, ExtArgs["result"]["flashSaleSlot"]>
 
 export type FlashSaleSlotSelectScalar = {
@@ -860,18 +1351,29 @@ export type FlashSaleSlotSelectScalar = {
 export type FlashSaleSlotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "campaignId" | "shopId" | "productId" | "variantId" | "status" | "originalPrice" | "salePrice" | "totalStock" | "soldCount" | "purchaseLimit" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["flashSaleSlot"]>
 export type FlashSaleSlotInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   campaign?: boolean | Prisma.FlashSaleCampaignDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.FlashSaleSlot$variantArgs<ExtArgs>
+  purchases?: boolean | Prisma.FlashSaleSlot$purchasesArgs<ExtArgs>
+  _count?: boolean | Prisma.FlashSaleSlotCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FlashSaleSlotIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   campaign?: boolean | Prisma.FlashSaleCampaignDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.FlashSaleSlot$variantArgs<ExtArgs>
 }
 export type FlashSaleSlotIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   campaign?: boolean | Prisma.FlashSaleCampaignDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.FlashSaleSlot$variantArgs<ExtArgs>
 }
 
 export type $FlashSaleSlotPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FlashSaleSlot"
   objects: {
     campaign: Prisma.$FlashSaleCampaignPayload<ExtArgs>
+    product: Prisma.$ProductPayload<ExtArgs>
+    variant: Prisma.$ProductVariantPayload<ExtArgs> | null
+    purchases: Prisma.$FlashSalePurchasePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -883,6 +1385,9 @@ export type $FlashSaleSlotPayload<ExtArgs extends runtime.Types.Extensions.Inter
     originalPrice: runtime.Decimal
     salePrice: runtime.Decimal
     totalStock: number
+    /**
+     * Denormalized counter. Keep in sync via application logic or a reconciliation job.
+     */
     soldCount: number
     purchaseLimit: number
     sortOrder: number
@@ -1283,6 +1788,9 @@ readonly fields: FlashSaleSlotFieldRefs;
 export interface Prisma__FlashSaleSlotClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   campaign<T extends Prisma.FlashSaleCampaignDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FlashSaleCampaignDefaultArgs<ExtArgs>>): Prisma.Prisma__FlashSaleCampaignClient<runtime.Types.Result.GetResult<Prisma.$FlashSaleCampaignPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  variant<T extends Prisma.FlashSaleSlot$variantArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FlashSaleSlot$variantArgs<ExtArgs>>): Prisma.Prisma__ProductVariantClient<runtime.Types.Result.GetResult<Prisma.$ProductVariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  purchases<T extends Prisma.FlashSaleSlot$purchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FlashSaleSlot$purchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlashSalePurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1724,6 +2232,49 @@ export type FlashSaleSlotDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many FlashSaleSlots to delete.
    */
   limit?: number
+}
+
+/**
+ * FlashSaleSlot.variant
+ */
+export type FlashSaleSlot$variantArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductVariant
+   */
+  select?: Prisma.ProductVariantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductVariant
+   */
+  omit?: Prisma.ProductVariantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductVariantInclude<ExtArgs> | null
+  where?: Prisma.ProductVariantWhereInput
+}
+
+/**
+ * FlashSaleSlot.purchases
+ */
+export type FlashSaleSlot$purchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FlashSalePurchase
+   */
+  select?: Prisma.FlashSalePurchaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FlashSalePurchase
+   */
+  omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
+  where?: Prisma.FlashSalePurchaseWhereInput
+  orderBy?: Prisma.FlashSalePurchaseOrderByWithRelationInput | Prisma.FlashSalePurchaseOrderByWithRelationInput[]
+  cursor?: Prisma.FlashSalePurchaseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FlashSalePurchaseScalarFieldEnum | Prisma.FlashSalePurchaseScalarFieldEnum[]
 }
 
 /**

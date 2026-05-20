@@ -28,8 +28,8 @@ export type UserEventMinAggregateOutputType = {
   id: string | null
   userId: string | null
   sessionId: string | null
-  event: string | null
-  entityType: string | null
+  event: $Enums.UserEventType | null
+  entityType: $Enums.UserEventEntityType | null
   entityId: string | null
   createdAt: Date | null
 }
@@ -38,8 +38,8 @@ export type UserEventMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   sessionId: string | null
-  event: string | null
-  entityType: string | null
+  event: $Enums.UserEventType | null
+  entityType: $Enums.UserEventEntityType | null
   entityId: string | null
   createdAt: Date | null
 }
@@ -165,8 +165,8 @@ export type UserEventGroupByOutputType = {
   id: string
   userId: string | null
   sessionId: string | null
-  event: string
-  entityType: string
+  event: $Enums.UserEventType
+  entityType: $Enums.UserEventEntityType
   entityId: string
   metadata: runtime.JsonValue | null
   createdAt: Date
@@ -197,8 +197,8 @@ export type UserEventWhereInput = {
   id?: Prisma.UuidFilter<"UserEvent"> | string
   userId?: Prisma.UuidNullableFilter<"UserEvent"> | string | null
   sessionId?: Prisma.StringNullableFilter<"UserEvent"> | string | null
-  event?: Prisma.StringFilter<"UserEvent"> | string
-  entityType?: Prisma.StringFilter<"UserEvent"> | string
+  event?: Prisma.EnumUserEventTypeFilter<"UserEvent"> | $Enums.UserEventType
+  entityType?: Prisma.EnumUserEventEntityTypeFilter<"UserEvent"> | $Enums.UserEventEntityType
   entityId?: Prisma.UuidFilter<"UserEvent"> | string
   metadata?: Prisma.JsonNullableFilter<"UserEvent">
   createdAt?: Prisma.DateTimeFilter<"UserEvent"> | Date | string
@@ -222,8 +222,8 @@ export type UserEventWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserEventWhereInput | Prisma.UserEventWhereInput[]
   userId?: Prisma.UuidNullableFilter<"UserEvent"> | string | null
   sessionId?: Prisma.StringNullableFilter<"UserEvent"> | string | null
-  event?: Prisma.StringFilter<"UserEvent"> | string
-  entityType?: Prisma.StringFilter<"UserEvent"> | string
+  event?: Prisma.EnumUserEventTypeFilter<"UserEvent"> | $Enums.UserEventType
+  entityType?: Prisma.EnumUserEventEntityTypeFilter<"UserEvent"> | $Enums.UserEventEntityType
   entityId?: Prisma.UuidFilter<"UserEvent"> | string
   metadata?: Prisma.JsonNullableFilter<"UserEvent">
   createdAt?: Prisma.DateTimeFilter<"UserEvent"> | Date | string
@@ -250,8 +250,8 @@ export type UserEventScalarWhereWithAggregatesInput = {
   id?: Prisma.UuidWithAggregatesFilter<"UserEvent"> | string
   userId?: Prisma.UuidNullableWithAggregatesFilter<"UserEvent"> | string | null
   sessionId?: Prisma.StringNullableWithAggregatesFilter<"UserEvent"> | string | null
-  event?: Prisma.StringWithAggregatesFilter<"UserEvent"> | string
-  entityType?: Prisma.StringWithAggregatesFilter<"UserEvent"> | string
+  event?: Prisma.EnumUserEventTypeWithAggregatesFilter<"UserEvent"> | $Enums.UserEventType
+  entityType?: Prisma.EnumUserEventEntityTypeWithAggregatesFilter<"UserEvent"> | $Enums.UserEventEntityType
   entityId?: Prisma.UuidWithAggregatesFilter<"UserEvent"> | string
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"UserEvent">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"UserEvent"> | Date | string
@@ -261,8 +261,8 @@ export type UserEventCreateInput = {
   id?: string
   userId?: string | null
   sessionId?: string | null
-  event: string
-  entityType: string
+  event: $Enums.UserEventType
+  entityType: $Enums.UserEventEntityType
   entityId: string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -272,8 +272,8 @@ export type UserEventUncheckedCreateInput = {
   id?: string
   userId?: string | null
   sessionId?: string | null
-  event: string
-  entityType: string
+  event: $Enums.UserEventType
+  entityType: $Enums.UserEventEntityType
   entityId: string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -283,8 +283,8 @@ export type UserEventUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  event?: Prisma.StringFieldUpdateOperationsInput | string
-  entityType?: Prisma.StringFieldUpdateOperationsInput | string
+  event?: Prisma.EnumUserEventTypeFieldUpdateOperationsInput | $Enums.UserEventType
+  entityType?: Prisma.EnumUserEventEntityTypeFieldUpdateOperationsInput | $Enums.UserEventEntityType
   entityId?: Prisma.StringFieldUpdateOperationsInput | string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -294,8 +294,8 @@ export type UserEventUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  event?: Prisma.StringFieldUpdateOperationsInput | string
-  entityType?: Prisma.StringFieldUpdateOperationsInput | string
+  event?: Prisma.EnumUserEventTypeFieldUpdateOperationsInput | $Enums.UserEventType
+  entityType?: Prisma.EnumUserEventEntityTypeFieldUpdateOperationsInput | $Enums.UserEventEntityType
   entityId?: Prisma.StringFieldUpdateOperationsInput | string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -305,8 +305,8 @@ export type UserEventCreateManyInput = {
   id?: string
   userId?: string | null
   sessionId?: string | null
-  event: string
-  entityType: string
+  event: $Enums.UserEventType
+  entityType: $Enums.UserEventEntityType
   entityId: string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -316,8 +316,8 @@ export type UserEventUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  event?: Prisma.StringFieldUpdateOperationsInput | string
-  entityType?: Prisma.StringFieldUpdateOperationsInput | string
+  event?: Prisma.EnumUserEventTypeFieldUpdateOperationsInput | $Enums.UserEventType
+  entityType?: Prisma.EnumUserEventEntityTypeFieldUpdateOperationsInput | $Enums.UserEventEntityType
   entityId?: Prisma.StringFieldUpdateOperationsInput | string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -327,8 +327,8 @@ export type UserEventUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  event?: Prisma.StringFieldUpdateOperationsInput | string
-  entityType?: Prisma.StringFieldUpdateOperationsInput | string
+  event?: Prisma.EnumUserEventTypeFieldUpdateOperationsInput | $Enums.UserEventType
+  entityType?: Prisma.EnumUserEventEntityTypeFieldUpdateOperationsInput | $Enums.UserEventEntityType
   entityId?: Prisma.StringFieldUpdateOperationsInput | string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -363,6 +363,14 @@ export type UserEventMinOrderByAggregateInput = {
   entityType?: Prisma.SortOrder
   entityId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type EnumUserEventTypeFieldUpdateOperationsInput = {
+  set?: $Enums.UserEventType
+}
+
+export type EnumUserEventEntityTypeFieldUpdateOperationsInput = {
+  set?: $Enums.UserEventEntityType
 }
 
 
@@ -420,8 +428,8 @@ export type $UserEventPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     id: string
     userId: string | null
     sessionId: string | null
-    event: string
-    entityType: string
+    event: $Enums.UserEventType
+    entityType: $Enums.UserEventEntityType
     entityId: string
     metadata: runtime.JsonValue | null
     createdAt: Date
@@ -851,8 +859,8 @@ export interface UserEventFieldRefs {
   readonly id: Prisma.FieldRef<"UserEvent", 'String'>
   readonly userId: Prisma.FieldRef<"UserEvent", 'String'>
   readonly sessionId: Prisma.FieldRef<"UserEvent", 'String'>
-  readonly event: Prisma.FieldRef<"UserEvent", 'String'>
-  readonly entityType: Prisma.FieldRef<"UserEvent", 'String'>
+  readonly event: Prisma.FieldRef<"UserEvent", 'UserEventType'>
+  readonly entityType: Prisma.FieldRef<"UserEvent", 'UserEventEntityType'>
   readonly entityId: Prisma.FieldRef<"UserEvent", 'String'>
   readonly metadata: Prisma.FieldRef<"UserEvent", 'Json'>
   readonly createdAt: Prisma.FieldRef<"UserEvent", 'DateTime'>

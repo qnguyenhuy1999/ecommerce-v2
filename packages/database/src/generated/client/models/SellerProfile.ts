@@ -176,6 +176,7 @@ export type SellerProfileWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"SellerProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   shop?: Prisma.XOR<Prisma.ShopNullableScalarRelationFilter, Prisma.ShopWhereInput> | null
+  adminSellerRecords?: Prisma.SellerListRelationFilter
 }
 
 export type SellerProfileOrderByWithRelationInput = {
@@ -185,6 +186,7 @@ export type SellerProfileOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   shop?: Prisma.ShopOrderByWithRelationInput
+  adminSellerRecords?: Prisma.SellerOrderByRelationAggregateInput
 }
 
 export type SellerProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -197,6 +199,7 @@ export type SellerProfileWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"SellerProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   shop?: Prisma.XOR<Prisma.ShopNullableScalarRelationFilter, Prisma.ShopWhereInput> | null
+  adminSellerRecords?: Prisma.SellerListRelationFilter
 }, "id" | "userId">
 
 export type SellerProfileOrderByWithAggregationInput = {
@@ -225,6 +228,7 @@ export type SellerProfileCreateInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSellerProfileInput
   shop?: Prisma.ShopCreateNestedOneWithoutSellerInput
+  adminSellerRecords?: Prisma.SellerCreateNestedManyWithoutSellerProfileInput
 }
 
 export type SellerProfileUncheckedCreateInput = {
@@ -233,6 +237,7 @@ export type SellerProfileUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   shop?: Prisma.ShopUncheckedCreateNestedOneWithoutSellerInput
+  adminSellerRecords?: Prisma.SellerUncheckedCreateNestedManyWithoutSellerProfileInput
 }
 
 export type SellerProfileUpdateInput = {
@@ -241,6 +246,7 @@ export type SellerProfileUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSellerProfileNestedInput
   shop?: Prisma.ShopUpdateOneWithoutSellerNestedInput
+  adminSellerRecords?: Prisma.SellerUpdateManyWithoutSellerProfileNestedInput
 }
 
 export type SellerProfileUncheckedUpdateInput = {
@@ -249,6 +255,7 @@ export type SellerProfileUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shop?: Prisma.ShopUncheckedUpdateOneWithoutSellerNestedInput
+  adminSellerRecords?: Prisma.SellerUncheckedUpdateManyWithoutSellerProfileNestedInput
 }
 
 export type SellerProfileCreateManyInput = {
@@ -348,11 +355,28 @@ export type SellerProfileUpdateOneRequiredWithoutShopNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SellerProfileUpdateToOneWithWhereWithoutShopInput, Prisma.SellerProfileUpdateWithoutShopInput>, Prisma.SellerProfileUncheckedUpdateWithoutShopInput>
 }
 
+export type SellerProfileCreateNestedOneWithoutAdminSellerRecordsInput = {
+  create?: Prisma.XOR<Prisma.SellerProfileCreateWithoutAdminSellerRecordsInput, Prisma.SellerProfileUncheckedCreateWithoutAdminSellerRecordsInput>
+  connectOrCreate?: Prisma.SellerProfileCreateOrConnectWithoutAdminSellerRecordsInput
+  connect?: Prisma.SellerProfileWhereUniqueInput
+}
+
+export type SellerProfileUpdateOneWithoutAdminSellerRecordsNestedInput = {
+  create?: Prisma.XOR<Prisma.SellerProfileCreateWithoutAdminSellerRecordsInput, Prisma.SellerProfileUncheckedCreateWithoutAdminSellerRecordsInput>
+  connectOrCreate?: Prisma.SellerProfileCreateOrConnectWithoutAdminSellerRecordsInput
+  upsert?: Prisma.SellerProfileUpsertWithoutAdminSellerRecordsInput
+  disconnect?: Prisma.SellerProfileWhereInput | boolean
+  delete?: Prisma.SellerProfileWhereInput | boolean
+  connect?: Prisma.SellerProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SellerProfileUpdateToOneWithWhereWithoutAdminSellerRecordsInput, Prisma.SellerProfileUpdateWithoutAdminSellerRecordsInput>, Prisma.SellerProfileUncheckedUpdateWithoutAdminSellerRecordsInput>
+}
+
 export type SellerProfileCreateWithoutUserInput = {
   id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   shop?: Prisma.ShopCreateNestedOneWithoutSellerInput
+  adminSellerRecords?: Prisma.SellerCreateNestedManyWithoutSellerProfileInput
 }
 
 export type SellerProfileUncheckedCreateWithoutUserInput = {
@@ -360,6 +384,7 @@ export type SellerProfileUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   shop?: Prisma.ShopUncheckedCreateNestedOneWithoutSellerInput
+  adminSellerRecords?: Prisma.SellerUncheckedCreateNestedManyWithoutSellerProfileInput
 }
 
 export type SellerProfileCreateOrConnectWithoutUserInput = {
@@ -383,6 +408,7 @@ export type SellerProfileUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shop?: Prisma.ShopUpdateOneWithoutSellerNestedInput
+  adminSellerRecords?: Prisma.SellerUpdateManyWithoutSellerProfileNestedInput
 }
 
 export type SellerProfileUncheckedUpdateWithoutUserInput = {
@@ -390,6 +416,7 @@ export type SellerProfileUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shop?: Prisma.ShopUncheckedUpdateOneWithoutSellerNestedInput
+  adminSellerRecords?: Prisma.SellerUncheckedUpdateManyWithoutSellerProfileNestedInput
 }
 
 export type SellerProfileCreateWithoutShopInput = {
@@ -397,6 +424,7 @@ export type SellerProfileCreateWithoutShopInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSellerProfileInput
+  adminSellerRecords?: Prisma.SellerCreateNestedManyWithoutSellerProfileInput
 }
 
 export type SellerProfileUncheckedCreateWithoutShopInput = {
@@ -404,6 +432,7 @@ export type SellerProfileUncheckedCreateWithoutShopInput = {
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  adminSellerRecords?: Prisma.SellerUncheckedCreateNestedManyWithoutSellerProfileInput
 }
 
 export type SellerProfileCreateOrConnectWithoutShopInput = {
@@ -427,6 +456,7 @@ export type SellerProfileUpdateWithoutShopInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSellerProfileNestedInput
+  adminSellerRecords?: Prisma.SellerUpdateManyWithoutSellerProfileNestedInput
 }
 
 export type SellerProfileUncheckedUpdateWithoutShopInput = {
@@ -434,8 +464,86 @@ export type SellerProfileUncheckedUpdateWithoutShopInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  adminSellerRecords?: Prisma.SellerUncheckedUpdateManyWithoutSellerProfileNestedInput
 }
 
+export type SellerProfileCreateWithoutAdminSellerRecordsInput = {
+  id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSellerProfileInput
+  shop?: Prisma.ShopCreateNestedOneWithoutSellerInput
+}
+
+export type SellerProfileUncheckedCreateWithoutAdminSellerRecordsInput = {
+  id?: string
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shop?: Prisma.ShopUncheckedCreateNestedOneWithoutSellerInput
+}
+
+export type SellerProfileCreateOrConnectWithoutAdminSellerRecordsInput = {
+  where: Prisma.SellerProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.SellerProfileCreateWithoutAdminSellerRecordsInput, Prisma.SellerProfileUncheckedCreateWithoutAdminSellerRecordsInput>
+}
+
+export type SellerProfileUpsertWithoutAdminSellerRecordsInput = {
+  update: Prisma.XOR<Prisma.SellerProfileUpdateWithoutAdminSellerRecordsInput, Prisma.SellerProfileUncheckedUpdateWithoutAdminSellerRecordsInput>
+  create: Prisma.XOR<Prisma.SellerProfileCreateWithoutAdminSellerRecordsInput, Prisma.SellerProfileUncheckedCreateWithoutAdminSellerRecordsInput>
+  where?: Prisma.SellerProfileWhereInput
+}
+
+export type SellerProfileUpdateToOneWithWhereWithoutAdminSellerRecordsInput = {
+  where?: Prisma.SellerProfileWhereInput
+  data: Prisma.XOR<Prisma.SellerProfileUpdateWithoutAdminSellerRecordsInput, Prisma.SellerProfileUncheckedUpdateWithoutAdminSellerRecordsInput>
+}
+
+export type SellerProfileUpdateWithoutAdminSellerRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSellerProfileNestedInput
+  shop?: Prisma.ShopUpdateOneWithoutSellerNestedInput
+}
+
+export type SellerProfileUncheckedUpdateWithoutAdminSellerRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUncheckedUpdateOneWithoutSellerNestedInput
+}
+
+
+/**
+ * Count Type SellerProfileCountOutputType
+ */
+
+export type SellerProfileCountOutputType = {
+  adminSellerRecords: number
+}
+
+export type SellerProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  adminSellerRecords?: boolean | SellerProfileCountOutputTypeCountAdminSellerRecordsArgs
+}
+
+/**
+ * SellerProfileCountOutputType without action
+ */
+export type SellerProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SellerProfileCountOutputType
+   */
+  select?: Prisma.SellerProfileCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * SellerProfileCountOutputType without action
+ */
+export type SellerProfileCountOutputTypeCountAdminSellerRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SellerWhereInput
+}
 
 
 export type SellerProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -445,6 +553,8 @@ export type SellerProfileSelect<ExtArgs extends runtime.Types.Extensions.Interna
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   shop?: boolean | Prisma.SellerProfile$shopArgs<ExtArgs>
+  adminSellerRecords?: boolean | Prisma.SellerProfile$adminSellerRecordsArgs<ExtArgs>
+  _count?: boolean | Prisma.SellerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["sellerProfile"]>
 
 export type SellerProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -474,6 +584,8 @@ export type SellerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalA
 export type SellerProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   shop?: boolean | Prisma.SellerProfile$shopArgs<ExtArgs>
+  adminSellerRecords?: boolean | Prisma.SellerProfile$adminSellerRecordsArgs<ExtArgs>
+  _count?: boolean | Prisma.SellerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SellerProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -485,10 +597,17 @@ export type SellerProfileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Type
 export type $SellerProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SellerProfile"
   objects: {
+    /**
+     * SellerProfile is the operational entity that owns the Shop; Seller is the admin approval/verification entity.
+     */
     user: Prisma.$UserPayload<ExtArgs>
     shop: Prisma.$ShopPayload<ExtArgs> | null
+    adminSellerRecords: Prisma.$SellerPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
+    /**
+     * Presence of this record is the canonical signal that a User is a seller. Always create this alongside a Shop record.
+     */
     id: string
     userId: string
     createdAt: Date
@@ -889,6 +1008,7 @@ export interface Prisma__SellerProfileClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   shop<T extends Prisma.SellerProfile$shopArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SellerProfile$shopArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  adminSellerRecords<T extends Prisma.SellerProfile$adminSellerRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SellerProfile$adminSellerRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1339,6 +1459,30 @@ export type SellerProfile$shopArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   include?: Prisma.ShopInclude<ExtArgs> | null
   where?: Prisma.ShopWhereInput
+}
+
+/**
+ * SellerProfile.adminSellerRecords
+ */
+export type SellerProfile$adminSellerRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Seller
+   */
+  select?: Prisma.SellerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Seller
+   */
+  omit?: Prisma.SellerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SellerInclude<ExtArgs> | null
+  where?: Prisma.SellerWhereInput
+  orderBy?: Prisma.SellerOrderByWithRelationInput | Prisma.SellerOrderByWithRelationInput[]
+  cursor?: Prisma.SellerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SellerScalarFieldEnum | Prisma.SellerScalarFieldEnum[]
 }
 
 /**

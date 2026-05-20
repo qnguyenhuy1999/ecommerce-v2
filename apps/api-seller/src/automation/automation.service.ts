@@ -1,4 +1,4 @@
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { buildOffsetResponse, offsetPaginate } from '@ecom/shared/pagination/prisma'
@@ -40,7 +40,7 @@ export class AutomationService {
 
   async createRule(shopId: string, dto: CreateAutomationRuleDto) {
     // AutomationTrigger: ORDER_CREATED | ORDER_CANCELLED | LOW_STOCK | MESSAGE_RECEIVED | REVIEW_RECEIVED | SCHEDULE | PRICE_CHANGE | PRODUCT_PUBLISHED
-    // AutomationAction (stored in actions Json): SEND_MESSAGE | UPDATE_PRICE | UPDATE_STOCK | CANCEL_ORDER | SEND_NOTIFICATION | APPLY_COUPON | TAG_ORDER
+    // Legacy action payload remains stored in actionsLegacy Json for backward compatibility.
     return this.prisma.automationRule.create({
       data: {
         shopId,
@@ -55,7 +55,7 @@ export class AutomationService {
           | 'PRICE_CHANGE'
           | 'PRODUCT_PUBLISHED',
         conditions: (dto.conditions ?? {}) as Prisma.InputJsonValue,
-        actions: (dto.actionConfig ?? { type: dto.action, config: {} }) as Prisma.InputJsonValue,
+        actionsLegacy: (dto.actionConfig ?? { type: dto.action, config: {} }) as Prisma.InputJsonValue,
         status: dto.isActive ? 'ACTIVE' : 'DRAFT',
       },
     })
@@ -70,7 +70,9 @@ export class AutomationService {
       data: {
         ...(dto.name && { name: dto.name }),
         ...(dto.conditions && { conditions: dto.conditions as Prisma.InputJsonValue }),
-        ...(dto.actionConfig && { actions: dto.actionConfig as Prisma.InputJsonValue }),
+        ...(dto.actionConfig && {
+          actionsLegacy: dto.actionConfig as Prisma.InputJsonValue,
+        }),
         ...(dto.isActive !== undefined && { status: dto.isActive ? 'ACTIVE' : 'PAUSED' }),
         ...(dto.schedule !== undefined && {
           conditions: {
@@ -100,7 +102,7 @@ export class AutomationService {
     let actionResults: Record<string, unknown> = {}
 
     try {
-      const actions = rule.actions as Record<string, unknown>
+      const actions = (rule.actionsLegacy ?? {}) as Record<string, unknown>
       actionResults = this.performAction(
         (actions.type as string) ?? '',
         (actions.config as Record<string, unknown>) ?? {},

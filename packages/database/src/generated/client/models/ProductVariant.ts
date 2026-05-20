@@ -260,6 +260,12 @@ export type ProductVariantWhereInput = {
   optionValues?: Prisma.ProductVariantOptionValueListRelationFilter
   sellerOrderItems?: Prisma.SellerOrderItemListRelationFilter
   inventoryTransactions?: Prisma.InventoryTransactionListRelationFilter
+  productImages?: Prisma.ProductImageListRelationFilter
+  warehouseStocks?: Prisma.WarehouseStockListRelationFilter
+  inventoryTransferItems?: Prisma.InventoryTransferItemListRelationFilter
+  flashSaleSlots?: Prisma.FlashSaleSlotListRelationFilter
+  returnItems?: Prisma.ReturnItemListRelationFilter
+  regionalPricings?: Prisma.RegionalPricingListRelationFilter
 }
 
 export type ProductVariantOrderByWithRelationInput = {
@@ -276,6 +282,12 @@ export type ProductVariantOrderByWithRelationInput = {
   optionValues?: Prisma.ProductVariantOptionValueOrderByRelationAggregateInput
   sellerOrderItems?: Prisma.SellerOrderItemOrderByRelationAggregateInput
   inventoryTransactions?: Prisma.InventoryTransactionOrderByRelationAggregateInput
+  productImages?: Prisma.ProductImageOrderByRelationAggregateInput
+  warehouseStocks?: Prisma.WarehouseStockOrderByRelationAggregateInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemOrderByRelationAggregateInput
+  flashSaleSlots?: Prisma.FlashSaleSlotOrderByRelationAggregateInput
+  returnItems?: Prisma.ReturnItemOrderByRelationAggregateInput
+  regionalPricings?: Prisma.RegionalPricingOrderByRelationAggregateInput
 }
 
 export type ProductVariantWhereUniqueInput = Prisma.AtLeast<{
@@ -295,6 +307,12 @@ export type ProductVariantWhereUniqueInput = Prisma.AtLeast<{
   optionValues?: Prisma.ProductVariantOptionValueListRelationFilter
   sellerOrderItems?: Prisma.SellerOrderItemListRelationFilter
   inventoryTransactions?: Prisma.InventoryTransactionListRelationFilter
+  productImages?: Prisma.ProductImageListRelationFilter
+  warehouseStocks?: Prisma.WarehouseStockListRelationFilter
+  inventoryTransferItems?: Prisma.InventoryTransferItemListRelationFilter
+  flashSaleSlots?: Prisma.FlashSaleSlotListRelationFilter
+  returnItems?: Prisma.ReturnItemListRelationFilter
+  regionalPricings?: Prisma.RegionalPricingListRelationFilter
 }, "id">
 
 export type ProductVariantOrderByWithAggregationInput = {
@@ -342,6 +360,12 @@ export type ProductVariantCreateInput = {
   optionValues?: Prisma.ProductVariantOptionValueCreateNestedManyWithoutVariantInput
   sellerOrderItems?: Prisma.SellerOrderItemCreateNestedManyWithoutVariantInput
   inventoryTransactions?: Prisma.InventoryTransactionCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingCreateNestedManyWithoutVariantInput
 }
 
 export type ProductVariantUncheckedCreateInput = {
@@ -357,6 +381,12 @@ export type ProductVariantUncheckedCreateInput = {
   optionValues?: Prisma.ProductVariantOptionValueUncheckedCreateNestedManyWithoutVariantInput
   sellerOrderItems?: Prisma.SellerOrderItemUncheckedCreateNestedManyWithoutVariantInput
   inventoryTransactions?: Prisma.InventoryTransactionUncheckedCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemUncheckedCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type ProductVariantUpdateInput = {
@@ -372,6 +402,12 @@ export type ProductVariantUpdateInput = {
   optionValues?: Prisma.ProductVariantOptionValueUpdateManyWithoutVariantNestedInput
   sellerOrderItems?: Prisma.SellerOrderItemUpdateManyWithoutVariantNestedInput
   inventoryTransactions?: Prisma.InventoryTransactionUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUpdateManyWithoutVariantNestedInput
 }
 
 export type ProductVariantUncheckedUpdateInput = {
@@ -387,6 +423,12 @@ export type ProductVariantUncheckedUpdateInput = {
   optionValues?: Prisma.ProductVariantOptionValueUncheckedUpdateManyWithoutVariantNestedInput
   sellerOrderItems?: Prisma.SellerOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   inventoryTransactions?: Prisma.InventoryTransactionUncheckedUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUncheckedUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type ProductVariantCreateManyInput = {
@@ -487,6 +529,11 @@ export type ProductVariantScalarRelationFilter = {
   isNot?: Prisma.ProductVariantWhereInput
 }
 
+export type ProductVariantNullableScalarRelationFilter = {
+  is?: Prisma.ProductVariantWhereInput | null
+  isNot?: Prisma.ProductVariantWhereInput | null
+}
+
 export type ProductVariantCreateNestedManyWithoutProductInput = {
   create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutProductInput, Prisma.ProductVariantUncheckedCreateWithoutProductInput> | Prisma.ProductVariantCreateWithoutProductInput[] | Prisma.ProductVariantUncheckedCreateWithoutProductInput[]
   connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutProductInput | Prisma.ProductVariantCreateOrConnectWithoutProductInput[]
@@ -551,6 +598,22 @@ export type ProductVariantUpdateOneRequiredWithoutOptionValuesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProductVariantUpdateToOneWithWhereWithoutOptionValuesInput, Prisma.ProductVariantUpdateWithoutOptionValuesInput>, Prisma.ProductVariantUncheckedUpdateWithoutOptionValuesInput>
 }
 
+export type ProductVariantCreateNestedOneWithoutProductImagesInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutProductImagesInput, Prisma.ProductVariantUncheckedCreateWithoutProductImagesInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutProductImagesInput
+  connect?: Prisma.ProductVariantWhereUniqueInput
+}
+
+export type ProductVariantUpdateOneWithoutProductImagesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutProductImagesInput, Prisma.ProductVariantUncheckedCreateWithoutProductImagesInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutProductImagesInput
+  upsert?: Prisma.ProductVariantUpsertWithoutProductImagesInput
+  disconnect?: Prisma.ProductVariantWhereInput | boolean
+  delete?: Prisma.ProductVariantWhereInput | boolean
+  connect?: Prisma.ProductVariantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductVariantUpdateToOneWithWhereWithoutProductImagesInput, Prisma.ProductVariantUpdateWithoutProductImagesInput>, Prisma.ProductVariantUncheckedUpdateWithoutProductImagesInput>
+}
+
 export type ProductVariantCreateNestedOneWithoutSellerOrderItemsInput = {
   create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutSellerOrderItemsInput, Prisma.ProductVariantUncheckedCreateWithoutSellerOrderItemsInput>
   connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutSellerOrderItemsInput
@@ -579,6 +642,82 @@ export type ProductVariantUpdateOneRequiredWithoutInventoryTransactionsNestedInp
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProductVariantUpdateToOneWithWhereWithoutInventoryTransactionsInput, Prisma.ProductVariantUpdateWithoutInventoryTransactionsInput>, Prisma.ProductVariantUncheckedUpdateWithoutInventoryTransactionsInput>
 }
 
+export type ProductVariantCreateNestedOneWithoutReturnItemsInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutReturnItemsInput, Prisma.ProductVariantUncheckedCreateWithoutReturnItemsInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutReturnItemsInput
+  connect?: Prisma.ProductVariantWhereUniqueInput
+}
+
+export type ProductVariantUpdateOneWithoutReturnItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutReturnItemsInput, Prisma.ProductVariantUncheckedCreateWithoutReturnItemsInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutReturnItemsInput
+  upsert?: Prisma.ProductVariantUpsertWithoutReturnItemsInput
+  disconnect?: Prisma.ProductVariantWhereInput | boolean
+  delete?: Prisma.ProductVariantWhereInput | boolean
+  connect?: Prisma.ProductVariantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductVariantUpdateToOneWithWhereWithoutReturnItemsInput, Prisma.ProductVariantUpdateWithoutReturnItemsInput>, Prisma.ProductVariantUncheckedUpdateWithoutReturnItemsInput>
+}
+
+export type ProductVariantCreateNestedOneWithoutWarehouseStocksInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutWarehouseStocksInput, Prisma.ProductVariantUncheckedCreateWithoutWarehouseStocksInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutWarehouseStocksInput
+  connect?: Prisma.ProductVariantWhereUniqueInput
+}
+
+export type ProductVariantUpdateOneRequiredWithoutWarehouseStocksNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutWarehouseStocksInput, Prisma.ProductVariantUncheckedCreateWithoutWarehouseStocksInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutWarehouseStocksInput
+  upsert?: Prisma.ProductVariantUpsertWithoutWarehouseStocksInput
+  connect?: Prisma.ProductVariantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductVariantUpdateToOneWithWhereWithoutWarehouseStocksInput, Prisma.ProductVariantUpdateWithoutWarehouseStocksInput>, Prisma.ProductVariantUncheckedUpdateWithoutWarehouseStocksInput>
+}
+
+export type ProductVariantCreateNestedOneWithoutInventoryTransferItemsInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutInventoryTransferItemsInput, Prisma.ProductVariantUncheckedCreateWithoutInventoryTransferItemsInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutInventoryTransferItemsInput
+  connect?: Prisma.ProductVariantWhereUniqueInput
+}
+
+export type ProductVariantUpdateOneRequiredWithoutInventoryTransferItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutInventoryTransferItemsInput, Prisma.ProductVariantUncheckedCreateWithoutInventoryTransferItemsInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutInventoryTransferItemsInput
+  upsert?: Prisma.ProductVariantUpsertWithoutInventoryTransferItemsInput
+  connect?: Prisma.ProductVariantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductVariantUpdateToOneWithWhereWithoutInventoryTransferItemsInput, Prisma.ProductVariantUpdateWithoutInventoryTransferItemsInput>, Prisma.ProductVariantUncheckedUpdateWithoutInventoryTransferItemsInput>
+}
+
+export type ProductVariantCreateNestedOneWithoutFlashSaleSlotsInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutFlashSaleSlotsInput, Prisma.ProductVariantUncheckedCreateWithoutFlashSaleSlotsInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutFlashSaleSlotsInput
+  connect?: Prisma.ProductVariantWhereUniqueInput
+}
+
+export type ProductVariantUpdateOneWithoutFlashSaleSlotsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutFlashSaleSlotsInput, Prisma.ProductVariantUncheckedCreateWithoutFlashSaleSlotsInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutFlashSaleSlotsInput
+  upsert?: Prisma.ProductVariantUpsertWithoutFlashSaleSlotsInput
+  disconnect?: Prisma.ProductVariantWhereInput | boolean
+  delete?: Prisma.ProductVariantWhereInput | boolean
+  connect?: Prisma.ProductVariantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductVariantUpdateToOneWithWhereWithoutFlashSaleSlotsInput, Prisma.ProductVariantUpdateWithoutFlashSaleSlotsInput>, Prisma.ProductVariantUncheckedUpdateWithoutFlashSaleSlotsInput>
+}
+
+export type ProductVariantCreateNestedOneWithoutRegionalPricingsInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutRegionalPricingsInput, Prisma.ProductVariantUncheckedCreateWithoutRegionalPricingsInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutRegionalPricingsInput
+  connect?: Prisma.ProductVariantWhereUniqueInput
+}
+
+export type ProductVariantUpdateOneWithoutRegionalPricingsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductVariantCreateWithoutRegionalPricingsInput, Prisma.ProductVariantUncheckedCreateWithoutRegionalPricingsInput>
+  connectOrCreate?: Prisma.ProductVariantCreateOrConnectWithoutRegionalPricingsInput
+  upsert?: Prisma.ProductVariantUpsertWithoutRegionalPricingsInput
+  disconnect?: Prisma.ProductVariantWhereInput | boolean
+  delete?: Prisma.ProductVariantWhereInput | boolean
+  connect?: Prisma.ProductVariantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductVariantUpdateToOneWithWhereWithoutRegionalPricingsInput, Prisma.ProductVariantUpdateWithoutRegionalPricingsInput>, Prisma.ProductVariantUncheckedUpdateWithoutRegionalPricingsInput>
+}
+
 export type ProductVariantCreateWithoutProductInput = {
   id?: string
   sku?: string | null
@@ -591,6 +730,12 @@ export type ProductVariantCreateWithoutProductInput = {
   optionValues?: Prisma.ProductVariantOptionValueCreateNestedManyWithoutVariantInput
   sellerOrderItems?: Prisma.SellerOrderItemCreateNestedManyWithoutVariantInput
   inventoryTransactions?: Prisma.InventoryTransactionCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingCreateNestedManyWithoutVariantInput
 }
 
 export type ProductVariantUncheckedCreateWithoutProductInput = {
@@ -605,6 +750,12 @@ export type ProductVariantUncheckedCreateWithoutProductInput = {
   optionValues?: Prisma.ProductVariantOptionValueUncheckedCreateNestedManyWithoutVariantInput
   sellerOrderItems?: Prisma.SellerOrderItemUncheckedCreateNestedManyWithoutVariantInput
   inventoryTransactions?: Prisma.InventoryTransactionUncheckedCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemUncheckedCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type ProductVariantCreateOrConnectWithoutProductInput = {
@@ -660,6 +811,12 @@ export type ProductVariantCreateWithoutOptionValuesInput = {
   product: Prisma.ProductCreateNestedOneWithoutVariantsInput
   sellerOrderItems?: Prisma.SellerOrderItemCreateNestedManyWithoutVariantInput
   inventoryTransactions?: Prisma.InventoryTransactionCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingCreateNestedManyWithoutVariantInput
 }
 
 export type ProductVariantUncheckedCreateWithoutOptionValuesInput = {
@@ -674,6 +831,12 @@ export type ProductVariantUncheckedCreateWithoutOptionValuesInput = {
   updatedAt?: Date | string
   sellerOrderItems?: Prisma.SellerOrderItemUncheckedCreateNestedManyWithoutVariantInput
   inventoryTransactions?: Prisma.InventoryTransactionUncheckedCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemUncheckedCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type ProductVariantCreateOrConnectWithoutOptionValuesInput = {
@@ -704,6 +867,12 @@ export type ProductVariantUpdateWithoutOptionValuesInput = {
   product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
   sellerOrderItems?: Prisma.SellerOrderItemUpdateManyWithoutVariantNestedInput
   inventoryTransactions?: Prisma.InventoryTransactionUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUpdateManyWithoutVariantNestedInput
 }
 
 export type ProductVariantUncheckedUpdateWithoutOptionValuesInput = {
@@ -718,6 +887,108 @@ export type ProductVariantUncheckedUpdateWithoutOptionValuesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sellerOrderItems?: Prisma.SellerOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   inventoryTransactions?: Prisma.InventoryTransactionUncheckedUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUncheckedUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantCreateWithoutProductImagesInput = {
+  id?: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutVariantsInput
+  optionValues?: Prisma.ProductVariantOptionValueCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantUncheckedCreateWithoutProductImagesInput = {
+  id?: string
+  productId: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemUncheckedCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantCreateOrConnectWithoutProductImagesInput = {
+  where: Prisma.ProductVariantWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutProductImagesInput, Prisma.ProductVariantUncheckedCreateWithoutProductImagesInput>
+}
+
+export type ProductVariantUpsertWithoutProductImagesInput = {
+  update: Prisma.XOR<Prisma.ProductVariantUpdateWithoutProductImagesInput, Prisma.ProductVariantUncheckedUpdateWithoutProductImagesInput>
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutProductImagesInput, Prisma.ProductVariantUncheckedCreateWithoutProductImagesInput>
+  where?: Prisma.ProductVariantWhereInput
+}
+
+export type ProductVariantUpdateToOneWithWhereWithoutProductImagesInput = {
+  where?: Prisma.ProductVariantWhereInput
+  data: Prisma.XOR<Prisma.ProductVariantUpdateWithoutProductImagesInput, Prisma.ProductVariantUncheckedUpdateWithoutProductImagesInput>
+}
+
+export type ProductVariantUpdateWithoutProductImagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
+  optionValues?: Prisma.ProductVariantOptionValueUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantUncheckedUpdateWithoutProductImagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUncheckedUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type ProductVariantCreateWithoutSellerOrderItemsInput = {
@@ -732,6 +1003,12 @@ export type ProductVariantCreateWithoutSellerOrderItemsInput = {
   product: Prisma.ProductCreateNestedOneWithoutVariantsInput
   optionValues?: Prisma.ProductVariantOptionValueCreateNestedManyWithoutVariantInput
   inventoryTransactions?: Prisma.InventoryTransactionCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingCreateNestedManyWithoutVariantInput
 }
 
 export type ProductVariantUncheckedCreateWithoutSellerOrderItemsInput = {
@@ -746,6 +1023,12 @@ export type ProductVariantUncheckedCreateWithoutSellerOrderItemsInput = {
   updatedAt?: Date | string
   optionValues?: Prisma.ProductVariantOptionValueUncheckedCreateNestedManyWithoutVariantInput
   inventoryTransactions?: Prisma.InventoryTransactionUncheckedCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemUncheckedCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type ProductVariantCreateOrConnectWithoutSellerOrderItemsInput = {
@@ -776,6 +1059,12 @@ export type ProductVariantUpdateWithoutSellerOrderItemsInput = {
   product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
   optionValues?: Prisma.ProductVariantOptionValueUpdateManyWithoutVariantNestedInput
   inventoryTransactions?: Prisma.InventoryTransactionUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUpdateManyWithoutVariantNestedInput
 }
 
 export type ProductVariantUncheckedUpdateWithoutSellerOrderItemsInput = {
@@ -790,6 +1079,12 @@ export type ProductVariantUncheckedUpdateWithoutSellerOrderItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   optionValues?: Prisma.ProductVariantOptionValueUncheckedUpdateManyWithoutVariantNestedInput
   inventoryTransactions?: Prisma.InventoryTransactionUncheckedUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUncheckedUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type ProductVariantCreateWithoutInventoryTransactionsInput = {
@@ -804,6 +1099,12 @@ export type ProductVariantCreateWithoutInventoryTransactionsInput = {
   product: Prisma.ProductCreateNestedOneWithoutVariantsInput
   optionValues?: Prisma.ProductVariantOptionValueCreateNestedManyWithoutVariantInput
   sellerOrderItems?: Prisma.SellerOrderItemCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingCreateNestedManyWithoutVariantInput
 }
 
 export type ProductVariantUncheckedCreateWithoutInventoryTransactionsInput = {
@@ -818,6 +1119,12 @@ export type ProductVariantUncheckedCreateWithoutInventoryTransactionsInput = {
   updatedAt?: Date | string
   optionValues?: Prisma.ProductVariantOptionValueUncheckedCreateNestedManyWithoutVariantInput
   sellerOrderItems?: Prisma.SellerOrderItemUncheckedCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemUncheckedCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedCreateNestedManyWithoutVariantInput
 }
 
 export type ProductVariantCreateOrConnectWithoutInventoryTransactionsInput = {
@@ -848,6 +1155,12 @@ export type ProductVariantUpdateWithoutInventoryTransactionsInput = {
   product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
   optionValues?: Prisma.ProductVariantOptionValueUpdateManyWithoutVariantNestedInput
   sellerOrderItems?: Prisma.SellerOrderItemUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUpdateManyWithoutVariantNestedInput
 }
 
 export type ProductVariantUncheckedUpdateWithoutInventoryTransactionsInput = {
@@ -862,6 +1175,492 @@ export type ProductVariantUncheckedUpdateWithoutInventoryTransactionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   optionValues?: Prisma.ProductVariantOptionValueUncheckedUpdateManyWithoutVariantNestedInput
   sellerOrderItems?: Prisma.SellerOrderItemUncheckedUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUncheckedUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantCreateWithoutReturnItemsInput = {
+  id?: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutVariantsInput
+  optionValues?: Prisma.ProductVariantOptionValueCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantUncheckedCreateWithoutReturnItemsInput = {
+  id?: string
+  productId: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantCreateOrConnectWithoutReturnItemsInput = {
+  where: Prisma.ProductVariantWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutReturnItemsInput, Prisma.ProductVariantUncheckedCreateWithoutReturnItemsInput>
+}
+
+export type ProductVariantUpsertWithoutReturnItemsInput = {
+  update: Prisma.XOR<Prisma.ProductVariantUpdateWithoutReturnItemsInput, Prisma.ProductVariantUncheckedUpdateWithoutReturnItemsInput>
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutReturnItemsInput, Prisma.ProductVariantUncheckedCreateWithoutReturnItemsInput>
+  where?: Prisma.ProductVariantWhereInput
+}
+
+export type ProductVariantUpdateToOneWithWhereWithoutReturnItemsInput = {
+  where?: Prisma.ProductVariantWhereInput
+  data: Prisma.XOR<Prisma.ProductVariantUpdateWithoutReturnItemsInput, Prisma.ProductVariantUncheckedUpdateWithoutReturnItemsInput>
+}
+
+export type ProductVariantUpdateWithoutReturnItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
+  optionValues?: Prisma.ProductVariantOptionValueUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantUncheckedUpdateWithoutReturnItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantCreateWithoutWarehouseStocksInput = {
+  id?: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutVariantsInput
+  optionValues?: Prisma.ProductVariantOptionValueCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantUncheckedCreateWithoutWarehouseStocksInput = {
+  id?: string
+  productId: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemUncheckedCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantCreateOrConnectWithoutWarehouseStocksInput = {
+  where: Prisma.ProductVariantWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutWarehouseStocksInput, Prisma.ProductVariantUncheckedCreateWithoutWarehouseStocksInput>
+}
+
+export type ProductVariantUpsertWithoutWarehouseStocksInput = {
+  update: Prisma.XOR<Prisma.ProductVariantUpdateWithoutWarehouseStocksInput, Prisma.ProductVariantUncheckedUpdateWithoutWarehouseStocksInput>
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutWarehouseStocksInput, Prisma.ProductVariantUncheckedCreateWithoutWarehouseStocksInput>
+  where?: Prisma.ProductVariantWhereInput
+}
+
+export type ProductVariantUpdateToOneWithWhereWithoutWarehouseStocksInput = {
+  where?: Prisma.ProductVariantWhereInput
+  data: Prisma.XOR<Prisma.ProductVariantUpdateWithoutWarehouseStocksInput, Prisma.ProductVariantUncheckedUpdateWithoutWarehouseStocksInput>
+}
+
+export type ProductVariantUpdateWithoutWarehouseStocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
+  optionValues?: Prisma.ProductVariantOptionValueUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantUncheckedUpdateWithoutWarehouseStocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUncheckedUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantCreateWithoutInventoryTransferItemsInput = {
+  id?: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutVariantsInput
+  optionValues?: Prisma.ProductVariantOptionValueCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantUncheckedCreateWithoutInventoryTransferItemsInput = {
+  id?: string
+  productId: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemUncheckedCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantCreateOrConnectWithoutInventoryTransferItemsInput = {
+  where: Prisma.ProductVariantWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutInventoryTransferItemsInput, Prisma.ProductVariantUncheckedCreateWithoutInventoryTransferItemsInput>
+}
+
+export type ProductVariantUpsertWithoutInventoryTransferItemsInput = {
+  update: Prisma.XOR<Prisma.ProductVariantUpdateWithoutInventoryTransferItemsInput, Prisma.ProductVariantUncheckedUpdateWithoutInventoryTransferItemsInput>
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutInventoryTransferItemsInput, Prisma.ProductVariantUncheckedCreateWithoutInventoryTransferItemsInput>
+  where?: Prisma.ProductVariantWhereInput
+}
+
+export type ProductVariantUpdateToOneWithWhereWithoutInventoryTransferItemsInput = {
+  where?: Prisma.ProductVariantWhereInput
+  data: Prisma.XOR<Prisma.ProductVariantUpdateWithoutInventoryTransferItemsInput, Prisma.ProductVariantUncheckedUpdateWithoutInventoryTransferItemsInput>
+}
+
+export type ProductVariantUpdateWithoutInventoryTransferItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
+  optionValues?: Prisma.ProductVariantOptionValueUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantUncheckedUpdateWithoutInventoryTransferItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUncheckedUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantCreateWithoutFlashSaleSlotsInput = {
+  id?: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutVariantsInput
+  optionValues?: Prisma.ProductVariantOptionValueCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantUncheckedCreateWithoutFlashSaleSlotsInput = {
+  id?: string
+  productId: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemUncheckedCreateNestedManyWithoutVariantInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantCreateOrConnectWithoutFlashSaleSlotsInput = {
+  where: Prisma.ProductVariantWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutFlashSaleSlotsInput, Prisma.ProductVariantUncheckedCreateWithoutFlashSaleSlotsInput>
+}
+
+export type ProductVariantUpsertWithoutFlashSaleSlotsInput = {
+  update: Prisma.XOR<Prisma.ProductVariantUpdateWithoutFlashSaleSlotsInput, Prisma.ProductVariantUncheckedUpdateWithoutFlashSaleSlotsInput>
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutFlashSaleSlotsInput, Prisma.ProductVariantUncheckedCreateWithoutFlashSaleSlotsInput>
+  where?: Prisma.ProductVariantWhereInput
+}
+
+export type ProductVariantUpdateToOneWithWhereWithoutFlashSaleSlotsInput = {
+  where?: Prisma.ProductVariantWhereInput
+  data: Prisma.XOR<Prisma.ProductVariantUpdateWithoutFlashSaleSlotsInput, Prisma.ProductVariantUncheckedUpdateWithoutFlashSaleSlotsInput>
+}
+
+export type ProductVariantUpdateWithoutFlashSaleSlotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
+  optionValues?: Prisma.ProductVariantOptionValueUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantUncheckedUpdateWithoutFlashSaleSlotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUncheckedUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantCreateWithoutRegionalPricingsInput = {
+  id?: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutVariantsInput
+  optionValues?: Prisma.ProductVariantOptionValueCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantUncheckedCreateWithoutRegionalPricingsInput = {
+  id?: string
+  productId: string
+  sku?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: number
+  reservedStock?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedCreateNestedManyWithoutVariantInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedCreateNestedManyWithoutVariantInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutVariantInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedCreateNestedManyWithoutVariantInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedCreateNestedManyWithoutVariantInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedCreateNestedManyWithoutVariantInput
+  returnItems?: Prisma.ReturnItemUncheckedCreateNestedManyWithoutVariantInput
+}
+
+export type ProductVariantCreateOrConnectWithoutRegionalPricingsInput = {
+  where: Prisma.ProductVariantWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutRegionalPricingsInput, Prisma.ProductVariantUncheckedCreateWithoutRegionalPricingsInput>
+}
+
+export type ProductVariantUpsertWithoutRegionalPricingsInput = {
+  update: Prisma.XOR<Prisma.ProductVariantUpdateWithoutRegionalPricingsInput, Prisma.ProductVariantUncheckedUpdateWithoutRegionalPricingsInput>
+  create: Prisma.XOR<Prisma.ProductVariantCreateWithoutRegionalPricingsInput, Prisma.ProductVariantUncheckedCreateWithoutRegionalPricingsInput>
+  where?: Prisma.ProductVariantWhereInput
+}
+
+export type ProductVariantUpdateToOneWithWhereWithoutRegionalPricingsInput = {
+  where?: Prisma.ProductVariantWhereInput
+  data: Prisma.XOR<Prisma.ProductVariantUpdateWithoutRegionalPricingsInput, Prisma.ProductVariantUncheckedUpdateWithoutRegionalPricingsInput>
+}
+
+export type ProductVariantUpdateWithoutRegionalPricingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutVariantsNestedInput
+  optionValues?: Prisma.ProductVariantOptionValueUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUpdateManyWithoutVariantNestedInput
+}
+
+export type ProductVariantUncheckedUpdateWithoutRegionalPricingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  stock?: Prisma.IntFieldUpdateOperationsInput | number
+  reservedStock?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  optionValues?: Prisma.ProductVariantOptionValueUncheckedUpdateManyWithoutVariantNestedInput
+  sellerOrderItems?: Prisma.SellerOrderItemUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransactions?: Prisma.InventoryTransactionUncheckedUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type ProductVariantCreateManyProductInput = {
@@ -887,6 +1686,12 @@ export type ProductVariantUpdateWithoutProductInput = {
   optionValues?: Prisma.ProductVariantOptionValueUpdateManyWithoutVariantNestedInput
   sellerOrderItems?: Prisma.SellerOrderItemUpdateManyWithoutVariantNestedInput
   inventoryTransactions?: Prisma.InventoryTransactionUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUpdateManyWithoutVariantNestedInput
 }
 
 export type ProductVariantUncheckedUpdateWithoutProductInput = {
@@ -901,6 +1706,12 @@ export type ProductVariantUncheckedUpdateWithoutProductInput = {
   optionValues?: Prisma.ProductVariantOptionValueUncheckedUpdateManyWithoutVariantNestedInput
   sellerOrderItems?: Prisma.SellerOrderItemUncheckedUpdateManyWithoutVariantNestedInput
   inventoryTransactions?: Prisma.InventoryTransactionUncheckedUpdateManyWithoutVariantNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutVariantNestedInput
+  warehouseStocks?: Prisma.WarehouseStockUncheckedUpdateManyWithoutVariantNestedInput
+  inventoryTransferItems?: Prisma.InventoryTransferItemUncheckedUpdateManyWithoutVariantNestedInput
+  flashSaleSlots?: Prisma.FlashSaleSlotUncheckedUpdateManyWithoutVariantNestedInput
+  returnItems?: Prisma.ReturnItemUncheckedUpdateManyWithoutVariantNestedInput
+  regionalPricings?: Prisma.RegionalPricingUncheckedUpdateManyWithoutVariantNestedInput
 }
 
 export type ProductVariantUncheckedUpdateManyWithoutProductInput = {
@@ -923,12 +1734,24 @@ export type ProductVariantCountOutputType = {
   optionValues: number
   sellerOrderItems: number
   inventoryTransactions: number
+  productImages: number
+  warehouseStocks: number
+  inventoryTransferItems: number
+  flashSaleSlots: number
+  returnItems: number
+  regionalPricings: number
 }
 
 export type ProductVariantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   optionValues?: boolean | ProductVariantCountOutputTypeCountOptionValuesArgs
   sellerOrderItems?: boolean | ProductVariantCountOutputTypeCountSellerOrderItemsArgs
   inventoryTransactions?: boolean | ProductVariantCountOutputTypeCountInventoryTransactionsArgs
+  productImages?: boolean | ProductVariantCountOutputTypeCountProductImagesArgs
+  warehouseStocks?: boolean | ProductVariantCountOutputTypeCountWarehouseStocksArgs
+  inventoryTransferItems?: boolean | ProductVariantCountOutputTypeCountInventoryTransferItemsArgs
+  flashSaleSlots?: boolean | ProductVariantCountOutputTypeCountFlashSaleSlotsArgs
+  returnItems?: boolean | ProductVariantCountOutputTypeCountReturnItemsArgs
+  regionalPricings?: boolean | ProductVariantCountOutputTypeCountRegionalPricingsArgs
 }
 
 /**
@@ -962,6 +1785,48 @@ export type ProductVariantCountOutputTypeCountInventoryTransactionsArgs<ExtArgs 
   where?: Prisma.InventoryTransactionWhereInput
 }
 
+/**
+ * ProductVariantCountOutputType without action
+ */
+export type ProductVariantCountOutputTypeCountProductImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductImageWhereInput
+}
+
+/**
+ * ProductVariantCountOutputType without action
+ */
+export type ProductVariantCountOutputTypeCountWarehouseStocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WarehouseStockWhereInput
+}
+
+/**
+ * ProductVariantCountOutputType without action
+ */
+export type ProductVariantCountOutputTypeCountInventoryTransferItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InventoryTransferItemWhereInput
+}
+
+/**
+ * ProductVariantCountOutputType without action
+ */
+export type ProductVariantCountOutputTypeCountFlashSaleSlotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FlashSaleSlotWhereInput
+}
+
+/**
+ * ProductVariantCountOutputType without action
+ */
+export type ProductVariantCountOutputTypeCountReturnItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReturnItemWhereInput
+}
+
+/**
+ * ProductVariantCountOutputType without action
+ */
+export type ProductVariantCountOutputTypeCountRegionalPricingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RegionalPricingWhereInput
+}
+
 
 export type ProductVariantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -977,6 +1842,12 @@ export type ProductVariantSelect<ExtArgs extends runtime.Types.Extensions.Intern
   optionValues?: boolean | Prisma.ProductVariant$optionValuesArgs<ExtArgs>
   sellerOrderItems?: boolean | Prisma.ProductVariant$sellerOrderItemsArgs<ExtArgs>
   inventoryTransactions?: boolean | Prisma.ProductVariant$inventoryTransactionsArgs<ExtArgs>
+  productImages?: boolean | Prisma.ProductVariant$productImagesArgs<ExtArgs>
+  warehouseStocks?: boolean | Prisma.ProductVariant$warehouseStocksArgs<ExtArgs>
+  inventoryTransferItems?: boolean | Prisma.ProductVariant$inventoryTransferItemsArgs<ExtArgs>
+  flashSaleSlots?: boolean | Prisma.ProductVariant$flashSaleSlotsArgs<ExtArgs>
+  returnItems?: boolean | Prisma.ProductVariant$returnItemsArgs<ExtArgs>
+  regionalPricings?: boolean | Prisma.ProductVariant$regionalPricingsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductVariantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productVariant"]>
 
@@ -1024,6 +1895,12 @@ export type ProductVariantInclude<ExtArgs extends runtime.Types.Extensions.Inter
   optionValues?: boolean | Prisma.ProductVariant$optionValuesArgs<ExtArgs>
   sellerOrderItems?: boolean | Prisma.ProductVariant$sellerOrderItemsArgs<ExtArgs>
   inventoryTransactions?: boolean | Prisma.ProductVariant$inventoryTransactionsArgs<ExtArgs>
+  productImages?: boolean | Prisma.ProductVariant$productImagesArgs<ExtArgs>
+  warehouseStocks?: boolean | Prisma.ProductVariant$warehouseStocksArgs<ExtArgs>
+  inventoryTransferItems?: boolean | Prisma.ProductVariant$inventoryTransferItemsArgs<ExtArgs>
+  flashSaleSlots?: boolean | Prisma.ProductVariant$flashSaleSlotsArgs<ExtArgs>
+  returnItems?: boolean | Prisma.ProductVariant$returnItemsArgs<ExtArgs>
+  regionalPricings?: boolean | Prisma.ProductVariant$regionalPricingsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductVariantCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProductVariantIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1040,6 +1917,12 @@ export type $ProductVariantPayload<ExtArgs extends runtime.Types.Extensions.Inte
     optionValues: Prisma.$ProductVariantOptionValuePayload<ExtArgs>[]
     sellerOrderItems: Prisma.$SellerOrderItemPayload<ExtArgs>[]
     inventoryTransactions: Prisma.$InventoryTransactionPayload<ExtArgs>[]
+    productImages: Prisma.$ProductImagePayload<ExtArgs>[]
+    warehouseStocks: Prisma.$WarehouseStockPayload<ExtArgs>[]
+    inventoryTransferItems: Prisma.$InventoryTransferItemPayload<ExtArgs>[]
+    flashSaleSlots: Prisma.$FlashSaleSlotPayload<ExtArgs>[]
+    returnItems: Prisma.$ReturnItemPayload<ExtArgs>[]
+    regionalPricings: Prisma.$RegionalPricingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1449,6 +2332,12 @@ export interface Prisma__ProductVariantClient<T, Null = never, ExtArgs extends r
   optionValues<T extends Prisma.ProductVariant$optionValuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariant$optionValuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductVariantOptionValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sellerOrderItems<T extends Prisma.ProductVariant$sellerOrderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariant$sellerOrderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SellerOrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inventoryTransactions<T extends Prisma.ProductVariant$inventoryTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariant$inventoryTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventoryTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productImages<T extends Prisma.ProductVariant$productImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariant$productImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  warehouseStocks<T extends Prisma.ProductVariant$warehouseStocksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariant$warehouseStocksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WarehouseStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inventoryTransferItems<T extends Prisma.ProductVariant$inventoryTransferItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariant$inventoryTransferItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventoryTransferItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  flashSaleSlots<T extends Prisma.ProductVariant$flashSaleSlotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariant$flashSaleSlotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlashSaleSlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  returnItems<T extends Prisma.ProductVariant$returnItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariant$returnItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReturnItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  regionalPricings<T extends Prisma.ProductVariant$regionalPricingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariant$regionalPricingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RegionalPricingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1957,6 +2846,150 @@ export type ProductVariant$inventoryTransactionsArgs<ExtArgs extends runtime.Typ
   take?: number
   skip?: number
   distinct?: Prisma.InventoryTransactionScalarFieldEnum | Prisma.InventoryTransactionScalarFieldEnum[]
+}
+
+/**
+ * ProductVariant.productImages
+ */
+export type ProductVariant$productImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductImage
+   */
+  select?: Prisma.ProductImageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductImage
+   */
+  omit?: Prisma.ProductImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductImageInclude<ExtArgs> | null
+  where?: Prisma.ProductImageWhereInput
+  orderBy?: Prisma.ProductImageOrderByWithRelationInput | Prisma.ProductImageOrderByWithRelationInput[]
+  cursor?: Prisma.ProductImageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductImageScalarFieldEnum | Prisma.ProductImageScalarFieldEnum[]
+}
+
+/**
+ * ProductVariant.warehouseStocks
+ */
+export type ProductVariant$warehouseStocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WarehouseStock
+   */
+  select?: Prisma.WarehouseStockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WarehouseStock
+   */
+  omit?: Prisma.WarehouseStockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WarehouseStockInclude<ExtArgs> | null
+  where?: Prisma.WarehouseStockWhereInput
+  orderBy?: Prisma.WarehouseStockOrderByWithRelationInput | Prisma.WarehouseStockOrderByWithRelationInput[]
+  cursor?: Prisma.WarehouseStockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WarehouseStockScalarFieldEnum | Prisma.WarehouseStockScalarFieldEnum[]
+}
+
+/**
+ * ProductVariant.inventoryTransferItems
+ */
+export type ProductVariant$inventoryTransferItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InventoryTransferItem
+   */
+  select?: Prisma.InventoryTransferItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InventoryTransferItem
+   */
+  omit?: Prisma.InventoryTransferItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InventoryTransferItemInclude<ExtArgs> | null
+  where?: Prisma.InventoryTransferItemWhereInput
+  orderBy?: Prisma.InventoryTransferItemOrderByWithRelationInput | Prisma.InventoryTransferItemOrderByWithRelationInput[]
+  cursor?: Prisma.InventoryTransferItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InventoryTransferItemScalarFieldEnum | Prisma.InventoryTransferItemScalarFieldEnum[]
+}
+
+/**
+ * ProductVariant.flashSaleSlots
+ */
+export type ProductVariant$flashSaleSlotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FlashSaleSlot
+   */
+  select?: Prisma.FlashSaleSlotSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FlashSaleSlot
+   */
+  omit?: Prisma.FlashSaleSlotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSaleSlotInclude<ExtArgs> | null
+  where?: Prisma.FlashSaleSlotWhereInput
+  orderBy?: Prisma.FlashSaleSlotOrderByWithRelationInput | Prisma.FlashSaleSlotOrderByWithRelationInput[]
+  cursor?: Prisma.FlashSaleSlotWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FlashSaleSlotScalarFieldEnum | Prisma.FlashSaleSlotScalarFieldEnum[]
+}
+
+/**
+ * ProductVariant.returnItems
+ */
+export type ProductVariant$returnItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReturnItem
+   */
+  select?: Prisma.ReturnItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReturnItem
+   */
+  omit?: Prisma.ReturnItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReturnItemInclude<ExtArgs> | null
+  where?: Prisma.ReturnItemWhereInput
+  orderBy?: Prisma.ReturnItemOrderByWithRelationInput | Prisma.ReturnItemOrderByWithRelationInput[]
+  cursor?: Prisma.ReturnItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReturnItemScalarFieldEnum | Prisma.ReturnItemScalarFieldEnum[]
+}
+
+/**
+ * ProductVariant.regionalPricings
+ */
+export type ProductVariant$regionalPricingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RegionalPricing
+   */
+  select?: Prisma.RegionalPricingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RegionalPricing
+   */
+  omit?: Prisma.RegionalPricingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RegionalPricingInclude<ExtArgs> | null
+  where?: Prisma.RegionalPricingWhereInput
+  orderBy?: Prisma.RegionalPricingOrderByWithRelationInput | Prisma.RegionalPricingOrderByWithRelationInput[]
+  cursor?: Prisma.RegionalPricingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RegionalPricingScalarFieldEnum | Prisma.RegionalPricingScalarFieldEnum[]
 }
 
 /**

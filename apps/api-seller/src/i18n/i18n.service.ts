@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import type { PrismaService } from '@ecom/database'
+import { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
 import type { CreateTranslationDto, CreateCurrencyDto, CreateRegionDto } from './dto/i18n.dto'
 import { withDefined } from '@ecom/shared/utils'
@@ -104,10 +104,19 @@ export class I18nService {
     const region = await this.prisma.region.findUnique({ where: { code: regionCode } })
     if (!region) throw new NotFoundException('Region not found')
 
-    return this.prisma.regionalPricing.upsert({
-      where: { productId_regionId: { productId, regionId: region.id } },
-      update: { price, currencyCode: region.defaultCurrencyId ?? 'USD' },
-      create: {
+    const existing = await this.prisma.regionalPricing.findFirst({
+      where: { productId, regionId: region.id, variantId: null },
+    })
+
+    if (existing) {
+      return this.prisma.regionalPricing.update({
+        where: { id: existing.id },
+        data: { price, currencyCode: region.defaultCurrencyId ?? 'USD' },
+      })
+    }
+
+    return this.prisma.regionalPricing.create({
+      data: {
         productId,
         regionId: region.id,
         price,

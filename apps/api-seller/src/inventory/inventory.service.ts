@@ -3,7 +3,7 @@ import { PAGINATION_DEFAULTS } from '@ecom/shared/pagination/core'
 import { buildOffsetResponse } from '@ecom/shared/pagination/prisma'
 import { BadRequestException, Injectable } from '@nestjs/common'
 import type { InventoryQueryDto } from './dto/inventory-query.dto'
-import type { InventoryRepository } from './repositories/inventory.repository'
+import { InventoryRepository } from './repositories/inventory.repository'
 
 const LOW_STOCK_THRESHOLD = 10
 

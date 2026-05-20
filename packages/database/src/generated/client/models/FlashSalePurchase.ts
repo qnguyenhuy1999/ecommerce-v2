@@ -224,6 +224,9 @@ export type FlashSalePurchaseWhereInput = {
   orderId?: Prisma.UuidNullableFilter<"FlashSalePurchase"> | string | null
   quantity?: Prisma.IntFilter<"FlashSalePurchase"> | number
   createdAt?: Prisma.DateTimeFilter<"FlashSalePurchase"> | Date | string
+  slot?: Prisma.XOR<Prisma.FlashSaleSlotScalarRelationFilter, Prisma.FlashSaleSlotWhereInput>
+  buyer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  order?: Prisma.XOR<Prisma.OrderNullableScalarRelationFilter, Prisma.OrderWhereInput> | null
 }
 
 export type FlashSalePurchaseOrderByWithRelationInput = {
@@ -233,6 +236,9 @@ export type FlashSalePurchaseOrderByWithRelationInput = {
   orderId?: Prisma.SortOrderInput | Prisma.SortOrder
   quantity?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  slot?: Prisma.FlashSaleSlotOrderByWithRelationInput
+  buyer?: Prisma.UserOrderByWithRelationInput
+  order?: Prisma.OrderOrderByWithRelationInput
 }
 
 export type FlashSalePurchaseWhereUniqueInput = Prisma.AtLeast<{
@@ -245,6 +251,9 @@ export type FlashSalePurchaseWhereUniqueInput = Prisma.AtLeast<{
   orderId?: Prisma.UuidNullableFilter<"FlashSalePurchase"> | string | null
   quantity?: Prisma.IntFilter<"FlashSalePurchase"> | number
   createdAt?: Prisma.DateTimeFilter<"FlashSalePurchase"> | Date | string
+  slot?: Prisma.XOR<Prisma.FlashSaleSlotScalarRelationFilter, Prisma.FlashSaleSlotWhereInput>
+  buyer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  order?: Prisma.XOR<Prisma.OrderNullableScalarRelationFilter, Prisma.OrderWhereInput> | null
 }, "id">
 
 export type FlashSalePurchaseOrderByWithAggregationInput = {
@@ -275,11 +284,11 @@ export type FlashSalePurchaseScalarWhereWithAggregatesInput = {
 
 export type FlashSalePurchaseCreateInput = {
   id?: string
-  slotId: string
-  buyerId: string
-  orderId?: string | null
   quantity: number
   createdAt?: Date | string
+  slot: Prisma.FlashSaleSlotCreateNestedOneWithoutPurchasesInput
+  buyer: Prisma.UserCreateNestedOneWithoutFlashSalePurchasesInput
+  order?: Prisma.OrderCreateNestedOneWithoutFlashSalePurchasesInput
 }
 
 export type FlashSalePurchaseUncheckedCreateInput = {
@@ -293,11 +302,11 @@ export type FlashSalePurchaseUncheckedCreateInput = {
 
 export type FlashSalePurchaseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  slotId?: Prisma.StringFieldUpdateOperationsInput | string
-  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slot?: Prisma.FlashSaleSlotUpdateOneRequiredWithoutPurchasesNestedInput
+  buyer?: Prisma.UserUpdateOneRequiredWithoutFlashSalePurchasesNestedInput
+  order?: Prisma.OrderUpdateOneWithoutFlashSalePurchasesNestedInput
 }
 
 export type FlashSalePurchaseUncheckedUpdateInput = {
@@ -320,9 +329,6 @@ export type FlashSalePurchaseCreateManyInput = {
 
 export type FlashSalePurchaseUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  slotId?: Prisma.StringFieldUpdateOperationsInput | string
-  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -334,6 +340,16 @@ export type FlashSalePurchaseUncheckedUpdateManyInput = {
   orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FlashSalePurchaseListRelationFilter = {
+  every?: Prisma.FlashSalePurchaseWhereInput
+  some?: Prisma.FlashSalePurchaseWhereInput
+  none?: Prisma.FlashSalePurchaseWhereInput
+}
+
+export type FlashSalePurchaseOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type FlashSalePurchaseCountOrderByAggregateInput = {
@@ -371,6 +387,366 @@ export type FlashSalePurchaseSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
 }
 
+export type FlashSalePurchaseCreateNestedManyWithoutBuyerInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutBuyerInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutBuyerInput> | Prisma.FlashSalePurchaseCreateWithoutBuyerInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutBuyerInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutBuyerInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManyBuyerInputEnvelope
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+}
+
+export type FlashSalePurchaseUncheckedCreateNestedManyWithoutBuyerInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutBuyerInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutBuyerInput> | Prisma.FlashSalePurchaseCreateWithoutBuyerInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutBuyerInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutBuyerInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManyBuyerInputEnvelope
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+}
+
+export type FlashSalePurchaseUpdateManyWithoutBuyerNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutBuyerInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutBuyerInput> | Prisma.FlashSalePurchaseCreateWithoutBuyerInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutBuyerInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutBuyerInput[]
+  upsert?: Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutBuyerInput | Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutBuyerInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManyBuyerInputEnvelope
+  set?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  disconnect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  delete?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  update?: Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutBuyerInput | Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutBuyerInput[]
+  updateMany?: Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutBuyerInput | Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutBuyerInput[]
+  deleteMany?: Prisma.FlashSalePurchaseScalarWhereInput | Prisma.FlashSalePurchaseScalarWhereInput[]
+}
+
+export type FlashSalePurchaseUncheckedUpdateManyWithoutBuyerNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutBuyerInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutBuyerInput> | Prisma.FlashSalePurchaseCreateWithoutBuyerInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutBuyerInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutBuyerInput[]
+  upsert?: Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutBuyerInput | Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutBuyerInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManyBuyerInputEnvelope
+  set?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  disconnect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  delete?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  update?: Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutBuyerInput | Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutBuyerInput[]
+  updateMany?: Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutBuyerInput | Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutBuyerInput[]
+  deleteMany?: Prisma.FlashSalePurchaseScalarWhereInput | Prisma.FlashSalePurchaseScalarWhereInput[]
+}
+
+export type FlashSalePurchaseCreateNestedManyWithoutOrderInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutOrderInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutOrderInput> | Prisma.FlashSalePurchaseCreateWithoutOrderInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutOrderInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutOrderInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutOrderInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManyOrderInputEnvelope
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+}
+
+export type FlashSalePurchaseUncheckedCreateNestedManyWithoutOrderInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutOrderInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutOrderInput> | Prisma.FlashSalePurchaseCreateWithoutOrderInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutOrderInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutOrderInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutOrderInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManyOrderInputEnvelope
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+}
+
+export type FlashSalePurchaseUpdateManyWithoutOrderNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutOrderInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutOrderInput> | Prisma.FlashSalePurchaseCreateWithoutOrderInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutOrderInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutOrderInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutOrderInput[]
+  upsert?: Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutOrderInput | Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutOrderInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManyOrderInputEnvelope
+  set?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  disconnect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  delete?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  update?: Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutOrderInput | Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutOrderInput[]
+  updateMany?: Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutOrderInput | Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutOrderInput[]
+  deleteMany?: Prisma.FlashSalePurchaseScalarWhereInput | Prisma.FlashSalePurchaseScalarWhereInput[]
+}
+
+export type FlashSalePurchaseUncheckedUpdateManyWithoutOrderNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutOrderInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutOrderInput> | Prisma.FlashSalePurchaseCreateWithoutOrderInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutOrderInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutOrderInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutOrderInput[]
+  upsert?: Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutOrderInput | Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutOrderInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManyOrderInputEnvelope
+  set?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  disconnect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  delete?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  update?: Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutOrderInput | Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutOrderInput[]
+  updateMany?: Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutOrderInput | Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutOrderInput[]
+  deleteMany?: Prisma.FlashSalePurchaseScalarWhereInput | Prisma.FlashSalePurchaseScalarWhereInput[]
+}
+
+export type FlashSalePurchaseCreateNestedManyWithoutSlotInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutSlotInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutSlotInput> | Prisma.FlashSalePurchaseCreateWithoutSlotInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutSlotInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutSlotInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutSlotInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManySlotInputEnvelope
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+}
+
+export type FlashSalePurchaseUncheckedCreateNestedManyWithoutSlotInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutSlotInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutSlotInput> | Prisma.FlashSalePurchaseCreateWithoutSlotInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutSlotInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutSlotInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutSlotInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManySlotInputEnvelope
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+}
+
+export type FlashSalePurchaseUpdateManyWithoutSlotNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutSlotInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutSlotInput> | Prisma.FlashSalePurchaseCreateWithoutSlotInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutSlotInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutSlotInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutSlotInput[]
+  upsert?: Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutSlotInput | Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutSlotInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManySlotInputEnvelope
+  set?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  disconnect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  delete?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  update?: Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutSlotInput | Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutSlotInput[]
+  updateMany?: Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutSlotInput | Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutSlotInput[]
+  deleteMany?: Prisma.FlashSalePurchaseScalarWhereInput | Prisma.FlashSalePurchaseScalarWhereInput[]
+}
+
+export type FlashSalePurchaseUncheckedUpdateManyWithoutSlotNestedInput = {
+  create?: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutSlotInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutSlotInput> | Prisma.FlashSalePurchaseCreateWithoutSlotInput[] | Prisma.FlashSalePurchaseUncheckedCreateWithoutSlotInput[]
+  connectOrCreate?: Prisma.FlashSalePurchaseCreateOrConnectWithoutSlotInput | Prisma.FlashSalePurchaseCreateOrConnectWithoutSlotInput[]
+  upsert?: Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutSlotInput | Prisma.FlashSalePurchaseUpsertWithWhereUniqueWithoutSlotInput[]
+  createMany?: Prisma.FlashSalePurchaseCreateManySlotInputEnvelope
+  set?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  disconnect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  delete?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  connect?: Prisma.FlashSalePurchaseWhereUniqueInput | Prisma.FlashSalePurchaseWhereUniqueInput[]
+  update?: Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutSlotInput | Prisma.FlashSalePurchaseUpdateWithWhereUniqueWithoutSlotInput[]
+  updateMany?: Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutSlotInput | Prisma.FlashSalePurchaseUpdateManyWithWhereWithoutSlotInput[]
+  deleteMany?: Prisma.FlashSalePurchaseScalarWhereInput | Prisma.FlashSalePurchaseScalarWhereInput[]
+}
+
+export type FlashSalePurchaseCreateWithoutBuyerInput = {
+  id?: string
+  quantity: number
+  createdAt?: Date | string
+  slot: Prisma.FlashSaleSlotCreateNestedOneWithoutPurchasesInput
+  order?: Prisma.OrderCreateNestedOneWithoutFlashSalePurchasesInput
+}
+
+export type FlashSalePurchaseUncheckedCreateWithoutBuyerInput = {
+  id?: string
+  slotId: string
+  orderId?: string | null
+  quantity: number
+  createdAt?: Date | string
+}
+
+export type FlashSalePurchaseCreateOrConnectWithoutBuyerInput = {
+  where: Prisma.FlashSalePurchaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutBuyerInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutBuyerInput>
+}
+
+export type FlashSalePurchaseCreateManyBuyerInputEnvelope = {
+  data: Prisma.FlashSalePurchaseCreateManyBuyerInput | Prisma.FlashSalePurchaseCreateManyBuyerInput[]
+  skipDuplicates?: boolean
+}
+
+export type FlashSalePurchaseUpsertWithWhereUniqueWithoutBuyerInput = {
+  where: Prisma.FlashSalePurchaseWhereUniqueInput
+  update: Prisma.XOR<Prisma.FlashSalePurchaseUpdateWithoutBuyerInput, Prisma.FlashSalePurchaseUncheckedUpdateWithoutBuyerInput>
+  create: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutBuyerInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutBuyerInput>
+}
+
+export type FlashSalePurchaseUpdateWithWhereUniqueWithoutBuyerInput = {
+  where: Prisma.FlashSalePurchaseWhereUniqueInput
+  data: Prisma.XOR<Prisma.FlashSalePurchaseUpdateWithoutBuyerInput, Prisma.FlashSalePurchaseUncheckedUpdateWithoutBuyerInput>
+}
+
+export type FlashSalePurchaseUpdateManyWithWhereWithoutBuyerInput = {
+  where: Prisma.FlashSalePurchaseScalarWhereInput
+  data: Prisma.XOR<Prisma.FlashSalePurchaseUpdateManyMutationInput, Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutBuyerInput>
+}
+
+export type FlashSalePurchaseScalarWhereInput = {
+  AND?: Prisma.FlashSalePurchaseScalarWhereInput | Prisma.FlashSalePurchaseScalarWhereInput[]
+  OR?: Prisma.FlashSalePurchaseScalarWhereInput[]
+  NOT?: Prisma.FlashSalePurchaseScalarWhereInput | Prisma.FlashSalePurchaseScalarWhereInput[]
+  id?: Prisma.UuidFilter<"FlashSalePurchase"> | string
+  slotId?: Prisma.UuidFilter<"FlashSalePurchase"> | string
+  buyerId?: Prisma.UuidFilter<"FlashSalePurchase"> | string
+  orderId?: Prisma.UuidNullableFilter<"FlashSalePurchase"> | string | null
+  quantity?: Prisma.IntFilter<"FlashSalePurchase"> | number
+  createdAt?: Prisma.DateTimeFilter<"FlashSalePurchase"> | Date | string
+}
+
+export type FlashSalePurchaseCreateWithoutOrderInput = {
+  id?: string
+  quantity: number
+  createdAt?: Date | string
+  slot: Prisma.FlashSaleSlotCreateNestedOneWithoutPurchasesInput
+  buyer: Prisma.UserCreateNestedOneWithoutFlashSalePurchasesInput
+}
+
+export type FlashSalePurchaseUncheckedCreateWithoutOrderInput = {
+  id?: string
+  slotId: string
+  buyerId: string
+  quantity: number
+  createdAt?: Date | string
+}
+
+export type FlashSalePurchaseCreateOrConnectWithoutOrderInput = {
+  where: Prisma.FlashSalePurchaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutOrderInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutOrderInput>
+}
+
+export type FlashSalePurchaseCreateManyOrderInputEnvelope = {
+  data: Prisma.FlashSalePurchaseCreateManyOrderInput | Prisma.FlashSalePurchaseCreateManyOrderInput[]
+  skipDuplicates?: boolean
+}
+
+export type FlashSalePurchaseUpsertWithWhereUniqueWithoutOrderInput = {
+  where: Prisma.FlashSalePurchaseWhereUniqueInput
+  update: Prisma.XOR<Prisma.FlashSalePurchaseUpdateWithoutOrderInput, Prisma.FlashSalePurchaseUncheckedUpdateWithoutOrderInput>
+  create: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutOrderInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutOrderInput>
+}
+
+export type FlashSalePurchaseUpdateWithWhereUniqueWithoutOrderInput = {
+  where: Prisma.FlashSalePurchaseWhereUniqueInput
+  data: Prisma.XOR<Prisma.FlashSalePurchaseUpdateWithoutOrderInput, Prisma.FlashSalePurchaseUncheckedUpdateWithoutOrderInput>
+}
+
+export type FlashSalePurchaseUpdateManyWithWhereWithoutOrderInput = {
+  where: Prisma.FlashSalePurchaseScalarWhereInput
+  data: Prisma.XOR<Prisma.FlashSalePurchaseUpdateManyMutationInput, Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutOrderInput>
+}
+
+export type FlashSalePurchaseCreateWithoutSlotInput = {
+  id?: string
+  quantity: number
+  createdAt?: Date | string
+  buyer: Prisma.UserCreateNestedOneWithoutFlashSalePurchasesInput
+  order?: Prisma.OrderCreateNestedOneWithoutFlashSalePurchasesInput
+}
+
+export type FlashSalePurchaseUncheckedCreateWithoutSlotInput = {
+  id?: string
+  buyerId: string
+  orderId?: string | null
+  quantity: number
+  createdAt?: Date | string
+}
+
+export type FlashSalePurchaseCreateOrConnectWithoutSlotInput = {
+  where: Prisma.FlashSalePurchaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutSlotInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutSlotInput>
+}
+
+export type FlashSalePurchaseCreateManySlotInputEnvelope = {
+  data: Prisma.FlashSalePurchaseCreateManySlotInput | Prisma.FlashSalePurchaseCreateManySlotInput[]
+  skipDuplicates?: boolean
+}
+
+export type FlashSalePurchaseUpsertWithWhereUniqueWithoutSlotInput = {
+  where: Prisma.FlashSalePurchaseWhereUniqueInput
+  update: Prisma.XOR<Prisma.FlashSalePurchaseUpdateWithoutSlotInput, Prisma.FlashSalePurchaseUncheckedUpdateWithoutSlotInput>
+  create: Prisma.XOR<Prisma.FlashSalePurchaseCreateWithoutSlotInput, Prisma.FlashSalePurchaseUncheckedCreateWithoutSlotInput>
+}
+
+export type FlashSalePurchaseUpdateWithWhereUniqueWithoutSlotInput = {
+  where: Prisma.FlashSalePurchaseWhereUniqueInput
+  data: Prisma.XOR<Prisma.FlashSalePurchaseUpdateWithoutSlotInput, Prisma.FlashSalePurchaseUncheckedUpdateWithoutSlotInput>
+}
+
+export type FlashSalePurchaseUpdateManyWithWhereWithoutSlotInput = {
+  where: Prisma.FlashSalePurchaseScalarWhereInput
+  data: Prisma.XOR<Prisma.FlashSalePurchaseUpdateManyMutationInput, Prisma.FlashSalePurchaseUncheckedUpdateManyWithoutSlotInput>
+}
+
+export type FlashSalePurchaseCreateManyBuyerInput = {
+  id?: string
+  slotId: string
+  orderId?: string | null
+  quantity: number
+  createdAt?: Date | string
+}
+
+export type FlashSalePurchaseUpdateWithoutBuyerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slot?: Prisma.FlashSaleSlotUpdateOneRequiredWithoutPurchasesNestedInput
+  order?: Prisma.OrderUpdateOneWithoutFlashSalePurchasesNestedInput
+}
+
+export type FlashSalePurchaseUncheckedUpdateWithoutBuyerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slotId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FlashSalePurchaseUncheckedUpdateManyWithoutBuyerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slotId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FlashSalePurchaseCreateManyOrderInput = {
+  id?: string
+  slotId: string
+  buyerId: string
+  quantity: number
+  createdAt?: Date | string
+}
+
+export type FlashSalePurchaseUpdateWithoutOrderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slot?: Prisma.FlashSaleSlotUpdateOneRequiredWithoutPurchasesNestedInput
+  buyer?: Prisma.UserUpdateOneRequiredWithoutFlashSalePurchasesNestedInput
+}
+
+export type FlashSalePurchaseUncheckedUpdateWithoutOrderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slotId?: Prisma.StringFieldUpdateOperationsInput | string
+  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FlashSalePurchaseUncheckedUpdateManyWithoutOrderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slotId?: Prisma.StringFieldUpdateOperationsInput | string
+  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FlashSalePurchaseCreateManySlotInput = {
+  id?: string
+  buyerId: string
+  orderId?: string | null
+  quantity: number
+  createdAt?: Date | string
+}
+
+export type FlashSalePurchaseUpdateWithoutSlotInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  buyer?: Prisma.UserUpdateOneRequiredWithoutFlashSalePurchasesNestedInput
+  order?: Prisma.OrderUpdateOneWithoutFlashSalePurchasesNestedInput
+}
+
+export type FlashSalePurchaseUncheckedUpdateWithoutSlotInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FlashSalePurchaseUncheckedUpdateManyWithoutSlotInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type FlashSalePurchaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -380,6 +756,9 @@ export type FlashSalePurchaseSelect<ExtArgs extends runtime.Types.Extensions.Int
   orderId?: boolean
   quantity?: boolean
   createdAt?: boolean
+  slot?: boolean | Prisma.FlashSaleSlotDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.FlashSalePurchase$orderArgs<ExtArgs>
 }, ExtArgs["result"]["flashSalePurchase"]>
 
 export type FlashSalePurchaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -389,6 +768,9 @@ export type FlashSalePurchaseSelectCreateManyAndReturn<ExtArgs extends runtime.T
   orderId?: boolean
   quantity?: boolean
   createdAt?: boolean
+  slot?: boolean | Prisma.FlashSaleSlotDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.FlashSalePurchase$orderArgs<ExtArgs>
 }, ExtArgs["result"]["flashSalePurchase"]>
 
 export type FlashSalePurchaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -398,6 +780,9 @@ export type FlashSalePurchaseSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   orderId?: boolean
   quantity?: boolean
   createdAt?: boolean
+  slot?: boolean | Prisma.FlashSaleSlotDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.FlashSalePurchase$orderArgs<ExtArgs>
 }, ExtArgs["result"]["flashSalePurchase"]>
 
 export type FlashSalePurchaseSelectScalar = {
@@ -410,10 +795,29 @@ export type FlashSalePurchaseSelectScalar = {
 }
 
 export type FlashSalePurchaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slotId" | "buyerId" | "orderId" | "quantity" | "createdAt", ExtArgs["result"]["flashSalePurchase"]>
+export type FlashSalePurchaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  slot?: boolean | Prisma.FlashSaleSlotDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.FlashSalePurchase$orderArgs<ExtArgs>
+}
+export type FlashSalePurchaseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  slot?: boolean | Prisma.FlashSaleSlotDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.FlashSalePurchase$orderArgs<ExtArgs>
+}
+export type FlashSalePurchaseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  slot?: boolean | Prisma.FlashSaleSlotDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  order?: boolean | Prisma.FlashSalePurchase$orderArgs<ExtArgs>
+}
 
 export type $FlashSalePurchasePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FlashSalePurchase"
-  objects: {}
+  objects: {
+    slot: Prisma.$FlashSaleSlotPayload<ExtArgs>
+    buyer: Prisma.$UserPayload<ExtArgs>
+    order: Prisma.$OrderPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     slotId: string
@@ -815,6 +1219,9 @@ readonly fields: FlashSalePurchaseFieldRefs;
  */
 export interface Prisma__FlashSalePurchaseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  slot<T extends Prisma.FlashSaleSlotDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FlashSaleSlotDefaultArgs<ExtArgs>>): Prisma.Prisma__FlashSaleSlotClient<runtime.Types.Result.GetResult<Prisma.$FlashSaleSlotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  buyer<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  order<T extends Prisma.FlashSalePurchase$orderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FlashSalePurchase$orderArgs<ExtArgs>>): Prisma.Prisma__OrderClient<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -867,6 +1274,10 @@ export type FlashSalePurchaseFindUniqueArgs<ExtArgs extends runtime.Types.Extens
    */
   omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
+  /**
    * Filter, which FlashSalePurchase to fetch.
    */
   where: Prisma.FlashSalePurchaseWhereUniqueInput
@@ -885,6 +1296,10 @@ export type FlashSalePurchaseFindUniqueOrThrowArgs<ExtArgs extends runtime.Types
    */
   omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
+  /**
    * Filter, which FlashSalePurchase to fetch.
    */
   where: Prisma.FlashSalePurchaseWhereUniqueInput
@@ -902,6 +1317,10 @@ export type FlashSalePurchaseFindFirstArgs<ExtArgs extends runtime.Types.Extensi
    * Omit specific fields from the FlashSalePurchase
    */
   omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
   /**
    * Filter, which FlashSalePurchase to fetch.
    */
@@ -951,6 +1370,10 @@ export type FlashSalePurchaseFindFirstOrThrowArgs<ExtArgs extends runtime.Types.
    */
   omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
+  /**
    * Filter, which FlashSalePurchase to fetch.
    */
   where?: Prisma.FlashSalePurchaseWhereInput
@@ -998,6 +1421,10 @@ export type FlashSalePurchaseFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Omit specific fields from the FlashSalePurchase
    */
   omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
   /**
    * Filter, which FlashSalePurchases to fetch.
    */
@@ -1047,6 +1474,10 @@ export type FlashSalePurchaseCreateArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
+  /**
    * The data needed to create a FlashSalePurchase.
    */
   data: Prisma.XOR<Prisma.FlashSalePurchaseCreateInput, Prisma.FlashSalePurchaseUncheckedCreateInput>
@@ -1080,6 +1511,10 @@ export type FlashSalePurchaseCreateManyAndReturnArgs<ExtArgs extends runtime.Typ
    */
   data: Prisma.FlashSalePurchaseCreateManyInput | Prisma.FlashSalePurchaseCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1094,6 +1529,10 @@ export type FlashSalePurchaseUpdateArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the FlashSalePurchase
    */
   omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
   /**
    * The data needed to update a FlashSalePurchase.
    */
@@ -1146,6 +1585,10 @@ export type FlashSalePurchaseUpdateManyAndReturnArgs<ExtArgs extends runtime.Typ
    * Limit how many FlashSalePurchases to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1160,6 +1603,10 @@ export type FlashSalePurchaseUpsertArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the FlashSalePurchase
    */
   omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
   /**
    * The filter to search for the FlashSalePurchase to update in case it exists.
    */
@@ -1187,6 +1634,10 @@ export type FlashSalePurchaseDeleteArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
+  /**
    * Filter which FlashSalePurchase to delete.
    */
   where: Prisma.FlashSalePurchaseWhereUniqueInput
@@ -1207,6 +1658,25 @@ export type FlashSalePurchaseDeleteManyArgs<ExtArgs extends runtime.Types.Extens
 }
 
 /**
+ * FlashSalePurchase.order
+ */
+export type FlashSalePurchase$orderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+}
+
+/**
  * FlashSalePurchase without action
  */
 export type FlashSalePurchaseDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1218,4 +1688,8 @@ export type FlashSalePurchaseDefaultArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the FlashSalePurchase
    */
   omit?: Prisma.FlashSalePurchaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlashSalePurchaseInclude<ExtArgs> | null
 }

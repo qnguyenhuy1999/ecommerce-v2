@@ -3,6 +3,7 @@ import { defineConfig } from 'tsup'
 export default defineConfig({
   entry: {
     index: 'src/index.ts',
+    'server-env': 'src/server-env.ts',
     'api-client': 'src/api-client.ts',
     'env/index': 'src/env/index.ts',
     'tooling/eslint': 'src/tooling/eslint.ts',

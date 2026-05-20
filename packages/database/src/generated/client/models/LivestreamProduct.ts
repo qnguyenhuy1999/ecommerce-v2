@@ -245,6 +245,7 @@ export type LivestreamProductWhereInput = {
   pinnedAt?: Prisma.DateTimeNullableFilter<"LivestreamProduct"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"LivestreamProduct"> | Date | string
   session?: Prisma.XOR<Prisma.LivestreamSessionScalarRelationFilter, Prisma.LivestreamSessionWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
 }
 
 export type LivestreamProductOrderByWithRelationInput = {
@@ -257,6 +258,7 @@ export type LivestreamProductOrderByWithRelationInput = {
   pinnedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   session?: Prisma.LivestreamSessionOrderByWithRelationInput
+  product?: Prisma.ProductOrderByWithRelationInput
 }
 
 export type LivestreamProductWhereUniqueInput = Prisma.AtLeast<{
@@ -273,6 +275,7 @@ export type LivestreamProductWhereUniqueInput = Prisma.AtLeast<{
   pinnedAt?: Prisma.DateTimeNullableFilter<"LivestreamProduct"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"LivestreamProduct"> | Date | string
   session?: Prisma.XOR<Prisma.LivestreamSessionScalarRelationFilter, Prisma.LivestreamSessionWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
 }, "id" | "sessionId_productId">
 
 export type LivestreamProductOrderByWithAggregationInput = {
@@ -307,13 +310,13 @@ export type LivestreamProductScalarWhereWithAggregatesInput = {
 
 export type LivestreamProductCreateInput = {
   id?: string
-  productId: string
   isPinned?: boolean
   sortOrder?: number
   specialPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   pinnedAt?: Date | string | null
   createdAt?: Date | string
   session: Prisma.LivestreamSessionCreateNestedOneWithoutProductsInput
+  product: Prisma.ProductCreateNestedOneWithoutLivestreamProductsInput
 }
 
 export type LivestreamProductUncheckedCreateInput = {
@@ -329,13 +332,13 @@ export type LivestreamProductUncheckedCreateInput = {
 
 export type LivestreamProductUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   specialPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   session?: Prisma.LivestreamSessionUpdateOneRequiredWithoutProductsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutLivestreamProductsNestedInput
 }
 
 export type LivestreamProductUncheckedUpdateInput = {
@@ -362,7 +365,6 @@ export type LivestreamProductCreateManyInput = {
 
 export type LivestreamProductUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   specialPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -439,6 +441,48 @@ export type LivestreamProductSumOrderByAggregateInput = {
   specialPrice?: Prisma.SortOrder
 }
 
+export type LivestreamProductCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.LivestreamProductCreateWithoutProductInput, Prisma.LivestreamProductUncheckedCreateWithoutProductInput> | Prisma.LivestreamProductCreateWithoutProductInput[] | Prisma.LivestreamProductUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.LivestreamProductCreateOrConnectWithoutProductInput | Prisma.LivestreamProductCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.LivestreamProductCreateManyProductInputEnvelope
+  connect?: Prisma.LivestreamProductWhereUniqueInput | Prisma.LivestreamProductWhereUniqueInput[]
+}
+
+export type LivestreamProductUncheckedCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.LivestreamProductCreateWithoutProductInput, Prisma.LivestreamProductUncheckedCreateWithoutProductInput> | Prisma.LivestreamProductCreateWithoutProductInput[] | Prisma.LivestreamProductUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.LivestreamProductCreateOrConnectWithoutProductInput | Prisma.LivestreamProductCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.LivestreamProductCreateManyProductInputEnvelope
+  connect?: Prisma.LivestreamProductWhereUniqueInput | Prisma.LivestreamProductWhereUniqueInput[]
+}
+
+export type LivestreamProductUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.LivestreamProductCreateWithoutProductInput, Prisma.LivestreamProductUncheckedCreateWithoutProductInput> | Prisma.LivestreamProductCreateWithoutProductInput[] | Prisma.LivestreamProductUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.LivestreamProductCreateOrConnectWithoutProductInput | Prisma.LivestreamProductCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.LivestreamProductUpsertWithWhereUniqueWithoutProductInput | Prisma.LivestreamProductUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.LivestreamProductCreateManyProductInputEnvelope
+  set?: Prisma.LivestreamProductWhereUniqueInput | Prisma.LivestreamProductWhereUniqueInput[]
+  disconnect?: Prisma.LivestreamProductWhereUniqueInput | Prisma.LivestreamProductWhereUniqueInput[]
+  delete?: Prisma.LivestreamProductWhereUniqueInput | Prisma.LivestreamProductWhereUniqueInput[]
+  connect?: Prisma.LivestreamProductWhereUniqueInput | Prisma.LivestreamProductWhereUniqueInput[]
+  update?: Prisma.LivestreamProductUpdateWithWhereUniqueWithoutProductInput | Prisma.LivestreamProductUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.LivestreamProductUpdateManyWithWhereWithoutProductInput | Prisma.LivestreamProductUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.LivestreamProductScalarWhereInput | Prisma.LivestreamProductScalarWhereInput[]
+}
+
+export type LivestreamProductUncheckedUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.LivestreamProductCreateWithoutProductInput, Prisma.LivestreamProductUncheckedCreateWithoutProductInput> | Prisma.LivestreamProductCreateWithoutProductInput[] | Prisma.LivestreamProductUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.LivestreamProductCreateOrConnectWithoutProductInput | Prisma.LivestreamProductCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.LivestreamProductUpsertWithWhereUniqueWithoutProductInput | Prisma.LivestreamProductUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.LivestreamProductCreateManyProductInputEnvelope
+  set?: Prisma.LivestreamProductWhereUniqueInput | Prisma.LivestreamProductWhereUniqueInput[]
+  disconnect?: Prisma.LivestreamProductWhereUniqueInput | Prisma.LivestreamProductWhereUniqueInput[]
+  delete?: Prisma.LivestreamProductWhereUniqueInput | Prisma.LivestreamProductWhereUniqueInput[]
+  connect?: Prisma.LivestreamProductWhereUniqueInput | Prisma.LivestreamProductWhereUniqueInput[]
+  update?: Prisma.LivestreamProductUpdateWithWhereUniqueWithoutProductInput | Prisma.LivestreamProductUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.LivestreamProductUpdateManyWithWhereWithoutProductInput | Prisma.LivestreamProductUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.LivestreamProductScalarWhereInput | Prisma.LivestreamProductScalarWhereInput[]
+}
+
 export type LivestreamProductCreateNestedManyWithoutSessionInput = {
   create?: Prisma.XOR<Prisma.LivestreamProductCreateWithoutSessionInput, Prisma.LivestreamProductUncheckedCreateWithoutSessionInput> | Prisma.LivestreamProductCreateWithoutSessionInput[] | Prisma.LivestreamProductUncheckedCreateWithoutSessionInput[]
   connectOrCreate?: Prisma.LivestreamProductCreateOrConnectWithoutSessionInput | Prisma.LivestreamProductCreateOrConnectWithoutSessionInput[]
@@ -481,14 +525,74 @@ export type LivestreamProductUncheckedUpdateManyWithoutSessionNestedInput = {
   deleteMany?: Prisma.LivestreamProductScalarWhereInput | Prisma.LivestreamProductScalarWhereInput[]
 }
 
-export type LivestreamProductCreateWithoutSessionInput = {
+export type LivestreamProductCreateWithoutProductInput = {
   id?: string
-  productId: string
   isPinned?: boolean
   sortOrder?: number
   specialPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   pinnedAt?: Date | string | null
   createdAt?: Date | string
+  session: Prisma.LivestreamSessionCreateNestedOneWithoutProductsInput
+}
+
+export type LivestreamProductUncheckedCreateWithoutProductInput = {
+  id?: string
+  sessionId: string
+  isPinned?: boolean
+  sortOrder?: number
+  specialPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pinnedAt?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type LivestreamProductCreateOrConnectWithoutProductInput = {
+  where: Prisma.LivestreamProductWhereUniqueInput
+  create: Prisma.XOR<Prisma.LivestreamProductCreateWithoutProductInput, Prisma.LivestreamProductUncheckedCreateWithoutProductInput>
+}
+
+export type LivestreamProductCreateManyProductInputEnvelope = {
+  data: Prisma.LivestreamProductCreateManyProductInput | Prisma.LivestreamProductCreateManyProductInput[]
+  skipDuplicates?: boolean
+}
+
+export type LivestreamProductUpsertWithWhereUniqueWithoutProductInput = {
+  where: Prisma.LivestreamProductWhereUniqueInput
+  update: Prisma.XOR<Prisma.LivestreamProductUpdateWithoutProductInput, Prisma.LivestreamProductUncheckedUpdateWithoutProductInput>
+  create: Prisma.XOR<Prisma.LivestreamProductCreateWithoutProductInput, Prisma.LivestreamProductUncheckedCreateWithoutProductInput>
+}
+
+export type LivestreamProductUpdateWithWhereUniqueWithoutProductInput = {
+  where: Prisma.LivestreamProductWhereUniqueInput
+  data: Prisma.XOR<Prisma.LivestreamProductUpdateWithoutProductInput, Prisma.LivestreamProductUncheckedUpdateWithoutProductInput>
+}
+
+export type LivestreamProductUpdateManyWithWhereWithoutProductInput = {
+  where: Prisma.LivestreamProductScalarWhereInput
+  data: Prisma.XOR<Prisma.LivestreamProductUpdateManyMutationInput, Prisma.LivestreamProductUncheckedUpdateManyWithoutProductInput>
+}
+
+export type LivestreamProductScalarWhereInput = {
+  AND?: Prisma.LivestreamProductScalarWhereInput | Prisma.LivestreamProductScalarWhereInput[]
+  OR?: Prisma.LivestreamProductScalarWhereInput[]
+  NOT?: Prisma.LivestreamProductScalarWhereInput | Prisma.LivestreamProductScalarWhereInput[]
+  id?: Prisma.UuidFilter<"LivestreamProduct"> | string
+  sessionId?: Prisma.UuidFilter<"LivestreamProduct"> | string
+  productId?: Prisma.UuidFilter<"LivestreamProduct"> | string
+  isPinned?: Prisma.BoolFilter<"LivestreamProduct"> | boolean
+  sortOrder?: Prisma.IntFilter<"LivestreamProduct"> | number
+  specialPrice?: Prisma.DecimalNullableFilter<"LivestreamProduct"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pinnedAt?: Prisma.DateTimeNullableFilter<"LivestreamProduct"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"LivestreamProduct"> | Date | string
+}
+
+export type LivestreamProductCreateWithoutSessionInput = {
+  id?: string
+  isPinned?: boolean
+  sortOrder?: number
+  specialPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pinnedAt?: Date | string | null
+  createdAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutLivestreamProductsInput
 }
 
 export type LivestreamProductUncheckedCreateWithoutSessionInput = {
@@ -527,18 +631,44 @@ export type LivestreamProductUpdateManyWithWhereWithoutSessionInput = {
   data: Prisma.XOR<Prisma.LivestreamProductUpdateManyMutationInput, Prisma.LivestreamProductUncheckedUpdateManyWithoutSessionInput>
 }
 
-export type LivestreamProductScalarWhereInput = {
-  AND?: Prisma.LivestreamProductScalarWhereInput | Prisma.LivestreamProductScalarWhereInput[]
-  OR?: Prisma.LivestreamProductScalarWhereInput[]
-  NOT?: Prisma.LivestreamProductScalarWhereInput | Prisma.LivestreamProductScalarWhereInput[]
-  id?: Prisma.UuidFilter<"LivestreamProduct"> | string
-  sessionId?: Prisma.UuidFilter<"LivestreamProduct"> | string
-  productId?: Prisma.UuidFilter<"LivestreamProduct"> | string
-  isPinned?: Prisma.BoolFilter<"LivestreamProduct"> | boolean
-  sortOrder?: Prisma.IntFilter<"LivestreamProduct"> | number
-  specialPrice?: Prisma.DecimalNullableFilter<"LivestreamProduct"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  pinnedAt?: Prisma.DateTimeNullableFilter<"LivestreamProduct"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"LivestreamProduct"> | Date | string
+export type LivestreamProductCreateManyProductInput = {
+  id?: string
+  sessionId: string
+  isPinned?: boolean
+  sortOrder?: number
+  specialPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pinnedAt?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type LivestreamProductUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  specialPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  session?: Prisma.LivestreamSessionUpdateOneRequiredWithoutProductsNestedInput
+}
+
+export type LivestreamProductUncheckedUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  specialPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type LivestreamProductUncheckedUpdateManyWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  specialPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LivestreamProductCreateManySessionInput = {
@@ -553,12 +683,12 @@ export type LivestreamProductCreateManySessionInput = {
 
 export type LivestreamProductUpdateWithoutSessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  productId?: Prisma.StringFieldUpdateOperationsInput | string
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   specialPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutLivestreamProductsNestedInput
 }
 
 export type LivestreamProductUncheckedUpdateWithoutSessionInput = {
@@ -593,6 +723,7 @@ export type LivestreamProductSelect<ExtArgs extends runtime.Types.Extensions.Int
   pinnedAt?: boolean
   createdAt?: boolean
   session?: boolean | Prisma.LivestreamSessionDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["livestreamProduct"]>
 
 export type LivestreamProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -605,6 +736,7 @@ export type LivestreamProductSelectCreateManyAndReturn<ExtArgs extends runtime.T
   pinnedAt?: boolean
   createdAt?: boolean
   session?: boolean | Prisma.LivestreamSessionDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["livestreamProduct"]>
 
 export type LivestreamProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -617,6 +749,7 @@ export type LivestreamProductSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   pinnedAt?: boolean
   createdAt?: boolean
   session?: boolean | Prisma.LivestreamSessionDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["livestreamProduct"]>
 
 export type LivestreamProductSelectScalar = {
@@ -633,18 +766,22 @@ export type LivestreamProductSelectScalar = {
 export type LivestreamProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sessionId" | "productId" | "isPinned" | "sortOrder" | "specialPrice" | "pinnedAt" | "createdAt", ExtArgs["result"]["livestreamProduct"]>
 export type LivestreamProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   session?: boolean | Prisma.LivestreamSessionDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 export type LivestreamProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   session?: boolean | Prisma.LivestreamSessionDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 export type LivestreamProductIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   session?: boolean | Prisma.LivestreamSessionDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 
 export type $LivestreamProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "LivestreamProduct"
   objects: {
     session: Prisma.$LivestreamSessionPayload<ExtArgs>
+    product: Prisma.$ProductPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1050,6 +1187,7 @@ readonly fields: LivestreamProductFieldRefs;
 export interface Prisma__LivestreamProductClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   session<T extends Prisma.LivestreamSessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LivestreamSessionDefaultArgs<ExtArgs>>): Prisma.Prisma__LivestreamSessionClient<runtime.Types.Result.GetResult<Prisma.$LivestreamSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

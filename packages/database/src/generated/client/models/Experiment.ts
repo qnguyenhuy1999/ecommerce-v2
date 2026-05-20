@@ -36,6 +36,7 @@ export type ExperimentSumAggregateOutputType = {
 
 export type ExperimentMinAggregateOutputType = {
   id: string | null
+  featureFlagId: string | null
   name: string | null
   description: string | null
   status: $Enums.ExperimentStatus | null
@@ -48,6 +49,7 @@ export type ExperimentMinAggregateOutputType = {
 
 export type ExperimentMaxAggregateOutputType = {
   id: string | null
+  featureFlagId: string | null
   name: string | null
   description: string | null
   status: $Enums.ExperimentStatus | null
@@ -60,6 +62,7 @@ export type ExperimentMaxAggregateOutputType = {
 
 export type ExperimentCountAggregateOutputType = {
   id: number
+  featureFlagId: number
   name: number
   description: number
   status: number
@@ -83,6 +86,7 @@ export type ExperimentSumAggregateInputType = {
 
 export type ExperimentMinAggregateInputType = {
   id?: true
+  featureFlagId?: true
   name?: true
   description?: true
   status?: true
@@ -95,6 +99,7 @@ export type ExperimentMinAggregateInputType = {
 
 export type ExperimentMaxAggregateInputType = {
   id?: true
+  featureFlagId?: true
   name?: true
   description?: true
   status?: true
@@ -107,6 +112,7 @@ export type ExperimentMaxAggregateInputType = {
 
 export type ExperimentCountAggregateInputType = {
   id?: true
+  featureFlagId?: true
   name?: true
   description?: true
   status?: true
@@ -207,6 +213,7 @@ export type ExperimentGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 
 export type ExperimentGroupByOutputType = {
   id: string
+  featureFlagId: string | null
   name: string
   description: string | null
   status: $Enums.ExperimentStatus
@@ -243,6 +250,7 @@ export type ExperimentWhereInput = {
   OR?: Prisma.ExperimentWhereInput[]
   NOT?: Prisma.ExperimentWhereInput | Prisma.ExperimentWhereInput[]
   id?: Prisma.UuidFilter<"Experiment"> | string
+  featureFlagId?: Prisma.UuidNullableFilter<"Experiment"> | string | null
   name?: Prisma.StringFilter<"Experiment"> | string
   description?: Prisma.StringNullableFilter<"Experiment"> | string | null
   status?: Prisma.EnumExperimentStatusFilter<"Experiment"> | $Enums.ExperimentStatus
@@ -252,11 +260,13 @@ export type ExperimentWhereInput = {
   endsAt?: Prisma.DateTimeNullableFilter<"Experiment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Experiment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Experiment"> | Date | string
+  featureFlag?: Prisma.XOR<Prisma.FeatureFlagNullableScalarRelationFilter, Prisma.FeatureFlagWhereInput> | null
   variants?: Prisma.ExperimentVariantListRelationFilter
 }
 
 export type ExperimentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  featureFlagId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -266,6 +276,7 @@ export type ExperimentOrderByWithRelationInput = {
   endsAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  featureFlag?: Prisma.FeatureFlagOrderByWithRelationInput
   variants?: Prisma.ExperimentVariantOrderByRelationAggregateInput
 }
 
@@ -274,6 +285,7 @@ export type ExperimentWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ExperimentWhereInput | Prisma.ExperimentWhereInput[]
   OR?: Prisma.ExperimentWhereInput[]
   NOT?: Prisma.ExperimentWhereInput | Prisma.ExperimentWhereInput[]
+  featureFlagId?: Prisma.UuidNullableFilter<"Experiment"> | string | null
   name?: Prisma.StringFilter<"Experiment"> | string
   description?: Prisma.StringNullableFilter<"Experiment"> | string | null
   status?: Prisma.EnumExperimentStatusFilter<"Experiment"> | $Enums.ExperimentStatus
@@ -283,11 +295,13 @@ export type ExperimentWhereUniqueInput = Prisma.AtLeast<{
   endsAt?: Prisma.DateTimeNullableFilter<"Experiment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Experiment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Experiment"> | Date | string
+  featureFlag?: Prisma.XOR<Prisma.FeatureFlagNullableScalarRelationFilter, Prisma.FeatureFlagWhereInput> | null
   variants?: Prisma.ExperimentVariantListRelationFilter
 }, "id">
 
 export type ExperimentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  featureFlagId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -309,6 +323,7 @@ export type ExperimentScalarWhereWithAggregatesInput = {
   OR?: Prisma.ExperimentScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ExperimentScalarWhereWithAggregatesInput | Prisma.ExperimentScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"Experiment"> | string
+  featureFlagId?: Prisma.UuidNullableWithAggregatesFilter<"Experiment"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"Experiment"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Experiment"> | string | null
   status?: Prisma.EnumExperimentStatusWithAggregatesFilter<"Experiment"> | $Enums.ExperimentStatus
@@ -331,11 +346,13 @@ export type ExperimentCreateInput = {
   endsAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  featureFlag?: Prisma.FeatureFlagCreateNestedOneWithoutExperimentsInput
   variants?: Prisma.ExperimentVariantCreateNestedManyWithoutExperimentInput
 }
 
 export type ExperimentUncheckedCreateInput = {
   id?: string
+  featureFlagId?: string | null
   name: string
   description?: string | null
   status?: $Enums.ExperimentStatus
@@ -359,11 +376,13 @@ export type ExperimentUpdateInput = {
   endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  featureFlag?: Prisma.FeatureFlagUpdateOneWithoutExperimentsNestedInput
   variants?: Prisma.ExperimentVariantUpdateManyWithoutExperimentNestedInput
 }
 
 export type ExperimentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  featureFlagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumExperimentStatusFieldUpdateOperationsInput | $Enums.ExperimentStatus
@@ -378,6 +397,7 @@ export type ExperimentUncheckedUpdateInput = {
 
 export type ExperimentCreateManyInput = {
   id?: string
+  featureFlagId?: string | null
   name: string
   description?: string | null
   status?: $Enums.ExperimentStatus
@@ -404,6 +424,7 @@ export type ExperimentUpdateManyMutationInput = {
 
 export type ExperimentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  featureFlagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumExperimentStatusFieldUpdateOperationsInput | $Enums.ExperimentStatus
@@ -415,8 +436,19 @@ export type ExperimentUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ExperimentListRelationFilter = {
+  every?: Prisma.ExperimentWhereInput
+  some?: Prisma.ExperimentWhereInput
+  none?: Prisma.ExperimentWhereInput
+}
+
+export type ExperimentOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
 export type ExperimentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  featureFlagId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -434,6 +466,7 @@ export type ExperimentAvgOrderByAggregateInput = {
 
 export type ExperimentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  featureFlagId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -446,6 +479,7 @@ export type ExperimentMaxOrderByAggregateInput = {
 
 export type ExperimentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  featureFlagId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -463,6 +497,48 @@ export type ExperimentSumOrderByAggregateInput = {
 export type ExperimentScalarRelationFilter = {
   is?: Prisma.ExperimentWhereInput
   isNot?: Prisma.ExperimentWhereInput
+}
+
+export type ExperimentCreateNestedManyWithoutFeatureFlagInput = {
+  create?: Prisma.XOR<Prisma.ExperimentCreateWithoutFeatureFlagInput, Prisma.ExperimentUncheckedCreateWithoutFeatureFlagInput> | Prisma.ExperimentCreateWithoutFeatureFlagInput[] | Prisma.ExperimentUncheckedCreateWithoutFeatureFlagInput[]
+  connectOrCreate?: Prisma.ExperimentCreateOrConnectWithoutFeatureFlagInput | Prisma.ExperimentCreateOrConnectWithoutFeatureFlagInput[]
+  createMany?: Prisma.ExperimentCreateManyFeatureFlagInputEnvelope
+  connect?: Prisma.ExperimentWhereUniqueInput | Prisma.ExperimentWhereUniqueInput[]
+}
+
+export type ExperimentUncheckedCreateNestedManyWithoutFeatureFlagInput = {
+  create?: Prisma.XOR<Prisma.ExperimentCreateWithoutFeatureFlagInput, Prisma.ExperimentUncheckedCreateWithoutFeatureFlagInput> | Prisma.ExperimentCreateWithoutFeatureFlagInput[] | Prisma.ExperimentUncheckedCreateWithoutFeatureFlagInput[]
+  connectOrCreate?: Prisma.ExperimentCreateOrConnectWithoutFeatureFlagInput | Prisma.ExperimentCreateOrConnectWithoutFeatureFlagInput[]
+  createMany?: Prisma.ExperimentCreateManyFeatureFlagInputEnvelope
+  connect?: Prisma.ExperimentWhereUniqueInput | Prisma.ExperimentWhereUniqueInput[]
+}
+
+export type ExperimentUpdateManyWithoutFeatureFlagNestedInput = {
+  create?: Prisma.XOR<Prisma.ExperimentCreateWithoutFeatureFlagInput, Prisma.ExperimentUncheckedCreateWithoutFeatureFlagInput> | Prisma.ExperimentCreateWithoutFeatureFlagInput[] | Prisma.ExperimentUncheckedCreateWithoutFeatureFlagInput[]
+  connectOrCreate?: Prisma.ExperimentCreateOrConnectWithoutFeatureFlagInput | Prisma.ExperimentCreateOrConnectWithoutFeatureFlagInput[]
+  upsert?: Prisma.ExperimentUpsertWithWhereUniqueWithoutFeatureFlagInput | Prisma.ExperimentUpsertWithWhereUniqueWithoutFeatureFlagInput[]
+  createMany?: Prisma.ExperimentCreateManyFeatureFlagInputEnvelope
+  set?: Prisma.ExperimentWhereUniqueInput | Prisma.ExperimentWhereUniqueInput[]
+  disconnect?: Prisma.ExperimentWhereUniqueInput | Prisma.ExperimentWhereUniqueInput[]
+  delete?: Prisma.ExperimentWhereUniqueInput | Prisma.ExperimentWhereUniqueInput[]
+  connect?: Prisma.ExperimentWhereUniqueInput | Prisma.ExperimentWhereUniqueInput[]
+  update?: Prisma.ExperimentUpdateWithWhereUniqueWithoutFeatureFlagInput | Prisma.ExperimentUpdateWithWhereUniqueWithoutFeatureFlagInput[]
+  updateMany?: Prisma.ExperimentUpdateManyWithWhereWithoutFeatureFlagInput | Prisma.ExperimentUpdateManyWithWhereWithoutFeatureFlagInput[]
+  deleteMany?: Prisma.ExperimentScalarWhereInput | Prisma.ExperimentScalarWhereInput[]
+}
+
+export type ExperimentUncheckedUpdateManyWithoutFeatureFlagNestedInput = {
+  create?: Prisma.XOR<Prisma.ExperimentCreateWithoutFeatureFlagInput, Prisma.ExperimentUncheckedCreateWithoutFeatureFlagInput> | Prisma.ExperimentCreateWithoutFeatureFlagInput[] | Prisma.ExperimentUncheckedCreateWithoutFeatureFlagInput[]
+  connectOrCreate?: Prisma.ExperimentCreateOrConnectWithoutFeatureFlagInput | Prisma.ExperimentCreateOrConnectWithoutFeatureFlagInput[]
+  upsert?: Prisma.ExperimentUpsertWithWhereUniqueWithoutFeatureFlagInput | Prisma.ExperimentUpsertWithWhereUniqueWithoutFeatureFlagInput[]
+  createMany?: Prisma.ExperimentCreateManyFeatureFlagInputEnvelope
+  set?: Prisma.ExperimentWhereUniqueInput | Prisma.ExperimentWhereUniqueInput[]
+  disconnect?: Prisma.ExperimentWhereUniqueInput | Prisma.ExperimentWhereUniqueInput[]
+  delete?: Prisma.ExperimentWhereUniqueInput | Prisma.ExperimentWhereUniqueInput[]
+  connect?: Prisma.ExperimentWhereUniqueInput | Prisma.ExperimentWhereUniqueInput[]
+  update?: Prisma.ExperimentUpdateWithWhereUniqueWithoutFeatureFlagInput | Prisma.ExperimentUpdateWithWhereUniqueWithoutFeatureFlagInput[]
+  updateMany?: Prisma.ExperimentUpdateManyWithWhereWithoutFeatureFlagInput | Prisma.ExperimentUpdateManyWithWhereWithoutFeatureFlagInput[]
+  deleteMany?: Prisma.ExperimentScalarWhereInput | Prisma.ExperimentScalarWhereInput[]
 }
 
 export type EnumExperimentStatusFieldUpdateOperationsInput = {
@@ -483,6 +559,77 @@ export type ExperimentUpdateOneRequiredWithoutVariantsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ExperimentUpdateToOneWithWhereWithoutVariantsInput, Prisma.ExperimentUpdateWithoutVariantsInput>, Prisma.ExperimentUncheckedUpdateWithoutVariantsInput>
 }
 
+export type ExperimentCreateWithoutFeatureFlagInput = {
+  id?: string
+  name: string
+  description?: string | null
+  status?: $Enums.ExperimentStatus
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trafficPercent?: number
+  startsAt?: Date | string | null
+  endsAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  variants?: Prisma.ExperimentVariantCreateNestedManyWithoutExperimentInput
+}
+
+export type ExperimentUncheckedCreateWithoutFeatureFlagInput = {
+  id?: string
+  name: string
+  description?: string | null
+  status?: $Enums.ExperimentStatus
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trafficPercent?: number
+  startsAt?: Date | string | null
+  endsAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  variants?: Prisma.ExperimentVariantUncheckedCreateNestedManyWithoutExperimentInput
+}
+
+export type ExperimentCreateOrConnectWithoutFeatureFlagInput = {
+  where: Prisma.ExperimentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ExperimentCreateWithoutFeatureFlagInput, Prisma.ExperimentUncheckedCreateWithoutFeatureFlagInput>
+}
+
+export type ExperimentCreateManyFeatureFlagInputEnvelope = {
+  data: Prisma.ExperimentCreateManyFeatureFlagInput | Prisma.ExperimentCreateManyFeatureFlagInput[]
+  skipDuplicates?: boolean
+}
+
+export type ExperimentUpsertWithWhereUniqueWithoutFeatureFlagInput = {
+  where: Prisma.ExperimentWhereUniqueInput
+  update: Prisma.XOR<Prisma.ExperimentUpdateWithoutFeatureFlagInput, Prisma.ExperimentUncheckedUpdateWithoutFeatureFlagInput>
+  create: Prisma.XOR<Prisma.ExperimentCreateWithoutFeatureFlagInput, Prisma.ExperimentUncheckedCreateWithoutFeatureFlagInput>
+}
+
+export type ExperimentUpdateWithWhereUniqueWithoutFeatureFlagInput = {
+  where: Prisma.ExperimentWhereUniqueInput
+  data: Prisma.XOR<Prisma.ExperimentUpdateWithoutFeatureFlagInput, Prisma.ExperimentUncheckedUpdateWithoutFeatureFlagInput>
+}
+
+export type ExperimentUpdateManyWithWhereWithoutFeatureFlagInput = {
+  where: Prisma.ExperimentScalarWhereInput
+  data: Prisma.XOR<Prisma.ExperimentUpdateManyMutationInput, Prisma.ExperimentUncheckedUpdateManyWithoutFeatureFlagInput>
+}
+
+export type ExperimentScalarWhereInput = {
+  AND?: Prisma.ExperimentScalarWhereInput | Prisma.ExperimentScalarWhereInput[]
+  OR?: Prisma.ExperimentScalarWhereInput[]
+  NOT?: Prisma.ExperimentScalarWhereInput | Prisma.ExperimentScalarWhereInput[]
+  id?: Prisma.UuidFilter<"Experiment"> | string
+  featureFlagId?: Prisma.UuidNullableFilter<"Experiment"> | string | null
+  name?: Prisma.StringFilter<"Experiment"> | string
+  description?: Prisma.StringNullableFilter<"Experiment"> | string | null
+  status?: Prisma.EnumExperimentStatusFilter<"Experiment"> | $Enums.ExperimentStatus
+  targetAudience?: Prisma.JsonNullableFilter<"Experiment">
+  trafficPercent?: Prisma.IntFilter<"Experiment"> | number
+  startsAt?: Prisma.DateTimeNullableFilter<"Experiment"> | Date | string | null
+  endsAt?: Prisma.DateTimeNullableFilter<"Experiment"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Experiment"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Experiment"> | Date | string
+}
+
 export type ExperimentCreateWithoutVariantsInput = {
   id?: string
   name: string
@@ -494,10 +641,12 @@ export type ExperimentCreateWithoutVariantsInput = {
   endsAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  featureFlag?: Prisma.FeatureFlagCreateNestedOneWithoutExperimentsInput
 }
 
 export type ExperimentUncheckedCreateWithoutVariantsInput = {
   id?: string
+  featureFlagId?: string | null
   name: string
   description?: string | null
   status?: $Enums.ExperimentStatus
@@ -536,9 +685,65 @@ export type ExperimentUpdateWithoutVariantsInput = {
   endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  featureFlag?: Prisma.FeatureFlagUpdateOneWithoutExperimentsNestedInput
 }
 
 export type ExperimentUncheckedUpdateWithoutVariantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  featureFlagId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumExperimentStatusFieldUpdateOperationsInput | $Enums.ExperimentStatus
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trafficPercent?: Prisma.IntFieldUpdateOperationsInput | number
+  startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ExperimentCreateManyFeatureFlagInput = {
+  id?: string
+  name: string
+  description?: string | null
+  status?: $Enums.ExperimentStatus
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trafficPercent?: number
+  startsAt?: Date | string | null
+  endsAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ExperimentUpdateWithoutFeatureFlagInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumExperimentStatusFieldUpdateOperationsInput | $Enums.ExperimentStatus
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trafficPercent?: Prisma.IntFieldUpdateOperationsInput | number
+  startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variants?: Prisma.ExperimentVariantUpdateManyWithoutExperimentNestedInput
+}
+
+export type ExperimentUncheckedUpdateWithoutFeatureFlagInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumExperimentStatusFieldUpdateOperationsInput | $Enums.ExperimentStatus
+  targetAudience?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trafficPercent?: Prisma.IntFieldUpdateOperationsInput | number
+  startsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variants?: Prisma.ExperimentVariantUncheckedUpdateManyWithoutExperimentNestedInput
+}
+
+export type ExperimentUncheckedUpdateManyWithoutFeatureFlagInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -584,6 +789,7 @@ export type ExperimentCountOutputTypeCountVariantsArgs<ExtArgs extends runtime.T
 
 export type ExperimentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  featureFlagId?: boolean
   name?: boolean
   description?: boolean
   status?: boolean
@@ -593,12 +799,14 @@ export type ExperimentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   endsAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  featureFlag?: boolean | Prisma.Experiment$featureFlagArgs<ExtArgs>
   variants?: boolean | Prisma.Experiment$variantsArgs<ExtArgs>
   _count?: boolean | Prisma.ExperimentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["experiment"]>
 
 export type ExperimentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  featureFlagId?: boolean
   name?: boolean
   description?: boolean
   status?: boolean
@@ -608,10 +816,12 @@ export type ExperimentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   endsAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  featureFlag?: boolean | Prisma.Experiment$featureFlagArgs<ExtArgs>
 }, ExtArgs["result"]["experiment"]>
 
 export type ExperimentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  featureFlagId?: boolean
   name?: boolean
   description?: boolean
   status?: boolean
@@ -621,10 +831,12 @@ export type ExperimentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   endsAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  featureFlag?: boolean | Prisma.Experiment$featureFlagArgs<ExtArgs>
 }, ExtArgs["result"]["experiment"]>
 
 export type ExperimentSelectScalar = {
   id?: boolean
+  featureFlagId?: boolean
   name?: boolean
   description?: boolean
   status?: boolean
@@ -636,21 +848,28 @@ export type ExperimentSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ExperimentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "status" | "targetAudience" | "trafficPercent" | "startsAt" | "endsAt" | "createdAt" | "updatedAt", ExtArgs["result"]["experiment"]>
+export type ExperimentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "featureFlagId" | "name" | "description" | "status" | "targetAudience" | "trafficPercent" | "startsAt" | "endsAt" | "createdAt" | "updatedAt", ExtArgs["result"]["experiment"]>
 export type ExperimentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  featureFlag?: boolean | Prisma.Experiment$featureFlagArgs<ExtArgs>
   variants?: boolean | Prisma.Experiment$variantsArgs<ExtArgs>
   _count?: boolean | Prisma.ExperimentCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ExperimentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type ExperimentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ExperimentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  featureFlag?: boolean | Prisma.Experiment$featureFlagArgs<ExtArgs>
+}
+export type ExperimentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  featureFlag?: boolean | Prisma.Experiment$featureFlagArgs<ExtArgs>
+}
 
 export type $ExperimentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Experiment"
   objects: {
+    featureFlag: Prisma.$FeatureFlagPayload<ExtArgs> | null
     variants: Prisma.$ExperimentVariantPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    featureFlagId: string | null
     name: string
     description: string | null
     status: $Enums.ExperimentStatus
@@ -1054,6 +1273,7 @@ readonly fields: ExperimentFieldRefs;
  */
 export interface Prisma__ExperimentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  featureFlag<T extends Prisma.Experiment$featureFlagArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Experiment$featureFlagArgs<ExtArgs>>): Prisma.Prisma__FeatureFlagClient<runtime.Types.Result.GetResult<Prisma.$FeatureFlagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   variants<T extends Prisma.Experiment$variantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Experiment$variantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExperimentVariantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1085,6 +1305,7 @@ export interface Prisma__ExperimentClient<T, Null = never, ExtArgs extends runti
  */
 export interface ExperimentFieldRefs {
   readonly id: Prisma.FieldRef<"Experiment", 'String'>
+  readonly featureFlagId: Prisma.FieldRef<"Experiment", 'String'>
   readonly name: Prisma.FieldRef<"Experiment", 'String'>
   readonly description: Prisma.FieldRef<"Experiment", 'String'>
   readonly status: Prisma.FieldRef<"Experiment", 'ExperimentStatus'>
@@ -1348,6 +1569,10 @@ export type ExperimentCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    */
   data: Prisma.ExperimentCreateManyInput | Prisma.ExperimentCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExperimentIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1418,6 +1643,10 @@ export type ExperimentUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    * Limit how many Experiments to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExperimentIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1484,6 +1713,25 @@ export type ExperimentDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many Experiments to delete.
    */
   limit?: number
+}
+
+/**
+ * Experiment.featureFlag
+ */
+export type Experiment$featureFlagArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FeatureFlag
+   */
+  select?: Prisma.FeatureFlagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FeatureFlag
+   */
+  omit?: Prisma.FeatureFlagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeatureFlagInclude<ExtArgs> | null
+  where?: Prisma.FeatureFlagWhereInput
 }
 
 /**

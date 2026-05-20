@@ -300,6 +300,8 @@ export type AiTaskWhereInput = {
   startedAt?: Prisma.DateTimeNullableFilter<"AiTask"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"AiTask"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AiTask"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
+  product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   template?: Prisma.XOR<Prisma.AiPromptTemplateNullableScalarRelationFilter, Prisma.AiPromptTemplateWhereInput> | null
 }
 
@@ -320,6 +322,8 @@ export type AiTaskOrderByWithRelationInput = {
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  shop?: Prisma.ShopOrderByWithRelationInput
+  product?: Prisma.ProductOrderByWithRelationInput
   template?: Prisma.AiPromptTemplateOrderByWithRelationInput
 }
 
@@ -343,6 +347,8 @@ export type AiTaskWhereUniqueInput = Prisma.AtLeast<{
   startedAt?: Prisma.DateTimeNullableFilter<"AiTask"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"AiTask"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AiTask"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
+  product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   template?: Prisma.XOR<Prisma.AiPromptTemplateNullableScalarRelationFilter, Prisma.AiPromptTemplateWhereInput> | null
 }, "id">
 
@@ -394,13 +400,11 @@ export type AiTaskScalarWhereWithAggregatesInput = {
 
 export type AiTaskCreateInput = {
   id?: string
-  shopId: string
   type: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   inputData: Prisma.JsonNullValueInput | runtime.InputJsonValue
   outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   error?: string | null
-  productId?: string | null
   provider?: string | null
   model?: string | null
   tokensUsed?: number | null
@@ -408,6 +412,8 @@ export type AiTaskCreateInput = {
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutAiTasksInput
+  product?: Prisma.ProductCreateNestedOneWithoutAiTasksInput
   template?: Prisma.AiPromptTemplateCreateNestedOneWithoutTasksInput
 }
 
@@ -432,13 +438,11 @@ export type AiTaskUncheckedCreateInput = {
 
 export type AiTaskUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   inputData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -446,6 +450,8 @@ export type AiTaskUpdateInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutAiTasksNestedInput
+  product?: Prisma.ProductUpdateOneWithoutAiTasksNestedInput
   template?: Prisma.AiPromptTemplateUpdateOneWithoutTasksNestedInput
 }
 
@@ -489,13 +495,11 @@ export type AiTaskCreateManyInput = {
 
 export type AiTaskUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   inputData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -522,6 +526,16 @@ export type AiTaskUncheckedUpdateManyInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AiTaskListRelationFilter = {
+  every?: Prisma.AiTaskWhereInput
+  some?: Prisma.AiTaskWhereInput
+  none?: Prisma.AiTaskWhereInput
+}
+
+export type AiTaskOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type AiTaskCountOrderByAggregateInput = {
@@ -587,14 +601,88 @@ export type AiTaskSumOrderByAggregateInput = {
   costUsd?: Prisma.SortOrder
 }
 
-export type AiTaskListRelationFilter = {
-  every?: Prisma.AiTaskWhereInput
-  some?: Prisma.AiTaskWhereInput
-  none?: Prisma.AiTaskWhereInput
+export type AiTaskCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutShopInput, Prisma.AiTaskUncheckedCreateWithoutShopInput> | Prisma.AiTaskCreateWithoutShopInput[] | Prisma.AiTaskUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutShopInput | Prisma.AiTaskCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.AiTaskCreateManyShopInputEnvelope
+  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
 }
 
-export type AiTaskOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+export type AiTaskUncheckedCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutShopInput, Prisma.AiTaskUncheckedCreateWithoutShopInput> | Prisma.AiTaskCreateWithoutShopInput[] | Prisma.AiTaskUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutShopInput | Prisma.AiTaskCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.AiTaskCreateManyShopInputEnvelope
+  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+}
+
+export type AiTaskUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutShopInput, Prisma.AiTaskUncheckedCreateWithoutShopInput> | Prisma.AiTaskCreateWithoutShopInput[] | Prisma.AiTaskUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutShopInput | Prisma.AiTaskCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.AiTaskUpsertWithWhereUniqueWithoutShopInput | Prisma.AiTaskUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.AiTaskCreateManyShopInputEnvelope
+  set?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  disconnect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  delete?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  update?: Prisma.AiTaskUpdateWithWhereUniqueWithoutShopInput | Prisma.AiTaskUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.AiTaskUpdateManyWithWhereWithoutShopInput | Prisma.AiTaskUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
+}
+
+export type AiTaskUncheckedUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutShopInput, Prisma.AiTaskUncheckedCreateWithoutShopInput> | Prisma.AiTaskCreateWithoutShopInput[] | Prisma.AiTaskUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutShopInput | Prisma.AiTaskCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.AiTaskUpsertWithWhereUniqueWithoutShopInput | Prisma.AiTaskUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.AiTaskCreateManyShopInputEnvelope
+  set?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  disconnect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  delete?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  update?: Prisma.AiTaskUpdateWithWhereUniqueWithoutShopInput | Prisma.AiTaskUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.AiTaskUpdateManyWithWhereWithoutShopInput | Prisma.AiTaskUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
+}
+
+export type AiTaskCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutProductInput, Prisma.AiTaskUncheckedCreateWithoutProductInput> | Prisma.AiTaskCreateWithoutProductInput[] | Prisma.AiTaskUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutProductInput | Prisma.AiTaskCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.AiTaskCreateManyProductInputEnvelope
+  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+}
+
+export type AiTaskUncheckedCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutProductInput, Prisma.AiTaskUncheckedCreateWithoutProductInput> | Prisma.AiTaskCreateWithoutProductInput[] | Prisma.AiTaskUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutProductInput | Prisma.AiTaskCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.AiTaskCreateManyProductInputEnvelope
+  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+}
+
+export type AiTaskUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutProductInput, Prisma.AiTaskUncheckedCreateWithoutProductInput> | Prisma.AiTaskCreateWithoutProductInput[] | Prisma.AiTaskUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutProductInput | Prisma.AiTaskCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.AiTaskUpsertWithWhereUniqueWithoutProductInput | Prisma.AiTaskUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.AiTaskCreateManyProductInputEnvelope
+  set?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  disconnect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  delete?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  update?: Prisma.AiTaskUpdateWithWhereUniqueWithoutProductInput | Prisma.AiTaskUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.AiTaskUpdateManyWithWhereWithoutProductInput | Prisma.AiTaskUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
+}
+
+export type AiTaskUncheckedUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutProductInput, Prisma.AiTaskUncheckedCreateWithoutProductInput> | Prisma.AiTaskCreateWithoutProductInput[] | Prisma.AiTaskUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutProductInput | Prisma.AiTaskCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.AiTaskUpsertWithWhereUniqueWithoutProductInput | Prisma.AiTaskUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.AiTaskCreateManyProductInputEnvelope
+  set?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  disconnect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  delete?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
+  update?: Prisma.AiTaskUpdateWithWhereUniqueWithoutProductInput | Prisma.AiTaskUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.AiTaskUpdateManyWithWhereWithoutProductInput | Prisma.AiTaskUpdateManyWithWhereWithoutProductInput[]
+  deleteMany?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
 }
 
 export type EnumAiTaskTypeFieldUpdateOperationsInput = {
@@ -647,15 +735,13 @@ export type AiTaskUncheckedUpdateManyWithoutTemplateNestedInput = {
   deleteMany?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
 }
 
-export type AiTaskCreateWithoutTemplateInput = {
+export type AiTaskCreateWithoutShopInput = {
   id?: string
-  shopId: string
   type: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   inputData: Prisma.JsonNullValueInput | runtime.InputJsonValue
   outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   error?: string | null
-  productId?: string | null
   provider?: string | null
   model?: string | null
   tokensUsed?: number | null
@@ -663,6 +749,154 @@ export type AiTaskCreateWithoutTemplateInput = {
   startedAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
+  product?: Prisma.ProductCreateNestedOneWithoutAiTasksInput
+  template?: Prisma.AiPromptTemplateCreateNestedOneWithoutTasksInput
+}
+
+export type AiTaskUncheckedCreateWithoutShopInput = {
+  id?: string
+  type: $Enums.AiTaskType
+  status?: $Enums.AiTaskStatus
+  inputData: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: string | null
+  productId?: string | null
+  templateId?: string | null
+  provider?: string | null
+  model?: string | null
+  tokensUsed?: number | null
+  costUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type AiTaskCreateOrConnectWithoutShopInput = {
+  where: Prisma.AiTaskWhereUniqueInput
+  create: Prisma.XOR<Prisma.AiTaskCreateWithoutShopInput, Prisma.AiTaskUncheckedCreateWithoutShopInput>
+}
+
+export type AiTaskCreateManyShopInputEnvelope = {
+  data: Prisma.AiTaskCreateManyShopInput | Prisma.AiTaskCreateManyShopInput[]
+  skipDuplicates?: boolean
+}
+
+export type AiTaskUpsertWithWhereUniqueWithoutShopInput = {
+  where: Prisma.AiTaskWhereUniqueInput
+  update: Prisma.XOR<Prisma.AiTaskUpdateWithoutShopInput, Prisma.AiTaskUncheckedUpdateWithoutShopInput>
+  create: Prisma.XOR<Prisma.AiTaskCreateWithoutShopInput, Prisma.AiTaskUncheckedCreateWithoutShopInput>
+}
+
+export type AiTaskUpdateWithWhereUniqueWithoutShopInput = {
+  where: Prisma.AiTaskWhereUniqueInput
+  data: Prisma.XOR<Prisma.AiTaskUpdateWithoutShopInput, Prisma.AiTaskUncheckedUpdateWithoutShopInput>
+}
+
+export type AiTaskUpdateManyWithWhereWithoutShopInput = {
+  where: Prisma.AiTaskScalarWhereInput
+  data: Prisma.XOR<Prisma.AiTaskUpdateManyMutationInput, Prisma.AiTaskUncheckedUpdateManyWithoutShopInput>
+}
+
+export type AiTaskScalarWhereInput = {
+  AND?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
+  OR?: Prisma.AiTaskScalarWhereInput[]
+  NOT?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
+  id?: Prisma.UuidFilter<"AiTask"> | string
+  shopId?: Prisma.UuidFilter<"AiTask"> | string
+  type?: Prisma.EnumAiTaskTypeFilter<"AiTask"> | $Enums.AiTaskType
+  status?: Prisma.EnumAiTaskStatusFilter<"AiTask"> | $Enums.AiTaskStatus
+  inputData?: Prisma.JsonFilter<"AiTask">
+  outputData?: Prisma.JsonNullableFilter<"AiTask">
+  error?: Prisma.StringNullableFilter<"AiTask"> | string | null
+  productId?: Prisma.UuidNullableFilter<"AiTask"> | string | null
+  templateId?: Prisma.UuidNullableFilter<"AiTask"> | string | null
+  provider?: Prisma.StringNullableFilter<"AiTask"> | string | null
+  model?: Prisma.StringNullableFilter<"AiTask"> | string | null
+  tokensUsed?: Prisma.IntNullableFilter<"AiTask"> | number | null
+  costUsd?: Prisma.DecimalNullableFilter<"AiTask"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Prisma.DateTimeNullableFilter<"AiTask"> | Date | string | null
+  completedAt?: Prisma.DateTimeNullableFilter<"AiTask"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"AiTask"> | Date | string
+}
+
+export type AiTaskCreateWithoutProductInput = {
+  id?: string
+  type: $Enums.AiTaskType
+  status?: $Enums.AiTaskStatus
+  inputData: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: string | null
+  provider?: string | null
+  model?: string | null
+  tokensUsed?: number | null
+  costUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutAiTasksInput
+  template?: Prisma.AiPromptTemplateCreateNestedOneWithoutTasksInput
+}
+
+export type AiTaskUncheckedCreateWithoutProductInput = {
+  id?: string
+  shopId: string
+  type: $Enums.AiTaskType
+  status?: $Enums.AiTaskStatus
+  inputData: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: string | null
+  templateId?: string | null
+  provider?: string | null
+  model?: string | null
+  tokensUsed?: number | null
+  costUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type AiTaskCreateOrConnectWithoutProductInput = {
+  where: Prisma.AiTaskWhereUniqueInput
+  create: Prisma.XOR<Prisma.AiTaskCreateWithoutProductInput, Prisma.AiTaskUncheckedCreateWithoutProductInput>
+}
+
+export type AiTaskCreateManyProductInputEnvelope = {
+  data: Prisma.AiTaskCreateManyProductInput | Prisma.AiTaskCreateManyProductInput[]
+  skipDuplicates?: boolean
+}
+
+export type AiTaskUpsertWithWhereUniqueWithoutProductInput = {
+  where: Prisma.AiTaskWhereUniqueInput
+  update: Prisma.XOR<Prisma.AiTaskUpdateWithoutProductInput, Prisma.AiTaskUncheckedUpdateWithoutProductInput>
+  create: Prisma.XOR<Prisma.AiTaskCreateWithoutProductInput, Prisma.AiTaskUncheckedCreateWithoutProductInput>
+}
+
+export type AiTaskUpdateWithWhereUniqueWithoutProductInput = {
+  where: Prisma.AiTaskWhereUniqueInput
+  data: Prisma.XOR<Prisma.AiTaskUpdateWithoutProductInput, Prisma.AiTaskUncheckedUpdateWithoutProductInput>
+}
+
+export type AiTaskUpdateManyWithWhereWithoutProductInput = {
+  where: Prisma.AiTaskScalarWhereInput
+  data: Prisma.XOR<Prisma.AiTaskUpdateManyMutationInput, Prisma.AiTaskUncheckedUpdateManyWithoutProductInput>
+}
+
+export type AiTaskCreateWithoutTemplateInput = {
+  id?: string
+  type: $Enums.AiTaskType
+  status?: $Enums.AiTaskStatus
+  inputData: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: string | null
+  provider?: string | null
+  model?: string | null
+  tokensUsed?: number | null
+  costUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutAiTasksInput
+  product?: Prisma.ProductCreateNestedOneWithoutAiTasksInput
 }
 
 export type AiTaskUncheckedCreateWithoutTemplateInput = {
@@ -709,26 +943,148 @@ export type AiTaskUpdateManyWithWhereWithoutTemplateInput = {
   data: Prisma.XOR<Prisma.AiTaskUpdateManyMutationInput, Prisma.AiTaskUncheckedUpdateManyWithoutTemplateInput>
 }
 
-export type AiTaskScalarWhereInput = {
-  AND?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
-  OR?: Prisma.AiTaskScalarWhereInput[]
-  NOT?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
-  id?: Prisma.UuidFilter<"AiTask"> | string
-  shopId?: Prisma.UuidFilter<"AiTask"> | string
-  type?: Prisma.EnumAiTaskTypeFilter<"AiTask"> | $Enums.AiTaskType
-  status?: Prisma.EnumAiTaskStatusFilter<"AiTask"> | $Enums.AiTaskStatus
-  inputData?: Prisma.JsonFilter<"AiTask">
-  outputData?: Prisma.JsonNullableFilter<"AiTask">
-  error?: Prisma.StringNullableFilter<"AiTask"> | string | null
-  productId?: Prisma.UuidNullableFilter<"AiTask"> | string | null
-  templateId?: Prisma.UuidNullableFilter<"AiTask"> | string | null
-  provider?: Prisma.StringNullableFilter<"AiTask"> | string | null
-  model?: Prisma.StringNullableFilter<"AiTask"> | string | null
-  tokensUsed?: Prisma.IntNullableFilter<"AiTask"> | number | null
-  costUsd?: Prisma.DecimalNullableFilter<"AiTask"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  startedAt?: Prisma.DateTimeNullableFilter<"AiTask"> | Date | string | null
-  completedAt?: Prisma.DateTimeNullableFilter<"AiTask"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"AiTask"> | Date | string
+export type AiTaskCreateManyShopInput = {
+  id?: string
+  type: $Enums.AiTaskType
+  status?: $Enums.AiTaskStatus
+  inputData: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: string | null
+  productId?: string | null
+  templateId?: string | null
+  provider?: string | null
+  model?: string | null
+  tokensUsed?: number | null
+  costUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type AiTaskUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
+  status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
+  inputData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costUsd?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneWithoutAiTasksNestedInput
+  template?: Prisma.AiPromptTemplateUpdateOneWithoutTasksNestedInput
+}
+
+export type AiTaskUncheckedUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
+  status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
+  inputData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  templateId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costUsd?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AiTaskUncheckedUpdateManyWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
+  status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
+  inputData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  templateId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costUsd?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AiTaskCreateManyProductInput = {
+  id?: string
+  shopId: string
+  type: $Enums.AiTaskType
+  status?: $Enums.AiTaskStatus
+  inputData: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: string | null
+  templateId?: string | null
+  provider?: string | null
+  model?: string | null
+  tokensUsed?: number | null
+  costUsd?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type AiTaskUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
+  status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
+  inputData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costUsd?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutAiTasksNestedInput
+  template?: Prisma.AiPromptTemplateUpdateOneWithoutTasksNestedInput
+}
+
+export type AiTaskUncheckedUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
+  status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
+  inputData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  templateId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costUsd?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AiTaskUncheckedUpdateManyWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
+  status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
+  inputData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  templateId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  costUsd?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AiTaskCreateManyTemplateInput = {
@@ -751,13 +1107,11 @@ export type AiTaskCreateManyTemplateInput = {
 
 export type AiTaskUpdateWithoutTemplateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   inputData?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   outputData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   error?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tokensUsed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -765,6 +1119,8 @@ export type AiTaskUpdateWithoutTemplateInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutAiTasksNestedInput
+  product?: Prisma.ProductUpdateOneWithoutAiTasksNestedInput
 }
 
 export type AiTaskUncheckedUpdateWithoutTemplateInput = {
@@ -822,6 +1178,8 @@ export type AiTaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   startedAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.AiTask$productArgs<ExtArgs>
   template?: boolean | Prisma.AiTask$templateArgs<ExtArgs>
 }, ExtArgs["result"]["aiTask"]>
 
@@ -842,6 +1200,8 @@ export type AiTaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   startedAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.AiTask$productArgs<ExtArgs>
   template?: boolean | Prisma.AiTask$templateArgs<ExtArgs>
 }, ExtArgs["result"]["aiTask"]>
 
@@ -862,6 +1222,8 @@ export type AiTaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   startedAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.AiTask$productArgs<ExtArgs>
   template?: boolean | Prisma.AiTask$templateArgs<ExtArgs>
 }, ExtArgs["result"]["aiTask"]>
 
@@ -886,18 +1248,26 @@ export type AiTaskSelectScalar = {
 
 export type AiTaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopId" | "type" | "status" | "inputData" | "outputData" | "error" | "productId" | "templateId" | "provider" | "model" | "tokensUsed" | "costUsd" | "startedAt" | "completedAt" | "createdAt", ExtArgs["result"]["aiTask"]>
 export type AiTaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.AiTask$productArgs<ExtArgs>
   template?: boolean | Prisma.AiTask$templateArgs<ExtArgs>
 }
 export type AiTaskIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.AiTask$productArgs<ExtArgs>
   template?: boolean | Prisma.AiTask$templateArgs<ExtArgs>
 }
 export type AiTaskIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.AiTask$productArgs<ExtArgs>
   template?: boolean | Prisma.AiTask$templateArgs<ExtArgs>
 }
 
 export type $AiTaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AiTask"
   objects: {
+    shop: Prisma.$ShopPayload<ExtArgs>
+    product: Prisma.$ProductPayload<ExtArgs> | null
     template: Prisma.$AiPromptTemplatePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1311,6 +1681,8 @@ readonly fields: AiTaskFieldRefs;
  */
 export interface Prisma__AiTaskClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  shop<T extends Prisma.ShopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShopDefaultArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  product<T extends Prisma.AiTask$productArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AiTask$productArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   template<T extends Prisma.AiTask$templateArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AiTask$templateArgs<ExtArgs>>): Prisma.Prisma__AiPromptTemplateClient<runtime.Types.Result.GetResult<Prisma.$AiPromptTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1755,6 +2127,25 @@ export type AiTaskDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many AiTasks to delete.
    */
   limit?: number
+}
+
+/**
+ * AiTask.product
+ */
+export type AiTask$productArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Product
+   */
+  select?: Prisma.ProductSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Product
+   */
+  omit?: Prisma.ProductOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductInclude<ExtArgs> | null
+  where?: Prisma.ProductWhereInput
 }
 
 /**

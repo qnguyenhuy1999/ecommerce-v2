@@ -292,6 +292,7 @@ export type AdCampaignWhereInput = {
   endsAt?: Prisma.DateTimeNullableFilter<"AdCampaign"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AdCampaign"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AdCampaign"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
   adGroups?: Prisma.AdGroupListRelationFilter
 }
 
@@ -309,6 +310,7 @@ export type AdCampaignOrderByWithRelationInput = {
   endsAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  shop?: Prisma.ShopOrderByWithRelationInput
   adGroups?: Prisma.AdGroupOrderByRelationAggregateInput
 }
 
@@ -329,6 +331,7 @@ export type AdCampaignWhereUniqueInput = Prisma.AtLeast<{
   endsAt?: Prisma.DateTimeNullableFilter<"AdCampaign"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AdCampaign"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AdCampaign"> | Date | string
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
   adGroups?: Prisma.AdGroupListRelationFilter
 }, "id">
 
@@ -374,7 +377,6 @@ export type AdCampaignScalarWhereWithAggregatesInput = {
 
 export type AdCampaignCreateInput = {
   id?: string
-  shopId: string
   name: string
   type?: $Enums.AdType
   status?: $Enums.AdCampaignStatus
@@ -386,6 +388,7 @@ export type AdCampaignCreateInput = {
   endsAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutAdCampaignsInput
   adGroups?: Prisma.AdGroupCreateNestedManyWithoutCampaignInput
 }
 
@@ -408,7 +411,6 @@ export type AdCampaignUncheckedCreateInput = {
 
 export type AdCampaignUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAdTypeFieldUpdateOperationsInput | $Enums.AdType
   status?: Prisma.EnumAdCampaignStatusFieldUpdateOperationsInput | $Enums.AdCampaignStatus
@@ -420,6 +422,7 @@ export type AdCampaignUpdateInput = {
   endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutAdCampaignsNestedInput
   adGroups?: Prisma.AdGroupUpdateManyWithoutCampaignNestedInput
 }
 
@@ -458,7 +461,6 @@ export type AdCampaignCreateManyInput = {
 
 export type AdCampaignUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAdTypeFieldUpdateOperationsInput | $Enums.AdType
   status?: Prisma.EnumAdCampaignStatusFieldUpdateOperationsInput | $Enums.AdCampaignStatus
@@ -486,6 +488,16 @@ export type AdCampaignUncheckedUpdateManyInput = {
   endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AdCampaignListRelationFilter = {
+  every?: Prisma.AdCampaignWhereInput
+  some?: Prisma.AdCampaignWhereInput
+  none?: Prisma.AdCampaignWhereInput
+}
+
+export type AdCampaignOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type AdCampaignCountOrderByAggregateInput = {
@@ -555,6 +567,48 @@ export type AdCampaignScalarRelationFilter = {
   isNot?: Prisma.AdCampaignWhereInput
 }
 
+export type AdCampaignCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.AdCampaignCreateWithoutShopInput, Prisma.AdCampaignUncheckedCreateWithoutShopInput> | Prisma.AdCampaignCreateWithoutShopInput[] | Prisma.AdCampaignUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AdCampaignCreateOrConnectWithoutShopInput | Prisma.AdCampaignCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.AdCampaignCreateManyShopInputEnvelope
+  connect?: Prisma.AdCampaignWhereUniqueInput | Prisma.AdCampaignWhereUniqueInput[]
+}
+
+export type AdCampaignUncheckedCreateNestedManyWithoutShopInput = {
+  create?: Prisma.XOR<Prisma.AdCampaignCreateWithoutShopInput, Prisma.AdCampaignUncheckedCreateWithoutShopInput> | Prisma.AdCampaignCreateWithoutShopInput[] | Prisma.AdCampaignUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AdCampaignCreateOrConnectWithoutShopInput | Prisma.AdCampaignCreateOrConnectWithoutShopInput[]
+  createMany?: Prisma.AdCampaignCreateManyShopInputEnvelope
+  connect?: Prisma.AdCampaignWhereUniqueInput | Prisma.AdCampaignWhereUniqueInput[]
+}
+
+export type AdCampaignUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.AdCampaignCreateWithoutShopInput, Prisma.AdCampaignUncheckedCreateWithoutShopInput> | Prisma.AdCampaignCreateWithoutShopInput[] | Prisma.AdCampaignUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AdCampaignCreateOrConnectWithoutShopInput | Prisma.AdCampaignCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.AdCampaignUpsertWithWhereUniqueWithoutShopInput | Prisma.AdCampaignUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.AdCampaignCreateManyShopInputEnvelope
+  set?: Prisma.AdCampaignWhereUniqueInput | Prisma.AdCampaignWhereUniqueInput[]
+  disconnect?: Prisma.AdCampaignWhereUniqueInput | Prisma.AdCampaignWhereUniqueInput[]
+  delete?: Prisma.AdCampaignWhereUniqueInput | Prisma.AdCampaignWhereUniqueInput[]
+  connect?: Prisma.AdCampaignWhereUniqueInput | Prisma.AdCampaignWhereUniqueInput[]
+  update?: Prisma.AdCampaignUpdateWithWhereUniqueWithoutShopInput | Prisma.AdCampaignUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.AdCampaignUpdateManyWithWhereWithoutShopInput | Prisma.AdCampaignUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.AdCampaignScalarWhereInput | Prisma.AdCampaignScalarWhereInput[]
+}
+
+export type AdCampaignUncheckedUpdateManyWithoutShopNestedInput = {
+  create?: Prisma.XOR<Prisma.AdCampaignCreateWithoutShopInput, Prisma.AdCampaignUncheckedCreateWithoutShopInput> | Prisma.AdCampaignCreateWithoutShopInput[] | Prisma.AdCampaignUncheckedCreateWithoutShopInput[]
+  connectOrCreate?: Prisma.AdCampaignCreateOrConnectWithoutShopInput | Prisma.AdCampaignCreateOrConnectWithoutShopInput[]
+  upsert?: Prisma.AdCampaignUpsertWithWhereUniqueWithoutShopInput | Prisma.AdCampaignUpsertWithWhereUniqueWithoutShopInput[]
+  createMany?: Prisma.AdCampaignCreateManyShopInputEnvelope
+  set?: Prisma.AdCampaignWhereUniqueInput | Prisma.AdCampaignWhereUniqueInput[]
+  disconnect?: Prisma.AdCampaignWhereUniqueInput | Prisma.AdCampaignWhereUniqueInput[]
+  delete?: Prisma.AdCampaignWhereUniqueInput | Prisma.AdCampaignWhereUniqueInput[]
+  connect?: Prisma.AdCampaignWhereUniqueInput | Prisma.AdCampaignWhereUniqueInput[]
+  update?: Prisma.AdCampaignUpdateWithWhereUniqueWithoutShopInput | Prisma.AdCampaignUpdateWithWhereUniqueWithoutShopInput[]
+  updateMany?: Prisma.AdCampaignUpdateManyWithWhereWithoutShopInput | Prisma.AdCampaignUpdateManyWithWhereWithoutShopInput[]
+  deleteMany?: Prisma.AdCampaignScalarWhereInput | Prisma.AdCampaignScalarWhereInput[]
+}
+
 export type EnumAdTypeFieldUpdateOperationsInput = {
   set?: $Enums.AdType
 }
@@ -577,9 +631,8 @@ export type AdCampaignUpdateOneRequiredWithoutAdGroupsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AdCampaignUpdateToOneWithWhereWithoutAdGroupsInput, Prisma.AdCampaignUpdateWithoutAdGroupsInput>, Prisma.AdCampaignUncheckedUpdateWithoutAdGroupsInput>
 }
 
-export type AdCampaignCreateWithoutAdGroupsInput = {
+export type AdCampaignCreateWithoutShopInput = {
   id?: string
-  shopId: string
   name: string
   type?: $Enums.AdType
   status?: $Enums.AdCampaignStatus
@@ -591,6 +644,84 @@ export type AdCampaignCreateWithoutAdGroupsInput = {
   endsAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  adGroups?: Prisma.AdGroupCreateNestedManyWithoutCampaignInput
+}
+
+export type AdCampaignUncheckedCreateWithoutShopInput = {
+  id?: string
+  name: string
+  type?: $Enums.AdType
+  status?: $Enums.AdCampaignStatus
+  dailyBudget: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  spentAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bidAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  startsAt: Date | string
+  endsAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  adGroups?: Prisma.AdGroupUncheckedCreateNestedManyWithoutCampaignInput
+}
+
+export type AdCampaignCreateOrConnectWithoutShopInput = {
+  where: Prisma.AdCampaignWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdCampaignCreateWithoutShopInput, Prisma.AdCampaignUncheckedCreateWithoutShopInput>
+}
+
+export type AdCampaignCreateManyShopInputEnvelope = {
+  data: Prisma.AdCampaignCreateManyShopInput | Prisma.AdCampaignCreateManyShopInput[]
+  skipDuplicates?: boolean
+}
+
+export type AdCampaignUpsertWithWhereUniqueWithoutShopInput = {
+  where: Prisma.AdCampaignWhereUniqueInput
+  update: Prisma.XOR<Prisma.AdCampaignUpdateWithoutShopInput, Prisma.AdCampaignUncheckedUpdateWithoutShopInput>
+  create: Prisma.XOR<Prisma.AdCampaignCreateWithoutShopInput, Prisma.AdCampaignUncheckedCreateWithoutShopInput>
+}
+
+export type AdCampaignUpdateWithWhereUniqueWithoutShopInput = {
+  where: Prisma.AdCampaignWhereUniqueInput
+  data: Prisma.XOR<Prisma.AdCampaignUpdateWithoutShopInput, Prisma.AdCampaignUncheckedUpdateWithoutShopInput>
+}
+
+export type AdCampaignUpdateManyWithWhereWithoutShopInput = {
+  where: Prisma.AdCampaignScalarWhereInput
+  data: Prisma.XOR<Prisma.AdCampaignUpdateManyMutationInput, Prisma.AdCampaignUncheckedUpdateManyWithoutShopInput>
+}
+
+export type AdCampaignScalarWhereInput = {
+  AND?: Prisma.AdCampaignScalarWhereInput | Prisma.AdCampaignScalarWhereInput[]
+  OR?: Prisma.AdCampaignScalarWhereInput[]
+  NOT?: Prisma.AdCampaignScalarWhereInput | Prisma.AdCampaignScalarWhereInput[]
+  id?: Prisma.UuidFilter<"AdCampaign"> | string
+  shopId?: Prisma.UuidFilter<"AdCampaign"> | string
+  name?: Prisma.StringFilter<"AdCampaign"> | string
+  type?: Prisma.EnumAdTypeFilter<"AdCampaign"> | $Enums.AdType
+  status?: Prisma.EnumAdCampaignStatusFilter<"AdCampaign"> | $Enums.AdCampaignStatus
+  dailyBudget?: Prisma.DecimalFilter<"AdCampaign"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalBudget?: Prisma.DecimalNullableFilter<"AdCampaign"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  spentAmount?: Prisma.DecimalFilter<"AdCampaign"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bidAmount?: Prisma.DecimalFilter<"AdCampaign"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  startsAt?: Prisma.DateTimeFilter<"AdCampaign"> | Date | string
+  endsAt?: Prisma.DateTimeNullableFilter<"AdCampaign"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"AdCampaign"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AdCampaign"> | Date | string
+}
+
+export type AdCampaignCreateWithoutAdGroupsInput = {
+  id?: string
+  name: string
+  type?: $Enums.AdType
+  status?: $Enums.AdCampaignStatus
+  dailyBudget: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  spentAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bidAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  startsAt: Date | string
+  endsAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shop: Prisma.ShopCreateNestedOneWithoutAdCampaignsInput
 }
 
 export type AdCampaignUncheckedCreateWithoutAdGroupsInput = {
@@ -627,6 +758,22 @@ export type AdCampaignUpdateToOneWithWhereWithoutAdGroupsInput = {
 
 export type AdCampaignUpdateWithoutAdGroupsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAdTypeFieldUpdateOperationsInput | $Enums.AdType
+  status?: Prisma.EnumAdCampaignStatusFieldUpdateOperationsInput | $Enums.AdCampaignStatus
+  dailyBudget?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  spentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shop?: Prisma.ShopUpdateOneRequiredWithoutAdCampaignsNestedInput
+}
+
+export type AdCampaignUncheckedUpdateWithoutAdGroupsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   shopId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAdTypeFieldUpdateOperationsInput | $Enums.AdType
@@ -641,9 +788,55 @@ export type AdCampaignUpdateWithoutAdGroupsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type AdCampaignUncheckedUpdateWithoutAdGroupsInput = {
+export type AdCampaignCreateManyShopInput = {
+  id?: string
+  name: string
+  type?: $Enums.AdType
+  status?: $Enums.AdCampaignStatus
+  dailyBudget: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalBudget?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  spentAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bidAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  startsAt: Date | string
+  endsAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AdCampaignUpdateWithoutShopInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  shopId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAdTypeFieldUpdateOperationsInput | $Enums.AdType
+  status?: Prisma.EnumAdCampaignStatusFieldUpdateOperationsInput | $Enums.AdCampaignStatus
+  dailyBudget?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  spentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  adGroups?: Prisma.AdGroupUpdateManyWithoutCampaignNestedInput
+}
+
+export type AdCampaignUncheckedUpdateWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAdTypeFieldUpdateOperationsInput | $Enums.AdType
+  status?: Prisma.EnumAdCampaignStatusFieldUpdateOperationsInput | $Enums.AdCampaignStatus
+  dailyBudget?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalBudget?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  spentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  adGroups?: Prisma.AdGroupUncheckedUpdateManyWithoutCampaignNestedInput
+}
+
+export type AdCampaignUncheckedUpdateManyWithoutShopInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAdTypeFieldUpdateOperationsInput | $Enums.AdType
   status?: Prisma.EnumAdCampaignStatusFieldUpdateOperationsInput | $Enums.AdCampaignStatus
@@ -702,6 +895,7 @@ export type AdCampaignSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   endsAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
   adGroups?: boolean | Prisma.AdCampaign$adGroupsArgs<ExtArgs>
   _count?: boolean | Prisma.AdCampaignCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["adCampaign"]>
@@ -720,6 +914,7 @@ export type AdCampaignSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   endsAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["adCampaign"]>
 
 export type AdCampaignSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -736,6 +931,7 @@ export type AdCampaignSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   endsAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["adCampaign"]>
 
 export type AdCampaignSelectScalar = {
@@ -756,15 +952,21 @@ export type AdCampaignSelectScalar = {
 
 export type AdCampaignOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopId" | "name" | "type" | "status" | "dailyBudget" | "totalBudget" | "spentAmount" | "bidAmount" | "startsAt" | "endsAt" | "createdAt" | "updatedAt", ExtArgs["result"]["adCampaign"]>
 export type AdCampaignInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
   adGroups?: boolean | Prisma.AdCampaign$adGroupsArgs<ExtArgs>
   _count?: boolean | Prisma.AdCampaignCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type AdCampaignIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type AdCampaignIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type AdCampaignIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
+export type AdCampaignIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
+}
 
 export type $AdCampaignPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AdCampaign"
   objects: {
+    shop: Prisma.$ShopPayload<ExtArgs>
     adGroups: Prisma.$AdGroupPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1175,6 +1377,7 @@ readonly fields: AdCampaignFieldRefs;
  */
 export interface Prisma__AdCampaignClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  shop<T extends Prisma.ShopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShopDefaultArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   adGroups<T extends Prisma.AdCampaign$adGroupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AdCampaign$adGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1472,6 +1675,10 @@ export type AdCampaignCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    */
   data: Prisma.AdCampaignCreateManyInput | Prisma.AdCampaignCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdCampaignIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1542,6 +1749,10 @@ export type AdCampaignUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    * Limit how many AdCampaigns to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdCampaignIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

@@ -332,6 +332,7 @@ export type PlatformVoucherWhereInput = {
   createdBy?: Prisma.UuidNullableFilter<"PlatformVoucher"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PlatformVoucher"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PlatformVoucher"> | Date | string
+  createdByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }
 
 export type PlatformVoucherOrderByWithRelationInput = {
@@ -352,6 +353,7 @@ export type PlatformVoucherOrderByWithRelationInput = {
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  createdByAdmin?: Prisma.AdminOrderByWithRelationInput
 }
 
 export type PlatformVoucherWhereUniqueInput = Prisma.AtLeast<{
@@ -375,6 +377,7 @@ export type PlatformVoucherWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.UuidNullableFilter<"PlatformVoucher"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PlatformVoucher"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PlatformVoucher"> | Date | string
+  createdByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }, "id" | "code">
 
 export type PlatformVoucherOrderByWithAggregationInput = {
@@ -440,9 +443,9 @@ export type PlatformVoucherCreateInput = {
   usedCount?: number
   startsAt: Date | string
   expiresAt: Date | string
-  createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdByAdmin?: Prisma.AdminCreateNestedOneWithoutPlatformVouchersCreatedInput
 }
 
 export type PlatformVoucherUncheckedCreateInput = {
@@ -480,9 +483,9 @@ export type PlatformVoucherUpdateInput = {
   usedCount?: Prisma.IntFieldUpdateOperationsInput | number
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdByAdmin?: Prisma.AdminUpdateOneWithoutPlatformVouchersCreatedNestedInput
 }
 
 export type PlatformVoucherUncheckedUpdateInput = {
@@ -540,7 +543,6 @@ export type PlatformVoucherUpdateManyMutationInput = {
   usedCount?: Prisma.IntFieldUpdateOperationsInput | number
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -563,6 +565,16 @@ export type PlatformVoucherUncheckedUpdateManyInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PlatformVoucherListRelationFilter = {
+  every?: Prisma.PlatformVoucherWhereInput
+  some?: Prisma.PlatformVoucherWhereInput
+  none?: Prisma.PlatformVoucherWhereInput
+}
+
+export type PlatformVoucherOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type PlatformVoucherCountOrderByAggregateInput = {
@@ -643,12 +655,217 @@ export type PlatformVoucherSumOrderByAggregateInput = {
   usedCount?: Prisma.SortOrder
 }
 
+export type PlatformVoucherCreateNestedManyWithoutCreatedByAdminInput = {
+  create?: Prisma.XOR<Prisma.PlatformVoucherCreateWithoutCreatedByAdminInput, Prisma.PlatformVoucherUncheckedCreateWithoutCreatedByAdminInput> | Prisma.PlatformVoucherCreateWithoutCreatedByAdminInput[] | Prisma.PlatformVoucherUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.PlatformVoucherCreateOrConnectWithoutCreatedByAdminInput | Prisma.PlatformVoucherCreateOrConnectWithoutCreatedByAdminInput[]
+  createMany?: Prisma.PlatformVoucherCreateManyCreatedByAdminInputEnvelope
+  connect?: Prisma.PlatformVoucherWhereUniqueInput | Prisma.PlatformVoucherWhereUniqueInput[]
+}
+
+export type PlatformVoucherUncheckedCreateNestedManyWithoutCreatedByAdminInput = {
+  create?: Prisma.XOR<Prisma.PlatformVoucherCreateWithoutCreatedByAdminInput, Prisma.PlatformVoucherUncheckedCreateWithoutCreatedByAdminInput> | Prisma.PlatformVoucherCreateWithoutCreatedByAdminInput[] | Prisma.PlatformVoucherUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.PlatformVoucherCreateOrConnectWithoutCreatedByAdminInput | Prisma.PlatformVoucherCreateOrConnectWithoutCreatedByAdminInput[]
+  createMany?: Prisma.PlatformVoucherCreateManyCreatedByAdminInputEnvelope
+  connect?: Prisma.PlatformVoucherWhereUniqueInput | Prisma.PlatformVoucherWhereUniqueInput[]
+}
+
+export type PlatformVoucherUpdateManyWithoutCreatedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.PlatformVoucherCreateWithoutCreatedByAdminInput, Prisma.PlatformVoucherUncheckedCreateWithoutCreatedByAdminInput> | Prisma.PlatformVoucherCreateWithoutCreatedByAdminInput[] | Prisma.PlatformVoucherUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.PlatformVoucherCreateOrConnectWithoutCreatedByAdminInput | Prisma.PlatformVoucherCreateOrConnectWithoutCreatedByAdminInput[]
+  upsert?: Prisma.PlatformVoucherUpsertWithWhereUniqueWithoutCreatedByAdminInput | Prisma.PlatformVoucherUpsertWithWhereUniqueWithoutCreatedByAdminInput[]
+  createMany?: Prisma.PlatformVoucherCreateManyCreatedByAdminInputEnvelope
+  set?: Prisma.PlatformVoucherWhereUniqueInput | Prisma.PlatformVoucherWhereUniqueInput[]
+  disconnect?: Prisma.PlatformVoucherWhereUniqueInput | Prisma.PlatformVoucherWhereUniqueInput[]
+  delete?: Prisma.PlatformVoucherWhereUniqueInput | Prisma.PlatformVoucherWhereUniqueInput[]
+  connect?: Prisma.PlatformVoucherWhereUniqueInput | Prisma.PlatformVoucherWhereUniqueInput[]
+  update?: Prisma.PlatformVoucherUpdateWithWhereUniqueWithoutCreatedByAdminInput | Prisma.PlatformVoucherUpdateWithWhereUniqueWithoutCreatedByAdminInput[]
+  updateMany?: Prisma.PlatformVoucherUpdateManyWithWhereWithoutCreatedByAdminInput | Prisma.PlatformVoucherUpdateManyWithWhereWithoutCreatedByAdminInput[]
+  deleteMany?: Prisma.PlatformVoucherScalarWhereInput | Prisma.PlatformVoucherScalarWhereInput[]
+}
+
+export type PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.PlatformVoucherCreateWithoutCreatedByAdminInput, Prisma.PlatformVoucherUncheckedCreateWithoutCreatedByAdminInput> | Prisma.PlatformVoucherCreateWithoutCreatedByAdminInput[] | Prisma.PlatformVoucherUncheckedCreateWithoutCreatedByAdminInput[]
+  connectOrCreate?: Prisma.PlatformVoucherCreateOrConnectWithoutCreatedByAdminInput | Prisma.PlatformVoucherCreateOrConnectWithoutCreatedByAdminInput[]
+  upsert?: Prisma.PlatformVoucherUpsertWithWhereUniqueWithoutCreatedByAdminInput | Prisma.PlatformVoucherUpsertWithWhereUniqueWithoutCreatedByAdminInput[]
+  createMany?: Prisma.PlatformVoucherCreateManyCreatedByAdminInputEnvelope
+  set?: Prisma.PlatformVoucherWhereUniqueInput | Prisma.PlatformVoucherWhereUniqueInput[]
+  disconnect?: Prisma.PlatformVoucherWhereUniqueInput | Prisma.PlatformVoucherWhereUniqueInput[]
+  delete?: Prisma.PlatformVoucherWhereUniqueInput | Prisma.PlatformVoucherWhereUniqueInput[]
+  connect?: Prisma.PlatformVoucherWhereUniqueInput | Prisma.PlatformVoucherWhereUniqueInput[]
+  update?: Prisma.PlatformVoucherUpdateWithWhereUniqueWithoutCreatedByAdminInput | Prisma.PlatformVoucherUpdateWithWhereUniqueWithoutCreatedByAdminInput[]
+  updateMany?: Prisma.PlatformVoucherUpdateManyWithWhereWithoutCreatedByAdminInput | Prisma.PlatformVoucherUpdateManyWithWhereWithoutCreatedByAdminInput[]
+  deleteMany?: Prisma.PlatformVoucherScalarWhereInput | Prisma.PlatformVoucherScalarWhereInput[]
+}
+
 export type EnumPlatformVoucherTypeFieldUpdateOperationsInput = {
   set?: $Enums.PlatformVoucherType
 }
 
 export type EnumPlatformVoucherStatusFieldUpdateOperationsInput = {
   set?: $Enums.PlatformVoucherStatus
+}
+
+export type PlatformVoucherCreateWithoutCreatedByAdminInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  type: $Enums.PlatformVoucherType
+  status?: $Enums.PlatformVoucherStatus
+  discountValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  maxDiscountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minOrderAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageLimit?: number | null
+  usageLimitPerUser?: number | null
+  usedCount?: number
+  startsAt: Date | string
+  expiresAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PlatformVoucherUncheckedCreateWithoutCreatedByAdminInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  type: $Enums.PlatformVoucherType
+  status?: $Enums.PlatformVoucherStatus
+  discountValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  maxDiscountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minOrderAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageLimit?: number | null
+  usageLimitPerUser?: number | null
+  usedCount?: number
+  startsAt: Date | string
+  expiresAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PlatformVoucherCreateOrConnectWithoutCreatedByAdminInput = {
+  where: Prisma.PlatformVoucherWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlatformVoucherCreateWithoutCreatedByAdminInput, Prisma.PlatformVoucherUncheckedCreateWithoutCreatedByAdminInput>
+}
+
+export type PlatformVoucherCreateManyCreatedByAdminInputEnvelope = {
+  data: Prisma.PlatformVoucherCreateManyCreatedByAdminInput | Prisma.PlatformVoucherCreateManyCreatedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type PlatformVoucherUpsertWithWhereUniqueWithoutCreatedByAdminInput = {
+  where: Prisma.PlatformVoucherWhereUniqueInput
+  update: Prisma.XOR<Prisma.PlatformVoucherUpdateWithoutCreatedByAdminInput, Prisma.PlatformVoucherUncheckedUpdateWithoutCreatedByAdminInput>
+  create: Prisma.XOR<Prisma.PlatformVoucherCreateWithoutCreatedByAdminInput, Prisma.PlatformVoucherUncheckedCreateWithoutCreatedByAdminInput>
+}
+
+export type PlatformVoucherUpdateWithWhereUniqueWithoutCreatedByAdminInput = {
+  where: Prisma.PlatformVoucherWhereUniqueInput
+  data: Prisma.XOR<Prisma.PlatformVoucherUpdateWithoutCreatedByAdminInput, Prisma.PlatformVoucherUncheckedUpdateWithoutCreatedByAdminInput>
+}
+
+export type PlatformVoucherUpdateManyWithWhereWithoutCreatedByAdminInput = {
+  where: Prisma.PlatformVoucherScalarWhereInput
+  data: Prisma.XOR<Prisma.PlatformVoucherUpdateManyMutationInput, Prisma.PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminInput>
+}
+
+export type PlatformVoucherScalarWhereInput = {
+  AND?: Prisma.PlatformVoucherScalarWhereInput | Prisma.PlatformVoucherScalarWhereInput[]
+  OR?: Prisma.PlatformVoucherScalarWhereInput[]
+  NOT?: Prisma.PlatformVoucherScalarWhereInput | Prisma.PlatformVoucherScalarWhereInput[]
+  id?: Prisma.UuidFilter<"PlatformVoucher"> | string
+  code?: Prisma.StringFilter<"PlatformVoucher"> | string
+  name?: Prisma.StringFilter<"PlatformVoucher"> | string
+  description?: Prisma.StringNullableFilter<"PlatformVoucher"> | string | null
+  type?: Prisma.EnumPlatformVoucherTypeFilter<"PlatformVoucher"> | $Enums.PlatformVoucherType
+  status?: Prisma.EnumPlatformVoucherStatusFilter<"PlatformVoucher"> | $Enums.PlatformVoucherStatus
+  discountValue?: Prisma.DecimalFilter<"PlatformVoucher"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  maxDiscountAmount?: Prisma.DecimalNullableFilter<"PlatformVoucher"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minOrderAmount?: Prisma.DecimalNullableFilter<"PlatformVoucher"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageLimit?: Prisma.IntNullableFilter<"PlatformVoucher"> | number | null
+  usageLimitPerUser?: Prisma.IntNullableFilter<"PlatformVoucher"> | number | null
+  usedCount?: Prisma.IntFilter<"PlatformVoucher"> | number
+  startsAt?: Prisma.DateTimeFilter<"PlatformVoucher"> | Date | string
+  expiresAt?: Prisma.DateTimeFilter<"PlatformVoucher"> | Date | string
+  createdBy?: Prisma.UuidNullableFilter<"PlatformVoucher"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"PlatformVoucher"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"PlatformVoucher"> | Date | string
+}
+
+export type PlatformVoucherCreateManyCreatedByAdminInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  type: $Enums.PlatformVoucherType
+  status?: $Enums.PlatformVoucherStatus
+  discountValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  maxDiscountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minOrderAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageLimit?: number | null
+  usageLimitPerUser?: number | null
+  usedCount?: number
+  startsAt: Date | string
+  expiresAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PlatformVoucherUpdateWithoutCreatedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumPlatformVoucherTypeFieldUpdateOperationsInput | $Enums.PlatformVoucherType
+  status?: Prisma.EnumPlatformVoucherStatusFieldUpdateOperationsInput | $Enums.PlatformVoucherStatus
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  maxDiscountAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minOrderAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usageLimitPerUser?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PlatformVoucherUncheckedUpdateWithoutCreatedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumPlatformVoucherTypeFieldUpdateOperationsInput | $Enums.PlatformVoucherType
+  status?: Prisma.EnumPlatformVoucherStatusFieldUpdateOperationsInput | $Enums.PlatformVoucherStatus
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  maxDiscountAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minOrderAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usageLimitPerUser?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PlatformVoucherUncheckedUpdateManyWithoutCreatedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumPlatformVoucherTypeFieldUpdateOperationsInput | $Enums.PlatformVoucherType
+  status?: Prisma.EnumPlatformVoucherStatusFieldUpdateOperationsInput | $Enums.PlatformVoucherStatus
+  discountValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  maxDiscountAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minOrderAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  usageLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usageLimitPerUser?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  usedCount?: Prisma.IntFieldUpdateOperationsInput | number
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -671,6 +888,7 @@ export type PlatformVoucherSelect<ExtArgs extends runtime.Types.Extensions.Inter
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  createdByAdmin?: boolean | Prisma.PlatformVoucher$createdByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["platformVoucher"]>
 
 export type PlatformVoucherSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -691,6 +909,7 @@ export type PlatformVoucherSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  createdByAdmin?: boolean | Prisma.PlatformVoucher$createdByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["platformVoucher"]>
 
 export type PlatformVoucherSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -711,6 +930,7 @@ export type PlatformVoucherSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  createdByAdmin?: boolean | Prisma.PlatformVoucher$createdByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["platformVoucher"]>
 
 export type PlatformVoucherSelectScalar = {
@@ -734,10 +954,21 @@ export type PlatformVoucherSelectScalar = {
 }
 
 export type PlatformVoucherOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "type" | "status" | "discountValue" | "maxDiscountAmount" | "minOrderAmount" | "usageLimit" | "usageLimitPerUser" | "usedCount" | "startsAt" | "expiresAt" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["platformVoucher"]>
+export type PlatformVoucherInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  createdByAdmin?: boolean | Prisma.PlatformVoucher$createdByAdminArgs<ExtArgs>
+}
+export type PlatformVoucherIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  createdByAdmin?: boolean | Prisma.PlatformVoucher$createdByAdminArgs<ExtArgs>
+}
+export type PlatformVoucherIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  createdByAdmin?: boolean | Prisma.PlatformVoucher$createdByAdminArgs<ExtArgs>
+}
 
 export type $PlatformVoucherPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PlatformVoucher"
-  objects: {}
+  objects: {
+    createdByAdmin: Prisma.$AdminPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     code: string
@@ -1150,6 +1381,7 @@ readonly fields: PlatformVoucherFieldRefs;
  */
 export interface Prisma__PlatformVoucherClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  createdByAdmin<T extends Prisma.PlatformVoucher$createdByAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformVoucher$createdByAdminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1213,6 +1445,10 @@ export type PlatformVoucherFindUniqueArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.PlatformVoucherOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherInclude<ExtArgs> | null
+  /**
    * Filter, which PlatformVoucher to fetch.
    */
   where: Prisma.PlatformVoucherWhereUniqueInput
@@ -1231,6 +1467,10 @@ export type PlatformVoucherFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.E
    */
   omit?: Prisma.PlatformVoucherOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherInclude<ExtArgs> | null
+  /**
    * Filter, which PlatformVoucher to fetch.
    */
   where: Prisma.PlatformVoucherWhereUniqueInput
@@ -1248,6 +1488,10 @@ export type PlatformVoucherFindFirstArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the PlatformVoucher
    */
   omit?: Prisma.PlatformVoucherOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherInclude<ExtArgs> | null
   /**
    * Filter, which PlatformVoucher to fetch.
    */
@@ -1297,6 +1541,10 @@ export type PlatformVoucherFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Ex
    */
   omit?: Prisma.PlatformVoucherOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherInclude<ExtArgs> | null
+  /**
    * Filter, which PlatformVoucher to fetch.
    */
   where?: Prisma.PlatformVoucherWhereInput
@@ -1344,6 +1592,10 @@ export type PlatformVoucherFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the PlatformVoucher
    */
   omit?: Prisma.PlatformVoucherOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherInclude<ExtArgs> | null
   /**
    * Filter, which PlatformVouchers to fetch.
    */
@@ -1393,6 +1645,10 @@ export type PlatformVoucherCreateArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.PlatformVoucherOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherInclude<ExtArgs> | null
+  /**
    * The data needed to create a PlatformVoucher.
    */
   data: Prisma.XOR<Prisma.PlatformVoucherCreateInput, Prisma.PlatformVoucherUncheckedCreateInput>
@@ -1426,6 +1682,10 @@ export type PlatformVoucherCreateManyAndReturnArgs<ExtArgs extends runtime.Types
    */
   data: Prisma.PlatformVoucherCreateManyInput | Prisma.PlatformVoucherCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1440,6 +1700,10 @@ export type PlatformVoucherUpdateArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the PlatformVoucher
    */
   omit?: Prisma.PlatformVoucherOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherInclude<ExtArgs> | null
   /**
    * The data needed to update a PlatformVoucher.
    */
@@ -1492,6 +1756,10 @@ export type PlatformVoucherUpdateManyAndReturnArgs<ExtArgs extends runtime.Types
    * Limit how many PlatformVouchers to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1506,6 +1774,10 @@ export type PlatformVoucherUpsertArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the PlatformVoucher
    */
   omit?: Prisma.PlatformVoucherOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherInclude<ExtArgs> | null
   /**
    * The filter to search for the PlatformVoucher to update in case it exists.
    */
@@ -1533,6 +1805,10 @@ export type PlatformVoucherDeleteArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.PlatformVoucherOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherInclude<ExtArgs> | null
+  /**
    * Filter which PlatformVoucher to delete.
    */
   where: Prisma.PlatformVoucherWhereUniqueInput
@@ -1553,6 +1829,25 @@ export type PlatformVoucherDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
 }
 
 /**
+ * PlatformVoucher.createdByAdmin
+ */
+export type PlatformVoucher$createdByAdminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
+}
+
+/**
  * PlatformVoucher without action
  */
 export type PlatformVoucherDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1564,4 +1859,8 @@ export type PlatformVoucherDefaultArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the PlatformVoucher
    */
   omit?: Prisma.PlatformVoucherOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformVoucherInclude<ExtArgs> | null
 }

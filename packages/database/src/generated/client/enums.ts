@@ -208,6 +208,64 @@ export const InventoryTransferStatus = {
 export type InventoryTransferStatus = (typeof InventoryTransferStatus)[keyof typeof InventoryTransferStatus]
 
 
+export const UserEventType = {
+  VIEW: 'VIEW',
+  CLICK: 'CLICK',
+  ADD_TO_CART: 'ADD_TO_CART',
+  PURCHASE: 'PURCHASE',
+  SEARCH: 'SEARCH',
+  WISHLIST: 'WISHLIST',
+  SHARE: 'SHARE',
+  REVIEW: 'REVIEW'
+} as const
+
+export type UserEventType = (typeof UserEventType)[keyof typeof UserEventType]
+
+
+export const UserEventEntityType = {
+  PRODUCT: 'PRODUCT',
+  SHOP: 'SHOP',
+  CATEGORY: 'CATEGORY',
+  SEARCH_RESULT: 'SEARCH_RESULT',
+  AD: 'AD'
+} as const
+
+export type UserEventEntityType = (typeof UserEventEntityType)[keyof typeof UserEventEntityType]
+
+
+export const ProductScoreType = {
+  POPULARITY: 'POPULARITY',
+  RELEVANCE: 'RELEVANCE',
+  QUALITY: 'QUALITY',
+  TRENDING: 'TRENDING',
+  CONVERSION_RATE: 'CONVERSION_RATE'
+} as const
+
+export type ProductScoreType = (typeof ProductScoreType)[keyof typeof ProductScoreType]
+
+
+export const ProductRelationType = {
+  FREQUENTLY_BOUGHT_TOGETHER: 'FREQUENTLY_BOUGHT_TOGETHER',
+  SIMILAR: 'SIMILAR',
+  UPSELL: 'UPSELL',
+  CROSS_SELL: 'CROSS_SELL',
+  ACCESSORY: 'ACCESSORY'
+} as const
+
+export type ProductRelationType = (typeof ProductRelationType)[keyof typeof ProductRelationType]
+
+
+export const LoyaltyRewardType = {
+  COUPON: 'COUPON',
+  POINTS_MULTIPLIER: 'POINTS_MULTIPLIER',
+  FREE_SHIPPING: 'FREE_SHIPPING',
+  CASHBACK: 'CASHBACK',
+  PHYSICAL_GIFT: 'PHYSICAL_GIFT'
+} as const
+
+export type LoyaltyRewardType = (typeof LoyaltyRewardType)[keyof typeof LoyaltyRewardType]
+
+
 export const FlashSaleStatus = {
   DRAFT: 'DRAFT',
   SCHEDULED: 'SCHEDULED',
@@ -438,6 +496,15 @@ export const PlatformEventStatus = {
 } as const
 
 export type PlatformEventStatus = (typeof PlatformEventStatus)[keyof typeof PlatformEventStatus]
+
+
+export const WalletOwnerType = {
+  SHOP: 'SHOP',
+  AFFILIATE: 'AFFILIATE',
+  PLATFORM: 'PLATFORM'
+} as const
+
+export type WalletOwnerType = (typeof WalletOwnerType)[keyof typeof WalletOwnerType]
 
 
 export const AdminStatus = {

@@ -6,6 +6,8 @@ export interface WithAuthOptions {
   publicPaths?: string[]
   loginPath?: string
   requiredRole?: string
+  requireSeller?: boolean
+  meEndpoint?: string
   forbiddenRedirectTo?: string
 }
 
@@ -21,6 +23,8 @@ export function createWithAuth(options: WithAuthOptions = {}) {
     publicPaths = ['/login'],
     loginPath = '/login',
     requiredRole,
+    requireSeller = false,
+    meEndpoint = '/auth/me',
     forbiddenRedirectTo = '/',
   } = options
 
@@ -37,7 +41,7 @@ export function createWithAuth(options: WithAuthOptions = {}) {
     }
 
     try {
-      const res = await fetch(`${apiUrl}/auth/me`, {
+      const res = await fetch(`${apiUrl}${meEndpoint}`, {
         headers: { Cookie: `${SESSION_COOKIE_NAME}=${sid}` },
       })
 
@@ -47,10 +51,16 @@ export function createWithAuth(options: WithAuthOptions = {}) {
         return response
       }
 
-      if (requiredRole) {
+      if (requiredRole || requireSeller) {
         const payload: unknown = await res.json()
-        const roles = parseRoles(payload)
-        if (!roles.includes(requiredRole)) {
+        if (requiredRole) {
+          const roles = parseRoles(payload)
+          if (!roles.includes(requiredRole)) {
+            return NextResponse.redirect(new URL(forbiddenRedirectTo, request.url))
+          }
+        }
+
+        if (requireSeller && !hasSellerProfile(payload)) {
           return NextResponse.redirect(new URL(forbiddenRedirectTo, request.url))
         }
       }
@@ -67,4 +77,10 @@ function parseRoles(value: unknown): string[] {
   const roles = (value as Record<string, unknown>).roles
   if (!Array.isArray(roles)) return []
   return roles.filter((role): role is string => typeof role === 'string')
+}
+
+function hasSellerProfile(value: unknown): boolean {
+  if (!value || typeof value !== 'object') return false
+  const sellerProfile = (value as Record<string, unknown>).sellerProfile
+  return !!sellerProfile && typeof sellerProfile === 'object'
 }

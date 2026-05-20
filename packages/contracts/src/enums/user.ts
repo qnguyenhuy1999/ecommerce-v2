@@ -8,16 +8,6 @@ export const UserStatus = {
 
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
-// ─── User Role ──────────────────────────────────────────────────
-export const UserRole = {
-  ADMIN: 'ADMIN',
-  SELLER: 'SELLER',
-  CUSTOMER: 'CUSTOMER',
-  MODERATOR: 'MODERATOR',
-} as const
-
-export type UserRole = (typeof UserRole)[keyof typeof UserRole]
-
 // ─── User Event Type ────────────────────────────────────────────
 export const UserEventType = {
   CREATED: 'CREATED',

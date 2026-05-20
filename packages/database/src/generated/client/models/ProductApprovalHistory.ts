@@ -199,6 +199,7 @@ export type ProductApprovalHistoryWhereInput = {
   performedBy?: Prisma.UuidNullableFilter<"ProductApprovalHistory"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ProductApprovalHistory"> | Date | string
   approval?: Prisma.XOR<Prisma.ProductApprovalScalarRelationFilter, Prisma.ProductApprovalWhereInput>
+  performedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }
 
 export type ProductApprovalHistoryOrderByWithRelationInput = {
@@ -210,6 +211,7 @@ export type ProductApprovalHistoryOrderByWithRelationInput = {
   performedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   approval?: Prisma.ProductApprovalOrderByWithRelationInput
+  performedByAdmin?: Prisma.AdminOrderByWithRelationInput
 }
 
 export type ProductApprovalHistoryWhereUniqueInput = Prisma.AtLeast<{
@@ -224,6 +226,7 @@ export type ProductApprovalHistoryWhereUniqueInput = Prisma.AtLeast<{
   performedBy?: Prisma.UuidNullableFilter<"ProductApprovalHistory"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ProductApprovalHistory"> | Date | string
   approval?: Prisma.XOR<Prisma.ProductApprovalScalarRelationFilter, Prisma.ProductApprovalWhereInput>
+  performedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }, "id">
 
 export type ProductApprovalHistoryOrderByWithAggregationInput = {
@@ -257,9 +260,9 @@ export type ProductApprovalHistoryCreateInput = {
   fromStatus: string
   toStatus: string
   note?: string | null
-  performedBy?: string | null
   createdAt?: Date | string
   approval: Prisma.ProductApprovalCreateNestedOneWithoutHistoryInput
+  performedByAdmin?: Prisma.AdminCreateNestedOneWithoutProductApprovalHistoryEntriesInput
 }
 
 export type ProductApprovalHistoryUncheckedCreateInput = {
@@ -277,9 +280,9 @@ export type ProductApprovalHistoryUpdateInput = {
   fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
   toStatus?: Prisma.StringFieldUpdateOperationsInput | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  performedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approval?: Prisma.ProductApprovalUpdateOneRequiredWithoutHistoryNestedInput
+  performedByAdmin?: Prisma.AdminUpdateOneWithoutProductApprovalHistoryEntriesNestedInput
 }
 
 export type ProductApprovalHistoryUncheckedUpdateInput = {
@@ -307,7 +310,6 @@ export type ProductApprovalHistoryUpdateManyMutationInput = {
   fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
   toStatus?: Prisma.StringFieldUpdateOperationsInput | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  performedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -403,13 +405,55 @@ export type ProductApprovalHistoryUncheckedUpdateManyWithoutApprovalNestedInput 
   deleteMany?: Prisma.ProductApprovalHistoryScalarWhereInput | Prisma.ProductApprovalHistoryScalarWhereInput[]
 }
 
+export type ProductApprovalHistoryCreateNestedManyWithoutPerformedByAdminInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalHistoryCreateWithoutPerformedByAdminInput, Prisma.ProductApprovalHistoryUncheckedCreateWithoutPerformedByAdminInput> | Prisma.ProductApprovalHistoryCreateWithoutPerformedByAdminInput[] | Prisma.ProductApprovalHistoryUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.ProductApprovalHistoryCreateOrConnectWithoutPerformedByAdminInput | Prisma.ProductApprovalHistoryCreateOrConnectWithoutPerformedByAdminInput[]
+  createMany?: Prisma.ProductApprovalHistoryCreateManyPerformedByAdminInputEnvelope
+  connect?: Prisma.ProductApprovalHistoryWhereUniqueInput | Prisma.ProductApprovalHistoryWhereUniqueInput[]
+}
+
+export type ProductApprovalHistoryUncheckedCreateNestedManyWithoutPerformedByAdminInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalHistoryCreateWithoutPerformedByAdminInput, Prisma.ProductApprovalHistoryUncheckedCreateWithoutPerformedByAdminInput> | Prisma.ProductApprovalHistoryCreateWithoutPerformedByAdminInput[] | Prisma.ProductApprovalHistoryUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.ProductApprovalHistoryCreateOrConnectWithoutPerformedByAdminInput | Prisma.ProductApprovalHistoryCreateOrConnectWithoutPerformedByAdminInput[]
+  createMany?: Prisma.ProductApprovalHistoryCreateManyPerformedByAdminInputEnvelope
+  connect?: Prisma.ProductApprovalHistoryWhereUniqueInput | Prisma.ProductApprovalHistoryWhereUniqueInput[]
+}
+
+export type ProductApprovalHistoryUpdateManyWithoutPerformedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalHistoryCreateWithoutPerformedByAdminInput, Prisma.ProductApprovalHistoryUncheckedCreateWithoutPerformedByAdminInput> | Prisma.ProductApprovalHistoryCreateWithoutPerformedByAdminInput[] | Prisma.ProductApprovalHistoryUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.ProductApprovalHistoryCreateOrConnectWithoutPerformedByAdminInput | Prisma.ProductApprovalHistoryCreateOrConnectWithoutPerformedByAdminInput[]
+  upsert?: Prisma.ProductApprovalHistoryUpsertWithWhereUniqueWithoutPerformedByAdminInput | Prisma.ProductApprovalHistoryUpsertWithWhereUniqueWithoutPerformedByAdminInput[]
+  createMany?: Prisma.ProductApprovalHistoryCreateManyPerformedByAdminInputEnvelope
+  set?: Prisma.ProductApprovalHistoryWhereUniqueInput | Prisma.ProductApprovalHistoryWhereUniqueInput[]
+  disconnect?: Prisma.ProductApprovalHistoryWhereUniqueInput | Prisma.ProductApprovalHistoryWhereUniqueInput[]
+  delete?: Prisma.ProductApprovalHistoryWhereUniqueInput | Prisma.ProductApprovalHistoryWhereUniqueInput[]
+  connect?: Prisma.ProductApprovalHistoryWhereUniqueInput | Prisma.ProductApprovalHistoryWhereUniqueInput[]
+  update?: Prisma.ProductApprovalHistoryUpdateWithWhereUniqueWithoutPerformedByAdminInput | Prisma.ProductApprovalHistoryUpdateWithWhereUniqueWithoutPerformedByAdminInput[]
+  updateMany?: Prisma.ProductApprovalHistoryUpdateManyWithWhereWithoutPerformedByAdminInput | Prisma.ProductApprovalHistoryUpdateManyWithWhereWithoutPerformedByAdminInput[]
+  deleteMany?: Prisma.ProductApprovalHistoryScalarWhereInput | Prisma.ProductApprovalHistoryScalarWhereInput[]
+}
+
+export type ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductApprovalHistoryCreateWithoutPerformedByAdminInput, Prisma.ProductApprovalHistoryUncheckedCreateWithoutPerformedByAdminInput> | Prisma.ProductApprovalHistoryCreateWithoutPerformedByAdminInput[] | Prisma.ProductApprovalHistoryUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.ProductApprovalHistoryCreateOrConnectWithoutPerformedByAdminInput | Prisma.ProductApprovalHistoryCreateOrConnectWithoutPerformedByAdminInput[]
+  upsert?: Prisma.ProductApprovalHistoryUpsertWithWhereUniqueWithoutPerformedByAdminInput | Prisma.ProductApprovalHistoryUpsertWithWhereUniqueWithoutPerformedByAdminInput[]
+  createMany?: Prisma.ProductApprovalHistoryCreateManyPerformedByAdminInputEnvelope
+  set?: Prisma.ProductApprovalHistoryWhereUniqueInput | Prisma.ProductApprovalHistoryWhereUniqueInput[]
+  disconnect?: Prisma.ProductApprovalHistoryWhereUniqueInput | Prisma.ProductApprovalHistoryWhereUniqueInput[]
+  delete?: Prisma.ProductApprovalHistoryWhereUniqueInput | Prisma.ProductApprovalHistoryWhereUniqueInput[]
+  connect?: Prisma.ProductApprovalHistoryWhereUniqueInput | Prisma.ProductApprovalHistoryWhereUniqueInput[]
+  update?: Prisma.ProductApprovalHistoryUpdateWithWhereUniqueWithoutPerformedByAdminInput | Prisma.ProductApprovalHistoryUpdateWithWhereUniqueWithoutPerformedByAdminInput[]
+  updateMany?: Prisma.ProductApprovalHistoryUpdateManyWithWhereWithoutPerformedByAdminInput | Prisma.ProductApprovalHistoryUpdateManyWithWhereWithoutPerformedByAdminInput[]
+  deleteMany?: Prisma.ProductApprovalHistoryScalarWhereInput | Prisma.ProductApprovalHistoryScalarWhereInput[]
+}
+
 export type ProductApprovalHistoryCreateWithoutApprovalInput = {
   id?: string
   fromStatus: string
   toStatus: string
   note?: string | null
-  performedBy?: string | null
   createdAt?: Date | string
+  performedByAdmin?: Prisma.AdminCreateNestedOneWithoutProductApprovalHistoryEntriesInput
 }
 
 export type ProductApprovalHistoryUncheckedCreateWithoutApprovalInput = {
@@ -460,6 +504,50 @@ export type ProductApprovalHistoryScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"ProductApprovalHistory"> | Date | string
 }
 
+export type ProductApprovalHistoryCreateWithoutPerformedByAdminInput = {
+  id?: string
+  fromStatus: string
+  toStatus: string
+  note?: string | null
+  createdAt?: Date | string
+  approval: Prisma.ProductApprovalCreateNestedOneWithoutHistoryInput
+}
+
+export type ProductApprovalHistoryUncheckedCreateWithoutPerformedByAdminInput = {
+  id?: string
+  approvalId: string
+  fromStatus: string
+  toStatus: string
+  note?: string | null
+  createdAt?: Date | string
+}
+
+export type ProductApprovalHistoryCreateOrConnectWithoutPerformedByAdminInput = {
+  where: Prisma.ProductApprovalHistoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductApprovalHistoryCreateWithoutPerformedByAdminInput, Prisma.ProductApprovalHistoryUncheckedCreateWithoutPerformedByAdminInput>
+}
+
+export type ProductApprovalHistoryCreateManyPerformedByAdminInputEnvelope = {
+  data: Prisma.ProductApprovalHistoryCreateManyPerformedByAdminInput | Prisma.ProductApprovalHistoryCreateManyPerformedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProductApprovalHistoryUpsertWithWhereUniqueWithoutPerformedByAdminInput = {
+  where: Prisma.ProductApprovalHistoryWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProductApprovalHistoryUpdateWithoutPerformedByAdminInput, Prisma.ProductApprovalHistoryUncheckedUpdateWithoutPerformedByAdminInput>
+  create: Prisma.XOR<Prisma.ProductApprovalHistoryCreateWithoutPerformedByAdminInput, Prisma.ProductApprovalHistoryUncheckedCreateWithoutPerformedByAdminInput>
+}
+
+export type ProductApprovalHistoryUpdateWithWhereUniqueWithoutPerformedByAdminInput = {
+  where: Prisma.ProductApprovalHistoryWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProductApprovalHistoryUpdateWithoutPerformedByAdminInput, Prisma.ProductApprovalHistoryUncheckedUpdateWithoutPerformedByAdminInput>
+}
+
+export type ProductApprovalHistoryUpdateManyWithWhereWithoutPerformedByAdminInput = {
+  where: Prisma.ProductApprovalHistoryScalarWhereInput
+  data: Prisma.XOR<Prisma.ProductApprovalHistoryUpdateManyMutationInput, Prisma.ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminInput>
+}
+
 export type ProductApprovalHistoryCreateManyApprovalInput = {
   id?: string
   fromStatus: string
@@ -474,8 +562,8 @@ export type ProductApprovalHistoryUpdateWithoutApprovalInput = {
   fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
   toStatus?: Prisma.StringFieldUpdateOperationsInput | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  performedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  performedByAdmin?: Prisma.AdminUpdateOneWithoutProductApprovalHistoryEntriesNestedInput
 }
 
 export type ProductApprovalHistoryUncheckedUpdateWithoutApprovalInput = {
@@ -496,6 +584,42 @@ export type ProductApprovalHistoryUncheckedUpdateManyWithoutApprovalInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ProductApprovalHistoryCreateManyPerformedByAdminInput = {
+  id?: string
+  approvalId: string
+  fromStatus: string
+  toStatus: string
+  note?: string | null
+  createdAt?: Date | string
+}
+
+export type ProductApprovalHistoryUpdateWithoutPerformedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  toStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approval?: Prisma.ProductApprovalUpdateOneRequiredWithoutHistoryNestedInput
+}
+
+export type ProductApprovalHistoryUncheckedUpdateWithoutPerformedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  approvalId?: Prisma.StringFieldUpdateOperationsInput | string
+  fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  toStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProductApprovalHistoryUncheckedUpdateManyWithoutPerformedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  approvalId?: Prisma.StringFieldUpdateOperationsInput | string
+  fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  toStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type ProductApprovalHistorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -507,6 +631,7 @@ export type ProductApprovalHistorySelect<ExtArgs extends runtime.Types.Extension
   performedBy?: boolean
   createdAt?: boolean
   approval?: boolean | Prisma.ProductApprovalDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ProductApprovalHistory$performedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["productApprovalHistory"]>
 
 export type ProductApprovalHistorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -518,6 +643,7 @@ export type ProductApprovalHistorySelectCreateManyAndReturn<ExtArgs extends runt
   performedBy?: boolean
   createdAt?: boolean
   approval?: boolean | Prisma.ProductApprovalDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ProductApprovalHistory$performedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["productApprovalHistory"]>
 
 export type ProductApprovalHistorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -529,6 +655,7 @@ export type ProductApprovalHistorySelectUpdateManyAndReturn<ExtArgs extends runt
   performedBy?: boolean
   createdAt?: boolean
   approval?: boolean | Prisma.ProductApprovalDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ProductApprovalHistory$performedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["productApprovalHistory"]>
 
 export type ProductApprovalHistorySelectScalar = {
@@ -544,18 +671,22 @@ export type ProductApprovalHistorySelectScalar = {
 export type ProductApprovalHistoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "approvalId" | "fromStatus" | "toStatus" | "note" | "performedBy" | "createdAt", ExtArgs["result"]["productApprovalHistory"]>
 export type ProductApprovalHistoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   approval?: boolean | Prisma.ProductApprovalDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ProductApprovalHistory$performedByAdminArgs<ExtArgs>
 }
 export type ProductApprovalHistoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   approval?: boolean | Prisma.ProductApprovalDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ProductApprovalHistory$performedByAdminArgs<ExtArgs>
 }
 export type ProductApprovalHistoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   approval?: boolean | Prisma.ProductApprovalDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ProductApprovalHistory$performedByAdminArgs<ExtArgs>
 }
 
 export type $ProductApprovalHistoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProductApprovalHistory"
   objects: {
     approval: Prisma.$ProductApprovalPayload<ExtArgs>
+    performedByAdmin: Prisma.$AdminPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -960,6 +1091,7 @@ readonly fields: ProductApprovalHistoryFieldRefs;
 export interface Prisma__ProductApprovalHistoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   approval<T extends Prisma.ProductApprovalDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductApprovalDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductApprovalClient<runtime.Types.Result.GetResult<Prisma.$ProductApprovalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  performedByAdmin<T extends Prisma.ProductApprovalHistory$performedByAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductApprovalHistory$performedByAdminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1394,6 +1526,25 @@ export type ProductApprovalHistoryDeleteManyArgs<ExtArgs extends runtime.Types.E
    * Limit how many ProductApprovalHistories to delete.
    */
   limit?: number
+}
+
+/**
+ * ProductApprovalHistory.performedByAdmin
+ */
+export type ProductApprovalHistory$performedByAdminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
 }
 
 /**

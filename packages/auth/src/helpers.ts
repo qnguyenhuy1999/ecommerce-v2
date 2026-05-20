@@ -3,7 +3,7 @@ import { SESSION_COOKIE_NAME } from './cookie.config'
 
 export interface AuthUser {
   userId: string
-  roles: string[]
+  [key: string]: unknown
 }
 
 export function parseCookies(cookieHeader: string | undefined): Record<string, string> {
@@ -27,5 +27,6 @@ export function getSessionId(
 }
 
 export function hasRole(user: AuthUser, role: string): boolean {
-  return user.roles.includes(role)
+  const roles = user.roles
+  return Array.isArray(roles) && roles.includes(role)
 }

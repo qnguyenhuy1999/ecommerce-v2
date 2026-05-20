@@ -249,6 +249,7 @@ export type AffiliateConversionWhereInput = {
   commissionAmount?: Prisma.DecimalFilter<"AffiliateConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"AffiliateConversion"> | Date | string
   link?: Prisma.XOR<Prisma.AffiliateLinkScalarRelationFilter, Prisma.AffiliateLinkWhereInput>
+  buyer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type AffiliateConversionOrderByWithRelationInput = {
@@ -261,6 +262,7 @@ export type AffiliateConversionOrderByWithRelationInput = {
   commissionAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   link?: Prisma.AffiliateLinkOrderByWithRelationInput
+  buyer?: Prisma.UserOrderByWithRelationInput
 }
 
 export type AffiliateConversionWhereUniqueInput = Prisma.AtLeast<{
@@ -276,6 +278,7 @@ export type AffiliateConversionWhereUniqueInput = Prisma.AtLeast<{
   commissionAmount?: Prisma.DecimalFilter<"AffiliateConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"AffiliateConversion"> | Date | string
   link?: Prisma.XOR<Prisma.AffiliateLinkScalarRelationFilter, Prisma.AffiliateLinkWhereInput>
+  buyer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type AffiliateConversionOrderByWithAggregationInput = {
@@ -311,12 +314,12 @@ export type AffiliateConversionScalarWhereWithAggregatesInput = {
 export type AffiliateConversionCreateInput = {
   id?: string
   orderId: string
-  buyerId: string
   orderAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   commissionRate: runtime.Decimal | runtime.DecimalJsLike | number | string
   commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   link: Prisma.AffiliateLinkCreateNestedOneWithoutTrackConversionsInput
+  buyer: Prisma.UserCreateNestedOneWithoutAffiliateConversionsInput
 }
 
 export type AffiliateConversionUncheckedCreateInput = {
@@ -333,12 +336,12 @@ export type AffiliateConversionUncheckedCreateInput = {
 export type AffiliateConversionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   orderId?: Prisma.StringFieldUpdateOperationsInput | string
-  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
   orderAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   link?: Prisma.AffiliateLinkUpdateOneRequiredWithoutTrackConversionsNestedInput
+  buyer?: Prisma.UserUpdateOneRequiredWithoutAffiliateConversionsNestedInput
 }
 
 export type AffiliateConversionUncheckedUpdateInput = {
@@ -366,7 +369,6 @@ export type AffiliateConversionCreateManyInput = {
 export type AffiliateConversionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   orderId?: Prisma.StringFieldUpdateOperationsInput | string
-  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
   orderAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -439,6 +441,48 @@ export type AffiliateConversionSumOrderByAggregateInput = {
   commissionAmount?: Prisma.SortOrder
 }
 
+export type AffiliateConversionCreateNestedManyWithoutBuyerInput = {
+  create?: Prisma.XOR<Prisma.AffiliateConversionCreateWithoutBuyerInput, Prisma.AffiliateConversionUncheckedCreateWithoutBuyerInput> | Prisma.AffiliateConversionCreateWithoutBuyerInput[] | Prisma.AffiliateConversionUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.AffiliateConversionCreateOrConnectWithoutBuyerInput | Prisma.AffiliateConversionCreateOrConnectWithoutBuyerInput[]
+  createMany?: Prisma.AffiliateConversionCreateManyBuyerInputEnvelope
+  connect?: Prisma.AffiliateConversionWhereUniqueInput | Prisma.AffiliateConversionWhereUniqueInput[]
+}
+
+export type AffiliateConversionUncheckedCreateNestedManyWithoutBuyerInput = {
+  create?: Prisma.XOR<Prisma.AffiliateConversionCreateWithoutBuyerInput, Prisma.AffiliateConversionUncheckedCreateWithoutBuyerInput> | Prisma.AffiliateConversionCreateWithoutBuyerInput[] | Prisma.AffiliateConversionUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.AffiliateConversionCreateOrConnectWithoutBuyerInput | Prisma.AffiliateConversionCreateOrConnectWithoutBuyerInput[]
+  createMany?: Prisma.AffiliateConversionCreateManyBuyerInputEnvelope
+  connect?: Prisma.AffiliateConversionWhereUniqueInput | Prisma.AffiliateConversionWhereUniqueInput[]
+}
+
+export type AffiliateConversionUpdateManyWithoutBuyerNestedInput = {
+  create?: Prisma.XOR<Prisma.AffiliateConversionCreateWithoutBuyerInput, Prisma.AffiliateConversionUncheckedCreateWithoutBuyerInput> | Prisma.AffiliateConversionCreateWithoutBuyerInput[] | Prisma.AffiliateConversionUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.AffiliateConversionCreateOrConnectWithoutBuyerInput | Prisma.AffiliateConversionCreateOrConnectWithoutBuyerInput[]
+  upsert?: Prisma.AffiliateConversionUpsertWithWhereUniqueWithoutBuyerInput | Prisma.AffiliateConversionUpsertWithWhereUniqueWithoutBuyerInput[]
+  createMany?: Prisma.AffiliateConversionCreateManyBuyerInputEnvelope
+  set?: Prisma.AffiliateConversionWhereUniqueInput | Prisma.AffiliateConversionWhereUniqueInput[]
+  disconnect?: Prisma.AffiliateConversionWhereUniqueInput | Prisma.AffiliateConversionWhereUniqueInput[]
+  delete?: Prisma.AffiliateConversionWhereUniqueInput | Prisma.AffiliateConversionWhereUniqueInput[]
+  connect?: Prisma.AffiliateConversionWhereUniqueInput | Prisma.AffiliateConversionWhereUniqueInput[]
+  update?: Prisma.AffiliateConversionUpdateWithWhereUniqueWithoutBuyerInput | Prisma.AffiliateConversionUpdateWithWhereUniqueWithoutBuyerInput[]
+  updateMany?: Prisma.AffiliateConversionUpdateManyWithWhereWithoutBuyerInput | Prisma.AffiliateConversionUpdateManyWithWhereWithoutBuyerInput[]
+  deleteMany?: Prisma.AffiliateConversionScalarWhereInput | Prisma.AffiliateConversionScalarWhereInput[]
+}
+
+export type AffiliateConversionUncheckedUpdateManyWithoutBuyerNestedInput = {
+  create?: Prisma.XOR<Prisma.AffiliateConversionCreateWithoutBuyerInput, Prisma.AffiliateConversionUncheckedCreateWithoutBuyerInput> | Prisma.AffiliateConversionCreateWithoutBuyerInput[] | Prisma.AffiliateConversionUncheckedCreateWithoutBuyerInput[]
+  connectOrCreate?: Prisma.AffiliateConversionCreateOrConnectWithoutBuyerInput | Prisma.AffiliateConversionCreateOrConnectWithoutBuyerInput[]
+  upsert?: Prisma.AffiliateConversionUpsertWithWhereUniqueWithoutBuyerInput | Prisma.AffiliateConversionUpsertWithWhereUniqueWithoutBuyerInput[]
+  createMany?: Prisma.AffiliateConversionCreateManyBuyerInputEnvelope
+  set?: Prisma.AffiliateConversionWhereUniqueInput | Prisma.AffiliateConversionWhereUniqueInput[]
+  disconnect?: Prisma.AffiliateConversionWhereUniqueInput | Prisma.AffiliateConversionWhereUniqueInput[]
+  delete?: Prisma.AffiliateConversionWhereUniqueInput | Prisma.AffiliateConversionWhereUniqueInput[]
+  connect?: Prisma.AffiliateConversionWhereUniqueInput | Prisma.AffiliateConversionWhereUniqueInput[]
+  update?: Prisma.AffiliateConversionUpdateWithWhereUniqueWithoutBuyerInput | Prisma.AffiliateConversionUpdateWithWhereUniqueWithoutBuyerInput[]
+  updateMany?: Prisma.AffiliateConversionUpdateManyWithWhereWithoutBuyerInput | Prisma.AffiliateConversionUpdateManyWithWhereWithoutBuyerInput[]
+  deleteMany?: Prisma.AffiliateConversionScalarWhereInput | Prisma.AffiliateConversionScalarWhereInput[]
+}
+
 export type AffiliateConversionCreateNestedManyWithoutLinkInput = {
   create?: Prisma.XOR<Prisma.AffiliateConversionCreateWithoutLinkInput, Prisma.AffiliateConversionUncheckedCreateWithoutLinkInput> | Prisma.AffiliateConversionCreateWithoutLinkInput[] | Prisma.AffiliateConversionUncheckedCreateWithoutLinkInput[]
   connectOrCreate?: Prisma.AffiliateConversionCreateOrConnectWithoutLinkInput | Prisma.AffiliateConversionCreateOrConnectWithoutLinkInput[]
@@ -481,14 +525,74 @@ export type AffiliateConversionUncheckedUpdateManyWithoutLinkNestedInput = {
   deleteMany?: Prisma.AffiliateConversionScalarWhereInput | Prisma.AffiliateConversionScalarWhereInput[]
 }
 
-export type AffiliateConversionCreateWithoutLinkInput = {
+export type AffiliateConversionCreateWithoutBuyerInput = {
   id?: string
   orderId: string
-  buyerId: string
   orderAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   commissionRate: runtime.Decimal | runtime.DecimalJsLike | number | string
   commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
+  link: Prisma.AffiliateLinkCreateNestedOneWithoutTrackConversionsInput
+}
+
+export type AffiliateConversionUncheckedCreateWithoutBuyerInput = {
+  id?: string
+  linkId: string
+  orderId: string
+  orderAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionRate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+}
+
+export type AffiliateConversionCreateOrConnectWithoutBuyerInput = {
+  where: Prisma.AffiliateConversionWhereUniqueInput
+  create: Prisma.XOR<Prisma.AffiliateConversionCreateWithoutBuyerInput, Prisma.AffiliateConversionUncheckedCreateWithoutBuyerInput>
+}
+
+export type AffiliateConversionCreateManyBuyerInputEnvelope = {
+  data: Prisma.AffiliateConversionCreateManyBuyerInput | Prisma.AffiliateConversionCreateManyBuyerInput[]
+  skipDuplicates?: boolean
+}
+
+export type AffiliateConversionUpsertWithWhereUniqueWithoutBuyerInput = {
+  where: Prisma.AffiliateConversionWhereUniqueInput
+  update: Prisma.XOR<Prisma.AffiliateConversionUpdateWithoutBuyerInput, Prisma.AffiliateConversionUncheckedUpdateWithoutBuyerInput>
+  create: Prisma.XOR<Prisma.AffiliateConversionCreateWithoutBuyerInput, Prisma.AffiliateConversionUncheckedCreateWithoutBuyerInput>
+}
+
+export type AffiliateConversionUpdateWithWhereUniqueWithoutBuyerInput = {
+  where: Prisma.AffiliateConversionWhereUniqueInput
+  data: Prisma.XOR<Prisma.AffiliateConversionUpdateWithoutBuyerInput, Prisma.AffiliateConversionUncheckedUpdateWithoutBuyerInput>
+}
+
+export type AffiliateConversionUpdateManyWithWhereWithoutBuyerInput = {
+  where: Prisma.AffiliateConversionScalarWhereInput
+  data: Prisma.XOR<Prisma.AffiliateConversionUpdateManyMutationInput, Prisma.AffiliateConversionUncheckedUpdateManyWithoutBuyerInput>
+}
+
+export type AffiliateConversionScalarWhereInput = {
+  AND?: Prisma.AffiliateConversionScalarWhereInput | Prisma.AffiliateConversionScalarWhereInput[]
+  OR?: Prisma.AffiliateConversionScalarWhereInput[]
+  NOT?: Prisma.AffiliateConversionScalarWhereInput | Prisma.AffiliateConversionScalarWhereInput[]
+  id?: Prisma.UuidFilter<"AffiliateConversion"> | string
+  linkId?: Prisma.UuidFilter<"AffiliateConversion"> | string
+  orderId?: Prisma.UuidFilter<"AffiliateConversion"> | string
+  buyerId?: Prisma.UuidFilter<"AffiliateConversion"> | string
+  orderAmount?: Prisma.DecimalFilter<"AffiliateConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionRate?: Prisma.DecimalFilter<"AffiliateConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionAmount?: Prisma.DecimalFilter<"AffiliateConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFilter<"AffiliateConversion"> | Date | string
+}
+
+export type AffiliateConversionCreateWithoutLinkInput = {
+  id?: string
+  orderId: string
+  orderAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionRate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  buyer: Prisma.UserCreateNestedOneWithoutAffiliateConversionsInput
 }
 
 export type AffiliateConversionUncheckedCreateWithoutLinkInput = {
@@ -527,18 +631,44 @@ export type AffiliateConversionUpdateManyWithWhereWithoutLinkInput = {
   data: Prisma.XOR<Prisma.AffiliateConversionUpdateManyMutationInput, Prisma.AffiliateConversionUncheckedUpdateManyWithoutLinkInput>
 }
 
-export type AffiliateConversionScalarWhereInput = {
-  AND?: Prisma.AffiliateConversionScalarWhereInput | Prisma.AffiliateConversionScalarWhereInput[]
-  OR?: Prisma.AffiliateConversionScalarWhereInput[]
-  NOT?: Prisma.AffiliateConversionScalarWhereInput | Prisma.AffiliateConversionScalarWhereInput[]
-  id?: Prisma.UuidFilter<"AffiliateConversion"> | string
-  linkId?: Prisma.UuidFilter<"AffiliateConversion"> | string
-  orderId?: Prisma.UuidFilter<"AffiliateConversion"> | string
-  buyerId?: Prisma.UuidFilter<"AffiliateConversion"> | string
-  orderAmount?: Prisma.DecimalFilter<"AffiliateConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  commissionRate?: Prisma.DecimalFilter<"AffiliateConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  commissionAmount?: Prisma.DecimalFilter<"AffiliateConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFilter<"AffiliateConversion"> | Date | string
+export type AffiliateConversionCreateManyBuyerInput = {
+  id?: string
+  linkId: string
+  orderId: string
+  orderAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionRate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+}
+
+export type AffiliateConversionUpdateWithoutBuyerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  link?: Prisma.AffiliateLinkUpdateOneRequiredWithoutTrackConversionsNestedInput
+}
+
+export type AffiliateConversionUncheckedUpdateWithoutBuyerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  linkId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AffiliateConversionUncheckedUpdateManyWithoutBuyerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  linkId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AffiliateConversionCreateManyLinkInput = {
@@ -554,11 +684,11 @@ export type AffiliateConversionCreateManyLinkInput = {
 export type AffiliateConversionUpdateWithoutLinkInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   orderId?: Prisma.StringFieldUpdateOperationsInput | string
-  buyerId?: Prisma.StringFieldUpdateOperationsInput | string
   orderAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   commissionAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  buyer?: Prisma.UserUpdateOneRequiredWithoutAffiliateConversionsNestedInput
 }
 
 export type AffiliateConversionUncheckedUpdateWithoutLinkInput = {
@@ -593,6 +723,7 @@ export type AffiliateConversionSelect<ExtArgs extends runtime.Types.Extensions.I
   commissionAmount?: boolean
   createdAt?: boolean
   link?: boolean | Prisma.AffiliateLinkDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["affiliateConversion"]>
 
 export type AffiliateConversionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -605,6 +736,7 @@ export type AffiliateConversionSelectCreateManyAndReturn<ExtArgs extends runtime
   commissionAmount?: boolean
   createdAt?: boolean
   link?: boolean | Prisma.AffiliateLinkDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["affiliateConversion"]>
 
 export type AffiliateConversionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -617,6 +749,7 @@ export type AffiliateConversionSelectUpdateManyAndReturn<ExtArgs extends runtime
   commissionAmount?: boolean
   createdAt?: boolean
   link?: boolean | Prisma.AffiliateLinkDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["affiliateConversion"]>
 
 export type AffiliateConversionSelectScalar = {
@@ -633,18 +766,22 @@ export type AffiliateConversionSelectScalar = {
 export type AffiliateConversionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "linkId" | "orderId" | "buyerId" | "orderAmount" | "commissionRate" | "commissionAmount" | "createdAt", ExtArgs["result"]["affiliateConversion"]>
 export type AffiliateConversionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   link?: boolean | Prisma.AffiliateLinkDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type AffiliateConversionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   link?: boolean | Prisma.AffiliateLinkDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type AffiliateConversionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   link?: boolean | Prisma.AffiliateLinkDefaultArgs<ExtArgs>
+  buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $AffiliateConversionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AffiliateConversion"
   objects: {
     link: Prisma.$AffiliateLinkPayload<ExtArgs>
+    buyer: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1050,6 +1187,7 @@ readonly fields: AffiliateConversionFieldRefs;
 export interface Prisma__AffiliateConversionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   link<T extends Prisma.AffiliateLinkDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AffiliateLinkDefaultArgs<ExtArgs>>): Prisma.Prisma__AffiliateLinkClient<runtime.Types.Result.GetResult<Prisma.$AffiliateLinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  buyer<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

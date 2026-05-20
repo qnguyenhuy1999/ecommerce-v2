@@ -199,6 +199,7 @@ export type ReturnTimelineWhereInput = {
   performedBy?: Prisma.UuidNullableFilter<"ReturnTimeline"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReturnTimeline"> | Date | string
   returnRequest?: Prisma.XOR<Prisma.ReturnRequestScalarRelationFilter, Prisma.ReturnRequestWhereInput>
+  performedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }
 
 export type ReturnTimelineOrderByWithRelationInput = {
@@ -210,6 +211,7 @@ export type ReturnTimelineOrderByWithRelationInput = {
   performedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   returnRequest?: Prisma.ReturnRequestOrderByWithRelationInput
+  performedByAdmin?: Prisma.AdminOrderByWithRelationInput
 }
 
 export type ReturnTimelineWhereUniqueInput = Prisma.AtLeast<{
@@ -224,6 +226,7 @@ export type ReturnTimelineWhereUniqueInput = Prisma.AtLeast<{
   performedBy?: Prisma.UuidNullableFilter<"ReturnTimeline"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReturnTimeline"> | Date | string
   returnRequest?: Prisma.XOR<Prisma.ReturnRequestScalarRelationFilter, Prisma.ReturnRequestWhereInput>
+  performedByAdmin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
 }, "id">
 
 export type ReturnTimelineOrderByWithAggregationInput = {
@@ -257,9 +260,9 @@ export type ReturnTimelineCreateInput = {
   fromStatus: string
   toStatus: string
   note?: string | null
-  performedBy?: string | null
   createdAt?: Date | string
   returnRequest: Prisma.ReturnRequestCreateNestedOneWithoutTimelineInput
+  performedByAdmin?: Prisma.AdminCreateNestedOneWithoutReturnTimelineEntriesInput
 }
 
 export type ReturnTimelineUncheckedCreateInput = {
@@ -277,9 +280,9 @@ export type ReturnTimelineUpdateInput = {
   fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
   toStatus?: Prisma.StringFieldUpdateOperationsInput | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  performedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   returnRequest?: Prisma.ReturnRequestUpdateOneRequiredWithoutTimelineNestedInput
+  performedByAdmin?: Prisma.AdminUpdateOneWithoutReturnTimelineEntriesNestedInput
 }
 
 export type ReturnTimelineUncheckedUpdateInput = {
@@ -307,7 +310,6 @@ export type ReturnTimelineUpdateManyMutationInput = {
   fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
   toStatus?: Prisma.StringFieldUpdateOperationsInput | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  performedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -403,13 +405,55 @@ export type ReturnTimelineUncheckedUpdateManyWithoutReturnRequestNestedInput = {
   deleteMany?: Prisma.ReturnTimelineScalarWhereInput | Prisma.ReturnTimelineScalarWhereInput[]
 }
 
+export type ReturnTimelineCreateNestedManyWithoutPerformedByAdminInput = {
+  create?: Prisma.XOR<Prisma.ReturnTimelineCreateWithoutPerformedByAdminInput, Prisma.ReturnTimelineUncheckedCreateWithoutPerformedByAdminInput> | Prisma.ReturnTimelineCreateWithoutPerformedByAdminInput[] | Prisma.ReturnTimelineUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.ReturnTimelineCreateOrConnectWithoutPerformedByAdminInput | Prisma.ReturnTimelineCreateOrConnectWithoutPerformedByAdminInput[]
+  createMany?: Prisma.ReturnTimelineCreateManyPerformedByAdminInputEnvelope
+  connect?: Prisma.ReturnTimelineWhereUniqueInput | Prisma.ReturnTimelineWhereUniqueInput[]
+}
+
+export type ReturnTimelineUncheckedCreateNestedManyWithoutPerformedByAdminInput = {
+  create?: Prisma.XOR<Prisma.ReturnTimelineCreateWithoutPerformedByAdminInput, Prisma.ReturnTimelineUncheckedCreateWithoutPerformedByAdminInput> | Prisma.ReturnTimelineCreateWithoutPerformedByAdminInput[] | Prisma.ReturnTimelineUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.ReturnTimelineCreateOrConnectWithoutPerformedByAdminInput | Prisma.ReturnTimelineCreateOrConnectWithoutPerformedByAdminInput[]
+  createMany?: Prisma.ReturnTimelineCreateManyPerformedByAdminInputEnvelope
+  connect?: Prisma.ReturnTimelineWhereUniqueInput | Prisma.ReturnTimelineWhereUniqueInput[]
+}
+
+export type ReturnTimelineUpdateManyWithoutPerformedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.ReturnTimelineCreateWithoutPerformedByAdminInput, Prisma.ReturnTimelineUncheckedCreateWithoutPerformedByAdminInput> | Prisma.ReturnTimelineCreateWithoutPerformedByAdminInput[] | Prisma.ReturnTimelineUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.ReturnTimelineCreateOrConnectWithoutPerformedByAdminInput | Prisma.ReturnTimelineCreateOrConnectWithoutPerformedByAdminInput[]
+  upsert?: Prisma.ReturnTimelineUpsertWithWhereUniqueWithoutPerformedByAdminInput | Prisma.ReturnTimelineUpsertWithWhereUniqueWithoutPerformedByAdminInput[]
+  createMany?: Prisma.ReturnTimelineCreateManyPerformedByAdminInputEnvelope
+  set?: Prisma.ReturnTimelineWhereUniqueInput | Prisma.ReturnTimelineWhereUniqueInput[]
+  disconnect?: Prisma.ReturnTimelineWhereUniqueInput | Prisma.ReturnTimelineWhereUniqueInput[]
+  delete?: Prisma.ReturnTimelineWhereUniqueInput | Prisma.ReturnTimelineWhereUniqueInput[]
+  connect?: Prisma.ReturnTimelineWhereUniqueInput | Prisma.ReturnTimelineWhereUniqueInput[]
+  update?: Prisma.ReturnTimelineUpdateWithWhereUniqueWithoutPerformedByAdminInput | Prisma.ReturnTimelineUpdateWithWhereUniqueWithoutPerformedByAdminInput[]
+  updateMany?: Prisma.ReturnTimelineUpdateManyWithWhereWithoutPerformedByAdminInput | Prisma.ReturnTimelineUpdateManyWithWhereWithoutPerformedByAdminInput[]
+  deleteMany?: Prisma.ReturnTimelineScalarWhereInput | Prisma.ReturnTimelineScalarWhereInput[]
+}
+
+export type ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.ReturnTimelineCreateWithoutPerformedByAdminInput, Prisma.ReturnTimelineUncheckedCreateWithoutPerformedByAdminInput> | Prisma.ReturnTimelineCreateWithoutPerformedByAdminInput[] | Prisma.ReturnTimelineUncheckedCreateWithoutPerformedByAdminInput[]
+  connectOrCreate?: Prisma.ReturnTimelineCreateOrConnectWithoutPerformedByAdminInput | Prisma.ReturnTimelineCreateOrConnectWithoutPerformedByAdminInput[]
+  upsert?: Prisma.ReturnTimelineUpsertWithWhereUniqueWithoutPerformedByAdminInput | Prisma.ReturnTimelineUpsertWithWhereUniqueWithoutPerformedByAdminInput[]
+  createMany?: Prisma.ReturnTimelineCreateManyPerformedByAdminInputEnvelope
+  set?: Prisma.ReturnTimelineWhereUniqueInput | Prisma.ReturnTimelineWhereUniqueInput[]
+  disconnect?: Prisma.ReturnTimelineWhereUniqueInput | Prisma.ReturnTimelineWhereUniqueInput[]
+  delete?: Prisma.ReturnTimelineWhereUniqueInput | Prisma.ReturnTimelineWhereUniqueInput[]
+  connect?: Prisma.ReturnTimelineWhereUniqueInput | Prisma.ReturnTimelineWhereUniqueInput[]
+  update?: Prisma.ReturnTimelineUpdateWithWhereUniqueWithoutPerformedByAdminInput | Prisma.ReturnTimelineUpdateWithWhereUniqueWithoutPerformedByAdminInput[]
+  updateMany?: Prisma.ReturnTimelineUpdateManyWithWhereWithoutPerformedByAdminInput | Prisma.ReturnTimelineUpdateManyWithWhereWithoutPerformedByAdminInput[]
+  deleteMany?: Prisma.ReturnTimelineScalarWhereInput | Prisma.ReturnTimelineScalarWhereInput[]
+}
+
 export type ReturnTimelineCreateWithoutReturnRequestInput = {
   id?: string
   fromStatus: string
   toStatus: string
   note?: string | null
-  performedBy?: string | null
   createdAt?: Date | string
+  performedByAdmin?: Prisma.AdminCreateNestedOneWithoutReturnTimelineEntriesInput
 }
 
 export type ReturnTimelineUncheckedCreateWithoutReturnRequestInput = {
@@ -460,6 +504,50 @@ export type ReturnTimelineScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"ReturnTimeline"> | Date | string
 }
 
+export type ReturnTimelineCreateWithoutPerformedByAdminInput = {
+  id?: string
+  fromStatus: string
+  toStatus: string
+  note?: string | null
+  createdAt?: Date | string
+  returnRequest: Prisma.ReturnRequestCreateNestedOneWithoutTimelineInput
+}
+
+export type ReturnTimelineUncheckedCreateWithoutPerformedByAdminInput = {
+  id?: string
+  returnRequestId: string
+  fromStatus: string
+  toStatus: string
+  note?: string | null
+  createdAt?: Date | string
+}
+
+export type ReturnTimelineCreateOrConnectWithoutPerformedByAdminInput = {
+  where: Prisma.ReturnTimelineWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReturnTimelineCreateWithoutPerformedByAdminInput, Prisma.ReturnTimelineUncheckedCreateWithoutPerformedByAdminInput>
+}
+
+export type ReturnTimelineCreateManyPerformedByAdminInputEnvelope = {
+  data: Prisma.ReturnTimelineCreateManyPerformedByAdminInput | Prisma.ReturnTimelineCreateManyPerformedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type ReturnTimelineUpsertWithWhereUniqueWithoutPerformedByAdminInput = {
+  where: Prisma.ReturnTimelineWhereUniqueInput
+  update: Prisma.XOR<Prisma.ReturnTimelineUpdateWithoutPerformedByAdminInput, Prisma.ReturnTimelineUncheckedUpdateWithoutPerformedByAdminInput>
+  create: Prisma.XOR<Prisma.ReturnTimelineCreateWithoutPerformedByAdminInput, Prisma.ReturnTimelineUncheckedCreateWithoutPerformedByAdminInput>
+}
+
+export type ReturnTimelineUpdateWithWhereUniqueWithoutPerformedByAdminInput = {
+  where: Prisma.ReturnTimelineWhereUniqueInput
+  data: Prisma.XOR<Prisma.ReturnTimelineUpdateWithoutPerformedByAdminInput, Prisma.ReturnTimelineUncheckedUpdateWithoutPerformedByAdminInput>
+}
+
+export type ReturnTimelineUpdateManyWithWhereWithoutPerformedByAdminInput = {
+  where: Prisma.ReturnTimelineScalarWhereInput
+  data: Prisma.XOR<Prisma.ReturnTimelineUpdateManyMutationInput, Prisma.ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminInput>
+}
+
 export type ReturnTimelineCreateManyReturnRequestInput = {
   id?: string
   fromStatus: string
@@ -474,8 +562,8 @@ export type ReturnTimelineUpdateWithoutReturnRequestInput = {
   fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
   toStatus?: Prisma.StringFieldUpdateOperationsInput | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  performedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  performedByAdmin?: Prisma.AdminUpdateOneWithoutReturnTimelineEntriesNestedInput
 }
 
 export type ReturnTimelineUncheckedUpdateWithoutReturnRequestInput = {
@@ -496,6 +584,42 @@ export type ReturnTimelineUncheckedUpdateManyWithoutReturnRequestInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ReturnTimelineCreateManyPerformedByAdminInput = {
+  id?: string
+  returnRequestId: string
+  fromStatus: string
+  toStatus: string
+  note?: string | null
+  createdAt?: Date | string
+}
+
+export type ReturnTimelineUpdateWithoutPerformedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  toStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  returnRequest?: Prisma.ReturnRequestUpdateOneRequiredWithoutTimelineNestedInput
+}
+
+export type ReturnTimelineUncheckedUpdateWithoutPerformedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  returnRequestId?: Prisma.StringFieldUpdateOperationsInput | string
+  fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  toStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReturnTimelineUncheckedUpdateManyWithoutPerformedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  returnRequestId?: Prisma.StringFieldUpdateOperationsInput | string
+  fromStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  toStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type ReturnTimelineSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -507,6 +631,7 @@ export type ReturnTimelineSelect<ExtArgs extends runtime.Types.Extensions.Intern
   performedBy?: boolean
   createdAt?: boolean
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ReturnTimeline$performedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["returnTimeline"]>
 
 export type ReturnTimelineSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -518,6 +643,7 @@ export type ReturnTimelineSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   performedBy?: boolean
   createdAt?: boolean
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ReturnTimeline$performedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["returnTimeline"]>
 
 export type ReturnTimelineSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -529,6 +655,7 @@ export type ReturnTimelineSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   performedBy?: boolean
   createdAt?: boolean
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ReturnTimeline$performedByAdminArgs<ExtArgs>
 }, ExtArgs["result"]["returnTimeline"]>
 
 export type ReturnTimelineSelectScalar = {
@@ -544,18 +671,22 @@ export type ReturnTimelineSelectScalar = {
 export type ReturnTimelineOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "returnRequestId" | "fromStatus" | "toStatus" | "note" | "performedBy" | "createdAt", ExtArgs["result"]["returnTimeline"]>
 export type ReturnTimelineInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ReturnTimeline$performedByAdminArgs<ExtArgs>
 }
 export type ReturnTimelineIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ReturnTimeline$performedByAdminArgs<ExtArgs>
 }
 export type ReturnTimelineIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  performedByAdmin?: boolean | Prisma.ReturnTimeline$performedByAdminArgs<ExtArgs>
 }
 
 export type $ReturnTimelinePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ReturnTimeline"
   objects: {
     returnRequest: Prisma.$ReturnRequestPayload<ExtArgs>
+    performedByAdmin: Prisma.$AdminPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -960,6 +1091,7 @@ readonly fields: ReturnTimelineFieldRefs;
 export interface Prisma__ReturnTimelineClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   returnRequest<T extends Prisma.ReturnRequestDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReturnRequestDefaultArgs<ExtArgs>>): Prisma.Prisma__ReturnRequestClient<runtime.Types.Result.GetResult<Prisma.$ReturnRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  performedByAdmin<T extends Prisma.ReturnTimeline$performedByAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReturnTimeline$performedByAdminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1394,6 +1526,25 @@ export type ReturnTimelineDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many ReturnTimelines to delete.
    */
   limit?: number
+}
+
+/**
+ * ReturnTimeline.performedByAdmin
+ */
+export type ReturnTimeline$performedByAdminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
 }
 
 /**

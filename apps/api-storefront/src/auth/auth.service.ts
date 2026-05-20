@@ -46,24 +46,13 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
 
     const hashedPassword = await hashPassword(password)
 
-    const buyerRole = await this.prisma.role.findUnique({
-      where: { name: 'buyer' },
-    })
-    if (!buyerRole) {
-      throw new Error('Default buyer role not found. Run db:seed first.')
-    }
-
     let user
     try {
       user = await this.prisma.user.create({
         data: {
           email,
           passwordHash: hashedPassword,
-          userRoles: {
-            create: { roleId: buyerRole.id },
-          },
         },
-        include: { userRoles: { include: { role: true } } },
       })
     } catch (err: unknown) {
       if (err instanceof Error && 'code' in err && (err as { code: string }).code === 'P2002') {
@@ -94,15 +83,11 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
     return {
       id: user.id,
       email: user.email,
-      roles: user.userRoles.map((ur: { role: { name: string } }) => ur.role.name),
     }
   }
 
   async login(email: string, password: string, userAgent?: string, ipAddress?: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { email },
-      include: { userRoles: { include: { role: true } } },
-    })
+    const user = await this.prisma.user.findUnique({ where: { email } })
 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials')
@@ -117,12 +102,11 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
       throw new UnauthorizedException('Invalid credentials')
     }
 
-    const roles = user.userRoles.map((ur: { role: { name: string } }) => ur.role.name)
     const sessionId = randomUUID()
     const expiresAt = new Date(Date.now() + SESSION_EXPIRY_DAYS * 24 * 60 * 60 * 1000)
 
     // Store in Redis
-    const sessionData: SessionData = { userId: user.id, roles }
+    const sessionData: SessionData = { userId: user.id }
     await this.sessionService.create(sessionId, sessionData)
 
     // Store in database for audit
@@ -136,7 +120,7 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
       },
     })
 
-    return { sessionId, userId: user.id, roles }
+    return { sessionId, userId: user.id }
   }
 
   async logout(sessionId: string) {
@@ -167,6 +151,7 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
         firstName: true,
         lastName: true,
         emailVerified: true,
+        isStaff: true,
       },
     })
 
@@ -180,7 +165,7 @@ export class AuthService extends BaseUserAuthService<PrismaService> {
       firstName: user.firstName,
       lastName: user.lastName,
       emailVerified: user.emailVerified,
-      roles: session.roles,
+      isStaff: user.isStaff,
     }
   }
 

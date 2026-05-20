@@ -1,58 +1,112 @@
+import { hashPassword } from '@ecom/auth'
 import { loadDatabaseEnv } from '../env'
 
 loadDatabaseEnv()
 
 const { prisma } = await import('../src/client')
 
-// bcrypt hash for "admin123" with 12 rounds — replace before production
-const ADMIN_PASSWORD_HASH = '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/X4.4GUkqWn8WqWqWq'
+const ADMIN_PASSWORD = 'admin123'
+const ADMIN_PASSWORD_HASH = await hashPassword(ADMIN_PASSWORD)
+
+const adminRoles = [
+  { name: 'SUPER_ADMIN', description: 'Full system access' },
+  { name: 'ADMIN', description: 'Platform administrator' },
+  { name: 'MODERATOR', description: 'Moderates platform content and activity' },
+  { name: 'SUPPORT', description: 'Handles support operations' },
+  { name: 'VIEWER', description: 'Read-only admin access' },
+] as const
+
+const superAdminPermissions = [
+  'ADMIN_MANAGE',
+  'ROLE_MANAGE',
+  'SELLER_VIEW',
+  'SELLER_APPROVE',
+  'SELLER_SUSPEND',
+  'PRODUCT_VIEW',
+  'PRODUCT_MODERATE',
+  'ORDER_VIEW',
+  'ORDER_MANAGE',
+  'REFUND_VIEW',
+  'REFUND_MANAGE',
+  'USER_VIEW',
+  'USER_MANAGE',
+  'MARKETING_MANAGE',
+  'BANNER_MANAGE',
+  'NOTIFICATION_MANAGE',
+  'REVIEW_MODERATE',
+  'CATEGORY_MANAGE',
+  'AUDIT_VIEW',
+  'SETTINGS_MANAGE',
+  'DASHBOARD_VIEW',
+] as const
 
 async function main() {
-  // Seed platform roles
-  const roles = [
-    { name: 'BUYER', description: 'Platform buyer' },
-    { name: 'SELLER', description: 'Platform seller' },
-    { name: 'SUPER_ADMIN', description: 'Full system access' },
-  ]
-  for (const r of roles) {
-    await prisma.role.upsert({
-      where: { name: r.name },
+  for (const role of adminRoles) {
+    await prisma.adminRole.upsert({
+      where: { name: role.name },
+      update: { description: role.description },
+      create: {
+        name: role.name,
+        description: role.description,
+      },
+    })
+  }
+  console.log('Seeded admin roles:', adminRoles.map((role) => role.name).join(', '))
+
+  const superAdminRole = await prisma.adminRole.findUnique({ where: { name: 'SUPER_ADMIN' } })
+  if (!superAdminRole) throw new Error('SUPER_ADMIN admin role not found')
+
+  for (const permission of superAdminPermissions) {
+    await prisma.rolePermission.upsert({
+      where: {
+        adminRoleId_permission: {
+          adminRoleId: superAdminRole.id,
+          permission,
+        },
+      },
       update: {},
-      create: { name: r.name },
+      create: {
+        adminRoleId: superAdminRole.id,
+        permission,
+      },
     })
   }
-  console.log('Seeded roles:', roles.map((r) => r.name).join(', '))
+  console.log('Seeded SUPER_ADMIN permissions:', superAdminPermissions.join(', '))
 
-  // Seed super admin user
   const adminEmail = 'admin@marketplace.com'
-  const existingAdmin = await prisma.user.findUnique({ where: { email: adminEmail } })
+  const admin = await prisma.admin.upsert({
+    where: { email: adminEmail },
+    update: {
+      firstName: 'Super',
+      lastName: 'Admin',
+      status: 'ACTIVE',
+      emailVerified: true,
+    },
+    create: {
+      email: adminEmail,
+      passwordHash: ADMIN_PASSWORD_HASH,
+      firstName: 'Super',
+      lastName: 'Admin',
+      status: 'ACTIVE',
+      emailVerified: true,
+    },
+  })
 
-  if (!existingAdmin) {
-    const superAdminRole = await prisma.role.findUnique({ where: { name: 'SUPER_ADMIN' } })
-    if (!superAdminRole) throw new Error('SUPER_ADMIN role not found')
-
-    const admin = await prisma.user.create({
-      data: {
-        email: adminEmail,
-        passwordHash: ADMIN_PASSWORD_HASH,
-        firstName: 'Super',
-        lastName: 'Admin',
-        emailVerified: true,
-        status: 'ACTIVE',
+  await prisma.adminRoleAssignment.upsert({
+    where: {
+      adminId_adminRoleId: {
+        adminId: admin.id,
+        adminRoleId: superAdminRole.id,
       },
-    })
+    },
+    update: {},
+    create: {
+      adminId: admin.id,
+      adminRoleId: superAdminRole.id,
+    },
+  })
 
-    await prisma.userRole.create({
-      data: {
-        userId: admin.id,
-        roleId: superAdminRole.id,
-      },
-    })
-
-    console.log('Seeded super admin:', adminEmail, '(password: admin123)')
-  } else {
-    console.log('Super admin already exists:', adminEmail)
-  }
+  console.log('Seeded super admin account:', adminEmail, '(password: admin123)')
 }
 
 main()

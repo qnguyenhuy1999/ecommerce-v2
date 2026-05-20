@@ -191,6 +191,7 @@ export type ReturnEvidenceWhereInput = {
   description?: Prisma.StringNullableFilter<"ReturnEvidence"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReturnEvidence"> | Date | string
   returnRequest?: Prisma.XOR<Prisma.ReturnRequestScalarRelationFilter, Prisma.ReturnRequestWhereInput>
+  uploadedByAdmin?: Prisma.XOR<Prisma.AdminScalarRelationFilter, Prisma.AdminWhereInput>
 }
 
 export type ReturnEvidenceOrderByWithRelationInput = {
@@ -201,6 +202,7 @@ export type ReturnEvidenceOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   returnRequest?: Prisma.ReturnRequestOrderByWithRelationInput
+  uploadedByAdmin?: Prisma.AdminOrderByWithRelationInput
 }
 
 export type ReturnEvidenceWhereUniqueInput = Prisma.AtLeast<{
@@ -214,6 +216,7 @@ export type ReturnEvidenceWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"ReturnEvidence"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReturnEvidence"> | Date | string
   returnRequest?: Prisma.XOR<Prisma.ReturnRequestScalarRelationFilter, Prisma.ReturnRequestWhereInput>
+  uploadedByAdmin?: Prisma.XOR<Prisma.AdminScalarRelationFilter, Prisma.AdminWhereInput>
 }, "id">
 
 export type ReturnEvidenceOrderByWithAggregationInput = {
@@ -242,11 +245,11 @@ export type ReturnEvidenceScalarWhereWithAggregatesInput = {
 
 export type ReturnEvidenceCreateInput = {
   id?: string
-  uploadedBy: string
   url: string
   description?: string | null
   createdAt?: Date | string
   returnRequest: Prisma.ReturnRequestCreateNestedOneWithoutEvidenceInput
+  uploadedByAdmin: Prisma.AdminCreateNestedOneWithoutReturnEvidenceUploadsInput
 }
 
 export type ReturnEvidenceUncheckedCreateInput = {
@@ -260,11 +263,11 @@ export type ReturnEvidenceUncheckedCreateInput = {
 
 export type ReturnEvidenceUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   returnRequest?: Prisma.ReturnRequestUpdateOneRequiredWithoutEvidenceNestedInput
+  uploadedByAdmin?: Prisma.AdminUpdateOneRequiredWithoutReturnEvidenceUploadsNestedInput
 }
 
 export type ReturnEvidenceUncheckedUpdateInput = {
@@ -287,7 +290,6 @@ export type ReturnEvidenceCreateManyInput = {
 
 export type ReturnEvidenceUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -381,12 +383,54 @@ export type ReturnEvidenceUncheckedUpdateManyWithoutReturnRequestNestedInput = {
   deleteMany?: Prisma.ReturnEvidenceScalarWhereInput | Prisma.ReturnEvidenceScalarWhereInput[]
 }
 
+export type ReturnEvidenceCreateNestedManyWithoutUploadedByAdminInput = {
+  create?: Prisma.XOR<Prisma.ReturnEvidenceCreateWithoutUploadedByAdminInput, Prisma.ReturnEvidenceUncheckedCreateWithoutUploadedByAdminInput> | Prisma.ReturnEvidenceCreateWithoutUploadedByAdminInput[] | Prisma.ReturnEvidenceUncheckedCreateWithoutUploadedByAdminInput[]
+  connectOrCreate?: Prisma.ReturnEvidenceCreateOrConnectWithoutUploadedByAdminInput | Prisma.ReturnEvidenceCreateOrConnectWithoutUploadedByAdminInput[]
+  createMany?: Prisma.ReturnEvidenceCreateManyUploadedByAdminInputEnvelope
+  connect?: Prisma.ReturnEvidenceWhereUniqueInput | Prisma.ReturnEvidenceWhereUniqueInput[]
+}
+
+export type ReturnEvidenceUncheckedCreateNestedManyWithoutUploadedByAdminInput = {
+  create?: Prisma.XOR<Prisma.ReturnEvidenceCreateWithoutUploadedByAdminInput, Prisma.ReturnEvidenceUncheckedCreateWithoutUploadedByAdminInput> | Prisma.ReturnEvidenceCreateWithoutUploadedByAdminInput[] | Prisma.ReturnEvidenceUncheckedCreateWithoutUploadedByAdminInput[]
+  connectOrCreate?: Prisma.ReturnEvidenceCreateOrConnectWithoutUploadedByAdminInput | Prisma.ReturnEvidenceCreateOrConnectWithoutUploadedByAdminInput[]
+  createMany?: Prisma.ReturnEvidenceCreateManyUploadedByAdminInputEnvelope
+  connect?: Prisma.ReturnEvidenceWhereUniqueInput | Prisma.ReturnEvidenceWhereUniqueInput[]
+}
+
+export type ReturnEvidenceUpdateManyWithoutUploadedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.ReturnEvidenceCreateWithoutUploadedByAdminInput, Prisma.ReturnEvidenceUncheckedCreateWithoutUploadedByAdminInput> | Prisma.ReturnEvidenceCreateWithoutUploadedByAdminInput[] | Prisma.ReturnEvidenceUncheckedCreateWithoutUploadedByAdminInput[]
+  connectOrCreate?: Prisma.ReturnEvidenceCreateOrConnectWithoutUploadedByAdminInput | Prisma.ReturnEvidenceCreateOrConnectWithoutUploadedByAdminInput[]
+  upsert?: Prisma.ReturnEvidenceUpsertWithWhereUniqueWithoutUploadedByAdminInput | Prisma.ReturnEvidenceUpsertWithWhereUniqueWithoutUploadedByAdminInput[]
+  createMany?: Prisma.ReturnEvidenceCreateManyUploadedByAdminInputEnvelope
+  set?: Prisma.ReturnEvidenceWhereUniqueInput | Prisma.ReturnEvidenceWhereUniqueInput[]
+  disconnect?: Prisma.ReturnEvidenceWhereUniqueInput | Prisma.ReturnEvidenceWhereUniqueInput[]
+  delete?: Prisma.ReturnEvidenceWhereUniqueInput | Prisma.ReturnEvidenceWhereUniqueInput[]
+  connect?: Prisma.ReturnEvidenceWhereUniqueInput | Prisma.ReturnEvidenceWhereUniqueInput[]
+  update?: Prisma.ReturnEvidenceUpdateWithWhereUniqueWithoutUploadedByAdminInput | Prisma.ReturnEvidenceUpdateWithWhereUniqueWithoutUploadedByAdminInput[]
+  updateMany?: Prisma.ReturnEvidenceUpdateManyWithWhereWithoutUploadedByAdminInput | Prisma.ReturnEvidenceUpdateManyWithWhereWithoutUploadedByAdminInput[]
+  deleteMany?: Prisma.ReturnEvidenceScalarWhereInput | Prisma.ReturnEvidenceScalarWhereInput[]
+}
+
+export type ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminNestedInput = {
+  create?: Prisma.XOR<Prisma.ReturnEvidenceCreateWithoutUploadedByAdminInput, Prisma.ReturnEvidenceUncheckedCreateWithoutUploadedByAdminInput> | Prisma.ReturnEvidenceCreateWithoutUploadedByAdminInput[] | Prisma.ReturnEvidenceUncheckedCreateWithoutUploadedByAdminInput[]
+  connectOrCreate?: Prisma.ReturnEvidenceCreateOrConnectWithoutUploadedByAdminInput | Prisma.ReturnEvidenceCreateOrConnectWithoutUploadedByAdminInput[]
+  upsert?: Prisma.ReturnEvidenceUpsertWithWhereUniqueWithoutUploadedByAdminInput | Prisma.ReturnEvidenceUpsertWithWhereUniqueWithoutUploadedByAdminInput[]
+  createMany?: Prisma.ReturnEvidenceCreateManyUploadedByAdminInputEnvelope
+  set?: Prisma.ReturnEvidenceWhereUniqueInput | Prisma.ReturnEvidenceWhereUniqueInput[]
+  disconnect?: Prisma.ReturnEvidenceWhereUniqueInput | Prisma.ReturnEvidenceWhereUniqueInput[]
+  delete?: Prisma.ReturnEvidenceWhereUniqueInput | Prisma.ReturnEvidenceWhereUniqueInput[]
+  connect?: Prisma.ReturnEvidenceWhereUniqueInput | Prisma.ReturnEvidenceWhereUniqueInput[]
+  update?: Prisma.ReturnEvidenceUpdateWithWhereUniqueWithoutUploadedByAdminInput | Prisma.ReturnEvidenceUpdateWithWhereUniqueWithoutUploadedByAdminInput[]
+  updateMany?: Prisma.ReturnEvidenceUpdateManyWithWhereWithoutUploadedByAdminInput | Prisma.ReturnEvidenceUpdateManyWithWhereWithoutUploadedByAdminInput[]
+  deleteMany?: Prisma.ReturnEvidenceScalarWhereInput | Prisma.ReturnEvidenceScalarWhereInput[]
+}
+
 export type ReturnEvidenceCreateWithoutReturnRequestInput = {
   id?: string
-  uploadedBy: string
   url: string
   description?: string | null
   createdAt?: Date | string
+  uploadedByAdmin: Prisma.AdminCreateNestedOneWithoutReturnEvidenceUploadsInput
 }
 
 export type ReturnEvidenceUncheckedCreateWithoutReturnRequestInput = {
@@ -435,6 +479,48 @@ export type ReturnEvidenceScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"ReturnEvidence"> | Date | string
 }
 
+export type ReturnEvidenceCreateWithoutUploadedByAdminInput = {
+  id?: string
+  url: string
+  description?: string | null
+  createdAt?: Date | string
+  returnRequest: Prisma.ReturnRequestCreateNestedOneWithoutEvidenceInput
+}
+
+export type ReturnEvidenceUncheckedCreateWithoutUploadedByAdminInput = {
+  id?: string
+  returnRequestId: string
+  url: string
+  description?: string | null
+  createdAt?: Date | string
+}
+
+export type ReturnEvidenceCreateOrConnectWithoutUploadedByAdminInput = {
+  where: Prisma.ReturnEvidenceWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReturnEvidenceCreateWithoutUploadedByAdminInput, Prisma.ReturnEvidenceUncheckedCreateWithoutUploadedByAdminInput>
+}
+
+export type ReturnEvidenceCreateManyUploadedByAdminInputEnvelope = {
+  data: Prisma.ReturnEvidenceCreateManyUploadedByAdminInput | Prisma.ReturnEvidenceCreateManyUploadedByAdminInput[]
+  skipDuplicates?: boolean
+}
+
+export type ReturnEvidenceUpsertWithWhereUniqueWithoutUploadedByAdminInput = {
+  where: Prisma.ReturnEvidenceWhereUniqueInput
+  update: Prisma.XOR<Prisma.ReturnEvidenceUpdateWithoutUploadedByAdminInput, Prisma.ReturnEvidenceUncheckedUpdateWithoutUploadedByAdminInput>
+  create: Prisma.XOR<Prisma.ReturnEvidenceCreateWithoutUploadedByAdminInput, Prisma.ReturnEvidenceUncheckedCreateWithoutUploadedByAdminInput>
+}
+
+export type ReturnEvidenceUpdateWithWhereUniqueWithoutUploadedByAdminInput = {
+  where: Prisma.ReturnEvidenceWhereUniqueInput
+  data: Prisma.XOR<Prisma.ReturnEvidenceUpdateWithoutUploadedByAdminInput, Prisma.ReturnEvidenceUncheckedUpdateWithoutUploadedByAdminInput>
+}
+
+export type ReturnEvidenceUpdateManyWithWhereWithoutUploadedByAdminInput = {
+  where: Prisma.ReturnEvidenceScalarWhereInput
+  data: Prisma.XOR<Prisma.ReturnEvidenceUpdateManyMutationInput, Prisma.ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminInput>
+}
+
 export type ReturnEvidenceCreateManyReturnRequestInput = {
   id?: string
   uploadedBy: string
@@ -445,10 +531,10 @@ export type ReturnEvidenceCreateManyReturnRequestInput = {
 
 export type ReturnEvidenceUpdateWithoutReturnRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedBy?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  uploadedByAdmin?: Prisma.AdminUpdateOneRequiredWithoutReturnEvidenceUploadsNestedInput
 }
 
 export type ReturnEvidenceUncheckedUpdateWithoutReturnRequestInput = {
@@ -467,6 +553,38 @@ export type ReturnEvidenceUncheckedUpdateManyWithoutReturnRequestInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ReturnEvidenceCreateManyUploadedByAdminInput = {
+  id?: string
+  returnRequestId: string
+  url: string
+  description?: string | null
+  createdAt?: Date | string
+}
+
+export type ReturnEvidenceUpdateWithoutUploadedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  returnRequest?: Prisma.ReturnRequestUpdateOneRequiredWithoutEvidenceNestedInput
+}
+
+export type ReturnEvidenceUncheckedUpdateWithoutUploadedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  returnRequestId?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReturnEvidenceUncheckedUpdateManyWithoutUploadedByAdminInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  returnRequestId?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type ReturnEvidenceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -477,6 +595,7 @@ export type ReturnEvidenceSelect<ExtArgs extends runtime.Types.Extensions.Intern
   description?: boolean
   createdAt?: boolean
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  uploadedByAdmin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["returnEvidence"]>
 
 export type ReturnEvidenceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -487,6 +606,7 @@ export type ReturnEvidenceSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   description?: boolean
   createdAt?: boolean
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  uploadedByAdmin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["returnEvidence"]>
 
 export type ReturnEvidenceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -497,6 +617,7 @@ export type ReturnEvidenceSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   description?: boolean
   createdAt?: boolean
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  uploadedByAdmin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["returnEvidence"]>
 
 export type ReturnEvidenceSelectScalar = {
@@ -511,18 +632,22 @@ export type ReturnEvidenceSelectScalar = {
 export type ReturnEvidenceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "returnRequestId" | "uploadedBy" | "url" | "description" | "createdAt", ExtArgs["result"]["returnEvidence"]>
 export type ReturnEvidenceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  uploadedByAdmin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
 }
 export type ReturnEvidenceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  uploadedByAdmin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
 }
 export type ReturnEvidenceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   returnRequest?: boolean | Prisma.ReturnRequestDefaultArgs<ExtArgs>
+  uploadedByAdmin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
 }
 
 export type $ReturnEvidencePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ReturnEvidence"
   objects: {
     returnRequest: Prisma.$ReturnRequestPayload<ExtArgs>
+    uploadedByAdmin: Prisma.$AdminPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -926,6 +1051,7 @@ readonly fields: ReturnEvidenceFieldRefs;
 export interface Prisma__ReturnEvidenceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   returnRequest<T extends Prisma.ReturnRequestDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReturnRequestDefaultArgs<ExtArgs>>): Prisma.Prisma__ReturnRequestClient<runtime.Types.Result.GetResult<Prisma.$ReturnRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  uploadedByAdmin<T extends Prisma.AdminDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AdminDefaultArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

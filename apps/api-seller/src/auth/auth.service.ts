@@ -8,10 +8,9 @@ import {
 } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
 import { join } from 'node:path'
-import type { PrismaService} from '@ecom/database';
+import type { PrismaService } from '@ecom/database'
 import { type Prisma } from '@ecom/database'
-import type {
-  SessionService} from '@ecom/auth';
+import type { SessionService } from '@ecom/auth'
 import {
   type SessionData,
   BaseUserAuthService,

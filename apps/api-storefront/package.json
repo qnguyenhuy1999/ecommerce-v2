@@ -20,10 +20,10 @@
     "@ecom/email": "workspace:*",
     "@ecom/nestjs-core": "workspace:*",
     "@ecom/redis": "workspace:*",
-    "@nestjs/common": "^11.1.19",
-    "@nestjs/core": "^11.1.19",
-    "@nestjs/platform-express": "^11.1.19",
-    "@nestjs/swagger": "^11.4.2",
+    "@nestjs/common": "^11.1.22",
+    "@nestjs/core": "^11.1.22",
+    "@nestjs/platform-express": "^11.1.22",
+    "@nestjs/swagger": "^11.4.4",
     "@nestjs/throttler": "^6.5.0",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
@@ -40,10 +40,10 @@
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.7",
     "@types/express": "^5.0.0",
-    "@types/node": "^25.7.0",
+    "@types/node": "^25.9.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "tsx": "^4.21.0",
+    "tsx": "^4.22.3",
     "typescript": "^6.0.3"
   }
 }

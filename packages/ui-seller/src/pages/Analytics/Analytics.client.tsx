@@ -19,7 +19,6 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Cell,
   Pie,
   PieChart,
   ResponsiveContainer,
@@ -54,7 +53,7 @@ function TrafficLegend({
               className="inline-flex size-2.5 shrink-0 rounded-full"
               style={{ backgroundColor: source.color }}
             />
-            <span className="truncate text-muted-foreground">{source.label}</span>
+            <span className="text-muted-foreground truncate">{source.label}</span>
           </div>
           <span className="font-medium tabular-nums">{source.value}%</span>
         </div>
@@ -79,6 +78,133 @@ function FunnelBar({ value, color }: { value: number; color?: string }) {
   )
 }
 
+function RevenueTrendSection({
+  revenueSeries,
+}: {
+  revenueSeries: NonNullable<AnalyticsProps['revenueSeries']>
+}) {
+  return (
+    <SectionCard title="Revenue trend" padded={false}>
+      <div className="h-72 px-2 py-4 sm:px-3">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={revenueSeries} margin={{ top: 8, right: 10, left: 0, bottom: 0 }}>
+            <defs>
+              <linearGradient id="analytics-revenue" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#f97316" stopOpacity={0.34} />
+                <stop offset="100%" stopColor="#f97316" stopOpacity={0.02} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid vertical={false} stroke="var(--border)" strokeOpacity={0.5} />
+            <XAxis
+              axisLine={false}
+              tickLine={false}
+              dataKey="label"
+              tick={{ fill: 'var(--muted-foreground)', fontSize: 12 }}
+              interval="preserveStartEnd"
+              minTickGap={28}
+            />
+            <YAxis hide />
+            <Tooltip
+              cursor={{ stroke: 'var(--border)', strokeDasharray: '4 4' }}
+              contentStyle={{
+                borderColor: 'var(--border)',
+                borderRadius: 16,
+                backgroundColor: 'var(--card)',
+                color: 'var(--foreground)',
+              }}
+              formatter={(value) => [formatCurrency(Number(value ?? 0)), 'Revenue']}
+              labelStyle={{ color: 'var(--muted-foreground)' }}
+            />
+            <Area
+              type="monotone"
+              dataKey="revenue"
+              stroke="#ea580c"
+              strokeWidth={3}
+              fill="url(#analytics-revenue)"
+              dot={false}
+              activeDot={{ r: 4, fill: '#ea580c' }}
+              isAnimationActive={false}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+    </SectionCard>
+  )
+}
+
+function TrafficSourcesSection({
+  trafficSources,
+}: {
+  trafficSources: NonNullable<AnalyticsProps['trafficSources']>
+}) {
+  const chartData = trafficSources.map((source) => ({ ...source, fill: source.color }))
+
+  return (
+    <SectionCard title="Traffic sources">
+      <div className="grid gap-4 md:grid-cols-[9rem_minmax(0,1fr)] md:items-center">
+        <div className="h-40">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={chartData}
+                dataKey="value"
+                innerRadius={42}
+                outerRadius={74}
+                paddingAngle={2}
+                strokeWidth={0}
+                isAnimationActive={false}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+        <TrafficLegend trafficSources={trafficSources} />
+      </div>
+    </SectionCard>
+  )
+}
+
+function OrdersByDaySection({
+  ordersByDaySeries,
+}: {
+  ordersByDaySeries: NonNullable<AnalyticsProps['ordersByDaySeries']>
+}) {
+  return (
+    <SectionCard title="Orders by day" padded={false}>
+      <div className="h-64 px-2 py-4 sm:px-3">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={ordersByDaySeries} margin={{ top: 8, right: 10, left: 0, bottom: 0 }}>
+            <CartesianGrid vertical={false} stroke="var(--border)" strokeOpacity={0.35} />
+            <XAxis
+              axisLine={false}
+              tickLine={false}
+              dataKey="label"
+              tick={{ fill: 'var(--muted-foreground)', fontSize: 12 }}
+            />
+            <YAxis hide />
+            <Tooltip
+              cursor={{ fill: 'rgba(249, 115, 22, 0.08)' }}
+              contentStyle={{
+                borderColor: 'var(--border)',
+                borderRadius: 16,
+                backgroundColor: 'var(--card)',
+                color: 'var(--foreground)',
+              }}
+              formatter={(value) => [`${Number(value ?? 0)} orders`, 'Orders']}
+              labelStyle={{ color: 'var(--muted-foreground)' }}
+            />
+            <Bar
+              dataKey="orders"
+              fill="#fb923c"
+              radius={[10, 10, 0, 0]}
+              isAnimationActive={false}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </SectionCard>
+  )
+}
+
 export function AnalyticsPageActions({
   dateRange = analyticsDefaultProps.dateRange,
   dateRangeOptions = analyticsDefaultProps.dateRangeOptions,
@@ -92,7 +218,7 @@ export function AnalyticsPageActions({
   return (
     <div className="flex flex-wrap items-center gap-2">
       <Select value={dateRange} onValueChange={(value) => onDateRangeChange?.(value)}>
-        <SelectTrigger className="w-[9.75rem] bg-background">
+        <SelectTrigger className="bg-background w-39">
           <SelectValue placeholder="Select range" />
         </SelectTrigger>
         <SelectContent>
@@ -154,112 +280,12 @@ export function AnalyticsClient({
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[minmax(0,1.95fr)_minmax(0,0.95fr)]">
-        <SectionCard title="Revenue trend" padded={false}>
-          <div className="h-72 px-2 py-4 sm:px-3">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={revenueSeries} margin={{ top: 8, right: 10, left: 0, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="analytics-revenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#f97316" stopOpacity={0.34} />
-                    <stop offset="100%" stopColor="#f97316" stopOpacity={0.02} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid vertical={false} stroke="var(--border)" strokeOpacity={0.5} />
-                <XAxis
-                  axisLine={false}
-                  tickLine={false}
-                  dataKey="label"
-                  tick={{ fill: 'var(--muted-foreground)', fontSize: 12 }}
-                  interval="preserveStartEnd"
-                  minTickGap={28}
-                />
-                <YAxis hide />
-                <Tooltip
-                  cursor={{ stroke: 'var(--border)', strokeDasharray: '4 4' }}
-                  contentStyle={{
-                    borderColor: 'var(--border)',
-                    borderRadius: 16,
-                    backgroundColor: 'var(--card)',
-                    color: 'var(--foreground)',
-                  }}
-                  formatter={(value) => [formatCurrency(Number(value ?? 0)), 'Revenue']}
-                  labelStyle={{ color: 'var(--muted-foreground)' }}
-                />
-                <Area
-                  type="monotone"
-                  dataKey="revenue"
-                  stroke="#ea580c"
-                  strokeWidth={3}
-                  fill="url(#analytics-revenue)"
-                  dot={false}
-                  activeDot={{ r: 4, fill: '#ea580c' }}
-                  isAnimationActive={false}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </SectionCard>
-
-        <SectionCard title="Traffic sources">
-          <div className="grid gap-4 md:grid-cols-[9rem_minmax(0,1fr)] md:items-center">
-            <div className="h-40">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={trafficSources}
-                    dataKey="value"
-                    innerRadius={42}
-                    outerRadius={74}
-                    paddingAngle={2}
-                    strokeWidth={0}
-                    isAnimationActive={false}
-                  >
-                    {trafficSources.map((source) => (
-                      <Cell key={source.label} fill={source.color} />
-                    ))}
-                  </Pie>
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-            <TrafficLegend trafficSources={trafficSources} />
-          </div>
-        </SectionCard>
+        <RevenueTrendSection revenueSeries={revenueSeries} />
+        <TrafficSourcesSection trafficSources={trafficSources} />
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-        <SectionCard title="Orders by day" padded={false}>
-          <div className="h-64 px-2 py-4 sm:px-3">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={ordersByDaySeries} margin={{ top: 8, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid vertical={false} stroke="var(--border)" strokeOpacity={0.35} />
-                <XAxis
-                  axisLine={false}
-                  tickLine={false}
-                  dataKey="label"
-                  tick={{ fill: 'var(--muted-foreground)', fontSize: 12 }}
-                />
-                <YAxis hide />
-                <Tooltip
-                  cursor={{ fill: 'rgba(249, 115, 22, 0.08)' }}
-                  contentStyle={{
-                    borderColor: 'var(--border)',
-                    borderRadius: 16,
-                    backgroundColor: 'var(--card)',
-                    color: 'var(--foreground)',
-                  }}
-                  formatter={(value) => [`${Number(value ?? 0)} orders`, 'Orders']}
-                  labelStyle={{ color: 'var(--muted-foreground)' }}
-                />
-                <Bar
-                  dataKey="orders"
-                  fill="#fb923c"
-                  radius={[10, 10, 0, 0]}
-                  isAnimationActive={false}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </SectionCard>
+        <OrdersByDaySection ordersByDaySeries={ordersByDaySeries} />
 
         <SectionCard title="Conversion funnel">
           <div className="space-y-4">
@@ -271,10 +297,7 @@ export function AnalyticsClient({
                     {stage.conversionLabel}
                   </span>
                 </div>
-                <FunnelBar
-                  value={stage.value}
-                  {...(stage.color ? { color: stage.color } : {})}
-                />
+                <FunnelBar value={stage.value} {...(stage.color ? { color: stage.color } : {})} />
               </div>
             ))}
           </div>
@@ -283,7 +306,7 @@ export function AnalyticsClient({
 
       <SectionCard title="Top products" padded={false}>
         <div className="overflow-x-auto">
-          <div className="min-w-[44rem]">
+          <div className="min-w-176">
             <div className="text-muted-foreground grid grid-cols-[4rem_minmax(0,1.6fr)_7rem_8rem_6rem] gap-3 border-b px-4 py-3 text-xs font-semibold tracking-[0.02em] uppercase">
               <span>#</span>
               <span>Product</span>

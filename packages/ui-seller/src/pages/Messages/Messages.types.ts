@@ -1,4 +1,5 @@
 export type MessageSender = 'BUYER' | 'SELLER'
+export type MessageDeliveryStatus = 'SENDING' | 'SENT' | 'DELIVERED' | 'READ' | 'FAILED'
 
 export interface MessageConversation {
   id: string
@@ -6,8 +7,10 @@ export interface MessageConversation {
   buyerAvatarSrc?: string
   buyerInitials?: string
   orderLabel?: string
+  productLabel?: string
   lastMessagePreview?: string
   lastMessageAtLabel?: string
+  lastActivityAt?: string
   unreadCount?: number
 }
 
@@ -16,6 +19,7 @@ export interface MessageEntry {
   sender: MessageSender
   content: string
   sentAtLabel?: string
+  deliveryStatus?: MessageDeliveryStatus
 }
 
 export interface MessagesFilterParams {

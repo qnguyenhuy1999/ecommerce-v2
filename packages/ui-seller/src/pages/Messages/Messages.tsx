@@ -32,15 +32,13 @@ export function Messages({
         conversations={conversations}
         messages={messages}
         {...(selectedConversationId !== undefined ? { selectedConversationId } : {})}
-        {...(defaultSelectedConversationId !== undefined ? { defaultSelectedConversationId } : {})}
-        {...(onSelectedConversationChange !== undefined
-          ? { onSelectedConversationChange }
-          : {})}
+        defaultSelectedConversationId={defaultSelectedConversationId}
+        {...(onSelectedConversationChange !== undefined ? { onSelectedConversationChange } : {})}
         {...(search !== undefined ? { search } : {})}
         {...(onSearchChange !== undefined ? { onSearchChange } : {})}
         searchPlaceholder={searchPlaceholder}
         draftMessage={draftMessage}
-        {...(onDraftMessageChange !== undefined ? { onDraftMessageChange } : {})}
+        {...(onDraftMessageChange ? { onDraftMessageChange } : {})}
         composerPlaceholder={composerPlaceholder}
         onSendMessage={onSendMessage}
         loadingConversations={loadingConversations}

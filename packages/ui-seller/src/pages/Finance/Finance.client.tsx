@@ -33,6 +33,75 @@ type FinanceClientProps = Required<
 > &
   Pick<FinanceProps, 'tab' | 'onTabChange'>
 
+const FINANCE_TABLE_HEADERS = ['Date', 'Kind', 'Reference', 'Amount'] as const
+
+type FinanceEntriesTableProps = Required<Pick<FinanceProps, 'entries' | 'emptyMessage'>>
+
+function FinanceEntriesTable({ entries, emptyMessage }: FinanceEntriesTableProps) {
+  return (
+    <div className="relative w-full overflow-x-auto">
+      <table className="w-full caption-bottom text-sm">
+        <thead className="bg-muted/50 [&_tr]:border-b">
+          <tr className="border-secondary border-b transition-colors hover:bg-transparent">
+            {FINANCE_TABLE_HEADERS.map((header, index) => (
+              <th
+                key={header}
+                className={cn(
+                  'text-foreground px-4 py-3 text-xs font-semibold tracking-wide uppercase',
+                  index === FINANCE_TABLE_HEADERS.length - 1 ? 'text-right' : 'text-left',
+                )}
+              >
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="[&_tr:last-child]:border-0">
+          {entries.length > 0 ? (
+            entries.map((entry) => (
+              <tr
+                key={entry.id}
+                className="border-secondary hover:bg-muted/50 border-b transition-colors"
+              >
+                <td className="px-4 py-3 text-sm whitespace-nowrap">{entry.dateLabel}</td>
+                <td className="px-4 py-3 whitespace-nowrap">
+                  <Badge
+                    variant="secondary"
+                    size="sm"
+                    className={cn(
+                      'border-0 font-normal capitalize',
+                      getFinanceKindBadgeClass(entry.kind),
+                    )}
+                  >
+                    {getFinanceKindLabel(entry.kind)}
+                  </Badge>
+                </td>
+                <td className="px-4 py-3 text-sm font-medium whitespace-nowrap">
+                  {entry.reference}
+                </td>
+                <td
+                  className={cn(
+                    'px-4 py-3 text-right text-sm font-semibold whitespace-nowrap',
+                    getFinanceAmountTone(entry.amount),
+                  )}
+                >
+                  {formatSignedFinanceAmount(entry.amount)}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr className="border-secondary border-b">
+              <td colSpan={4} className="text-muted-foreground px-4 py-8 text-center text-sm">
+                {emptyMessage}
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
 export function FinanceClient({
   walletBalanceLabel,
   walletBalance,
@@ -79,7 +148,12 @@ export function FinanceClient({
                 className="bg-background border-border min-w-44 rounded-2xl border px-4 py-3"
               >
                 <p className="text-muted-foreground text-sm">{metric.label}</p>
-                <p className={cn('mt-1 text-2xl font-semibold tracking-tight', getFinanceMetricTone(metric.tone))}>
+                <p
+                  className={cn(
+                    'mt-1 text-2xl font-semibold tracking-tight',
+                    getFinanceMetricTone(metric.tone),
+                  )}
+                >
                   {formatFinanceAmount(metric.amount)}
                 </p>
               </div>
@@ -117,9 +191,7 @@ export function FinanceClient({
                 onClick={() => setCurrentTab(item)}
                 className={cn(
                   'inline-flex h-10 items-center rounded-2xl px-4 text-sm font-medium transition-colors',
-                  isActive
-                    ? 'bg-primary-soft text-primary-deep'
-                    : 'text-foreground hover:bg-muted',
+                  isActive ? 'bg-primary-soft text-primary-deep' : 'text-foreground hover:bg-muted',
                 )}
               >
                 {getFinanceTabLabel(item)}
@@ -128,64 +200,7 @@ export function FinanceClient({
           })}
         </div>
 
-        <div className="relative w-full overflow-x-auto">
-          <table className="w-full caption-bottom text-sm">
-            <thead className="bg-muted/50 [&_tr]:border-b">
-              <tr className="border-secondary hover:bg-transparent border-b transition-colors">
-                <th className="text-foreground px-4 py-3 text-left text-xs font-semibold tracking-wide uppercase">
-                  Date
-                </th>
-                <th className="text-foreground px-4 py-3 text-left text-xs font-semibold tracking-wide uppercase">
-                  Kind
-                </th>
-                <th className="text-foreground px-4 py-3 text-left text-xs font-semibold tracking-wide uppercase">
-                  Reference
-                </th>
-                <th className="text-foreground px-4 py-3 text-right text-xs font-semibold tracking-wide uppercase">
-                  Amount
-                </th>
-              </tr>
-            </thead>
-            <tbody className="[&_tr:last-child]:border-0">
-              {visibleEntries.length > 0 ? (
-                visibleEntries.map((entry) => (
-                  <tr
-                    key={entry.id}
-                    className="border-secondary hover:bg-muted/50 border-b transition-colors"
-                  >
-                    <td className="px-4 py-3 text-sm whitespace-nowrap">{entry.dateLabel}</td>
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      <Badge
-                        variant="secondary"
-                        size="sm"
-                        className={cn('border-0 font-normal capitalize', getFinanceKindBadgeClass(entry.kind))}
-                      >
-                        {getFinanceKindLabel(entry.kind)}
-                      </Badge>
-                    </td>
-                    <td className="px-4 py-3 text-sm font-medium whitespace-nowrap">
-                      {entry.reference}
-                    </td>
-                    <td
-                      className={cn(
-                        'px-4 py-3 text-right text-sm font-semibold whitespace-nowrap',
-                        getFinanceAmountTone(entry.amount),
-                      )}
-                    >
-                      {formatSignedFinanceAmount(entry.amount)}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr className="border-secondary border-b">
-                  <td colSpan={4} className="text-muted-foreground px-4 py-8 text-center text-sm">
-                    {emptyMessage}
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+        <FinanceEntriesTable entries={visibleEntries} emptyMessage={emptyMessage} />
       </SectionCard>
     </div>
   )

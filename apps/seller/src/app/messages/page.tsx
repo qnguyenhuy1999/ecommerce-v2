@@ -28,19 +28,35 @@ interface MessagesResponse {
   data: ChatMessage[]
 }
 
+function sortConversationsByActivity(conversations: Conversation[]) {
+  return [...conversations].sort((left, right) => {
+    const leftTime = left.lastMessageAt ? new Date(left.lastMessageAt).getTime() : 0
+    const rightTime = right.lastMessageAt ? new Date(right.lastMessageAt).getTime() : 0
+    return rightTime - leftTime
+  })
+}
+
 function formatBuyerLabel(buyerId: string) {
   return `Buyer ${buyerId.slice(0, 6).toUpperCase()}`
 }
 
+function formatOrderLabel(conversationId: string) {
+  return `Order ${conversationId.slice(0, 8).toUpperCase()}`
+}
+
+function formatProductLabel(conversationId: string) {
+  return `Product ${conversationId.slice(-4).toUpperCase()}`
+}
+
 function formatConversationTime(value: string | null) {
   if (!value) {
-    return undefined
+    return null
   }
 
   const date = new Date(value)
 
   if (Number.isNaN(date.getTime())) {
-    return undefined
+    return null
   }
 
   return new Intl.DateTimeFormat('en-US', {
@@ -64,6 +80,46 @@ function formatMessageTime(value: string) {
   }).format(date)
 }
 
+function updateConversationsAfterSend(
+  conversations: Conversation[],
+  conversationId: string,
+  content: string,
+) {
+  const sentAt = new Date().toISOString()
+  const updated = conversations.map((conversation) =>
+    conversation.id === conversationId
+      ? {
+          ...conversation,
+          lastMessageText: content,
+          lastMessageAt: sentAt,
+          sellerUnread: 0,
+        }
+      : conversation,
+  )
+
+  return sortConversationsByActivity(updated)
+}
+
+function getSelectedConversationId(
+  currentConversationId: string | undefined,
+  conversations: Conversation[],
+) {
+  if (
+    currentConversationId &&
+    conversations.some((conversation) => conversation.id === currentConversationId)
+  ) {
+    return currentConversationId
+  }
+
+  return conversations[0]?.id
+}
+
+function markConversationAsRead(conversations: Conversation[], conversationId: string) {
+  return conversations.map((conversation) =>
+    conversation.id === conversationId ? { ...conversation, sellerUnread: 0 } : conversation,
+  )
+}
+
 export default function MessagesPage() {
   const [conversations, setConversations] = useState<Conversation[]>([])
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -80,15 +136,12 @@ export default function MessagesPage() {
         const response = await api<ConversationsResponse>('/chat/conversations', {
           params: { ...(search ? { search } : {}) },
         })
+        const sortedConversations = sortConversationsByActivity(response.data)
 
-        setConversations(response.data)
-        setSelectedConversationId((current) => {
-          if (current && response.data.some((conversation) => conversation.id === current)) {
-            return current
-          }
-
-          return response.data[0]?.id
-        })
+        setConversations(sortedConversations)
+        setSelectedConversationId((current) =>
+          getSelectedConversationId(current, sortedConversations),
+        )
       } catch {
         setConversations([])
         setSelectedConversationId(undefined)
@@ -115,13 +168,7 @@ export default function MessagesPage() {
         )
         setMessages(response.data)
         await api(`/chat/conversations/${selectedConversationId}/read`, { method: 'POST' })
-        setConversations((current) =>
-          current.map((conversation) =>
-            conversation.id === selectedConversationId
-              ? { ...conversation, sellerUnread: 0 }
-              : conversation,
-          ),
-        )
+        setConversations((current) => markConversationAsRead(current, selectedConversationId))
       } catch {
         setMessages([])
       } finally {
@@ -146,24 +193,47 @@ export default function MessagesPage() {
           id: conversation.id,
           buyerName: formatBuyerLabel(conversation.buyerId),
           buyerInitials: 'BY',
+          orderLabel: formatOrderLabel(conversation.id),
+          productLabel: formatProductLabel(conversation.id),
           lastMessagePreview: conversation.lastMessageText ?? 'No messages yet',
           unreadCount: conversation.sellerUnread,
+          ...(conversation.lastMessageAt ? { lastActivityAt: conversation.lastMessageAt } : {}),
           ...(lastMessageAtLabel ? { lastMessageAtLabel } : {}),
         }
       }),
     [conversations],
   )
 
-  const uiMessages = useMemo<MessageEntry[]>(
-    () =>
-      messages.map((message) => ({
+  const uiMessages = useMemo<MessageEntry[]>(() => {
+    const lastSellerMessageId = [...messages]
+      .reverse()
+      .find((message) => message.senderId !== selectedConversation?.buyerId)?.id
+
+    return messages.map((message) => {
+      const isBuyerMessage = message.senderId === selectedConversation?.buyerId
+
+      return {
         id: message.id,
-        sender: message.senderId === selectedConversation?.buyerId ? 'BUYER' : 'SELLER',
+        sender: isBuyerMessage ? 'BUYER' : 'SELLER',
         content: message.content,
         sentAtLabel: formatMessageTime(message.createdAt),
-      })),
-    [messages, selectedConversation?.buyerId],
-  )
+        ...(!isBuyerMessage && message.id === lastSellerMessageId
+          ? { deliveryStatus: 'DELIVERED' as const }
+          : {}),
+      }
+    })
+  }, [messages, selectedConversation?.buyerId])
+
+  const handleSendMessage = async (conversation: MessageConversation, content: string) => {
+    await api(`/chat/conversations/${conversation.id}/messages`, {
+      method: 'POST',
+      body: JSON.stringify({ content }),
+    })
+
+    const response = await api<MessagesResponse>(`/chat/conversations/${conversation.id}/messages`)
+    setMessages(response.data)
+    setConversations((current) => updateConversationsAfterSend(current, conversation.id, content))
+  }
 
   return (
     <DashboardLayout>
@@ -176,33 +246,7 @@ export default function MessagesPage() {
         onSearchChange={setSearch}
         loadingConversations={loadingConversations}
         loadingMessages={loadingMessages}
-        onSendMessage={async (conversation, content) => {
-          await api(`/chat/conversations/${conversation.id}/messages`, {
-            method: 'POST',
-            body: JSON.stringify({ content }),
-          })
-
-          const response = await api<MessagesResponse>(`/chat/conversations/${conversation.id}/messages`)
-          setMessages(response.data)
-          setConversations((current) => {
-            const updated = current.map((item) =>
-              item.id === conversation.id
-                ? {
-                    ...item,
-                    lastMessageText: content,
-                    lastMessageAt: new Date().toISOString(),
-                    sellerUnread: 0,
-                  }
-                : item,
-            )
-
-            return updated.sort((left, right) => {
-              const leftTime = left.lastMessageAt ? new Date(left.lastMessageAt).getTime() : 0
-              const rightTime = right.lastMessageAt ? new Date(right.lastMessageAt).getTime() : 0
-              return rightTime - leftTime
-            })
-          })
-        }}
+        onSendMessage={handleSendMessage}
         emptyConversationsMessage={
           loadingConversations ? 'Loading conversations...' : 'No conversations found.'
         }

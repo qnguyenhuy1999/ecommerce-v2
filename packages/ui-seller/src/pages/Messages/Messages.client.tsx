@@ -1,11 +1,25 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage, Badge, Button, Input, Textarea } from '@ecom/core-ui'
-import { Search, SendHorizontal } from 'lucide-react'
-import { startTransition, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  ArrowLeft,
+  Check,
+  CheckCheck,
+  Inbox,
+  Package,
+  Search,
+  SearchX,
+  SendHorizontal,
+} from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useControllableState } from '../../hooks'
 import { messagesDefaultProps } from './Messages.fixtures'
-import type { MessageConversation, MessageEntry, MessagesProps } from './Messages.types'
+import type {
+  MessageConversation,
+  MessageDeliveryStatus,
+  MessageEntry,
+  MessagesProps,
+} from './Messages.types'
 import { filterMessageConversations, getConversationInitials } from './Messages.utils'
 
 interface MessagesClientProps {
@@ -27,6 +41,254 @@ interface MessagesClientProps {
   emptyMessagesMessage?: MessagesProps['emptyMessagesMessage']
   unselectedConversationMessage?: MessagesProps['unselectedConversationMessage']
   filterConversations?: MessagesProps['filterConversations']
+}
+
+interface ConversationSidebarProps {
+  conversations: MessageConversation[]
+  selectedConversation: MessageConversation | undefined
+  search: string
+  searchPlaceholder: string
+  loading: boolean
+  emptyMessage: string
+  onSearchChange: (value: string) => void
+  onSelectConversation: (conversationId: string) => void
+}
+
+interface ConversationItemProps {
+  conversation: MessageConversation
+  isSelected: boolean
+  onSelect: (conversationId: string) => void
+}
+
+interface EmptyPanelProps {
+  icon: typeof Inbox
+  title: string
+  message: string
+  guidance?: string
+}
+
+interface MessagePaneProps {
+  selectedConversation: MessageConversation | undefined
+  messages: MessageEntry[]
+  loading: boolean
+  emptyMessage: string
+  unselectedMessage: string
+  composerPlaceholder: string
+  draftMessage: string
+  sending: boolean
+  isMobileDetailView: boolean
+  messagesEndRef: React.RefObject<HTMLDivElement | null>
+  messagesScrollRef: React.RefObject<HTMLDivElement | null>
+  onBackToList: () => void
+  onMessagesScroll: () => void
+  onDraftMessageChange: (value: string) => void
+  onSendMessage: () => Promise<void>
+}
+
+interface MessageComposerProps {
+  draftMessage: string
+  composerPlaceholder: string
+  sending: boolean
+  onDraftMessageChange: (value: string) => void
+  onSendMessage: () => Promise<void>
+}
+
+interface UseMessagesControllerParams {
+  conversations: MessageConversation[]
+  selectedConversationId?: MessagesProps['selectedConversationId']
+  defaultSelectedConversationId?: MessagesProps['defaultSelectedConversationId']
+  onSelectedConversationChange?: MessagesProps['onSelectedConversationChange']
+  search?: MessagesProps['search']
+  onSearchChange?: MessagesProps['onSearchChange']
+  draftMessage?: MessagesProps['draftMessage']
+  onDraftMessageChange?: MessagesProps['onDraftMessageChange']
+  onSendMessage?: MessagesProps['onSendMessage']
+  filterConversations: NonNullable<MessagesProps['filterConversations']>
+}
+
+function useMessagesController({
+  conversations,
+  selectedConversationId,
+  defaultSelectedConversationId,
+  onSelectedConversationChange,
+  search,
+  onSearchChange,
+  draftMessage,
+  onDraftMessageChange,
+  onSendMessage,
+  filterConversations,
+}: UseMessagesControllerParams) {
+  const [currentSearch, setCurrentSearch] = useControllableState({
+    defaultValue: search ?? '',
+    ...(search !== undefined ? { value: search } : {}),
+    ...(onSearchChange !== undefined ? { onChange: onSearchChange } : {}),
+  })
+  const [searchInput, setSearchInput] = useState(search ?? '')
+  const [currentSelectedConversationId, setCurrentSelectedConversationId] = useControllableState({
+    defaultValue: defaultSelectedConversationId ?? conversations[0]?.id ?? '',
+    ...(selectedConversationId !== undefined ? { value: selectedConversationId } : {}),
+    ...(onSelectedConversationChange !== undefined
+      ? { onChange: onSelectedConversationChange }
+      : {}),
+  })
+  const [currentDraftMessage, setCurrentDraftMessage] = useControllableState({
+    defaultValue: draftMessage ?? '',
+    ...(draftMessage !== undefined ? { value: draftMessage } : {}),
+    ...(onDraftMessageChange !== undefined ? { onChange: onDraftMessageChange } : {}),
+  })
+  const [sending, setSending] = useState(false)
+  const [mobileView, setMobileView] = useState<'list' | 'detail'>('list')
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesScrollRef = useRef<HTMLDivElement>(null)
+  const shouldAutoScrollRef = useRef(true)
+
+  useEffect(() => {
+    setSearchInput(currentSearch)
+  }, [currentSearch])
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      if (searchInput !== currentSearch) {
+        setCurrentSearch(searchInput)
+      }
+    }, 250)
+
+    return () => {
+      window.clearTimeout(timeout)
+    }
+  }, [currentSearch, searchInput, setCurrentSearch])
+
+  const sortedConversations = useMemo(() => getSortedConversations(conversations), [conversations])
+  const filteredConversations = useMemo(
+    () => filterConversations({ conversations: sortedConversations, search: currentSearch }),
+    [currentSearch, filterConversations, sortedConversations],
+  )
+  const selectedConversation = useMemo(
+    () =>
+      filteredConversations.find(
+        (conversation) => conversation.id === currentSelectedConversationId,
+      ) ??
+      sortedConversations.find((conversation) => conversation.id === currentSelectedConversationId),
+    [currentSelectedConversationId, filteredConversations, sortedConversations],
+  )
+
+  useEffect(() => {
+    if (selectedConversation) {
+      return
+    }
+
+    const nextConversationId = filteredConversations[0]?.id ?? sortedConversations[0]?.id
+
+    if (nextConversationId) {
+      setCurrentSelectedConversationId(nextConversationId)
+    }
+  }, [
+    filteredConversations,
+    selectedConversation,
+    setCurrentSelectedConversationId,
+    sortedConversations,
+  ])
+
+  const updateAutoScrollState = () => {
+    const container = messagesScrollRef.current
+
+    if (!container) {
+      return
+    }
+
+    const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight
+
+    shouldAutoScrollRef.current = distanceFromBottom < 96
+  }
+
+  useEffect(() => {
+    shouldAutoScrollRef.current = true
+  }, [currentSelectedConversationId])
+
+  const handleSelectConversation = (conversationId: string) => {
+    setCurrentSelectedConversationId(conversationId)
+    setMobileView('detail')
+  }
+
+  const handleBackToList = () => {
+    setMobileView('list')
+  }
+
+  const handleSendMessage = async () => {
+    if (!selectedConversation || !currentDraftMessage.trim() || sending) {
+      return
+    }
+
+    if (!onSendMessage) {
+      setCurrentDraftMessage('')
+      return
+    }
+
+    setSending(true)
+
+    try {
+      await Promise.resolve(onSendMessage(selectedConversation, currentDraftMessage.trim()))
+      setCurrentDraftMessage('')
+      shouldAutoScrollRef.current = true
+    } finally {
+      setSending(false)
+    }
+  }
+
+  return {
+    currentDraftMessage,
+    filteredConversations,
+    handleBackToList,
+    handleSelectConversation,
+    handleSendMessage,
+    messagesEndRef,
+    messagesScrollRef,
+    mobileView,
+    searchInput,
+    selectedConversation,
+    sending,
+    setCurrentDraftMessage,
+    setSearchInput,
+    shouldAutoScrollRef,
+    updateAutoScrollState,
+  }
+}
+
+function getSortedConversations(conversations: MessageConversation[]) {
+  return [...conversations]
+    .map((conversation, index) => ({ conversation, index }))
+    .sort((left, right) => {
+      const leftTime = left.conversation.lastActivityAt
+        ? new Date(left.conversation.lastActivityAt).getTime()
+        : 0
+      const rightTime = right.conversation.lastActivityAt
+        ? new Date(right.conversation.lastActivityAt).getTime()
+        : 0
+
+      if (leftTime === rightTime) {
+        return left.index - right.index
+      }
+
+      return rightTime - leftTime
+    })
+    .map(({ conversation }) => conversation)
+}
+
+function getDeliveryStatusLabel(status: MessageDeliveryStatus) {
+  switch (status) {
+    case 'SENDING':
+      return 'Sending'
+    case 'SENT':
+      return 'Sent'
+    case 'DELIVERED':
+      return 'Delivered'
+    case 'READ':
+      return 'Read'
+    case 'FAILED':
+      return 'Failed'
+    default:
+      return status
+  }
 }
 
 function ConversationListSkeleton() {
@@ -51,7 +313,7 @@ function MessagesSkeleton() {
       {[1, 2, 3].map((item) => (
         <div key={item} className={item % 2 === 0 ? 'flex justify-end' : 'flex justify-start'}>
           <div className="space-y-2">
-            <div className="bg-muted h-11 w-56 animate-pulse rounded-[20px]" />
+            <div className="bg-muted h-11 w-56 animate-pulse rounded-2xl" />
             <div className="bg-muted h-3 w-16 animate-pulse rounded-full" />
           </div>
         </div>
@@ -60,11 +322,373 @@ function MessagesSkeleton() {
   )
 }
 
-function EmptyPanel({ message }: { message: string }) {
+function EmptyPanel({ icon: Icon, title, message, guidance }: EmptyPanelProps) {
   return (
-    <div className="text-muted-foreground flex min-h-[18rem] items-center justify-center px-6 text-center text-sm">
-      {message}
+    <div className="text-muted-foreground flex min-h-72 flex-col items-center justify-center px-6 text-center">
+      <div className="bg-muted/70 text-foreground mb-4 flex size-12 items-center justify-center rounded-full">
+        <Icon className="size-5" />
+      </div>
+      <p className="text-foreground text-sm font-semibold">{title}</p>
+      <p className="mt-1 max-w-sm text-sm">{message}</p>
+      {guidance ? <p className="mt-2 max-w-sm text-xs">{guidance}</p> : null}
     </div>
+  )
+}
+
+function ConversationItem({ conversation, isSelected, onSelect }: ConversationItemProps) {
+  const hasUnread = (conversation.unreadCount ?? 0) > 0
+
+  return (
+    <button
+      type="button"
+      aria-current={isSelected ? 'page' : undefined}
+      aria-label={`Open conversation with ${conversation.buyerName}`}
+      onClick={() => {
+        onSelect(conversation.id)
+      }}
+      className={`border-border/80 hover:bg-muted/60 relative flex w-full items-start gap-3 border-b px-4 py-3 text-left transition-colors ${
+        isSelected
+          ? 'bg-primary/8 ring-primary/25 z-10 shadow-[inset_4px_0_0_0_hsl(var(--primary))]'
+          : hasUnread
+            ? 'bg-primary/4'
+            : 'bg-transparent'
+      }`}
+    >
+      <Avatar
+        size="lg"
+        className={`mt-0.5 ${hasUnread ? 'ring-primary/25 ring-2 ring-offset-2 ring-offset-transparent' : ''}`}
+      >
+        {conversation.buyerAvatarSrc ? (
+          <AvatarImage src={conversation.buyerAvatarSrc} alt={conversation.buyerName} />
+        ) : null}
+        <AvatarFallback>{getConversationInitials(conversation)}</AvatarFallback>
+      </Avatar>
+
+      <div className="min-w-0 flex-1">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div
+              className={`truncate text-base ${hasUnread || isSelected ? 'text-foreground font-semibold' : 'text-foreground/90 font-medium'}`}
+            >
+              {conversation.buyerName}
+            </div>
+            {conversation.orderLabel ? (
+              <div className="text-muted-foreground truncate text-sm">
+                {conversation.orderLabel}
+              </div>
+            ) : null}
+          </div>
+
+          <div className="flex shrink-0 items-center gap-2">
+            {conversation.lastMessageAtLabel ? (
+              <span className="text-muted-foreground/80 text-xs">
+                {conversation.lastMessageAtLabel}
+              </span>
+            ) : null}
+            {conversation.unreadCount ? (
+              <Badge className="rounded-full px-2 py-0.5 text-xs">{conversation.unreadCount}</Badge>
+            ) : null}
+          </div>
+        </div>
+
+        {conversation.lastMessagePreview ? (
+          <p
+            className={`mt-1 truncate text-sm ${hasUnread ? 'text-foreground/85 font-medium' : 'text-muted-foreground'}`}
+          >
+            {conversation.lastMessagePreview}
+          </p>
+        ) : null}
+      </div>
+    </button>
+  )
+}
+
+function ConversationSidebar({
+  conversations,
+  selectedConversation,
+  search,
+  searchPlaceholder,
+  loading,
+  emptyMessage,
+  onSearchChange,
+  onSelectConversation,
+}: ConversationSidebarProps) {
+  return (
+    <aside className="border-border/80 flex min-h-0 min-w-0 flex-col border-b md:w-88 md:shrink-0 md:border-r md:border-b-0">
+      <div className="border-border/80 border-b p-4">
+        <div className="relative">
+          <Search className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
+          <Input
+            value={search}
+            aria-label="Search conversations"
+            onChange={(event) => {
+              onSearchChange(event.target.value)
+            }}
+            placeholder={searchPlaceholder}
+            className="h-11 rounded-2xl pl-11"
+          />
+        </div>
+      </div>
+
+      <div className="min-h-0 flex-1 overflow-y-auto" aria-label="Conversation list">
+        {loading ? <ConversationListSkeleton /> : null}
+
+        {!loading && conversations.length === 0 ? (
+          <EmptyPanel
+            icon={search.trim() ? SearchX : Inbox}
+            title={search.trim() ? 'No matching conversations' : 'No conversations yet'}
+            message={emptyMessage}
+            guidance={
+              search.trim()
+                ? 'Try a buyer name, order number, or a shorter keyword.'
+                : 'New buyer threads will appear here as soon as they start a chat.'
+            }
+          />
+        ) : null}
+
+        {!loading
+          ? conversations.map((conversation) => (
+              <ConversationItem
+                key={conversation.id}
+                conversation={conversation}
+                isSelected={conversation.id === selectedConversation?.id}
+                onSelect={onSelectConversation}
+              />
+            ))
+          : null}
+      </div>
+    </aside>
+  )
+}
+
+function MessageList({
+  messages,
+  loading,
+  emptyMessage,
+  messagesEndRef,
+}: Pick<MessagePaneProps, 'messages' | 'loading' | 'emptyMessage' | 'messagesEndRef'>) {
+  if (loading) {
+    return <MessagesSkeleton />
+  }
+
+  if (messages.length === 0) {
+    return (
+      <EmptyPanel
+        icon={Inbox}
+        title="No messages yet"
+        message={emptyMessage}
+        guidance="Send the first reply to start the conversation."
+      />
+    )
+  }
+
+  return (
+    <div className="space-y-5 p-4 md:p-6" aria-live="polite">
+      {messages.map((message) => {
+        const isSellerMessage = message.sender === 'SELLER'
+        const deliveryLabel = message.deliveryStatus
+          ? getDeliveryStatusLabel(message.deliveryStatus)
+          : undefined
+
+        return (
+          <div
+            key={message.id}
+            className={`flex ${isSellerMessage ? 'justify-end' : 'justify-start'}`}
+          >
+            <div
+              className={`max-w-[85%] space-y-1 sm:max-w-[72%] ${
+                isSellerMessage ? 'items-end text-right' : 'items-start text-left'
+              }`}
+            >
+              <div
+                className={`rounded-2xl px-4 py-3 text-sm wrap-break-word whitespace-pre-wrap shadow-xs ${
+                  isSellerMessage
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-card text-foreground border-border border'
+                }`}
+              >
+                {message.content}
+              </div>
+              {(message.sentAtLabel || deliveryLabel) && (
+                <div
+                  className={`text-muted-foreground flex items-center gap-1 px-1 text-xs ${
+                    isSellerMessage ? 'justify-end' : 'justify-start'
+                  }`}
+                >
+                  {message.sentAtLabel ? <span>{message.sentAtLabel}</span> : null}
+                  {deliveryLabel && isSellerMessage ? (
+                    <>
+                      {message.deliveryStatus === 'READ' ? (
+                        <CheckCheck className="size-3.5" aria-hidden="true" />
+                      ) : (
+                        <Check className="size-3.5" aria-hidden="true" />
+                      )}
+                      <span>{deliveryLabel}</span>
+                    </>
+                  ) : null}
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      })}
+      <div ref={messagesEndRef} />
+    </div>
+  )
+}
+
+function MessageComposer({
+  draftMessage,
+  composerPlaceholder,
+  sending,
+  onDraftMessageChange,
+  onSendMessage,
+}: MessageComposerProps) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  useEffect(() => {
+    const textarea = textareaRef.current
+
+    if (!textarea) {
+      return
+    }
+
+    textarea.style.height = '0px'
+    textarea.style.height = `${Math.min(textarea.scrollHeight, 160)}px`
+    textarea.style.overflowY = textarea.scrollHeight > 160 ? 'auto' : 'hidden'
+  }, [draftMessage])
+
+  return (
+    <div className="bg-card border-border/80 border-t p-4">
+      <div className="flex items-end gap-3">
+        <Textarea
+          ref={textareaRef}
+          value={draftMessage}
+          aria-label="Type your reply"
+          onChange={(event) => {
+            onDraftMessageChange(event.target.value)
+          }}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+              event.preventDefault()
+              void onSendMessage()
+            }
+          }}
+          placeholder={composerPlaceholder}
+          className="max-h-40 min-h-12 rounded-2xl"
+          rows={1}
+        />
+        <Button
+          type="button"
+          size="icon-lg"
+          aria-label={sending ? 'Sending message' : 'Send message'}
+          className="rounded-2xl"
+          onClick={() => void onSendMessage()}
+          disabled={!draftMessage.trim() || sending}
+          loading={sending}
+        >
+          {!sending ? <SendHorizontal className="size-4.5" /> : null}
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+function MessagePane({
+  selectedConversation,
+  messages,
+  loading,
+  emptyMessage,
+  unselectedMessage,
+  composerPlaceholder,
+  draftMessage,
+  sending,
+  isMobileDetailView,
+  messagesEndRef,
+  messagesScrollRef,
+  onBackToList,
+  onMessagesScroll,
+  onDraftMessageChange,
+  onSendMessage,
+}: MessagePaneProps) {
+  if (!selectedConversation) {
+    return (
+      <section className="bg-muted/20 flex min-h-0 min-w-0 flex-1 basis-0 flex-col overflow-hidden">
+        <EmptyPanel
+          icon={Inbox}
+          title="No conversation selected"
+          message={unselectedMessage}
+          guidance="Pick a thread from the list to view messages and reply."
+        />
+      </section>
+    )
+  }
+
+  return (
+    <section className="bg-muted/20 flex min-h-0 min-w-0 flex-1 basis-0 flex-col overflow-hidden">
+      <header className="bg-card border-border/80 flex items-center gap-3 border-b px-4 py-3 md:px-5">
+        {isMobileDetailView ? (
+          <button
+            type="button"
+            aria-label="Back to conversations"
+            onClick={onBackToList}
+            className="text-muted-foreground hover:text-foreground inline-flex size-9 items-center justify-center rounded-full transition-colors md:hidden"
+          >
+            <ArrowLeft className="size-4.5" />
+          </button>
+        ) : null}
+
+        <Avatar size="lg">
+          {selectedConversation.buyerAvatarSrc ? (
+            <AvatarImage
+              src={selectedConversation.buyerAvatarSrc}
+              alt={selectedConversation.buyerName}
+            />
+          ) : null}
+          <AvatarFallback>{getConversationInitials(selectedConversation)}</AvatarFallback>
+        </Avatar>
+
+        <div className="min-w-0 flex-1">
+          <div className="text-foreground truncate font-semibold">
+            {selectedConversation.buyerName}
+          </div>
+          <div className="mt-1 flex flex-wrap items-center gap-2 text-sm">
+            {selectedConversation.orderLabel ? (
+              <span className="bg-muted text-muted-foreground inline-flex items-center gap-1 rounded-full px-2.5 py-1">
+                <Package className="size-3.5" />
+                {selectedConversation.orderLabel}
+              </span>
+            ) : null}
+            {selectedConversation.productLabel ? (
+              <span className="bg-muted text-muted-foreground inline-flex items-center gap-1 rounded-full px-2.5 py-1">
+                {selectedConversation.productLabel}
+              </span>
+            ) : null}
+          </div>
+        </div>
+      </header>
+
+      <div
+        ref={messagesScrollRef}
+        className="min-h-0 flex-1 overflow-y-auto"
+        onScroll={onMessagesScroll}
+      >
+        <MessageList
+          messages={messages}
+          loading={loading}
+          emptyMessage={emptyMessage}
+          messagesEndRef={messagesEndRef}
+        />
+      </div>
+
+      <MessageComposer
+        draftMessage={draftMessage}
+        composerPlaceholder={composerPlaceholder}
+        sending={sending}
+        onDraftMessageChange={onDraftMessageChange}
+        onSendMessage={onSendMessage}
+      />
+    </section>
   )
 }
 
@@ -88,273 +712,79 @@ export function MessagesClient({
   unselectedConversationMessage = messagesDefaultProps.unselectedConversationMessage,
   filterConversations = filterMessageConversations,
 }: MessagesClientProps) {
-  const [currentSearch, setCurrentSearch] = useControllableState({
-    defaultValue: search ?? '',
-    ...(search !== undefined ? { value: search } : {}),
-    ...(onSearchChange !== undefined ? { onChange: onSearchChange } : {}),
+  const {
+    currentDraftMessage,
+    filteredConversations,
+    handleBackToList,
+    handleSelectConversation,
+    handleSendMessage,
+    messagesEndRef,
+    messagesScrollRef,
+    mobileView,
+    searchInput,
+    selectedConversation,
+    sending,
+    setCurrentDraftMessage,
+    setSearchInput,
+    shouldAutoScrollRef,
+    updateAutoScrollState,
+  } = useMessagesController({
+    conversations,
+    selectedConversationId,
+    defaultSelectedConversationId,
+    onSelectedConversationChange,
+    search,
+    onSearchChange,
+    draftMessage,
+    onDraftMessageChange,
+    onSendMessage,
+    filterConversations,
   })
-  const [currentSelectedConversationId, setCurrentSelectedConversationId] = useControllableState({
-    defaultValue: defaultSelectedConversationId ?? conversations[0]?.id ?? '',
-    ...(selectedConversationId !== undefined ? { value: selectedConversationId } : {}),
-    ...(onSelectedConversationChange !== undefined
-      ? { onChange: onSelectedConversationChange }
-      : {}),
-  })
-  const [currentDraftMessage, setCurrentDraftMessage] = useControllableState({
-    defaultValue: draftMessage ?? '',
-    ...(draftMessage !== undefined ? { value: draftMessage } : {}),
-    ...(onDraftMessageChange !== undefined ? { onChange: onDraftMessageChange } : {}),
-  })
-  const [sending, setSending] = useState(false)
-  const deferredSearch = useDeferredValue(currentSearch)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-
-  const filteredConversations = useMemo(
-    () => filterConversations({ conversations, search: deferredSearch }),
-    [conversations, deferredSearch, filterConversations],
-  )
-  const selectedConversation = useMemo(
-    () =>
-      filteredConversations.find((conversation) => conversation.id === currentSelectedConversationId) ??
-      conversations.find((conversation) => conversation.id === currentSelectedConversationId),
-    [conversations, currentSelectedConversationId, filteredConversations],
-  )
 
   useEffect(() => {
-    if (selectedConversation) {
+    updateAutoScrollState()
+
+    if (!shouldAutoScrollRef.current) {
       return
     }
 
-    const nextConversationId = filteredConversations[0]?.id ?? conversations[0]?.id
-
-    if (nextConversationId) {
-      setCurrentSelectedConversationId(nextConversationId)
-    }
-  }, [conversations, filteredConversations, selectedConversation, setCurrentSelectedConversationId])
-
-  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
   }, [messages])
 
-  const handleSendMessage = async () => {
-    if (!selectedConversation || !currentDraftMessage.trim() || sending) {
-      return
-    }
-
-    if (!onSendMessage) {
-      setCurrentDraftMessage('')
-      return
-    }
-
-    setSending(true)
-
-    try {
-      await Promise.resolve(onSendMessage(selectedConversation, currentDraftMessage.trim()))
-      setCurrentDraftMessage('')
-    } finally {
-      setSending(false)
-    }
-  }
-
   return (
-    <div className="bg-card border-border min-h-[42rem] overflow-hidden rounded-[28px] border shadow-xs">
-      <div className="grid min-h-[42rem] md:grid-cols-[22rem_minmax(0,1fr)]">
-        <aside className="border-border/80 flex min-h-0 flex-col border-b md:border-r md:border-b-0">
-          <div className="border-border/80 border-b p-4">
-            <div className="relative">
-              <Search className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
-              <Input
-                value={currentSearch}
-                onChange={(event) => {
-                  const value = event.target.value
-                  startTransition(() => {
-                    setCurrentSearch(value)
-                  })
-                }}
-                placeholder={searchPlaceholder}
-                className="h-11 rounded-2xl pl-11"
-              />
-            </div>
-          </div>
-
-          <div className="min-h-0 flex-1 overflow-y-auto">
-            {loadingConversations ? <ConversationListSkeleton /> : null}
-
-            {!loadingConversations && filteredConversations.length === 0 ? (
-              <EmptyPanel message={emptyConversationsMessage} />
-            ) : null}
-
-            {!loadingConversations
-              ? filteredConversations.map((conversation) => {
-                  const isSelected = conversation.id === selectedConversation?.id
-
-                  return (
-                    <button
-                      key={conversation.id}
-                      type="button"
-                      onClick={() => {
-                        startTransition(() => {
-                          setCurrentSelectedConversationId(conversation.id)
-                        })
-                      }}
-                      className={`border-border/80 hover:bg-muted/50 flex w-full items-start gap-3 border-b px-4 py-3 text-left transition-colors ${
-                        isSelected ? 'bg-muted/60' : 'bg-transparent'
-                      }`}
-                    >
-                      <Avatar size="lg" className="mt-0.5">
-                        {conversation.buyerAvatarSrc ? (
-                          <AvatarImage src={conversation.buyerAvatarSrc} alt={conversation.buyerName} />
-                        ) : null}
-                        <AvatarFallback>{getConversationInitials(conversation)}</AvatarFallback>
-                      </Avatar>
-
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0">
-                            <div className="text-foreground truncate text-base font-semibold">
-                              {conversation.buyerName}
-                            </div>
-                            {conversation.orderLabel ? (
-                              <div className="text-muted-foreground truncate text-sm">
-                                {conversation.orderLabel}
-                              </div>
-                            ) : null}
-                          </div>
-
-                          {conversation.unreadCount ? (
-                            <Badge className="rounded-full px-2 py-0.5 text-xs">
-                              {conversation.unreadCount}
-                            </Badge>
-                          ) : null}
-                        </div>
-
-                        {conversation.lastMessagePreview ? (
-                          <p className="text-muted-foreground mt-1 truncate text-sm">
-                            {conversation.lastMessagePreview}
-                          </p>
-                        ) : null}
-
-                        {conversation.lastMessageAtLabel ? (
-                          <p className="text-muted-foreground/80 mt-1 text-xs">
-                            {conversation.lastMessageAtLabel}
-                          </p>
-                        ) : null}
-                      </div>
-                    </button>
-                  )
-                })
-              : null}
-          </div>
-        </aside>
-
-        <section className="bg-muted/20 flex min-h-0 flex-col">
-          {selectedConversation ? (
-            <>
-              <header className="bg-card border-border/80 flex items-center gap-3 border-b px-4 py-3 md:px-5">
-                <Avatar size="lg">
-                  {selectedConversation.buyerAvatarSrc ? (
-                    <AvatarImage
-                      src={selectedConversation.buyerAvatarSrc}
-                      alt={selectedConversation.buyerName}
-                    />
-                  ) : null}
-                  <AvatarFallback>{getConversationInitials(selectedConversation)}</AvatarFallback>
-                </Avatar>
-
-                <div className="min-w-0">
-                  <div className="text-foreground truncate font-semibold">
-                    {selectedConversation.buyerName}
-                  </div>
-                  {selectedConversation.orderLabel ? (
-                    <div className="text-muted-foreground truncate text-sm">
-                      {selectedConversation.orderLabel}
-                    </div>
-                  ) : null}
-                </div>
-              </header>
-
-              <div className="min-h-0 flex-1 overflow-y-auto">
-                {loadingMessages ? <MessagesSkeleton /> : null}
-
-                {!loadingMessages && messages.length === 0 ? (
-                  <EmptyPanel message={emptyMessagesMessage} />
-                ) : null}
-
-                {!loadingMessages ? (
-                  <div className="space-y-5 p-4 md:p-6">
-                    {messages.map((message) => {
-                      const isSellerMessage = message.sender === 'SELLER'
-
-                      return (
-                        <div
-                          key={message.id}
-                          className={`flex ${isSellerMessage ? 'justify-end' : 'justify-start'}`}
-                        >
-                          <div
-                            className={`max-w-[80%] space-y-1 sm:max-w-[70%] ${
-                              isSellerMessage ? 'items-end text-right' : 'items-start text-left'
-                            }`}
-                          >
-                            <div
-                              className={`rounded-[20px] px-4 py-3 text-sm shadow-xs ${
-                                isSellerMessage
-                                  ? 'bg-primary text-primary-foreground'
-                                  : 'bg-card text-foreground border-border border'
-                              }`}
-                            >
-                              {message.content}
-                            </div>
-                            {message.sentAtLabel ? (
-                              <div className="text-muted-foreground px-1 text-xs">
-                                {message.sentAtLabel}
-                              </div>
-                            ) : null}
-                          </div>
-                        </div>
-                      )
-                    })}
-                    <div ref={messagesEndRef} />
-                  </div>
-                ) : null}
-              </div>
-
-              <div className="bg-card border-border/80 border-t p-4">
-                <div className="flex items-end gap-3">
-                  <Textarea
-                    value={currentDraftMessage}
-                    onChange={(event) => {
-                      const value = event.target.value
-                      startTransition(() => {
-                        setCurrentDraftMessage(value)
-                      })
-                    }}
-                    onKeyDown={(event) => {
-                      if (event.key === 'Enter' && !event.shiftKey) {
-                        event.preventDefault()
-                        void handleSendMessage()
-                      }
-                    }}
-                    placeholder={composerPlaceholder}
-                    className="min-h-12 rounded-2xl"
-                    rows={1}
-                  />
-                  <Button
-                    type="button"
-                    size="icon-lg"
-                    className="rounded-2xl"
-                    onClick={() => void handleSendMessage()}
-                    disabled={!currentDraftMessage.trim()}
-                    loading={sending}
-                  >
-                    {!sending ? <SendHorizontal className="size-4.5" /> : null}
-                  </Button>
-                </div>
-              </div>
-            </>
-          ) : (
-            <EmptyPanel message={unselectedConversationMessage} />
-          )}
-        </section>
+    <div className="bg-card border-border min-h-[60svh] w-full overflow-hidden rounded-lg border shadow-xs md:min-h-[68svh]">
+      <div className="flex min-h-[60svh] w-full min-w-0 flex-col overflow-hidden md:min-h-[68svh] md:flex-row">
+        <div className={mobileView === 'detail' ? 'hidden md:flex md:min-h-0 md:flex-col' : ''}>
+          <ConversationSidebar
+            conversations={filteredConversations}
+            selectedConversation={selectedConversation}
+            search={searchInput}
+            searchPlaceholder={searchPlaceholder}
+            loading={loadingConversations}
+            emptyMessage={emptyConversationsMessage}
+            onSearchChange={setSearchInput}
+            onSelectConversation={handleSelectConversation}
+          />
+        </div>
+        <div className={mobileView === 'list' ? 'hidden min-h-0 flex-1 md:flex' : 'min-h-0 flex-1'}>
+          <MessagePane
+            selectedConversation={selectedConversation}
+            messages={messages}
+            loading={loadingMessages}
+            emptyMessage={emptyMessagesMessage}
+            unselectedMessage={unselectedConversationMessage}
+            composerPlaceholder={composerPlaceholder}
+            draftMessage={currentDraftMessage}
+            sending={sending}
+            isMobileDetailView={mobileView === 'detail'}
+            messagesEndRef={messagesEndRef}
+            messagesScrollRef={messagesScrollRef}
+            onBackToList={handleBackToList}
+            onMessagesScroll={updateAutoScrollState}
+            onDraftMessageChange={setCurrentDraftMessage}
+            onSendMessage={handleSendMessage}
+          />
+        </div>
       </div>
     </div>
   )

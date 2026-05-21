@@ -33,6 +33,4 @@ export const shopProfileDefaultProps = {
     ratingLabel: '4.9',
     previewUrl: 'halomarket.co/shop/lumen-audio',
   },
-} satisfies Required<
-  Omit<ShopProfileProps, 'onSubmit' | 'onReplaceLogo' | 'onReplaceBanner'>
->
+} satisfies Required<Omit<ShopProfileProps, 'onSubmit' | 'onReplaceLogo' | 'onReplaceBanner'>>

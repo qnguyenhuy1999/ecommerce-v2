@@ -1,4 +1,9 @@
-import type { FinanceEntryKind, FinanceLedgerEntry, FinanceProps, FinanceTab } from './Finance.types'
+import type {
+  FinanceEntryKind,
+  FinanceLedgerEntry,
+  FinanceProps,
+  FinanceTab,
+} from './Finance.types'
 
 export const financeTabs = [
   'TRANSACTIONS',

@@ -4,12 +4,7 @@ import { DashboardLayout } from '../../components/dashboard-layout'
 export default function ShopProfilePage() {
   return (
     <DashboardLayout>
-      <ShopProfile
-        breadcrumb={[
-          { label: 'Seller', href: '/' },
-          { label: 'Shop profile' },
-        ]}
-      />
+      <ShopProfile breadcrumb={[{ label: 'Seller', href: '/' }, { label: 'Shop profile' }]} />
     </DashboardLayout>
   )
 }

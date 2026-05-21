@@ -21,19 +21,16 @@ import {
 import { ImagePlus, Star } from 'lucide-react'
 import { useState } from 'react'
 import { SectionCard } from '../../atoms/SectionCard'
-import {
-  shopProfileCountryOptions,
-  shopProfileResponseTargetOptions,
-} from './ShopProfile.fixtures'
+import { shopProfileCountryOptions, shopProfileResponseTargetOptions } from './ShopProfile.fixtures'
 import type { ShopProfileFormData, ShopProfileProps } from './ShopProfile.types'
 
 type ShopProfileClientProps = Required<
+  Pick<ShopProfileProps, 'title' | 'description' | 'breadcrumb' | 'submitLabel' | 'initialData'>
+> &
   Pick<
     ShopProfileProps,
-    'title' | 'description' | 'breadcrumb' | 'submitLabel' | 'initialData'
+    'countryOptions' | 'responseTargetOptions' | 'onSubmit' | 'onReplaceLogo' | 'onReplaceBanner'
   >
-> &
-  Pick<ShopProfileProps, 'countryOptions' | 'responseTargetOptions' | 'onSubmit' | 'onReplaceLogo' | 'onReplaceBanner'>
 
 function getInitials(value: string) {
   return value
@@ -58,7 +55,11 @@ function LivePreview({ form }: { form: ShopProfileFormData }) {
     <SectionCard title="Live preview" className="rounded-[24px]">
       <article className="bg-card border-border overflow-hidden rounded-2xl border shadow-xs">
         <div className="aspect-[2.4/1] overflow-hidden">
-          <img alt={`${form.shopName} banner`} className="size-full object-cover" src={form.bannerUrl} />
+          <img
+            alt={`${form.shopName} banner`}
+            className="size-full object-cover"
+            src={form.bannerUrl}
+          />
         </div>
         <div className="space-y-4 p-4">
           <div className="flex items-center gap-3">
@@ -76,7 +77,9 @@ function LivePreview({ form }: { form: ShopProfileFormData }) {
               </div>
             </div>
           </div>
-          <p className="text-muted-foreground text-sm">{form.tagline || 'Add a short shop tagline.'}</p>
+          <p className="text-muted-foreground text-sm">
+            {form.tagline || 'Add a short shop tagline.'}
+          </p>
         </div>
       </article>
     </SectionCard>
@@ -91,7 +94,10 @@ function IdentitySection({
 }: {
   form: ShopProfileFormData
   previewUrl: string
-  onFieldChange: <K extends keyof ShopProfileFormData>(key: K, value: ShopProfileFormData[K]) => void
+  onFieldChange: <K extends keyof ShopProfileFormData>(
+    key: K,
+    value: ShopProfileFormData[K],
+  ) => void
   onReplaceLogo?: () => void
 }) {
   return (
@@ -112,14 +118,20 @@ function IdentitySection({
           <Field>
             <FieldLabel>Shop name *</FieldLabel>
             <FieldContent>
-              <Input value={form.shopName} onChange={(event) => onFieldChange('shopName', event.target.value)} />
+              <Input
+                value={form.shopName}
+                onChange={(event) => onFieldChange('shopName', event.target.value)}
+              />
             </FieldContent>
           </Field>
 
           <Field>
             <FieldLabel>Slug</FieldLabel>
             <FieldContent>
-              <Input value={form.slug} onChange={(event) => onFieldChange('slug', normalizeSlug(event.target.value))} />
+              <Input
+                value={form.slug}
+                onChange={(event) => onFieldChange('slug', normalizeSlug(event.target.value))}
+              />
             </FieldContent>
             <FieldDescription>{`${previewUrl.replace(/\/$/, '')}/${form.slug || 'your-shop'}`}</FieldDescription>
           </Field>
@@ -128,14 +140,21 @@ function IdentitySection({
         <Field>
           <FieldLabel>Tagline</FieldLabel>
           <FieldContent>
-            <Input value={form.tagline} onChange={(event) => onFieldChange('tagline', event.target.value)} />
+            <Input
+              value={form.tagline}
+              onChange={(event) => onFieldChange('tagline', event.target.value)}
+            />
           </FieldContent>
         </Field>
 
         <Field>
           <FieldLabel>About</FieldLabel>
           <FieldContent>
-            <Textarea rows={5} value={form.about} onChange={(event) => onFieldChange('about', event.target.value)} />
+            <Textarea
+              rows={5}
+              value={form.about}
+              onChange={(event) => onFieldChange('about', event.target.value)}
+            />
           </FieldContent>
         </Field>
       </div>
@@ -174,7 +193,10 @@ function ContactOperationsSection({
   form: ShopProfileFormData
   countryOptions: string[]
   responseTargetOptions: string[]
-  onFieldChange: <K extends keyof ShopProfileFormData>(key: K, value: ShopProfileFormData[K]) => void
+  onFieldChange: <K extends keyof ShopProfileFormData>(
+    key: K,
+    value: ShopProfileFormData[K],
+  ) => void
 }) {
   return (
     <SectionCard title="Contact & operations" className="rounded-[24px]">
@@ -182,14 +204,20 @@ function ContactOperationsSection({
         <Field>
           <FieldLabel>Support email</FieldLabel>
           <FieldContent>
-            <Input value={form.supportEmail} onChange={(event) => onFieldChange('supportEmail', event.target.value)} />
+            <Input
+              value={form.supportEmail}
+              onChange={(event) => onFieldChange('supportEmail', event.target.value)}
+            />
           </FieldContent>
         </Field>
 
         <Field>
           <FieldLabel>Support phone</FieldLabel>
           <FieldContent>
-            <Input value={form.supportPhone} onChange={(event) => onFieldChange('supportPhone', event.target.value)} />
+            <Input
+              value={form.supportPhone}
+              onChange={(event) => onFieldChange('supportPhone', event.target.value)}
+            />
           </FieldContent>
         </Field>
 
@@ -259,10 +287,12 @@ export function ShopProfileClient({
   function updateForm<K extends keyof ShopProfileFormData>(key: K, value: ShopProfileFormData[K]) {
     setForm((current) => {
       if (key === 'shopName' && current.slug === normalizeSlug(current.shopName)) {
+        const shopName = typeof value === 'string' ? value : String(value)
+
         return {
           ...current,
-          shopName: value as ShopProfileFormData['shopName'],
-          slug: normalizeSlug(String(value)),
+          shopName,
+          slug: normalizeSlug(shopName),
         }
       }
 

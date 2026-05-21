@@ -129,7 +129,7 @@ export function ReturnsRefundsClient({
       />
 
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetContent className="w-full max-w-md overflow-y-auto">
+        <SheetContent className="w-full max-w-md overflow-y-auto px-4">
           {selectedCase ? (
             <CaseDetail
               row={selectedCase}

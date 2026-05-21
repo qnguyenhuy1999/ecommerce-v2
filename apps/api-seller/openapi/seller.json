@@ -5543,52 +5543,7 @@
     "/chat/conversations": {
       "get": {
         "operationId": "ChatController_listConversations",
-        "parameters": [
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "description": "Page number (1-indexed)",
-            "schema": {
-              "minimum": 1,
-              "default": 1,
-              "type": "number"
-            }
-          },
-          {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page",
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
-            "name": "sortBy",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by",
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
-            "name": "sortOrder",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "",
@@ -5879,50 +5834,6 @@
             "in": "path",
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "description": "Page number (1-indexed)",
-            "schema": {
-              "minimum": 1,
-              "default": 1,
-              "type": "number"
-            }
-          },
-          {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page",
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "number"
-            }
-          },
-          {
-            "name": "sortBy",
-            "required": false,
-            "in": "query",
-            "description": "Field to sort by",
-            "schema": {
-              "default": "createdAt",
-              "type": "string"
-            }
-          },
-          {
-            "name": "sortOrder",
-            "required": false,
-            "in": "query",
-            "description": "Sort direction",
-            "schema": {
-              "default": "desc",
-              "type": "string",
-              "enum": ["asc", "desc"]
             }
           }
         ],

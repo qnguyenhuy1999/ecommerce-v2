@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Badge } from '.'
-import { TypographyH1 } from '../../primitives/ui/typography'
+import { Typography } from '../../primitives/ui/typography'
 
 const meta: Meta<typeof Badge> = {
   title: 'atoms/Badge',
@@ -18,7 +18,9 @@ export const Default: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div>
-      <TypographyH1 className="mb-2">All Variants</TypographyH1>
+      <Typography variant="h1" className="mb-2">
+        All Variants
+      </Typography>
       <div className="flex items-center gap-2">
         <Badge variant="default">Default</Badge>
         <Badge variant="secondary">Secondary</Badge>
@@ -28,7 +30,9 @@ export const AllVariants: Story = {
         <Badge variant="link">Link</Badge>
       </div>
 
-      <TypographyH1 className="mt-10 mb-2">All Sizes</TypographyH1>
+      <Typography variant="h1" className="mt-10 mb-2">
+        All Sizes
+      </Typography>
       <div className="flex items-center gap-2">
         <Badge size="sm">Small</Badge>
         <Badge size="default">Default</Badge>

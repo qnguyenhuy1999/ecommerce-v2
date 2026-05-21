@@ -1,7 +1,7 @@
-import { Badge, Button, Progress } from '@ecom/core-ui'
+import { Badge, Button, Progress, Typography } from '@ecom/core-ui'
 import { CircleDashed } from 'lucide-react'
 import { SectionCard } from '../../atoms/SectionCard'
-import { cn } from '../../lib/utils'
+import { cn } from '@ecom/shared/utils'
 import { formatDashboardNumber } from '../../pages/Dashboard/Dashboard.utils'
 import type { DashboardProps } from './Dashboard.types'
 import { ProductStatusPill } from '../../atoms/ProductStatusPill'
@@ -40,7 +40,9 @@ export function DashboardOperationsSection({
                     {order.status}
                   </ProductStatusPill>
                 </div>
-                <p className="text-muted-foreground text-xs">{order.customer}</p>
+                <Typography variant="caption" className="text-muted-foreground">
+                  {order.customer}
+                </Typography>
               </div>
               <div className="text-right text-sm font-semibold tabular-nums">{order.amount}</div>
             </div>
@@ -65,10 +67,12 @@ export function DashboardOperationsSection({
                 src={item.imageUrl}
               />
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium">{item.name}</p>
-                <p className="text-muted-foreground text-xs">
+                <Typography variant="label" className="truncate text-sm">
+                  {item.name}
+                </Typography>
+                <Typography variant="caption" className="text-muted-foreground">
                   {item.sku} - {item.remaining} left
-                </p>
+                </Typography>
               </div>
               <Button size="xs" variant="outline">
                 Restock

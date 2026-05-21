@@ -70,6 +70,10 @@
   "peerDependencies": {
     "@nestjs/swagger": ">=7.0.0"
   },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.6.0"
+  },
   "devDependencies": {
     "@ecom/config": "workspace:*",
     "@nestjs/swagger": "^11.0.6",

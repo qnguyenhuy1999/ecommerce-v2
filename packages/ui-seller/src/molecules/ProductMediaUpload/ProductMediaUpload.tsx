@@ -1,6 +1,6 @@
-import { MediaUpload, type MediaItem, type MediaUploadProps } from '@ecom/core-ui'
+import { MediaUpload, Typography, type MediaItem, type MediaUploadProps } from '@ecom/core-ui'
 import { withDefined } from '@ecom/shared'
-import { cn } from '../../lib/utils'
+import { cn } from '@ecom/shared/utils'
 
 type ProductMediaUploadProps = Omit<MediaUploadProps, 'coverIndex'> & {
   className?: string
@@ -17,10 +17,12 @@ export function ProductMediaUpload({
   return (
     <div className={cn('border-border bg-surface rounded-xl border p-4', className)}>
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-sm font-semibold">Media</h3>
-        <span className="text-muted-foreground text-sm">
+        <Typography variant="label" as="h3">
+          Media
+        </Typography>
+        <Typography variant="muted" as="span" className="text-sm">
           {items.length} of {maxItems} images
-        </span>
+        </Typography>
       </div>
       <MediaUpload
         items={items}

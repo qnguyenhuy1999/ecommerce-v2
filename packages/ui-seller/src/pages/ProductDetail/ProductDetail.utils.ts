@@ -1,3 +1,6 @@
+import { slugify } from '@ecom/shared/utils'
+
+export { slugify }
 import type {
   ProductDetailFormData,
   ProductDetailOptionGroup,
@@ -15,32 +18,6 @@ export type VariantRow = {
   key: string
   values: string[]
   draft: VariantDraft
-}
-
-export function slugify(value: string) {
-  const normalized = value.toLowerCase().trim()
-  const tokens: string[] = []
-  let current = ''
-
-  for (const char of normalized) {
-    const isAlphaNumeric = (char >= 'a' && char <= 'z') || (char >= '0' && char <= '9')
-
-    if (isAlphaNumeric) {
-      current += char
-      continue
-    }
-
-    if (current) {
-      tokens.push(current)
-      current = ''
-    }
-  }
-
-  if (current) {
-    tokens.push(current)
-  }
-
-  return tokens.join('-')
 }
 
 export function buildVariantKey(values: string[]) {

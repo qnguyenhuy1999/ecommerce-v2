@@ -150,6 +150,20 @@ const baseConfig: Linter.Config[] = [
     },
   },
   {
+    files: ['packages/core-ui/src/**/*.tsx', 'packages/ui-*/src/**/*.tsx'],
+    ignores: ['**/*.stories.tsx', 'packages/core-ui/src/primitives/ui/typography.tsx'],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'JSXOpeningElement[name.name=/^(h[1-6]|p)$/]',
+          message:
+            'Use the Typography component from @ecom/core-ui instead of raw heading or paragraph tags in shared UI packages.',
+        },
+      ],
+    },
+  },
+  {
     files: ['apps/api-*/**', 'packages/auth/**', 'packages/database/**'],
     rules: {
       'no-restricted-imports': [

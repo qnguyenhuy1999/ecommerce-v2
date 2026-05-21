@@ -17,7 +17,9 @@ import {
   SelectTrigger,
   SelectValue,
   Textarea,
+  Typography,
 } from '@ecom/core-ui'
+import { slugify } from '@ecom/shared/utils'
 import { ImagePlus, Star } from 'lucide-react'
 import { useState } from 'react'
 import { SectionCard } from '../../atoms/SectionCard'
@@ -39,15 +41,6 @@ function getInitials(value: string) {
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase() ?? '')
     .join('')
-}
-
-function normalizeSlug(value: string) {
-  return value
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
 }
 
 function LivePreview({ form }: { form: ShopProfileFormData }) {
@@ -77,9 +70,7 @@ function LivePreview({ form }: { form: ShopProfileFormData }) {
               </div>
             </div>
           </div>
-          <p className="text-muted-foreground text-sm">
-            {form.tagline || 'Add a short shop tagline.'}
-          </p>
+          <Typography variant="muted">{form.tagline || 'Add a short shop tagline.'}</Typography>
         </div>
       </article>
     </SectionCard>
@@ -130,7 +121,7 @@ function IdentitySection({
             <FieldContent>
               <Input
                 value={form.slug}
-                onChange={(event) => onFieldChange('slug', normalizeSlug(event.target.value))}
+                onChange={(event) => onFieldChange('slug', slugify(event.target.value))}
               />
             </FieldContent>
             <FieldDescription>{`${previewUrl.replace(/\/$/, '')}/${form.slug || 'your-shop'}`}</FieldDescription>
@@ -286,13 +277,13 @@ export function ShopProfileClient({
 
   function updateForm<K extends keyof ShopProfileFormData>(key: K, value: ShopProfileFormData[K]) {
     setForm((current) => {
-      if (key === 'shopName' && current.slug === normalizeSlug(current.shopName)) {
+      if (key === 'shopName' && current.slug === slugify(current.shopName)) {
         const shopName = typeof value === 'string' ? value : String(value)
 
         return {
           ...current,
           shopName,
-          slug: normalizeSlug(shopName),
+          slug: slugify(shopName),
         }
       }
 

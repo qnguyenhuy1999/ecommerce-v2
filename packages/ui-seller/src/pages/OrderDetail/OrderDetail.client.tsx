@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, ConsolePageLayout, StatusBadge } from '@ecom/core-ui'
+import { Button, ConsolePageLayout, StatusBadge, Typography } from '@ecom/core-ui'
 import { withDefined } from '@ecom/shared'
 import { ArrowLeft, Package, Truck } from 'lucide-react'
 import { SectionCard } from '../../atoms/SectionCard'
@@ -256,7 +256,7 @@ function OrderActivityAndTotals({
     <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_20rem]">
       <SectionCard title="Activity log">
         {auditLogs.length === 0 ? (
-          <p className="text-muted-foreground text-sm">No activity yet.</p>
+          <Typography variant="muted">No activity yet.</Typography>
         ) : (
           <div className="space-y-4">
             {auditLogs.map((log) => (
@@ -269,7 +269,9 @@ function OrderActivityAndTotals({
                   <div className="text-foreground font-medium">{log.label}</div>
                   <div className="text-muted-foreground text-xs">{log.timestamp}</div>
                   {log.note ? (
-                    <p className="text-muted-foreground mt-1 text-sm">{log.note}</p>
+                    <Typography variant="muted" className="mt-1">
+                      {log.note}
+                    </Typography>
                   ) : null}
                 </div>
               </div>

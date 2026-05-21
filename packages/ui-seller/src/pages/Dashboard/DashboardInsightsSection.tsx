@@ -1,6 +1,6 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@ecom/core-ui'
+import { Avatar, AvatarFallback, AvatarImage, Typography } from '@ecom/core-ui'
 import { SectionCard } from '../../atoms/SectionCard'
-import { cn } from '../../lib/utils'
+import { cn } from '@ecom/shared/utils'
 import { type DashboardProps } from './Dashboard.types'
 
 export function DashboardInsightsSection({
@@ -30,8 +30,12 @@ export function DashboardInsightsSection({
                 <AvatarFallback className="rounded-xl">P{product.rank}</AvatarFallback>
               </Avatar>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium">{product.name}</p>
-                <p className="text-muted-foreground text-xs">{product.sold} sold</p>
+                <Typography variant="label" className="truncate text-sm">
+                  {product.name}
+                </Typography>
+                <Typography variant="caption" className="text-muted-foreground">
+                  {product.sold} sold
+                </Typography>
               </div>
               <div className="text-primary text-sm font-semibold tabular-nums">
                 {product.revenue}
@@ -53,8 +57,12 @@ export function DashboardInsightsSection({
             >
               <span className="bg-primary mt-1 size-2 shrink-0 rounded-full" />
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium">{activity.title}</p>
-                <p className="text-muted-foreground text-xs">{activity.detail}</p>
+                <Typography variant="label" className="text-sm">
+                  {activity.title}
+                </Typography>
+                <Typography variant="caption" className="text-muted-foreground">
+                  {activity.detail}
+                </Typography>
               </div>
               <span className="text-muted-foreground shrink-0 text-xs tabular-nums">
                 {activity.time}

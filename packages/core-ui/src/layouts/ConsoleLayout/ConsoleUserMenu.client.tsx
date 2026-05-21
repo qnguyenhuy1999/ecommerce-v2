@@ -1,6 +1,7 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from '../../atoms/Avatar'
+import { Typography } from '../../atoms/Typography'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,8 +33,12 @@ export function ConsoleUserMenu({ menu }: ConsoleUserMenuProps) {
             <AvatarFallback>{menu.avatarFallback ?? getInitials(menu.name)}</AvatarFallback>
           </Avatar>
           <div className="ml-2 min-w-0">
-            <p className="truncate text-sm font-medium">{menu.name}</p>
-            <p className="text-muted-foreground truncate text-xs">{menu.email}</p>
+            <Typography variant="label" className="block truncate">
+              {menu.name}
+            </Typography>
+            <Typography variant="caption" className="text-muted-foreground truncate">
+              {menu.email}
+            </Typography>
           </div>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

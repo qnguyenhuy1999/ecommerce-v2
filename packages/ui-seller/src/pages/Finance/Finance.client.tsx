@@ -1,10 +1,10 @@
 'use client'
 
-import { Badge, Button } from '@ecom/core-ui'
+import { Badge, Button, Typography } from '@ecom/core-ui'
 import { Download, WalletCards } from 'lucide-react'
 import { useControllableState } from '../../hooks'
 import { SectionCard } from '../../atoms/SectionCard'
-import { cn } from '../../lib/utils'
+import { cn } from '@ecom/shared/utils'
 import type { FinanceProps, FinanceTab } from './Finance.types'
 import {
   filterFinanceEntriesByTab,
@@ -132,12 +132,15 @@ export function FinanceClient({
               <WalletCards className="size-6" />
             </div>
             <div>
-              <p className="text-muted-foreground text-xs font-semibold tracking-[0.16em] uppercase">
+              <Typography
+                variant="caption"
+                className="text-muted-foreground font-semibold tracking-[0.16em] uppercase"
+              >
                 {walletBalanceLabel}
-              </p>
-              <p className="text-foreground text-4xl font-semibold tracking-tight">
+              </Typography>
+              <Typography variant="h1" as="div" className="text-foreground text-4xl">
                 {formatFinanceAmount(walletBalance)}
-              </p>
+              </Typography>
             </div>
           </div>
 
@@ -147,15 +150,17 @@ export function FinanceClient({
                 key={metric.label}
                 className="bg-background border-border min-w-44 rounded-2xl border px-4 py-3"
               >
-                <p className="text-muted-foreground text-sm">{metric.label}</p>
-                <p
+                <Typography variant="muted">{metric.label}</Typography>
+                <Typography
+                  variant="h3"
+                  as="div"
                   className={cn(
                     'mt-1 text-2xl font-semibold tracking-tight',
                     getFinanceMetricTone(metric.tone),
                   )}
                 >
                   {formatFinanceAmount(metric.amount)}
-                </p>
+                </Typography>
               </div>
             ))}
           </div>

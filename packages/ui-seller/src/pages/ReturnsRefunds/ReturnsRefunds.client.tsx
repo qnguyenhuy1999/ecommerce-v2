@@ -12,6 +12,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
+  Typography,
 } from '@ecom/core-ui'
 import { startTransition, useDeferredValue, useMemo, useState } from 'react'
 import { useControllableState } from '../../hooks'
@@ -183,13 +184,17 @@ function CaseDetail({
 
       <div className="flex flex-col gap-4 py-2">
         <div className="bg-card border-border rounded-2xl border p-4">
-          <p className="text-foreground mb-2 text-sm font-semibold">Reason</p>
-          <p className="text-muted-foreground text-sm">{row.reason}</p>
+          <Typography variant="label" className="text-foreground mb-2">
+            Reason
+          </Typography>
+          <Typography variant="muted">{row.reason}</Typography>
         </div>
 
         {row.evidence && row.evidence.length > 0 && (
           <div className="bg-card border-border rounded-2xl border p-4">
-            <p className="text-foreground mb-3 text-sm font-semibold">Evidence</p>
+            <Typography variant="label" className="text-foreground mb-3">
+              Evidence
+            </Typography>
             <div className="flex flex-wrap gap-2">
               {row.evidence.map((src, index) => (
                 <img
@@ -204,7 +209,9 @@ function CaseDetail({
         )}
 
         <div className="bg-card border-border rounded-2xl border p-4">
-          <p className="text-foreground mb-4 text-sm font-semibold">Decision</p>
+          <Typography variant="label" className="text-foreground mb-4">
+            Decision
+          </Typography>
           <div className="mb-4 flex items-center justify-between text-sm">
             <span className="text-muted-foreground">Requested amount</span>
             <span className="text-foreground font-semibold">

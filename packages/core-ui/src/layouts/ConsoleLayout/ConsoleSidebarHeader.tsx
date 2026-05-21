@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '../../atoms/Avatar'
+import { Typography } from '../../atoms/Typography'
 import type { ConsoleLayoutAccount } from './ConsoleLayout.types'
 import { getInitials } from './ConsoleLayout.utils'
 
@@ -16,11 +17,16 @@ export function ConsoleSidebarHeader({ account }: ConsoleSidebarHeaderProps) {
         </AvatarFallback>
       </Avatar>
       <div className="min-w-0 group-data-[collapsible=icon]:hidden">
-        <p className="text-sidebar-foreground truncate text-base leading-tight font-semibold">
+        <Typography
+          variant="label"
+          className="text-sidebar-foreground block truncate text-base leading-tight"
+        >
           {account.name}
-        </p>
+        </Typography>
         {account.subtitle && (
-          <p className="text-muted-foreground truncate text-sm">{account.subtitle}</p>
+          <Typography variant="caption" className="text-muted-foreground truncate text-sm">
+            {account.subtitle}
+          </Typography>
         )}
       </div>
     </div>

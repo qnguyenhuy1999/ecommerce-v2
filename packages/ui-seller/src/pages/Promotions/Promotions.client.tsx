@@ -1,9 +1,9 @@
 'use client'
 
-import { Badge, Button, Checkbox, Progress } from '@ecom/core-ui'
+import { Badge, Button, Checkbox, Progress, Typography } from '@ecom/core-ui'
 import { useMemo, useState } from 'react'
 import { SectionCard } from '../../atoms/SectionCard'
-import { cn } from '../../lib/utils'
+import { cn } from '@ecom/shared/utils'
 import { promotionsDefaultProps } from './Promotions.fixtures'
 import type { PromotionRow, PromotionsProps } from './Promotions.types'
 import {
@@ -97,10 +97,12 @@ function PromotionCard({ promotion, onEdit, onDuplicate, onActiveChange }: Promo
     <article className="bg-card border-border rounded-3xl border p-4 shadow-xs">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h3 className="text-foreground truncate text-lg font-semibold">{promotion.name}</h3>
-          <p className="text-muted-foreground mt-1 text-sm">
+          <Typography variant="h4" as="h3" className="text-foreground truncate text-lg">
+            {promotion.name}
+          </Typography>
+          <Typography variant="muted" className="mt-1">
             {formatPromotionDateRange(promotion)}
-          </p>
+          </Typography>
         </div>
         <PromotionStatusBadge status={promotion.status} />
       </div>

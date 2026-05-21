@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
   StatCard,
+  Typography,
 } from '@ecom/core-ui'
 import { Download } from 'lucide-react'
 import {
@@ -27,7 +28,7 @@ import {
   YAxis,
 } from 'recharts'
 import { SectionCard } from '../../atoms/SectionCard'
-import { cn } from '../../lib/utils'
+import { cn } from '@ecom/shared/utils'
 import { analyticsDefaultProps } from './Analytics.fixtures'
 import type { AnalyticsProps } from './Analytics.types'
 
@@ -330,7 +331,9 @@ export function AnalyticsClient({
                     <AvatarFallback className="rounded-xl">P{product.rank}</AvatarFallback>
                   </Avatar>
                   <div className="min-w-0 text-sm font-medium">
-                    <p className="truncate">{product.name}</p>
+                    <Typography variant="label" className="truncate text-sm">
+                      {product.name}
+                    </Typography>
                   </div>
                 </div>
                 <div className="text-right text-sm tabular-nums">{product.units}</div>

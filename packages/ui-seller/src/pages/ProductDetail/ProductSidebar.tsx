@@ -8,9 +8,10 @@ import {
   SelectTrigger,
   SelectValue,
   StatusBadge,
+  Typography,
 } from '@ecom/core-ui'
 import { SectionCard } from '../../atoms/SectionCard'
-import { cn } from '../../lib/utils'
+import { cn } from '@ecom/shared/utils'
 import { useProductEditorSidebar } from './ProductDetail.context'
 
 export function ProductSidebar() {
@@ -42,7 +43,7 @@ export function ProductSidebar() {
               ))}
             </SelectContent>
           </Select>
-          <p className="text-muted-foreground text-sm">{lastSavedLabel}</p>
+          <Typography variant="muted">{lastSavedLabel}</Typography>
         </div>
       </SectionCard>
 
@@ -75,9 +76,9 @@ export function ProductSidebar() {
               <span>{item.label}</span>
             </div>
           ))}
-          <p className="text-muted-foreground pt-2 text-xs">
+          <Typography variant="caption" className="text-muted-foreground pt-2">
             {validationCompleteCount} of {validationItems.length} checks completed
-          </p>
+          </Typography>
         </div>
       </SectionCard>
     </div>

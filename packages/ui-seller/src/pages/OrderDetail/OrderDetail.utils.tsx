@@ -3,6 +3,9 @@ import type {
   OrderDetailStatus,
   OrderDetailStatusAction,
 } from './OrderDetail.types'
+import { formatStatusLabel } from '../../utils'
+
+export { formatStatusLabel }
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -45,13 +48,6 @@ export function buildOrderAuditLabel(
   }
 
   return fallback
-}
-
-export function formatStatusLabel(value: string) {
-  return value
-    .replace(/[_-]+/g, ' ')
-    .toLowerCase()
-    .replace(/\b\w/g, (char) => char.toUpperCase())
 }
 
 export function getOrderSummaryRows(

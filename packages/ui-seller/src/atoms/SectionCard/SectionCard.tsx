@@ -1,4 +1,5 @@
-import { cn } from '../../lib/utils'
+import { Typography } from '@ecom/core-ui'
+import { cn } from '@ecom/shared/utils'
 
 interface SectionCardProps {
   title?: React.ReactNode
@@ -22,8 +23,16 @@ export function SectionCard({
       {(title || action) && (
         <header className="border-border flex items-start justify-between gap-3 border-b px-3 py-2.5">
           <div className="min-w-0">
-            {title && <h2 className="text-sm leading-tight font-semibold">{title}</h2>}
-            {subtitle && <p className="text-muted-foreground mt-0.5 text-xs">{subtitle}</p>}
+            {title ? (
+              <Typography variant="label" as="h2" className="leading-tight">
+                {title}
+              </Typography>
+            ) : null}
+            {subtitle ? (
+              <Typography variant="caption" className="text-muted-foreground mt-0.5">
+                {subtitle}
+              </Typography>
+            ) : null}
           </div>
           {action}
         </header>

@@ -1,5 +1,6 @@
 import { cn } from '../../lib/utils'
 import { ChevronRight } from 'lucide-react'
+import { Typography } from '../../atoms/Typography'
 import type { ConsolePageLayoutProps } from './ConsolePageLayout.types'
 
 function ConsolePageBreadcrumb({
@@ -69,9 +70,13 @@ export function ConsolePageLayout({
       >
         <div className="min-w-0 space-y-1">
           {breadcrumb ? <ConsolePageBreadcrumb items={breadcrumb} /> : null}
-          <h1 className="text-foreground text-3xl font-semibold tracking-tight">{title}</h1>
+          <Typography variant="h2" as="h1" className="text-foreground border-none p-0 text-3xl">
+            {title}
+          </Typography>
           {description ? (
-            <p className="text-muted-foreground max-w-3xl text-sm">{description}</p>
+            <Typography variant="muted" className="max-w-3xl">
+              {description}
+            </Typography>
           ) : null}
         </div>
         {actions ? (

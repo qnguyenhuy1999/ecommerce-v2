@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { Typography } from '../../atoms/Typography'
 import { cn } from '../../lib/utils'
 
 type TimelineStatus = 'completed' | 'pending'
@@ -19,9 +20,12 @@ function Timeline({ title, items, ...props }: TimelineProps) {
   return (
     <div data-slot="timeline" {...props}>
       {title && (
-        <p className="text-muted-foreground mb-4 text-xs font-semibold tracking-widest uppercase">
+        <Typography
+          variant="caption"
+          className="text-muted-foreground mb-4 font-semibold tracking-widest uppercase"
+        >
           {title}
-        </p>
+        </Typography>
       )}
       <ol className="flex flex-col gap-0">
         {items.map((item, index) => (
@@ -53,15 +57,18 @@ function TimelineItem({
 
       {/* Content */}
       <div className={cn('pb-5', isLast && 'pb-0')}>
-        <p
+        <Typography
+          variant="label"
           className={cn(
-            'text-sm leading-tight font-semibold',
+            'leading-tight font-semibold',
             status === 'pending' && 'text-muted-foreground',
           )}
         >
           {label}
-        </p>
-        <p className="text-muted-foreground mt-0.5 text-xs">{timestamp}</p>
+        </Typography>
+        <Typography variant="caption" className="text-muted-foreground mt-0.5">
+          {timestamp}
+        </Typography>
       </div>
     </li>
   )

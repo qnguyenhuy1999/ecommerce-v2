@@ -1,8 +1,9 @@
 'use client'
 
 import { ConsolePageLayout, DataTable, Input } from '@ecom/core-ui'
+import { cn } from '@ecom/shared/utils'
 import { Search } from 'lucide-react'
-import { cn } from '../../lib/utils'
+import { formatStatusLabel } from '../../utils'
 import type {
   SellerListPageActionsProps,
   SellerListPageFiltersProps,
@@ -12,13 +13,6 @@ import type {
   SellerListPageStatusTabsProps,
   SellerListPageTableProps,
 } from './SellerListPage.types'
-
-function formatStatusLabel(value: string) {
-  return value
-    .replace(/[_-]+/g, ' ')
-    .toLowerCase()
-    .replace(/\b\w/g, (char) => char.toUpperCase())
-}
 
 function Root({ children, ...props }: SellerListPageRootProps) {
   return <ConsolePageLayout {...props}>{children}</ConsolePageLayout>

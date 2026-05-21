@@ -4,7 +4,7 @@ import type { DashboardProps } from './Dashboard.types'
 import { dashboardChevronIcon, dashboardTodoStyles, formatDashboardNumber } from './Dashboard.utils'
 import type { ValueType } from 'recharts/types/component/DefaultTooltipContent'
 import { Badge } from '@ecom/core-ui'
-import { cn } from '../../lib/utils'
+import { cn } from '@ecom/shared/utils'
 
 const ChevronIcon = dashboardChevronIcon
 

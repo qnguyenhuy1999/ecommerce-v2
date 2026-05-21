@@ -40,7 +40,7 @@
     "dependency-cruiser": "^16.10.0",
     "eslint": "^9.26.0",
     "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-sonarjs": "^3.0.2",
+    "eslint-plugin-sonarjs": "^4.0.3",
     "eslint-plugin-unicorn": "^59.0.1",
     "eslint-plugin-unused-imports": "^4.1.4",
     "husky": "^9.1.7",

@@ -89,6 +89,9 @@ importers:
       '@ecom/core-ui':
         specifier: workspace:*
         version: link:../../packages/core-ui
+      '@ecom/ui-admin':
+        specifier: workspace:*
+        version: link:../../packages/ui-admin
       '@hookform/resolvers':
         specifier: ^5.0.1
         version: 5.2.2(react-hook-form@7.75.0(react@19.2.6))
@@ -920,6 +923,9 @@ importers:
       react-dom:
         specifier: ^18.0.0 || ^19.0.0
         version: 19.2.6(react@19.2.6)
+      recharts:
+        specifier: ^3.8.1
+        version: 3.8.1(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react-is@18.3.1)(react@19.2.6)(redux@5.0.1)
     devDependencies:
       '@ecom/config':
         specifier: workspace:*

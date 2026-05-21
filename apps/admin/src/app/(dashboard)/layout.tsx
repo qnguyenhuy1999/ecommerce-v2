@@ -1,5 +1,5 @@
-import { AdminSidebar } from '@/components/layout/admin-sidebar'
+import { ConsoleLayout } from '@ecom/ui-admin'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return <AdminSidebar>{children}</AdminSidebar>
+  return <ConsoleLayout>{children}</ConsoleLayout>
 }

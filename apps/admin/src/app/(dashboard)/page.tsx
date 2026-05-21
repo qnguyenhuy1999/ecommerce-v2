@@ -1,5 +1,5 @@
-import { DashboardPage } from '@/features/dashboard/components/dashboard-page'
+import { Dashboard } from '@ecom/ui-admin'
 
 export default function Home() {
-  return <DashboardPage />
+  return <Dashboard />
 }

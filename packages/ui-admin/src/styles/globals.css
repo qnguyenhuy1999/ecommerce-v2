@@ -1,3 +1,5 @@
+@import 'tailwindcss';
 @import '@ecom/core-ui/styles/globals.css';
+@source '../../../core-ui/src';
 
 /* Admin-specific design tokens */

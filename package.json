@@ -37,7 +37,7 @@
     "@swc-node/register": "^1.11.1",
     "@swc/core": "^1.15.33",
     "chokidar": "^5.0.0",
-    "dependency-cruiser": "^16.10.0",
+    "dependency-cruiser": "^17.4.0",
     "eslint": "^9.26.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-sonarjs": "^3.0.2",
